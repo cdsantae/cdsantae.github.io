@@ -1,1 +1,10 @@
+url: http://cdsantae.github.io/CursoR
+repository: CursoR/cdsantae.github.io
+title: Manejo de datos con R y RStudio
+subtitle: Cristian Santa
+simple_search: https://www.google.com/search
+description: Este es un curso introductorio de programación en lenguaje R-project
+baseurl: ""
+exclude: [vendor]
+
 theme: jekyll-theme-cayman
