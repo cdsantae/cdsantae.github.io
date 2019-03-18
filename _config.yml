@@ -1,17 +1,17 @@
-title:        Project or Site name
+title:        Manejo de datos con R y RStudio
 tagline:      A responsive theme for your project on GitHub Pages
 baseurl:      ""
 paginate:     1
-locale:       "en"
+locale:       "es"
+theme:        -jekyll-cayman-theme
 
 # About/contact
 author:
-  name:       Author name
+  name:       Cristian Santa
   url:        http://cdsantae.github.io/CursoR
 
 # Gems
 gems:
-  - jekyll-cayman-theme
-
+  - jekyll-paginate
 #Others
 markdown: kramdown
