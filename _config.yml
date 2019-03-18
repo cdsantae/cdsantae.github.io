@@ -1,16 +1,16 @@
 theme:        jekyll-theme-cayman
 
 # Setup
-title:        Project or Site name
-tagline:      A responsive theme for your project on GitHub Pages
+title:        R y Rstudio
+tagline:      Blah blah
 baseurl:      ""
 paginate:     1
-locale:       "en"
+locale:       "es"
 
 # About/contact
 author:
-  name:       Author name
-  url:        http://yourhomepage.com 
+  name:       Cristian Santa
+  url:        https://cdsantae.github.io/CursoR/
 
 # Gems
 gems:
