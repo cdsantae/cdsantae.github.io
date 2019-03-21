@@ -1,16 +1,24 @@
 theme:        jekyll-theme-cayman
 
 # Setup
-title:        R y Rstudio
-tagline:      Blah blah
+title:        Programación e implementaciones con R
 baseurl:      ""
 paginate:     1
+exclude:      [vendor]
+simple_search: https://www.google.com/search
 locale:       "es"
 
 # About/contact
 author:
   name:       Cristian Santa
-  url:        https://cdsantae.github.io/CursoR/
+  url:        https://cdsantae.github.io
+
+collections:
+  EAFIT:
+    output: true
+    title: Introducción al manejo de datos con R y RStudio
+    main: 1
+    description: Curso orientado al aprendizaje básico de programación en R
 
 # Gems
 gems:
