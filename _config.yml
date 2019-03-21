@@ -11,7 +11,7 @@ locale:       "es"
 # About/contact
 author:
   name:       Cristian Santa
-  url:        https://cdsantae.github.io
+  repository: cdsantae/cdsantae.github.io
 
 collections:
   EAFIT:
