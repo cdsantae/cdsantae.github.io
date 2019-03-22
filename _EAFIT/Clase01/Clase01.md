@@ -1,6 +1,6 @@
 ---
 title: "Manejo de datos con R y RStudio"
-author: "Crstian Santa"
+author: "Cristian Santa"
 date: "Marzo de 2019"
 output:
   rmdformats::readthedown:
