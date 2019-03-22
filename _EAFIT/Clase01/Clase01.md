@@ -250,4 +250,4 @@ num2 <- log(20)/abs(-10) %% 4
 
 Al final del curso el estudiante tendrá un habilidad de *UseR*, tendrá la capacidad de manejar datos estructurados, graficar y realizar análisis estadísticos básicos. Finalmente, el estudiante estará en la capacidad de trabajar con cualquier clase de datos y transformarlos en información útil para la toma de decisiones.
 
-## <a href="../" class="btn" role="button">Regresar</a>
+## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
