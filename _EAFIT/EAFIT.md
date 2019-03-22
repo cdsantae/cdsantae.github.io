@@ -1,10 +1,7 @@
 ---
-layout: curso
 title: "Curso R y RStudio - EAFIT"
 author: "Cristian Santa"
 date: "Marzo de 2019"
-curso: "EAFIT"
-order: 0
 output:
  rmdformats::readthedown:
     df_print: paged
@@ -35,18 +32,18 @@ Introducir al estudiante al manejo del software estadístico más usado en inves
 
 | **Clase** |                                 **Descripción**                                |
 |:---------:|--------------------------------------------------------------------------------|
-|  Clase01  | Instalación y configuración del software. Introducción a R-Project y R-Studio. |
-|  Clase01  | Vectores y matrices. Estructuras de datos, tipos y clases de objetos.          |
-|  Clase01  | Condicionales y ciclos. Secuencias.                                            |
-|  Clase01  | Funciones en R.                                                                |
-|  Clase01  | Orientación a objetos.                                                         |
-|  Clase01  | Gráficos básicos.                                                              |
-|  Clase01  | Uso de librerías.                                                              |
-|  Clase01  | Gráficos avanzados.                                                            |
-|  Clase01  | Expresiones regulares.                                                         |
-|  Clase01  | Manejo de bases de datos.                                                      |
-|  Clase01  | Manejo de datos temporales.                                                    |
-|  Clase01  | Introducción al análisis estadístico con R                                     |
+|  <a href="/Clase01/Clase01.html">Clase 01</a>  | Instalación y configuración del software. Introducción a R-Project y R-Studio. |
+|  <a href="/Clase02/Clase02.html">Clase 02</a>  | Vectores y matrices. Estructuras de datos, tipos y clases de objetos.          |
+|  <a href="/Clase03/Clase03.html">Clase 03</a>  | Condicionales y ciclos. Secuencias.                                            |
+|  <a href="/Clase04/Clase04.html">Clase 04</a>  | Funciones en R.                                                                |
+|  <a href="/Clase05/Clase05.html">Clase 05</a>  | Orientación a objetos.                                                         |
+|  <a href="/Clase06/Clase06.html">Clase 06</a>  | Gráficos básicos.                                                              |
+|  <a href="/Clase07/Clase07.html">Clase 07</a>  | Uso de librerías.                                                              |
+|  <a href="/Clase08/Clase08.html">Clase 08</a>  | Gráficos avanzados.                                                            |
+|  <a href="/Clase09/Clase09.html">Clase 09</a>  | Expresiones regulares.                                                         |
+|  <a href="/Clase10/Clase10.html">Clase 10</a>  | Manejo de bases de datos.                                                      |
+|  <a href="/Clase11/Clase11.html">Clase 11</a>  | Manejo de datos temporales.                                                    |
+|  <a href="/Clase12/Clase12.html">Clase 12</a>  | Introducción al análisis estadístico con R                                     |
 
 ### Docente
 
@@ -55,7 +52,6 @@ Introducir al estudiante al manejo del software estadístico más usado en inves
 ### Contacto
 
 **e-mail:** cdsantae@gmail.com
-
 Para enviar correos se solicita anteponer en el asunto **[EAFIT]**.
 
 
