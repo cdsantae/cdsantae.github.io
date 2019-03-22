@@ -26,3 +26,6 @@ gems:
   - jekyll-theme-cayman
 #Others
 markdown: kramdown
+
+sass:
+  style: cayman
