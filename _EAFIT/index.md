@@ -1,7 +1,10 @@
 ---
+layout: curso
 title: "Curso R y RStudio - EAFIT"
 author: "Cristian Santa"
 date: "Marzo de 2019"
+curso: "EAFIT"
+order: 0
 output:
  rmdformats::readthedown:
     df_print: paged
