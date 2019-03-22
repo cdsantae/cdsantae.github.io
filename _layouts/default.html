@@ -9,10 +9,5 @@
       {{ content }}
       <div class="push"></div>
     </div>
-    {% if page.custom_js %}
-      {% for js in page.custom_js %}
-        {% include {{ js }}.html %}
-      {% endfor %}
-    {% endif %}
   </body>
 </html>
