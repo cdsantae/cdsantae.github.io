@@ -1,9 +1,0 @@
-<ul class="nav navbar-nav">
-  {% for collection in site.collections %}
-    {% if collection.main == 1 or collection.main == 2 %}
-      <li class="{% if page.collection == collection.label %}active{% endif %}">
-        <a href="{{ collection.label | prepend: '/' }}">{{ collection.title }}</a>
-      </li>
-    {% endif %}
-  {% endfor %}
-</ul>
