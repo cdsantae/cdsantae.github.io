@@ -1,0 +1,263 @@
+---
+title: "Manejo de datos con R y RStudio"
+author: "Crstian Santa"
+date: "Marzo de 2019"
+output:
+  rmdformats::readthedown:
+    df_print: paged
+    code_folding: show
+    highlight: tango
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.align = "center",
+                      message = FALSE,
+                      error = FALSE,
+                      warning = FALSE,
+                      cache = TRUE)
+```
+
+## Introducción a R
+
+<code>R</code> es un lenguaje y ambiente de alto nivel para el análisis de datos y gráficos. Está altamente relacionado con los lenguajes <code>S</code> y <code>Scheme</code>. Es un lenguaje de programación interpretado, de distribución libre, bajo licencia GNU, que puede correr en distintas plataformas Linux, Windows, MacOS e incluso PlayStation 3.
+
+> Chambers & Hastie (1991)<br>
+> <cite>"Buscamos que los usuarios puedan iniciar en un entorno interactivo, en el que no se vean, conscientemente, a ellos mismos como programadores. Conforme sus necesidades sean más claras y su complejidad se incremente, deberían gradualmente poder profundizar en la programación, es cuando los aspectos del lenguaje y el sistema se vuelven más importantes."</cite>
+
+En este sentido <code>R</code> no es un sistema estadístico, sino un ambiente en el que se aplican técnicas estadísticas. Es por esto que el software va de la mando del entendimiento de la teoría y técnicas estadísticas.
+
+> El Software recibe instrucciones y entrega resultados basados en las instrucciones. ¿Si el resultado no es el deseado, es culpa del software?
+
+### Breve história
+
+<code>S</code> es un lenguaje que fue desarrollado por John Chambers y colaboradores en Laboratorios Bell (AT&T), actualmente Lucent Tecnologies, en 1976. Este lenguaje, originalmente fue codificado e implementado como unas bibliotecas de <code>FORTRAN</code>. Por razones de eficiencia, en 1988 <code>S</code> fue reescrito en lenguaje <code>C</code>, dando origen al sistema estadístico S, Versión 3. Con la finalidad de impulsar comercialmente a <code>S</code>, Bell Laboratories dio a StatSci (ahora Insightful Corporation) en 1993, una licencia exclusiva para desarrollar y vender el lenguaje <code>S</code>. En 1998, <code>S</code> ganó el premio de la *Association for Computing Machinery* a los Sistemas de Software, y se liberó la versión 4, la cual es prácticamente la versión actual.
+
+El éxito de <code>S</code> fue tal que, en 2004 Insghtful decide comprar el lenguaje a Lucent (Bell Laboratories) por la suma de 2 millones de dólares, convirtiéndose hasta la fecha en el dueño. Desde entonces, Insightful vende su implementación del lenguaje <code>S</code> bajo el nombre de <code>S-PLUS</code>, donde le añade un ambiente gráfico amigable. En el año 2008, TIBCO compra Insightful por 25 millones de dólares y se continúa vendiendo <code>S-PLUS</code>, sin modificaciones. <code>R</code>, que define su sintaxis a partir de esa versión de <code>S</code>, no ha sufrido en lo fundamental ningún cambio dramático desde 1998.
+
+<code>R</code> fue creado en 1992 en Nueva Zelanda por Ross Ihaka y Robert Gentleman. La intención inicial con <code>R</code>, era hacer un lenguaje didáctico, para ser utilizado en el curso de *Introducción a la Estadística* de la Universidad de Nueva Zelanda. Para ello decidieron adoptar la sintaxis del lenguaje <code>S</code> desarrollado por Bell Laboratories. Como consecuencia, la sintaxis es similar al lenguaje <code>S</code>, pero la semántica, que aparentemente es parecida a la de <code>S</code>, en realidad es sensiblemente diferente, sobre todo en los detalles un poco más profundos de la programación.
+
+Luego de la creación de <code>R</code>, se da un primer anuncio al público del software en 1993. En el año de 1995 Martin Mächler, de la Escuela Politécnica Federal de Zúrich, convence a Ross y Robert a usar la Licencia GNU para hacer de <code>R</code> un software libre. Como consecuencia, a partir de 1997, <code>R</code> forma parte del proyecto GNU. Con el propósito de crear algún tipo de soporte para el lenguaje, en 1996 se crea una lista pública de correos; sin embargo debido al gran éxito de <code>R</code>, los creadores fueron rebasados por la continua llegada de correos.
+
+Por esta razón, se vieron en la necesidad de crear, en 1997, dos listas de correos, a saber: R-help y R-devel, que son las que actualmente funcionan para responder las diversas dudas que los usuarios proponen en muy diversos asuntos relativos al lenguaje. Además se consolida el grupo núcleo de R (R Core Team), donde se involucran personas asociadas con S-PLUS, con la finalidad de administrar el código fuente de R. Fue hasta febrero de 29 del 2000, que se considera al software completo y lo suficientemente estable, para liberar la versión 1.0.
+
+
+### Ventajas de R
+
+<code>R</code> es uno de los software con mayor crecimiento en los últimos años, es utilizado principalmente en investigación y academia, sin embargo, el software se está expandiendo rápidamente al mundo empresarial.
+
+![Ranking uso de lenguajes](Ranking_Leng.png)
+
+* Es un software libre, es decir, gratis.
+* El usuario se compromete al código ético de no comercializar el software.
+* Se puede modificar el código fuente a preferencia del usuario.
+* Mantiene constantemente actualizado. (v3.5.3 "Great Truth" 2019/03/11)
+* Funciona mediante paquetes que son trabajos colaborativos de la comunidad R. ([CRAN](https://cran.r-project.org/), [GitHub](https://github.com/trending/r), [Microsoft](https://mran.microsoft.com/packages))
+* La comunidad es la que ofrece la asistencia técnica. ([stackOverflow](https://stackoverflow.com/questions/tagged/r),  [R FAQ](https://cran.r-project.org/doc/FAQ/R-FAQ.html),  [Nabble](http://r.789695.n4.nabble.com/),  [R-Help](https://stat.ethz.ch/mailman/listinfo/r-help))
+* Existen muchos tutoriales, blogs y cursos específicos online. ([RBloggers](https://www.r-bloggers.com/), [DataCamp](https://www.datacamp.com/), [Coursera](https://es.coursera.org/courses?query=r))
+* Alguien ya pensó e hizo lo que quisieras hacer.
+
+### Desventajas de R
+
+* El depende de a memoria RAM.
+* Requiere saber de programación para usarlo.
+* La actualización de los paquetes depende de los autores.
+* No todos los paquetes son de alta calidad. ¡Existen más de 12000 paquetes solo en el CRAN!.
+* Tiene problemas con grandes volúmenes de datos.
+
+Estas desventajas se convierte en oportunidades para los desarrolladores, muchos de estos problemas ya están solucionados, y siguen creciendo las nuevas propuestas.
+
+## RStudio
+
+`RStudio` es un entorno de desarrollo integrado (IDE) para el lenguaje de programación `R`. Tiene una versión gratuita, más no limitada, que permite tener un entorno de trabajo más organizado y con asistencia básica.
+
+![Desarrollos vinculados con RStudio](RStudio_Logos.png)
+
+## Instalación del software
+
+1. Descargar [R-Project](https://cloud.r-project.org/)
+![](DownR.png)
+
+2. Descargar [RStudio](https://www.rstudio.com/products/rstudio/download/)
+![](RStudio_Env.png)
+
+### Ejemplos de uso
+
+```{r, echo=FALSE}
+require(plotly)
+require(ggplot2)
+ggplot(mtcars, aes(x=hp, y=mpg, color = factor(cyl))) +
+  geom_point()
+plot_ly(economics, x = ~date, y = ~unemploy / pop)
+
+d <- diamonds[sample(nrow(diamonds), 1000), ]
+plot_ly(
+  d, x = ~carat, y = ~price,
+  color = ~carat, size = ~carat
+)
+
+ plot_ly(z = volcano, type = "contour", contours = list(showlabels = TRUE)) %>%
+  colorbar(title = "Elevation \n in meters")
+
+df <- read.csv("https://raw.githubusercontent.com/plotly/datasets/master/hobbs-pearson-trials.csv")
+
+p <- plot_ly(
+    type = 'scatterpolargl',
+    mode = 'markers'
+  )
+
+j = 1
+k = 2
+for (i in 1:(length(df)/2)){
+  p <- add_trace(
+    p,
+    r = df[,j],
+    theta = df[,k],
+    name = paste('Trial ', i),
+    marker = list(
+      size = 15,
+      line = list(
+        color = '#FFF'
+      ),
+      opacity = 0.7
+    )
+  )
+  j <- j + 2
+  k <- k + 2
+}
+
+p <- layout(
+  p,
+  title = "Hobbs-Pearson Trials",
+  showlegend = F,
+  paper_bgcolor = "rgb(223, 223, 223)",
+  polar = list(
+    bgcolor = "rgb(223, 223, 223)",
+    angularaxis = list(
+      tickwidth = 2,
+      linewidth = 3,
+      layer = 'below traces'
+    ),
+    radialaxis = list(
+      side = 'counterclockwise',
+      showline = T,
+      linewidth = 2,
+      tickwidth = 2,
+      gridcolor = '#FFF',
+      gridwidth = 2
+    )
+  )
+)
+
+plot_ly(z = ~volcano) %>% add_surface(
+  contours = list(
+    z = list(
+      show=TRUE,
+      usecolormap=TRUE,
+      highlightcolor="#ff0000",
+      project=list(z=TRUE)
+      )
+    )
+  ) %>%
+  layout(
+    scene = list(
+      camera=list(
+        eye = list(x=1.87, y=0.88, z=-0.64)
+        )
+      )
+  )
+```
+
+### Nivel de habilidades en R
+
+* **Usuarios:** También conocidos como *UseRs*, son aquellas personas familiarizadas con el lenguaje `R`, capaces de utilizar funciones, paquetes y construir gráficos.
+* **Programadores:** Son aquellos que están en capacidad de construir funciones personalizadas y paquetes básicos para la solución de problemas.
+* **Desarroladores:** Son aquellos con competencias de alto nivel que pueden construir paquetes complejos e integración con diversas herramientas y lenguajes.
+* **HackRs:** Son programadores de muy alto nivel, son aquellos que crean nuevas herramientas y aplicaciones que se integran con diversas herramientas, y optimizan el lenguaje.
+
+## Algoritmos
+
+Un algoritmo es un conjunto finito de instrucciones llevan a cabo una tarea específica, si se sigue rigurosamente. Tiene las siguientes características:
+
+* **Entrada:** Entran cero o más valores.
+* **Salida:** Por lo menos produce in valor.
+* **Definido:** Cada instrucción es clara y no ambigua.
+* **Finito:** El algoritmo termina en un numero finito de pasos.
+* **Efectivo:** Debe ser llevado a cabo por cualquier persona solo usando lápiz y papel.
+
+### Tipos de operaciones
+
+1. Tipos de variables
+ * **Booleano:** Solo toma valores `F` o `T` (Falso o Verdadero).
+ * **Numericos:** Entero, Real o Complejo.
+ * **Alfanuméricos:** Carácter o Sarta.
+ 
+2. Relaciones de comparación
+ * **>:** mayor qué.
+ * **>=:** mayor o igual qué.
+ * **<:** menor qué.
+ * **<=:** menor o igual qué.
+ * **==:** igual.
+ * **!=:** diferente.
+
+3. Comparaciones lógicas
+ * **Conjunción:** &, &&
+ * **Disyunción:** |, ||
+ * **Negación:** !
+ 
+4. Operaciones y precedencia
+ * Potencia (^).
+ * Producto (*), división (/), división entera (%/%) y módulo (%%).
+ * Suma (+) y Diferencia (-).
+ * Relaciones de comparación.
+ * Conjunción y Disyunción.
+ * Negación
+ * Asignación
+
+5. Algunas funciones matemáticas
+ * `exp()` exponencial.
+ * `log()` logaritmo natural ($Ln$).
+ * `log10()` logaritmo base 10.
+ * `log2()` logaritmo base 2.
+ * `logb()` logaritmo base b.
+ * `sqrt()` raíz cuadrada.
+ * `abs()` valor absoluto.
+ 
+Si existen dos operadores con la misma precedencia, se ejecuta de izquierda a derecha, pero toda precedencia se puede modificar con paréntesis.
+
+```{r, echo=TRUE}
+2*6+5/6^3
+2*(6+5)/6^3
+2*(6+5/6)^3
+(2*6+5)/6^3
+(2*6+5/6)^3
+2*6+(5/6)^3
+```
+
+### Estructura de asignación
+
+```{r, eval=FALSE}
+<variable> <- <operación>
+```
+
+Para comentar el código o una línea específica se utiliza el carácter `#`, comentar implica que no se ejecuta el código.
+
+```{r,echo=TRUE}
+# Esto es un comentario
+a <- "¿Esto es R?"
+a
+num1 <- 3*4^2+sqrt(5) # Este comentario no evita la evaluación del código
+num2 <- log(20)/abs(-10) %% 4
+
+# num3 <- num1^num2
+
+(operacion1 <- num1 + num2)
+(operacion2 <- num1 == num2)
+(operacion3 <- num1 / num2)
+(operacion4 <- num1 > num2)
+```
+
+## Alcance del curso
+
+Al final del curso el estudiante tendrá un habilidad de *UseR*, tendrá la capacidad de manejar datos estructurados, graficar y realizar análisis estadísticos básicos. Finalmente, el estudiante estará en la capacidad de trabajar con cualquier clase de datos y transformarlos en información útil para la toma de decisiones.
