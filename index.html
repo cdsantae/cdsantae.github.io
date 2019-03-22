@@ -3,6 +3,52 @@ layout: default
 title: 'Bienvenido'
 ---
 
+<style type="text/css">
+ .btn {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(291, 192, 222, 0.8);
+  border-color: rgba(70, 184, 218, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0.3rem;
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    background-color: rgba(49, 176, 213, 0.5);
+    border-color: rgba(38, 154, 18, 0.5);
+  }
+
+  + .btn {
+    margin-left: 1rem;
+  }
+
+  @include large {
+    padding: 0.75rem 1rem;
+  }
+
+  @include medium {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  @include small {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+
+    + .btn {
+      margin-top: 1rem;
+      margin-left: 0;
+    }
+  }
+}
+</style>
+
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="row text-justify">
