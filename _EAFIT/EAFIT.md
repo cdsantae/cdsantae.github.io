@@ -28,30 +28,30 @@ Personas con conocimientos básicos de programación, que deseen aumentar su ver
 
 Introducir al estudiante al manejo del software estadístico más usado en investigación, R-Project, y su interfaz R-Studio, para el manejo de estructuras de datos, gráficos y simulación.					
 
-### Contenido
+## Contenido
 
 | **Clase** |                                 **Descripción**                                |
 |:---------:|--------------------------------------------------------------------------------|
 |  <a href="./Clase01/Clase01.html">C_01</a>  | Instalación y configuración del software. Introducción a R-Project y R-Studio. |
 |  <a href="./Clase02/Clase02.html">C_02</a>  | Vectores y matrices. Estructuras de datos, tipos y clases de objetos.          |
-|  <a href="./Clase03/Clase03.html" disabled="disabled">C_03</a>  | Condicionales y ciclos. Secuencias.                                            |
-|  <a href="./Clase04/Clase04.html" disabled="disabled">C_04</a>  | Funciones en R.                                                                |
-|  <a href="./Clase05/Clase05.html" disabled="disabled">C_05</a>  | Orientación a objetos.                                                         |
-|  <a href="./Clase06/Clase06.html" disabled="disabled">C_06</a>  | Gráficos básicos.                                                              |
-|  <a href="./Clase07/Clase07.html" disabled="disabled">C_07</a>  | Uso de librerías.                                                              |
-|  <a href="./Clase08/Clase08.html" disabled="disabled">C_08</a>  | Gráficos avanzados.                                                            |
-|  <a href="./Clase09/Clase09.html" disabled="disabled">C_09</a>  | Expresiones regulares.                                                         |
-|  <a href="./Clase10/Clase10.html" disabled="disabled">C_10</a>  | Manejo de bases de datos.                                                      |
-|  <a href="./Clase11/Clase11.html" disabled="disabled">C_11</a>  | Manejo de datos temporales.                                                    |
-|  <a href="./Clase12/Clase12.html" disabled="disabled">C_12</a>  | Introducción al análisis estadístico con R                                     |
+|  <a href="./Clase03/Clase03.html">C_03</a>  | Condicionales y ciclos. Secuencias.                                            |
+|  <a href="./Clase04/Clase04.html">C_04</a>  | Funciones en R.                                                                |
+|  <a href="./Clase05/Clase05.html">C_05</a>  | Orientación a objetos.                                                         |
+|  <a href="./Clase06/Clase06.html">C_06</a>  | Gráficos básicos.                                                              |
+|  <a href="./Clase07/Clase07.html">C_07</a>  | Uso de librerías.                                                              |
+|  <a href="./Clase08/Clase08.html">C_08</a>  | Gráficos avanzados.                                                            |
+|  <a href="./Clase09/Clase09.html">C_09</a>  | Expresiones regulares.                                                         |
+|  <a href="./Clase10/Clase10.html">C_10</a>  | Manejo de bases de datos.                                                      |
+|  <a href="./Clase11/Clase11.html">C_11</a>  | Manejo de datos temporales.                                                    |
+|  <a href="./Clase12/Clase12.html">C_12</a>  | Introducción al análisis estadístico con R                                     |
 
-### Docente
+## Docente
 
 **Cristian Santa Escobar**: Estadístico con ocho años de experiencia en análisis y clasificación de datos, planificación de diseños experimentales, muestreo, modelación estadística y programación avanzada en R-Project. Especialista en Data Science de la Universidad John Hopkings y Magíster en Ciencias Estadísticas de la Universidad Nacional sede Medellín. Su área de investigación se centra en los análisis multivariados con variables categóricas y los modelos de estructuras de covarianza.
 
 ### Contacto
 
-**e-mail:** cdsantae@gmail.com
+**e-mail:** cdsantae@gmail.com <br>
 Para enviar correos se solicita anteponer en el asunto **[EAFIT]**.
 
 
