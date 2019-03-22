@@ -16,7 +16,7 @@ author:
 collections:
   EAFIT:
     output: true
-    title: Introducción al manejo de datos con R y RStudio
+    title: EAFIT - Introducción al manejo de datos con R y RStudio
     main: 1
     description: Cursos orientados al aprendizaje de programación en R
 
