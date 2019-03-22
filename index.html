@@ -5,19 +5,16 @@ title: 'Bienvenido'
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">Cristian Santa</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="_EAFIT/EAFIT.html">EAFIT</a></li>
-      </ul>
-    </div><!--/.nav-collapse -->
+    <div class="row text-justify">
+  {% for collection in site.collections %}
+    {% if collection.main == 1 %}
+      <div class="col-md-6">
+        <h2>{{ collection.title }}</h2>
+        <p>{{ collection.description }}</p>
+        <p><a href="/{{ collection.label }}" class="btn btn-default" role="button">Ver Curso</a></p>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
   </div><!--/.container -->
 </div><!--/.navbar -->
