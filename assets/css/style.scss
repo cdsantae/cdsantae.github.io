@@ -1,0 +1,15 @@
+ ---
+ ---
+
+@import "{{ site.theme }}";
+
+.btn-info {
+  color:#fff;
+  background-color:#5bc0de;
+  border-color:#46b8da
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+ 
+ &:hover{color:#fff;
+  background-color:#31b0d5;
+  border-color:#269abc
+}
