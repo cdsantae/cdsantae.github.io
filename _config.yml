@@ -18,7 +18,7 @@ collections:
     output: true
     title: Introducción al manejo de datos con R y RStudio
     main: 1
-    description: Curso orientado al aprendizaje básico de programación en R
+    description: Cursos orientados al aprendizaje de programación en R
 
 # Gems
 gems:
