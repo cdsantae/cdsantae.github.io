@@ -32,18 +32,18 @@ Introducir al estudiante al manejo del software estadístico más usado en inves
 
 | **Clase** |                                 **Descripción**                                |
 |:---------:|--------------------------------------------------------------------------------|
-|  <a href="/Clase01/Clase01.html">Clase 01</a>  | Instalación y configuración del software. Introducción a R-Project y R-Studio. |
-|  <a href="/Clase02/Clase02.html">Clase 02</a>  | Vectores y matrices. Estructuras de datos, tipos y clases de objetos.          |
-|  <a href="/Clase03/Clase03.html">Clase 03</a>  | Condicionales y ciclos. Secuencias.                                            |
-|  <a href="/Clase04/Clase04.html">Clase 04</a>  | Funciones en R.                                                                |
-|  <a href="/Clase05/Clase05.html">Clase 05</a>  | Orientación a objetos.                                                         |
-|  <a href="/Clase06/Clase06.html">Clase 06</a>  | Gráficos básicos.                                                              |
-|  <a href="/Clase07/Clase07.html">Clase 07</a>  | Uso de librerías.                                                              |
-|  <a href="/Clase08/Clase08.html">Clase 08</a>  | Gráficos avanzados.                                                            |
-|  <a href="/Clase09/Clase09.html">Clase 09</a>  | Expresiones regulares.                                                         |
-|  <a href="/Clase10/Clase10.html">Clase 10</a>  | Manejo de bases de datos.                                                      |
-|  <a href="/Clase11/Clase11.html">Clase 11</a>  | Manejo de datos temporales.                                                    |
-|  <a href="/Clase12/Clase12.html">Clase 12</a>  | Introducción al análisis estadístico con R                                     |
+|  <a href="EAFIT/Clase01/Clase01.html">Clase 01</a>  | Instalación y configuración del software. Introducción a R-Project y R-Studio. |
+|  <a href="EAFIT/Clase02/Clase02.html">Clase 02</a>  | Vectores y matrices. Estructuras de datos, tipos y clases de objetos.          |
+|  <a href="EAFIT/Clase03/Clase03.html" disabled="disabled">Clase 03</a>  | Condicionales y ciclos. Secuencias.                                            |
+|  <a href="EAFIT/Clase04/Clase04.html" disabled="disabled">Clase 04</a>  | Funciones en R.                                                                |
+|  <a href="EAFIT/Clase05/Clase05.html" disabled="disabled">Clase 05</a>  | Orientación a objetos.                                                         |
+|  <a href="EAFIT/Clase06/Clase06.html" disabled="disabled">Clase 06</a>  | Gráficos básicos.                                                              |
+|  <a href="EAFIT/Clase07/Clase07.html" disabled="disabled">Clase 07</a>  | Uso de librerías.                                                              |
+|  <a href="EAFIT/Clase08/Clase08.html" disabled="disabled">Clase 08</a>  | Gráficos avanzados.                                                            |
+|  <a href="EAFIT/Clase09/Clase09.html" disabled="disabled">Clase 09</a>  | Expresiones regulares.                                                         |
+|  <a href="EAFIT/Clase10/Clase10.html" disabled="disabled">Clase 10</a>  | Manejo de bases de datos.                                                      |
+|  <a href="EAFIT/Clase11/Clase11.html" disabled="disabled">Clase 11</a>  | Manejo de datos temporales.                                                    |
+|  <a href="EAFIT/Clase12/Clase12.html" disabled="disabled">Clase 12</a>  | Introducción al análisis estadístico con R                                     |
 
 ### Docente
 
