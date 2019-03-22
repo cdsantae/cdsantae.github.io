@@ -223,7 +223,7 @@ colores <- c('verde','verde','amarillo','rojo','rojo','rojo','verde')
 class(colores)
 typeof(colores)
 
-factor_colores <- factor(colores_mangos)
+factor_colores <- factor(colores)
 print(factor_colores)
 print(levels(factor_colores))
 print(nlevels(factor_colores))
