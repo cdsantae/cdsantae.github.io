@@ -32,7 +32,7 @@ Introducir al estudiante al manejo del software estadístico más usado en inves
 
 | **Clase** |                                 **Descripción**                                |
 |:---------:|--------------------------------------------------------------------------------|
-|  <a href="EAFIT/Clase01/Clase01.html">Clase 01</a>  | Instalación y configuración del software. Introducción a R-Project y R-Studio. |
+|  <a href="/Clase01/Clase01.html">Clase 01</a>  | Instalación y configuración del software. Introducción a R-Project y R-Studio. |
 |  <a href="EAFIT/Clase02/Clase02.html">Clase 02</a>  | Vectores y matrices. Estructuras de datos, tipos y clases de objetos.          |
 |  <a href="EAFIT/Clase03/Clase03.html" disabled="disabled">Clase 03</a>  | Condicionales y ciclos. Secuencias.                                            |
 |  <a href="EAFIT/Clase04/Clase04.html" disabled="disabled">Clase 04</a>  | Funciones en R.                                                                |
