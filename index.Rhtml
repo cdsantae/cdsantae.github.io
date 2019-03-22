@@ -1,0 +1,16 @@
+---
+layout: default
+title: 'Bienvenido'
+---
+
+<div class="row text-justify">
+  {% for collection in site.collections %}
+    {% if collection.main == 1 %}
+      <div class="col-md-6">
+        <h2>{{ collection.title }}</h2>
+        <p>{{ collection.description }}</p>
+        <p><a href="/{{ collection.label }}" class="btn btn-default" role="button">Ver Curso</a></p>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
