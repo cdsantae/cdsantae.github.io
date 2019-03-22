@@ -9,11 +9,6 @@
       {{ content }}
       <div class="push"></div>
     </div>
-    {% include footer.html %}
-    <script src="/js/jquery-1.12.4.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/toc.js"></script>
-    <script src="/js/custom.js"></script>
     {% if page.custom_js %}
       {% for js in page.custom_js %}
         {% include {{ js }}.html %}
