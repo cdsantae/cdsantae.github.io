@@ -1,0 +1,371 @@
+---
+title: "Condicionales, ciclos y secuencias"
+author: "Cristian Santa"
+date: "Marzo de 2019"
+output:
+  rmdformats::readthedown:
+    df_print: paged
+    code_folding: show
+    highlight: tango
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.align = "center",
+                      message = FALSE,
+                      error = FALSE,
+                      warning = FALSE,
+                      cache = TRUE)
+```
+
+## Estructura de decisión
+
+Normalmente, los operadores lógicos y relacionales se utilizan con sentencias de programación condicional *si* y *si no*. La sentencia `if` se puede utilizar sola o con la sentencia `else`. La forma de la sentencia `if` es:
+
+```{r eval=FALSE}
+# Ejemplo 1
+if( <condición verdadera> )
+  entonces haga esto
+
+# Ejemplo 2
+if( <condición verdadera> ){
+  entonces haga esto
+}else{#si no
+  entonces haga esto otro
+} 
+  
+```
+
+La condición entre paréntesis usualmente usará un operador relacional para determinar si la condición es verdadera. Cuando la instrucción `if` se usa sola y la condición entre paréntesis no es verdadera, entonces no sucede nada. Por ejemplo:
+
+```{r}
+x<-6; y<-2
+
+# Si x es menor o igual que y entonces asigne z
+if(x<=y) z<-x+y
+
+# La condición no es verdadera, entonces no sucede nada
+# z
+
+# Si la relación es contraria, entonces la condición es verdadera
+if(x>=y) z <- x+y
+z
+
+# También se puede asignar antes del if
+z <- if(x>=y) x+y
+z
+```
+
+Para que algo suceda si la condición entre paréntesis no es verdadera, use `if` junto con `else` para especificar una alternativa. Tenga en cuenta que no hay una condición entre paréntesis después de la instrucción `else`. En este caso, el código que sigue a continuación se ejecutará siempre que la condición `if` no sea verdadera.
+
+```{r}
+if(x<y){
+  z <- x+y
+}else{
+  z <- x*y
+}
+z
+
+# El resultado se puede llevar a una variable
+z <- if(x<y) {x+y} else {x*y}
+z
+```
+
+En la condición se puede utilizar varios operadores lógicos.
+
+```{r}
+a <- 3; b <- 5; c <- 1
+
+if(a<b & b>c){ 5 }else{ 4 }
+if(a<b & b<c){ 5 }else{ 4 }
+if(a>b | b<c){ 5 }else{ 4 }
+if(a>b | b>c & a!=c){ 5 }else{ 4 }
+if((a>b | b>c) & (a!=c & b<a)){ 5 }else{ 4 }
+```
+
+Si se pretende evaluar varias condiciones para obtener más de dos valores de respuestas, es posible anidar los condicionales.
+
+```{r}
+if(a<b & b>c){
+  if(c>a){
+    8
+  }else{
+    5
+  }
+}
+
+if(a<b & b<c){
+  if(c<a){
+    8
+  }else{
+    5
+  }
+}else{
+  if(a==c){
+    7
+  }else{
+    4
+  }
+}
+```
+
+En `R` existe una función útil para reemplazar valores dependiendo de un condicional.
+
+```{r, eval=FALSE}
+?ifelse
+```
+
+```{r}
+(x <- 4:12)
+
+ifelse(x!=7, 1, 0)
+ifelse(x!=7, 1, x)
+ifelse(x!=7, x, NA)
+
+# Muestre los impares
+# na.omit(ifelse(x%%2, x, NA))
+ifelse(x%%2, x, NA)
+
+# Muestre los pares
+# na.omit(ifelse(x%%2, NA, x))
+ifelse(x%%2, NA, x)
+```
+
+## Estructuras de repetición
+
+El control por repetición, o bucle, le permite repetir el código de manera eficiente sin tener que escribir el mismo código una y otra vez. En `R` dos expresiones comunes de bucle son `for` y `while`.
+
+Los bucles `for` se utilizan para recorrer un proceso un número específico de veces. Se utiliza una variable de contador (generalmente designada por una letra minúscula `i`) para contar cuántas veces se ejecuta el bucle.
+
+```{r, eval=FALSE}
+for(<variable> in <comienzo>:<final>){
+  ejecute la tarea
+}
+```
+
+Dentro de la sentencia del `for` se tiene que especificar una secuencia de recorrido, ya sea con el operador `:` o ingresando un vector definido.
+
+```{r}
+for(i in 1:10){
+  print(i)
+}
+
+# Secuencia basada en las posiciones del vector
+x <- c("a","b","c","d")
+for(i in 1:4){
+  print(x[i])
+}
+
+# Secuencia basada en el tamaño del vector
+for(i in seq_along(x)){
+  print(x[i])
+}
+
+# Secuencia basada en los elentos del vector
+for(letter in x){
+  print(letter)
+}
+
+# Se puede hacer en una sola línea
+for(i in 1:4) print(x[i])
+```
+
+Los bucles `for` pueden ser anidados uno dentro de otro.
+
+```{r}
+(x <- matrix(1:6, 2, 3))
+
+for(i in 1:nrow(x)){
+  for(j in 1:ncol(x)){
+    print(x[i,j])
+  }
+}
+
+# Se puede utilizar los ciclos para construir objetos
+(x <- matrix(NA, 4, 4))
+
+for(i in 1:ncol(x)){
+    for(j in 1:nrow(x)){
+      if(i%%2==0){
+        x[j,i] <- 2*(i+j)
+    }else{
+        x[j,i] <- 2*(i+j)-1
+    }
+  }
+}
+x
+```
+
+El bucle `while` repite una condición mientras que la expresión entre paréntesis es verdadera y toma la forma
+
+```{r,eval=FALSE}
+while (<condición verdadera>) {
+  ejecute la tarea
+}
+```
+
+Los bucles `While` comienzan probando una condición. Si es verdad, entonces ejecutan el cuerpo del bucle. Una vez que se ejecuta el cuerpo del bucle, la condición se prueba de nuevo, y así sucesivamente, hasta que la condición es falsa, después de lo cual el bucle termina.
+
+```{r}
+count <- 0
+while(count < 10){
+  print(count)
+  count <- count + 1
+}
+```
+
+Los bucles "While" pueden dar lugar a bucles infinitos si no se escriben correctamente. ¡Usa esto con cuidado!
+A veces habrá más de una condición en la prueba.
+
+```{r}
+z <- 5
+set.seed(1) # Establecer semilla de números aleatorios
+
+while(z >= 3 && z <= 10){
+  coin <- rbinom(1, 1, 0.5) # número aleatorio bernoulli p=1/2
+  
+  if(coin == 1){  # caminata aleatoria
+    z <- z + 1
+  }else{
+    z <- z - 1
+  }
+}
+print(z)
+
+# Para saber cuántas veces hace la caminata se usa un auxiliar
+z <- 5
+cont <- 1
+set.seed(1)
+
+while(z >= 3 && z <= 10){
+  coin <- rbinom(1, 1, 0.5)
+  
+  if(coin == 1){
+    z <- z + 1
+  }else{
+    z <- z - 1
+  }
+  cont <- cont+1
+}
+print(z)
+print(cont)
+```
+
+El ciclo `repeat` inicia un bucle infinito desde el principio. Estos no se utilizan comúnmente en aplicaciones estadísticas o de análisis de datos, pero tienen sus usos. La única forma de salir de un ciclo de repetición es llamar a `break`.
+
+```{r, eval=FALSE}
+repeat{
+  ejecute tareas
+}
+```
+
+Un posible paradigma podría ser un algoritmo iterativo en el que esté buscando una solución y no quiera detenerse hasta que esté lo suficientemente cerca de la solución. En este tipo de situación, a menudo no se sabe de antemano cuántas iteraciones se necesitarán para "acercarse lo suficiente" a la solución.
+
+```{r}
+x0 <- 1000
+tol <- 1e-08
+pasos <- 1
+
+repeat{
+  x1 <- sqrt(x0)
+  if(abs(x1-x0) < tol){
+    break
+  }else{
+    x0 <- x1
+  }
+  pasos <- pasos+1
+}
+x0
+pasos
+```
+
+Los argumentos `next` y `break` son utilizados comunmente cuando se quiere omitir pasos de un ciclo, o cuando se quiere parar el ciclo en un momento dado, respectivamente.
+
+```{r}
+x <- NULL
+for(i in 1:50){
+  if(i <= 20){ #omitir los primeros 20 pasos
+    next
+  }
+  x <- c(x,i)
+}
+x
+
+y <- NULL
+for(j in 1:1000){
+  if(j > 20){ #parar antes de 20 iteraciones
+    break
+  }
+  y <- c(y,j)
+}
+y
+```
+
+## Secuencias
+
+* `seq()` genera una secuencia regular de numeros
+* `rep()` repite un objeto un numero definido de veces
+* `seq_along()` genera una secuencia regular basado en el tamaño del objeto
+* `seq_len()` genera una secuencia regular con un tamaño específico
+* `sequence()` genera una secuencia concatenando los elementos
+* `gl()` genera una secuencia de factores
+* `:` genera una secuencia regular de numeros
+* `expand.grid()` crea un marco con todas las posibles combinaciones de vectores o factores
+
+```{r}
+seq(from = 1, to = 10, by = 2)
+seq(from = 5, to = 8, length.out = 10)
+seq(20)
+seq_along(1:20)
+seq_len(20)
+
+rep(4, 5)
+rep(1:4, 3)
+rep(c("Hola","Clase"),5)
+
+sequence(4)
+sequence(c(2,5))
+sequence(1:10)
+
+gl(n = 1,k = 6)
+gl(5, 2, labels = c("Julina","Carlos","Lina","Manuela","Adriana"))
+gl(5, 4, labels = c("Julina","Carlos","Lina","Manuela","Adriana"),ordered = T)
+gl(3,2,18)
+gl(3,4,24,labels = c("Chicles","Cigarrillos","Tinto"))
+gl(3,1,24,labels = c("Chicles","Cigarrillos","Tinto"))
+
+expand.grid(a=c(60,80), p=c(100, 300), sexo=c("Macho", "Hembra"))
+expand.grid(edad=seq(18,30,by=3), nota=(seq_len(5)/2)+2,
+            color=gl(3,1,labels = c("Rojo","Verde","Blanco")),
+            profesion=c("Ingeniero","Arquitecto"))
+```
+
+## Números aleatorios
+
+`R` posee una colección de funciones para generar números aleatorios dependiendo una probabilidad específica, o bien que pertenezcan a una distribución de probabilidad.
+
+* `sample()` genera números aleatorios
+* `rnorm(n, mean, sd)` números aleatorios de la distribución Normal
+* `rexp(n, rate)` números aleatorios de la distribución Exponencial
+* `rgamma(n, shape, scale)` números aleatorios de la distribución Gamma
+* `rpois(n, lambda)` números aleatorios de la distribución Poisson
+* `rweibull(n, shape, scale)` números aleatorios de la distribución Weibull
+* `rcauchy(n, location, scale)` números aleatorios de la distribución Cauchy
+* `rbeta(n, shape1, shape2)` números aleatorios de la distribución Beta
+* `rt(n, df)` números aleatorios de la distribución *t-Student*
+* `rf(n, df1, df2)` números aleatorios de la distribución Fisher-Snedecor (F)
+* `rchisq(n, df)` números aleatorios de la distribución Pearson ($\chi^2$)
+* `rbinom(n, size, prob)` números aleatorios de la distribución Binomial
+* `rgeom(n, prob)` números aleatorios de la distribución Geométrica
+* `rhyper(nn, m, n, k)` números aleatorios de la distribución Hipergeométrica
+* `rlogis(n, location, scale)` números aleatorios de la distribución Logística
+* `rlnorm(n, meanlog, sdlog)` números aleatorios de la distribución Log-Normal
+* `rnbinom(n, size, prob)` números aleatorios de la distribución Binomial Negativa
+* `runif(n, min, max)` números aleatorios de la distribución Uniforme
+
+La posibilidad de generar datos aleatorios es bastante util en estadística y `R` tiene la capacidad de hacer esto para un gran numero de funciones y distribuciones. Estas funciones son de la forma `rfunc(n, p1, p2, ...)`, donde `func` indica la disribucion, `n` es el numero de datos generado, y `p1`, `p2`, `...` son valores que toman los parametros de la distribución. La lista anterior muestra los detalles de cada distribucion, y los posibles valores por defecto de los parámetros (si no se indica, significa que el parametro debe ser especificado por el usuario).
+
+Todas estas funciones se pueden usar reemplazando la letra `r` con las letras `d`, `p` o `q` para obtener, la **densidad de probabilidad** (`dfunc(x, ...)`), la **densidad de probabilidad acumulada** (`pfunc(x, ...)`), y el **valor del cuartil** (`qfunc(p, ...)`, con `0 < p < 1`) respectivamente.
+
+## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
