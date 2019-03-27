@@ -295,8 +295,8 @@ for(i in seq_along(x)){
 
 ```r
 # Secuencia basada en los elentos del vector
-for(letter in x){
-  print(letter)
+for(letras in x){
+  print(letras)
 }
 ```
 
@@ -416,7 +416,7 @@ while(count < 10){
 ## [1] 9
 ```
 
-Los bucles "While" pueden dar lugar a bucles infinitos si no se escriben correctamente. ¡Usa esto con cuidado!
+Los bucles `while` pueden dar lugar a bucles infinitos si no se escriben correctamente. ¡Usa esto con cuidado!
 A veces habrá más de una condición en la prueba.
 
 
@@ -425,9 +425,9 @@ z <- 5
 set.seed(1) # Establecer semilla de números aleatorios
 
 while(z >= 3 && z <= 10){
-  coin <- rbinom(1, 1, 0.5) # número aleatorio bernoulli p=1/2
+  moneda <- rbinom(1, 1, 0.5) # número aleatorio bernoulli p=1/2
   
-  if(coin == 1){  # caminata aleatoria
+  if(moneda == 1){  # caminata aleatoria
     z <- z + 1
   }else{
     z <- z - 1
@@ -443,18 +443,18 @@ print(z)
 ```r
 # Para saber cuántas veces hace la caminata se usa un auxiliar
 z <- 5
-cont <- 1
+cuenta <- 1
 set.seed(1)
 
 while(z >= 3 && z <= 10){
-  coin <- rbinom(1, 1, 0.5)
+  moneda <- rbinom(1, 1, 0.5)
   
-  if(coin == 1){
+  if(moneda == 1){
     z <- z + 1
   }else{
     z <- z - 1
   }
-  cont <- cont+1
+  cuenta <- cuenta+1
 }
 print(z)
 ```
@@ -464,7 +464,7 @@ print(z)
 ```
 
 ```r
-print(cont)
+print(cuenta)
 ```
 
 ```
@@ -484,6 +484,7 @@ Un posible paradigma podría ser un algoritmo iterativo en el que esté buscando
 
 
 ```r
+# Número de raíces cuadradas
 x0 <- 1000
 tol <- 1e-08
 pasos <- 1
@@ -512,7 +513,7 @@ pasos
 ## [1] 30
 ```
 
-Los argumentos `next` y `break` son utilizados comunmente cuando se quiere omitir pasos de un ciclo, o cuando se quiere parar el ciclo en un momento dado, respectivamente.
+Los argumentos `next` y `break` son utilizados comúnmente cuando se quiere omitir pasos de un ciclo, o cuando se quiere parar el ciclo en un momento dado, respectivamente.
 
 
 ```r
@@ -548,13 +549,13 @@ y
 
 ## Secuencias
 
-* `seq()` genera una secuencia regular de numeros
+* `seq()` genera una secuencia regular de números
 * `rep()` repite un objeto un numero definido de veces
 * `seq_along()` genera una secuencia regular basado en el tamaño del objeto
 * `seq_len()` genera una secuencia regular con un tamaño específico
 * `sequence()` genera una secuencia concatenando los elementos
 * `gl()` genera una secuencia de factores
-* `:` genera una secuencia regular de numeros
+* `:` genera una secuencia regular de números
 * `expand.grid()` crea un marco con todas las posibles combinaciones de vectores o factores
 
 
@@ -660,24 +661,24 @@ gl(n = 1,k = 6)
 ```
 
 ```r
-gl(5, 2, labels = c("Julina","Carlos","Lina","Manuela","Adriana"))
+gl(5, 2, labels = c("Juliana","Carlos","Lina","Manuela","Adriana"))
 ```
 
 ```
-##  [1] Julina  Julina  Carlos  Carlos  Lina    Lina    Manuela Manuela
+##  [1] Juliana Juliana Carlos  Carlos  Lina    Lina    Manuela Manuela
 ##  [9] Adriana Adriana
-## Levels: Julina Carlos Lina Manuela Adriana
+## Levels: Juliana Carlos Lina Manuela Adriana
 ```
 
 ```r
-gl(5, 4, labels = c("Julina","Carlos","Lina","Manuela","Adriana"),ordered = T)
+gl(5, 4, labels = c("Juliana","Carlos","Lina","Manuela","Adriana"),ordered = T)
 ```
 
 ```
-##  [1] Julina  Julina  Julina  Julina  Carlos  Carlos  Carlos  Carlos 
+##  [1] Juliana Juliana Juliana Juliana Carlos  Carlos  Carlos  Carlos 
 ##  [9] Lina    Lina    Lina    Lina    Manuela Manuela Manuela Manuela
 ## [17] Adriana Adriana Adriana Adriana
-## Levels: Julina < Carlos < Lina < Manuela < Adriana
+## Levels: Juliana < Carlos < Lina < Manuela < Adriana
 ```
 
 ```r
@@ -751,7 +752,7 @@ expand.grid(edad=seq(18,30,by=3), nota=(seq_len(5)/2)+2,
 * `rbeta(n, shape1, shape2)` números aleatorios de la distribución Beta
 * `rt(n, df)` números aleatorios de la distribución *t-Student*
 * `rf(n, df1, df2)` números aleatorios de la distribución Fisher-Snedecor (F)
-* `rchisq(n, df)` números aleatorios de la distribución Pearson ($\chi^2$)
+* `rchisq(n, df)` números aleatorios de la distribución Pearson ($\chi^2_v$)
 * `rbinom(n, size, prob)` números aleatorios de la distribución Binomial
 * `rgeom(n, prob)` números aleatorios de la distribución Geométrica
 * `rhyper(nn, m, n, k)` números aleatorios de la distribución Hipergeométrica
@@ -760,7 +761,7 @@ expand.grid(edad=seq(18,30,by=3), nota=(seq_len(5)/2)+2,
 * `rnbinom(n, size, prob)` números aleatorios de la distribución Binomial Negativa
 * `runif(n, min, max)` números aleatorios de la distribución Uniforme
 
-La posibilidad de generar datos aleatorios es bastante util en estadística y `R` tiene la capacidad de hacer esto para un gran numero de funciones y distribuciones. Estas funciones son de la forma `rfunc(n, p1, p2, ...)`, donde `func` indica la disribucion, `n` es el numero de datos generado, y `p1`, `p2`, `...` son valores que toman los parametros de la distribución. La lista anterior muestra los detalles de cada distribucion, y los posibles valores por defecto de los parámetros (si no se indica, significa que el parametro debe ser especificado por el usuario).
+La posibilidad de generar datos aleatorios es bastante útil en estadística y `R` tiene la capacidad de hacer esto para un gran numero de funciones y distribuciones. Estas funciones son de la forma `rfunc(n, p1, p2, ...)`, donde `func` indica la distribución, `n` es el numero de datos generado, y `p1`, `p2`, `...` son valores que toman los parámetros de la distribución. La lista anterior muestra los detalles de cada distribución, y los posibles valores por defecto de los parámetros (si no se indica, significa que el parámetro debe ser especificado por el usuario).
 
 Todas estas funciones se pueden usar reemplazando la letra `r` con las letras `d`, `p` o `q` para obtener, la **densidad de probabilidad** (`dfunc(x, ...)`), la **densidad de probabilidad acumulada** (`pfunc(x, ...)`), y el **valor del cuartil** (`qfunc(p, ...)`, con `0 < p < 1`) respectivamente.
 

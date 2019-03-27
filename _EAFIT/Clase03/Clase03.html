@@ -256,8 +256,8 @@ x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot
 ## [1] &quot;c&quot;
 ## [1] &quot;d&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Secuencia basada en los elentos del vector</span>
-<span class="cf">for</span>(letter <span class="cf">in</span> x){
-  <span class="kw">print</span>(letter)
+<span class="cf">for</span>(letras <span class="cf">in</span> x){
+  <span class="kw">print</span>(letras)
 }</code></pre></div>
 <pre><code>## [1] &quot;a&quot;
 ## [1] &quot;b&quot;
@@ -327,14 +327,14 @@ x</code></pre></div>
 ## [1] 7
 ## [1] 8
 ## [1] 9</code></pre>
-<p>Los bucles “While” pueden dar lugar a bucles infinitos si no se escriben correctamente. ¡Usa esto con cuidado! A veces habrá más de una condición en la prueba.</p>
+<p>Los bucles <code>while</code> pueden dar lugar a bucles infinitos si no se escriben correctamente. ¡Usa esto con cuidado! A veces habrá más de una condición en la prueba.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">z &lt;-<span class="st"> </span><span class="dv">5</span>
 <span class="kw">set.seed</span>(<span class="dv">1</span>) <span class="co"># Establecer semilla de números aleatorios</span>
 
 <span class="cf">while</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;&amp;</span><span class="st"> </span>z <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>){
-  coin &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>) <span class="co"># número aleatorio bernoulli p=1/2</span>
+  moneda &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>) <span class="co"># número aleatorio bernoulli p=1/2</span>
   
-  <span class="cf">if</span>(coin <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){  <span class="co"># caminata aleatoria</span>
+  <span class="cf">if</span>(moneda <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){  <span class="co"># caminata aleatoria</span>
     z &lt;-<span class="st"> </span>z <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
   }<span class="cf">else</span>{
     z &lt;-<span class="st"> </span>z <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
@@ -344,29 +344,30 @@ x</code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Para saber cuántas veces hace la caminata se usa un auxiliar</span>
 z &lt;-<span class="st"> </span><span class="dv">5</span>
-cont &lt;-<span class="st"> </span><span class="dv">1</span>
+cuenta &lt;-<span class="st"> </span><span class="dv">1</span>
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
 
 <span class="cf">while</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;&amp;</span><span class="st"> </span>z <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>){
-  coin &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)
+  moneda &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)
   
-  <span class="cf">if</span>(coin <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){
+  <span class="cf">if</span>(moneda <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){
     z &lt;-<span class="st"> </span>z <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
   }<span class="cf">else</span>{
     z &lt;-<span class="st"> </span>z <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
   }
-  cont &lt;-<span class="st"> </span>cont<span class="op">+</span><span class="dv">1</span>
+  cuenta &lt;-<span class="st"> </span>cuenta<span class="op">+</span><span class="dv">1</span>
 }
 <span class="kw">print</span>(z)</code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(cont)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(cuenta)</code></pre></div>
 <pre><code>## [1] 32</code></pre>
 <p>El ciclo <code>repeat</code> inicia un bucle infinito desde el principio. Estos no se utilizan comúnmente en aplicaciones estadísticas o de análisis de datos, pero tienen sus usos. La única forma de salir de un ciclo de repetición es llamar a <code>break</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">repeat</span>{
   ejecute tareas
 }</code></pre></div>
 <p>Un posible paradigma podría ser un algoritmo iterativo en el que esté buscando una solución y no quiera detenerse hasta que esté lo suficientemente cerca de la solución. En este tipo de situación, a menudo no se sabe de antemano cuántas iteraciones se necesitarán para “acercarse lo suficiente” a la solución.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x0 &lt;-<span class="st"> </span><span class="dv">1000</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Número de raíces cuadradas</span>
+x0 &lt;-<span class="st"> </span><span class="dv">1000</span>
 tol &lt;-<span class="st"> </span><span class="fl">1e-08</span>
 pasos &lt;-<span class="st"> </span><span class="dv">1</span>
 
@@ -383,7 +384,7 @@ x0</code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pasos</code></pre></div>
 <pre><code>## [1] 30</code></pre>
-<p>Los argumentos <code>next</code> y <code>break</code> son utilizados comunmente cuando se quiere omitir pasos de un ciclo, o cuando se quiere parar el ciclo en un momento dado, respectivamente.</p>
+<p>Los argumentos <code>next</code> y <code>break</code> son utilizados comúnmente cuando se quiere omitir pasos de un ciclo, o cuando se quiere parar el ciclo en un momento dado, respectivamente.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="ot">NULL</span>
 <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>){
   <span class="cf">if</span>(i <span class="op">&lt;=</span><span class="st"> </span><span class="dv">20</span>){ <span class="co">#omitir los primeros 20 pasos</span>
@@ -407,13 +408,13 @@ y</code></pre></div>
 <div id="secuencias" class="section level2">
 <h2>Secuencias</h2>
 <ul>
-<li><code>seq()</code> genera una secuencia regular de numeros</li>
+<li><code>seq()</code> genera una secuencia regular de números</li>
 <li><code>rep()</code> repite un objeto un numero definido de veces</li>
 <li><code>seq_along()</code> genera una secuencia regular basado en el tamaño del objeto</li>
 <li><code>seq_len()</code> genera una secuencia regular con un tamaño específico</li>
 <li><code>sequence()</code> genera una secuencia concatenando los elementos</li>
 <li><code>gl()</code> genera una secuencia de factores</li>
-<li><code>:</code> genera una secuencia regular de numeros</li>
+<li><code>:</code> genera una secuencia regular de números</li>
 <li><code>expand.grid()</code> crea un marco con todas las posibles combinaciones de vectores o factores</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">by =</span> <span class="dv">2</span>)</code></pre></div>
@@ -445,15 +446,15 @@ y</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gl</span>(<span class="dt">n =</span> <span class="dv">1</span>,<span class="dt">k =</span> <span class="dv">6</span>)</code></pre></div>
 <pre><code>## [1] 1 1 1 1 1 1
 ## Levels: 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gl</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Julina&quot;</span>,<span class="st">&quot;Carlos&quot;</span>,<span class="st">&quot;Lina&quot;</span>,<span class="st">&quot;Manuela&quot;</span>,<span class="st">&quot;Adriana&quot;</span>))</code></pre></div>
-<pre><code>##  [1] Julina  Julina  Carlos  Carlos  Lina    Lina    Manuela Manuela
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gl</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Juliana&quot;</span>,<span class="st">&quot;Carlos&quot;</span>,<span class="st">&quot;Lina&quot;</span>,<span class="st">&quot;Manuela&quot;</span>,<span class="st">&quot;Adriana&quot;</span>))</code></pre></div>
+<pre><code>##  [1] Juliana Juliana Carlos  Carlos  Lina    Lina    Manuela Manuela
 ##  [9] Adriana Adriana
-## Levels: Julina Carlos Lina Manuela Adriana</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gl</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Julina&quot;</span>,<span class="st">&quot;Carlos&quot;</span>,<span class="st">&quot;Lina&quot;</span>,<span class="st">&quot;Manuela&quot;</span>,<span class="st">&quot;Adriana&quot;</span>),<span class="dt">ordered =</span> T)</code></pre></div>
-<pre><code>##  [1] Julina  Julina  Julina  Julina  Carlos  Carlos  Carlos  Carlos 
+## Levels: Juliana Carlos Lina Manuela Adriana</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gl</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Juliana&quot;</span>,<span class="st">&quot;Carlos&quot;</span>,<span class="st">&quot;Lina&quot;</span>,<span class="st">&quot;Manuela&quot;</span>,<span class="st">&quot;Adriana&quot;</span>),<span class="dt">ordered =</span> T)</code></pre></div>
+<pre><code>##  [1] Juliana Juliana Juliana Juliana Carlos  Carlos  Carlos  Carlos 
 ##  [9] Lina    Lina    Lina    Lina    Manuela Manuela Manuela Manuela
 ## [17] Adriana Adriana Adriana Adriana
-## Levels: Julina &lt; Carlos &lt; Lina &lt; Manuela &lt; Adriana</code></pre>
+## Levels: Juliana &lt; Carlos &lt; Lina &lt; Manuela &lt; Adriana</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gl</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">18</span>)</code></pre></div>
 <pre><code>##  [1] 1 1 2 2 3 3 1 1 2 2 3 3 1 1 2 2 3 3
 ## Levels: 1 2 3</code></pre>
@@ -500,7 +501,7 @@ y</code></pre></div>
 <li><code>rbeta(n, shape1, shape2)</code> números aleatorios de la distribución Beta</li>
 <li><code>rt(n, df)</code> números aleatorios de la distribución <em>t-Student</em></li>
 <li><code>rf(n, df1, df2)</code> números aleatorios de la distribución Fisher-Snedecor (F)</li>
-<li><code>rchisq(n, df)</code> números aleatorios de la distribución Pearson (<span class="math inline">\(\chi^2\)</span>)</li>
+<li><code>rchisq(n, df)</code> números aleatorios de la distribución Pearson (<span class="math inline">\(\chi^2_v\)</span>)</li>
 <li><code>rbinom(n, size, prob)</code> números aleatorios de la distribución Binomial</li>
 <li><code>rgeom(n, prob)</code> números aleatorios de la distribución Geométrica</li>
 <li><code>rhyper(nn, m, n, k)</code> números aleatorios de la distribución Hipergeométrica</li>
@@ -509,7 +510,7 @@ y</code></pre></div>
 <li><code>rnbinom(n, size, prob)</code> números aleatorios de la distribución Binomial Negativa</li>
 <li><code>runif(n, min, max)</code> números aleatorios de la distribución Uniforme</li>
 </ul>
-<p>La posibilidad de generar datos aleatorios es bastante util en estadística y <code>R</code> tiene la capacidad de hacer esto para un gran numero de funciones y distribuciones. Estas funciones son de la forma <code>rfunc(n, p1, p2, ...)</code>, donde <code>func</code> indica la disribucion, <code>n</code> es el numero de datos generado, y <code>p1</code>, <code>p2</code>, <code>...</code> son valores que toman los parametros de la distribución. La lista anterior muestra los detalles de cada distribucion, y los posibles valores por defecto de los parámetros (si no se indica, significa que el parametro debe ser especificado por el usuario).</p>
+<p>La posibilidad de generar datos aleatorios es bastante útil en estadística y <code>R</code> tiene la capacidad de hacer esto para un gran numero de funciones y distribuciones. Estas funciones son de la forma <code>rfunc(n, p1, p2, ...)</code>, donde <code>func</code> indica la distribución, <code>n</code> es el numero de datos generado, y <code>p1</code>, <code>p2</code>, <code>...</code> son valores que toman los parámetros de la distribución. La lista anterior muestra los detalles de cada distribución, y los posibles valores por defecto de los parámetros (si no se indica, significa que el parámetro debe ser especificado por el usuario).</p>
 <p>Todas estas funciones se pueden usar reemplazando la letra <code>r</code> con las letras <code>d</code>, <code>p</code> o <code>q</code> para obtener, la <strong>densidad de probabilidad</strong> (<code>dfunc(x, ...)</code>), la <strong>densidad de probabilidad acumulada</strong> (<code>pfunc(x, ...)</code>), y el <strong>valor del cuartil</strong> (<code>qfunc(p, ...)</code>, con <code>0 &lt; p &lt; 1</code>) respectivamente.</p>
 </div>
 <div id="regresar" class="section level2">
