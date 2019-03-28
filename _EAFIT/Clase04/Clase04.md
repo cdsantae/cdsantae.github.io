@@ -43,11 +43,7 @@ FuncionEjemplo <- function(){
 FuncionEjemplo
 ```
 
-```
-## function(){
-##   # Esta función no hace nada, pero no es un error
-## }
-```
+
 
 ```r
 CuadradoNumero <- function(n){
@@ -372,7 +368,7 @@ mean
 ```
 ## function (x, ...) 
 ## UseMethod("mean")
-## <bytecode: 0x000000001c483ff8>
+## <bytecode: 0x000000001dd50c58>
 ## <environment: namespace:base>
 ```
 
@@ -434,7 +430,7 @@ potencia(2)
 ## function(x){
 ##     x^e
 ##   }
-## <environment: 0x000000001c6077d8>
+## <environment: 0x000000001bfe7468>
 ```
 
 ```r
@@ -666,16 +662,16 @@ psych::describeBy(iris,iris$Species) # Resumen estadístico detallado por factor
 * Lea el radio de un círculo y muestre su área.
 * Lea el nombre de una persona y responda con un saludo.
 * Lea un número real y muestre su valor absoluto, sin utilizar estructuras y sin funciones predeterminadas.
-* Lea las tres coordenadas de los vértices de un tríangulo y que muestre el área del mismo utilizando la <a href="https://es.wikipedia.org/wiki/Fórmula_de_Herón">fórmula de Herón</a>. Incluya una función que halle la distancia entre dos puntos dados los vértices.
+* Lea las tres coordenadas de los vértices de un tríangulo y que muestre el área del mismo utilizando la [fórmula de Herón](https://es.wikipedia.org/wiki/Fórmula_de_Herón). Incluya una función que halle la distancia entre dos puntos dados los vértices.
 * Lea un número entero y que muestre un cero (0) si el número es par y un uno (1) sin el número es impar, (Sin utilizar ni la estructura de decisión o la de repetición).
 * Lea un número entero de tres cifras y muestre el mísmo número pero con los dígitos invertidos (sin utilizar el tipo sarta).
 * Lea una matriz y muestre su transpuesta, si utilizar funciones predeterminadas.
 * Construya una algoritmo que halle la aproximación a la raíz de un número de la siguiente manera: Lea un número al cual se le hallará la raíz, y luego lea un número cualquiera como primera aproximación a la raíz del número (se supone ser positivo mayor de cero). Halle la división del número inicial entre el número aproximado. Luego halle el promedio entre el número aproximado y el número obtenido de la división anterior. Este promedio es de nuevo un valor aproximado a la raíz. Continuar el proceso hasta que la aproximación sea correcta en el orden de las millonésimas y reporte el número de iteraciones. (No utilizar el operador exponente `^` ni la función `sqrt()`).
-* Dado las dimensiones de una matriz (n filas, m columnas), mostrar los índices de la matriz en forma de zig-zag (vertical), comenzando por la posición [1][1].
-* Construya una función que ingrese una posición y muestre su representación en la <a href="https://es.wikipedia.org/wiki/Sucesión_de_Fibonacci">sucesión de Fibonacci</a>.
+* Dado las dimensiones de una matriz (n filas, m columnas), mostrar los índices de la matriz en forma de zig-zag (vertical), comenzando por la posición `[1][1]`.
+* Construya una función que ingrese una posición y muestre su representación en la [sucesión de Fibonacci](https://es.wikipedia.org/wiki/Sucesión_de_Fibonacci).
 * Dado un número encuentre su factorial.
-* Dado un número encuentre los números primos hasta ese número, puede apoyarse en la <a href="https://es.wikipedia.org/wiki/Criba_de_Eratóstenes">Criba de Eratóstenes</a>
+* Dado un número encuentre los números primos hasta ese número, puede apoyarse en la [Criba de Eratóstenes](https://es.wikipedia.org/wiki/Criba_de_Eratóstenes).
 
-<p align="center"><b><a href="/Soluciones.html">Soluciones</a></b></p>
+<div align="center"><b><a href="/Soluciones.html">Soluciones</a></b></div>
 
 ## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
