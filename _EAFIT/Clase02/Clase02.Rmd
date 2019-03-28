@@ -1,6 +1,6 @@
 ---
 title: "Estructuras de datos en R"
-author: "Crstian Santa"
+author: "Cristian Santa"
 date: "Marzo de 2019"
 output:
   rmdformats::readthedown:
