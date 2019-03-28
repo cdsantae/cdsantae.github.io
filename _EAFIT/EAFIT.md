@@ -32,18 +32,18 @@ Introducir al estudiante al manejo del software estadístico más usado en inves
 
 | **Clase** |                                 **Descripción**                                |
 |:---------:|--------------------------------------------------------------------------------|
-|  <a href="./Clase01/Clase01.html">C_01</a>  | Instalación y configuración del software. Introducción a R-Project y R-Studio. |
-|  <a href="./Clase02/Clase02.html">C_02</a>  | Vectores y matrices. Estructuras de datos, tipos y clases de objetos.          |
-|  <a href="./Clase03/Clase03.html">C_03</a>  | Condicionales y ciclos. Secuencias.                                            |
-|  <a href="./Clase04/Clase04.html">C_04</a>  | Funciones en R.                                                                |
-|  <a href="./Clase05/Clase05.html">C_05</a>  | Orientación a objetos.                                                         |
-|  <a href="./Clase06/Clase06.html">C_06</a>  | Gráficos básicos.                                                              |
-|  <a href="./Clase07/Clase07.html">C_07</a>  | Uso de librerías.                                                              |
-|  <a href="./Clase08/Clase08.html">C_08</a>  | Gráficos avanzados.                                                            |
-|  <a href="./Clase09/Clase09.html">C_09</a>  | Expresiones regulares.                                                         |
-|  <a href="./Clase10/Clase10.html">C_10</a>  | Manejo de bases de datos.                                                      |
-|  <a href="./Clase11/Clase11.html">C_11</a>  | Manejo de datos temporales.                                                    |
-|  <a href="./Clase12/Clase12.html">C_12</a>  | Introducción al análisis estadístico con R                                     |
+|  <a href="./Clase01/Clase01.html">C_01</a>  | Introducción a R-Project y R-Studio. Instalación y configuración del software. |
+|  <a href="./Clase02/Clase02.html">C_02</a>  | Estructuras de datos, tipos y clases de objetos. Vectores y matrices.       |
+|  <a href="./Clase03/Clase03.html">C_03</a>  | Condicionales y ciclos. Secuencias. Número aleatorios.                         |
+|  <a href="./Clase04/Clase04.html">C_04</a>  | Funciones en R y uso de librerías.                                             |
+|  <a href="./Clase05/Clase05.html">C_05</a>  | Gráficos básicos.                                                              |
+|  <a href="./Clase06/Clase06.html">C_06</a>  | Gráficos avanzados.                                                            |
+|  <a href="./Clase07/Clase07.html">C_07</a>  | Expresiones Regulares.                                                         |
+|  <a href="./Clase08/Clase08.html">C_08</a>  | Manejo de bases de datos.                                                      |
+|  <a href="./Clase09/Clase09.html">C_09</a>  | Manejo de datos temporales y operaciones con tiempos.                          |
+|  <a href="./Clase10/Clase10.html">C_10</a>  | Trabajo práctico.                                                              |
+|  <a href="./Clase11/Clase11.html">C_11</a>  | Introducción al análisis estadístico con R.                                    |
+|  <a href="./Clase12/Clase12.html">C_12</a>  | Análisis estadístico con R (II).                                               |
 
 ## Docente
 
