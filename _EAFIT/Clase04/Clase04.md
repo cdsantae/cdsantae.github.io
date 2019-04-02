@@ -672,6 +672,6 @@ psych::describeBy(iris,iris$Species) # Resumen estadístico detallado por factor
 * Dado un número encuentre su factorial.
 * Dado un número encuentre los números primos hasta ese número, puede apoyarse en la [Criba de Eratóstenes](https://es.wikipedia.org/wiki/Criba_de_Eratóstenes).
 
-<div align="center"><b><a href="/Soluciones.html">Soluciones</a></b></div>
+<div align="center"><b><a href="./Soluciones.html">Soluciones</a></b></div>
 
 ## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
