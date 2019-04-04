@@ -350,9 +350,9 @@ x1 <- min(which(dening$x >= 150))
 x2 <- max(which(dening$x < 370))
 plot(dening,col=2,lwd=2,las=1,
      main="Densidad de los ingresos")
-with(dening,
-     polygon(x=c(x[c(x1,x1:x2,x2)]), y=c(0, y[x1:x2], 0),
-             col=rgb(1,0,0,alpha = 0.5),border = NA))
+polygon(x=dening$x[c(x1,x1:x2,x2)],
+        y=c(0,dening$y[x1:x2],0), col=rgb(1,0,0,alpha = 0.5),
+        border = NA)
 ```
 
 <img src="Clase05_files/figure-html/unnamed-chunk-18-4.png" style="display: block; margin: auto;" />
