@@ -150,8 +150,7 @@ legend("topright",fill=1:3,legend = levels(factor(mtcars$gear)),
 
 <img src="Clase05_files/figure-html/unnamed-chunk-8-2.png" style="display: block; margin: auto;" />
 
-
-<img src="Clase05_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+![](Colores.png)
 
 ## Demostraciones
 
@@ -189,7 +188,7 @@ ciudades <- factor(ciudades,
 plot(ciudades,main="Distribución de las Ciudades")
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
 
 En el gráfico anterior `plot` reconoce que `ciudades` es un factory realiza el grafico de barras.
 
@@ -209,7 +208,7 @@ barplot(table(ciudades),col=1:5,las=1,ylim = c(0,120),
         main = "Distribución de las Ciudades")
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
 
 ### Gráfico Tortas o secciones `pie`
 
@@ -220,7 +219,7 @@ El gráfico de secciones permite evidenciar proporcionalmente cómo se distribuy
 pie(table(ciudades))
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
 
 ### Gráfico de mosaico `mosaicplot`
 
@@ -247,7 +246,7 @@ mosaicplot(table(ciudades,impacto),col=c("green","yellow","red"),
            main="Impacto por Ciudad")
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
 
 ### Gráfico cajas y bigotes `boxplot`
 
@@ -263,7 +262,7 @@ boxplot(ingresos~ciudades,pch=20,col=colores,
         ylab="Miles de millones ($)",las=1)
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
 
 ```r
 boxplot(ingresos~ciudades,pch=20,col=colores,horizontal=T,
@@ -271,7 +270,7 @@ boxplot(ingresos~ciudades,pch=20,col=colores,horizontal=T,
         xlab="Miles de millones ($)",las=1,cex.axis=0.7,lty=1)
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-16-2.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-15-2.png" style="display: block; margin: auto;" />
 
 ```r
 boxplot(ingresos~ciudades,pch=20,col=colores,
@@ -279,7 +278,7 @@ boxplot(ingresos~ciudades,pch=20,col=colores,
         ylab="Miles de millones ($)",las=1,notch=T)
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-16-3.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-15-3.png" style="display: block; margin: auto;" />
 
 ### Histogramas
 
@@ -288,14 +287,14 @@ boxplot(ingresos~ciudades,pch=20,col=colores,
 hist(ingresos)
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
 
 ```r
 hist(ingresos, main="Densidad de los ingresos",las=1,
      col="lightblue",freq=F)
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-17-2.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-16-2.png" style="display: block; margin: auto;" />
 
 ```r
 hist(ingresos, main="Distribución de los ingresos",las=1,
@@ -305,7 +304,7 @@ hist(ingresos, main="Distribución de los ingresos",las=1,
 rug(ingresos,col=2)
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-17-3.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-16-3.png" style="display: block; margin: auto;" />
 
 ### Densidades
 
@@ -334,14 +333,14 @@ rug(ingresos,col=2)
 plot(dening)
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
 
 ```r
 plot(dening,col=2,lwd=2,las=1,
      main="Densidad de los ingresos")
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-18-2.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-17-2.png" style="display: block; margin: auto;" />
 
 ```r
 hist(ingresos, main="Densidad de los ingresos",las=1,
@@ -350,7 +349,7 @@ rug(ingresos,col=2)
 lines(dening,col=2,lwd=2)
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-18-3.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-17-3.png" style="display: block; margin: auto;" />
 
 ```r
 # Resaltando una sección en particular
@@ -363,7 +362,7 @@ polygon(x=dening$x[c(x1,x1:x2,x2)],
         border = NA)
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-18-4.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-17-4.png" style="display: block; margin: auto;" />
 
 ### Dispersiones y dispersiones múltiples
 
@@ -372,13 +371,13 @@ polygon(x=dening$x[c(x1,x1:x2,x2)],
 pairs(iris)
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
 
 ```r
 pairs(iris,col=iris$Species,pch=19)
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-19-2.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-18-2.png" style="display: block; margin: auto;" />
 
 
 ## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
