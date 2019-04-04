@@ -190,9 +190,11 @@ y &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </s
 </div>
 <div id="demostraciones" class="section level2">
 <h2>Demostraciones</h2>
-<p>Una buena colección de paquetes incluyen demostraciones de uso, con el comando <code>demo</code> se puede mostrar la lista de demostraciones del paquete <code>base</code>. Si se desea conocer todas as demostraciones disponibles en el CRAN el comando <code>demo(package = .packages(all.available = TRUE)</code> es muy útil.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">demo</span>()</code></pre></div>
-<p>De la lista anterior, interesa la demostración <code>graphics</code>, en la cual se explican varios conceptos del uso de gráficos del paquete <code>base</code>, para correr la demostración se ejecuta el comando <code>demo(graphics)</code>.</p>
+<p>Una buena colección de paquetes incluyen demostraciones de uso, con el comando <code>demo</code> se puede mostrar la lista de demostraciones del paquete <code>base</code>. Si se desea conocer todas as demostraciones disponibles en el CRAN el siguiente comando es muy útil.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">demo</span>()
+<span class="kw">demo</span>(<span class="dt">package =</span> <span class="kw">.packages</span>(<span class="dt">all.available =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>De la lista anterior, interesa la demostración <code>graphics</code>, en la cual se explican varios conceptos del uso de gráficos del paquete <code>base</code>, para correr la demostración se ejecuta el comando</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">demo</span>(graphics)</code></pre></div>
 </div>
 <div id="graficos-estadisticos" class="section level2">
 <h2>Gráficos Estadísticos</h2>

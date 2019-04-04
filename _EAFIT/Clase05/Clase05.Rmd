@@ -44,6 +44,7 @@ axis(1,at=-1:1,labels = rep("Valor eje",3),cex.axis=0.7)
 axis(2,at=-1:1,labels = rep("Valor eje",3),cex.axis=0.7)
 ```
 
+
 ```{r}
 args(plot.default)
 ```
@@ -62,6 +63,7 @@ plot(x,y,main = "Título gráfico", type="p", pch=19)
 plot(x,y,main = "Título gráfico", type="p", pch=19,col="red")
 plot(x,y,main = "Título gráfico", type="b", pch=19,lty=2,col="red")
 ```
+
 
 ```{r,echo=FALSE}
 plot(1,1,xlim = c(1, 7.5),ylim = c(1,5),type="n",axes = F,xlab = "",ylab = "", main = "Tipos de Puntos y sus códigos")
@@ -114,9 +116,6 @@ plot(mpg~disp,col=factor(gear),data=mtcars,pch=19,
      main="Desplazamiento vs Consumo Gasolina")
 legend("topright",pch=19,col=1:3,legend = levels(factor(mtcars$gear)),
        title = "Número de Cambios")
-```
-
-```{r}
 plot(mpg~disp,data=mtcars,type="n",
      main="Desplazamiento vs Consumo Gasolina")
 text(mpg~disp,data=mtcars,labels=rownames(mtcars),cex=0.6,
@@ -124,6 +123,7 @@ text(mpg~disp,data=mtcars,labels=rownames(mtcars),cex=0.6,
 legend("topright",fill=1:3,legend = levels(factor(mtcars$gear)),
        title = "Número de Cambios",horiz = T)
 ```
+
 
 ```{r,echo=FALSE,fig.height=10}
 SetTextContrastColor <- function(color)
@@ -161,13 +161,18 @@ for (j in 0:(rowCount-1))
 
 ## Demostraciones
 
-Una buena colección de paquetes incluyen demostraciones de uso, con el comando `demo` se puede mostrar la lista de demostraciones del paquete `base`. Si se desea conocer todas as demostraciones disponibles en el CRAN el comando `demo(package = .packages(all.available = TRUE)` es muy útil.
+Una buena colección de paquetes incluyen demostraciones de uso, con el comando `demo` se puede mostrar la lista de demostraciones del paquete `base`. Si se desea conocer todas as demostraciones disponibles en el CRAN el siguiente comando es muy útil.
 
 ```{r,eval=FALSE}
 demo()
+demo(package = .packages(all.available = TRUE)
 ```
 
-De la lista anterior, interesa la demostración `graphics`, en la cual se explican varios conceptos del uso de gráficos del paquete `base`, para correr la demostración se ejecuta el comando `demo(graphics)`.
+De la lista anterior, interesa la demostración `graphics`, en la cual se explican varios conceptos del uso de gráficos del paquete `base`, para correr la demostración se ejecuta el comando
+
+```{r,eval=FALSE}
+demo(graphics)
+```
 
 ## Gráficos Estadísticos
 

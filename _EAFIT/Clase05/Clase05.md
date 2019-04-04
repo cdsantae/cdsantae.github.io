@@ -47,6 +47,7 @@ Todos los gráficos están compuestos de las siguientes partes:
 <img src="Clase05_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
 
 
+
 ```r
 args(plot.default)
 ```
@@ -107,6 +108,7 @@ plot(x,y,main = "Título gráfico", type="b", pch=19,lty=2,col="red")
 
 <img src="Clase05_files/figure-html/unnamed-chunk-5-7.png" style="display: block; margin: auto;" />
 
+
 <img src="Clase05_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /><img src="Clase05_files/figure-html/unnamed-chunk-6-2.png" style="display: block; margin: auto;" />
 
 Después de llamar un `plot` puedes incluir elementos adicionales al gráfico, como líneas (`lines`, `abline`), puntos (`points`) o texto (`text`). Cada instrucción ingresa una capa adicional al gráfico en el orden de entrada.
@@ -137,7 +139,6 @@ legend("topright",pch=19,col=1:3,legend = levels(factor(mtcars$gear)),
 
 <img src="Clase05_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" />
 
-
 ```r
 plot(mpg~disp,data=mtcars,type="n",
      main="Desplazamiento vs Consumo Gasolina")
@@ -147,20 +148,27 @@ legend("topright",fill=1:3,legend = levels(factor(mtcars$gear)),
        title = "Número de Cambios",horiz = T)
 ```
 
-<img src="Clase05_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+<img src="Clase05_files/figure-html/unnamed-chunk-8-2.png" style="display: block; margin: auto;" />
 
-<img src="Clase05_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
+
+<img src="Clase05_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
 
 ## Demostraciones
 
-Una buena colección de paquetes incluyen demostraciones de uso, con el comando `demo` se puede mostrar la lista de demostraciones del paquete `base`. Si se desea conocer todas as demostraciones disponibles en el CRAN el comando `demo(package = .packages(all.available = TRUE)` es muy útil.
+Una buena colección de paquetes incluyen demostraciones de uso, con el comando `demo` se puede mostrar la lista de demostraciones del paquete `base`. Si se desea conocer todas as demostraciones disponibles en el CRAN el siguiente comando es muy útil.
 
 
 ```r
 demo()
+demo(package = .packages(all.available = TRUE)
 ```
 
-De la lista anterior, interesa la demostración `graphics`, en la cual se explican varios conceptos del uso de gráficos del paquete `base`, para correr la demostración se ejecuta el comando `demo(graphics)`.
+De la lista anterior, interesa la demostración `graphics`, en la cual se explican varios conceptos del uso de gráficos del paquete `base`, para correr la demostración se ejecuta el comando
+
+
+```r
+demo(graphics)
+```
 
 ## Gráficos Estadísticos
 
