@@ -1,5 +1,5 @@
 ---
-title: "Gráficos en R - Base"
+title: "Ilustraciones en R"
 author: "Cristian Santa"
 date: "Abril de 2019"
 output:
@@ -12,7 +12,7 @@ output:
 
 
 
-## Introducción
+## Introducción a Gráficos con R
 
 El software `R` contiene una batería de gráficos en su paquete `base`, con el cual es posible realizar la mayoría de gráficos estadísticos conocidos. Existen muchos paquetes adicionales que contienen gráficos más complejos para soluciones específicas, sin embargo, con las funciones del `base` es posible realizar muchas personalizaciones.
 
