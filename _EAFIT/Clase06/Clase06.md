@@ -1,5 +1,5 @@
 ---
-title: "Gráficos Avanzados"
+title: "Esquemas Avanzados"
 author: "Cristian Santa"
 date: "4 de abril de 2019"
 output:
