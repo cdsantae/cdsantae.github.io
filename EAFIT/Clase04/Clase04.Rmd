@@ -1,0 +1,267 @@
+---
+title: "Funciones en R"
+author: "Cristian Santa"
+date: "Marzo de 2019"
+output:
+  rmdformats::readthedown:
+    df_print: paged
+    code_folding: show
+    highlight: tango
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.align = "center",
+                      message = FALSE,
+                      error = FALSE,
+                      warning = FALSE,
+                      cache = TRUE)
+```
+
+## Funciones
+
+Construir funciones es una las principales actividades para pasar de ser usuarios a programadores en el lenguaje `R`. Las funciones se utilizan a menudo para encapsular una secuencia de expresiones que deben ejecutarse varias veces, quizás en condiciones ligeramente diferentes. Las funciones también suelen escribirse cuando el código debe compartirse con otros o con el público.
+
+La escritura de una función permite a un desarrollador crear una interfaz para el código, que se especifica explícitamente con un conjunto de parámetros. Esta interfaz proporciona una abstracción del código a los usuarios potenciales. Esta abstracción simplifica la vida de los usuarios porque les libera de tener que saber cada detalle de cómo funciona el código. Además, la creación de una interfaz permite al desarrollador comunicar al usuario los aspectos del código que son importantes o más relevantes.
+
+```{r, eval=FALSE}
+NombreFuncion <- function(<argumentos>){
+  Cálculos con los argumentos de la función.
+  Series de instrucciones en R.
+  Desarrollo del cuerpo de la función.
+}
+```
+
+### Elementos de una función.
+
+Todas las funciones en `R` tienen las siguientes partes:
+
+* **El Cuerpo:** Es el código propio de la función `body()`.
+* **Parámetros Formales:** Lista de argumentos de la función `formals()`, `formalsArgs()` o `args()`.
+* **Entorno:** Mapa donde se localizan las variables de la función `environment()`.
+
+```{r, eval=FALSE}
+FuncionEjemplo <- function(){
+  # Esta función no hace nada, pero no es un error
+}
+FuncionEjemplo
+```
+
+
+```{r}
+CuadradoNumero <- function(n){
+  n*n #Halle el cuadrado del número
+}
+CuadradoNumero(8)
+formals(CuadradoNumero)
+body(CuadradoNumero)
+environment(CuadradoNumero)
+
+a <- 20
+m <- CuadradoNumero(a)
+m
+```
+
+### Entrega de resultados
+
+La instrucción `return()` finaliza la función, y se recomienda usar al final de la función.
+
+```{r}
+promedio <- function(x){
+  n <- length(x)
+  suma <- sum(x)
+  pro <- suma/n
+  return(pro)
+}
+
+set.seed(2019)
+(y <- sample(x = 10,size = 8))
+promedio(y)
+
+# Entrega incorrecta de resultados
+funMala <- function(a,b){
+  w <- a/b
+  x <- a+b
+  y <- a^b
+  z <- b*a
+}
+r1 <- funMala(5,7)
+r1
+
+# Entrega correcta de resultados
+funBuena <- function(a,b){
+  w <- a/b
+  x <- a+b
+  y <- a^b
+  z <- b*a
+  return(c(w,x,y,z))
+}
+r2 <- funBuena(5,7)
+r2
+```
+
+Si se quiere entregar resultados más complejos se recomienda devolverlo en forma de lista con la función `list()`.
+
+```{r}
+MiFuncion1 <- function(x,y){
+  z <- sqrt((x-0)^2+(y-0)^2)
+  coord <- expand.grid(punto=c(x,y),origen=c(0,0))
+  list(z,coord)
+}
+MiFuncion1(14.2,-5.8)
+MiFuncion1(14.2,-5.8)[[1]]
+MiFuncion1(14.2,-5.8)[[2]]
+MiFuncion1(14.2,-5.8)$coord
+
+MiFuncion2 <- function(x,y){
+  z <- sqrt((x-0)^2+(y-0)^2)
+  coord <- expand.grid(punto=c(x,y),origen=c(0,0))
+  list(distancia=z,coordenadas=coord)
+}
+MiFuncion2(14.2,-5.8)
+MiFuncion2(14.2,-5.8)$distancia
+MiFuncion2(14.2,-5.8)$coordenadas
+```
+
+### Tipos de argumentos
+
+Las funciones pueden recibir cualquier clase de atómico y sus construciones particulares, ya sean vectores, matrices, listas o dataframes, siempre y cuando el cuerpo de la función y los cálculos con los argumentos lo permitan.
+
+```{r}
+x <- c(5, -8, 7, 10, 9)
+y <- c(0.2, 7, 6.5, -9, 8)
+MiFuncion2(x,y)
+
+set.seed(2019)
+(x <- matrix(sample(20,9),3,3))
+(y <- matrix(runif(9,-5,5),3,3))
+MiFuncion2(x,y)
+```
+
+### El argumento `...`
+
+El argumento `...` indica un número variable de argumentos, que usualmente se pasan a otras funciones. `...` se usa para extender otra función y no se quiere copiar la lista completa de los argumentos de la función.
+
+```{r}
+mean
+
+DesvMedicion <- function(x,...){
+  m <- mean(x,...)
+  d <- sd(x,...)
+  res <- c(m-d,m,m+d)
+  return(res)
+}
+
+set.seed(2019)
+(a <- rnorm(10,mean = 5,sd = 2))
+DesvMedicion(a)
+
+b <- c(8,7.5,NA,5.4,9.2,8)
+DesvMedicion(b)
+DesvMedicion(b,na.rm=TRUE)
+
+```
+
+### Devolución de valores de tipo `function`
+
+```{r}
+potencia <- function(e){
+  function(x){
+    x^e
+  }
+}
+potencia(2)
+potencia(2)(3)
+cuadrado <- potencia(2)
+args(cuadrado)
+cuadrado(5)
+cubo <- potencia(3)
+cubo(2)
+cubo(8)
+raiz <- potencia(0.5)
+raiz(16)
+inverso <- potencia(-1)
+inverso(2)
+inverso(10)
+inverso(8)
+```
+
+## Recomedaciones
+
+* Realice los ejercicios de algoritmos. (Adquira un pensamiento algorítmico).
+* Comente su código.
+* RTFM!. (LEMM o LEPM)
+* Piense antes de escribir. (Piense primero en el que y luego en el como).
+* Diseñe en forma “top-down”, codifique en forma “bottom up”.
+* Divida el problema en pequeñas funciones significativas.
+* Evite escribir la misma rutina dos veces.
+* Use nombres relevantes.
+* Realice una prueba de escritorio o seguimiento. (función por función en forma “bottom up”)
+* No se rinda, ¡¡quéjese!! (ayuda a listas, compañeros, etc).
+* Evite iteracciones (R es vectorizado)
+
+## Uso de librerías
+
+Todas las funciones y conjuntos de datos de `R` están alojados en librerías o paquetes, solamente cuando los paquetes son cargados sus contenidos estarán disponibles.
+
+Para ver cuáles paquetes están instalados en su computador, use este comando.
+
+```{r,eval=FALSE}
+library()
+```
+
+Si quiere cargar un paquete, por ejemplo `psych`, use este comando.
+
+```{r, eval=FALSE}
+library(psych)
+require(psych)
+```
+
+Si aparece un error, significa que no tienes instalado o correctamente instalado el paquete que deseas usar. Para conectarse a internet e instalar o actualizar un paquete, usa estos comandos.
+
+```{r, eval=FALSE}
+# Instalar un paquete
+install.packages("psych",dependencies = TRUE)
+
+# Actualizar un paquete
+update.packages("psych")
+```
+
+Para ver cuales paquetes están cargados actualmente, puedes ver en la pestaña **Packages** de RStudio o utilizar los siguientes comandos.
+
+```{r,eval=FALSE}
+search()
+sessionInfo()
+sessioninfo::package_info()
+```
+
+Para utilizar paquetes dentro de las funciones se recomienda cargarlos con el comando `require`, ya que permite que el código se ejecute así no exista el paquete; utilizar el comando `library` dentro de una función puede parar la ejecución sino existe el paquete.
+
+En algunas ocasiones no es necesario cargar el paqute para utilizar una función determinada, con el operador `::` se puede acceder al paquete y extraer la función deseada.
+
+```{r}
+summary(mtcars) # Resumen estadístico básico
+psych::describe(mtcars) # Resumen estadístico detallado
+psych::describeBy(iris,iris$Species) # Resumen estadístico detallado por factor
+```
+
+## Ejercicios
+* Lea dos números enteros y muestre su producto.
+* Lea dos números y muestre su producto.
+* Lea el radio de un círculo y muestre su área.
+* Lea el nombre de una persona y responda con un saludo.
+* Lea un número real y muestre su valor absoluto, sin utilizar estructuras y sin funciones predeterminadas.
+* Lea las tres coordenadas de los vértices de un tríangulo y que muestre el área del mismo utilizando la [fórmula de Herón](https://es.wikipedia.org/wiki/Fórmula_de_Herón). Incluya una función que halle la distancia entre dos puntos dados los vértices.
+* Lea un número entero y que muestre un cero (0) si el número es par y un uno (1) sin el número es impar, (Sin utilizar ni la estructura de decisión o la de repetición).
+* Lea un número entero de tres cifras y muestre el mísmo número pero con los dígitos invertidos (sin utilizar el tipo sarta).
+* Lea una matriz y muestre su transpuesta, si utilizar funciones predeterminadas.
+* Construya una algoritmo que halle la aproximación a la raíz de un número de la siguiente manera: Lea un número al cual se le hallará la raíz, y luego lea un número cualquiera como primera aproximación a la raíz del número (se supone ser positivo mayor de cero). Halle la división del número inicial entre el número aproximado. Luego halle el promedio entre el número aproximado y el número obtenido de la división anterior. Este promedio es de nuevo un valor aproximado a la raíz. Continuar el proceso hasta que la aproximación sea correcta en el orden de las millonésimas y reporte el número de iteraciones. (No utilizar el operador exponente `^` ni la función `sqrt()`).
+* Dado las dimensiones de una matriz (n filas, m columnas), mostrar los índices de la matriz en forma de zig-zag (vertical), comenzando por la posición `[1][1]`.
+* Construya una función que ingrese una posición y muestre su representación en la [sucesión de Fibonacci](https://es.wikipedia.org/wiki/Sucesión_de_Fibonacci).
+* Dado un número encuentre su factorial.
+* Dado un número encuentre los números primos hasta ese número, puede apoyarse en la [Criba de Eratóstenes](https://es.wikipedia.org/wiki/Criba_de_Eratóstenes).
+
+<div align="center"><b><a href="./Soluciones.html">Soluciones</a></b></div>
+
+## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
