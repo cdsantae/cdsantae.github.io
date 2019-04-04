@@ -244,5 +244,4 @@ pairs(iris)
 pairs(iris,col=iris$Species,pch=19)
 ```
 
-
 ## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>

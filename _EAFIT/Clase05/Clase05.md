@@ -379,5 +379,4 @@ pairs(iris,col=iris$Species,pch=19)
 
 <img src="Clase05_files/figure-html/unnamed-chunk-18-2.png" style="display: block; margin: auto;" />
 
-
 ## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
