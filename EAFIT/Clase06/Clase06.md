@@ -1,7 +1,7 @@
 ---
 title: "Esquemas Avanzados"
 author: "Cristian Santa"
-date: "4 de abril de 2019"
+date: "Abril de 2019"
 output:
   rmdformats::readthedown:
     df_print: paged
