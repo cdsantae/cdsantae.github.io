@@ -1,0 +1,421 @@
+---
+title: "Expresiones Regulares"
+author: "Cristian Santa"
+date: "Abril de 2019"
+output:
+  rmdformats::readthedown:
+    df_print: paged
+    code_folding: show
+    highlight: tango
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.align = "center",
+                      message = FALSE,
+                      error = FALSE,
+                      warning = FALSE,
+                      cache = TRUE)
+```
+
+## Introducción
+
+Una expresión regular es un mecanismo que permite seleccionar una cadena de caracteres de otra cadena a través de un patrón específico.
+
+```{r}
+texto <- c("Filosofía", "Antropología", "Matemáticas", "Biología")
+regexpr("gía",texto)
+```
+
+El ejemplo anterior busca la sarta `gía` en el vector de sartas `texto`. Ingresa en cada posición del vector y busca si la sarta `gía` es un patrón identificable en cada una de las cadenas de caracteres, si encuentra el patrón entonces indica en cuál posición comienza el patrón:
+
+`1[A] 2[n] 3[t] 4[r] 5[o] 6[p] 7[o] 8[l] 9[o] 10[g] 11[í] 12[a]`
+`1[B] 2[i] 3[o] 4[l] 5[o] 6[g] 7[í] 7[a]`
+
+## Metacaracteres
+
+Son caracteres no alfabéticos que poseen un significado especial en las expresiones regulares.
+
+### Cuantificadores
+
+* `?`: El caracter que precede puede aparecer como mucho una vez.
+* `+`: El carácter que le precede debe aparecer al menos una vez.
+* `*`: El carácter que le precede puede aparecer cero, una, o más veces.
+* `{}`. Las llaves juegan el papel de meta caracteres, para que cumplan su funcionalidad deben estar despues de la expresión regular y encierren uno o varios números.
+    - `{n}`: Indica que coincide n veces.
+    - `{n,}`: Indica que coincide mas n veces.
+    - `{,n}`: Indica que coincide hasta n veces.
+    - `{n,m}`: Indica que coincide mas n veces y menos de m veces.
+
+### Alternación
+
+* `$`: El signo de dolar representa el final de la cadena de caracteres o el final de la línea.
+* `^`: El acento representa el inicio de la cadena.
+
+### Agrupación
+
+* `()`: Los parentesis son usados para la aplicación de operadores sobre mas de un caracter.
+* `[]`: Los corchetes agrupan caracteres en grupos o clases. Son útiles cuando es necesario buscar uno de un grupo de caracteres.
+    * `[a-z]`: Especifica un rango de caracteres.
+    * `[^.... ]`: Lista de caracteres excluidos
+* `|` Una barra vertical separa las alternativas. Realiza el papel de o.
+* `.` El punto busca cualquier carácter sin incluir los saltos de línea.
+
+### Backslash
+
+* `\a`: Representa una “campana” o “beep” que se produce al imprimir este carácter.
+* `\e`: Representa la tecla “Esc” o “Escape”
+* `\x`: Se utiliza para representar caracteres [ASCII](https://es.wikipedia.org/wiki/ASCII) o [ANSI](https://es.wikipedia.org/wiki/ANSI.SYS) si conoce su código. De esta forma, si se busca el símbolo de derechos de autor y la fuente en la que se busca utiliza el conjunto de caracteres Latin-1 es posible encontrarlo utilizando `9`.
+* `\d`: Representa un dígito del 0 al 9.
+* `\w`: Representa cualquier carácter alfanumérico.
+* `\s`: Representa un espacio en blanco.
+* `\D`: Representa cualquier carácter que no sea un dígito del 0 al 9.
+* `\W`: Representa cualquier carácter no alfanumérico.
+* `\S`: Representa cualquier carácter que no sea un espacio en blanco.
+* `\A`: Representa el inicio de la cadena. No un carácter sino una posición.
+* `\Z`: Representa el final de la cadena. No un carácter sino una posición.
+* `\b`: Marca la posición de una palabra limitada por espacios en blanco, puntuación o el inicio/final de una cadena.
+* `\B`: Marca la posición entre dos caracteres alfanuméricos o dos no-alfanuméricos.
+
+### Negación
+
+* `!`: El signo de admiración representa una busqueda negativa, en otras palabras que no incluya la palabra que especificamos.
+
+### Metacaracteres especiales o de control
+
+* `\t`: Representa un tabulador.
+* `\r`: Representa el “retorno de carro” o “regreso al inicio” o sea el lugar en que la línea vuelve a iniciar.
+* `\n`: Representa la “nueva línea” el carácter por medio del cual una línea da inicio.
+* `\f`: Representa un salto de página
+* `\v`: Representa un tabulador vertical
+* `\e`: Representa un *escape*.
+
+### Búsqueda y condicionales
+
+* `(?=)`: Búsqueda hacia adelante.
+* `(?!)`: Búsqueda hacia adelante negativa, la posición no sigue un patrón.
+* `(?<=)`: Búsqeda hacia atrás.
+* `(?<!)`: Búsqueda hacia atrás negativa, la posición no sigue un patrón.
+* `?( ) `: Condicional, busca lo que está entre paréntesis, si es verdadero entrega lo que esta por fuera.
+* `?( ) | `: Condicional, busca lo que está entre paréntesis, si es verdadero entrega lo que esta por fuera, sino entrega lo que sigue de `|`.
+
+### Clases de caracteres
+
+* `[aeiou]`:	Coincide las vocales minúsculas.
+* `[AEIOU]`:	Coincide las vocales mayúsculas.
+* `[0123456789]`:	Coincide cualquier número.
+* `[0-9]`:	Coincide cualquier número.
+* `[a-z]`:	Coincide cualquier letra minúscula.
+* `[A-Z]`:	Coincide cualquier letra mayúscula.
+* `[a-zA-Z0-9]`:	Coincide cualquier alfanúmerico.
+* `[^aeiou]`:	Coincide todo excepto las letras definidas.
+* `[^0-9]`:	Coincide todo excepto los números.
+
+### Clases de caracteres tipo [`POSIX`](https://es.wikipedia.org/wiki/POSIX)
+
+* `[[:lower:]]`: Coincide letras minúsculas.
+* `[[:upper:]]`: Coincide letras mayúsculas.
+* `[[:alpha:]]`: Coincide letras.
+* `[[:digit:]]`: Coincide números.
+* `[[:space:]]`: Coincide caracteres de espacio.
+* `[[:blank:]]`: Coincide caracteres de espacio, excepto los de línea nueva.
+* `[[:alnum:]]`: Coincide caracteres alfanuméricos.
+* `[[:cntrl:]]`: Coincide caracteres de control. Estos no son visibles como `\t`, `\n`, `\e`, `\f`, etc.
+* `[[:punct:]]`: Coincide caracteres de puntuación.
+* `[[:xdigit:]]`:	Coincide caracteres de digitos Hexadecimales `(0 - 9 A - E)`
+* `[[:print:]]`: Coincide caracteres imprimible (`[[:alpha:]]`, `[[:punct:]]` y espacios).
+* `[[:graph:]]`: Coincide caracteres gráficos (`[[:alpha:]]` y `[[:punct:]]`)
+* `[[:word:]]`: Coincide dígitos, letras y guiones bajos.
+
+## Funciones para Expresiones Regulares
+
+```{r}
+a <- c("Murciélago","Un pájaro en la ventana","Su ID: adf7149q#csl&232")
+```
+
+`grep()`: Muestra la posición del vector que contiene el patrón, con el argumento `value` se puede extraer el texto.
+
+```{r}
+grep("(a|2)",a)
+grep("(a|2)",a,value = T)
+grep("[[:digit:]]",a,value = T)
+```
+
+`grepl()`: Muestra un `TRUE/FALSE` en la posición del vector que contiene el patrón.
+
+```{r}
+grepl("(a|2)",a)
+grepl("[[:digit:]]",a)
+```
+
+`regexpr()`: Busca el patrón en el vector de caracteres y extrae el índice y la longitud del emparejamiento.
+
+```{r}
+regexpr("(a|2)",a)
+regexpr("[[:space:]]",a)
+regexpr("[[:digit:]]",a)
+```
+
+`gregexpr()`: Busca el patrón en el vector de caracteres y extrae los índices y las longitudes del emparejamiento por cada cada cadena y lo guarda en una lista.
+
+```{r}
+gregexpr("[l|j]a[g|r]o",a)
+gregexpr("[[:space:]]",a)
+gregexpr("[[:digit:]]",a)
+```
+
+`substr()`: Dada una sarta extrae un fragmento del texto entre `start` y `stop`.
+
+```{r}
+substr(a,3,10)
+substr(a,10,20)
+substr(a,3:5,6:10)
+```
+
+`regmatches()`: Es similar a `substr` pero recibe las salidas de `regexpr` para extraer el fragmento del texto.
+
+```{r}
+regmatches(a,regexpr("[[:digit:]]",a))
+regmatches(a,regexpr("[l|j]a[g|r]o",a))
+regmatches(a,gregexpr("[l|j]a[g|r]o",a))
+```
+
+`regexec()`: Es similar a `regexpr` pero se puede implementar con metacaracteres.
+
+```{r}
+regexec("[[:punct:]] | [[:alpha:]]",a)
+regexec("[a-z]{1,5}",a)
+```
+
+`sub()`: Busca el patrón en la sarta y reemplaza el primer emparejamiento por un valor definido.
+
+```{r}
+sub("[a-z]{1,5}","---",a)
+sub("[[:alnum:]]","---",a)
+sub("(é|á|+[[:punct:]])","=",a)
+```
+
+`gsub()`: Busca el patrón en la sarta y reemplaza todos los valores del emparejamiento por un valor definido.
+
+```{r}
+gsub("[a-z]{1,5}","---",a)
+gsub("[[:alnum:]]","_",a)
+gsub("(é|á|[[:punct:]]|[[:upper:]])","=",a)
+```
+
+`nchar()`:	Cuenta el número de caracteres en una sarta o vector de sartas.
+
+```{r}
+nchar(a)
+nchar("    ")
+```
+
+`tolower()`: Convierte todas las sartas o caracteres a minúsculas.
+
+```{r}
+tolower(a)
+tolower("NADA ME OBLIGA")
+```
+
+`toupper()`: Convierte todas las sartas o caracteres a mayúsculas.
+
+```{r}
+toupper(a)
+toupper("voy para arriba")
+```
+
+`chartr()`: Busca el patrón en una sarta y lo reemplaza por una cadena de caracteres definido.
+
+```{r}
+chartr("iéla","Hola",a)
+```
+
+`setdiff()`: Determina la diferencia entre dos vectores.
+
+```{r}
+setdiff(a,c("Mucrielago","Un pájaro en la ventana","ID: adf7149q$csl&232"))
+```
+
+`setequal()`: Compureba si dos vectores contiene las mismas cadenas de caracteres.
+
+```{r}
+setequal(a,c("Mucrielago","Un pájaro en la ventana","ID: adf7149q$csl&232"))
+setequal(a,c("Murciélago","Un pájaro en la ventana","Su ID: adf7149q#csl&232"))
+```
+
+`abbreviate()`: Abrevia las sartas a un número definido de caracteres.
+
+```{r}
+abbreviate(a,2)
+abbreviate(a,6)
+abbreviate(a)
+```
+
+`strsplit()`: Divide las sartas basado en el patrón de busqueda y la transforma en un vector.
+
+```{r}
+strsplit(a,"l")
+strsplit(a,"[[:punct:]]")
+strsplit(a,"(é|á|[[:blank:]])")
+```
+
+### Paquete `stringr`
+
+Este paquete hace parte del universo `tidyverse` y sirve para trabajar análisis de texto.
+
+```{r,eval=FALSE}
+install.packages("stringr",dependencies = T)
+```
+
+```{r}
+library(stringr)
+```
+
+`str_detect(cadena, patrón)`: Detecta la presencia de un patrón o la coincidencia en una cadena.
+
+```{r}
+str_detect(a,"(élag|ája)")
+str_detect(a,"[[:digit:]]")
+```
+
+`str_which(cadena, patrón)`: Encuentra los índices de las cadenas que contienen un patrón coincidente.
+
+```{r}
+str_which(a,"(élag|ája)")
+str_which(a,"[[:blank:]]")
+```
+
+`str_count(cadena, patrón)`: Cuenta el número de coincidencias en una cadena.
+
+```{r}
+str_count(a,"[[:lower:]]")
+str_count(a,"[[:blank:]]")
+```
+
+`str_locate(cadena, patrón)`: Localiza las posiciones del patrón que coincide en la cadena. También `str_locate_all`.
+
+```{r}
+str_locate(a,"la")
+str_locate_all(a,"la")
+str_locate_all(a,"[[:punct:]]")
+str_locate(a,"[[:digit:]]")
+str_locate_all(a,"[[:digit:]]")
+```
+
+`str_sub(cadena, start = 1L, end = -1L)`: Extrae subcadenas de un vector de caracteres.
+
+```{r}
+str_sub(a,3,7)
+```
+
+`str_subset(cadena, patrón)`: Devuelve solo las cadenas que contienen un patrón coincidente.
+
+```{r}
+str_subset(a,"la")
+str_subset(a,"[[:blank:]]")
+```
+
+`str_extract(cadena, patrón)`: Devuelve el primer patrón encontrado que coincide en cada cadena, como un vector. También `str_extract_all` para devolver cada patrón coincidente.
+
+```{r}
+str_extract(a,"la")
+str_extract(a,"[[:blank:]]")
+str_extract(a,"[[:punct:]]")
+str_extract_all(a,"[[:punct:]]")
+str_extract_all(a,"[[:graph:]]")
+```
+
+`str_match(cadena, patrón)`: Devuelve el primer patrón encontrado que coincide en cada cadena, como una matriz, con una columna para cada un metacaracter entre `( )` agrupado por patrón. También `str_match_all`.
+
+```{r}
+str_match(a,"[[:alnum:]]")
+str_match_all(a,"[[:space:]]")
+```
+
+* `str_length(cadena)`: Los anchos de las cadenas (i.e. número de puntos de código, suele ser igual al número de caracteres).
+* `str_pad()`: Extiende cadenas a un ancho constante.
+* `str_trunc()`: Trunca el ancho de una cadena, eliminando el contenido sobrante.
+* `str_trim()`: Elimina los espacios en blanco desde el comienzo y/o el final de una cadena.
+* `str_sub() <- valor`: Reemplaza subcadenas identificadas con str_sub() y se asignan al resultado.
+* `str_replace(cadena, patrón, reemplazo)`: Reemplaza el primer patrón coincidente en cada cadena.
+* `str_replace_all(cadena, patrón, reemplazo)`: Remplaza todos los patrones coincidentes en cada cadena.
+* `str_to_lower(cadena)` Convierte cadenas a minúscula.
+* `str_to_upper(cadena)`: Convierte cadenas a mayúsculas.
+* `str_to_title(cadena)`: Convierte cadenas a título.
+
+`str_c(..., sep = "", collapse = NULL)`: Une múltiples cadenas en una.
+
+```{r}
+str_c("Hola",a,sep = " ")
+```
+
+`str_c(..., sep = "", collapse = "")`: Colapsa un vector de cadenas en una sola cadena.
+
+```{r}
+str_c(a,collapse = " - ")
+```
+
+* `str_dup(cadena, veces)`: Repite cadenas varias veces.
+* `str_split_fixed(cadena, patrón, n)`: Divide un vector de cadenas en una matriz de subcadenas (dividiendo en las ocurrencias del patrón de coincidencia). También `str_split` para devolver una lista de subcadenas.
+* `str_order()`: Devuelve el vector de índices que ordena un vector de caracteres. `x[str_order(x)]`.
+* `str_sort()`: Ordena un vector de caracteres.
+* `str_conv(cadena, encoding)`: Sobre escribe el tipo de codificación de una cadena.
+* `str_view(cadena, patrón, match = NA)`: Vista en HTML de la primera coincidencia de expresión regular en cada cadena.
+* `str_view_all(cadena, patrón, match = NA)`: Vista en HTML de todas las coincidencias de la expresión regular.
+* `str_wrap()`: Envuelve cadenas en párrafos de forma atractiva.
+
+## Web Scrapping
+
+Esta metodología sirve para buscar patrones en internet y construir bases de datos estructuradas con el fin de realizar análisis estadísticos posteriores. El primer paso es identificar los patrones en las direcciones de las páginas web, luego identificar los nodos con la información de interés y finalmente extraer la información con Expresiones Regulares
+
+Este es un ejemplo básico.
+
+```{r}
+# install.packages("rvest",dependencies = T)
+library(rvest)
+
+curriculos <- ""
+for (dip in seq(1,10,by=1)){
+  url = paste0("http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado?idDiputado=",dip,"&idLegislatura=12")
+  
+  congreso <- read_html(url)
+  curric <- congreso %>%
+    html_node("#curriculum") %>%
+    html_text %>%
+    strsplit(split = "\n") %>%
+    unlist() %>%
+    .[. != ""]
+  #Pequeña limpieza de texto
+  curric <- trimws(curric)
+  #Elimina las líneas sin contenido
+  curric <- curric[which(curric!="")]
+  #Nos quedamos justo con la linea que hay debajo de la palabra legislaturas
+  linea <- curric[grep("legislatura", curric)+1]
+  curriculos <- rbind(curriculos,linea)
+}
+
+curriculos <- data.frame(curriculos[-1])
+palabras <- strsplit(as.matrix(curriculos)," ")
+palabras <- as.character(unlist(palabras))
+palabras <- data.frame(palabras)
+names(palabras) = c("V1")
+palabras$V1 <- sub("([[:space:]])","",palabras$V1)
+palabras$V1 <- sub("([[:digit:]])","",palabras$V1)
+palabras$V1 <- sub("([[:punct:]])","",palabras$V1)
+palabras$largo <- nchar(palabras$V1)
+palabras
+palabras <- subset(palabras, largo>4)
+palabras
+
+library(plyr)
+(conteo <- data.frame(ddply(palabras, "V1",summarise, cuenta=length(V1) )))
+(conteo[order(-conteo$cuenta),])
+
+```
+
+
+## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
+
+
+
