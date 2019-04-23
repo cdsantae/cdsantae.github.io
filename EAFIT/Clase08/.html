@@ -1,0 +1,1609 @@
+---
+title: "Manejo de Bases de Datos"
+author: "Cristian Santa"
+date: "Abril de 2019"
+output:
+  rmdformats::readthedown:
+    df_print: paged
+    code_folding: show
+    highlight: tango
+    keep_md: yes
+---
+
+
+
+## Marco de datos
+
+Para trabajar con bases de datos en `R` se pueden construir o cargar al software. En cualquier caso, la idea es tener un objeto `data.frame` que el tipo que identifica las bases de datos.
+
+### Construcción
+
+Para construir una base de datos, se debe definir las variables que representan las columnas, y el contenido de cada variable son la representación en cada fila, es importante que todas las variables tengan el mismo tamaño para construir una base de datos consistente. 
+
+
+```r
+years <- 1980:2019
+nombre <- sample(c("Luisa","Andrés","Camilo","Natalia"),
+                 size = 40,replace = T)
+peso <- round(rnorm(40,60,5),2)
+estatura <- ifelse(nombre=="Luisa",1.56,
+                   ifelse(nombre=="Andrés",1.78,
+                          ifelse(nombre=="Camilo",1.70,1.68)))
+imc <- round(peso/estatura^2,2)
+```
+
+Cada variable está asignada de manera independiente, aún no es una base de datos. Para que cumpla con la condición de base de datos es necesario que cada fila de cada variable represente una medición, es decir, si la primera posición del `nombre` es `Camilo` entonces las primera posición de las variables `year`, `peso`, `estatura` y `imc` deben corresponder a `Camilo`.
+
+Para construir la base de datos, se usa el comando `data.frame`.
+
+
+```r
+args(data.frame)
+```
+
+```
+## function (..., row.names = NULL, check.rows = FALSE, check.names = TRUE, 
+##     fix.empty.names = TRUE, stringsAsFactors = default.stringsAsFactors()) 
+## NULL
+```
+
+```r
+(datos <- data.frame(years, nombre, peso, estatura, imc))
+```
+
+```
+##    years  nombre  peso estatura   imc
+## 1   1980   Luisa 66.71     1.56 27.41
+## 2   1981 Natalia 63.92     1.68 22.65
+## 3   1982   Luisa 55.16     1.56 22.67
+## 4   1983   Luisa 62.67     1.56 25.75
+## 5   1984 Andrés 59.00     1.78 18.62
+## 6   1985 Natalia 50.67     1.68 17.95
+## 7   1986 Andrés 64.91     1.78 20.49
+## 8   1987 Natalia 62.06     1.68 21.99
+## 9   1988 Andrés 60.59     1.78 19.12
+## 10  1989  Camilo 74.69     1.70 25.84
+## 11  1990 Andrés 60.22     1.78 19.01
+## 12  1991   Luisa 59.18     1.56 24.32
+## 13  1992 Natalia 52.82     1.68 18.71
+## 14  1993 Andrés 51.78     1.78 16.34
+## 15  1994 Andrés 51.47     1.78 16.24
+## 16  1995 Andrés 52.71     1.78 16.64
+## 17  1996  Camilo 65.67     1.70 22.72
+## 18  1997 Natalia 53.74     1.68 19.04
+## 19  1998   Luisa 54.46     1.56 22.38
+## 20  1999   Luisa 57.93     1.56 23.80
+## 21  2000  Camilo 52.92     1.70 18.31
+## 22  2001 Andrés 56.60     1.78 17.86
+## 23  2002 Andrés 55.67     1.78 17.57
+## 24  2003   Luisa 62.59     1.56 25.72
+## 25  2004 Andrés 60.08     1.78 18.96
+## 26  2005 Natalia 59.71     1.68 21.16
+## 27  2006 Natalia 56.23     1.68 19.92
+## 28  2007 Natalia 60.94     1.68 21.59
+## 29  2008  Camilo 56.17     1.70 19.44
+## 30  2009   Luisa 59.18     1.56 24.32
+## 31  2010  Camilo 55.25     1.70 19.12
+## 32  2011  Camilo 62.72     1.70 21.70
+## 33  2012 Natalia 56.48     1.68 20.01
+## 34  2013   Luisa 57.84     1.56 23.77
+## 35  2014 Andrés 62.26     1.78 19.65
+## 36  2015  Camilo 60.60     1.70 20.97
+## 37  2016  Camilo 57.59     1.70 19.93
+## 38  2017 Natalia 56.04     1.68 19.86
+## 39  2018  Camilo 53.03     1.70 18.35
+## 40  2019  Camilo 64.95     1.70 22.47
+```
+
+```r
+str(datos)
+```
+
+```
+## 'data.frame':	40 obs. of  5 variables:
+##  $ years   : int  1980 1981 1982 1983 1984 1985 1986 1987 1988 1989 ...
+##  $ nombre  : Factor w/ 4 levels "Andrés","Camilo",..: 3 4 3 3 1 4 1 4 1 2 ...
+##  $ peso    : num  66.7 63.9 55.2 62.7 59 ...
+##  $ estatura: num  1.56 1.68 1.56 1.56 1.78 1.68 1.78 1.68 1.78 1.7 ...
+##  $ imc     : num  27.4 22.6 22.7 25.8 18.6 ...
+```
+
+Con la base de datos creada se puede manipular más fácil, para ingresar a las filas y columnas se trabaja similar a las matrices.
+
+
+```r
+datos[,1]
+```
+
+```
+##  [1] 1980 1981 1982 1983 1984 1985 1986 1987 1988 1989 1990 1991 1992 1993
+## [15] 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007
+## [29] 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019
+```
+
+```r
+datos[,"nombre"]
+```
+
+```
+##  [1] Luisa   Natalia Luisa   Luisa   Andrés Natalia Andrés Natalia
+##  [9] Andrés Camilo  Andrés Luisa   Natalia Andrés Andrés Andrés
+## [17] Camilo  Natalia Luisa   Luisa   Camilo  Andrés Andrés Luisa  
+## [25] Andrés Natalia Natalia Natalia Camilo  Luisa   Camilo  Camilo 
+## [33] Natalia Luisa   Andrés Camilo  Camilo  Natalia Camilo  Camilo 
+## Levels: Andrés Camilo Luisa Natalia
+```
+
+```r
+datos[8:24,]
+```
+
+```
+##    years  nombre  peso estatura   imc
+## 8   1987 Natalia 62.06     1.68 21.99
+## 9   1988 Andrés 60.59     1.78 19.12
+## 10  1989  Camilo 74.69     1.70 25.84
+## 11  1990 Andrés 60.22     1.78 19.01
+## 12  1991   Luisa 59.18     1.56 24.32
+## 13  1992 Natalia 52.82     1.68 18.71
+## 14  1993 Andrés 51.78     1.78 16.34
+## 15  1994 Andrés 51.47     1.78 16.24
+## 16  1995 Andrés 52.71     1.78 16.64
+## 17  1996  Camilo 65.67     1.70 22.72
+## 18  1997 Natalia 53.74     1.68 19.04
+## 19  1998   Luisa 54.46     1.56 22.38
+## 20  1999   Luisa 57.93     1.56 23.80
+## 21  2000  Camilo 52.92     1.70 18.31
+## 22  2001 Andrés 56.60     1.78 17.86
+## 23  2002 Andrés 55.67     1.78 17.57
+## 24  2003   Luisa 62.59     1.56 25.72
+```
+
+```r
+datos[,c(1,3,5)]
+```
+
+```
+##    years  peso   imc
+## 1   1980 66.71 27.41
+## 2   1981 63.92 22.65
+## 3   1982 55.16 22.67
+## 4   1983 62.67 25.75
+## 5   1984 59.00 18.62
+## 6   1985 50.67 17.95
+## 7   1986 64.91 20.49
+## 8   1987 62.06 21.99
+## 9   1988 60.59 19.12
+## 10  1989 74.69 25.84
+## 11  1990 60.22 19.01
+## 12  1991 59.18 24.32
+## 13  1992 52.82 18.71
+## 14  1993 51.78 16.34
+## 15  1994 51.47 16.24
+## 16  1995 52.71 16.64
+## 17  1996 65.67 22.72
+## 18  1997 53.74 19.04
+## 19  1998 54.46 22.38
+## 20  1999 57.93 23.80
+## 21  2000 52.92 18.31
+## 22  2001 56.60 17.86
+## 23  2002 55.67 17.57
+## 24  2003 62.59 25.72
+## 25  2004 60.08 18.96
+## 26  2005 59.71 21.16
+## 27  2006 56.23 19.92
+## 28  2007 60.94 21.59
+## 29  2008 56.17 19.44
+## 30  2009 59.18 24.32
+## 31  2010 55.25 19.12
+## 32  2011 62.72 21.70
+## 33  2012 56.48 20.01
+## 34  2013 57.84 23.77
+## 35  2014 62.26 19.65
+## 36  2015 60.60 20.97
+## 37  2016 57.59 19.93
+## 38  2017 56.04 19.86
+## 39  2018 53.03 18.35
+## 40  2019 64.95 22.47
+```
+
+```r
+datos[,c("years","imc")]
+```
+
+```
+##    years   imc
+## 1   1980 27.41
+## 2   1981 22.65
+## 3   1982 22.67
+## 4   1983 25.75
+## 5   1984 18.62
+## 6   1985 17.95
+## 7   1986 20.49
+## 8   1987 21.99
+## 9   1988 19.12
+## 10  1989 25.84
+## 11  1990 19.01
+## 12  1991 24.32
+## 13  1992 18.71
+## 14  1993 16.34
+## 15  1994 16.24
+## 16  1995 16.64
+## 17  1996 22.72
+## 18  1997 19.04
+## 19  1998 22.38
+## 20  1999 23.80
+## 21  2000 18.31
+## 22  2001 17.86
+## 23  2002 17.57
+## 24  2003 25.72
+## 25  2004 18.96
+## 26  2005 21.16
+## 27  2006 19.92
+## 28  2007 21.59
+## 29  2008 19.44
+## 30  2009 24.32
+## 31  2010 19.12
+## 32  2011 21.70
+## 33  2012 20.01
+## 34  2013 23.77
+## 35  2014 19.65
+## 36  2015 20.97
+## 37  2016 19.93
+## 38  2017 19.86
+## 39  2018 18.35
+## 40  2019 22.47
+```
+
+### cargar base de datos
+
+`R` maneja casi cualquier tipo de archivo de bases de datos, pero su formato de creación de base de datos es `.Rds` o `.RData`, en el paquete `base` y `utils`existe una colección de funciones para leer marcos de datos.
+
+
+```
+## [1] "read.dcf"     "readBin"      "readChar"     "readline"    
+## [5] "readLines"    "readRDS"      "readRenviron" "Sys.readlink"
+```
+
+```
+##  [1] "read.csv"         "read.csv2"        "read.delim"      
+##  [4] "read.delim2"      "read.DIF"         "read.fortran"    
+##  [7] "read.fwf"         "read.socket"      "read.table"      
+## [10] "readCitationFile" "readClipboard"    "readRegistry"
+```
+
+Para cargar otras extensiones de bases de datos es necesario utilizar paquetes.
+
+
+```r
+# Para otros Software de estadística (Minitab, SAS, Stata, SPSS)
+install.packages("haven",dependencies = T)
+install.packages("foreign",dependencies = T)
+
+# Archivos de excel
+install.packages("xlsx",dependencies = T) # Requiere Java
+install.packages("readxl",dependencies = T)
+
+# SQL
+install.packages("sqldf",dependencies = T)
+```
+
+Para trabajar con `SQL` en `R` se recomienda leer el artículo de [Josh Errickson](http://dept.stat.lsa.umich.edu/~jerrick/courses/stat701/notes/sql.html) y las notas de [Data Carpentry](https://datacarpentry.org/R-ecology-lesson/05-r-and-databases.html).
+
+La base de datos de el **ICFES 2015-02**  está disponible en Excel, todos los ejemplos que acontinuación se muestran se trabajan con esta base de datos.
+
+* [ICFES 2015-02.xls](https://cdsantae.github.io/EAFIT/Clase08/ICFES20152.xls)
+* [ICFES 2015-02.xlsx](https://cdsantae.github.io/EAFIT/Clase08/ICFES20152.xlsx)
+* [ICFES 2015-02.csv](https://cdsantae.github.io/EAFIT/Clase08/ICFES20152.csv)
+
+
+```r
+library(xlsx)
+library(readxl)
+
+Icfes <- read.csv("ICFES20152.csv",sep = ",")
+```
+
+Si el archivo tiene la extensión `.xlsx` se utiliza los siguientes comandos:
+
+
+```r
+# Con xlsx
+Icfes <- read.xlsx(file = "ICFES20152.xlsx",sheetName = 1,encoding = "UTF-8")
+Icfes <- read.xlsx2(file = "ICFES20152.xls",sheetIndex = 1)
+
+# Con readxl
+Icfes <- read_xlsx(path = "ICFES20152.xlsx")
+```
+
+
+
+Para cargar los archivos de esta manera es necesario que se encuentren alojados en la carpeta de trabajo que puede verificar con el comand `getwd()`, y para asignar una nuava ruta se utiliza el comando `setwd()`. Una función muy útil para buscar carpetas es `choose.dir()`, y para seleccionar una archivo específico `file.choose()`.
+
+
+```r
+Icfes
+```
+
+```
+## # A tibble: 12,162 x 24
+##    CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##    <chr>   <chr>            <chr>           <chr>           <chr>       
+##  1 142133  I.E. INTERNADO ~ 91263           EL ENCANTO      AMAZONAS    
+##  2 087445  I.E. COLEGIO IN~ 91405           LA CHORRERA     AMAZONAS    
+##  3 117127  I.E. INTERNADO ~ 91407           LA PEDRERA      AMAZONAS    
+##  4 019109  I.E. ESCUELA NO~ 91001           LETICIA         AMAZONAS    
+##  5 038919  I.E. INEM JOSE ~ 91001           LETICIA         AMAZONAS    
+##  6 065482  I.E. INDIGENA S~ 91001           LETICIA         AMAZONAS    
+##  7 065490  COL FEMENINO MA~ 91001           LETICIA         AMAZONAS    
+##  8 087429  COL CRISTO REY   91001           LETICIA         AMAZONAS    
+##  9 093229  I.E. COLEGIO TE~ 91001           LETICIA         AMAZONAS    
+## 10 117358  I.E. SAGRADO CO~ 91001           LETICIA         AMAZONAS    
+## # ... with 12,152 more rows, and 19 more variables: CALENDARIO <chr>,
+## #   NATURALEZA <chr>, JORNADA <chr>, EVALUADOS <dbl>,
+## #   PROMLECTURACRITICA <dbl>, PROMMATEMATICA <dbl>,
+## #   PROMSOCIALESYCIUDADANAS <dbl>, PROMCIENCIASNATURALES <dbl>,
+## #   PROMINGLES <dbl>, PROMRAZONAMIENTOCUANTITA <dbl>,
+## #   PROMCOMPETENCIASCIUDADAN <dbl>, DESVLECTURACRITICA <dbl>,
+## #   DESVMATEMATICA <dbl>, DESVSOCIALESYCIUDADANAS <dbl>,
+## #   DESVCIENCIASNATURALES <dbl>, DESVINGLES <dbl>,
+## #   DESVRAZONAMIENTOCUANTITA <dbl>, DESVCOMPETENCIASCIUDADAN <dbl>,
+## #   PERIODO <chr>
+```
+
+```r
+dim(Icfes)
+```
+
+```
+## [1] 12162    24
+```
+
+```r
+length(Icfes)
+```
+
+```
+## [1] 24
+```
+
+```r
+names(Icfes)
+```
+
+```
+##  [1] "CODINST"                  "NOMBREINSTITUCION"       
+##  [3] "CODIGOMUNICIPIO"          "NOMBREMUNICIPIO"         
+##  [5] "DEPARTAMENTO"             "CALENDARIO"              
+##  [7] "NATURALEZA"               "JORNADA"                 
+##  [9] "EVALUADOS"                "PROMLECTURACRITICA"      
+## [11] "PROMMATEMATICA"           "PROMSOCIALESYCIUDADANAS" 
+## [13] "PROMCIENCIASNATURALES"    "PROMINGLES"              
+## [15] "PROMRAZONAMIENTOCUANTITA" "PROMCOMPETENCIASCIUDADAN"
+## [17] "DESVLECTURACRITICA"       "DESVMATEMATICA"          
+## [19] "DESVSOCIALESYCIUDADANAS"  "DESVCIENCIASNATURALES"   
+## [21] "DESVINGLES"               "DESVRAZONAMIENTOCUANTITA"
+## [23] "DESVCOMPETENCIASCIUDADAN" "PERIODO"
+```
+
+```r
+head(Icfes,n = 3)
+```
+
+```
+## # A tibble: 3 x 24
+##   CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##   <chr>   <chr>            <chr>           <chr>           <chr>       
+## 1 142133  I.E. INTERNADO ~ 91263           EL ENCANTO      AMAZONAS    
+## 2 087445  I.E. COLEGIO IN~ 91405           LA CHORRERA     AMAZONAS    
+## 3 117127  I.E. INTERNADO ~ 91407           LA PEDRERA      AMAZONAS    
+## # ... with 19 more variables: CALENDARIO <chr>, NATURALEZA <chr>,
+## #   JORNADA <chr>, EVALUADOS <dbl>, PROMLECTURACRITICA <dbl>,
+## #   PROMMATEMATICA <dbl>, PROMSOCIALESYCIUDADANAS <dbl>,
+## #   PROMCIENCIASNATURALES <dbl>, PROMINGLES <dbl>,
+## #   PROMRAZONAMIENTOCUANTITA <dbl>, PROMCOMPETENCIASCIUDADAN <dbl>,
+## #   DESVLECTURACRITICA <dbl>, DESVMATEMATICA <dbl>,
+## #   DESVSOCIALESYCIUDADANAS <dbl>, DESVCIENCIASNATURALES <dbl>,
+## #   DESVINGLES <dbl>, DESVRAZONAMIENTOCUANTITA <dbl>,
+## #   DESVCOMPETENCIASCIUDADAN <dbl>, PERIODO <chr>
+```
+
+```r
+tail(Icfes,n = 3)
+```
+
+```
+## # A tibble: 3 x 24
+##   CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##   <chr>   <chr>            <chr>           <chr>           <chr>       
+## 1 135020  JOS� CELESTINO ~ 99001           PUERTO CARRE�O  VICHADA     
+## 2 167981  I.E. MARIA INMA~ 99001           PUERTO CARRE�O  VICHADA     
+## 3 037440  I.E. INTERNADO ~ 99624           SANTA ROSALIA   VICHADA     
+## # ... with 19 more variables: CALENDARIO <chr>, NATURALEZA <chr>,
+## #   JORNADA <chr>, EVALUADOS <dbl>, PROMLECTURACRITICA <dbl>,
+## #   PROMMATEMATICA <dbl>, PROMSOCIALESYCIUDADANAS <dbl>,
+## #   PROMCIENCIASNATURALES <dbl>, PROMINGLES <dbl>,
+## #   PROMRAZONAMIENTOCUANTITA <dbl>, PROMCOMPETENCIASCIUDADAN <dbl>,
+## #   DESVLECTURACRITICA <dbl>, DESVMATEMATICA <dbl>,
+## #   DESVSOCIALESYCIUDADANAS <dbl>, DESVCIENCIASNATURALES <dbl>,
+## #   DESVINGLES <dbl>, DESVRAZONAMIENTOCUANTITA <dbl>,
+## #   DESVCOMPETENCIASCIUDADAN <dbl>, PERIODO <chr>
+```
+
+```r
+str(Icfes)
+```
+
+```
+## Classes 'tbl_df', 'tbl' and 'data.frame':	12162 obs. of  24 variables:
+##  $ CODINST                 : chr  "142133" "087445" "117127" "019109" ...
+##  $ NOMBREINSTITUCION       : chr  "I.E. INTERNADO SAN RAFAEL DEL CARAPARANA - SEDE PRINCIPAL" "I.E. COLEGIO INDIGENA CASA DEL CONOCIMIENTO - SEDE PRINCIPAL" "I.E. INTERNADO INDIGENA SAN JOS� - SEDE PRINCIPAL" "I.E. ESCUELA NORMAL SUPERIOR MARCELIANO EDUARDO CANYES SANTACANA - SEDE PRINCIPAL" ...
+##  $ CODIGOMUNICIPIO         : chr  "91263" "91405" "91407" "91001" ...
+##  $ NOMBREMUNICIPIO         : chr  "EL ENCANTO" "LA CHORRERA" "LA PEDRERA" "LETICIA" ...
+##  $ DEPARTAMENTO            : chr  "AMAZONAS" "AMAZONAS" "AMAZONAS" "AMAZONAS" ...
+##  $ CALENDARIO              : chr  "A" "A" "A" "A" ...
+##  $ NATURALEZA              : chr  "OFICIAL" "OFICIAL" "OFICIAL" "OFICIAL" ...
+##  $ JORNADA                 : chr  "MA�ANA" "MA�ANA" "COMPLETA U ORDINARIA" "MA�ANA" ...
+##  $ EVALUADOS               : num  21 38 31 89 134 75 14 18 45 61 ...
+##  $ PROMLECTURACRITICA      : num  42.5 40.1 39.9 49.9 45.9 ...
+##  $ PROMMATEMATICA          : num  42 40.2 39.5 47.6 44 ...
+##  $ PROMSOCIALESYCIUDADANAS : num  43.7 41.3 38.8 50.3 47 ...
+##  $ PROMCIENCIASNATURALES   : num  44.2 41.8 42.7 49.5 46.5 ...
+##  $ PROMINGLES              : num  46 43.6 43.8 47.8 46.6 ...
+##  $ PROMRAZONAMIENTOCUANTITA: num  41.8 40.3 39.7 48 45 ...
+##  $ PROMCOMPETENCIASCIUDADAN: num  42 39 37.7 49.4 46.4 ...
+##  $ DESVLECTURACRITICA      : num  5.78 6.01 5.98 7.94 7.88 6.22 6.28 9.65 6.6 8.02 ...
+##  $ DESVMATEMATICA          : num  7.37 7.43 9.04 9.5 8.41 ...
+##  $ DESVSOCIALESYCIUDADANAS : num  7.52 7.72 8.56 9.38 8.22 ...
+##  $ DESVCIENCIASNATURALES   : num  5.94 5.23 5.32 6.81 6.44 ...
+##  $ DESVINGLES              : num  6.72 4.48 5.42 7.49 6.13 ...
+##  $ DESVRAZONAMIENTOCUANTITA: num  8.23 7.57 9.3 10.42 8.9 ...
+##  $ DESVCOMPETENCIASCIUDADAN: num  7.1 7.27 6.77 8.95 8.24 ...
+##  $ PERIODO                 : chr  "20152" "20152" "20152" "20152" ...
+```
+
+```r
+class(Icfes)
+```
+
+```
+## [1] "tbl_df"     "tbl"        "data.frame"
+```
+
+```r
+class(Icfes$NOMBREMUNICIPIO)
+```
+
+```
+## [1] "character"
+```
+
+```r
+summary(Icfes)
+```
+
+```
+##    CODINST          NOMBREINSTITUCION  CODIGOMUNICIPIO   
+##  Length:12162       Length:12162       Length:12162      
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##  NOMBREMUNICIPIO    DEPARTAMENTO        CALENDARIO       
+##  Length:12162       Length:12162       Length:12162      
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##   NATURALEZA          JORNADA            EVALUADOS      PROMLECTURACRITICA
+##  Length:12162       Length:12162       Min.   :  1.00   Min.   :28.00     
+##  Class :character   Class :character   1st Qu.: 17.00   1st Qu.:44.74     
+##  Mode  :character   Mode  :character   Median : 32.00   Median :48.19     
+##                                        Mean   : 44.95   Mean   :48.66     
+##                                        3rd Qu.: 60.00   3rd Qu.:51.77     
+##                                        Max.   :987.00   Max.   :77.00     
+##  PROMMATEMATICA   PROMSOCIALESYCIUDADANAS PROMCIENCIASNATURALES
+##  Min.   : 24.50   Min.   :21.00           Min.   :25.00        
+##  1st Qu.: 43.57   1st Qu.:43.98           1st Qu.:44.59        
+##  Median : 48.00   Median :48.32           Median :48.47        
+##  Mean   : 48.80   Mean   :48.64           Mean   :49.03        
+##  3rd Qu.: 52.63   3rd Qu.:52.59           3rd Qu.:52.45        
+##  Max.   :100.00   Max.   :83.00           Max.   :85.95        
+##    PROMINGLES    PROMRAZONAMIENTOCUANTITA PROMCOMPETENCIASCIUDADAN
+##  Min.   :25.00   Min.   : 21.50           Min.   :22.00           
+##  1st Qu.:45.27   1st Qu.: 44.05           1st Qu.:44.22           
+##  Median :47.51   Median : 48.94           Median :48.13           
+##  Mean   :49.63   Mean   : 49.67           Mean   :48.27           
+##  3rd Qu.:51.27   3rd Qu.: 53.95           3rd Qu.:51.92           
+##  Max.   :97.00   Max.   :100.00           Max.   :76.00           
+##  DESVLECTURACRITICA DESVMATEMATICA   DESVSOCIALESYCIUDADANAS
+##  Min.   : 0.000     Min.   : 0.000   Min.   : 0.000         
+##  1st Qu.: 6.540     1st Qu.: 7.880   1st Qu.: 8.140         
+##  Median : 7.470     Median : 9.020   Median : 9.060         
+##  Mean   : 7.406     Mean   : 9.056   Mean   : 8.984         
+##  3rd Qu.: 8.320     3rd Qu.:10.260   3rd Qu.: 9.970         
+##  Max.   :21.920     Max.   :31.820   Max.   :28.000         
+##  DESVCIENCIASNATURALES   DESVINGLES     DESVRAZONAMIENTOCUANTITA
+##  Min.   : 0.000        Min.   : 0.000   Min.   : 0.00           
+##  1st Qu.: 6.560        1st Qu.: 5.620   1st Qu.: 8.94           
+##  Median : 7.580        Median : 6.840   Median :10.30           
+##  Mean   : 7.541        Mean   : 7.501   Mean   :10.33           
+##  3rd Qu.: 8.550        3rd Qu.: 8.940   3rd Qu.:11.76           
+##  Max.   :20.510        Max.   :27.790   Max.   :32.19           
+##  DESVCOMPETENCIASCIUDADAN   PERIODO         
+##  Min.   : 0.000           Length:12162      
+##  1st Qu.: 7.400           Class :character  
+##  Median : 8.240           Mode  :character  
+##  Mean   : 8.172                             
+##  3rd Qu.: 9.080                             
+##  Max.   :23.330
+```
+
+El operador `$` sirve para extraer las variables del `data.frame`, siepre y cuando la base de datos posea nombres.
+
+### Guardar bases de datos
+
+
+```
+## [1] "write"      "write.dcf"  "writeBin"   "writeChar"  "writeLines"
+```
+
+```
+## [1] "aspell_write_personal_dictionary_file"
+## [2] "write.csv"                            
+## [3] "write.csv2"                           
+## [4] "write.socket"                         
+## [5] "write.table"                          
+## [6] "writeClipboard"
+```
+
+```
+## [1] "write.xlsx"  "write.xlsx2"
+```
+
+```
+## [1] "write_dta" "write_sas" "write_sav" "write_xpt"
+```
+
+```
+## [1] "write.arff"    "write.dbf"     "write.dta"     "write.foreign"
+```
+
+## Funciones del tipo `apply`
+
+`apply()` Aplica la función sobre un la marginal de un arreglo o matriz.
+
+
+```r
+(m <- matrix(c(1:10, 11:20), nrow = 10, ncol = 2))
+```
+
+```
+##       [,1] [,2]
+##  [1,]    1   11
+##  [2,]    2   12
+##  [3,]    3   13
+##  [4,]    4   14
+##  [5,]    5   15
+##  [6,]    6   16
+##  [7,]    7   17
+##  [8,]    8   18
+##  [9,]    9   19
+## [10,]   10   20
+```
+
+```r
+apply(m, 1, mean)
+```
+
+```
+##  [1]  6  7  8  9 10 11 12 13 14 15
+```
+
+```r
+apply(m, 2, mean)
+```
+
+```
+## [1]  5.5 15.5
+```
+
+```r
+apply(m, 1:2, function(x) x/2)
+```
+
+```
+##       [,1] [,2]
+##  [1,]  0.5  5.5
+##  [2,]  1.0  6.0
+##  [3,]  1.5  6.5
+##  [4,]  2.0  7.0
+##  [5,]  2.5  7.5
+##  [6,]  3.0  8.0
+##  [7,]  3.5  8.5
+##  [8,]  4.0  9.0
+##  [9,]  4.5  9.5
+## [10,]  5.0 10.0
+```
+
+```r
+apply(Icfes, 2, length)
+```
+
+```
+##                  CODINST        NOMBREINSTITUCION          CODIGOMUNICIPIO 
+##                    12162                    12162                    12162 
+##          NOMBREMUNICIPIO             DEPARTAMENTO               CALENDARIO 
+##                    12162                    12162                    12162 
+##               NATURALEZA                  JORNADA                EVALUADOS 
+##                    12162                    12162                    12162 
+##       PROMLECTURACRITICA           PROMMATEMATICA  PROMSOCIALESYCIUDADANAS 
+##                    12162                    12162                    12162 
+##    PROMCIENCIASNATURALES               PROMINGLES PROMRAZONAMIENTOCUANTITA 
+##                    12162                    12162                    12162 
+## PROMCOMPETENCIASCIUDADAN       DESVLECTURACRITICA           DESVMATEMATICA 
+##                    12162                    12162                    12162 
+##  DESVSOCIALESYCIUDADANAS    DESVCIENCIASNATURALES               DESVINGLES 
+##                    12162                    12162                    12162 
+## DESVRAZONAMIENTOCUANTITA DESVCOMPETENCIASCIUDADAN                  PERIODO 
+##                    12162                    12162                    12162
+```
+
+```r
+apply(Icfes[,9:18], 2, mean)
+```
+
+```
+##                EVALUADOS       PROMLECTURACRITICA           PROMMATEMATICA 
+##                44.947788                48.655567                48.799209 
+##  PROMSOCIALESYCIUDADANAS    PROMCIENCIASNATURALES               PROMINGLES 
+##                48.636474                49.025593                49.633360 
+## PROMRAZONAMIENTOCUANTITA PROMCOMPETENCIASCIUDADAN       DESVLECTURACRITICA 
+##                49.672010                48.267984                 7.406274 
+##           DESVMATEMATICA 
+##                 9.055529
+```
+
+```r
+apply(Icfes[,9:18], 2, sd)
+```
+
+```
+##                EVALUADOS       PROMLECTURACRITICA           PROMMATEMATICA 
+##                43.843946                 5.573827                 7.580989 
+##  PROMSOCIALESYCIUDADANAS    PROMCIENCIASNATURALES               PROMINGLES 
+##                 6.649614                 6.260166                 7.269747 
+## PROMRAZONAMIENTOCUANTITA PROMCOMPETENCIASCIUDADAN       DESVLECTURACRITICA 
+##                 8.120015                 5.730609                 1.731647 
+##           DESVMATEMATICA 
+##                 2.219776
+```
+
+`by()` Aplica la función sobre una división de una base de datos (`data.frame`) por un factor.
+
+
+```r
+by(Icfes[,c(9:18)], Icfes$CALENDARIO, colMeans)
+```
+
+```
+## Icfes$CALENDARIO: A
+##                EVALUADOS       PROMLECTURACRITICA           PROMMATEMATICA 
+##                45.393267                48.601547                48.741677 
+##  PROMSOCIALESYCIUDADANAS    PROMCIENCIASNATURALES               PROMINGLES 
+##                48.589383                48.972063                49.514758 
+## PROMRAZONAMIENTOCUANTITA PROMCOMPETENCIASCIUDADAN       DESVLECTURACRITICA 
+##                49.612257                48.229033                 7.436473 
+##           DESVMATEMATICA 
+##                 9.091584 
+## -------------------------------------------------------- 
+## Icfes$CALENDARIO: B
+##                EVALUADOS       PROMLECTURACRITICA           PROMMATEMATICA 
+##                16.685864                52.229529                52.711885 
+##  PROMSOCIALESYCIUDADANAS    PROMCIENCIASNATURALES               PROMINGLES 
+##                51.758220                52.761885                56.728743 
+## PROMRAZONAMIENTOCUANTITA PROMCOMPETENCIASCIUDADAN       DESVLECTURACRITICA 
+##                53.712199                50.859634                 5.469215 
+##           DESVMATEMATICA 
+##                 6.880628 
+## -------------------------------------------------------- 
+## Icfes$CALENDARIO: O
+##                EVALUADOS       PROMLECTURACRITICA           PROMMATEMATICA 
+##                47.566667                47.403333                46.788333 
+##  PROMSOCIALESYCIUDADANAS    PROMCIENCIASNATURALES               PROMINGLES 
+##                47.505333                46.544667                51.666667 
+## PROMRAZONAMIENTOCUANTITA PROMCOMPETENCIASCIUDADAN       DESVLECTURACRITICA 
+##                47.733333                47.271667                 7.718667 
+##           DESVMATEMATICA 
+##                 8.551333
+```
+
+`lapply()` Aplica una función sobre una lista o un vector.
+
+
+```r
+l <- list(a = 1:10, b = 11:20)
+lapply(l, mean)
+```
+
+```
+## $a
+## [1] 5.5
+## 
+## $b
+## [1] 15.5
+```
+
+```r
+lapply(l, sum)
+```
+
+```
+## $a
+## [1] 55
+## 
+## $b
+## [1] 155
+```
+
+`sapply()` Aplica una función sobre una lista o un vector y si el resultado se puede simplificar en un formato más simple, lo hace.
+
+
+```r
+l <- list(a = 1:10, b = 11:20)
+sapply(l, mean)
+```
+
+```
+##    a    b 
+##  5.5 15.5
+```
+
+```r
+sapply(l, sum)
+```
+
+```
+##   a   b 
+##  55 155
+```
+
+`vapply()` Aplica la función sobre una lista y devuelve el resultado de acuerdo
+a un formato indicado.
+
+
+```r
+l <- list(a = 1:10, b = 11:20)
+lFivenum <- vapply(l, 
+                   fivenum, 
+                   c(Min. = 0, "1er Cuart." = 0, 
+                     Mediana = 0, "3er Cuart." = 0, Max. = 0))
+class(lFivenum)
+```
+
+```
+## [1] "matrix"
+```
+
+```r
+lFivenum
+```
+
+```
+##               a    b
+## Min.        1.0 11.0
+## 1er Cuart.  3.0 13.0
+## Mediana     5.5 15.5
+## 3er Cuart.  8.0 18.0
+## Max.       10.0 20.0
+```
+
+`replicate()` Replica la ejecución de una función un número específico de veces.s
+
+```r
+replicate(10, rnorm(10))
+```
+
+```
+##              [,1]       [,2]       [,3]       [,4]        [,5]       [,6]
+##  [1,]  0.43480994  1.1870123  0.3049387  0.1453908  1.25903760  0.7058099
+##  [2,] -0.23092211 -1.1390770 -0.6721627  0.3423365 -0.14307817 -0.2830273
+##  [3,] -0.34923249 -0.3138434  1.2300035 -0.3432073  0.96043423 -0.5918036
+##  [4,]  0.52241621  1.0946612  0.8177984  0.6479045 -0.07370266  0.2134931
+##  [5,] -0.44439613 -0.3408475 -0.2524408  0.8685398  1.31996548  0.3671295
+##  [6,] -0.07843505 -0.1469065 -1.2322202  1.0211307 -1.18664425 -0.7920241
+##  [7,]  0.71321185  0.8591728  2.1603790  1.1498195 -0.47984111  3.4342972
+##  [8,] -0.30876235  0.8711468 -0.2716585 -0.1339709 -0.03496873  1.4800623
+##  [9,] -2.50683959  0.7397272 -0.5711634  0.5429717  0.58525832 -1.9664764
+## [10,] -0.99671943 -0.7622441  0.1933911 -1.3299320  1.61237856 -0.8132977
+##             [,7]       [,8]       [,9]      [,10]
+##  [1,]  0.5771881  2.1613822  1.0220947 -1.1447279
+##  [2,] -0.1731199 -1.3480103 -0.3881763  0.1035914
+##  [3,]  0.6528319 -0.4706539  0.8125730  0.4159322
+##  [4,] -0.1577868 -0.3115375 -0.2717823 -0.6261890
+##  [5,]  0.1330497 -0.5220600 -0.1786586 -0.1620895
+##  [6,]  0.5952317  0.9375103  0.5648878  0.5081020
+##  [7,]  1.3493595 -0.1081710 -1.2009663  0.2532676
+##  [8,]  0.1362310  2.0993335 -0.6868471 -1.5643611
+##  [9,]  0.2798744  0.2318105 -0.6439852  0.2748483
+## [10,]  1.5713083  0.6275485  2.1464737 -0.1144670
+```
+
+```r
+replicate(8, mean(rexp(10)))
+```
+
+```
+## [1] 1.5008107 1.5965908 0.7948242 0.9980688 1.2566533 0.6767330 0.8126846
+## [8] 0.8264107
+```
+
+`mapply()` Es la versión multivariada de `lapply` y `sapply`. Aplica la función a los elementos correspondientes de múltiples listas. 
+
+
+```r
+l1 <- list(a = c(1:10), b = c(11:20))
+l2 <- list(c = c(21:30), d = c(31:40))
+mapply(sum, l1$a, l1$b, l2$c, l2$d)
+```
+
+```
+##  [1]  64  68  72  76  80  84  88  92  96 100
+```
+
+```r
+mapply(sum, l1, l2)
+```
+
+```
+##   a   b 
+## 310 510
+```
+
+```r
+l2 <- list(c = c(21:30), d = c(31:40), z = c(31:50))
+mapply(sum, l1$a, l1$b, l2$c, l2$z)
+```
+
+```
+##  [1]  64  68  72  76  80  84  88  92  96 100  74  78  82  86  90  94  98
+## [18] 102 106 110
+```
+
+`tapply()` Aplica la función sobre un vector, de acuerdo a una clasificación de la variable tipo `factor`.
+
+
+```r
+tapply(Icfes$EVALUADOS, Icfes$JORNADA, mean)
+```
+
+```
+## COMPLETA U ORDINARIA               MA�ANA                NOCHE 
+##             37.73148             49.74110             34.91196 
+## SABATINA - DOMINICAL                TARDE 
+##             35.92033             53.13094
+```
+
+```r
+tapply(Icfes$PROMRAZONAMIENTOCUANTITA, Icfes$JORNADA, mean)
+```
+
+```
+## COMPLETA U ORDINARIA               MA�ANA                NOCHE 
+##             54.80120             49.65380             42.64660 
+## SABATINA - DOMINICAL                TARDE 
+##             42.56121             49.44264
+```
+
+## Tidyverse
+
+En el universo de `tidyverse` la programación vía tuberías es la principal novedad.
+
+
+```r
+install.packages("dplyr",dependencies = T)
+```
+
+
+```r
+# Muestra aleatoria de resultados del ICFES
+aux <- sample(dim(Icfes)[1],size = 1000)
+
+library(dplyr)
+Icfes2 <- tbl_df(Icfes[aux,])
+```
+
+Filtrar una base de datos
+
+
+```r
+filter(Icfes2, DEPARTAMENTO == "ANTIOQUIA",
+       NOMBREMUNICIPIO == "MEDELLIN")
+```
+
+```
+## # A tibble: 31 x 24
+##    CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##    <chr>   <chr>            <chr>           <chr>           <chr>       
+##  1 099481  INST EDUC CARAC~ 05001           MEDELLIN        ANTIOQUIA   
+##  2 194530  SEC ESC SANTA C~ 05001           MEDELLIN        ANTIOQUIA   
+##  3 127019  COL BARRIO BLAN~ 05001           MEDELLIN        ANTIOQUIA   
+##  4 059188  INST EDUC JOSE ~ 05001           MEDELLIN        ANTIOQUIA   
+##  5 132233  COL PEDAG CENPI  05001           MEDELLIN        ANTIOQUIA   
+##  6 086082  INST EDUC PEDRO~ 05001           MEDELLIN        ANTIOQUIA   
+##  7 118851  INST EDUC GABRI~ 05001           MEDELLIN        ANTIOQUIA   
+##  8 119958  INST EDUC MATER~ 05001           MEDELLIN        ANTIOQUIA   
+##  9 145631  SEC ESC SAN JOSE 05001           MEDELLIN        ANTIOQUIA   
+## 10 108282  INST EDUC FRANC~ 05001           MEDELLIN        ANTIOQUIA   
+## # ... with 21 more rows, and 19 more variables: CALENDARIO <chr>,
+## #   NATURALEZA <chr>, JORNADA <chr>, EVALUADOS <dbl>,
+## #   PROMLECTURACRITICA <dbl>, PROMMATEMATICA <dbl>,
+## #   PROMSOCIALESYCIUDADANAS <dbl>, PROMCIENCIASNATURALES <dbl>,
+## #   PROMINGLES <dbl>, PROMRAZONAMIENTOCUANTITA <dbl>,
+## #   PROMCOMPETENCIASCIUDADAN <dbl>, DESVLECTURACRITICA <dbl>,
+## #   DESVMATEMATICA <dbl>, DESVSOCIALESYCIUDADANAS <dbl>,
+## #   DESVCIENCIASNATURALES <dbl>, DESVINGLES <dbl>,
+## #   DESVRAZONAMIENTOCUANTITA <dbl>, DESVCOMPETENCIASCIUDADAN <dbl>,
+## #   PERIODO <chr>
+```
+
+```r
+Icfes2 %>% filter(DEPARTAMENTO == "ANTIOQUIA",
+                  NOMBREMUNICIPIO == "MEDELLIN")
+```
+
+```
+## # A tibble: 31 x 24
+##    CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##    <chr>   <chr>            <chr>           <chr>           <chr>       
+##  1 099481  INST EDUC CARAC~ 05001           MEDELLIN        ANTIOQUIA   
+##  2 194530  SEC ESC SANTA C~ 05001           MEDELLIN        ANTIOQUIA   
+##  3 127019  COL BARRIO BLAN~ 05001           MEDELLIN        ANTIOQUIA   
+##  4 059188  INST EDUC JOSE ~ 05001           MEDELLIN        ANTIOQUIA   
+##  5 132233  COL PEDAG CENPI  05001           MEDELLIN        ANTIOQUIA   
+##  6 086082  INST EDUC PEDRO~ 05001           MEDELLIN        ANTIOQUIA   
+##  7 118851  INST EDUC GABRI~ 05001           MEDELLIN        ANTIOQUIA   
+##  8 119958  INST EDUC MATER~ 05001           MEDELLIN        ANTIOQUIA   
+##  9 145631  SEC ESC SAN JOSE 05001           MEDELLIN        ANTIOQUIA   
+## 10 108282  INST EDUC FRANC~ 05001           MEDELLIN        ANTIOQUIA   
+## # ... with 21 more rows, and 19 more variables: CALENDARIO <chr>,
+## #   NATURALEZA <chr>, JORNADA <chr>, EVALUADOS <dbl>,
+## #   PROMLECTURACRITICA <dbl>, PROMMATEMATICA <dbl>,
+## #   PROMSOCIALESYCIUDADANAS <dbl>, PROMCIENCIASNATURALES <dbl>,
+## #   PROMINGLES <dbl>, PROMRAZONAMIENTOCUANTITA <dbl>,
+## #   PROMCOMPETENCIASCIUDADAN <dbl>, DESVLECTURACRITICA <dbl>,
+## #   DESVMATEMATICA <dbl>, DESVSOCIALESYCIUDADANAS <dbl>,
+## #   DESVCIENCIASNATURALES <dbl>, DESVINGLES <dbl>,
+## #   DESVRAZONAMIENTOCUANTITA <dbl>, DESVCOMPETENCIASCIUDADAN <dbl>,
+## #   PERIODO <chr>
+```
+
+Selección de posiciones específicas de una base de datos
+
+
+```r
+slice(Icfes2, 1000:1050)
+```
+
+```
+## # A tibble: 1 x 24
+##   CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##   <chr>   <chr>            <chr>           <chr>           <chr>       
+## 1 169672  COLEGIO MONTERR~ 11001           BOGOT� D.C.     BOGOTA      
+## # ... with 19 more variables: CALENDARIO <chr>, NATURALEZA <chr>,
+## #   JORNADA <chr>, EVALUADOS <dbl>, PROMLECTURACRITICA <dbl>,
+## #   PROMMATEMATICA <dbl>, PROMSOCIALESYCIUDADANAS <dbl>,
+## #   PROMCIENCIASNATURALES <dbl>, PROMINGLES <dbl>,
+## #   PROMRAZONAMIENTOCUANTITA <dbl>, PROMCOMPETENCIASCIUDADAN <dbl>,
+## #   DESVLECTURACRITICA <dbl>, DESVMATEMATICA <dbl>,
+## #   DESVSOCIALESYCIUDADANAS <dbl>, DESVCIENCIASNATURALES <dbl>,
+## #   DESVINGLES <dbl>, DESVRAZONAMIENTOCUANTITA <dbl>,
+## #   DESVCOMPETENCIASCIUDADAN <dbl>, PERIODO <chr>
+```
+
+```r
+Icfes2 %>%
+  slice(1000:1050)
+```
+
+```
+## # A tibble: 1 x 24
+##   CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##   <chr>   <chr>            <chr>           <chr>           <chr>       
+## 1 169672  COLEGIO MONTERR~ 11001           BOGOT� D.C.     BOGOTA      
+## # ... with 19 more variables: CALENDARIO <chr>, NATURALEZA <chr>,
+## #   JORNADA <chr>, EVALUADOS <dbl>, PROMLECTURACRITICA <dbl>,
+## #   PROMMATEMATICA <dbl>, PROMSOCIALESYCIUDADANAS <dbl>,
+## #   PROMCIENCIASNATURALES <dbl>, PROMINGLES <dbl>,
+## #   PROMRAZONAMIENTOCUANTITA <dbl>, PROMCOMPETENCIASCIUDADAN <dbl>,
+## #   DESVLECTURACRITICA <dbl>, DESVMATEMATICA <dbl>,
+## #   DESVSOCIALESYCIUDADANAS <dbl>, DESVCIENCIASNATURALES <dbl>,
+## #   DESVINGLES <dbl>, DESVRAZONAMIENTOCUANTITA <dbl>,
+## #   DESVCOMPETENCIASCIUDADAN <dbl>, PERIODO <chr>
+```
+
+Ordenar la base de datos
+
+
+```r
+arrange(Icfes2, DEPARTAMENTO)
+```
+
+```
+## # A tibble: 1,000 x 24
+##    CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##    <chr>   <chr>            <chr>           <chr>           <chr>       
+##  1 135517  I.E. FRANCISCO ~ 91001           LETICIA         AMAZONAS    
+##  2 065490  COL FEMENINO MA~ 91001           LETICIA         AMAZONAS    
+##  3 038919  I.E. INEM JOSE ~ 91001           LETICIA         AMAZONAS    
+##  4 067413  COL FEDERICO SI~ 05088           BELLO           ANTIOQUIA   
+##  5 090134  I.E. PIEDRECITAS 05837           TURBO           ANTIOQUIA   
+##  6 148395  COLEGIO PIAMONTE 05120           CACERES         ANTIOQUIA   
+##  7 070904  LIC FONTIDUE�O ~ 05088           BELLO           ANTIOQUIA   
+##  8 099481  INST EDUC CARAC~ 05001           MEDELLIN        ANTIOQUIA   
+##  9 166090  I. E. NUESTRA S~ 05321           GUATAPE         ANTIOQUIA   
+## 10 194530  SEC ESC SANTA C~ 05001           MEDELLIN        ANTIOQUIA   
+## # ... with 990 more rows, and 19 more variables: CALENDARIO <chr>,
+## #   NATURALEZA <chr>, JORNADA <chr>, EVALUADOS <dbl>,
+## #   PROMLECTURACRITICA <dbl>, PROMMATEMATICA <dbl>,
+## #   PROMSOCIALESYCIUDADANAS <dbl>, PROMCIENCIASNATURALES <dbl>,
+## #   PROMINGLES <dbl>, PROMRAZONAMIENTOCUANTITA <dbl>,
+## #   PROMCOMPETENCIASCIUDADAN <dbl>, DESVLECTURACRITICA <dbl>,
+## #   DESVMATEMATICA <dbl>, DESVSOCIALESYCIUDADANAS <dbl>,
+## #   DESVCIENCIASNATURALES <dbl>, DESVINGLES <dbl>,
+## #   DESVRAZONAMIENTOCUANTITA <dbl>, DESVCOMPETENCIASCIUDADAN <dbl>,
+## #   PERIODO <chr>
+```
+
+```r
+arrange(Icfes2, DEPARTAMENTO, NOMBREINSTITUCION)
+```
+
+```
+## # A tibble: 1,000 x 24
+##    CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##    <chr>   <chr>            <chr>           <chr>           <chr>       
+##  1 065490  COL FEMENINO MA~ 91001           LETICIA         AMAZONAS    
+##  2 135517  I.E. FRANCISCO ~ 91001           LETICIA         AMAZONAS    
+##  3 038919  I.E. INEM JOSE ~ 91001           LETICIA         AMAZONAS    
+##  4 154930  COL  FE Y ALEGR~ 05088           BELLO           ANTIOQUIA   
+##  5 108175  COL  FE Y ALEGR~ 05088           BELLO           ANTIOQUIA   
+##  6 127019  COL BARRIO BLAN~ 05001           MEDELLIN        ANTIOQUIA   
+##  7 000141  COL CALASANZ     05001           MEDELLIN        ANTIOQUIA   
+##  8 107789  COL CAMPESTRE L~ 05001           MEDELLIN        ANTIOQUIA   
+##  9 067413  COL FEDERICO SI~ 05088           BELLO           ANTIOQUIA   
+## 10 135467  COL GENTE UNIDA~ 05001           MEDELLIN        ANTIOQUIA   
+## # ... with 990 more rows, and 19 more variables: CALENDARIO <chr>,
+## #   NATURALEZA <chr>, JORNADA <chr>, EVALUADOS <dbl>,
+## #   PROMLECTURACRITICA <dbl>, PROMMATEMATICA <dbl>,
+## #   PROMSOCIALESYCIUDADANAS <dbl>, PROMCIENCIASNATURALES <dbl>,
+## #   PROMINGLES <dbl>, PROMRAZONAMIENTOCUANTITA <dbl>,
+## #   PROMCOMPETENCIASCIUDADAN <dbl>, DESVLECTURACRITICA <dbl>,
+## #   DESVMATEMATICA <dbl>, DESVSOCIALESYCIUDADANAS <dbl>,
+## #   DESVCIENCIASNATURALES <dbl>, DESVINGLES <dbl>,
+## #   DESVRAZONAMIENTOCUANTITA <dbl>, DESVCOMPETENCIASCIUDADAN <dbl>,
+## #   PERIODO <chr>
+```
+
+```r
+arrange(Icfes2, PROMLECTURACRITICA)
+```
+
+```
+## # A tibble: 1,000 x 24
+##    CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##    <chr>   <chr>            <chr>           <chr>           <chr>       
+##  1 077834  CENT EDUC CAJAS~ 68001           BUCARAMANGA     SANTANDER   
+##  2 084368  INST SER INTERN~ 76001           CALI            VALLE       
+##  3 196931  ESCOL RUR INDIG~ 27150           CARMEN DEL DAR~ CHOCO       
+##  4 134494  LICEO JOAQUIN F~ 13430           MAGANGUE        BOLIVAR     
+##  5 157131  INSTITUTO TECNI~ 68322           GUAPOTA         SANTANDER   
+##  6 175042  INST  AGRO  PIO~ 66572           PUEBLO RICO     RISARALDA   
+##  7 151225  I.E. EMBERA ATR~ 05873           VIGIA DEL FUER~ ANTIOQUIA   
+##  8 175349  I.E  CLAVELLINA~ 68051           ARATOCA         SANTANDER   
+##  9 090647  INSTITUCION EDU~ 13001           CARTAGENA       BOLIVAR     
+## 10 170068  I.E. INDIGENIST~ 05837           TURBO           ANTIOQUIA   
+## # ... with 990 more rows, and 19 more variables: CALENDARIO <chr>,
+## #   NATURALEZA <chr>, JORNADA <chr>, EVALUADOS <dbl>,
+## #   PROMLECTURACRITICA <dbl>, PROMMATEMATICA <dbl>,
+## #   PROMSOCIALESYCIUDADANAS <dbl>, PROMCIENCIASNATURALES <dbl>,
+## #   PROMINGLES <dbl>, PROMRAZONAMIENTOCUANTITA <dbl>,
+## #   PROMCOMPETENCIASCIUDADAN <dbl>, DESVLECTURACRITICA <dbl>,
+## #   DESVMATEMATICA <dbl>, DESVSOCIALESYCIUDADANAS <dbl>,
+## #   DESVCIENCIASNATURALES <dbl>, DESVINGLES <dbl>,
+## #   DESVRAZONAMIENTOCUANTITA <dbl>, DESVCOMPETENCIASCIUDADAN <dbl>,
+## #   PERIODO <chr>
+```
+
+```r
+arrange(Icfes2, desc(PROMLECTURACRITICA))
+```
+
+```
+## # A tibble: 1,000 x 24
+##    CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##    <chr>   <chr>            <chr>           <chr>           <chr>       
+##  1 048298  ASPAEN LICEO TA~ 76001           CALI            VALLE       
+##  2 170837  CENTRO EDUCATIV~ 08001           BARRANQUILLA    ATLANTICO   
+##  3 012047  COL CALASANZ     54001           CUCUTA          NORTE SANTA~
+##  4 086793  GIMN CAMP SAN F~ 25214           COTA            CUNDINAMARCA
+##  5 021584  FUND COL MAYOR ~ 11001           BOGOT� D.C.     BOGOTA      
+##  6 096537  COLEGIO LA NUEV~ 13836           TURBACO         BOLIVAR     
+##  7 056416  LIC HYPATIA      11001           BOGOT� D.C.     BOGOTA      
+##  8 000760  INST JORGE ROBL~ 05001           MEDELLIN        ANTIOQUIA   
+##  9 133934  AMERICAN SCHOOL~ 15001           TUNJA           BOYACA      
+## 10 009720  COLEGIO CLARETI~ 41001           NEIVA           HUILA       
+## # ... with 990 more rows, and 19 more variables: CALENDARIO <chr>,
+## #   NATURALEZA <chr>, JORNADA <chr>, EVALUADOS <dbl>,
+## #   PROMLECTURACRITICA <dbl>, PROMMATEMATICA <dbl>,
+## #   PROMSOCIALESYCIUDADANAS <dbl>, PROMCIENCIASNATURALES <dbl>,
+## #   PROMINGLES <dbl>, PROMRAZONAMIENTOCUANTITA <dbl>,
+## #   PROMCOMPETENCIASCIUDADAN <dbl>, DESVLECTURACRITICA <dbl>,
+## #   DESVMATEMATICA <dbl>, DESVSOCIALESYCIUDADANAS <dbl>,
+## #   DESVCIENCIASNATURALES <dbl>, DESVINGLES <dbl>,
+## #   DESVRAZONAMIENTOCUANTITA <dbl>, DESVCOMPETENCIASCIUDADAN <dbl>,
+## #   PERIODO <chr>
+```
+
+```r
+Icfes2 %>% 
+  arrange(DEPARTAMENTO, desc(PROMLECTURACRITICA))
+```
+
+```
+## # A tibble: 1,000 x 24
+##    CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##    <chr>   <chr>            <chr>           <chr>           <chr>       
+##  1 038919  I.E. INEM JOSE ~ 91001           LETICIA         AMAZONAS    
+##  2 065490  COL FEMENINO MA~ 91001           LETICIA         AMAZONAS    
+##  3 135517  I.E. FRANCISCO ~ 91001           LETICIA         AMAZONAS    
+##  4 000760  INST JORGE ROBL~ 05001           MEDELLIN        ANTIOQUIA   
+##  5 059238  COL PARROQUIAL ~ 05088           BELLO           ANTIOQUIA   
+##  6 000141  COL CALASANZ     05001           MEDELLIN        ANTIOQUIA   
+##  7 107789  COL CAMPESTRE L~ 05001           MEDELLIN        ANTIOQUIA   
+##  8 002014  COLEGIO LA INMA~ 05360           ITAGUI          ANTIOQUIA   
+##  9 001693  COLEGIO COOPERA~ 05212           COPACABANA      ANTIOQUIA   
+## 10 001313  INSTITUTO UNIBAN 05045           APARTADO        ANTIOQUIA   
+## # ... with 990 more rows, and 19 more variables: CALENDARIO <chr>,
+## #   NATURALEZA <chr>, JORNADA <chr>, EVALUADOS <dbl>,
+## #   PROMLECTURACRITICA <dbl>, PROMMATEMATICA <dbl>,
+## #   PROMSOCIALESYCIUDADANAS <dbl>, PROMCIENCIASNATURALES <dbl>,
+## #   PROMINGLES <dbl>, PROMRAZONAMIENTOCUANTITA <dbl>,
+## #   PROMCOMPETENCIASCIUDADAN <dbl>, DESVLECTURACRITICA <dbl>,
+## #   DESVMATEMATICA <dbl>, DESVSOCIALESYCIUDADANAS <dbl>,
+## #   DESVCIENCIASNATURALES <dbl>, DESVINGLES <dbl>,
+## #   DESVRAZONAMIENTOCUANTITA <dbl>, DESVCOMPETENCIASCIUDADAN <dbl>,
+## #   PERIODO <chr>
+```
+
+Seleccion de columnas
+
+
+```r
+select(Icfes2, NOMBREMUNICIPIO, DEPARTAMENTO, PROMLECTURACRITICA)
+```
+
+```
+## # A tibble: 1,000 x 3
+##    NOMBREMUNICIPIO       DEPARTAMENTO PROMLECTURACRITICA
+##    <chr>                 <chr>                     <dbl>
+##  1 EL ROSARIO            NARI�O                     45.5
+##  2 YOPAL                 CASANARE                   42  
+##  3 SUBACHOQUE            CUNDINAMARCA               57.8
+##  4 CHITA                 BOYACA                     46.8
+##  5 DAGUA                 VALLE                      48.5
+##  6 FACATATIVA            CUNDINAMARCA               49.2
+##  7 SANTA MARTA           MAGDALENA                  45.7
+##  8 TORO                  VALLE                      43.8
+##  9 ARMENIA               QUINDIO                    48  
+## 10 SANTA ROSA DE VITERBO BOYACA                     54.1
+## # ... with 990 more rows
+```
+
+```r
+Icfes2 %>%
+  select(NOMBREMUNICIPIO, DEPARTAMENTO, PROMLECTURACRITICA)
+```
+
+```
+## # A tibble: 1,000 x 3
+##    NOMBREMUNICIPIO       DEPARTAMENTO PROMLECTURACRITICA
+##    <chr>                 <chr>                     <dbl>
+##  1 EL ROSARIO            NARI�O                     45.5
+##  2 YOPAL                 CASANARE                   42  
+##  3 SUBACHOQUE            CUNDINAMARCA               57.8
+##  4 CHITA                 BOYACA                     46.8
+##  5 DAGUA                 VALLE                      48.5
+##  6 FACATATIVA            CUNDINAMARCA               49.2
+##  7 SANTA MARTA           MAGDALENA                  45.7
+##  8 TORO                  VALLE                      43.8
+##  9 ARMENIA               QUINDIO                    48  
+## 10 SANTA ROSA DE VITERBO BOYACA                     54.1
+## # ... with 990 more rows
+```
+
+Elementos o registros únicos
+
+
+```r
+distinct(select(Icfes2, DEPARTAMENTO))
+```
+
+```
+## # A tibble: 31 x 1
+##    DEPARTAMENTO
+##    <chr>       
+##  1 NARI�O      
+##  2 CASANARE    
+##  3 CUNDINAMARCA
+##  4 BOYACA      
+##  5 VALLE       
+##  6 MAGDALENA   
+##  7 QUINDIO     
+##  8 HUILA       
+##  9 TOLIMA      
+## 10 CESAR       
+## # ... with 21 more rows
+```
+
+```r
+Icfes2 %>% 
+  select(DEPARTAMENTO) %>% 
+  distinct()
+```
+
+```
+## # A tibble: 31 x 1
+##    DEPARTAMENTO
+##    <chr>       
+##  1 NARI�O      
+##  2 CASANARE    
+##  3 CUNDINAMARCA
+##  4 BOYACA      
+##  5 VALLE       
+##  6 MAGDALENA   
+##  7 QUINDIO     
+##  8 HUILA       
+##  9 TOLIMA      
+## 10 CESAR       
+## # ... with 21 more rows
+```
+
+Adicionar una nueva columna
+
+
+```r
+mutate(Icfes2,promTotal=(PROMLECTURACRITICA+PROMMATEMATICA+PROMINGLES)/3)
+```
+
+```
+## # A tibble: 1,000 x 25
+##    CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##    <chr>   <chr>            <chr>           <chr>           <chr>       
+##  1 163519  I.E. SANTA ROSA~ 52256           EL ROSARIO      NARI�O      
+##  2 133314  CARLOS LLERAS R~ 85001           YOPAL           CASANARE    
+##  3 009282  COL EUCARISTICO~ 25769           SUBACHOQUE      CUNDINAMARCA
+##  4 005041  INS ED TEC Y AC~ 15183           CHITA           BOYACA      
+##  5 129635  CAMILO TORRES    76233           DAGUA           VALLE       
+##  6 104133  I.E.M JOHN FITZ~ 25269           FACATATIVA      CUNDINAMARCA
+##  7 117770  INSTITUTO NUEVA~ 47001           SANTA MARTA     MAGDALENA   
+##  8 101147  LA INMACULADA    76823           TORO            VALLE       
+##  9 119537  CIUDADELA EDUCA~ 63001           ARMENIA         QUINDIO     
+## 10 158675  I.E. RAFAEL REY~ 15693           SANTA ROSA DE ~ BOYACA      
+## # ... with 990 more rows, and 20 more variables: CALENDARIO <chr>,
+## #   NATURALEZA <chr>, JORNADA <chr>, EVALUADOS <dbl>,
+## #   PROMLECTURACRITICA <dbl>, PROMMATEMATICA <dbl>,
+## #   PROMSOCIALESYCIUDADANAS <dbl>, PROMCIENCIASNATURALES <dbl>,
+## #   PROMINGLES <dbl>, PROMRAZONAMIENTOCUANTITA <dbl>,
+## #   PROMCOMPETENCIASCIUDADAN <dbl>, DESVLECTURACRITICA <dbl>,
+## #   DESVMATEMATICA <dbl>, DESVSOCIALESYCIUDADANAS <dbl>,
+## #   DESVCIENCIASNATURALES <dbl>, DESVINGLES <dbl>,
+## #   DESVRAZONAMIENTOCUANTITA <dbl>, DESVCOMPETENCIASCIUDADAN <dbl>,
+## #   PERIODO <chr>, promTotal <dbl>
+```
+
+```r
+Icfes2 %>% 
+  mutate(promTotal=(PROMLECTURACRITICA+PROMMATEMATICA+PROMINGLES)/3)
+```
+
+```
+## # A tibble: 1,000 x 25
+##    CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##    <chr>   <chr>            <chr>           <chr>           <chr>       
+##  1 163519  I.E. SANTA ROSA~ 52256           EL ROSARIO      NARI�O      
+##  2 133314  CARLOS LLERAS R~ 85001           YOPAL           CASANARE    
+##  3 009282  COL EUCARISTICO~ 25769           SUBACHOQUE      CUNDINAMARCA
+##  4 005041  INS ED TEC Y AC~ 15183           CHITA           BOYACA      
+##  5 129635  CAMILO TORRES    76233           DAGUA           VALLE       
+##  6 104133  I.E.M JOHN FITZ~ 25269           FACATATIVA      CUNDINAMARCA
+##  7 117770  INSTITUTO NUEVA~ 47001           SANTA MARTA     MAGDALENA   
+##  8 101147  LA INMACULADA    76823           TORO            VALLE       
+##  9 119537  CIUDADELA EDUCA~ 63001           ARMENIA         QUINDIO     
+## 10 158675  I.E. RAFAEL REY~ 15693           SANTA ROSA DE ~ BOYACA      
+## # ... with 990 more rows, and 20 more variables: CALENDARIO <chr>,
+## #   NATURALEZA <chr>, JORNADA <chr>, EVALUADOS <dbl>,
+## #   PROMLECTURACRITICA <dbl>, PROMMATEMATICA <dbl>,
+## #   PROMSOCIALESYCIUDADANAS <dbl>, PROMCIENCIASNATURALES <dbl>,
+## #   PROMINGLES <dbl>, PROMRAZONAMIENTOCUANTITA <dbl>,
+## #   PROMCOMPETENCIASCIUDADAN <dbl>, DESVLECTURACRITICA <dbl>,
+## #   DESVMATEMATICA <dbl>, DESVSOCIALESYCIUDADANAS <dbl>,
+## #   DESVCIENCIASNATURALES <dbl>, DESVINGLES <dbl>,
+## #   DESVRAZONAMIENTOCUANTITA <dbl>, DESVCOMPETENCIASCIUDADAN <dbl>,
+## #   PERIODO <chr>, promTotal <dbl>
+```
+
+```r
+transmute(Icfes2,promTotal=(PROMLECTURACRITICA+PROMMATEMATICA+PROMINGLES)/3)
+```
+
+```
+## # A tibble: 1,000 x 1
+##    promTotal
+##        <dbl>
+##  1      45.2
+##  2      43.4
+##  3      63.2
+##  4      47.7
+##  5      46.1
+##  6      49.5
+##  7      45.3
+##  8      44.0
+##  9      48.6
+## 10      56.9
+## # ... with 990 more rows
+```
+
+```r
+Icfes2 %>% 
+  transmute(promTotal=(PROMLECTURACRITICA+PROMMATEMATICA+PROMINGLES)/3)
+```
+
+```
+## # A tibble: 1,000 x 1
+##    promTotal
+##        <dbl>
+##  1      45.2
+##  2      43.4
+##  3      63.2
+##  4      47.7
+##  5      46.1
+##  6      49.5
+##  7      45.3
+##  8      44.0
+##  9      48.6
+## 10      56.9
+## # ... with 990 more rows
+```
+
+Resumir variables o consolidar valores
+
+
+```r
+summarise(Icfes2, mean(PROMMATEMATICA))
+```
+
+```
+## # A tibble: 1 x 1
+##   `mean(PROMMATEMATICA)`
+##                    <dbl>
+## 1                   48.5
+```
+
+```r
+Icfes2 %>% 
+  summarise(mean(PROMMATEMATICA))
+```
+
+```
+## # A tibble: 1 x 1
+##   `mean(PROMMATEMATICA)`
+##                    <dbl>
+## 1                   48.5
+```
+
+Agrupación
+
+
+```r
+group_by(Icfes2, DEPARTAMENTO)
+```
+
+```
+## # A tibble: 1,000 x 24
+## # Groups:   DEPARTAMENTO [31]
+##    CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##    <chr>   <chr>            <chr>           <chr>           <chr>       
+##  1 163519  I.E. SANTA ROSA~ 52256           EL ROSARIO      NARI�O      
+##  2 133314  CARLOS LLERAS R~ 85001           YOPAL           CASANARE    
+##  3 009282  COL EUCARISTICO~ 25769           SUBACHOQUE      CUNDINAMARCA
+##  4 005041  INS ED TEC Y AC~ 15183           CHITA           BOYACA      
+##  5 129635  CAMILO TORRES    76233           DAGUA           VALLE       
+##  6 104133  I.E.M JOHN FITZ~ 25269           FACATATIVA      CUNDINAMARCA
+##  7 117770  INSTITUTO NUEVA~ 47001           SANTA MARTA     MAGDALENA   
+##  8 101147  LA INMACULADA    76823           TORO            VALLE       
+##  9 119537  CIUDADELA EDUCA~ 63001           ARMENIA         QUINDIO     
+## 10 158675  I.E. RAFAEL REY~ 15693           SANTA ROSA DE ~ BOYACA      
+## # ... with 990 more rows, and 19 more variables: CALENDARIO <chr>,
+## #   NATURALEZA <chr>, JORNADA <chr>, EVALUADOS <dbl>,
+## #   PROMLECTURACRITICA <dbl>, PROMMATEMATICA <dbl>,
+## #   PROMSOCIALESYCIUDADANAS <dbl>, PROMCIENCIASNATURALES <dbl>,
+## #   PROMINGLES <dbl>, PROMRAZONAMIENTOCUANTITA <dbl>,
+## #   PROMCOMPETENCIASCIUDADAN <dbl>, DESVLECTURACRITICA <dbl>,
+## #   DESVMATEMATICA <dbl>, DESVSOCIALESYCIUDADANAS <dbl>,
+## #   DESVCIENCIASNATURALES <dbl>, DESVINGLES <dbl>,
+## #   DESVRAZONAMIENTOCUANTITA <dbl>, DESVCOMPETENCIASCIUDADAN <dbl>,
+## #   PERIODO <chr>
+```
+
+```r
+Icfes2 %>% 
+  group_by(DEPARTAMENTO)
+```
+
+```
+## # A tibble: 1,000 x 24
+## # Groups:   DEPARTAMENTO [31]
+##    CODINST NOMBREINSTITUCI~ CODIGOMUNICIPIO NOMBREMUNICIPIO DEPARTAMENTO
+##    <chr>   <chr>            <chr>           <chr>           <chr>       
+##  1 163519  I.E. SANTA ROSA~ 52256           EL ROSARIO      NARI�O      
+##  2 133314  CARLOS LLERAS R~ 85001           YOPAL           CASANARE    
+##  3 009282  COL EUCARISTICO~ 25769           SUBACHOQUE      CUNDINAMARCA
+##  4 005041  INS ED TEC Y AC~ 15183           CHITA           BOYACA      
+##  5 129635  CAMILO TORRES    76233           DAGUA           VALLE       
+##  6 104133  I.E.M JOHN FITZ~ 25269           FACATATIVA      CUNDINAMARCA
+##  7 117770  INSTITUTO NUEVA~ 47001           SANTA MARTA     MAGDALENA   
+##  8 101147  LA INMACULADA    76823           TORO            VALLE       
+##  9 119537  CIUDADELA EDUCA~ 63001           ARMENIA         QUINDIO     
+## 10 158675  I.E. RAFAEL REY~ 15693           SANTA ROSA DE ~ BOYACA      
+## # ... with 990 more rows, and 19 more variables: CALENDARIO <chr>,
+## #   NATURALEZA <chr>, JORNADA <chr>, EVALUADOS <dbl>,
+## #   PROMLECTURACRITICA <dbl>, PROMMATEMATICA <dbl>,
+## #   PROMSOCIALESYCIUDADANAS <dbl>, PROMCIENCIASNATURALES <dbl>,
+## #   PROMINGLES <dbl>, PROMRAZONAMIENTOCUANTITA <dbl>,
+## #   PROMCOMPETENCIASCIUDADAN <dbl>, DESVLECTURACRITICA <dbl>,
+## #   DESVMATEMATICA <dbl>, DESVSOCIALESYCIUDADANAS <dbl>,
+## #   DESVCIENCIASNATURALES <dbl>, DESVINGLES <dbl>,
+## #   DESVRAZONAMIENTOCUANTITA <dbl>, DESVCOMPETENCIASCIUDADAN <dbl>,
+## #   PERIODO <chr>
+```
+
+Combinación de “verbos” en base de datos
+
+
+```r
+agrupados_deptos <- group_by(Icfes2, DEPARTAMENTO)
+promedio_depto <- summarise(agrupados_deptos, mean(PROMMATEMATICA))
+promedio_depto
+```
+
+```
+## # A tibble: 31 x 2
+##    DEPARTAMENTO `mean(PROMMATEMATICA)`
+##    <chr>                         <dbl>
+##  1 AMAZONAS                       39.4
+##  2 ANTIOQUIA                      48.0
+##  3 ARAUCA                         45.9
+##  4 ATLANTICO                      47.5
+##  5 BOGOTA                         54.4
+##  6 BOLIVAR                        44.5
+##  7 BOYACA                         52.9
+##  8 CALDAS                         49.0
+##  9 CAQUETA                        46.4
+## 10 CASANARE                       44.1
+## # ... with 21 more rows
+```
+
+Mediante encadenamiento de verbos
+
+
+```r
+Icfes2 %>% 
+  group_by(DEPARTAMENTO) %>% 
+  summarise(mean(PROMMATEMATICA))
+```
+
+```
+## # A tibble: 31 x 2
+##    DEPARTAMENTO `mean(PROMMATEMATICA)`
+##    <chr>                         <dbl>
+##  1 AMAZONAS                       39.4
+##  2 ANTIOQUIA                      48.0
+##  3 ARAUCA                         45.9
+##  4 ATLANTICO                      47.5
+##  5 BOGOTA                         54.4
+##  6 BOLIVAR                        44.5
+##  7 BOYACA                         52.9
+##  8 CALDAS                         49.0
+##  9 CAQUETA                        46.4
+## 10 CASANARE                       44.1
+## # ... with 21 more rows
+```
+
+Combinación de manejo de datos
+
+
+```r
+Icfes2 %>%
+  mutate(promTotal = rowMeans(.[10:16])) %>%
+  group_by(CODIGOMUNICIPIO) %>%
+  arrange(desc(promTotal)) %>%
+  select(NOMBREINSTITUCION, NOMBREMUNICIPIO, DEPARTAMENTO, promTotal) %>%
+  slice(1:3)
+```
+
+```
+## # A tibble: 619 x 5
+## # Groups:   CODIGOMUNICIPIO [409]
+##    CODIGOMUNICIPIO NOMBREINSTITUCION NOMBREMUNICIPIO DEPARTAMENTO promTotal
+##    <chr>           <chr>             <chr>           <chr>            <dbl>
+##  1 05001           INST JORGE ROBLE~ MEDELLIN        ANTIOQUIA         70.2
+##  2 05001           COL CALASANZ      MEDELLIN        ANTIOQUIA         68.3
+##  3 05001           COL CAMPESTRE LA~ MEDELLIN        ANTIOQUIA         68.0
+##  4 05031           I. E. EDUARDO FE~ AMALFI          ANTIOQUIA         46.7
+##  5 05036           I. E. LOS ANGELES ANGELOPOLIS     ANTIOQUIA         47.2
+##  6 05038           LICEO MARIANO DE~ ANGOSTURA       ANTIOQUIA         41.9
+##  7 05042           LICEO SAN LUIS G~ SANTAF� DE ANT~ ANTIOQUIA         48.1
+##  8 05044           COLEGIO ASCENCIO~ ANZA            ANTIOQUIA         40.4
+##  9 05045           INSTITUTO UNIBAN  APARTADO        ANTIOQUIA         63.8
+## 10 05045           I. E. R. CHURIDO~ APARTADO        ANTIOQUIA         46.8
+## # ... with 609 more rows
+```
+
+¿Cuántas Instituciones Educativas tiene cada municipio?
+
+
+```r
+Icfes2 %>%
+  group_by(CODIGOMUNICIPIO, NOMBREMUNICIPIO, DEPARTAMENTO) %>%
+  summarise(n = n()) %>%
+  select(DEPARTAMENTO, NOMBREMUNICIPIO, n) %>%
+  group_by(DEPARTAMENTO) %>%
+  arrange(desc(n))
+```
+
+```
+## # A tibble: 409 x 4
+## # Groups:   DEPARTAMENTO [31]
+##    CODIGOMUNICIPIO DEPARTAMENTO    NOMBREMUNICIPIO     n
+##    <chr>           <chr>           <chr>           <int>
+##  1 11001           BOGOTA          BOGOT� D.C.       127
+##  2 76001           VALLE           CALI               43
+##  3 05001           ANTIOQUIA       MEDELLIN           31
+##  4 08001           ATLANTICO       BARRANQUILLA       23
+##  5 13001           BOLIVAR         CARTAGENA          22
+##  6 73001           TOLIMA          IBAGUE             18
+##  7 54001           NORTE SANTANDER CUCUTA             15
+##  8 08758           ATLANTICO       SOLEDAD            14
+##  9 50001           META            VILLAVICENCIO      13
+## 10 76109           VALLE           BUENAVENTURA       13
+## # ... with 399 more rows
+```
+
+
+```r
+library(ggplot2)
+Icfes2 %>% 
+  ggplot(aes(x = PROMLECTURACRITICA,y = PROMMATEMATICA,
+             fill=JORNADA,colour=JORNADA))+
+  geom_point()
+```
+
+<img src="figure/unnamed-chunk-33-1.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" style="display: block; margin: auto;" />
+
+```r
+Icfes2 %>% 
+  ggplot(aes(y = PROMMATEMATICA,x=DEPARTAMENTO,
+             fill=DEPARTAMENTO))+
+  geom_boxplot()+ theme(legend.position = "none",
+                        axis.text.x = element_text(angle = 90))
+```
+
+<img src="figure/unnamed-chunk-33-2.png" title="plot of chunk unnamed-chunk-33" alt="plot of chunk unnamed-chunk-33" style="display: block; margin: auto;" />
+
+
+
+
+## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>

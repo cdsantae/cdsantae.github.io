@@ -1,0 +1,365 @@
+---
+title: "Manejo de Bases de Datos"
+author: "Cristian Santa"
+date: "Abril de 2019"
+output:
+  rmdformats::readthedown:
+    df_print: paged
+    code_folding: show
+    highlight: tango
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.align = "center",
+                      message = FALSE,
+                      error = FALSE,
+                      warning = FALSE,
+                      cache = TRUE)
+options(java.parameters = "- Xmx6024m")
+```
+
+## Marco de datos
+
+Para trabajar con bases de datos en `R` se pueden construir o cargar al software. En cualquier caso, la idea es tener un objeto `data.frame` que el tipo que identifica las bases de datos.
+
+### Construcción
+
+Para construir una base de datos, se debe definir las variables que representan las columnas, y el contenido de cada variable son la representación en cada fila, es importante que todas las variables tengan el mismo tamaño para construir una base de datos consistente. 
+
+```{r}
+years <- 1980:2019
+nombre <- sample(c("Luisa","Andrés","Camilo","Natalia"),
+                 size = 40,replace = T)
+peso <- round(rnorm(40,60,5),2)
+estatura <- ifelse(nombre=="Luisa",1.56,
+                   ifelse(nombre=="Andrés",1.78,
+                          ifelse(nombre=="Camilo",1.70,1.68)))
+imc <- round(peso/estatura^2,2)
+```
+
+Cada variable está asignada de manera independiente, aún no es una base de datos. Para que cumpla con la condición de base de datos es necesario que cada fila de cada variable represente una medición, es decir, si la primera posición del `nombre` es `Camilo` entonces las primera posición de las variables `year`, `peso`, `estatura` y `imc` deben corresponder a `Camilo`.
+
+Para construir la base de datos, se usa el comando `data.frame`.
+
+```{r}
+args(data.frame)
+(datos <- data.frame(years, nombre, peso, estatura, imc))
+str(datos)
+```
+
+Con la base de datos creada se puede manipular más fácil, para ingresar a las filas y columnas se trabaja similar a las matrices.
+
+```{r}
+datos[,1]
+datos[,"nombre"]
+datos[8:24,]
+datos[,c(1,3,5)]
+datos[,c("years","imc")]
+```
+
+### cargar base de datos
+
+`R` maneja casi cualquier tipo de archivo de bases de datos, pero su formato de creación de base de datos es `.Rds` o `.RData`, en el paquete `base` y `utils`existe una colección de funciones para leer marcos de datos.
+
+```{r,echo=FALSE}
+lsf.str("package:base")[grepl("read",lsf.str("package:base"))]
+lsf.str("package:utils")[grepl("read",lsf.str("package:utils"))]
+```
+
+Para cargar otras extensiones de bases de datos es necesario utilizar paquetes.
+
+```{r,eval=FALSE}
+# Para otros Software de estadística (Minitab, SAS, Stata, SPSS)
+install.packages("haven",dependencies = T)
+install.packages("foreign",dependencies = T)
+
+# Archivos de excel
+install.packages("xlsx",dependencies = T) # Requiere Java
+install.packages("readxl",dependencies = T)
+
+# SQL
+install.packages("sqldf",dependencies = T)
+```
+
+Para trabajar con `SQL` en `R` se recomienda leer el artículo de [Josh Errickson](http://dept.stat.lsa.umich.edu/~jerrick/courses/stat701/notes/sql.html) y las notas de [Data Carpentry](https://datacarpentry.org/R-ecology-lesson/05-r-and-databases.html).
+
+La base de datos de el **ICFES 2015-02**  está disponible en Excel, todos los ejemplos que acontinuación se muestran se trabajan con esta base de datos.
+
+* [ICFES 2015-02.xls](https://cdsantae.github.io/EAFIT/Clase08/ICFES20152.xls)
+* [ICFES 2015-02.xlsx](https://cdsantae.github.io/EAFIT/Clase08/ICFES20152.xlsx)
+* [ICFES 2015-02.csv](https://cdsantae.github.io/EAFIT/Clase08/ICFES20152.csv)
+
+```{r,eval=FALSE,warning=FALSE,message=FALSE}
+library(xlsx)
+library(readxl)
+
+Icfes <- read.csv("ICFES20152.csv",sep = ",")
+```
+
+Si el archivo tiene la extensión `.xlsx` se utiliza los siguientes comandos:
+
+```{r, eval=FALSE}
+# Con xlsx
+Icfes <- read.xlsx(file = "ICFES20152.xlsx",sheetName = 1,encoding = "UTF-8")
+Icfes <- read.xlsx2(file = "ICFES20152.xls",sheetIndex = 1)
+
+# Con readxl
+Icfes <- read_xlsx(path = "ICFES20152.xlsx")
+```
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+require(xlsx)
+require(readxl)
+Icfes <- read_xlsx("ICFES20152.xlsx")
+#Icfes <- as.data.frame(unclass(Icfes))
+```
+
+Para cargar los archivos de esta manera es necesario que se encuentren alojados en la carpeta de trabajo que puede verificar con el comand `getwd()`, y para asignar una nuava ruta se utiliza el comando `setwd()`. Una función muy útil para buscar carpetas es `choose.dir()`, y para seleccionar una archivo específico `file.choose()`.
+
+```{r}
+Icfes
+dim(Icfes)
+length(Icfes)
+names(Icfes)
+head(Icfes,n = 3)
+tail(Icfes,n = 3)
+str(Icfes)
+class(Icfes)
+class(Icfes$NOMBREMUNICIPIO)
+summary(Icfes)
+```
+
+El operador `$` sirve para extraer las variables del `data.frame`, siepre y cuando la base de datos posea nombres.
+
+### Guardar bases de datos
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+lsf.str("package:base")[grepl("write",lsf.str("package:base"))]
+lsf.str("package:utils")[grepl("write",lsf.str("package:utils"))]
+lsf.str("package:xlsx")[grepl("write",lsf.str("package:xlsx"))]
+library(haven); library(foreign)
+lsf.str("package:haven")[grepl("write",lsf.str("package:haven"))]
+lsf.str("package:foreign")[grepl("write",lsf.str("package:foreign"))]
+```
+
+## Funciones del tipo `apply`
+
+`apply()` Aplica la función sobre un la marginal de un arreglo o matriz.
+
+```{r}
+(m <- matrix(c(1:10, 11:20), nrow = 10, ncol = 2))
+apply(m, 1, mean)
+apply(m, 2, mean)
+apply(m, 1:2, function(x) x/2)
+apply(Icfes, 2, length)
+apply(Icfes[,9:18], 2, mean)
+apply(Icfes[,9:18], 2, sd)
+```
+
+`by()` Aplica la función sobre una división de una base de datos (`data.frame`) por un factor.
+
+```{r}
+by(Icfes[,c(9:18)], Icfes$CALENDARIO, colMeans)
+```
+
+`lapply()` Aplica una función sobre una lista o un vector.
+
+```{r}
+l <- list(a = 1:10, b = 11:20)
+lapply(l, mean)
+lapply(l, sum)
+```
+
+`sapply()` Aplica una función sobre una lista o un vector y si el resultado se puede simplificar en un formato más simple, lo hace.
+
+```{r}
+l <- list(a = 1:10, b = 11:20)
+sapply(l, mean)
+sapply(l, sum)
+```
+
+`vapply()` Aplica la función sobre una lista y devuelve el resultado de acuerdo
+a un formato indicado.
+
+```{r}
+l <- list(a = 1:10, b = 11:20)
+lFivenum <- vapply(l, 
+                   fivenum, 
+                   c(Min. = 0, "1er Cuart." = 0, 
+                     Mediana = 0, "3er Cuart." = 0, Max. = 0))
+class(lFivenum)
+lFivenum
+```
+
+`replicate()` Replica la ejecución de una función un número específico de veces.s
+```{r}
+replicate(10, rnorm(10))
+replicate(8, mean(rexp(10)))
+```
+
+`mapply()` Es la versión multivariada de `lapply` y `sapply`. Aplica la función a los elementos correspondientes de múltiples listas. 
+
+```{r}
+l1 <- list(a = c(1:10), b = c(11:20))
+l2 <- list(c = c(21:30), d = c(31:40))
+mapply(sum, l1$a, l1$b, l2$c, l2$d)
+mapply(sum, l1, l2)
+l2 <- list(c = c(21:30), d = c(31:40), z = c(31:50))
+mapply(sum, l1$a, l1$b, l2$c, l2$z)
+```
+
+`tapply()` Aplica la función sobre un vector, de acuerdo a una clasificación de la variable tipo `factor`.
+
+```{r}
+tapply(Icfes$EVALUADOS, Icfes$JORNADA, mean)
+tapply(Icfes$PROMRAZONAMIENTOCUANTITA, Icfes$JORNADA, mean)
+```
+
+## Tidyverse
+
+En el universo de `tidyverse` la programación vía tuberías es la principal novedad.
+
+```{r,eval=FALSE}
+install.packages("dplyr",dependencies = T)
+```
+
+```{r,message=FALSE,warning=FALSE}
+# Muestra aleatoria de resultados del ICFES
+aux <- sample(dim(Icfes)[1],size = 1000)
+
+library(dplyr)
+Icfes2 <- tbl_df(Icfes[aux,])
+```
+
+Filtrar una base de datos
+
+```{r}
+filter(Icfes2, DEPARTAMENTO == "ANTIOQUIA",
+       NOMBREMUNICIPIO == "MEDELLIN")
+Icfes2 %>% filter(DEPARTAMENTO == "ANTIOQUIA",
+                  NOMBREMUNICIPIO == "MEDELLIN")
+```
+
+Selección de posiciones específicas de una base de datos
+
+```{r}
+slice(Icfes2, 1000:1050)
+Icfes2 %>%
+  slice(1000:1050)
+```
+
+Ordenar la base de datos
+
+```{r}
+arrange(Icfes2, DEPARTAMENTO)
+arrange(Icfes2, DEPARTAMENTO, NOMBREINSTITUCION)
+arrange(Icfes2, PROMLECTURACRITICA)
+arrange(Icfes2, desc(PROMLECTURACRITICA))
+
+Icfes2 %>% 
+  arrange(DEPARTAMENTO, desc(PROMLECTURACRITICA))
+```
+
+Seleccion de columnas
+
+```{r}
+select(Icfes2, NOMBREMUNICIPIO, DEPARTAMENTO, PROMLECTURACRITICA)
+
+Icfes2 %>%
+  select(NOMBREMUNICIPIO, DEPARTAMENTO, PROMLECTURACRITICA)
+```
+
+Elementos o registros únicos
+
+```{r}
+distinct(select(Icfes2, DEPARTAMENTO))
+Icfes2 %>% 
+  select(DEPARTAMENTO) %>% 
+  distinct()
+```
+
+Adicionar una nueva columna
+
+```{r}
+mutate(Icfes2,promTotal=(PROMLECTURACRITICA+PROMMATEMATICA+PROMINGLES)/3)
+Icfes2 %>% 
+  mutate(promTotal=(PROMLECTURACRITICA+PROMMATEMATICA+PROMINGLES)/3)
+transmute(Icfes2,promTotal=(PROMLECTURACRITICA+PROMMATEMATICA+PROMINGLES)/3)
+Icfes2 %>% 
+  transmute(promTotal=(PROMLECTURACRITICA+PROMMATEMATICA+PROMINGLES)/3)
+```
+
+Resumir variables o consolidar valores
+
+```{r}
+summarise(Icfes2, mean(PROMMATEMATICA))
+Icfes2 %>% 
+  summarise(mean(PROMMATEMATICA))
+```
+
+Agrupación
+
+```{r}
+group_by(Icfes2, DEPARTAMENTO)
+Icfes2 %>% 
+  group_by(DEPARTAMENTO)
+```
+
+Combinación de “verbos” en base de datos
+
+```{r}
+agrupados_deptos <- group_by(Icfes2, DEPARTAMENTO)
+promedio_depto <- summarise(agrupados_deptos, mean(PROMMATEMATICA))
+promedio_depto
+
+```
+
+Mediante encadenamiento de verbos
+
+```{r}
+Icfes2 %>% 
+  group_by(DEPARTAMENTO) %>% 
+  summarise(mean(PROMMATEMATICA))
+```
+
+Combinación de manejo de datos
+
+```{r}
+Icfes2 %>%
+  mutate(promTotal = rowMeans(.[10:16])) %>%
+  group_by(CODIGOMUNICIPIO) %>%
+  arrange(desc(promTotal)) %>%
+  select(NOMBREINSTITUCION, NOMBREMUNICIPIO, DEPARTAMENTO, promTotal) %>%
+  slice(1:3)
+```
+
+¿Cuántas Instituciones Educativas tiene cada municipio?
+
+```{r}
+Icfes2 %>%
+  group_by(CODIGOMUNICIPIO, NOMBREMUNICIPIO, DEPARTAMENTO) %>%
+  summarise(n = n()) %>%
+  select(DEPARTAMENTO, NOMBREMUNICIPIO, n) %>%
+  group_by(DEPARTAMENTO) %>%
+  arrange(desc(n))
+```
+
+```{r}
+library(ggplot2)
+Icfes2 %>% 
+  ggplot(aes(x = PROMLECTURACRITICA,y = PROMMATEMATICA,
+             fill=JORNADA,colour=JORNADA))+
+  geom_point()
+Icfes2 %>% 
+  ggplot(aes(y = PROMMATEMATICA,x=DEPARTAMENTO,
+             fill=DEPARTAMENTO))+
+  geom_boxplot()+ theme(legend.position = "none",
+                        axis.text.x = element_text(angle = 90))
+```
+
+
+
+
+## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>

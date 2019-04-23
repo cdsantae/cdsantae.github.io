@@ -30,8 +30,8 @@ regexpr("gía",texto)
 
 El ejemplo anterior busca la sarta `gía` en el vector de sartas `texto`. Ingresa en cada posición del vector y busca si la sarta `gía` es un patrón identificable en cada una de las cadenas de caracteres, si encuentra el patrón entonces indica en cuál posición comienza el patrón:
 
-* `1[A] 2[n] 3[t] 4[r] 5[o] 6[p] 7[o] 8[l] 9[o] 10[g] 11[í] 12[a]`
-* `1[B] 2[i] 3[o] 4[l] 5[o] 6[g] 7[í] 7[a]`
+`1[A] 2[n] 3[t] 4[r] 5[o] 6[p] 7[o] 8[l] 9[o] 10[g] 11[í] 12[a]`
+`1[B] 2[i] 3[o] 4[l] 5[o] 6[g] 7[í] 7[a]`
 
 ## Metacaracteres
 
@@ -373,33 +373,30 @@ Este es un ejemplo básico.
 
 ```{r}
 # install.packages("rvest",dependencies = T)
-# install.packages("wordcloud",dependencies = T)
 library(rvest)
-library(wordcloud)
 
-curriculos <- NULL
-for (dip in seq(1,350,by=1)){
+curriculos <- ""
+for (dip in seq(1,10,by=1)){
   url = paste0("http://www.congreso.es/portal/page/portal/Congreso/Congreso/Diputados/BusqForm?_piref73_1333155_73_1333154_1333154.next_page=/wc/fichaDiputado?idDiputado=",dip,"&idLegislatura=12")
   
   congreso <- read_html(url)
-  curric <- html_node(congreso,"#curriculum")
-  curric <- html_text(curric)
-  curric <- strsplit(curric,"\n")
-  curric <- unlist(curric)
-  
+  curric <- congreso %>%
+    html_node("#curriculum") %>%
+    html_text %>%
+    strsplit(split = "\n") %>%
+    unlist() %>%
+    .[. != ""]
   #Pequeña limpieza de texto
   curric <- trimws(curric)
-  
   #Elimina las líneas sin contenido
   curric <- curric[which(curric!="")]
-  
   #Nos quedamos justo con la linea que hay debajo de la palabra legislaturas
   linea <- curric[grep("legislatura", curric)+1]
   curriculos <- rbind(curriculos,linea)
 }
 
-curriculos <- as.matrix(curriculos)
-palabras <- strsplit(curriculos," ")
+curriculos <- data.frame(curriculos[-1])
+palabras <- strsplit(as.matrix(curriculos)," ")
 palabras <- as.character(unlist(palabras))
 palabras <- data.frame(palabras)
 names(palabras) = c("V1")
@@ -409,14 +406,14 @@ palabras$V1 <- sub("([[:punct:]])","",palabras$V1)
 palabras$largo <- nchar(palabras$V1)
 palabras
 palabras <- subset(palabras, largo>4)
-palabras <- palabras[order(palabras$largo),]
 palabras
-frecuencias <- table(palabras$V1)
-par(mar=c(0,0,0,0))
-wordcloud::wordcloud(words = names(frecuencias),freq = frecuencias,min.freq = 1,
-                     colors = brewer.pal(8,"Dark2"),random.order = F, rot.per = 0.35,
-                     max.words = Inf)
+
+library(plyr)
+(conteo <- data.frame(ddply(palabras, "V1",summarise, cuenta=length(V1) )))
+(conteo[order(-conteo$cuenta),])
+
 ```
+
 
 ## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
 
