@@ -1,0 +1,282 @@
+---
+title: "Formatos de Fecha y Tiempos"
+author: "Cristian Santa"
+date: "Abril de 2019"
+output:
+  rmdformats::readthedown:
+    df_print: paged
+    code_folding: show
+    highlight: tango
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.align = "center",
+                      message = FALSE,
+                      error = FALSE,
+                      warning = FALSE,
+                      cache = TRUE)
+```
+
+## Introducción
+
+`R` proporciona varias opciones para tratar con datos de fecha y fecha/hora. La función `as.Date` del paquete `base` maneja las fechas pero sin tiempos, existe el paquete `chron` que trabaja con fecha y tiempos, pero no controla la zona horaria; y las clases `POSIXct` y `POSIXlt`, que incorpora la norma [POSIX](https://es.wikipedia.org/wiki/POSIX), sirven para trabajar con tiempo  fechas y zonas horarias.
+
+```{r,eval=FALSE}
+install.packages("chron",dependencies = T)
+```
+
+```{r}
+Sys.Date()
+Sys.time()
+Sys.timezone()
+Sys.getlocale()
+methods(as.Date)
+args(as.Date.character)
+```
+
+El argumento `format=` indica el tipo de formato de fecha que se quiere usar.
+
+* `%d`: día del mes (número decimal)
+* `%m`:	Mes (número decimal)
+* `%b`:	Mes (nombre abreviado)
+* `%B`:	Mes (nombre completo)
+* `%y`:	Año (dos dígitos)
+* `%Y`:	Año (cuatro dígitos)
+
+```{r}
+as.Date("1949-8-26")
+as.Date("1985/10/15")
+as.Date("6/18/1932", format="%m/%d/%Y")
+as.Date("Mayo 1, 1886", format="%B %d, %Y")
+as.Date("15mar.92", format="%d%b%y")
+```
+
+Internamente los objetos tipo `Date` guarga un número de días comenzando desde Enero 01 de 1970, con la función `as.numeric` se puede coercionar la fecha para convertirla en número.
+
+```{r}
+x <- c("1960-1-1","1969-1-1","1970-1-1","1971-1-1","1980-1-1")
+(y <- as.Date(x))
+as.numeric(y)
+```
+
+Para extraer los componentes de fechas se puede emplear las funciones `weekdays`, `months`, `days` o `quarters`.
+
+```{r,message=FALSE,warning=FALSE}
+# Fechas de nacimiento de Estadísticos importantes en la historia
+library(chron)
+(Dnac <- c(tukey=as.Date('1915-06-16'),fisher=as.Date('1890-02-17'),
+          cramer=as.Date('1893-09-25'),kendall=as.Date('1907-09-06')))
+weekdays(Dnac)
+months(Dnac)
+days(Dnac)
+quarters(Dnac)
+```
+
+La función `chron` sirve para trabaja con fechas y tiempos, los formatos que reciben son.
+
+**Fechas**
+* `m`:	Mes (número decimal)
+* `d`:	Días del mes (número decimal)
+* `y`:	Año (cuatro dígitos)
+* `mon`:	Mes (nombre abreviado)
+* `month`:	Mes (nombre completo)
+
+**Tiempos**
+* `h`: Hora
+* `m`: Minutos
+* `s`: Segundos
+
+```{r}
+(fechas <- dates(c("06/09/02","01/29/03",
+                  "09/04/02","11/13/02",
+                  "07/07/02")))
+(tiempos <- times(c("12:45:40","09:30:40",
+                    "16:45:40","20:00:40",
+                    "17:30:40")))
+chron(dates. = fechas, times. = tiempos)
+chron(dates. = fechas, times. = tiempos,format = c("y-m-d","h:m:s"))
+chron(dates. = fechas, times. = tiempos,format = c("y-month-d","h:m:s"))
+```
+
+Hay dos clases de fecha/hora de tipo POSIX, que difieren en la forma en que los valores se almacenan internamente. La clase `POSIXct` almacena los valores fecha/hora como el úmero de segundos desde el 1 de Enero de 1970, mientras que la clase `POSIXlt` los almacena como una lista con elementos para el segundo, minuto, hora, día, mes y año, entre otros. A menos que necesite la naturaleza de lista de la clase `POSIXlt`, la clase `POSIXct` es la opción habitual para almacenar fechas en `R`.
+
+El formato de entrada predeterminado para las fechas POSIX consiste en el año, seguido del mes y el día, separados por barras o guiones; para los valores de fecha/hora, la fecha puede ir seguida de un espacio en blanco y una hora en la forma hora:minutos:segundos o hora:minutos.
+
+```{r}
+dts <- c ("2005-10-21 18:47:22", "2005-12-24 16:39:58",
+           "2005-10-28 07:30:05 PDT") 
+as.POSIXlt(dts)
+```
+
+Si la fecha/hora de entrada se almacenan como el número de segundos desde el 1 de Enero de 1970, puede crear valores de fecha POSIX asignando la clase apropiada directamente a esos valores. Dado que la mayoría de las funciones de manipulación de fechas se refieren a la clase psuedo `POSIXt`, asegúrese de incluirla como el primer miembro del atributo de clase.
+
+```{r}
+dts <- c(1127056501,1104295502,1129233601,1113547501,
+         1119826801,1132519502,1125298801,1113289201)
+mydates <- dts 
+class(mydates) <- c('POSIXt','POSIXct') 
+mydates
+```
+
+* `%a`:	Día de la semana abreviado
+* `%A`:	Día de la semana completo
+* `%b`:	Mes abreviado
+* `%B`:	Mes completo
+* `%c`:	Fecha y hora específicas de la localidad
+* `%d`:	Fecha decimal
+* `%H`:	Horas decimales (24 horas)
+* `%I`:	Horas decimales (12 horas)
+* `%j`:	Día decimal del año
+* `%m`:	Mes decimal
+* `%M`:	Minuto decimal
+* `%p`:	Localidad específica de AM/PM
+* `%S`:	Segundo decimal
+* `%U`:	Decimal semana del año (a partir del domingo)
+* `%w`:	Decimal día de la semana (0 = domingo)
+* `%W`:	Decimal semana del año (a partir del lunes)
+* `%x`:	Fecha específica de la localidad
+* `%X`:	Tiempo específico de la localidad
+* `%y`:	Año de 2 dígitos
+* `%Y`:	Año de 4 dígitos
+* `%z`:	Comparación con GMT
+* `%Z`:	Zona horaria (`character`)
+
+```{r}
+args(strptime)
+args(ISOdate)
+strptime('16/Oct/2005:07:51:00',format='%d/%b/%Y:%H:%M:%S')
+ISOdate(2005,10,21,18,47,22,tz="PDT")
+data.frame(OlsonNames())
+(fecha <- ISOdate(2005, 10, 21, 18, 47, 22, tz = "VEN"))
+format(fecha,'%A, %B %d, %Y %H:%M:%S')
+(b1 <- ISOdate(1977,7,13))
+(b2 <- ISOdate(2003,8,14))
+b2 - b1
+difftime(b2,b1,units='weeks')
+difftime(b2,b1,units='mins')
+difftime(b2,b1,units='secs')
+seq(as.Date('1976-7-4'),by='days',length=10)
+seq(as.Date('1976-7-4'),by='years',length=10)
+seq(as.Date('2000-6-1'),to=as.Date('2000-8-1'),by='2 weeks')
+```
+
+## Paquete `lubridate`
+
+El paquete `lubridate` es parte de la familia `tidyverse`, según sus autores "`lubridate` tiene una sintaxis consistente y memorable, que hace que trabajar con las fechas sea divertido en lugar de frustrante"."
+
+```{r,eval=FALSE}
+install.packages("lubridate", dependencies = T)
+```
+
+```{r,warning=FALSE,message=FALSE}
+library(lubridate)
+(hoy <- today())
+year(hoy)
+month(hoy)
+day(hoy)
+wday(hoy)
+wday(hoy,label = T)
+mday(hoy)
+yday(hoy)
+(ya <- now())
+hour(ya)
+minute(ya)
+second(ya)
+(fecha <- ymd("1979-06-12"))
+class(fecha)
+ymd("1989 May 17")
+mdy("March 12, 1975")
+dmy(25081985)
+ymd("1920/1/2")
+dt1 <- '2014-08-23 17:23:02'
+ymd_hms(dt1)
+hms("03:22:14")
+update(ya, hours = 8, minutes = 34, seconds = 55)
+update(ymd_hms(dt1),year=2019,hours=12,minutes=56,seconds=24)
+now("America/New_York")
+now("Japan")
+now("Europe/Andorra")
+(CABA <- now("America/Buenos_Aires"))
+CABA + days(2)
+CABA + hours(10) + minutes(35)
+with_tz(CABA,"US/Alaska")
+with_tz(CABA + hours(10) + minutes(35),"America/Bogota")
+(antes <- mdy("06-17-2008", tz = "Singapore"))
+(cuanto <- interval(antes,CABA))
+as.period(cuanto)
+antes %--% CABA
+as.duration(cuanto)
+cuanto/dweeks(1)
+cuanto/dweeks(5)
+cuanto/dhours(1)
+cuanto/dhours(12)
+cuanto/dminutes(1)
+cuanto/dminutes(30)
+cuanto/dyears(1)
+cuanto/dyears(3)
+start <- c("2012-08-21", "2012-09-01", "2012-08-15", "2012-09-18")
+end <- c("2012-09-16", "2012-09-06", "2012-08-22", "2012-10-11")
+(elapsed.time <- start %--% end)
+mean(as.duration(elapsed.time) / dweeks(1))
+```
+
+## Ejemplo
+
+La siguiente base de datos es una recolección de registros de temperatura de un río cada 15 minutos realizada por el [*NF American River*](https://raw.githubusercontent.com/gge-ucd/wRangling_Seminar/master/data/2015_NFA_solinst_08_05.csv). Este conjunto de datos tiene 35.038 observaciones de temperatura del agua y etapa (información del transductor de presión).
+
+```{r,warning=FALSE,message=FALSE}
+datos <- read.csv("https://raw.githubusercontent.com/gge-ucd/wRangling_Seminar/master/data/2015_NFA_solinst_08_05.csv", skip=13)
+library(lubridate)
+library(dplyr)
+datos
+summary(datos)
+names(datos)
+datos$datetime <- paste0(datos$Date, " ", datos$Time)
+datos$datetime <- ymd_hms(datos$datetime)
+library(magrittr) # para usar " %<>% "
+library(ggplot2)
+datos %<>% # Qué hace esto?
+  mutate(yr = year(datetime),
+         mon = month(datetime),
+         wk = week(datetime),
+         DOY = yday(datetime),
+         hr = hour(datetime))
+datos
+
+datos %>%  select(Level, Temperature, wk) %>%
+  group_by(wk) %>% 
+  summarise_each(funs(mean, max, min)) %>%
+  ggplot() +
+  geom_point(aes(x=wk,y=Temperature_max),color="gray40",fill="maroon",pch=21)+
+  geom_line(aes(x=wk,y=Temperature_mean),color="red3")+
+  geom_point(aes(x=wk,y=Temperature_min),color="gray40",fill="navyblue",pch=21)+
+  xlab("July 2015: Week")
+
+datos %>%  filter(mon>=4 & mon<=6) %>% 
+  select(Level, DOY, hr, yr) %>%
+  group_by(yr, DOY, hr) %>% 
+  summarise(mean_Level=mean(Level)) %>% 
+  mutate(datetimes = ymd_hms(strptime(paste0(yr,"-",DOY," ",hr, ":00"),format="%Y-%j %H:%M"))) %>% 
+  ggplot()+
+  geom_line(aes(x=datetimes, y=mean_Level),color="forestgreen")+
+  xlab("Date") + ylab("Hourly Stage (m)")
+
+datos %>%  
+  select(Temperature, mon) %>%
+  group_by(mon) %>% 
+  summarise_each(funs(mean, max, min)) %>%
+  ggplot()+
+  geom_pointrange(aes(x=mon,y=mean,ymax=max,ymin=min),fill="maroon",size=1,pch=21)+
+  xlab("Avg Monthly Water Temperature: Months")
+```
+
+En los siguientes links se encuentran guías útiles para trabajar modelos series de tiempo.
+
+* [Little Book of R for Time Series!](https://a-little-book-of-r-for-time-series.readthedocs.io/en/latest/index.html)
+* [Tidy time series forecasting with fable](https://tidyverts.github.io/tidy-forecasting-principles/)
+* [Forecast: fable](https://mitchelloharawild.com/fable-tfeam/#1)
+* [Climate change: Modeling](https://rethinking.rbind.io/2019/01/21/140-years/)
+
+## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
