@@ -227,7 +227,7 @@ install.packages("dplyr",dependencies = T)
 
 ```{r,message=FALSE,warning=FALSE}
 # Muestra aleatoria de resultados del ICFES
-aux <- sample(dim(Icfes)[1],size = 1000)
+aux <- sample(dim(Icfes)[1],size = 2000)
 
 library(dplyr)
 Icfes2 <- tbl_df(Icfes[aux,])
@@ -245,9 +245,9 @@ Icfes2 %>% filter(DEPARTAMENTO == "ANTIOQUIA",
 Selección de posiciones específicas de una base de datos
 
 ```{r}
-slice(Icfes2, 1000:1050)
+slice(Icfes2, 100:150)
 Icfes2 %>%
-  slice(1000:1050)
+  slice(100:150)
 ```
 
 Ordenar la base de datos
