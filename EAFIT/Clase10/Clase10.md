@@ -21,6 +21,7 @@ En los siguientes archivos se encuentra el resumen del curso.
 * [Importar Datos](data-import-cheatsheet_Spanish.pdf)
 * [`dplyr`](data-transformation_Spanish.pdf)
 * [`ggplot2`](ggplot2.pdf)
+* [`plotly`](Plotly_cheat_sheet.pdf)
 * [`stringr`](strings_Spanish.pdf)
 * [`lubridate`](lubridate_Spanish.pdf)
 * [Comparación de Sintáxis](syntax.pdf)
