@@ -197,6 +197,7 @@ quarters(Dnac)
 La función `chron` sirve para trabaja con fechas y tiempos, los formatos que reciben son.
 
 **Fechas**
+
 * `m`:	Mes (número decimal)
 * `d`:	Días del mes (número decimal)
 * `y`:	Año (cuatro dígitos)
@@ -204,6 +205,7 @@ La función `chron` sirve para trabaja con fechas y tiempos, los formatos que re
 * `month`:	Mes (nombre completo)
 
 **Tiempos**
+
 * `h`: Hora
 * `m`: Minutos
 * `s`: Segundos
