@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
                       error = FALSE,
                       warning = FALSE,
-                      cache = TRUE)
+                      cache = FALSE)
 ```
 
 ## Resumen del curso
@@ -33,6 +33,8 @@ En los siguientes archivos se encuentra el resumen del curso.
 * [`lubridate`](lubridate_Spanish.pdf)
 * [Comparación de Sintáxis](syntax.pdf)
 * [RMarkdown](rmarkdown_Spanish.pdf)
+
+[Otros Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
 
 ## Trabajo práctico
 

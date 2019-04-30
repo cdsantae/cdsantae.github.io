@@ -27,6 +27,8 @@ En los siguientes archivos se encuentra el resumen del curso.
 * [Comparación de Sintáxis](syntax.pdf)
 * [RMarkdown](rmarkdown_Spanish.pdf)
 
+[Otros Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
+
 ## Trabajo práctico
 
 Se tienen registros de los vuelos de 3 aerolíneas desde 2017/01/01 a primera hora, hasta el 2018/12/31 a última hora. Los datos son número promedio de vuelos y costo promedio total, que los pueden descargar en formato `.txt` [Aquí](Vuelos.txt).
