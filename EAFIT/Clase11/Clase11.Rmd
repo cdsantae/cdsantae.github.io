@@ -2028,3 +2028,4 @@ arrows(ub, 0.45, ub-1, 0.45, lwd=3, col="#880000")
 
 [Resumen de Pruebas de Hipótesis](Resumen_PH.pdf)
 
+## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>

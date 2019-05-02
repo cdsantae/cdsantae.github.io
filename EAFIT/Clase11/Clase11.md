@@ -1818,3 +1818,4 @@ $\gamma_c(\theta)=P_{\theta}[(X_1,X_2,...,X_n) \in C]$, $\theta \in W_1$
 
 [Resumen de Pruebas de Hipótesis](Resumen_PH.pdf)
 
+## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
