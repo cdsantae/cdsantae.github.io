@@ -1,0 +1,446 @@
+---
+title: "Análisis Estadístico con R - Parte II"
+author: "Cristian Santa"
+date: "Mayo de 2019"
+output:
+  rmdformats::readthedown:
+    df_print: paged
+    code_folding: show
+    highlight: tango
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.align = "center",
+                      message = FALSE,
+                      error = FALSE,
+                      warning = FALSE,
+                      cache = FALSE)
+```
+
+## Correlación
+
+Utilizando datos muestrales pareados (que en ocasiones se llaman datos bivariados), calculamos el valor de $r$ y luego utilizamos este valor para concluir que existe (o no) una relación entre las dos variables. En esta sección solo consideramos las relaciones lineales, lo que quiere decir que cuando se grafican los puntos, se aproximan al patrón de una línea recta.
+
+> Existe una correlación entre dos variables cuando los valores de una de ellas están
+relacionados de alguna manera con los valores de la otra.
+
+El **coeficiente de correlación lineal** $r$ mide la fuerza de la relación lineal entre los valores cuantitativos pareados $x$ y $y$ en una muestra. El coeficiente de correlación lineal también se conoce como coeficiente de correlación producto momento de Pearson, en honor de Karl Pearson (1857-1936), quien lo desarrolló originalmente].
+
+$$r=\frac{n(\sum xy)-(\sum x)(\sum y)}{\sqrt{n(\sum x^2)-(\sum x)^2}\sqrt{n(\sum y^2)-(\sum y)^2}}$$
+
+### Requisitos
+
+1. La muestra de datos pareados $(x, y)$ es una muestra aleatoria simple de datos cuantitativos.
+
+2. El examen visual del diagrama de dispersión debe confirmar que los puntos se acercan al patrón de una línea recta.
+
+3. Como los resultados se pueden ver muy afectados por la presencia de valores atípicos, es necesario eliminar cualquier valor atípico, si se sabe que se trata de un error. Los efectos de cualquier otro valor atípico deben tomarse en cuenta calculando $r$ con y sin el valor atípico incluido.
+
+4. Los pares de datos $(x, y)$ tienen una *distribución normal bivariada*, este supuesto requiere que, para cualquier valor fijo de $x$, los valores correspondientes de $y$ tengan una distribución aproximadamente normal, y que para cualquier valor fijo de $y$, los valores de $x$ tengan también una distribución aproximadamente normal.
+
+```{r}
+args(cor)
+```
+
+
+### Propiedades
+
+1. El valor de $r$ está siempre entre $-1$ y $1$, inclusive. Es decir
+$$-1 \le r \le 1$$
+
+2. El valor de $r$ no cambia si todos los valores de cualquiera de las variables se convierten
+a una escala diferente.
+
+3. El valor de $r$ no se ve afectado por la elección de $x$ o $y$. Intercambie todos los valores de $x$ y $y$, y el valor de $r$ no sufrirá cambios.
+
+4. $r$ mide la fuerza de una relación lineal. No está diseñada para medir la fuerza de una relación que no sea lineal.
+
+5. $r$ es muy sensible a los valores atípicos, en el sentido de que un solo valor atípico puede afectar su valor de manera drástica.
+
+### Ejemplo 1
+
+Suponga el siguiente conjunto de datos.
+
+```{r}
+datasets::anscombe
+```
+
+Para los cuatro conjuntos de datos se cumple:
+
+<center>
+| Propiedad 	                                          |    Valor   |
+|-------------------------------------------------------|:----------:|
+| Media de cada una de las variables $x$                |  $9.0$     |
+| Varianza de cada una de las variables $x$             |  $11.0$    |
+| Media de cada una de las variables $y$                |  $7.5$     |
+| Varianza de cada una de las variables $y$             |	 $4.12$    |
+| Correlación entre cada una de las variables $x$ e $y$ |	 $0.816$   |
+| Recta de regresión	                                  | $y=3+0.5x$ |
+</center>
+
+**¿Los cuatro conjuntos de datos se comportan igual?**
+
+```{r,fig.align='center',fig.height=7,fig.width=7}
+ff <- y ~ x
+ for(i in 1:4) {
+   ff[2:3] <- lapply(paste(c("y","x"), i, sep=""), as.name)
+   assign(paste("lm.",i,sep=""), lmi <- lm(ff, data= anscombe))
+ }
+ 
+ op <- par(mfrow=c(2,2), mar=1.5+c(4,3.5,0,1), oma=c(0,0,0,0),
+           lab=c(6,6,7), cex.lab=1.5, cex.axis=1.3, mgp=c(3,1,0))
+
+ for(i in 1:4) {
+   ff[2:3] <- lapply(paste(c("y","x"), i, sep=""), as.name)
+   plot(ff, data =anscombe, col="red", pch=21, bg = "orange", cex = 2.5,
+        xlim=c(3,19), ylim=c(3,13),las=1,
+        xlab=eval(substitute(expression(x[i]), list(i=i))),
+        ylab=eval(substitute(expression(y[i]), list(i=i))))
+   abline(get(paste("lm.",i,sep="")), col="blue")
+ }
+```
+
+### Ejemplo 2
+
+```{r,message=FALSE,warning=FALSE}
+if(!require(datasauRus)) install.packages("datasauRus",dependencies = T)
+library(dplyr)
+datasaurus_dozen%>% 
+    group_by(dataset) %>% 
+    summarize(
+      mean_x    = mean(x),
+      mean_y    = mean(y),
+      std_dev_x = sd(x),
+      std_dev_y = sd(y),
+      corr_x_y  = cor(x, y)
+    )
+require(plotly)
+datasaurus_dozen %>%
+  plot_ly(x=~x, y=~y,
+          color=~dataset,
+          frame=~dataset,
+          type="scatter",
+          mode="markers") %>%
+  animation_opts(2000,easing = "elastic", redraw = FALSE)
+```
+
+### Errores comunes en la interpretación de la correlación
+
+1. Un error común es concluir que la **correlación implica causalidad**. Si el aumento de los conciertos de Madonna en los años 80 hace que disminuya la población de ballenas en el pacífico, ¿Significa que Madonna es una asesina de ballenas? En algunos casos, los datos pueden verse afectados por alguna otra variable interventora en los antecedentes. (Una variable interventora es aquella que afecta a las variables que se estudian, pero que no está incluida en la investigación).
+
+2. Otro error proviene de los datos **basados en promedios**. Los promedios eliminan la variación individual y pueden inflar el coeficiente de correlación. Un estudio produjo un coeficiente de correlación lineal de 0.4 para datos pareados que relacionaban el ingreso y la escolaridad de individuos, pero el coeficiente de correlación lineal se convirtió en 0.7 cuando se utilizaron promedios regionales.
+
+3. Un tercer error implica la **propiedad de linealidad**. Si no hay una correlación lineal, podría existir una correlación no lineal.
+
+## Regresión
+
+A partir un conjunto de datos muestrales pareados, la ecuación de regresión
+
+$$\hat{y}=b_0 + b_1x$$
+
+describe algebraicamente la relación entre las dos variables $x$ y $y$. La gráfica de la ecuación de regresión se denomina **recta de regresión** (o recta del mejor ajuste o recta de mínimos cuadrados).
+
+La ecuación de regresión expresa una relación entre $x$ (llamada **variable explicativa**, **variable de predicción** o **variable independiente**) $y$ (llamada **variable de respuesta** o **variable dependiente**). La definición anterior indica que en estadística, la ecuación típica de una línea recta $y=mx+b$ se expresa en la forma $\hat{y}=b_0+b_1x$ donde $b_0$ es la intersección con el eje $y$, y $b_1$ es la pendiente.
+
+La pendiente $b_1$ y la intersección con el eje $y$, $b_0$, también se pueden calcular utilizando las siguientes fórmulas. Una vez que evaluamos $b_0$ y $b_1$, podemos identificar la ecuación de la recta de regresión estimada, la cual tiene la siguiente propiedad especial:
+
+> la recta de regresión es la que mejor se ajusta a los puntos muestrales.
+
+
+|                                                      | Parámetro poblacional | Estadístico muestral |
+|------------------------------------------------------|:---------------------:|:--------------------:|
+|Intersección de la ecuación de regresión con el eje $y$ | $\beta_0$           |$b_0=\bar{y}-b_1\bar{x}$|
+|Pendiente de la ecuación de regresión                 | $\beta_1$             |$b_1=r\frac{s_y}{s_x}$|
+|Ecuación de la recta de regresión                     | $y=\beta_0+\beta_1 x$ | $\hat{y}=b_0+b_1x$   |
+
+### Requisitos
+
+1. La muestra de datos pareados $(x, y)$ es una muestra aleatoria de datos cuantitativos.
+
+2. El examen visual del diagrama de dispersión indica que los puntos se aproximan al patrón de una línea recta.
+
+3. Los valores atípicos pueden tener un gran efecto sobre la ecuación de regresión, por lo que se debe eliminar cualquier valor atípico, si se sabe que es un error. Es importante tomar en cuenta los efectos de cualquier valor atípico que no sea un **error conocido**.
+
+4. Para cada valor fijo de $x$, los valores correspondientes de $y$ tienen una distribución en forma de campana.
+
+5. Para los distintos valores fijos de $x$, las distribuciones de los valores correspondientes de $y$ tienen *la misma desviación estándar*.
+
+6. Para los distintos valores fijos de $x$, las distribuciones de los valores correspondientes de $y$ tienen medias que se ubican en la misma línea recta.
+
+### Supuestos
+
+* **Linealidad**: la relación entre $X$ e $Y$ debe ser lineal.
+
+* **Homoscedasticidad**: la varianza de los residuales $\varepsilon$ son iguales para cualquier valor de $X$.
+
+* **Independencia**: todas las observaciones son independientes unas de otras.
+
+* **Normalidad**:  La variable $Y$ está normalmente distribuída para cualquier valor de $X$.
+
+$$y \sim \beta_0 + \beta_1x+\varepsilon \quad\text{donde}\quad \varepsilon\sim N(0,\sigma_\varepsilon^2)$$
+
+### Residuales
+
+El criterio utilizado para determinar cuál recta es "mejor"" que todas las demás se basa en las distancias verticales entre los puntos de datos originales y la recta de regresión. Tales distancias se denominan *residuos*.
+
+>Para una muestra de datos pareados $x$ y $y$, un residuo es la diferencia entre un valor y muestral observado y el valor de y predicho por medio de la ecuación de regresión. Es decir,
+$$residuo=y_\text{observada}- y_\text{predicha}=y-\hat{y}$$
+
+### Ejemplo
+
+```{r,message=FALSE,warning=FALSE}
+require(ggplot2)
+mtcars
+mtcars %>%
+  ggplot(aes(x=wt,y=mpg))+geom_point(size=2)+
+  xlab("Peso del Vehículo (1000 lbs)")+
+  ylab("Millas/Galón(US)")+
+  ggtitle("Relación entre el peso de los vehículos y el recorrido")+
+  theme_bw()
+with(mtcars,cor(y = mpg,x = wt))
+with(mtcars,cor.test(y = mpg,x = wt))
+args(lm)
+fit <- lm(mpg~wt,data = mtcars)
+fit
+coef(fit)
+mtcars %>%
+  ggplot(aes(x=wt,y=mpg))+
+  geom_abline(intercept = coef(fit)[1],
+              slope = coef(fit)[2],
+              colour=2,size=1.5)+
+  geom_point(size=2)+
+  xlab("Peso del Vehículo (1000 lbs)")+
+  ylab("Millas/Galón(US)")+
+  ggtitle("Relación entre el peso de los vehículos y el recorrido")+
+  theme_bw()
+(res <- residuals(fit))
+cbind(mean(res),var(res))
+plot(res,pch=19,xlab = "Observación",
+     ylab="Residuales del Modelo",las=1,
+     main="Comportamiento de los residuales del modelo")
+abline(h=0,col=2)
+hist(res,col="seagreen3",freq = F,las=1,
+     xlab="Residuales del modelo",ylab="Densidad",
+     main="Comportamiento de los residuales",
+     xlim=c(-10,10))
+curve(dnorm(x,mean = mean(res),sd = sd(res)),col=4,lwd=2,add=T)
+plot(fit,pch=19,cex=1.2)
+shapiro.test(res)
+if(!require(car)) install.packages("car",dependencies = T)
+outlierTest(fit)
+leveragePlots(fit,pch=19)
+# Gráfico  Distacia Cook's, identifique valores D > 4/(n-k-1) 
+cutoff <- 4/((nrow(mtcars)-length(fit$coefficients)-1)) 
+plot(fit, which=4, cook.levels=cutoff)
+influencePlot(fit,id.method="identify",
+              main="Gráfico de Influencia",
+              sub="El tamaño del círcuo es la proporción de la distancia Cook's")
+ncvTest(fit)
+spreadLevelPlot(fit,pch=19)
+crPlots(fit,pch=19)
+durbinWatsonTest(fit)
+if(!require(gvlma)) install.packages("gvlma",dependencies = T)
+gvmodel <- gvlma(fit) 
+summary(gvmodel)
+```
+
+## Regresión lineal múltiple
+
+La regresión múltiple se realiza generalmente con álgebra matricial. El modelo de regresión lineal con dos variables predictoras se define como:
+
+$$Y_i = \beta_0+\beta_1x_1+\beta_2x_2+\varepsilon_i$$
+
+Y también se denomina modelo de regresión de primer orden, ya que sus variables predictoras son lineales. El modelo puede extenderse al caso general con $p$ variables predictoras.
+
+$$Y_i = \beta_0+\beta_1x_1+\beta_2x_2+\dots+\beta_px_p+\varepsilon$$
+
+El cual también se puede escribir como:
+
+$$Y_i = \beta_0+\sum_{k=1}^{p}\beta_kx_k+\varepsilon_i$$
+donde,
+
+* $\beta_0, \beta_1,...,\beta_p$ son los coeficientes, también conocidos como los parámetros del modelo.
+* $x_1,...,x_2$ son constantes conocidas
+* Se distribuyeb Normal con media $0$ y varianza $\sigma^2$.
+
+En términos matriciales, el modelo de regresión múltiple se puede expresar como:
+
+$$\underset{n\times1}{Y}=\begin{bmatrix}
+Y_1\\
+Y_2\\
+\vdots\\
+Y_n \end{bmatrix} \quad
+\underset{n\times p}{X}=\begin{bmatrix}
+1 & x_{11} & x_{12} & \dots & x_{1p}\\
+1 & x_{21} & x_{22} & \dots & x_{2p}\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+1 & x_{n1} & x_{n2} & \dots & x_{np}\\
+\end{bmatrix} \quad
+\underset{p\times 1}{\beta}=\begin{bmatrix}
+\beta_0\\
+\beta_1\\
+\vdots\\
+\beta_p\\
+\end{bmatrix} \quad
+\underset{n\times 1}{\varepsilon}=\begin{bmatrix}
+\varepsilon_1\\
+\varepsilon_2\\
+\vdots\\
+\varepsilon_n\\
+\end{bmatrix}$$
+
+Con lo cual, se puede reescribir la ecuación como:
+
+$$Y=X\beta+\varepsilon$$
+
+### Estimación de los parámetros
+
+Al igual que en el caso de la regresión lineal simple, el objetivo de la estimación de mínimos cuadrados es encontrar valores para los parámetros $\beta_0,\beta_1,...,\beta_p$ que minimicen el error estándar. Este valor se denotará como $Q$ y se define como:
+
+$$Q=\sum_{i=1}^{n}(Y_i-\beta_0-\beta_1x_1-\dots-\beta_px_p)^2$$
+
+El vector (de los parámetros estimados se denota como:
+
+$$\underset{p\times 1}{b}=\begin{bmatrix}
+b_0\\
+b_1\\
+\vdots\\
+b_p\\
+\end{bmatrix}$$
+
+Por lo tanto, las ecuaciones de mínimos cuadrados para el modelo de regresión múltiple se pueden representar como:
+
+$$X^\prime Xb=X^\prime Y$$
+
+Con estimadores
+
+$$\underset{2\times 1}{b}=(\underset{2\times 2}{X^\prime X})^{-1}(\underset{2\times 1}{X^\prime X})Y$$
+
+La respuesta ajustada también se puede representar como un vector denotado $\hat{Y}$ con valores $\hat{Y_i}$ y residuos $\varepsilon_i=Y_i − \hat{Y_i}$.
+
+$$\underset{n\times 1}{\hat{Y}}=\begin{bmatrix}
+\hat{Y_1}\\
+\hat{Y_2}\\
+\vdots\\
+\hat{Y_n}\\
+\end{bmatrix} \quad
+\underset{n\times 1}{\varepsilon}=\begin{bmatrix}
+\varepsilon_1\\
+\varepsilon_2\\
+\vdots\\
+\varepsilon_n\\
+\end{bmatrix}$$
+
+Los valores ajustados también se pueden escribir como:
+
+$$\underset{n\times 1}{\hat{Y}}=Xb$$
+
+Con residuales
+
+$$\underset{n\times 1}{\varepsilon}=Y-\hat{Y}=Y-Yb$$
+
+La matriz gorro es definida como
+
+$$H=X(X^\prime X)^{-1}X^\prime$$
+
+Por lo tanto, el vector de valores ajustados $\hat{Y}$ se puede expresar en términos de la matriz gorro:
+
+$$\underset{n\times 1}{\hat{Y}}=HY$$
+
+Con vector de residuales
+
+$$\underset{n\times 1}{\varepsilon}=(I-H)Y$$
+
+### Análisis de Varianza (ANOVA)
+
+Al referirse brevemente ANOVA en la configuración de regresión múltiple, la suma de los cuadrados y la media de los cuadrados de cada fuente de variación se definen en términos de matriz como:
+
+$$\begin{align*}
+SSE = & Y^\prime Y-b^\prime X^\prime Y=Y^\prime(I-H)Y\\
+SST = & Y^\prime Y-\frac{\sum(Y^2)}{n}\\
+SSR = & SST-SSE\\
+MSE = & \frac{SSE}{n-p}\\
+MSR = & \frac{SSR}{p-1}
+\end{align*}$$
+
+#### Prueba de relación en regresión 
+
+El estadístico $F$ para la relación de regresión entre la variable de respuesta y las variables predictoras sigue siendo el mismo de la regresión lineal simple:
+
+$$F = \frac{MSR}{MSE}$$
+
+La hipótesis nula es que *no hay relación de regresión entre ninguna variable*, se rechaza si el valor crítico de $F$ supera el valor de $F$ en un nivel de confianza ($(1-\alpha)\times 100 \%$) dado con $p−1$ y $n−p$ grados de libertad.
+
+$$F>F_{\alpha,p-1,n-1}$$
+
+#### Coeficiente de determinación múltipe
+
+En la configuración de regresión múltiple, $R^2$ se designa como el coeficiente de determinación múltiple y se define como:
+
+$$R^2 = 1 − \frac{SSE}{SST}$$
+
+Al igual que en el caso de la regresión lineal simple, $R^2$ mide la reducción proporcional de la varianza total en la variable de respuesta asociada con las variables predictoras en el modelo. $R^2$ solo puede aumentar a medida que se agregan más variables de predicción al modelo. $R^2_a$, el *coeficiente ajustado* de determinación múltiple corrige el problema de inflar artificialmente $R^2$ dividiendo cada suma de cuadrados por sus grados de libertad.
+
+$$R^2_a=1-\left(\frac{n-1}{n-p}\right)\frac{SSE}{SST}$$
+
+### Ejemplo
+
+```{r,message=FALSE,warning=FALSE}
+library(car)
+library(MASS)
+library(gvlma)
+library(ggplot2)
+library(gridExtra)
+mtcars$am<-as.factor(mtcars$am)
+levels(mtcars$am)<-c('Automatic','Manual')
+tapply(mtcars$mpg,mtcars$am,mean)
+mtcars %>% 
+  ggplot(aes(x=am,y=mpg,fill=am))+geom_boxplot()
+var.test(mpg~am,data = mtcars)
+t.test(mpg~am,data=mtcars,var.equal=T)
+fit<-lm(mpg~.,data=mtcars)
+summary(fit)$coef
+round(vif(fit),2)
+sqrt(vif(fit)) > 2
+stepAIC(fit,direction='both',trace=F,scope=list(upper=~.,lower=~1))$anova
+BestFit<-update(fit,.~wt+qsec+am)
+summary(BestFit)$coef
+vif(BestFit)
+sqrt(vif(BestFit)) > 2
+FinalFit<-update(fit,.~am:wt+am:qsec)
+vif(FinalFit)
+spreadLevelPlot(FinalFit,pch=19)
+par(mfrow=c(1,2))
+qqnorm(resid(FinalFit),pch=19);qqline(resid(FinalFit))
+plot(fitted(FinalFit),resid(FinalFit),pch=19,
+     main='Residuals vs Fitted',xlab='Fitted',ylab='Residuals')
+abline(h=0,col='red')
+leveragePlots(FinalFit,pch=19)
+avPlots(FinalFit,pch=19)
+ncvTest(FinalFit)
+durbinWatsonTest(FinalFit)
+summary(gvlma(FinalFit))
+Anova(FinalFit)
+p1 <- ggplot(mtcars,aes(x=wt,y=mpg,colour=am))+
+  geom_point()+geom_smooth(method = "lm",se = F)+
+  theme(legend.position="bottom")
+p2 <- ggplot(mtcars,aes(x=qsec,y=mpg,colour=am))+
+  geom_point()+geom_smooth(method = "lm",se = F)
+
+g_legend<-function(a.gplot){
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)}
+
+mylegend<-g_legend(p1)
+
+grid.arrange(arrangeGrob(p1 + theme(legend.position="none"),
+                         p2 + theme(legend.position="none"),
+                         nrow=1),
+             mylegend, nrow=2,heights=c(10, 1))
+```
+
+## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
