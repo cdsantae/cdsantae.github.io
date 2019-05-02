@@ -38,12 +38,12 @@ Se tienen registros de los vuelos de 3 aerolíneas desde 2017/01/01 a primera ho
 Obtener una base de datos consistente y realizar los siguientes análsis de datos:
 
 1. Construir una base de datos
-2. Determinar la cantidad total de vueltos promedio por aerolínea y día de la semana, y graficar.
+2. Determinar la cantidad total de vuelos promedio por aerolínea y día de la semana, y graficar.
 3. Determinar la Cantidad total de costo promedio por aerolínea y día de la semana, y graficar.
 4. Determinar el promedio de vuelos promedio por aerolínea mensual, y graficar.
 5. Determinar el promedio de costo promedio por aerolínea mensual, y graficar.
 6. Construir una serie del precio por vuelo de cada aerolínea semanal.
-7. Determinar el promedio del percio por vuelo de las Aerolíneas por año, y graficar.
+7. Determinar el promedio del precio por vuelo de las Aerolíneas por año, y graficar.
 8. ¿Cómo es la evolución de vuelos promedio por costo promedio de cada aerolínea en el tiempo?
 
 Es de necesario describir cada paso para responder las preguntas y mostrar los códigos, además de interpretar los resultados.
