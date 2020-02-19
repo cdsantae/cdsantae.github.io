@@ -37,10 +37,29 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   <!-- Header -->
  <header class="w3-container w3-teal w3-center" style="padding:10px 0px">
   <h1 id="portfolio" class="w3-margin w3-jumbo">Portafolio de Cursos</h1>
-</header><hr>
+</header><hr style="border: 2px solid #C5CFCF">
+<style>
+.scroll {
   
+  width: auto;
+  height: 400px;
+  
+  overflow-y: scroll; /* Add the ability to scroll */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+.scroll {
+    -ms-overflow-style: none;
+}
+</style>
   <!-- First Photo Grid-->
-  <div class="w3-row-padding">
+  <div class="scroll">
+  <div class="w3-row-padding" id="1">
     <div class="w3-third w3-container w3-margin-bottom">
       <img src="https://raw.githubusercontent.com/cdsantae/cdsantae.github.io/master/EAFIT/Clase01/RStudio_Logos.png" alt="Tidyverse" style="width:100%" class="w3-hover-opacity">
       <div class="w3-container w3-white">
@@ -68,7 +87,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   </div>
   <br>
   <!-- Second Photo Grid-->
-  <div class="w3-row-padding">
+  <div class="w3-row-padding" id="2">
     <div class="w3-third w3-container w3-margin-bottom">
       <img src="https://cdsantae.github.io/images/biostat1.png" alt="Biostat1" style="width:100%" class="w3-hover-opacity">
       <div class="w3-container w3-white">
@@ -94,18 +113,18 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
       </div>
     </div>
   </div>
+</div>
 <hr>
-  <!-- Pagination 
+
+  <!-- Pagination -->
   <div class="w3-center w3-padding-32">
     <div class="w3-bar">
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
-      <a href="#" class="w3-bar-item w3-black w3-button">1</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
+      <a href="#1" class="w3-bar-item w3-black w3-button">1</a>
+      <a href="#2" class="w3-bar-item w3-button w3-hover-black">2</a>
+      <a href="#3" class="w3-bar-item w3-button w3-hover-black">3</a>
+      <a href="#4" class="w3-bar-item w3-button w3-hover-black">4</a>
     </div>
-  </div>-->
+  </div>
 
   <!-- Images of Me 
   <div class="w3-row-padding w3-padding-16" id="about">
