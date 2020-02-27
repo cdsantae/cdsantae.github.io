@@ -1,0 +1,26 @@
+name: "Deporte"
+navbar:
+  title: "Estadística - Investigación I"
+  left:
+    - text: "Acerca de"
+      href: about.html
+    - text: "Contenido"
+      menu:
+        - text: "Introducción"
+          href: intro.html
+        - text: "Unidad 1"
+          href: unit1.html
+        - text: "Unidad 2"
+          href: unit2.html
+  right:
+    - icon: far fa-envelope
+      href: mailto:cdsantae@gmail.com
+    - icon: fab fa-github
+      href: https://cdsantae.github.io
+
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    highlight: pygments
+    css: bootstrap.css

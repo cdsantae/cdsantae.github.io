@@ -1,0 +1,51 @@
+---
+title: "Estadística Aplicada a la Investigación I"
+author: "Cristian Santa"
+highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Justificación
+
+El curso pretende que el estudiante identifique la aplicabilidad de la estadística en su vida profesional por medio del correcto análisis e interpretación de la información que se genera en su campo profesional. La estadística aporta significativamente en el procesamiento y análisis de datos, para producir conocimiento y con él, apoyar la toma de decisiones, aportando de esta manera a la solución de problemas en las diferentes áreas del conocimiento. Por lo tanto, el estudiante deberá comprender el tipo de datos disponibles, explorarlos gráficamente, resumirlos con medidas descriptivas, operar un programa estadístico y tener la capacidad de interpretar la información para la posterior toma de decisiones.
+
+## Metodología
+
+Previa a cada clase habrá lectura individual por parte del estudiante, presentación magistral de los temas por parte del docente, talleres prácticos, trabajo en grupo, demostración en computador y plenarias.
+
+## Software
+
+Durante todo el curso se realizarán prácticas con `Excel` y el software estadístico `R-project`, en particular el paquete `RCommander` el cual no requiere habilidades de programación. No obstante, se darán herramientas necesarias para que el estudiante aprenda a programar y usar `R-project` con si IDE `RStudio`.
+
+### R project
+
+<code>R</code> es un lenguaje y ambiente de alto nivel para el análisis de datos y gráficos. Está altamente relacionado con los lenguajes <code>S</code> y <code>Scheme</code>. Es un lenguaje de programación interpretado, de **distribución libre**, bajo licencia GNU, que puede correr en distintas plataformas Linux, Windows, MacOS e incluso PlayStation 3.
+
+> Chambers & Hastie (1991)<br>
+> <cite>"Buscamos que los usuarios puedan iniciar en un entorno interactivo, en el que no se vean, conscientemente, a ellos mismos como programadores. Conforme sus necesidades sean más claras y su complejidad se incremente, deberían gradualmente poder profundizar en la programación, es cuando los aspectos del lenguaje y el sistema se vuelven más importantes."</cite>
+
+En este sentido <code>R</code> no es un sistema estadístico, sino un ambiente en el que se aplican técnicas estadísticas. Es por esto que el software va de la mando del entendimiento de la teoría y técnicas estadísticas.
+
+> El Software recibe instrucciones y entrega resultados basados en las instrucciones. ¿Si el resultado no es el deseado, es culpa del software?
+
+### Instalación del software
+
+1. Descargar [R-Project](https://cloud.r-project.org/)
+
+2. Descargar [RStudio](https://www.rstudio.com/products/rstudio/download/)
+
+3. Instalacción de [RCommander](https://www.rcommander.com/)
+
+```{r,eval=FALSE}
+install.packages("Rcmdr",dependencies = T)
+```
+
+## Docente
+
+### Contacto
+
+**e-mail:** cdsantae@gmail.com <br>
+Para enviar correos se solicita anteponer en el asunto **[DEPORTE]**.

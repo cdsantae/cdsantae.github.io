@@ -1,0 +1,107 @@
+---
+title: "Acerca del Curso"
+author: "Cristian Santa"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Objetivo General
+
+Identificar la aplicabilidad de la Estadística, en el análisis de datos relacionados con la investigación.
+
+## Objetivos específicos
+
+-	Identificar los elementos necesarios para definir adecuadamente la población de estudio, las unidades de información y las variables para responder a una pregunta de investigación.
+-	Aplicar los principales métodos estadísticos que le permiten describir la información de acuerdo a la naturaleza de la y las variables.
+-	Diferenciar distintas distribuciones muestrales utilizadas en estudios relacionados con ciencias del deporte y actividad física.
+-	Realizar el plan de análisis estadístico del proyecto de investigación.
+
+## Competencias {.tabset .tabset-fade .tabset-pills}
+
+El estudiante de maestría mostrará un buen desarrollo de las siguientes competencias
+
+### *Cognoscitivas*
+
+- Identificará problemas de investigación que impliquen el uso de la estadística descriptiva.
+- Fundamentará la aplicación de los parámetros estadísticos específicos
+
+### *Procedimentales*
+
+- Empleará adecuadamente los procedimientos estadísticos específicos.
+- Expondrá los resultados de su análisis oral con claridad.
+- Utilizará el lenguaje técnico de la estadística.
+
+### *Actitudinales*
+
+- Promoverá el rigor estadístico en la producción de sus trabajos.
+- Actuará éticamente en la investigación y producción del conocimiento
+
+## Contenido
+
+El curso desarrollará dos unidades fundamentales.
+
+<div class="panel-group">
+ <div class="panel panel-primary">
+  <div class="panel-heading">
+   <h5 class="panel-title">
+    <a data-toggle="collapse" href="#collapse1">Unidad 1</a>
+   </h5>
+  </div>
+  <div id="collapse1" class="panel-collapse collapse">
+   <div class="panel-body">
+Fundamentos básicos de la estadística y medidas resumen:
+
+-	Definición de población, muestra, parámetro y estadístico.
+-	Tipo de variables y escalas de medición.
+-	Métodos gráficos para resumir la información.
+-	Medidas resumen (tendencia central, variabilidad, posición) y su aplicación en estudios de un solo grupo y comparación de grupos.
+-	Construcción de una base de datos en `Excel`.
+-	Análisis exploratorio en `R Commander`.
+-	Presentación de un artículo aplicado a su investigación: aplicación de todos los conceptos.
+
+#### Bibliografía
+
+- Newell J., Aitchison T, y Grant Stanley. Statistics for Sports and Exercise Science. (2010) Chapter 1:. Discovering statistics. Routledge
+- Martínez-González, M.A. & Sánchez-Villegas, A., Toledo-Antucha, E.,  y Faulín-Fajardo, J. (2013). Bioestadística amigable (capitulos 1, 2, 10 (Sesión 10.1 y 10.2). Tercera edición. Elsevier.
+- Ruiz. A., Gómez, C. Epidemiología Clínica. Investigación aplicada (Tercera sesión: capitulos 8, 11, 26, 27, 28). Editorial medica Panamericana. 2015
+- Díaz, J. (2000). Guía práctica de Bioestadística aplicada a las Ciencias de la Salud. Instituto Nacional de Gestión Sanitaria: Ceuta.
+- Field, A. (2009). Disccovering statistics using SPSS. Sage: Dubai.
+- Runyon, R., y Haber, A. 1992. Estadística para las ciencias sociales. Argentina: Iberoamericana.
+- Thomas J.R. y Nelson J.J. 1998. Research Methods in Physical Activity. Champaign: Human Kinetics.
+- Thomas, J.R., Y Nelson, J.K. 2000. Métodos De Investigación En Actividad Física. Paidotribo: Badalona.
+- Triola, M.F. 2018. Estadística. 12 Ed. Pearson. México. [Recursos Adicionales](http://www.pearsonenespanol.com/mexico/educacion-superior/triola/triola_estadistica_12_e_home)
+   </div>
+   </div>
+  </div>
+</div>
+
+
+<div class="panel-group">
+ <div class="panel panel-primary">
+  <div class="panel-heading">
+   <h5 class="panel-title">
+    <a data-toggle="collapse" href="#collapse2">Unidad 2</a>
+   </h5>
+  </div>
+  <div id="collapse2" class="panel-collapse collapse">
+   <div class="panel-body">
+Probabilidad y distribuciones muestrales:
+
+-	Concepto de probabilidad y su aplicación.
+-	Distribuciones muestrales para una sola muestra.
+-	Distribuciones muestrales para dos muestras independientes y relacionadas.
+-	Presentación de plan de análisis de su investigación.
+
+#### Bibliografía
+
+- Martínez-González, M.A. & Sánchez-Villegas, A., Toledo-Antucha, E.,  y Faulín-Fajardo, J. (2013). Bioestadística amigable (Capitulos 3 y 6 (sesión 6.1 y 6.2)). Tercera edición. Elsevier.
+- Cobo, Erik. Bioestadística para no estadísticos: Principios para interpretar un estudio científico. Elsevier, 2007.
+- Ruiz. A., Gómez, C. Epidemiología Clínica. Investigación aplicada (capitulo 26). Editorial medica Panamericana. 2015
+- Triola, M.F. 2018. Estadística. 12 Ed. Pearson. México. [Recursos Adicionales](http://www.pearsonenespanol.com/mexico/educacion-superior/triola/triola_estadistica_12_e_home)
+   </div>
+   </div>
+  </div>
+</div>
+
