@@ -1,0 +1,31 @@
+---
+title: "Fundamentos básicos de la estadística y medidas resumen"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Definiciones
+
+Antes de realizar un estudio para utilizar herramientas estadísticas, es necesario comprender algunos conceptos básicos sobre los individuos que se estudian.
+
+
+
+## Tipos de variable
+
+
+## Métodos gráficos
+
+
+## Medidas de resumen
+
+
+## Construcción de bases de datos
+
+
+## Análisis exploratorio con R y RCommander
+
+
+## 

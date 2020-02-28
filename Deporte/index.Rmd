@@ -38,7 +38,7 @@ En este sentido <code>R</code> no es un sistema estadístico, sino un ambiente e
 
 2. Descargar [RStudio](https://www.rstudio.com/products/rstudio/download/)
 
-3. Instalacción de [RCommander](https://www.rcommander.com/)
+3. Instalación de [RCommander](https://www.rcommander.com/)
 
 ```{r,eval=FALSE}
 install.packages("Rcmdr",dependencies = T)
