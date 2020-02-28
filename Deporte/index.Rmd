@@ -1,5 +1,6 @@
 ---
 title: "Estadística Aplicada a la Investigación I"
+subtitle: "Maestría en Ciencias del Deporte y la Actividad Física"
 author: "Cristian Santa"
 highlight: tango
 ---
@@ -44,6 +45,10 @@ install.packages("Rcmdr",dependencies = T)
 ```
 
 ## Docente
+
+Estadístico con diez años de experiencia en análisis y clasificación de datos, planificación de diseños experimentales, muestreo de poblaciones, modelación estadística, Data Science, Big Data, Machine Learning, Deep Learning y programación avanzada en R-project.
+
+Magíster en Ciencias Estadísticas de la Universidad Nacional sede Medellín y director de ingeniería y diseño de la empresa Ingedata Consulting S.A.S. Mis años de experiencia como consultor y docente en estadística me ha permitido avanzar en conocimientos de otras áreas para construir equipos de investigación multidisciplinarios, a la vez que mantengo actualizado con los avances de la Ciencia y Tecnología asociadas a la estadística.
 
 ### Contacto
 
