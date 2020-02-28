@@ -1,10 +1,12 @@
 name: "Deporte"
 navbar:
-  title: "Estadística - Investigación I"
+  title: "<center>Estadística - Investigación I <br> <sub>Educación Física y Deporte</sub></center>"
   left:
     - text: "Acerca de"
       href: about.html
+      icon: fa-book-open
     - text: "Contenido"
+      icon: fa-chalkboard-teacher
       menu:
         - text: "Introducción"
           href: intro.html
@@ -13,9 +15,9 @@ navbar:
         - text: "Unidad 2"
           href: unit2.html
   right:
-    - icon: far fa-envelope
+    - icon: glyphicon glyphicon-envelope
       href: mailto:cdsantae@gmail.com
-    - icon: fab fa-github
+    - icon: fa-github
       href: https://cdsantae.github.io
 
 output:
