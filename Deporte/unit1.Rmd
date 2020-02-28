@@ -4,16 +4,259 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE,fig.align = "center",warning = F,message = F,
+                      dpi=300,fig.width = 7,fig.height = 6)
+
+StadiumPlot <- function(sel=NULL,seed=NULL){
+  if(!is.null(seed)) {set.seed(seed)}
+  x <- runif(6000,-1,1)
+  x2 <- function(x) -x^2
+  up <- x2(seq(-0.8,0.8,l=6000))+1
+  low <- x2(seq(-0.8,0.8,l=6000))-0.3
+  mid <- x2(seq(-0.8,0.8,l=6000))+0.35
+  y <- x[which(x<up & x>low)]
+  par(mar=c(1,1,1,1))
+  plot(y,pch=20,axes = F,ylab="",xlab="",col="grey50",cex=0.8)
+  lines(seq(1,length(y),l=6000),low,lwd=4)
+  lines(seq(1,length(y),l=6000),up,lwd=4)
+  lines(seq(1,length(y),l=6000),mid,lwd=2)
+  text(300,1,labels = "N = 6000",cex=1.5)
+  if(!is.null(sel)){
+    aux <- sample(length(y),sel)
+    xx <- 1:length(y)
+    points(xx[aux],y[aux],pch = 21, bg = 2,cex=0.9)
+  }
+}
+
+Precision <- function(type="A"){
+  set.seed(1234)
+  if(type=="A"){
+    x <- runif(20,-0.2,0.2)
+    y <- runif(20,-0.2,0.2)
+  }else if(type=="B"){
+    x <- runif(20,-0.4,-0)
+    y <- runif(20,-0.4,-0)
+  }else if(type=="C"){
+    x <- runif(20,-0.4,0.4)
+    y <- runif(20,-0.4,0.4)
+  }else if(type=="D"){
+    x <- runif(20,-0.7,0.7)
+    y <- runif(20,-1,0.3)
+  }
+  par(mar=c(0,0,0,0))
+  plot(x,y,asp=1,xlim = c(-1,1),ylim = c(-1,1),ylab="",xlab="",axes = F,
+       pch=21,bg="lightblue",cex=1.5)
+  plotrix::draw.circle(0,0,1,nv=1000,border = NULL,col=NA,lty=1,lwd=1)
+  segments(-1,0,1,0)
+  segments(0,-1,0,1)
+}
 ```
 
 ## Definiciones
 
 Antes de realizar un estudio para utilizar herramientas estadísticas, es necesario comprender algunos conceptos básicos sobre los individuos que se estudian.
 
+- **Población:** es el conjunto de medidas, individuos u objetos que comparten características en común. La población se basa en cuatro tipos: contenido, unidades y elementos, ubicación espacial y ubicación temporal.
+
+- **Muestra:** es un conjunto de elementos representativos extraídos de la población. Los resultados obtenidos en la muestra sirven para <u>estimar</u> el comportamiento de la población. Para que los resultados de la muestra puedan generalizarse a la población, ésta debe ser seleccionada adecuadamente, de tal forma que todos los elementos de la población tengan la oportunidad de ser escogido, a este tipo de muestra se le llama *muestra aleatoria*.
+
+- **Censo:** es *cada uno* de los miembros de la población.
+
+- **Unidad:** es el elemento seleccionado de la población.
+
+El **parámetro** son aquellos valores que explican numéricamente a una población, en estos términos la población puede tener muchas características o parámetros de interés, en este sentido una de las formas de determinarlo es a partir de las **medidas de tendencia central** que comprende los valores de *la media*, *la moda*, *la mediana*, *los cuartiles*, *los deciles* y *los percentiles* que indican la posición de un valor respecto al comportamiento de la población.
+
+Otras características de la población se determinan a partir de las **medidas de dispersión** que comprende los valores de *la varianza*, *la desviación estándar* y *el coeficiente de variación* que nos permite observar qué tan alejados están los elementos unos de otros. Establecer estas medidas permite determinar el grado de eficacia de los instrumentos de medición para evitar errores de sesgo. Estas medidas solo pueden ser calculadas para datos cuantitativos, pues para los datos cualitativos solo se pueden describir mediante la organización de los conteos.
+
+Cuando se trata de una *muestra extraída* de una población, el cálculo de las características *cambiará*, y ya no hablaremos de parámetro sino de **estadístico**.
+
+>Se puede concluir que un **parámetro** es a una **población**, como un **estadístico** es a una **muestra**.
+
+En general para describir los parámetros se utilizan letras del alfabeto griego ($\mu$, $\sigma$, $\tau$, $\rho$) y para los estadísticos se utilizan letras del alfabeto latino ($S$, $M_o$, $\bar{X}$).
+
+El objetivo es medir, categorizar o cuantificar las caracteristicas de cada unidad seleccionada, estas caractarísticas se les conoce como **variables**. Si cada uno de los elementos seleccionados hacen parte de una *muestra aleatoria*, entonces las variables extraídas de cada unidad son **variables aleatorias**, ya que, al ser medida en diferentes unidades es susceptible de adoptar diferentes valores.
+
+#### Ejemplo {.tabset .tabset-fade .tabset-pills}
+
+##### Población
+
+```{r fig.width = 6,fig.height = 3.5}
+StadiumPlot(seed=1234)
+```
+
+##### 10 muestras
+
+```{r fig.width = 6,fig.height = 3.5}
+StadiumPlot(sel=10,seed=1234)
+```
+
+##### 50 muestras
+
+```{r fig.width = 6,fig.height = 3.5}
+StadiumPlot(sel=50,seed=1234)
+```
+
+##### 200 muestras
+
+```{r fig.width = 6,fig.height = 3.5}
+StadiumPlot(sel=200,seed=1234)
+```
+
+##### 1000 muestras
+
+```{r fig.width = 6,fig.height = 3.5}
+StadiumPlot(sel=1000,seed=1234)
+```
+
+### Medición
+
+>Medición es el proceso de asignar numerales a los objetos de acuerdo con ciertas reglas. *(Stevens, 1951)*
+
+- Seleccionar eventos empíricos observables
+- Usar números o símbolos para representar aspectos del evento
+- Asociar cada observación con la representación del evento
+
+Todo proceso de medición implica
+
+- Selecionar un instrumento de medición adecuado, válido y confiable.
+- Construir un instrumento de medición y validarlo.
+- Aplicar el intrumento y obtener registros del comportamiento sobre las variables de estudio.
+- Codificar, analizar e interpretar estas respuestas o mediciones
+
+>"Los Instrumentos son aquellos objetos materiales que nos permiten adquirir y analizar datos mediante los cuales pueden ser comprobadas las hipótesis de la investigación" *(Best, 1973).*
+
+>"Los instrumentos son procedimientos sistemáticos y estandarizados que permiten observar la conducta humana, a fin de hacer inferencias sobre determinados constructos, rasgos, dimensiones o atributos." *(Ruiz, 2002)*
+
+La **validez** es la capacidad de un instrumento de medición de cuantificar de forma significativa y adecuada la variable que pretende medir. Antes de seleccionar un instrumento de medición es necesario plantearse estas preguntas:
+
+- ¿Cuán representativo es el comportamiento elegido como muestra del universo que se intenta representar? *(validez de contenido)*
+
+- ¿Hasta dónde un instrumento mide realmente una determinada rasgo latente o una característica de las personas y con cuánta eficiencia lo hace? *(validez de constructo)*
+
+- ¿Hasta dónde se puede predecir su aprendizaje en un programa de entrenamiento (o hasta dónde se puede anticipar su nivel de desempeño en el trabajo), a partir de su ejecución en la prueba? *(validez predictiva)*
+
+<div class="panel-group">
+ <div class="panel panel-primary">
+  <div class="panel-heading">
+   <h5 class="panel-title">
+    <a data-toggle="collapse" href="#collapse1">Ejemplos</a>
+   </h5>
+  </div>
+  <div id="collapse1" class="panel-collapse collapse">
+   <div class="panel-body">
+- *Un instrumento para medir la <b>inteligencia</b> válido debe medir la inteligencia y no la <b>memoria</b>.*
+
+- *Una prueba sobre conocimientos de <b>Anatomía</b> debe medir esto y no conocimientos de <b>Biología</b>.*
+   </div>
+   </div>
+  </div>
+</div>
+
+Existen factores que afectan la confiabilidad y validez de un instrumento:
+
+- La improvisación para seleccionar o generar un instrumento.
+
+- Que el instrumento sea externo y no esté validado en el contexto donde se pretende aplicar.
+
+- Que el instrumento resulte inadecuado para los sujetos.
+
+- Que haya condiciones adversas para su aplicación (ruido, fatiga en los sujetos, etc.)
+
+- Aspectos técnicos (digitación, que no se entiendan las instrucciones, etc.)
+
+La **confiabilidad** está relacionada con el grado en el cual la aplicación repetida de un instrumento al mismo sujeto produce resultados iguales. Existen diversos métodos para determinar la confiabilidad.
+
+- El que responde u observa es una **fuente de error**.
+
+- Errores de escala.
+
+- Errores aleatorios.
+
+- Errores sistemáticos.
+
+### Precisión y Exactitud {.tabset .tabset-fade .tabset-pills}
+
+¿Cuál es el mejor escenario?
+
+#### Alta y Alta
+
+```{r fig.width = 4,fig.height = 4,dpi=60}
+Precision(type = "A")
+```
+
+#### Alta y (?)
+
+```{r fig.width = 4,fig.height = 4,dpi=60}
+Precision(type = "B")
+```
+
+#### Baja y Alta
+
+```{r fig.width = 4,fig.height = 4,dpi=60}
+Precision(type = "C")
+```
+
+#### Baja y Baja
+
+```{r fig.width = 4,fig.height = 4,dpi=60}
+Precision(type = "D")
+```
+
+### Actividad
+
+<div class="panel-group">
+ <div class="panel panel-primary">
+  <div class="panel-heading">
+   <h5 class="panel-title">
+    <a data-toggle="collapse" href="#A1">Parte 1</a>
+   </h5>
+  </div>
+  <div id="A1" class="panel-collapse collapse">
+   <div class="panel-body">
+Seleccionar a un compañero de su grupo para medir:
+
+- Estatura
+- Diámetro del Iris
+- Longitud del cabello
+
+<div class="alert alert-dismissible alert-warning">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <h4>¡Atención!</h4>
+  <p>Estos ejercicios deben ser realizados sin la ayuda de un instrumento de medición certificado (reglas, metros, escalímetros, etc.).</p>
+</div>
+   </div>
+   </div>
+  </div>
+</div>
+
+<div class="panel-group">
+ <div class="panel panel-primary">
+  <div class="panel-heading">
+   <h5 class="panel-title">
+    <a data-toggle="collapse" href="#A2">Parte 2</a>
+   </h5>
+  </div>
+  <div id="A2" class="panel-collapse collapse">
+   <div class="panel-body">
+Seleccionar un objeto y calcular:
+
+- El perímetro
+- El área
+- El volumen
+
+<div class="alert alert-dismissible alert-warning">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <h4>¡Atención!</h4>
+  <p>Estos ejercicios deben ser realizados sin la ayuda de un instrumento de medición certificado (reglas, metros, escalímetros, etc.).</p>
+</div>
+   </div>
+   </div>
+  </div>
+</div>
 
 
-## Tipos de variable
+
+<!--## Tipos de variable
 
 
 ## Métodos gráficos
@@ -28,4 +271,7 @@ Antes de realizar un estudio para utilizar herramientas estadísticas, es necesa
 ## Análisis exploratorio con R y RCommander
 
 
-## 
+-->
+
+
+
