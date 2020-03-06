@@ -216,8 +216,8 @@ Precision(type = "D")
 Seleccionar a un compañero de su grupo para medir:
 
 - Estatura
+- Perímetro antebrazo
 - Diámetro del Iris
-- Longitud del cabello
 
 <div class="alert alert-dismissible alert-warning">
   <h4>¡Atención!</h4>
@@ -252,13 +252,157 @@ Seleccionar un objeto y calcular:
   </div>
 </div>
 
-
-
 ## Tipos de variable
 
 Los **datos** son las observaciones recolectadas de las unidades, entonces, los *datos muestrales* son las observaciones recolectadas de las muestras. Ahora, los datos tienen sentido y no se deben tomar como meramente números o cantidades, por ejemplo, las cédulas son números de identificación únicos para llevar el registro de personas en un país, en consecuencia, no tiene sentido hacer análisis sobre estos números como calcular promedios o medianas.
 
-Dependiendo de la naturaleza de los datos, se seleccionan los métodos estadísticos para describir, analizar o modelar. 
+Dependiendo de la naturaleza de los datos, se seleccionan los métodos estadísticos para describir, analizar o modelar. Existen dos tipos de datos en lo fundamental: *datos cualitativos* y *datos cuantitativos*
+
+- Los **datos cualitativos** o también conocidos como **categóricos**, son aquellos que describen una cualidad y se cuantfica a través de su ocurrencia o conteo. Por ejemplo, el sexo de los atletas o el estrato socioeconómico.
+
+- Los **datos cuantitativos** consisten en números que representan conteos o mediciones precisas. Por ejemplo, la presión sanguínea, los segundos recorridos de un atleta, el número de pases logrados de un jugador de baloncesto.
+
+Tanto los datos cualitativos como cuantitativos tienen subdivisiones, los cuales dependen de la escala de medición:
+
+### Escalas de medición {.tabset .tabset-fade .tabset-pills}
+
+#### Nominal
+
+Esta escala diferencia entre ítems basándose únicamente en sus nombres o meta-categorías y otras clasificaciones cualitativas a las que pertenecen. Los números puede usarsepara representar las variables, sin embargo, no tienen ningún valor numérico o relación. Por otra parte, estas categorías no guarda ninguna relación jerárquica y no tiene sentido un orden plausible. Por ejemplo:
+
+- Nombres o Apellidos
+- Número de Identificación
+- Sexo
+- Etnicidad
+- Nacionalidad
+- Especie biológica
+- Deporte
+
+Si los números se asignan como etiquetas en la medición nominal, no tienen un valor numérico específico o significado. No se puede realizar ninguna forma de cálculo aritmético ($+$, $-$, $\times$, etc.) en medidas nominales. El nivel nominal es el **nivel de medición más bajo** utilizado desde un punto de vista estadístico.
+
+#### Ordinal
+
+El tipo ordinal permite el orden de rango (1°, 2°, 3°, etc.) por el cual se pueden ordenar los datos, pero aún no permite un grado relativo de diferencia entre ellos. Las órdenes de rango representan escalas ordinales y se utilizan con frecuencia en investigaciones relacionadas con fenómenos cualitativos. 
+
+El puesto de un atleta en una carrera implica el uso de una escala ordinal. Hay que tener mucho cuidado al hacer una declaración sobre las puntuaciones basadas en escalas ordinales. Por ejemplo, si la posición de Alejandra es 2 y la posición de Claudia es 8, no se puede decir que la posición de Alejandra sea cuatro veces mejor que la de Claudia La declaración no tendría ningún sentido. Las escalas ordinales solo permiten clasificar los elementos de mayor a menor. Por ejemplo:
+
+- Estrato Socioeconómico
+- Clasificiación IMC
+- Escolaridad
+- Ranking profesional
+
+#### Intervalo
+
+El tipo de intervalo permite el grado de diferencia entre los elementos, pero no la relación entre ellos.  Las variables de tipo de intervalo a veces también se denominan "variables escaladas", pero el término matemático formal es un espacio afín (en este caso, una línea afín).
+
+- Temperatura en Celsius (°C)
+- Épocas o Fechas
+- Índice de acciones
+- Metros sobre el nivel del mar
+- Coordenadas cartesianas (GPS)
+
+#### Razón
+
+El tipo de razón toma su nombre del hecho de que la medición es la estimación de la razón entre una magnitud de una cantidad continua y una unidad de magnitud del mismo tipo *(Michell, 1997, 1999)*. Una escala de razón posee un valor cero significativo (único y no arbitrario). Por ejemplo:
+
+- Estatura
+- Peso
+- Presión arterial
+- Calorías
+- Energía
+- Tiempo
+
+A diferencia de las escalas de intervalo, las proporciones ahora son significativas porque tener un punto cero no arbitrario hace que sea significativo decir, por ejemplo, que un objeto tiene "el doble de longitud".
+
+### {.toc-ignore}
+
+Las **variables cualitativas** o categóricas se dividen en:
+
+- *Nominal:* son categorías que no representan cantidad y orden.
+- *Ordinal:* son categorías que pueden representar cantidad y poseen orden.
+
+Las **variables cuantitativas** se dividen en:
+
+- *Discretas:* son variables que se expresan con números enteros.
+- *Continua:* son variables que se expresan con números reales, pertenecen a un intervalo o razón.
+
+La relación entre escalas y variables es la siguiente:
+
+$$\text{Escala Nominal} \Longrightarrow \text{Cualitativa Nominal}$$
+$$\text{Escala Ordinal} \Longrightarrow \text{Cualitativa Ordinal}$$
+$$\text{Escala de Intervalo y Razón} \Longrightarrow \begin{cases} \text{Cuantitativa Discreta} \\ \text{Cuantitativa Continua} \end{cases}$$
+
+### Plan estadístico
+
+Para el desarrollo de cualquier investigación que requiera captura de datos, es necesario realizar un plan estadístico dentro de la metodología de la investigación. No importa el nivel de la investigación, si es de caracter descriptivo, diagnóstico, analítico o predictivo; o del área o disciplina en la que se desarrolle, se requiere seguir mínimamente las siguientes etapas:
+
+- Determinación del objetivo.
+- Identificación y análisis de estudios similares.
+- Identificación de la población a estudiar.
+- Identificación de las variables a medir.
+- Organización de las variables, precisión de los datos e instrumentos de medición.
+- Identificación de las fuentes de información.
+- Estimación de costo-tiempo de medición y análisis.
+
+Recuerde que para aplicar estadística en investigación es necesario que la selección de las muestras sean de carácter **aleatorio**, esto significa que se debe involucrar dentro del plan de investigación el método de selección de muestras.
+
+Se recomienda construir una tabla para la identificación de variables de la siguiente forma:
+
+- Nombre de la variable
+- Descripción de la variable
+- Escala de medición
+- Unidades de medida
+- Instrumento de medición
+- Precisión o Incertidumbre (si aplica)
+- Validación del instrumento (referencia)
+- Costo de la medición por unidad
+
+<div class="panel-group">
+ <div class="panel panel-primary">
+  <div class="panel-heading">
+   <h5 class="panel-title">
+    <a data-toggle="collapse" href="#EVar">Ejemplo</a>
+   </h5>
+  </div>
+  <div id="EVar" class="panel-collapse collapse">
+   <div class="panel-body">
+- *Objetivo:* Establecer el rendimiento de bateadores profesionales.
+- *Población:* 5890 beibolistas profesionales.
+- *Muestra:* 123 beibolistas profesionales.
+
+<div style="font-size:11px">
+
+| **Nombre** | **Descripción** | **Tipo Variable** | **Escala** | **Unidades** | **Instrumento** | **Precisión** | **Validación** | **Costo** |
+|:----------:|:----------------------------------------:|:-----------------:|:----------:|:------------------:|:-----------------:|:-------------:|:--------------:|:---------:|
+| Aciertos | Número de aciertos de bateo en una ronda | Discreta | Razón | Número de Aciertos | Conteo Visual | 0 | N/A | $500 |
+| Tiempo | Tiempo al bat en una ronda | Continua | Razón | segundos | Cronómetro Pursun | 1/1000 seg | Pursun | $3.400 |
+| Fuerza | Fuerza empleada en el bateo | Continua | Razón | kgf | Dinamómetro | 0.1 kgf | CE | $18.520 |
+| Sexo | Sexo del beisbolista | Cualitativa | Nominal | N/A | N/A | N/A | N/A | $100 |
+
+</div>
+   </div>
+   </div>
+  </div>
+</div>
+
+### Actividad
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+  <h3 class="panel-title">Identificación de variables</h3>
+  </div>
+  <div class="panel-body">
+De acuerdo al avance del anteproyecto de tesis de maestría, construir la tabla de identificación de variables con todos los elementos vistos en el curso.
+
+<div class="alert alert-dismissible alert-success">
+  <strong>Trabajo en Clase y Exposición</strong><br>
+  En la próxima clase cada uno debe exponer las variables estadísticas que usarán en su investigación de maestría.
+</div>
+
+  </div>
+</div>
+
+
 
 <!--## Métodos gráficos
 
