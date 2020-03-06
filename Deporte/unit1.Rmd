@@ -315,7 +315,7 @@ El tipo de razón toma su nombre del hecho de que la medición es la estimación
 A diferencia de las escalas de intervalo, las proporciones ahora son significativas porque tener un punto cero no arbitrario hace que sea significativo decir, por ejemplo, que un objeto tiene "el doble de longitud".
 
 ### {.toc-ignore}
-
+<hr>
 Las **variables cualitativas** o categóricas se dividen en:
 
 - *Nominal:* son categorías que no representan cantidad y orden.
@@ -367,8 +367,8 @@ Se recomienda construir una tabla para la identificación de variables de la sig
   <div id="EVar" class="panel-collapse collapse">
    <div class="panel-body">
 - *Objetivo:* Establecer el rendimiento de bateadores profesionales.
-- *Población:* 5890 beibolistas profesionales.
-- *Muestra:* 123 beibolistas profesionales.
+- *Población:* 5890 beisbolistas profesionales.
+- *Muestra:* 123 beisbolistas profesionales.
 
 <div style="font-size:11px">
 
