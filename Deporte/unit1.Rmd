@@ -5,7 +5,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,fig.align = "center",warning = F,message = F,
-                      dpi=300,fig.width = 7,fig.height = 6)
+                      dpi=300,fig.width = 7,fig.height = 6,cache=TRUE)
 
 StadiumPlot <- function(sel=NULL,seed=NULL){
   if(!is.null(seed)) {set.seed(seed)}
@@ -50,6 +50,43 @@ Precision <- function(type="A"){
   segments(-1,0,1,0)
   segments(0,-1,0,1)
 }
+
+varplot <- function(n,sd){
+  e1 <- rnorm(n,175,sd)
+  e2 <- rnorm(n,175,sd)
+  e3 <- rnorm(n,175,sd)
+  e4 <- rnorm(n,175,sd)
+  
+  s1 <- sd(e1);s2 <- sd(e2);
+  s3 <- sd(e3);s4 <- sd(e4);
+  m1 <- mean(e1);m2 <- mean(e2);
+  m3 <- mean(e3);m4 <- mean(e4);
+  
+  par(mar=c(3,5,3,2))
+  plot(x=175,y=3,axes = F,type="n",ylab="",xlab="",
+       ylim=c(0,4.5),xlim=c(140,210),
+       main=paste("Comportamiento de las",n,"muestras\nMedia =",175,"Desviación =",sd))
+  points(x=e1,y=rep(0.5,n),pch=20)
+  points(x=e2,y=rep(1.5,n),pch=20)
+  points(x=e3,y=rep(2.5,n),pch=20)
+  points(x=e4,y=rep(3.5,n),pch=20)
+  
+  points(x=m1,y=1,pch=19,col=2,cex=1.5)
+  points(x=m2,y=2,pch=19,col=2,cex=1.5)
+  points(x=m3,y=3,pch=19,col=2,cex=1.5)
+  points(x=m4,y=4,pch=19,col=2,cex=1.5)
+  
+  arrows(x0 = m1-s1,y0 = 1,x1 = m1+s1,y1 = 1,angle = 90,code=3,length = 0.1,col=2,lwd=2)
+  arrows(x0 = m2-s2,y0 = 2,x1 = m2+s2,y1 = 2,angle = 90,code=3,length = 0.1,col=2,lwd=2)
+  arrows(x0 = m3-s3,y0 = 3,x1 = m3+s3,y1 = 3,angle = 90,code=3,length = 0.1,col=2,lwd=2)
+  arrows(x0 = m4-s4,y0 = 4,x1 = m4+s4,y1 = 4,angle = 90,code=3,length = 0.1,col=2,lwd=2)
+  
+  box()
+  
+  axis(1,cex.axis=0.8)
+  axis(2,at=c(0.5,1.5,2.5,3.5),las=1,cex.axis=0.8,
+       labels = paste("Muestra",1:4))
+}
 ```
 
 ## Definiciones
@@ -74,7 +111,7 @@ Cuando se trata de una *muestra extraída* de una población, el cálculo de las
 
 En general para describir los parámetros se utilizan letras del alfabeto griego ($\mu$, $\sigma$, $\tau$, $\rho$) y para los estadísticos se utilizan letras del alfabeto latino ($S$, $M_o$, $\bar{X}$).
 
-El objetivo es medir, categorizar o cuantificar las caracteristicas de cada unidad seleccionada, estas caractarísticas se les conoce como **variables**. Si cada uno de los elementos seleccionados hacen parte de una *muestra aleatoria*, entonces las variables extraídas de cada unidad son **variables aleatorias**, ya que, al ser medida en diferentes unidades es susceptible de adoptar diferentes valores.
+El objetivo es medir, categorizar o cuantificar las características de cada unidad seleccionada, estas características se les conoce como **variables**. Si cada uno de los elementos seleccionados hacen parte de una *muestra aleatoria*, entonces las variables extraídas de cada unidad son **variables aleatorias**, ya que, al ser medida en diferentes unidades es susceptible de adoptar diferentes valores.
 
 #### Ejemplo {.tabset .tabset-fade .tabset-pills}
 
@@ -118,9 +155,9 @@ StadiumPlot(sel=1000,seed=1234)
 
 Todo proceso de medición implica
 
-- Selecionar un instrumento de medición adecuado, válido y confiable.
+- Seleccionar un instrumento de medición adecuado, válido y confiable.
 - Construir un instrumento de medición y validarlo.
-- Aplicar el intrumento y obtener registros del comportamiento sobre las variables de estudio.
+- Aplicar el instrumento y obtener registros del comportamiento sobre las variables de estudio.
 - Codificar, analizar e interpretar estas respuestas o mediciones
 
 >"Los Instrumentos son aquellos objetos materiales que nos permiten adquirir y analizar datos mediante los cuales pueden ser comprobadas las hipótesis de la investigación" *(Best, 1973).*
@@ -258,7 +295,7 @@ Los **datos** son las observaciones recolectadas de las unidades, entonces, los 
 
 Dependiendo de la naturaleza de los datos, se seleccionan los métodos estadísticos para describir, analizar o modelar. Existen dos tipos de datos en lo fundamental: *datos cualitativos* y *datos cuantitativos*
 
-- Los **datos cualitativos** o también conocidos como **categóricos**, son aquellos que describen una cualidad y se cuantfica a través de su ocurrencia o conteo. Por ejemplo, el sexo de los atletas o el estrato socioeconómico.
+- Los **datos cualitativos** o también conocidos como **categóricos**, son aquellos que describen una cualidad y se cuantifica a través de su ocurrencia o conteo. Por ejemplo, el sexo de los atletas o el estrato socio-económico.
 
 - Los **datos cuantitativos** consisten en números que representan conteos o mediciones precisas. Por ejemplo, la presión sanguínea, los segundos recorridos de un atleta, el número de pases logrados de un jugador de baloncesto.
 
@@ -268,7 +305,7 @@ Tanto los datos cualitativos como cuantitativos tienen subdivisiones, los cuales
 
 #### Nominal
 
-Esta escala diferencia entre ítems basándose únicamente en sus nombres o meta-categorías y otras clasificaciones cualitativas a las que pertenecen. Los números puede usarsepara representar las variables, sin embargo, no tienen ningún valor numérico o relación. Por otra parte, estas categorías no guarda ninguna relación jerárquica y no tiene sentido un orden plausible. Por ejemplo:
+Esta escala diferencia entre ítems basándose únicamente en sus nombres o meta-categorías y otras clasificaciones cualitativas a las que pertenecen. Los números puede usarse para representar las variables, sin embargo, no tienen ningún valor numérico o relación. Por otra parte, estas categorías no guarda ninguna relación jerárquica y no tiene sentido un orden plausible. Por ejemplo:
 
 - Nombres o Apellidos
 - Número de Identificación
@@ -286,8 +323,8 @@ El tipo ordinal permite el orden de rango (1°, 2°, 3°, etc.) por el cual se p
 
 El puesto de un atleta en una carrera implica el uso de una escala ordinal. Hay que tener mucho cuidado al hacer una declaración sobre las puntuaciones basadas en escalas ordinales. Por ejemplo, si la posición de Alejandra es 2 y la posición de Claudia es 8, no se puede decir que la posición de Alejandra sea cuatro veces mejor que la de Claudia La declaración no tendría ningún sentido. Las escalas ordinales solo permiten clasificar los elementos de mayor a menor. Por ejemplo:
 
-- Estrato Socioeconómico
-- Clasificiación IMC
+- Estrato Socio económico
+- Clasificación IMC
 - Escolaridad
 - Ranking profesional
 
@@ -334,7 +371,7 @@ $$\text{Escala de Intervalo y Razón} \Longrightarrow \begin{cases} \text{Cuanti
 
 ### Plan estadístico
 
-Para el desarrollo de cualquier investigación que requiera captura de datos, es necesario realizar un plan estadístico dentro de la metodología de la investigación. No importa el nivel de la investigación, si es de caracter descriptivo, diagnóstico, analítico o predictivo; o del área o disciplina en la que se desarrolle, se requiere seguir mínimamente las siguientes etapas:
+Para el desarrollo de cualquier investigación que requiera captura de datos, es necesario realizar un plan estadístico dentro de la metodología de la investigación. No importa el nivel de la investigación, si es de carácter descriptivo, diagnóstico, analítico o predictivo; o del área o disciplina en la que se desarrolle, se requiere seguir mínimamente las siguientes etapas:
 
 - Determinación del objetivo.
 - Identificación y análisis de estudios similares.
@@ -402,18 +439,1224 @@ De acuerdo al avance del anteproyecto de tesis de maestría, construir la tabla 
   </div>
 </div>
 
+## Métodos gráficos para resumir la información
+
+En la etapa de diseño de la investigación se establece la identificación de variables, la estrategia de recolección de datos de acuerdo al diseño de estudio, el plan de captura y estructuración de la información y finalmente se establece el plan de análisis estadístico.
+
+La primera parte de plan de análisis siempre necesita de la organización y presentación de los resultados, es decir, todo lo correspondiente al análisis descriptivo de los datos. Para esto, se cuenta con una colección de métodos de presentación de información: gráficos, tablas y medidas de resumen. Dado el tipo de variable y sus divisiones corresponde un conjunto de gráficos, tablas y medidas de resumen
+
+### Elementos de un gráfico
+
+Para la presentación de la información a través de gráficos, tenga en cuenta que las recomendaciones mínimas para la construcción de un buen gráfico:
+
+- Facilidad para comparar e identificar comportamiento de los datos
+
+- Lenguaje preciso y claro de tal manera que se eviten confusiones sobre las características de los datos mostrados
+
+- Evitar gráficas donde el gran número de categorías, indicadores o variables dificulten su interpretación
+
+- Distinción clara de las categorías o rótulos del gráfico
+
+- Notación de cifras y de decimales claras
+
+- Evitar el uso de abreviaturas
+
+- Las siglas/acrónimos deben de ir en mayúsculas y sin puntos intermedios
+
+- Aclarar la escala de los ejes
+
+```{r,fig.height=5,fig.width=5,dpi=100}
+oldpar <- par()
+par(mar=c(6,6,5,5))
+plot(0,ylab="",xlab="",axes = F,col=0)
+box()
+title(main = "Título del Gráfico\n",cex.main=1.5,col.main="darkcyan")
+title(main = "\n(Qué, Dónde, Cuándo)",cex.main=1)
+title(ylab="Título del Eje\n",cex.lab=1,col.lab="darkcyan")
+title(ylab="\n(Descripción, Categorías)",cex.lab=0.8)
+title(xlab="Título del Eje\n",cex.lab=1,col.lab="darkcyan")
+title(xlab="\n(Descripción, Categorías)",cex.lab=0.8)
+title(sub="Notas al pie, Fuentes",col.sub=2)
+text(1,0,labels = "Contenido del\ngráfico",cex = 2.5,col="darkcyan")
+```
+
+Los errores comunes que se presentan en los gráficos técnicos son:
+
+- Falta de títulos, convenciones y etiquetas
+
+- Falta de escala en los ejes
+
+- Congestionamiento o exceso de información
+
+- Escasez de datos
+
+- Mala calidad de la impresión
+
+- Incluir un eje adicional sin sentido para dar efectos 3D
+
+### Gráficos para Variables Cualitativas
+
+En la sección anterior se explicó las clasificaciones de las variables, para el caso de las variables cualitativas se agrupan en **Nominales** y **Ordinales**. La construcción de gráficos adecuados para este tipo de variable se basan en la representación de los conteos, si se tiene más de una variable es posible mostrar su relación.
+
+### Gráfico de barras
+
+Este gráfico se caracteriza por identificar las categorías o niveles de una variable cualitativa a relacionando la frecuencia de ocurrencia (**frecuencia absoluta**) a través de barras *separadas*. Para que el gráfico cobre sentido e interpretación rápida se recomienda que cada barra tenga un color distinto.
+
+<div class="row-fluid">
+ <div class="col-xs-6 col-md-6">
+```{r,fig.width=6,fig.height=6,dpi=120}
+deportes <- c(rep("Atletismo",10),rep("Fútbol",25),rep("Natación",8),
+              rep("Rugby",15),rep("Patinaje",5),rep("Karate",5))
+tabdep <- table(deportes)
+b1 <- barplot(tabdep,las=1,main = "Deportes practicados por los encuestados",
+             ylab="Número de encuestados",xlab="Deporte",col=rainbow(6),
+             ylim=c(0,30),cex.names = 0.8,cex.axis = 0.8)
+text(b1,tabdep+1,labels = tabdep)
+```
+ </div>
+ <div class="col-xs-6 col-md-6">
+```{r,fig.width=6,fig.height=6,dpi=120}
+b2 <- barplot(tabdep,las=1,main = "Deportes practicados por los encuestados",
+             xlab="Número de encuestados",ylab="",col=rainbow(6),
+             xlim=c(0,30),horiz = T,cex.names = 0.8,cex.axis = 0.8)
+text(tabdep+1,b2,labels = tabdep)
+```  
+ </div>
+</div>
+
+Este gráfico también puede usarse para representar la **frecuencia relativa** o los porcentajes que que representa la ocurrencia de cada categoría.
+
+En `R` es fácil construir este gráfico con el siguiente código:
+
+```{r,eval=FALSE,echo=TRUE}
+# Construya el vector de datos
+# la función "c" concatena los elementos
+# la función "rep" repite n veces los elementos
+deportes <- c(rep("Atletismo",10),rep("Fútbol",25),rep("Natación",8),
+              rep("Rugby",15),rep("Patinaje",5),rep("Karate",5))
+
+# Construya la tabla de frecuencias con la función "table"
+tabdep <- table(deportes)
+
+# La función "barplot" construye el gráfico de barras de una tabla
+# en la función se ingresan los argumentos para dar el toque estético
+b1 <- barplot(tabdep,las=1,main = "Deportes practicados por los encuestados",
+             ylab="Número de encuestados",xlab="Deporte",col=rainbow(6),
+             ylim=c(0,30))
+
+# Para añadir las frecuencias a las barras está este truco
+text(b1,tabdep+1,labels = tabdep)
+
+# Consulta la ayuda de las funciones
+?barplot
+?table
+?c
+?rep
+?rainbow
+?text
+```
+
+Ponlo en práctica aquí:
+
+<iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=deportes%20%3C-%20c(rep(%22Atletismo%22%2C10)%2Crep(%22Futbol%22%2C25)%2Crep(%22Natacion%22%2C8)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20rep(%22Rugby%22%2C15)%2Crep(%22Patinaje%22%2C5)%2Crep(%22Karate%22%2C5))%0A%0A(tabdep%20%3C-%20table(deportes))%0A%0A%20barplot(tabdep%2Clas%3D1%2Cmain%20%3D%20%22Deportes%20practicados%20por%20los%20encuestados%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20ylab%3D%22Numero%20de%20encuestados%22%2Cxlab%3D%22Deporte%22%2Ccol%3Drainbow(6)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20ylim%3Dc(0%2C30))' frameborder='2'></iframe>
+
+Este gráfico también es útil cuando se tiene dos variables categóricas, siempre y cuando los niveles de dicha variable sean pocas para no saturar el gráfico.
+
+#### Ejemplo {.tabset .tabset-fade .tabset-pills}
+
+##### Apilado
+
+```{r,fig.width=6,fig.height=5,dpi=100}
+set.seed(1234)
+estrato <- sample(2:5,68,replace = T)
+estrato <- factor(paste("Estrato",estrato))
+sexo <- sample(1:2,68,replace = T)
+sexo <- ifelse(sexo==1,"Mujer","Hombre")
+
+Testdep <- table(estrato,deportes)
+barplot(Testdep,las=1,
+        main = "Deportes practicados por los encuestados\nSegún el Estrato",
+        ylab="Número de encuestados",xlab="Deporte",col=rainbow(4),
+        ylim=c(0,30))
+legend("top",fill=rainbow(4),legend = levels(estrato),cex=0.8,ncol = 4)
+```
+
+##### Separado
+
+```{r,fig.width=6,fig.height=5,dpi=100}
+barplot(Testdep,las=1,
+        main = "Deportes practicados por los encuestados\nSegún el Estrato",
+        ylab="Número de encuestados",xlab="Deporte",col=rainbow(4),
+        ylim=c(0,12),beside = T)
+legend("top",fill=rainbow(4),legend = levels(estrato),cex=0.8,ncol = 4)
+```
+
+#### {.toc-ignore}
+### Gráfico de torta
+
+El gráfico de torta muestra por secciones de un círculo las proporciones o frecuencias de las categorías de una variable cualitativa
+
+```{r,fig.width=5,fig.height=5,dpi=100}
+pie(tabdep)
+```
+
+> Este gráfico tiene la dificultad en términos de interpretación, ya que la disposición circular no permite hacer distinciones sencillas sobre la proporcionalidad a menos que la categorías sean claramente dispares
+
+#### Ejemplo {.tabset .tabset-fade .tabset-pills}
+
+##### Torta
+
+```{r,fig.width=5,fig.height=5,dpi=100}
+pie(table(c(rep("A",28),rep("B",25),rep("C",23))),
+    main = "¿Las frecuencias de las\nCategorías son distintas?")
+```
+
+##### Barras
+
+```{r,fig.width=5,fig.height=5,dpi=100}
+barplot(table(c(rep("A",28),rep("B",25),rep("C",23))),las=1,
+        col=c("white", "lightblue", "mistyrose"),ylim=c(0,30),
+        main = "En efecto, sí")
+```
+
+#### {.toc-ignore}
+
+Una opción para reducir la limitación de proporcionalidad en este gráfico es utilizar etiquetas para indicar las proporciones o frecuencias de cada categoría, o bien usar un *gráfico de dona*.
+
+#### Ejemplo {.tabset .tabset-fade .tabset-pills}
+
+##### Torta
+
+```{r,fig.width=5,fig.height=5,dpi=100}
+pie(tabdep,col = rainbow(6))
+```
+
+##### Dona
+
+```{r,fig.width=5,fig.height=5,dpi=100}
+pie(tabdep,col = rainbow(6))
+plotrix::draw.circle(0,0,0.5,col=0)
+```
+
+#### {.toc-ignore}
+
+En `R` es fácil construir este gráfico con el siguiente código:
+
+```{r,eval=FALSE,echo=TRUE}
+# Construya el vector de datos
+# La función "c" concatena los elementos
+# La función "rep" repite n veces los elementos
+deportes <- c(rep("Atletismo",10),rep("Fútbol",25),rep("Natación",8),
+              rep("Rugby",15),rep("Patinaje",5),rep("Karate",5))
+
+# Construya la tabla de frecuencias con la función "table"
+tabdep <- table(deportes)
+
+# La función "pie" construye el gráfico de tortas de una tabla
+# En la función se ingresan los argumentos para dar el toque estético
+# En el argumento labels, se puede usar la función "paste" para pegar
+# la categoría ("names") con la frecuencia ("tabdep")
+pie(tabdep,col = rainbow(6),
+    labels = paste(names(tabdep),tabdep,sep = "\n"))
+
+# Consulta la ayuda de las funciones
+?pie
+?paste
+```
+
+Ponlo en práctica aquí:
+
+<iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=deportes%20%3C-%20c(rep(%22Atletismo%22%2C10)%2Crep(%22Futbol%22%2C25)%2Crep(%22Natacion%22%2C8)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20rep(%22Rugby%22%2C15)%2Crep(%22Patinaje%22%2C5)%2Crep(%22Karate%22%2C5))%0A%0A(tabdep%20%3C-%20table(deportes))%0Apie(tabdep%2Ccol%20%3D%20rainbow(6)%2C%0A%20%20%20%20labels%20%3D%20paste(names(tabdep)%2Ctabdep%2Csep%20%3D%20%22%5Cn%22))%0A%0A%23%20El%20s%C3%ADmbolo%20%22%5Cn%22%20es%20para%20el%20salto%20de%20l%C3%ADnea%0Apaste(names(tabdep)%2Ctabdep%2Csep%20%3D%20%22%5Cn%22)' frameborder='2'></iframe>
+
+### Diagrama de puntos
+
+Este gráfico también es similar al gráfico de barras, sirve para presentar las frecuencias absolutas o relativas de una variable cualitativa, y muestra un punto que representa el conteo del total de observaciones que hay para cada variable.
+
+```{r}
+dotchart(tabdep,pch = 19,xlab = "Frecuencia",
+         main = "Deportes practicados por los encuestados")
+```
+
+En `R` es fácil construir este gráfico con el siguiente código:
+
+```{r,eval=FALSE,echo=TRUE}
+# La función "dotchart" construye el diagrama de puntos de una tabla
+# En la función se ingresan los argumentos para dar el toque estético
+# En el argumento pch, se pone el número que representa el símbolo a usar
+dotchart(tabdep,pch = 19,xlab = "Frecuencia",
+         main = "Deportes practicados por los encuestados")
+
+# Consulta la ayuda de las funciones
+?dotchart
+```
+
+Ponlo en práctica aquí:
+
+<iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=deportes%20%3C-%20c(rep(%22Atletismo%22%2C10)%2Crep(%22Futbol%22%2C25)%2Crep(%22Natacion%22%2C8)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20rep(%22Rugby%22%2C15)%2Crep(%22Patinaje%22%2C5)%2Crep(%22Karate%22%2C5))%0A%0Atabdep%20%3C-%20table(deportes)%0Adotchart(tabdep%2Cpch%20%3D%2019%2Cxlab%20%3D%20%22Frecuencia%22%2C%0A%20%20%20%20%20%20%20%20%20main%20%3D%20%22Deportes%20practicados%20por%20los%20encuestados%22)' frameborder='2'></iframe>
+
+### Gráfico de mosaico
+
+En muchas ocasiones se tiene más de una variable categórica y un gráfico de barras compuesto no es suficiente para exponer con precisión la información. Para este caso, el gráfico de mosaico permite relacionar más de dos variables para analizar las frecuencias entre los cruces de niveles de las variables categóricas.
+
+```{r,fig.width=7,fig.height=5,dpi=90}
+par(mar=c(1,1,3,0.5))
+mosaicplot(table(deportes,estrato),las=1,col=terrain.colors(4),
+           main = "Relación entre prácticas deportivas y estrato",
+           cex=0.8)
+
+par(mar=c(1,1,3,0.5))
+mosaicplot(table(deportes,estrato,sexo),las=1,col=c("tomato","gold3"),
+           main = "Relación entre prácticas deportivas, estrato y sexo",
+           cex=0.5)
+```
+
+En `R` es fácil construir este gráfico con el siguiente código:
+
+```{r,eval=FALSE,echo=TRUE}
+# Construya el vector de datos
+# La función "sample" extrae número aleatorios
+# La función "set.seed" establece semillas de números aleatorios
+# La función "factor" convierte el texto a factor
+set.seed(1234)
+estrato <- sample(2:5,68,replace = T)
+estrato <- factor(paste("Estrato",estrato))
+sexo <- sample(1:2,68,replace = T)
+sexo <- ifelse(sexo==1,"Mujer","Hombre")
+
+# Construya la tabla de frecuencias con la función "table"
+tabDepEst <- table(deportes,estrato)
+
+# La función "mosaicplot" construye el gráfico de mosaico de una tabla
+# En la función se ingresan los argumentos para dar el toque estético
+mosaicplot(tabDepEst,las=1,col=terrain.colors(4),
+           main = "Relación entre prácticas deportivas y estrato",
+           cex=0.8)
+
+# Consulta la ayuda de las funciones
+?mosaicplot
+?sample
+?factor
+?ifelse
+?set.seed
+```
+
+Ponlo en práctica aquí:
+
+<iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=deportes%20%3C-%20c(rep(%22Atletismo%22%2C10)%2Crep(%22Futbol%22%2C25)%2Crep(%22Natacion%22%2C8)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20rep(%22Rugby%22%2C15)%2Crep(%22Patinaje%22%2C5)%2Crep(%22Karate%22%2C5))%0A%0Aset.seed(1234)%0Aestrato%20%3C-%20sample(2%3A5%2C68%2Creplace%20%3D%20T)%0Aestrato%20%3C-%20factor(paste(%22Estrato%22%2Cestrato))%0A(tabDepEst%20%3C-%20table(deportes%2Cestrato))%0A%0Amosaicplot(tabDepEst%2Clas%3D1%2Ccol%3Dterrain.colors(4)%2C%0A%20%20%20%20%20%20%20%20%20%20%20main%20%3D%20%22Relacion%20entre%20practicas%20deportivas%20y%20estrato%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20cex%3D0.8)' frameborder='2'></iframe>
+
+### Diagrama de *Sankey*
+
+Este gráfico relaciona las transferencia de frecuencias entre los niveles de varias variables categóricas, también se conoce como **Alluvial plot**. Lleva el nombre de *Sankey* por el capitán irlandés Matthew Henry Phineas Riall Sankey quién utilizó este diagrama en 1898 en una publicación sobre la eficiencia energética de la máquina de vapor. El gráfico más famoso de este tipo, y catalogado como el mejor gráfico de la historia, es el diagrama de la invasión napoleónica a Rusia.
+
+<br>
+<center>
+![Invasión Napoleónica a Ruisa](Minard.png)
+</center>
+<br>
+
+Para utilizar este gráfico necesitamos de un paquete especial de `R` llamado `alluvial` el cual se instala de la siguiente forma:
+
+```{r,eval=FALSE,echo=TRUE}
+# código para instalar
+install.packages("alluvial",dependencies = T)
+
+# Una vez instalado, no es necesario repetir el proceso
+
+# para cargarlo en el entorno de trabajo usamos
+require(alluvial)
+```
+
+Siguiendo el ejemplo de las encuesta de deportistas, es necesario hacer un cambio en cómo se entran los argumentos a la función, ya no necesitamos una tabla sino un marco de datos o `data.frame`.
+
+```{r,echo=TRUE}
+table(sexo,estrato,deportes)
+
+# Con la función "as.data.frame.table" se convierte
+# las tablas en marcos de datos o data.frame
+(datos <- as.data.frame.table(table(sexo,estrato,deportes)))
+```
+
+Observe que se creó una nueva columna que indica la frecuencia de ocurrencia entre los cruces de las tres variables. El gráfico, para este caso, se vería así:
+
+```{r,fig.height=5,fig.width=8,dpi=100}
+alluvial::alluvial(datos[,1:3],freq = datos$Freq,col=c("forestgreen","tomato"),cex = 0.8)
+```
 
 
-<!--## Métodos gráficos
+En `R` es fácil construir este gráfico con el siguiente código:
 
+```{r,eval=FALSE,echo=TRUE}
+datos <- as.data.frame.table(table(sexo,estrato,deportes))
+
+require(alluvial)
+# La función "alluvial" construye el diagrama de Sankey
+# En la función se ingresan los argumentos para dar el toque estético
+alluvial(datos[,1:3],freq = datos$Freq,
+         col=c("forestgreen","tomato"),
+         cex = 0.8)
+
+# Consulta la ayuda de las funciones
+?as.data.frame.table
+?alluvial
+```
+
+Ponlo en práctica aquí:
+
+<iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=deportes%20%3C-%20c(rep(%22Atletismo%22%2C10)%2Crep(%22F%C3%BAtbol%22%2C25)%2Crep(%22Nataci%C3%B3n%22%2C8)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20rep(%22Rugby%22%2C15)%2Crep(%22Patinaje%22%2C5)%2Crep(%22Karate%22%2C5))%0A%0Aset.seed(1234)%0Aestrato%20%3C-%20sample(2%3A5%2C68%2Creplace%20%3D%20T)%0Aestrato%20%3C-%20factor(paste(%22Estrato%22%2Cestrato))%0Asexo%20%3C-%20sample(1%3A2%2C68%2Creplace%20%3D%20T)%0Asexo%20%3C-%20ifelse(sexo%3D%3D1%2C%22Mujer%22%2C%22Hombre%22)%0A%0Adatos%20%3C-%20as.data.frame.table(table(sexo%2Cestrato%2Cdeportes))%0A%0Arequire(alluvial)%0Aalluvial(datos%5B%2C1%3A3%5D%2Cfreq%20%3D%20datos%24Freq%2C%0A%20%20%20%20%20%20%20%20%20col%3Dc(%22forestgreen%22%2C%22tomato%22)%2C%0A%20%20%20%20%20%20%20%20%20cex%20%3D%200.8)' frameborder='2'></iframe>
+
+### Gráficos para Variables Cuantitativas
+
+La construcción de gráficos adecuados para este tipo de variable se basan en la representación de las frecuencias por intervalo, la densidad de probabilidad o las ubicaciones en un plano cartesiano, si se tiene más de una variable es posible mostrar su relación.
+
+Para los siguientes ejemplos utilizaremos las bases de datos de *Sean Lahman* reportero del USA Today Network, conocido por compliar la base de datos más completa de béisbol en Norteamérica. Estas bases de datos las encontraremos en el paquete `Lahman`, la cual instalaremos así:
+
+```{r,eval=F,echo=T}
+install.packages("Lahman",dependencies = T)
+
+# Para cargar el paquete
+require(Lahman)
+LahmanData
+```
+
+```{r}
+DT::datatable(Lahman::LahmanData)
+```
+
+En la tabla anterior se muestran todas las bases de datos disponibles en el paquete, utilizaremos la bases de datos `Pitching` la cual contiene lo siguiente:
+
+<br>
+<center>
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Pitching Dataset</button>
+</center>
+
+  <!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+ <div class="modal-dialog modal-lg">
+<!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+<h4 class="modal-title">Pitching</h4>
+</div>
+<div class="modal-body">
+<h4>
+Pitching table
+</h4>
+
+<h5>Description</h5>
+
+<p>Pitching table
+</p>
+
+
+<h5>Usage</h5>
+
+<pre>data(Pitching)</pre>
+
+
+<h5>Format</h5>
+
+<p>A data frame with 46699 observations on the following 30 variables.
+</p>
+
+
+<p><code>playerID:</code> &nbsp; Player ID code</p>
+<p><code>yearID:</code> &nbsp; Year</p>
+<p><code>stint:</code> &nbsp; player's stint (order of appearances within a season)</p>
+<p><code>teamID:</code> &nbsp; Team; a factor</p>
+<p><code>lgID:</code> &nbsp; League; a factor with levels <code>AA</code> <code>AL</code> <code>FL:</code> <code>NL</code> <code>PL</code> <code>UA</code></p>
+<p><code>W:</code> &nbsp; Wins</p>
+<p><code>L:</code> &nbsp; Losses</p>
+<p><code>G:</code> &nbsp; Games</p>
+<p><code>GS:</code> &nbsp; Games Started</p>
+<p><code>CG:</code> &nbsp; Complete Games </p>
+<p><code>SHO:</code> &nbsp; Shutouts</p>
+<p><code>SV:</code> &nbsp; Saves</p>
+<p><code>IPouts:</code> &nbsp; Outs Pitched (innings pitched x 3)</p>
+<p><code>H:</code> &nbsp; Hits</p>
+<p><code>ER:</code> &nbsp; Earned Runs</p>
+<p><code>HR:</code> &nbsp; Homeruns</p>
+<p><code>BB:</code> &nbsp; Walks</p>
+<p><code>SO:</code> &nbsp; Strikeouts</p>
+<p><code>BAOpp:</code> &nbsp; Opponent's Batting Average</p>
+<p><code>ERA:</code> &nbsp; Earned Run Average</p>
+<p><code>IBB:</code> &nbsp; Intentional Walks</p>
+<p><code>WP:</code> &nbsp; Wild Pitches</p>
+<p><code>HBP:</code> &nbsp; Batters Hit By Pitch</p>
+<p><code>BK:</code> &nbsp; Balks</p>
+<p><code>BFP:</code> &nbsp; Batters faced by Pitcher</p>
+<p><code>GF:</code> &nbsp; Games Finished</p>
+<p><code>R:</code> &nbsp; Runs Allowed</p>
+<p><code>SH:</code> &nbsp; Sacrifices by opposing batters</p>
+<p><code>SF:</code> &nbsp; Sacrifice flies by opposing batters</p>
+<p><code>GIDP:</code> &nbsp; Grounded into double plays by opposing batter</p>
+
+<h5>Source</h5>
+<p>Lahman, S. (2019) Lahman's Baseball Database, 1871-2018, 2018 version, <a href="http://www.seanlahman.com/baseball-archive/statistics/">http://www.seanlahman.com/baseball-archive/statistics/</a>
+</p>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+</div>
+</div>
+</div>
+<br>
+
+### Histograma
+
+Este gráfico permite visualizar el comportamiento o distribución de una variable cuantitativa, divide la continuidad de la variable en intervalos equidistantes para visualizar las frecuencias por cada intervalo. La diferencia con el gráfico de barras, es que en el histograma las barras se encuentran pegadas unas de otras y se deben poner con el mismo color.
+
+```{r,fig.width=6,fig.height=5,dpi=120}
+require(Lahman)
+hist(Pitching$ER,col="darkcyan",las=1,cex.axis=0.7,
+     main="Número de Carreras Realizadas entre 1871 y 2018",
+     ylab="Frecuencia",xlab="Carreras Realizadas")
+```
+
+Observe que en el eje opuesto se muestra la frecuencia de ocurrencia de las carreras realizadas, con este gráfico también podemos ver las frecuencias relativas o **densidades** que denotan las probabilidades de la variable aleatoria.
+
+```{r,fig.width=6,fig.height=5,dpi=120}
+require(Lahman)
+hist(Pitching$ER,col="darkcyan",las=1,cex.axis=0.7,
+     main="Número de Carreras Realizadas entre 1871 y 2018",
+     ylab="Densidad",xlab="Carreras Realizadas",freq = F)
+```
+
+En `R` es fácil construir este gráfico con el siguiente código:
+
+```{r,eval=FALSE,echo=TRUE}
+# La finción "hist" construye el histograma
+# En los argumentos de la función se hacen los toque estéticos
+# El operador "$" sirve para seleccionar una variable de un
+# data.frame
+hist(Pitching$ER,col="darkcyan",las=1,cex.axis=0.7,
+     main="Distribución de Carreras Realizadas entre 1871 y 2018",
+     ylab="Densidad",xlab="Carreras Realizadas")
+
+# Consulta la ayuda
+?hist
+```
+
+Ponlo en práctica aquí:
+
+<iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=require(Lahman)%0Ahist(Pitching%24ER%2Ccol%3D%22darkcyan%22%2Clas%3D1%2Ccex.axis%3D0.7%2C%0A%20%20%20%20%20main%3D%22Numero%20de%20Carreras%20Realizadas%20entre%201871%20y%202018%22%2C%0A%20%20%20%20%20ylab%3D%22Densidad%22%2Cxlab%3D%22Carreras%20Realizadas%22%2Cfreq%20%3D%20F)' frameborder='2'></iframe>
+
+### Diagrama de ojiva
+
+Este gráfico muestra la frecuencia acumulada, sea absoluta o relativa, de una variable cuantitativa según los intervalos de clases creados en el histograma. Es muy útil para observar la tasa de crecimiento en términos de probabilidad de una variable. Para construir el gráfico de ojiva necesitamos el paquete de `agricolae` el cual se puede instalar así:
+
+```{r,eval=F,echo=T}
+install.packages("agricolae",dependencies = T)
+
+# para cargar el paquete
+require(agricolae)
+```
+
+La función de interés es `ogive.freq` y requiere de un histograma ya construido.
+
+```{r,fig.width=6,fig.height=5,dpi=90}
+require(agricolae)
+a <- ogive.freq(hist(Pitching$ER,plot = F),ylab="Densidad Acumulada",
+           xlab="Carreras Realizadas",pch=19,
+           main="Distribución acumulada de las\nCarreras Realizadas entre 1871 y 2018")
+box()
+detach("package:agricolae", unload=TRUE)
+require(e1071)
+```
+
+En `R` es fácil construir este gráfico con el siguiente código:
+
+```{r,eval=FALSE,echo=TRUE}
+# La finción "hist" construye el histograma
+# La función "ogive.freq" contruye la ojiva
+# En los argumentos de la función se hacen los toque estéticos
+ogive.freq(hist(Pitching$ER,plot = F),ylab="Densidad Acumulada",
+           xlab="Carreras Realizadas",pch=19,
+           main="Distribución acumulada de las\nCarreras Realizadas entre 1871 y 2018")
+
+# Consulta la ayuda
+?ogive.freq
+```
+
+Ponlo en práctica aquí:
+
+<iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=require(Lahman)%0Arequire(agricolae)%0Aogive.freq(hist(Pitching%24ER%2Cplot%20%3D%20F)%2Cylab%3D%22Densidad%20Acumulada%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20xlab%3D%22Carreras%20Realizadas%22%2Cpch%3D19%2C%0A%20%20%20%20%20%20%20%20%20%20%20main%3D%22Distribucion%20acumulada%20de%20las%5CnCarreras%20Realizadas%20entre%201871%20y%202018%22)' frameborder='2'></iframe>
+
+### Gráfico densidad acumulada empírica
+
+Este gráfico es similar a la ojiva, pero se diferencia en que hace la evaluación de la distribución cumulada de todos los datos cuantitativos.
+
+```{r,fig.width=6,fig.height=5,dpi=90}
+plot(ecdf(Pitching$ER),ylab="Densidad Acumulada",
+           xlab="Carreras Realizadas",pch=20,las=1,
+           main="Distribución acumulada de las\nCarreras Realizadas entre 1871 y 2018")
+
+```
+
+En `R` es fácil construir este gráfico con el siguiente código:
+
+```{r,eval=FALSE,echo=TRUE}
+# La finción "ecdf" se calcula la densidad acumulada
+# La función "plot" contruye el gráfico
+# En los argumentos de la función se hacen los toque estéticos
+plot(ecdf(Pitching$ER),ylab="Densidad Acumulada",
+           xlab="Carreras Realizadas",pch=20,
+           main="Distribución acumulada de las\nCarreras Realizadas entre 1871 y 2018")
+
+# Consulta la ayuda
+?ecdf
+```
+
+Ponlo en práctica aquí:
+
+<iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=require(Lahman)%0Aplot(ecdf(Pitching%24ER)%2Cylab%3D%22Densidad%20Acumulada%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20xlab%3D%22Carreras%20Realizadas%22%2Cpch%3D20%2C%0A%20%20%20%20%20%20%20%20%20%20%20main%3D%22Distribucion%20acumulada%20de%20las%5CnCarreras%20Realizadas%20entre%201871%20y%202018%22)' frameborder='2'></iframe>
+
+### Gráfico de densidad
+
+Este gráfico es una estimación de la curva característica de una variable continua, la estimación se realiza vía métodos numéricos, así que es una aproximación empírica de la distribución de probabilidad.
+
+```{r,fig.width=6,fig.height=5,dpi=90}
+plot(density(Pitching$ER),ylab="Densidad Acumulada",
+           xlab="Carreras Realizadas",las=1,cex.axis=0.8,
+           main="Distribución de Carreras Realizadas entre 1871 y 2018")
+
+```
+
+El modelamiento de la curva comparte el mismo comportamiento del histograma, en este sentido ambos gráficos están relacionados.
+
+```{r,fig.width=6,fig.height=5,dpi=90}
+hist(Pitching$ER,col="darkcyan",las=1,cex.axis=0.8,
+     main="Distribución de Carreras Realizadas entre 1871 y 2018",
+     ylab="Densidad",xlab="Carreras Realizadas",freq = F,ylim=c(0,0.025))
+lines(density(Pitching$ER),col=2,lwd=2)
+```
+
+En `R` es fácil construir este gráfico con el siguiente código:
+
+```{r,eval=FALSE,echo=TRUE}
+# La finción "density" estima la curva de densidad
+# La función "lines" agrega la línea al histograma
+# En los argumentos de la función se hacen los toque estéticos
+hist(Pitching$ER,col="darkcyan",las=1,cex.axis=0.8,
+     main="Distribución de Carreras Realizadas entre 1871 y 2018",
+     ylab="Densidad",xlab="Carreras Realizadas",freq = F,ylim=c(0,0.025))
+lines(density(Pitching$ER),col=2,lwd=2)
+
+# Consulta la ayuda
+?density
+?lines
+```
+
+Ponlo en práctica aquí:
+
+<iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=require(Lahman)%0Ahist(Pitching%24ER%2Ccol%3D%22darkcyan%22%2Clas%3D1%2Ccex.axis%3D0.8%2C%0A%20%20%20%20%20main%3D%22Distribucion%20de%20Carreras%20Realizadas%20entre%201871%20y%202018%22%2C%0A%20%20%20%20%20ylab%3D%22Densidad%22%2Cxlab%3D%22Carreras%20Realizadas%22%2Cfreq%20%3D%20F%2Cylim%3Dc(0%2C0.025))%0Alines(density(Pitching%24ER)%2Ccol%3D2%2Clwd%3D2)' frameborder='2'></iframe>
+
+### Box-Plot
+
+El gráfico de cajas y bigotes (*boxplot*) es un diagrama que divide una variable continua en cuartiles, es muy útil para detectar posibles *valores atípicos*.
+
+<center>![boxplot](BoxPlot.jpg)</center>
+
+```{r,fig.width=6,fig.height=5,dpi=90}
+boxplot(Pitching$ER,pch=20,col="gold2",horizontal = T,
+        main="Distribución de Carreras Realizadas entre 1871 y 2018",
+        xlab="Carreras Realizadas")
+```
+
+En `R` es fácil construir este gráfico con el siguiente código:
+
+```{r,eval=FALSE,echo=TRUE}
+# La finción "boxplot" construye el gráfico
+# El argumento "horizontal" gira el boxplot
+# En los argumentos de la función se hacen los toque estéticos
+boxplot(Pitching$ER,pch=20,col="gold2",horizontal = T,
+        main="Distribución de Carreras Realizadas entre 1871 y 2018",
+        xlab="Carreras Realizadas")
+
+# Consulta la ayuda
+?boxplot
+```
+
+Este gráfico muestra por cuartiles la distribución de la variable aleatoria, en este sentido está relacionado con otros gráficos que muestran el comportamiento de los datos, como el histograma o la curva de densidad.
+
+```{r,fig.width=6,fig.height=5,dpi=90}
+nf <- layout(mat = matrix(c(1,2),2,1, byrow=TRUE),  height = c(3,1))
+par(mar=c(3.1, 3.1, 1.1, 2.1))
+hist(Pitching$ER,col="darkcyan",ylab="Densidad",cex.axis=0.8,las=1,
+     main="Distribución de Carreras Realizadas entre 1871 y 2018",
+     xlab="Carreras Realizadas",freq = F,ylim=c(0,0.025),xlim=c(0,300))
+lines(density(Pitching$ER),col=2,lwd=2)
+rug(Pitching$ER,col=2)
+boxplot(Pitching$ER,horizontal=TRUE,
+        outline=TRUE,ylim=c(0,300),cex.axis=0.8,
+        frame=F,col="gold2",width=10,xaxs="n",pch=20)
+```
+
+Ponlo en práctica aquí:
+
+<iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=require(Lahman)%0A%0Anf%20%3C-%20layout(mat%20%3D%20matrix(c(1%2C2)%2C2%2C1%2C%20byrow%3DTRUE)%2C%20%20height%20%3D%20c(3%2C1))%0A%0Apar(mar%3Dc(3.1%2C%203.1%2C%201.1%2C%202.1))%0A%0Ahist(Pitching%24ER%2Ccol%3D%22darkcyan%22%2Cylab%3D%22Densidad%22%2Ccex.axis%3D0.8%2Clas%3D1%2C%0A%20%20%20%20%20main%3D%22Distribucion%20de%20Carreras%20Realizadas%20entre%201871%20y%202018%22%2C%0A%20%20%20%20%20xlab%3D%22Carreras%20Realizadas%22%2Cfreq%20%3D%20F%2Cylim%3Dc(0%2C0.025)%2Cxlim%3Dc(0%2C300))%0A%0Alines(density(Pitching%24ER)%2Ccol%3D2%2Clwd%3D2)%0A%0Arug(Pitching%24ER%2Ccol%3D2)%0A%0Aboxplot(Pitching%24ER%2Chorizontal%3DTRUE%2C%0A%20%20%20%20%20%20%20%20outline%3DTRUE%2Cylim%3Dc(0%2C300)%2Ccex.axis%3D0.8%2C%0A%20%20%20%20%20%20%20%20frame%3DF%2Ccol%3D%22gold2%22%2Cwidth%3D10%2Cxaxs%3D%22n%22%2Cpch%3D20)' frameborder='2'></iframe>
+
+### Gráficos compuestos
+
+Hasta ahora se han vistos casos para realizar gráficos univariados, y unos cuantos que relacionan *tablas de contingencias*. Existen varios gráficos compuestos para relacionar más de una variable, ya sean cuantitativas o cualitativas, a continuación se presentan los gráficos más usados para literatura científica con sus respectivos códigos en `R`.
+
+Para los siguientes ejemplos se utilizará el paquete `ggplot2` para realizar gráficos más complejos, , pero fáciles de programar y el paquete `dplyr` para realizar filtros y agrupaciones de las bases de datos. Así mismo se usará la base de datos `Masters` perteneciente a la colección de datos de *Sean Lahaman*.
+
+```{r,echo=T,eval=F}
+install.packages(c("ggplot2","dplyr"),dependencies = T)
+```
+
+El **gráfico de dispersión** o *scatterplot* relaciona dos variables continuas, es útil para evaluar de manera visual la relación entre dos variables en términos de dependencia, sea creciente o decreciente.
+
+```{r,fig.width=6,fig.height=5,dpi=90,echo=TRUE}
+# para cargar la librería
+require(ggplot2)
+require(dplyr)
+
+with(Pitching,plot(ER~L,pch=20,las=1,cex.axis=0.8,xlab="Pérdidas",ylab="Carreras",
+  main="Relación entre Carreras Realizadas y Lanzamientos Perdidos\nEntre 1871 y 2018"))
+
+Pitching %>% ggplot(aes(x=L,y=ER))+
+  geom_point()+
+  ggtitle("Relación entre Carreras Realizadas y Lanzamientos Perdidos\nEntre 1871 y 2018")+
+  ylab("Carreras")+xlab("Pérdidas")
+```
+
+Este gráfico se puede mezclar con una variable cualitativa, ya sea para colorear los puntos e identificar los niveles o separar los gráficos, así mismo se puede filtrar la base de datos para mostrar secciones específicas de las mismas.
+
+```{r,fig.width=6,fig.height=5,dpi=90,echo=TRUE}
+Pitching %>% ggplot(aes(x=L,y=ER,colour=lgID))+
+  geom_point()+
+  ggtitle("Relación entre Carreras Realizadas 
+          y Lanzamientos Perdidos\nEntre 1871 y 2018 según la Liga")+
+  xlab("Carreras")+ylab("Pérdidas")+facet_wrap(~lgID)
+
+Pitching %>% filter(yearID<=1900) %>% ggplot(aes(x=L,y=ER,colour=lgID))+
+  geom_point()+
+  ggtitle("Relación entre Carreras Realizadas 
+          y Lanzamientos Perdidos\nEntre 1871 y 1900 según la Liga")+
+  xlab("Carreras")+ylab("Pérdidas")+facet_wrap(~lgID)
+
+Pitching %>% filter(yearID>=2010) %>%
+  ggplot(aes(x=L,y=ER,colour=lgID))+
+  geom_point()+
+  ggtitle("Relación entre Carreras Realizadas 
+          y Lanzamientos Perdidos\nEntre 2010 y 2018 según la Liga")+
+  xlab("Carreras")+ylab("Pérdidas")+facet_wrap(~lgID)
+```
+
+Los BoxPlot también pueden mezclar variables cualitativas y cuantitativas, ya que se puede separar por los niveles de las categorías y condicionarlas por las mediciones de la variable continua.
+
+```{r,fig.width=6,fig.height=5,dpi=90,echo=TRUE}
+with(Pitching,boxplot(ER~lgID,horizontal = T,pch=20,las=1,col=hcl.colors(7),
+        main="Carerras Realizadas según la Liga entre 1871 y 2018",
+        xlab="Carreras Realizadas",ylab="ID Liga",cex.axis=0.8))
+
+Pitching %>% ggplot(aes(y=ER,x=lgID,fill=lgID))+
+  geom_boxplot()+
+  ggtitle("Carreras Realizadas según la Liga entre 1871 y 2018")+
+  ylab("Carreras")+xlab("ID Liga")
+
+Pitching %>% ggplot(aes(y=ER,x=lgID,fill=lgID))+
+  geom_boxplot()+coord_flip()+
+  ggtitle("Carreras Realizadas según la Liga entre 1871 y 2018")+
+  ylab("Carreras")+xlab("ID Liga")
+
+Pitching %>% filter(yearID<=1900) %>% ggplot(aes(y=ER,x=lgID,fill=lgID))+
+  geom_boxplot()+coord_flip()+
+  ggtitle("Carreras Realizadas según la Liga entre 1871 y 1900")+
+  ylab("Carreras")+xlab("ID Liga")
+
+Pitching %>% filter(yearID>=2010) %>%
+  ggplot(aes(y=ER,x=lgID,fill=lgID))+
+  geom_boxplot()+coord_flip()+
+  ggtitle("Carreras Realizadas según la Liga entre 2010 y 2018")+
+  ylab("Carreras")+xlab("ID Liga")
+```
+
+### Actividad
+
+<div class="panel-group">
+ <div class="panel panel-primary">
+  <div class="panel-heading">
+   <h5 class="panel-title">
+    <a data-toggle="collapse" href="#A3">Ejercicios de gráficos</a>
+   </h5>
+  </div>
+  <div id="A3" class="panel-collapse collapse">
+   <div class="panel-body">
+Con la base de datos `Master` construya lo siguiente:
+
+- Gráficos con las estaturas de los atletas
+- Gráficos con los pesos de los atletas
+- Calcule el Índice de Masa Corporal
+- Gráficos del IMC
+- Gráficos de la manos de bateo y lanzamiento
+- ¿Cuántos jugadores siguen vigentes hasta el 2018?
+
+<div class="alert alert-dismissible alert-info">
+  <h5>Usa R!</h5>
+  <p>Puedes combinar otras variables para hacer los gráficos, la intención es explorar, equivocarse, aprender y divertirse.</p>
+</div>
+   </div>
+   </div>
+  </div>
+</div>
 
 ## Medidas de resumen
 
+Cuando se tiene un conjunto tan extenso de datos, no es conveniente presentar los datos uno a uno y tampoco hacer inferencias sobre "generalidades visuales". La estadística cuenta con un conjunto de herramientas poderosas para realizar resúmenes de los datos, ya sean cuantitativos o cualitativos, además de los gráficos. Los resúmenes numéricos permiten al investigador profundizar en la descripción de los datos, plantear hipótesis sobre el comportamiento, comparaciones o relaciones de dependencia.
+
+Existe muchas medidas de resumen que dependen de la naturaleza de las variables así como los tipos de estudio y objetivos de investigación, en esta sección veremos los más usados en estadística descriptiva: **las medidas de tendencia central** y **las medidas de dispersión**.
+
+### Medidas de Tendencia Central
+
+Una medida de central es aquel valor que es útil para resumir en un solo valor el comportamiento de los datos y que denota una posición en el rango de valores de la variable, esto significa que conserva sus unidades. En general para las variables cuantitativas se usan cuatro estimadores de este tipo: *la media*, *la mediana*, *la moda* y *la mitad del rango*, existe un caso especial para las variables cualitativas que son las *proporciones*.
+
+### Media o promedio
+
+Cuando se presentan resultados estadísticos es común escuchar la palabra **"promedio"**, por ejemplo: *El promedio de las precipitaciones del mes de mayo en Santander fueron de 2300mm*, esto no quiere decir que todos los días de mayo las precipitaciones fueron de 2300mm en Santander, este dato resume la cantidad de lluvias que cayeron en el mes de Mayo. De acuerdo a los tipos de datos y el interés del investigador se pueden calcular varios tipos de promedio: *La media aritmética*, *la media armónica* y *la media geométrica*.
+
+> La media o promedio indica el **centro de masa** de los datos.
+
+Es la medida de tendencia central que se calcula al sumar los valores y dividir el total entre el número de valores, también es conocida como el *promedio aritmético*.
+
+$$\bar{X}=\frac{\sum{x_i}}{n}=\frac{\leftarrow \text{Suma de todos los valores de la muestra}}{\leftarrow \text{Número de valores muestrales}\quad\quad\quad\quad}$$
+
+Si el conjunto de datos es una muestra de una población, la media se denota con $(\bar{X})$ y se lee “equis barra”; cuando se usan todos los valores de la **población**, la media se simboliza con la letra griega $(\mu)$ y se lee “mu”.
+
+| **Símbolo** | **Descripción** |
+|----------------|---------------------------------------------------------------------------------------------|
+| $\sum$ | Representa la sumatoria de todos los valores de un conjunto |
+| $x_i$ | Es la variable que generalmente se usa para representar datos<br>individuales de la muestra |
+| $X$ | Es la variable que representa a la población |
+| $n$ | Representa el número de valores de una *muestra* |
+| $N$ | Representa el número de valores de una *población* |
+| $\bar{x}=\frac{\sum{xi}}{n}$ | Es la media de un conjunto de valores de una *muestra* |
+| $\mu=\frac{\sum{X}}{N}$ | Es la media de todos los valores de la *población* |
+
+```{r,echo=T}
+mean(Pitching$ER)
+# el argumento "na.rm" remueve los NA o datos asusentes
+mean(Master$weight,na.rm = T)
+```
+
+El promedio puede ubicarse gráficamente en un BoxPlot o un histograma para entender cuál es el centro de masa de la distribución de los datos.
+
+```{r,fig.width=6,fig.height=4,dpi=90,echo=TRUE}
+hist(Pitching$ER,col="darkcyan",ylab="Densidad",cex.axis=0.8,las=1,
+     main="Distribución de Carreras Realizadas entre 1871 y 2018",
+     xlab="Carreras Realizadas",freq = F,ylim=c(0,0.025),xlim=c(0,300))
+abline(v=mean(Pitching$ER),col=2,lwd=2)
+boxplot(Pitching$ER,pch=20,col="gold2",horizontal = T,
+        main="Distribución de Carreras Realizadas entre 1871 y 2018",
+        xlab="Carreras Realizadas")
+points(x = mean(Pitching$ER),y=1,pch=19,col=2,cex=2)
+```
+
+> La media tiene la desventaja de ser muy sensible a la distancia entre los datos, es decir, si en un conjunto de datos se presentan valores atípicos o extremos, ya sea por errores en la medición o por interacción con variables incontrolables, el cálculo de la media se verá afectado seriamente distrayendo la atención del verdadero fenómeno y ubicándolo en otro punto de referencia
+
+### Media Geométrica
+
+La media geométrica es útil para calcular el promedio de **porcentajes**, **índices**, **cifras relativas** e **incrementos porcentuales** de ventas, producción u otras actividades económicas.
+
+$$MG=\sqrt[n]{\prod x_i}=\sqrt[n]{x_1 \times x_2 \times x_3 \times \dots \times x_n}$$
+
+El resultado de la media geométrica **es menor** que el de la media aritmética, además si se tiene **valores nulos** el resultado de la media geométrica es cero y si existen **valores negativos** en una muestra impar no es posible calcularla. La media geométrica se utiliza cuando se quiere dar importancia a los valores pequeños de una variable. Otra forma de calcular este valor es aplicando logaritmo natural.
+
+$$MG=\Large{e}^{\sum{\frac{\text{Ln}(x_i)}{n}}}$$
+
+### Media Armónica
+
+Es el valor promedio asociado a problemas que involucran **velocidades** o variaciones con respecto al **tiempo**.
+
+$$H=\frac{n}{\sum{\frac{1}{x_i}}}$$
+
+La media armónica es sensible a los valores pequeños de un conjunto y no es posible calcularla si existen valores nulos.
+
+### Mediana
+
+La mediana es un *valor intermedio*, ya que la **mitad** de los datos se ubican por debajo de la mediana y la otra mitad por encima, este valor resuelve en gran medida la desventaja de la media. La mediana suele denotarse como $(\tilde{x})$ y se lee como “equis con tilde”. Para calcular la mediana se deben organizar los datos de forma ascendente y se siguen uno de los siguientes dos procedimientos:
+
+#### Cuando la muestra es par
+
+Si el número de valores de la muestra es par, la mediana es el valor medio entre los dos valores que se ubican al centro de la tabla.
+
+$$45\quad51\quad57\quad60\quad\textbf{63}\quad\textbf{66}\quad68\quad72\quad75\quad350$$
+$$\tilde{x}=\frac{63+66}{2}=64.5$$
+
+#### Cuando la muestra es impar
+
+Si el número de valores de la muestra es impar la mediana es el valor que se ubica exactamente en la mitad de la lista
+
+$$45\quad51\quad57\quad60\quad\textbf{63}\quad66\quad68\quad72\quad75$$
+$$\tilde{x}=63$$
+
+Observemos que en el primer caso del cálculo de la mediana, la media de ese conjunto de datos es $90.7$, la cual está muy alejada de la mediana y de la mayoría de los datos, esto se da porque el valor extremo es un dato atípico, en cambio si éste valor fuese por ejemplo $80$, la media sería $63.7$ y la mediana no cambiaría.
+
+```{r,echo=T}
+median(Pitching$ER)
+median(Master$height,na.rm = T)
+```
+
+La mediana ubicarse gráficamente, al igual que el promedio, en un histograma para entender cuál es el centro de masa de la distribución de los datos. Para el caso del BoxPlot ésta ya contiene la mediana el cual se representa por la línea que divide la caja.
+
+```{r,fig.width=6,fig.height=5,dpi=90,echo=TRUE}
+hist(Pitching$ER,col="darkcyan",ylab="Densidad",cex.axis=0.8,las=1,
+     main="Distribución de Carreras Realizadas entre 1871 y 2018",
+     xlab="Carreras Realizadas",freq = F,ylim=c(0,0.025),xlim=c(0,300))
+abline(v=mean(Pitching$ER),col=2,lwd=2)
+abline(v=median(Pitching$ER),col=4,lwd=2)
+```
+
+### La Moda
+
+La moda es el valor que se presenta con mayor frecuencia en un conjunto de datos. Cuando un solo valor presenta mayor frecuencia, se dice que el conjunto de datos es *unimodal*, cuando dos valores presentan la misma y mayor frecuencia, se dice que el conjunto de datos es *bimodal*, cuando más de dos valores presentan la misma y mayor frecuencia se dice que el conjunto de datos es *multimodal*, y finalmente cuando ningún valor se repite se dice que no tiene moda.
+
+> Para el caso de las variables continuas de intervalo o razón, existen debates en cuando a la estimación de la Moda, algunos argumentan que no es posible estimarla debido a la naturaleza continua de la variable, y otros sostienen que puede hacerse una aproximación estimando el valor que maximiza la densidad de probabilidad.
+
+```{r, echo=TRUE}
+# Se corre inicialmente la función Moda para crearla
+Moda <- function(x) {
+    keys <- na.omit(unique(x))
+    keys[which.max(tabulate(match(x, keys)))]
+}
+
+## Se calcular la moda de cada conjunto de datos
+Moda(Pitching$ER)
+Moda(Master$weight)
+```
+
+La moda también puede representarse gráficamente, ya sea en un BoxPlot o un histograma, sin embargo, hay que tener en cuenta que es una aproximación. El problema real es cuando existen más de una moda, ya que es más complicado estimarlas.
+
+```{r,fig.width=6,fig.height=5,dpi=90,echo=TRUE}
+hist(Pitching$ER,col="darkcyan",ylab="Densidad",cex.axis=0.8,las=1,
+     main="Distribución de Carreras Realizadas entre 1871 y 2018",
+     xlab="Carreras Realizadas",freq = F,ylim=c(0,0.025),xlim=c(0,300))
+abline(v=mean(Pitching$ER),col=2,lwd=2)
+abline(v=median(Pitching$ER),col=4,lwd=2)
+abline(v=Moda(Pitching$ER),col=6,lwd=2)
+boxplot(Pitching$ER,pch=20,col="gold2",horizontal = T,
+        main="Distribución de Carreras Realizadas entre 1871 y 2018",
+        xlab="Carreras Realizadas")
+points(x = mean(Pitching$ER),y=1,pch=19,col=2,cex=2)
+points(x = median(Pitching$ER),y=1,pch=19,col=4,cex=2)
+points(x = Moda(Pitching$ER),y=1,pch=19,col=6,cex=2)
+```
+
+### Los Cuantiles
+
+Los cuantiles son medidas de posición que determinan la ubicación de valores que dividen
+un conjunto de observaciones en partes iguales. También conocidas como **medidas de posición no central**, los cuantiles son útiles identificar las concentraciones de datos en un porcentaje de la muestra. Los cuantiles más usados se dividen en 3 grupos:
+
+- **Cuartiles:** Son los que dividen la distribución de los datos en cuatro partes 25%, 50% y 75%. El *cuartil 1* $(Q_1)$ representa hasta el 25% de los datos, el *cuartil 2* $(Q_2)$ representa hasta el 50% de los datos al igual que **la mediana** –estos dos valores son iguales–, y finalmente el *cuartil 3* $(Q_3)$ representa hasta el 75% de los datos.
+
+- **Deciles:** Son los que dividen la distribución de los datos en 10 partes iguales, 10% hasta 90%. El *decil 1* $(D_1)$ representa hasta el 10% de los datos, el *decil 5* $(D_5)$ representa hasta el 50% de los datos al igual que **la mediana** –estos dos valores son iguales–, y así sucesivamente hasta el 90%.
+
+- **Percentiles:** son los que dividen la distribución de los datos en 100 partes iguales. 1% hasta 99%. El *percentil 1* $(P_1)$ representa hasta el 1% de los datos, el *percentil 50* $(P_50)$ representa hasta el 50% de los datos al igual que **la mediana** –estos dos valores son iguales–, y así sucesivamente los percentiles representan los valores hasta el 99%.
+
+```{r, echo=TRUE}
+quantile(Pitching$ER)
+quantile(Pitching$ER,probs = c(0.15,0.3,0.45,0.6,0.75))
+quantile(Pitching$ER,probs = c(0.01,0.05,0.95,0.99))
+quantile(Master$weight,na.rm = T)
+```
+
+### Medidas de Dispersión
+
+Estas medidas son quizás las más importantes en la estadística, si bien las medidas de tendencia central nos muestran el comportamiento de un conjunto de datos en valores centrales, *las medidas de dispersión* nos indican los niveles de esparcimiento de los datos con respecto a los valores centrales. Recuerden el ejemplo de la **Precisión** y la **Exactitud**.
+
+Los valores de exactitud están relacionados a las medidas de tendencia central, en específico a la media, en tanto a la precisión los valores están relacionados a *las medidas de dispersión*.
+
+A la hora de la recolección de los datos se pueden presentar sesgos que pueden obstaculizar el estudio en términos de *precisión* y *exactitud*, por ejemplo si los instrumentos de medición no están bien calibrados pueden arrojar datos alejados del valor de referencia, aunque con alta precisión, es un error que entorpece la investigación en su conjunto, a este fenómeno se lo conoce como **error sistemático**. Por otra parte si existen factores exógenos al fenómeno que afecten directamente el experimento, y en su defecto no pueden ser controlables, es posible que la precisión de las medidas sea afectada, lo que también es negativo para la investigación.
+
+> En la estadística hay que procurar por minimizar el sesgo y aumentar la precisión, una correcta aproximación de la realidad es tener más **precisión** que **exactitud**, pues es muy difícil encontrarse con el caso en el que se cumple ambas. La estadística práctica asume que los datos están libres de *error sistemático* –o por lo menos están controlados– y que la variabilidad restante se debe únicamente a *errores aleatorios* que también han sido minimizados.
+
+```{r,fig.width=9,fig.height=4,dpi=80}
+Constr1<-c(rep(1,12),rep(2,12),rep(3,12))
+Constr2<-c(rep(1,8),rep(2,14),rep(3,14))
+Constr3<-c(rep(1,6),rep(2,13),rep(3,17))
+
+par(mfrow=c(1,3))
+hist(Constr1,col='lightblue',breaks=c(0.5,1.5,2.5,3.5),ylim=c(0,20),
+     main='Atención de Pacientes\nEPS 1',
+     xlab='Paciente',ylab='Minutos',axes=F,cex.main=2)
+box();axis(1,at=c(1,2,3),cex.axis=1);axis(2,at=seq(0,21,3),cex.axis=1,las=1)
+abline(h=12,col='red',lwd=2)
+text(1,13,'media',col='red',cex=2)
+
+hist(Constr2,col='lightblue',breaks=c(0.5,1.5,2.5,3.5),ylim=c(0,20),
+     main='Atención de Pacientes\nEPS 2',
+     xlab='Paciente',ylab='Minutos',axes=F,cex.main=2)
+box();axis(1,at=c(1,2,3),cex.axis=1);axis(2,at=seq(0,21,3),cex.axis=1,las=1)
+abline(h=12,col='red',lwd=2)
+text(1,13,'media',col='red',cex=2)
+
+hist(Constr3,col='lightblue',breaks=c(0.5,1.5,2.5,3.5),ylim=c(0,20),
+     main='Atención de Pacientes\nEPS 3',
+     xlab='Paciente',ylab='Minutos',axes=F,cex.main=2)
+box();axis(1,at=c(1,2,3),cex.axis=1);axis(2,at=seq(0,21,3),cex.axis=1,las=1)
+abline(h=12,col='red',lwd=2)
+text(1,13,'media',col='red',cex=2)
+```
+
+Si analizamos los tiempos de atención entre las EPS a parir de la media, se observa que el promedio de atención es de 12 minutos en cada una de las EPS, aparentemente el proceso es estable, pero si se ve el comportamiento de acuerdo a cada medida se observa la diferencia de tiempos. En la EPS 1 el tiempo de atención es estable pues no presenta variación con respecto a la media, en la EPS 2 hay una pequeña variación en el tiempo de atención, pero en la EPS 3 hay una gran variación en el tiempo de atención.
+
+Este sencillo ejemplo muestra la sensibilidad al exponer los resultados, si solo se depende de las medidas de tendencia central se puede caer en el error de presentar resultados que a la vista son "buenos" pero resultan dudosos a la hora de no presentar su distribución completa. Para esto es importante conocer las medidas de dispersión, pues con ellas el investigador puede completar sus análisis para presentar resultados más precisos.
+
+### Desviación Estándar
+
+Es la medida de variación de los valores de una muestra con respecto a su media, *la desviación estándar* establece el grado de acercamiento que existe entre los datos y la media, es decir, mide la precisión de los datos con respecto a la exactitud.
+
+$$S=\Large\sqrt{\frac{\sum (x_i-\bar{x})^2}{n-1}}$$
+
+La desviación estándar se define como la media aritmética de los cuadrados de las desviaciones respecto a su media. El valor de la desviación estándar siempre es positivo, cuándo su valor es cero indica que no existe variabilidad entre los datos, a medida que el valor de $S$ aumente, más variabilidad habrá entre los datos. La ventaja de la desviación estándar es que conserva las unidades originales del estudio, así que concluir con esta medida es útil porque no confunde al investigador en términos de medidas.
+
+El proceso anterior se aplica para la muestra de una población, es decir, la desviación que se ha calculado es la **desviación estándar muestral**, así que la población también tiene su respectiva desviación estándar.
+
+$$\Large\sigma=\Large\sqrt{\frac{\sum (x_i-\mu)^2}{N}}$$
+
+Observe que la notación de la desviación cambia, ya no es $S$ sino $\sigma$, similar a las medidas de tendencia central, las medidas de dispersión utilizan notaciones para diferenciar entre una **muestra** y una **población**.
+
+El $N$ representa el número de individuos de la población, la razón de por qué no se resta una unidad es debido a que las muestras son una *extracción de la población*, entonces cuando se calculan todas las diferencias cuadráticas entre los datos y la media, quedan $n–1$ elementos a los que se les puede asignar un número con libertad, antes que se determine el último valor; esto es aplicable a muestras pequeñas, pues cuando aumenta el tamaño de la muestra, la división no se ve afectada notoriamente, por esto en la población no se considera necesario restarle una unidad, pues el tamaño de la población es por mucho mayor que el tamaño de una muestra de dicha población.
+
+```{r, echo=TRUE}
+sd(Pitching$ER)
+sd(Master$weight,na.rm = T)
+```
+
+### Varianza
+
+Usamos el término *variación* como una descripción general de la cantidad en que varían los valores entre sí (en ocasiones se aplica el término *dispersión* en vez de *variación*). El término **varianza** se refiere a una definición específica, es el *cuadrado de la desviación estándar*.
+
+$$S^2 \quad\leftarrow \text{Varianza muestral}$$
+$$\sigma^2 \quad\leftarrow \text{Varianza poblacional}$$
+
+Se dice que la varianza muestral $S^2$ es un **estimador insesgado** (sin sesgo) de la varianza $\sigma^2$, lo que significa que los valores de $S^2$ tienden a igualar a los valores de $\sigma^2$ cuando el tamaño de muestra aumenta, en vez de tender a subestimar o sobrestimar los valores de $\sigma^2$.
+
+Por ejemplo, considere una prueba de admisión a una institución de educación diseñada de tal manera que su varianza es de 625, si se selecciona una muestra al azar de 100 personas que presentaron la prueba y se repite ese proceso varias veces, cuando se calcula $S^2$ en cada caso el resultado se debe concentrar en 625.
+
+#### Relación variación-muestras {.tabset .tabset-fade .tabset-pills}
+
+##### n=5
+
+```{r,fig.width=6,fig.height=5,dpi=90}
+varplot(5,15)
+```
+
+##### n=10
+
+```{r,fig.width=6,fig.height=5,dpi=90}
+varplot(10,15)
+```
+
+##### n=30
+
+```{r,fig.width=6,fig.height=5,dpi=90}
+varplot(30,15)
+```
+
+##### n=50
+
+```{r,fig.width=6,fig.height=5,dpi=90}
+varplot(50,15)
+```
+
+##### n=150
+
+```{r,fig.width=6,fig.height=5,dpi=90}
+varplot(150,15)
+```
+
+#### {.toc-ignore}
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+  <h4 class="panel-title">Desventaja</h4>
+  </div>
+  <div class="panel-body">
+La desventaja de la varianza es que al elevar la desviación estándar al cuadro, las unidades originales de los datos se pierden, por ejemplo la desviación estándar del tiempo de
+atención de la EPS 3 es de $5.57\min$, así que la varianza es $31\min^2$, **¿Qué es un minuto cuadrado?** Por esto es mejor utilizar la desviación estándar para realizar comparaciones y análisis sobre las unidades originales de los datos.
+  </div>
+</div>
+
+> **Nota:** Los artículos de revistas y las publicaciones científicas suelen usar DE o SD, para referirse a la desviación estándar y VAR para la varianza.
+
+```{r,echo=TRUE}
+var(Pitching$ER)
+var(Master$height,na.rm = T)
+```
+
+### Rango Intercuartil
+
+Es una medida de dispersión basada en las *medidas de posición no central*, el cual se calcula como la diferencia entre el Cuartil 3 y el Cuartil 1. Éste muestra la amplitud del 50% de los datos centrales de un conjunto de observaciones. Esta medida puede ser tomada como una medida de variabilidad para la mediana.
+
+$$IQR=Q_3-Q_1$$
+
+```{r,echo=T}
+IQR(Pitching$ER)
+IQR(Master$weight,na.rm = T)
+```
+
+### Coeficiente de variación
+
+Es una medida de dispersión para observar el grado de variabilidad de un conjunto de datos respecto a su promedio, en otras palabras es la desviación estándar como un porcentaje de la media aritmética de un conjunto de datos.
+
+$$CV=\frac{S}{|\bar{X}|}\times 100\%$$
+Hay que tener mucho cuidado con esta medida, pues es relevante cuando no se presentan asimetrías considerables o cuando los promedios son unidades muy pequeñas, ya que la estimación es muy sensible a esto.
+
+```{r,echo=T}
+# función para sacar el Coeficiente de Variación
+CV <- function(x) (sd(x,na.rm = T)/abs(mean(x,na.rm = T)))*100
+CV(Pitching$ER) #No tan apropiado
+CV(Master$height) #Mejor por el comportamiento de los datos
+```
+
+Existe una versión *no-paramétrica* del coeficiente de variación que utiliza la mediana y el rango intercuartíl.
+
+$$CVn=\frac{IQR}{|\tilde{x}|}\times 100\%$$
+
+```{r,echo=T}
+# función para sacar el Coeficiente de Variación alternativo
+CVn <- function(x) (IQR(x,na.rm = T)/abs(median(x,na.rm = T)))*100
+CVn(Pitching$ER) #No tan apropiado
+CVn(Master$height) #Mejor por el comportamiento de los datos
+```
+
+### Rango
+
+Es la distancia o amplitud entre el valor máximo y el valor mínimo de un conjunto de datos.
+
+$$R=max-min$$
+
+```{r,echo=T}
+range(Pitching$ER)
+diff(range(Pitching$ER))
+range(Master$height,na.rm = T)
+diff(range(Master$height,na.rm = T))
+```
+
+### Coeficiente de Asimetría
+
+Este valor permite identificar si el conjunto de datos se distribuye uniformemente alrededor de las medidas de tendencia central.
+
+$$\gamma_1=\frac{1}{n}\frac{\sum (x_i-\bar{X})^3}{S^3}\quad -\infty<\gamma_1<\infty$$
+El signo de $\gamma_1$ indica la dirección de la asimetría.
+
+- $\gamma_1>0$ indica asimetría **positiva**, es decir, las observaciones se reúnen más en la parte izquierda de las medidas de tendencia central.
+
+- $\gamma_1<0$ indica asimetría **negativa**, es decir, las observaciones se reúnen más en la parte derecha de las medidas de tendencia central.
+
+- $\gamma_1\approx 0$ indica **simetría**, es decir, existe aproximadamente la misma cantidad de observaciones a los dos lados de las medidas de tendencia central.
+
+<center>![asimetria](asimetria.png)</center>
+
+```{r,echo=T,eval=F}
+# Librería para calcular la asimetría y kurtosis
+install.packages("e1071",dependencies = T)
+```
+
+```{r,echo=T}
+# Cargar el paquete
+require(e1071)
+skewness(Pitching$ER)
+skewness(Master$height,na.rm = T)
+```
+
+### Coeficiente de exceso de Curtosis
+
+Este valor permite observar el grado de concentración del conjunto de datos.
+
+$$\gamma_2=\frac{1}{n}\frac{\sum (x_i-\bar{X})^4}{S^4}\quad -2<\gamma_2<\infty$$
+
+El signo de $\gamma_2$ indica el nivel de concentración.
+
+- $\gamma_2>0$ indica **leptocurtosis**, es decir, la forma de los datos es más en punta y posee colas menos anchas.
+
+- $\gamma_2<0$ indica **platicurtosis**, es decir, la forma de los datos es más plana y posee colas más anchas.
+
+- $\gamma_2 \approx 0$ indica **mesocurtosis**, es decir, tanto la punta como las colas son similares a la *distribución normal*.
+
+<center>![curtosis](curtosis.png)</center>
+
+```{r,echo=T}
+# con el paquete "e1071"
+kurtosis(Pitching$ER)
+kurtosis(Master$height,na.rm = T)
+```
+
+### Ejemplo final
+
+Existen varios paquetes en `R` para realizar resúmenes numéricos de variables aleatorias, a continuación se presentan algunas funciones útiles.
+
+```{r,echo=TRUE,eval=FALSE}
+install.packages(c("psych","RcmdrMisc"),dependencies = T)
+
+# cargar los paquetes
+require(psych)
+require(RcmdrMisc)
+```
+
+La función `numSummary` del paquete `RcmdrMisc` permite realizar un resumen numérico detallado de los datos.
+
+```{r}
+require(psych)
+require(RcmdrMisc)
+```
+
+```{r,echo=T}
+numSummary(Pitching$ER,statistics = c("mean","sd","IQR","quantiles",
+                                      "cv","skewness","kurtosis"))
+numSummary(Master$height,statistics = c("mean","sd","IQR","quantiles",
+                                        "cv","skewness","kurtosis"))
+```
+
+La función `describe` del paquete `psych` también permite realizar un resumen numérico detallado de los datos.
+
+```{r,echo=T}
+describe(Pitching$ER)
+describe(Master$height)
+```
+
+Lo interesante del paquete `psych` es que permite hacer resúmenes numéricos condicionados por una variable cualitativa con la función `describeBy`.
+
+```{r,echo=T}
+# Estadísticas de carreras realizadas por temporada
+describeBy(x = Pitching$ER,group = Pitching$stint)
+
+# Estadísticas Talla de beisbolistas por mano de bateo
+describeBy(x = Master$height,group = Master$bats)
+```
+
+Ponlo en práctica aquí:
+
+<iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=require(Lahman)%0Arequire(RcmdrMisc)%0Arequire(psych)%0A%0AnumSummary(Master%24height%2Cstatistics%20%3D%20c(%22mean%22%2C%22sd%22%2C%22IQR%22%2C%22quantiles%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22cv%22%2C%22skewness%22%2C%22kurtosis%22))%0A%0AdescribeBy(x%20%3D%20Master%24height%2Cgroup%20%3D%20Master%24bats)' frameborder='2'></iframe>
 
 ## Construcción de bases de datos
 
+Excel es una herramienta muy poderosa para construir tablas, hojas de cálculo, gráficos y macros que facilitan la vida laboral y también investigativa. Este software también se puede mezclar con `R`, se puede construir un conjunto de datos en Excel y leerlos en `R` para realizar los análisis estadísticos, o bien, los resultados que se quieran guardar también se pueden exportar a Excel.
 
-## Análisis exploratorio con R y RCommander
+Una vez en la etapa final de toma de muestras, es necesario organizar la información de tal manera de que cualquiera que trabaje con estadística pueda entender el conjunto de datos y no realizar reprocesos de limpieza de información, los cuales son muy dispendiosos.
+
+Las pautas mínimas para la construcción de una base de datos en Excel son las siguientes:
+
+- Construya el diccionario de variables en una hoja aparte que identifique cada variable y sus unidades o convenciones.
+- No combine celdas.
+- Utilice encabezados que identifique las variables.
+- Cada columna significa una variable, no las ponga por filas.
+- Los encabezados no deben tener tildes, espacios vacíos o saltos de línea.
+- Debajo de cada variable van los registros o las mediciones digitadas.
+- Si las variables son continuas, no ponga las unidades al lado del registro.
+- Si hubo registros sin realizar, o el encuestado no contesto deje el espacio en blanco.
+- Cree un identificador para las respuestas que no aplican, por ejemplo 999 o N/A.
+- Si un individuo tienen múltiples registros, entonces repita el nombre o el id tantas veces como están los registros.
+
+<center>![Datos](TablaData1.png)</center>
+
+
+
+<!--## Análisis exploratorio con R y RCommander
 
 
 -->

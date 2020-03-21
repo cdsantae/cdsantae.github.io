@@ -14,6 +14,15 @@ navbar:
           href: unit1.html
         - text: "Unidad 2"
           href: unit2.html
+    - text: "Programación con R"
+      icon: fa-code
+      menu:
+        - text: "Instalación"
+          href: installR.html
+        - text: "Introducción"
+          href: RIntro.html
+        - text: "Funciones y Paquetes"
+          href: RFuns.html
   right:
     - icon: glyphicon glyphicon-envelope
       href: mailto:cdsantae@gmail.com

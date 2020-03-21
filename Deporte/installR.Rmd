@@ -1,0 +1,74 @@
+---
+title: "Instalación de R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introducción
+
+<code>R</code> es un lenguaje y ambiente de alto nivel para el análisis de datos y gráficos. Está altamente relacionado con los lenguajes <code>S</code> y <code>Scheme</code>. Es un lenguaje de programación interpretado, de distribución libre, bajo licencia GNU, que puede correr en distintas plataformas Linux, Windows, MacOS e incluso PlayStation 3.
+
+> Chambers & Hastie (1991)<br>
+> <cite>"Buscamos que los usuarios puedan iniciar en un entorno interactivo, en el que no se vean, conscientemente, a ellos mismos como programadores. Conforme sus necesidades sean más claras y su complejidad se incremente, deberían gradualmente poder profundizar en la programación, es cuando los aspectos del lenguaje y el sistema se vuelven más importantes."</cite>
+
+En este sentido <code>R</code> no es un sistema estadístico, sino un ambiente en el que se aplican técnicas estadísticas. Es por esto que el software va de la mando del entendimiento de la teoría y técnicas estadísticas.
+
+> El Software recibe instrucciones y entrega resultados basados en las instrucciones. ¿Si el resultado no es el deseado, es culpa del software?
+
+### Ventajas de R
+
+<code>R</code> es uno de los software con mayor crecimiento en los últimos años, es utilizado principalmente en investigación y academia, sin embargo, el software se está expandiendo rápidamente al mundo empresarial.
+
+<center>![Ranking uso de lenguajes](Ranking_Leng.png)</center>
+
+* Es un software libre, es decir, gratis.
+* El usuario se compromete al código ético de no comercializar el software.
+* Se puede modificar el código fuente a preferencia del usuario.
+* Mantiene constantemente actualizado. (v3.5.3 "Great Truth" 2019/03/11)
+* Funciona mediante paquetes que son trabajos colaborativos de la comunidad R. ([CRAN](https://cran.r-project.org/), [GitHub](https://github.com/trending/r), [Microsoft](https://mran.microsoft.com/packages))
+* La comunidad es la que ofrece la asistencia técnica. ([stackOverflow](https://stackoverflow.com/questions/tagged/r),  [R FAQ](https://cran.r-project.org/doc/FAQ/R-FAQ.html),  [Nabble](http://r.789695.n4.nabble.com/),  [R-Help](https://stat.ethz.ch/mailman/listinfo/r-help))
+* Existen muchos tutoriales, blogs y cursos específicos online. ([RBloggers](https://www.r-bloggers.com/), [DataCamp](https://www.datacamp.com/), [Coursera](https://es.coursera.org/courses?query=r))
+* Alguien ya pensó e hizo lo que quisieras hacer.
+
+### Desventajas de R
+
+* El depende de a memoria RAM.
+* Requiere saber de programación para usarlo.
+* La actualización de los paquetes depende de los autores.
+* No todos los paquetes son de alta calidad. ¡Existen más de 12000 paquetes solo en el CRAN!.
+* Tiene problemas con grandes volúmenes de datos.
+
+Estas desventajas se convierte en oportunidades para los desarrolladores, muchos de estos problemas ya están solucionados, y siguen creciendo las nuevas propuestas.
+
+## RStudio
+
+`RStudio` es un entorno de desarrollo integrado (IDE) para el lenguaje de programación `R`. Tiene una versión gratuita, más no limitada, que permite tener un entorno de trabajo más organizado y con asistencia básica.
+
+<center>![Desarrollos vinculados con RStudio](RStudio_Logos.png)</center>
+
+## Rcommander
+
+`R` proporciona un sistema potente y completo para analizar datos y, cuando se usa junto con el `RCommander` (una interfaz gráfica de usuario, comúnmente conocida como `Rcmdr`), también proporciona uno que es fácil e intuitivo de usar.
+
+Básicamente, `R` proporciona el motor que lleva a cabo los análisis y `Rcmdr` proporciona una forma conveniente para que los usuarios ingresen comandos. El programa `Rcmdr` permite a los analistas acceder a una selección de comandos `R` de uso común utilizando una interfaz simple que debería ser familiar para la mayoría de los usuarios de computadoras.
+
+También cumple el importante papel de ayudar a los usuarios a implementar comandos `R` y desarrollar su conocimiento y experiencia en el uso de la línea de comandos, una habilidad importante para aquellos que desean explotar todo el poder del programa.
+
+## Instalación del Software
+
+1. Descargar [R-Project](https://cloud.r-project.org/)
+2. Descargar [RStudio](https://www.rstudio.com/products/rstudio/download/)
+
+Para instalar el `RCommader` use el siguiente código.
+
+```{r,eval=FALSE}
+install.packages(c("Rcmdr","RcmdrMisc"),dependencies = T)
+```
+
+En el siguiente video, se encuentra un tutorial de instalación del `R` y el `RCommander`.
+
+<center><iframe width="648" height="405" src="https://www.youtube.com/embed/0j5_ivzaycI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+
