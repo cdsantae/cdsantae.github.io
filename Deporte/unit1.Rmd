@@ -439,6 +439,8 @@ De acuerdo al avance del anteproyecto de tesis de maestría, construir la tabla 
   </div>
 </div>
 
+<hr><br>
+
 ## Métodos gráficos para resumir la información
 
 En la etapa de diseño de la investigación se establece la identificación de variables, la estrategia de recolección de datos de acuerdo al diseño de estudio, el plan de captura y estructuración de la información y finalmente se establece el plan de análisis estadístico.
@@ -804,6 +806,8 @@ Ponlo en práctica aquí:
 
 <iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=deportes%20%3C-%20c(rep(%22Atletismo%22%2C10)%2Crep(%22F%C3%BAtbol%22%2C25)%2Crep(%22Nataci%C3%B3n%22%2C8)%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20rep(%22Rugby%22%2C15)%2Crep(%22Patinaje%22%2C5)%2Crep(%22Karate%22%2C5))%0A%0Aset.seed(1234)%0Aestrato%20%3C-%20sample(2%3A5%2C68%2Creplace%20%3D%20T)%0Aestrato%20%3C-%20factor(paste(%22Estrato%22%2Cestrato))%0Asexo%20%3C-%20sample(1%3A2%2C68%2Creplace%20%3D%20T)%0Asexo%20%3C-%20ifelse(sexo%3D%3D1%2C%22Mujer%22%2C%22Hombre%22)%0A%0Adatos%20%3C-%20as.data.frame.table(table(sexo%2Cestrato%2Cdeportes))%0A%0Arequire(alluvial)%0Aalluvial(datos%5B%2C1%3A3%5D%2Cfreq%20%3D%20datos%24Freq%2C%0A%20%20%20%20%20%20%20%20%20col%3Dc(%22forestgreen%22%2C%22tomato%22)%2C%0A%20%20%20%20%20%20%20%20%20cex%20%3D%200.8)' frameborder='2'></iframe>
 
+<hr>
+
 ### Gráficos para Variables Cuantitativas
 
 La construcción de gráficos adecuados para este tipo de variable se basan en la representación de las frecuencias por intervalo, la densidad de probabilidad o las ubicaciones en un plano cartesiano, si se tiene más de una variable es posible mostrar su relación.
@@ -1097,6 +1101,8 @@ Ponlo en práctica aquí:
 
 <iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=require(Lahman)%0A%0Anf%20%3C-%20layout(mat%20%3D%20matrix(c(1%2C2)%2C2%2C1%2C%20byrow%3DTRUE)%2C%20%20height%20%3D%20c(3%2C1))%0A%0Apar(mar%3Dc(3.1%2C%203.1%2C%201.1%2C%202.1))%0A%0Ahist(Pitching%24ER%2Ccol%3D%22darkcyan%22%2Cylab%3D%22Densidad%22%2Ccex.axis%3D0.8%2Clas%3D1%2C%0A%20%20%20%20%20main%3D%22Distribucion%20de%20Carreras%20Realizadas%20entre%201871%20y%202018%22%2C%0A%20%20%20%20%20xlab%3D%22Carreras%20Realizadas%22%2Cfreq%20%3D%20F%2Cylim%3Dc(0%2C0.025)%2Cxlim%3Dc(0%2C300))%0A%0Alines(density(Pitching%24ER)%2Ccol%3D2%2Clwd%3D2)%0A%0Arug(Pitching%24ER%2Ccol%3D2)%0A%0Aboxplot(Pitching%24ER%2Chorizontal%3DTRUE%2C%0A%20%20%20%20%20%20%20%20outline%3DTRUE%2Cylim%3Dc(0%2C300)%2Ccex.axis%3D0.8%2C%0A%20%20%20%20%20%20%20%20frame%3DF%2Ccol%3D%22gold2%22%2Cwidth%3D10%2Cxaxs%3D%22n%22%2Cpch%3D20)' frameborder='2'></iframe>
 
+<hr>
+
 ### Gráficos compuestos
 
 Hasta ahora se han vistos casos para realizar gráficos univariados, y unos cuantos que relacionan *tablas de contingencias*. Existen varios gráficos compuestos para relacionar más de una variable, ya sean cuantitativas o cualitativas, a continuación se presentan los gráficos más usados para literatura científica con sus respectivos códigos en `R`.
@@ -1203,6 +1209,8 @@ Con la base de datos `Master` construya lo siguiente:
    </div>
   </div>
 </div>
+
+<hr><br>
 
 ## Medidas de resumen
 
@@ -1362,6 +1370,8 @@ quantile(Pitching$ER,probs = c(0.15,0.3,0.45,0.6,0.75))
 quantile(Pitching$ER,probs = c(0.01,0.05,0.95,0.99))
 quantile(Master$weight,na.rm = T)
 ```
+
+<hr>
 
 ### Medidas de Dispersión
 
@@ -1633,6 +1643,8 @@ Ponlo en práctica aquí:
 
 <iframe width='100%' height='500' src='https://rdrr.io/snippets/embed/?code=require(Lahman)%0Arequire(RcmdrMisc)%0Arequire(psych)%0A%0AnumSummary(Master%24height%2Cstatistics%20%3D%20c(%22mean%22%2C%22sd%22%2C%22IQR%22%2C%22quantiles%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%22cv%22%2C%22skewness%22%2C%22kurtosis%22))%0A%0AdescribeBy(x%20%3D%20Master%24height%2Cgroup%20%3D%20Master%24bats)' frameborder='2'></iframe>
 
+<hr><br>
+
 ## Construcción de bases de datos
 
 Excel es una herramienta muy poderosa para construir tablas, hojas de cálculo, gráficos y macros que facilitan la vida laboral y también investigativa. Este software también se puede mezclar con `R`, se puede construir un conjunto de datos en Excel y leerlos en `R` para realizar los análisis estadísticos, o bien, los resultados que se quieran guardar también se pueden exportar a Excel.
@@ -1653,13 +1665,28 @@ Las pautas mínimas para la construcción de una base de datos en Excel son las 
 - Si un individuo tienen múltiples registros, entonces repita el nombre o el id tantas veces como están los registros.
 
 <center>![Datos](TablaData1.png)</center>
+<hr><br>
 
+## Análisis exploratorio con R y RCommander
 
+La base de datos asignada contiene información acerca de incautaciones de bebidas alcohólicas fraudulentas y de contrabando en la ciudad de Medellín, que afectan los recursos para Salud y Educación en el Departamento de Antioquia y de acuerdo a los resultados se toma decisiones para aumentar o disminuir los controles. La base de datos contiene las variables:
 
-<!--## Análisis exploratorio con R y RCommander
+-	**TL** (Tipo de Licor: 1-Aguardiente, 2-Ron, 3-Tequila, 4-Whisky)
+-	**PI** (Precio de incautación: se refiere al precio de venta en el establecimiento por unidad)
+-	**GAE** (Grados de Alcohol en etiqueta)
+-	**GAQ** (grados de alcohol en prueba química)
+-	**CE** (Cantidades estandarizadas: número de unidades estandarizadas a 750 ml).
 
+Descargar [Base de datos](./R/Licores.xlsx)
 
--->
+Usando la información de su base de datos responda a las siguientes preguntas.
 
+- Identifique completamente el tipo de variables contenidas en su base de datos y realice una descripción inicial del conjunto de datos con los estadísticos apropiados.
 
+- Para las variables cuantitativas calcule e interprete las medidas de tendencia central y dispersión por tipo de licor y realice una interpretación adecuada de los resultados.
 
+- El ipoconsumo, es el impuesto que deja de percibir el Estado para invertir en salud y educación, el cual se calcula como: $GAQ*CE*400$ (pesos). ¿Cuál gráfico es adecuado para observar el comportamiento del ipoconsumo?, ¿El ipoconsumo promedio se comporta similar para los 4 tipos de licor? ¿Qué decisión se puede tomar frente al control?
+
+- El licor incautado se clasifica como “Fraudulento” si los GAE son distintos a los GAQ y como “Contrabando” si son iguales ¿Para qué tipo de licor se presenta más cantidad de licor “Fraudulento”? ¿Para qué tipo se presenta la mayor cantidad de licor de “Contrabando”? ¿Cuál es el promedio de ipoconsumo para el tipo de licor y el tipo de incautación? Comente sobre los resultados obtenidos.
+
+- ¿Cuánto porcentaje promedio de ingresos deja de percibir el Departamento en impuesto a causa del delito de la adulteración de licores? ¿En qué tipo de licor se observa más pérdida?
