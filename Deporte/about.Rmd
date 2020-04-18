@@ -89,10 +89,11 @@ Fundamentos básicos de la estadística y medidas resumen:
    <div class="panel-body">
 Probabilidad y distribuciones muestrales:
 
--	Concepto de probabilidad y su aplicación.
--	Distribuciones muestrales para una sola muestra.
--	Distribuciones muestrales para dos muestras independientes y relacionadas.
--	Presentación de plan de análisis de su investigación.
+- Concepto de probabilidad y su aplicación.
+- Teorema de Bayes y aplicación en pruebas diagnósticas
+- Variables aleatorias
+- Distribuciones de probabilidad
+- Presentación de plan de análisis de su investigación.
 
 #### Bibliografía
 

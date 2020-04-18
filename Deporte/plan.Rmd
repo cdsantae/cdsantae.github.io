@@ -1,0 +1,82 @@
+---
+title: "Plan estadístico de análisis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+> Las siguientes recomendaciones son extraídas del artículo de *Rodríguez del Águila, M. D.*, *Pérez Vicente, S.*, *Sordo del Castillo, L.*, & *Sierra, F.* (2007). **Cómo elaborar un protocolo de investigación en salud. Medicina Clínica**, 129(8), 299-302.
+
+En investigación es bien conocida la relevancia de elaborar un buen protocolo de estudio, unido cada vez más a la exigencia de una buena redacción de todos sus apartados. La claridad con la que el investigador enuncia los objetivos del estudio y el método empleado en éste redunda tanto en la calidad de los resultados obtenidos como en la evaluación de su pertinencia.
+
+El protocolo de un proyecto de investigación es un documento que refleja una descripción ordenada y sistemática de un estudio propuesto. Permite tener una visión general de los aspectos del estudio antes de comenzar éste y debe estar descrito con suficiente claridad para permitir que otro investigador pueda realizar el estudio o que éste se lleve a cabo en otro instante. Además, el protocolo debe estar redactado con bastante precisión en todos sus apartados, de tal forma que un investigador que no sea de la misma área de trabajo comprenda totalmente lo que se quiere investigar, de qué forma, en qué tiempo y en qué circunstancias.
+
+## Partes de un protocolo de investigación (basado en elementos de estadística)
+
+### Título
+
+Debe especificar la acción que se va a realizar (evaluación, comparación, determinación, variabilidad, etc.), sobre qué tipo de [unidades] se va a llevar a cabo y, si es posible, el
+ámbito (centro de salud, hospital de tercer nivel, distrito, etc.). Asimismo, en el título debe figurar la mayor cantidad de palabras descriptoras del tema del estudio. Se intentará que el título no exceda de 15 palabras y se recomienda que no figuren acrónimos en él.
+
+### Resumen
+
+Es un esquema estructurado que da una visión general del proyecto. Debería reflejar el objetivo general de éste y, esquemáticamente, el diseño, ámbito del estudio, sujetos de estudio, instrumentos que se utilizarán y determinaciones o variables más importantes.
+
+### Objetivo general y objetivos específicos
+
+El objetivo general debe ser muy parecido al título del proyecto, pero redactado en infinitivo. En su redacción es conveniente recurrir a verbos [derivados de la taxonomía de Bloom], evitando otros como "investigar" o "estudiar", que son más imprecisos. Lo habitual es especificar un único objetivo general. Los objetivos específicos son un desarrollo pormenorizado del objetivo general y comprenden acciones que no están descritas en éste, procurando no duplicar en los objetivos específicos lo ya expuesto en el general. Un objetivo tiene que ser medible, observable, realizable, concreto, lógico y pertinente.
+
+### Metodología
+El apartado de metodología queda estructurado en varias secciones, que van desde la definición de la población de referencia hasta las dificultades y limitaciones.
+
+### Población de referencia o ámbito del estudio.
+
+Es la población total a la que se espera extrapolar los resultados y donde se enmarca el estudio. Población de estudio o diana. Es un subgrupo de la población de referencia y tiene que cumplir una serie de criterios de selección. Está formada por los casos candidatos a participar en el estudio. Criterios de inclusión y exclusión. En ellos se especificarán las características que deben cumplir las [unidades de observación] que formen parte del estudio para que la selección se haga de la forma más homogénea posible y se eviten sesgos de selección.
+
+### Tamaño muestral y procedimiento de muestreo.
+
+En el tamaño muestral se detalla el número de [unidades] necesari[as] para alcanzar los objetivos del estudio. Sería conveniente describir las premisas aplicadas para su cálculo, incluyendo valores de prevalencia, incidencia o medias, desviaciones típicas y tipos de errores. Si no hubiera posibilidad de calcularlo, puede describirse sobre la base del número de [unidades] que se puede incluir en el período que dure el estudio. El procedimiento de muestreo se describirá indicando si la selección de casos que formarán parte de la muestra se llevará a cabo mediante un muestreo aleatorio, sistemático, consecutivo o de otra clase.
+
+### Diseño.
+
+El diseño del estudio debe adecuarse a la pregunta de investigación y debe describirse de forma clara y concisa, empleando la terminología [extricta] al uso. Preferiblemente no se deben mezclar diseños en un mismo estudio: transversal, de prevalencia, de incidencia, de cohortes,
+de casos y controles o ensayo clínico.
+
+### Variables.
+
+En la descripción de las variables debe haber varias independientes (factores de exposición, factores de confusión, etc.) y una o pocas dependientes (variables de respuesta, resultado o desenlace). Las variables, tanto dependientes como independientes, que sean categóricas irán
+acompañadas de todas las categorías de medida posible, y para las variables numéricas se especificarán las escalas y unidades de medida utilizadas, sin dar cabida a la ambigüedad. Se debería describir los criterios por los que esas variables son importantes para responder a la pregunta de investigación. *Remitirse al apartado de [Identificación de variables](https://cdsantae.github.io/Deporte/_site/unit1.html#_identificaci%C3%B3n_de_variables_)*
+
+### Recogida de datos.
+
+En la recogida de datos se especificarán los instrumentos de medida o fuentes de información que se utilizarán, cómo se van a llevar a cabo las mediciones sobre los pacientes y quién las va a realizar, dónde y cuándo, así como la hoja de recogida de datos (ésta debe incluirse en los anexos del protocolo).
+
+### Análisis de datos.
+
+Deberá estar claramente descrito, ya que se conoce de antemano las variables contenidas en el estudio y su escala de medición; en este apartado es aconsejable incluir una parte descriptiva, análisis básico de los datos y otros análisis más complejos [**que se verán en el segundo curso**].
+
+### Dificultades y limitaciones de estudio.
+
+Son una autocrítica a la realización del proyecto, donde se especifican los problemas que podemos encontrarnos al llevarlo a cabo, las clases de sesgos (de selección, de información, etc.), las variables de confusión, las interacciones, las pérdidas, etc. Tras describir los problemas, aún más importante es justificar que éstos no tienen por qué modificar lo que se quiere medir o resaltar que es inevitable que ocurran; o sea, convertir las limitaciones en fortalezas.
+
+### Plan de trabajo
+
+Es un cronograma donde se especificarán las tareas que se realizarán en el proyecto, algunas de las cuales pueden solaparse en el tiempo, indicando las fechas de inicio y finalización (trimestres, semanas, años, etc.), así como las personas que las realizarán.
+
+### Aplicabilidad y utilidad práctica de los resultados
+
+En esta sección se explica el interés que tendrán los resultados del proyecto y para qué servirán, con una indicación de la aplicación futura. Se debe redactar en términos prácticos y realistas. Es un apartado muy importante en la redacción del proyecto, ya que en él se especifican la relevancia de la investigación y la magnitud de su aplicabilidad.
+
+### Medios disponibles para la realización del proyecto
+
+En este apartado se detallan tanto los recursos humanos como los materiales de que se dispone (ordenadores, tensiómetros, personal auxiliar, etc.), para los que no se necesitará solicitar financiación. 
+
+### Justificación de la ayuda solicitada
+
+Se explica por qué se necesita la ayuda que se va a solicitar para el estudio. La ayuda solicitada para becarios tiene que estar totalmente justificada por el tipo de investigación que se va a realizar, pues es la parte que más presupuesto requiere; se debe justificar en el sentido de que servirá para complemento de su formación o realización de tesis [de maestría].
+
+### Presupuesto solicitado
+
+El presupuesto destinado a cada proyecto de investigación está regulado por las diferentes convocatorias variando entre unas y otras, por lo que la ayuda solicitada habrá que ajustarla a la cuantía máxima establecida para cada una, caso de que exista. En general, habrá que desglosarlo en gastos de personal (becarios, contratos por obras y servicios, etc.), material inventariable (infraestructura, ordenadores, etc.) y material fungible (fotocopias, CD-ROM, etc.). En cada apartado hay que indicar el precio en [la moneda local] de la cantidad solicitada.

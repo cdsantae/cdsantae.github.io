@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
@@ -14,6 +13,7 @@
 
 <title>Introducción a R</title>
 
+<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -30,26 +30,27 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -58,9 +59,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -312,6 +313,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -449,6 +451,9 @@ div.tocify {
     <li>
       <a href="unit2.html">Unidad 2</a>
     </li>
+    <li>
+      <a href="plan.html">Plan de Análisis</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -572,39 +577,39 @@ div.tocify {
 <li><code>abs()</code> valor absoluto.</li>
 </ul>
 <p>Si existen dos operadores con la misma precedencia, se ejecuta de izquierda a derecha, pero toda precedencia se puede modificar con paréntesis.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="dv">2</span><span class="op">*</span><span class="dv">6</span><span class="op">+</span><span class="dv">5</span><span class="op">/</span><span class="dv">6</span><span class="op">^</span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="dv">2</span><span class="op">*</span><span class="dv">6</span><span class="op">+</span><span class="dv">5</span><span class="op">/</span><span class="dv">6</span><span class="op">^</span><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 12.02315</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="dv">2</span><span class="op">*</span>(<span class="dv">6</span><span class="op">+</span><span class="dv">5</span>)<span class="op">/</span><span class="dv">6</span><span class="op">^</span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="dv">2</span><span class="op">*</span>(<span class="dv">6</span><span class="op">+</span><span class="dv">5</span>)<span class="op">/</span><span class="dv">6</span><span class="op">^</span><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 0.1018519</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="dv">2</span><span class="op">*</span>(<span class="dv">6</span><span class="op">+</span><span class="dv">5</span><span class="op">/</span><span class="dv">6</span>)<span class="op">^</span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="dv">2</span><span class="op">*</span>(<span class="dv">6</span><span class="op">+</span><span class="dv">5</span><span class="op">/</span><span class="dv">6</span>)<span class="op">^</span><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 638.1574</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">(<span class="dv">2</span><span class="op">*</span><span class="dv">6</span><span class="op">+</span><span class="dv">5</span>)<span class="op">/</span><span class="dv">6</span><span class="op">^</span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>(<span class="dv">2</span><span class="op">*</span><span class="dv">6</span><span class="op">+</span><span class="dv">5</span>)<span class="op">/</span><span class="dv">6</span><span class="op">^</span><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 0.0787037</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">(<span class="dv">2</span><span class="op">*</span><span class="dv">6</span><span class="op">+</span><span class="dv">5</span><span class="op">/</span><span class="dv">6</span>)<span class="op">^</span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>(<span class="dv">2</span><span class="op">*</span><span class="dv">6</span><span class="op">+</span><span class="dv">5</span><span class="op">/</span><span class="dv">6</span>)<span class="op">^</span><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 2113.579</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="dv">2</span><span class="op">*</span><span class="dv">6</span><span class="op">+</span>(<span class="dv">5</span><span class="op">/</span><span class="dv">6</span>)<span class="op">^</span><span class="dv">3</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="dv">2</span><span class="op">*</span><span class="dv">6</span><span class="op">+</span>(<span class="dv">5</span><span class="op">/</span><span class="dv">6</span>)<span class="op">^</span><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 12.5787</code></pre>
 </div>
 <div id="estructura-de-asignación" class="section level3">
 <h3>Estructura de asignación</h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="op">&lt;</span>variable<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="op">-</span><span class="st"> </span><span class="er">&lt;</span>operación&gt;</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="op">&lt;</span>variable<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="op">-</span><span class="st"> </span><span class="er">&lt;</span>operación<span class="op">&gt;</span></span></code></pre></div>
 <p>Para comentar el código o una línea específica se utiliza el carácter <code>#</code>, comentar implica que no se ejecuta el código.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co"># Esto es un comentario</span></a>
-<a class="sourceLine" id="cb14-2" title="2">a &lt;-<span class="st"> &quot;¿Esto es R?&quot;</span></a>
-<a class="sourceLine" id="cb14-3" title="3">a</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Esto es un comentario</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>a &lt;-<span class="st"> &quot;¿Esto es R?&quot;</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>a</span></code></pre></div>
 <pre><code>## [1] &quot;¿Esto es R?&quot;</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">num1 &lt;-<span class="st"> </span><span class="dv">3</span><span class="op">*</span><span class="dv">4</span><span class="op">^</span><span class="dv">2</span><span class="op">+</span><span class="kw">sqrt</span>(<span class="dv">5</span>) <span class="co"># Este comentario no evita la evaluación del código</span></a>
-<a class="sourceLine" id="cb16-2" title="2">num2 &lt;-<span class="st"> </span><span class="kw">log</span>(<span class="dv">20</span>)<span class="op">/</span><span class="kw">abs</span>(<span class="op">-</span><span class="dv">10</span>) <span class="op">%%</span><span class="st"> </span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb16-3" title="3"></a>
-<a class="sourceLine" id="cb16-4" title="4"><span class="co"># num3 &lt;- num1^num2</span></a>
-<a class="sourceLine" id="cb16-5" title="5"></a>
-<a class="sourceLine" id="cb16-6" title="6">(operacion1 &lt;-<span class="st"> </span>num1 <span class="op">+</span><span class="st"> </span>num2)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>num1 &lt;-<span class="st"> </span><span class="dv">3</span><span class="op">*</span><span class="dv">4</span><span class="op">^</span><span class="dv">2</span><span class="op">+</span><span class="kw">sqrt</span>(<span class="dv">5</span>) <span class="co"># Este comentario no evita la evaluación del código</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>num2 &lt;-<span class="st"> </span><span class="kw">log</span>(<span class="dv">20</span>)<span class="op">/</span><span class="kw">abs</span>(<span class="op">-</span><span class="dv">10</span>) <span class="op">%%</span><span class="st"> </span><span class="dv">4</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co"># num3 &lt;- num1^num2</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a></span>
+<span id="cb16-6"><a href="#cb16-6"></a>(operacion1 &lt;-<span class="st"> </span>num1 <span class="op">+</span><span class="st"> </span>num2)</span></code></pre></div>
 <pre><code>## [1] 51.73393</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">(operacion2 &lt;-<span class="st"> </span>num1 <span class="op">==</span><span class="st"> </span>num2)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>(operacion2 &lt;-<span class="st"> </span>num1 <span class="op">==</span><span class="st"> </span>num2)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">(operacion3 &lt;-<span class="st"> </span>num1 <span class="op">/</span><span class="st"> </span>num2)</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>(operacion3 &lt;-<span class="st"> </span>num1 <span class="op">/</span><span class="st"> </span>num2)</span></code></pre></div>
 <pre><code>## [1] 33.53842</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">(operacion4 &lt;-<span class="st"> </span>num1 <span class="op">&gt;</span><span class="st"> </span>num2)</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>(operacion4 &lt;-<span class="st"> </span>num1 <span class="op">&gt;</span><span class="st"> </span>num2)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
@@ -645,70 +650,70 @@ div.tocify {
 </ul>
 <div id="ejemplo" class="section level3">
 <h3>Ejemplo</h3>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="co"># Numéricos</span></a>
-<a class="sourceLine" id="cb24-2" title="2">x &lt;-<span class="st"> </span><span class="fl">10.5</span>      <span class="co"># Asigna un número con punto decimal.</span></a>
-<a class="sourceLine" id="cb24-3" title="3">x              <span class="co"># Muestra el contenido del objeto x.</span></a>
-<a class="sourceLine" id="cb24-4" title="4"><span class="kw">class</span>(x)       <span class="co"># Muestra la clase del objeto x.</span></a>
-<a class="sourceLine" id="cb24-5" title="5"><span class="kw">typeof</span>(x)      <span class="co"># Tipo genérico interno del R.</span></a>
-<a class="sourceLine" id="cb24-6" title="6"><span class="kw">storage.mode</span>(x) <span class="co"># Modo de almacenamientos específico para exportar de R.</span></a>
-<a class="sourceLine" id="cb24-7" title="7"></a>
-<a class="sourceLine" id="cb24-8" title="8">y &lt;-<span class="st"> </span><span class="dv">10</span>        <span class="co"># En general los números son reales.</span></a>
-<a class="sourceLine" id="cb24-9" title="9">y</a>
-<a class="sourceLine" id="cb24-10" title="10"><span class="kw">class</span>(y)</a>
-<a class="sourceLine" id="cb24-11" title="11"><span class="kw">typeof</span>(y)</a>
-<a class="sourceLine" id="cb24-12" title="12"><span class="kw">storage.mode</span>(y)</a>
-<a class="sourceLine" id="cb24-13" title="13"><span class="kw">is.integer</span>(y)</a>
-<a class="sourceLine" id="cb24-14" title="14"></a>
-<a class="sourceLine" id="cb24-15" title="15"><span class="co"># Enteros</span></a>
-<a class="sourceLine" id="cb24-16" title="16">y &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="dv">3</span>) </a>
-<a class="sourceLine" id="cb24-17" title="17">y              </a>
-<a class="sourceLine" id="cb24-18" title="18"><span class="kw">class</span>(y)  </a>
-<a class="sourceLine" id="cb24-19" title="19"><span class="kw">typeof</span>(y)</a>
-<a class="sourceLine" id="cb24-20" title="20"><span class="kw">storage.mode</span>(y)</a>
-<a class="sourceLine" id="cb24-21" title="21"></a>
-<a class="sourceLine" id="cb24-22" title="22">w &lt;-<span class="st"> </span>4L</a>
-<a class="sourceLine" id="cb24-23" title="23">w              </a>
-<a class="sourceLine" id="cb24-24" title="24"><span class="kw">class</span>(w)  </a>
-<a class="sourceLine" id="cb24-25" title="25"><span class="kw">typeof</span>(w)</a>
-<a class="sourceLine" id="cb24-26" title="26"><span class="kw">storage.mode</span>(w)</a>
-<a class="sourceLine" id="cb24-27" title="27"></a>
-<a class="sourceLine" id="cb24-28" title="28"><span class="co"># verificación y coerción</span></a>
-<a class="sourceLine" id="cb24-29" title="29"><span class="kw">is.integer</span>(y)  </a>
-<a class="sourceLine" id="cb24-30" title="30"><span class="kw">as.integer</span>(<span class="fl">3.14</span>)</a>
-<a class="sourceLine" id="cb24-31" title="31"><span class="kw">as.integer</span>(<span class="st">&quot;5.27&quot;</span>)</a>
-<a class="sourceLine" id="cb24-32" title="32"><span class="kw">as.integer</span>(<span class="st">&quot;Joe&quot;</span>)</a>
-<a class="sourceLine" id="cb24-33" title="33"><span class="kw">as.integer</span>(<span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb24-34" title="34"><span class="kw">as.integer</span>(<span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb24-35" title="35"></a>
-<a class="sourceLine" id="cb24-36" title="36"><span class="co"># Complejos</span></a>
-<a class="sourceLine" id="cb24-37" title="37">z &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>2i </a>
-<a class="sourceLine" id="cb24-38" title="38">z          </a>
-<a class="sourceLine" id="cb24-39" title="39"><span class="kw">class</span>(z)   </a>
-<a class="sourceLine" id="cb24-40" title="40"><span class="kw">typeof</span>(z)</a>
-<a class="sourceLine" id="cb24-41" title="41"></a>
-<a class="sourceLine" id="cb24-42" title="42"><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">4</span>) </a>
-<a class="sourceLine" id="cb24-43" title="43"><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">4</span><span class="op">+</span>0i)</a>
-<a class="sourceLine" id="cb24-44" title="44"><span class="kw">sqrt</span>(<span class="kw">as.complex</span>(<span class="op">-</span><span class="dv">4</span>)) </a>
-<a class="sourceLine" id="cb24-45" title="45"></a>
-<a class="sourceLine" id="cb24-46" title="46"><span class="co"># Lógicos (booleanos)</span></a>
-<a class="sourceLine" id="cb24-47" title="47">x &lt;-<span class="st"> </span><span class="dv">1</span>; y &lt;-<span class="st"> </span><span class="dv">2</span>   </a>
-<a class="sourceLine" id="cb24-48" title="48">z &lt;-<span class="st"> </span>x <span class="op">&gt;</span><span class="st"> </span>y      </a>
-<a class="sourceLine" id="cb24-49" title="49">z</a>
-<a class="sourceLine" id="cb24-50" title="50"><span class="kw">class</span>(z)</a>
-<a class="sourceLine" id="cb24-51" title="51"><span class="kw">typeof</span>(z)</a>
-<a class="sourceLine" id="cb24-52" title="52"></a>
-<a class="sourceLine" id="cb24-53" title="53">u &lt;-<span class="st"> </span><span class="ot">TRUE</span>; v &lt;-<span class="st"> </span><span class="ot">FALSE</span> </a>
-<a class="sourceLine" id="cb24-54" title="54">u <span class="op">&amp;</span><span class="st"> </span>v</a>
-<a class="sourceLine" id="cb24-55" title="55">u <span class="op">|</span><span class="st"> </span>v</a>
-<a class="sourceLine" id="cb24-56" title="56"><span class="op">!</span>u</a>
-<a class="sourceLine" id="cb24-57" title="57"><span class="kw">help</span>(<span class="st">&quot;&amp;&quot;</span>)</a>
-<a class="sourceLine" id="cb24-58" title="58"></a>
-<a class="sourceLine" id="cb24-59" title="59"><span class="co"># verificación y remoción en memoria</span></a>
-<a class="sourceLine" id="cb24-60" title="60"><span class="kw">ls</span>()</a>
-<a class="sourceLine" id="cb24-61" title="61"><span class="kw">rm</span>(z)</a>
-<a class="sourceLine" id="cb24-62" title="62"><span class="kw">ls</span>()</a>
-<a class="sourceLine" id="cb24-63" title="63"><span class="kw">rm</span>(x,w)</a>
-<a class="sourceLine" id="cb24-64" title="64"><span class="kw">ls</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Numéricos</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>x &lt;-<span class="st"> </span><span class="fl">10.5</span>      <span class="co"># Asigna un número con punto decimal.</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>x              <span class="co"># Muestra el contenido del objeto x.</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="kw">class</span>(x)       <span class="co"># Muestra la clase del objeto x.</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="kw">typeof</span>(x)      <span class="co"># Tipo genérico interno del R.</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="kw">storage.mode</span>(x) <span class="co"># Modo de almacenamientos específico para exportar de R.</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a></span>
+<span id="cb24-8"><a href="#cb24-8"></a>y &lt;-<span class="st"> </span><span class="dv">10</span>        <span class="co"># En general los números son reales.</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a>y</span>
+<span id="cb24-10"><a href="#cb24-10"></a><span class="kw">class</span>(y)</span>
+<span id="cb24-11"><a href="#cb24-11"></a><span class="kw">typeof</span>(y)</span>
+<span id="cb24-12"><a href="#cb24-12"></a><span class="kw">storage.mode</span>(y)</span>
+<span id="cb24-13"><a href="#cb24-13"></a><span class="kw">is.integer</span>(y)</span>
+<span id="cb24-14"><a href="#cb24-14"></a></span>
+<span id="cb24-15"><a href="#cb24-15"></a><span class="co"># Enteros</span></span>
+<span id="cb24-16"><a href="#cb24-16"></a>y &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="dv">3</span>) </span>
+<span id="cb24-17"><a href="#cb24-17"></a>y              </span>
+<span id="cb24-18"><a href="#cb24-18"></a><span class="kw">class</span>(y)  </span>
+<span id="cb24-19"><a href="#cb24-19"></a><span class="kw">typeof</span>(y)</span>
+<span id="cb24-20"><a href="#cb24-20"></a><span class="kw">storage.mode</span>(y)</span>
+<span id="cb24-21"><a href="#cb24-21"></a></span>
+<span id="cb24-22"><a href="#cb24-22"></a>w &lt;-<span class="st"> </span>4L</span>
+<span id="cb24-23"><a href="#cb24-23"></a>w              </span>
+<span id="cb24-24"><a href="#cb24-24"></a><span class="kw">class</span>(w)  </span>
+<span id="cb24-25"><a href="#cb24-25"></a><span class="kw">typeof</span>(w)</span>
+<span id="cb24-26"><a href="#cb24-26"></a><span class="kw">storage.mode</span>(w)</span>
+<span id="cb24-27"><a href="#cb24-27"></a></span>
+<span id="cb24-28"><a href="#cb24-28"></a><span class="co"># verificación y coerción</span></span>
+<span id="cb24-29"><a href="#cb24-29"></a><span class="kw">is.integer</span>(y)  </span>
+<span id="cb24-30"><a href="#cb24-30"></a><span class="kw">as.integer</span>(<span class="fl">3.14</span>)</span>
+<span id="cb24-31"><a href="#cb24-31"></a><span class="kw">as.integer</span>(<span class="st">&quot;5.27&quot;</span>)</span>
+<span id="cb24-32"><a href="#cb24-32"></a><span class="kw">as.integer</span>(<span class="st">&quot;Joe&quot;</span>)</span>
+<span id="cb24-33"><a href="#cb24-33"></a><span class="kw">as.integer</span>(<span class="ot">TRUE</span>)</span>
+<span id="cb24-34"><a href="#cb24-34"></a><span class="kw">as.integer</span>(<span class="ot">FALSE</span>)</span>
+<span id="cb24-35"><a href="#cb24-35"></a></span>
+<span id="cb24-36"><a href="#cb24-36"></a><span class="co"># Complejos</span></span>
+<span id="cb24-37"><a href="#cb24-37"></a>z &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>2i </span>
+<span id="cb24-38"><a href="#cb24-38"></a>z          </span>
+<span id="cb24-39"><a href="#cb24-39"></a><span class="kw">class</span>(z)   </span>
+<span id="cb24-40"><a href="#cb24-40"></a><span class="kw">typeof</span>(z)</span>
+<span id="cb24-41"><a href="#cb24-41"></a></span>
+<span id="cb24-42"><a href="#cb24-42"></a><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">4</span>) </span>
+<span id="cb24-43"><a href="#cb24-43"></a><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">4</span><span class="op">+</span>0i)</span>
+<span id="cb24-44"><a href="#cb24-44"></a><span class="kw">sqrt</span>(<span class="kw">as.complex</span>(<span class="op">-</span><span class="dv">4</span>)) </span>
+<span id="cb24-45"><a href="#cb24-45"></a></span>
+<span id="cb24-46"><a href="#cb24-46"></a><span class="co"># Lógicos (booleanos)</span></span>
+<span id="cb24-47"><a href="#cb24-47"></a>x &lt;-<span class="st"> </span><span class="dv">1</span>; y &lt;-<span class="st"> </span><span class="dv">2</span>   </span>
+<span id="cb24-48"><a href="#cb24-48"></a>z &lt;-<span class="st"> </span>x <span class="op">&gt;</span><span class="st"> </span>y      </span>
+<span id="cb24-49"><a href="#cb24-49"></a>z</span>
+<span id="cb24-50"><a href="#cb24-50"></a><span class="kw">class</span>(z)</span>
+<span id="cb24-51"><a href="#cb24-51"></a><span class="kw">typeof</span>(z)</span>
+<span id="cb24-52"><a href="#cb24-52"></a></span>
+<span id="cb24-53"><a href="#cb24-53"></a>u &lt;-<span class="st"> </span><span class="ot">TRUE</span>; v &lt;-<span class="st"> </span><span class="ot">FALSE</span> </span>
+<span id="cb24-54"><a href="#cb24-54"></a>u <span class="op">&amp;</span><span class="st"> </span>v</span>
+<span id="cb24-55"><a href="#cb24-55"></a>u <span class="op">|</span><span class="st"> </span>v</span>
+<span id="cb24-56"><a href="#cb24-56"></a><span class="op">!</span>u</span>
+<span id="cb24-57"><a href="#cb24-57"></a><span class="kw">help</span>(<span class="st">&quot;&amp;&quot;</span>)</span>
+<span id="cb24-58"><a href="#cb24-58"></a></span>
+<span id="cb24-59"><a href="#cb24-59"></a><span class="co"># verificación y remoción en memoria</span></span>
+<span id="cb24-60"><a href="#cb24-60"></a><span class="kw">ls</span>()</span>
+<span id="cb24-61"><a href="#cb24-61"></a><span class="kw">rm</span>(z)</span>
+<span id="cb24-62"><a href="#cb24-62"></a><span class="kw">ls</span>()</span>
+<span id="cb24-63"><a href="#cb24-63"></a><span class="kw">rm</span>(x,w)</span>
+<span id="cb24-64"><a href="#cb24-64"></a><span class="kw">ls</span>()</span></code></pre></div>
 </div>
 </div>
 <div id="vectores-y-matrices" class="section level2">
@@ -757,219 +762,219 @@ div.tocify {
 </div>
 <div id="ejemplos-vectores-matrices" class="section level3">
 <h3>Ejemplos vectores &amp; matrices</h3>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="co"># Vectores</span></a>
-<a class="sourceLine" id="cb25-2" title="2">v1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </a>
-<a class="sourceLine" id="cb25-3" title="3"><span class="kw">class</span>(v1)</a>
-<a class="sourceLine" id="cb25-4" title="4"><span class="kw">typeof</span>(v1)</a>
-<a class="sourceLine" id="cb25-5" title="5"></a>
-<a class="sourceLine" id="cb25-6" title="6">v2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>) </a>
-<a class="sourceLine" id="cb25-7" title="7"><span class="kw">class</span>(v2)</a>
-<a class="sourceLine" id="cb25-8" title="8"><span class="kw">typeof</span>(v2)</a>
-<a class="sourceLine" id="cb25-9" title="9"></a>
-<a class="sourceLine" id="cb25-10" title="10">v3 &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>, <span class="st">&quot;dd&quot;</span>, <span class="st">&quot;ee&quot;</span>) </a>
-<a class="sourceLine" id="cb25-11" title="11"><span class="kw">class</span>(v3)</a>
-<a class="sourceLine" id="cb25-12" title="12"><span class="kw">typeof</span>(v3)</a>
-<a class="sourceLine" id="cb25-13" title="13"></a>
-<a class="sourceLine" id="cb25-14" title="14">n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </a>
-<a class="sourceLine" id="cb25-15" title="15">s &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>, <span class="st">&quot;dd&quot;</span>, <span class="st">&quot;ee&quot;</span>) </a>
-<a class="sourceLine" id="cb25-16" title="16"><span class="kw">c</span>(n, s) </a>
-<a class="sourceLine" id="cb25-17" title="17"></a>
-<a class="sourceLine" id="cb25-18" title="18">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>) </a>
-<a class="sourceLine" id="cb25-19" title="19">b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb25-20" title="20"></a>
-<a class="sourceLine" id="cb25-21" title="21"><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>a</a>
-<a class="sourceLine" id="cb25-22" title="22">a <span class="op">+</span><span class="st"> </span>b </a>
-<a class="sourceLine" id="cb25-23" title="23">a <span class="op">-</span><span class="st"> </span>b </a>
-<a class="sourceLine" id="cb25-24" title="24">a <span class="op">*</span><span class="st"> </span>b </a>
-<a class="sourceLine" id="cb25-25" title="25">a <span class="op">/</span><span class="st"> </span>b</a>
-<a class="sourceLine" id="cb25-26" title="26"></a>
-<a class="sourceLine" id="cb25-27" title="27">u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>) </a>
-<a class="sourceLine" id="cb25-28" title="28">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>) </a>
-<a class="sourceLine" id="cb25-29" title="29">u <span class="op">+</span><span class="st"> </span>v</a>
-<a class="sourceLine" id="cb25-30" title="30"></a>
-<a class="sourceLine" id="cb25-31" title="31">s &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>, <span class="st">&quot;dd&quot;</span>, <span class="st">&quot;ee&quot;</span>) </a>
-<a class="sourceLine" id="cb25-32" title="32">s[<span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb25-33" title="33">s[<span class="op">-</span><span class="dv">3</span>] </a>
-<a class="sourceLine" id="cb25-34" title="34">s[<span class="dv">10</span>]</a>
-<a class="sourceLine" id="cb25-35" title="35">s[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)]</a>
-<a class="sourceLine" id="cb25-36" title="36">s[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>)]</a>
-<a class="sourceLine" id="cb25-37" title="37">s[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)] </a>
-<a class="sourceLine" id="cb25-38" title="38">s[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</a>
-<a class="sourceLine" id="cb25-39" title="39"></a>
-<a class="sourceLine" id="cb25-40" title="40"><span class="kw">help</span>(<span class="st">&quot;:&quot;</span>)</a>
-<a class="sourceLine" id="cb25-41" title="41"></a>
-<a class="sourceLine" id="cb25-42" title="42">L &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>) </a>
-<a class="sourceLine" id="cb25-43" title="43">s[L] </a>
-<a class="sourceLine" id="cb25-44" title="44">s[<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)] </a>
-<a class="sourceLine" id="cb25-45" title="45"></a>
-<a class="sourceLine" id="cb25-46" title="46">v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ramiro&quot;</span>, <span class="st">&quot;Gladys&quot;</span>) </a>
-<a class="sourceLine" id="cb25-47" title="47">v </a>
-<a class="sourceLine" id="cb25-48" title="48"><span class="kw">names</span>(v) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Primera&quot;</span>, <span class="st">&quot;Última&quot;</span>) </a>
-<a class="sourceLine" id="cb25-49" title="49">v</a>
-<a class="sourceLine" id="cb25-50" title="50">v[<span class="st">&quot;Primera&quot;</span>]</a>
-<a class="sourceLine" id="cb25-51" title="51">v[<span class="kw">c</span>(<span class="st">&quot;Última&quot;</span>, <span class="st">&quot;Primera&quot;</span>)]</a>
-<a class="sourceLine" id="cb25-52" title="52"></a>
-<a class="sourceLine" id="cb25-53" title="53"><span class="co"># Funciones útiles con vectores</span></a>
-<a class="sourceLine" id="cb25-54" title="54"><span class="kw">length</span>(v)</a>
-<a class="sourceLine" id="cb25-55" title="55"></a>
-<a class="sourceLine" id="cb25-56" title="56"><span class="co"># Factores</span></a>
-<a class="sourceLine" id="cb25-57" title="57">colores &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;verde&#39;</span>,<span class="st">&#39;verde&#39;</span>,<span class="st">&#39;amarillo&#39;</span>,<span class="st">&#39;rojo&#39;</span>,<span class="st">&#39;rojo&#39;</span>,<span class="st">&#39;rojo&#39;</span>,<span class="st">&#39;verde&#39;</span>)</a>
-<a class="sourceLine" id="cb25-58" title="58"><span class="kw">class</span>(colores)</a>
-<a class="sourceLine" id="cb25-59" title="59"><span class="kw">typeof</span>(colores)</a>
-<a class="sourceLine" id="cb25-60" title="60"></a>
-<a class="sourceLine" id="cb25-61" title="61">factor_colores &lt;-<span class="st"> </span><span class="kw">factor</span>(colores)</a>
-<a class="sourceLine" id="cb25-62" title="62"><span class="kw">print</span>(factor_colores)</a>
-<a class="sourceLine" id="cb25-63" title="63"><span class="kw">print</span>(<span class="kw">levels</span>(factor_colores))</a>
-<a class="sourceLine" id="cb25-64" title="64"><span class="kw">print</span>(<span class="kw">nlevels</span>(factor_colores))</a>
-<a class="sourceLine" id="cb25-65" title="65"></a>
-<a class="sourceLine" id="cb25-66" title="66"><span class="kw">class</span>(factor_colores)</a>
-<a class="sourceLine" id="cb25-67" title="67"><span class="kw">typeof</span>(factor_colores)</a>
-<a class="sourceLine" id="cb25-68" title="68"></a>
-<a class="sourceLine" id="cb25-69" title="69">meses &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>)</a>
-<a class="sourceLine" id="cb25-70" title="70">meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses)</a>
-<a class="sourceLine" id="cb25-71" title="71">meses</a>
-<a class="sourceLine" id="cb25-72" title="72"><span class="kw">as.integer</span>(meses)</a>
-<a class="sourceLine" id="cb25-73" title="73"></a>
-<a class="sourceLine" id="cb25-74" title="74">meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>))</a>
-<a class="sourceLine" id="cb25-75" title="75">meses</a>
-<a class="sourceLine" id="cb25-76" title="76"><span class="kw">as.integer</span>(meses)</a>
-<a class="sourceLine" id="cb25-77" title="77"></a>
-<a class="sourceLine" id="cb25-78" title="78">meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses, <span class="dt">labels  =</span> <span class="kw">c</span>(<span class="st">&quot;Enero&quot;</span>, <span class="st">&quot;Febrero&quot;</span>, <span class="st">&quot;Abril&quot;</span>))</a>
-<a class="sourceLine" id="cb25-79" title="79">meses</a>
-<a class="sourceLine" id="cb25-80" title="80"><span class="kw">as.integer</span>(meses)</a>
-<a class="sourceLine" id="cb25-81" title="81"></a>
-<a class="sourceLine" id="cb25-82" title="82"><span class="co"># ¿Porqué este código es un problema?</span></a>
-<a class="sourceLine" id="cb25-83" title="83">meses &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>)</a>
-<a class="sourceLine" id="cb25-84" title="84">meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Enero&quot;</span>, <span class="st">&quot;Febrero&quot;</span>, <span class="st">&quot;Abril&quot;</span>))</a>
-<a class="sourceLine" id="cb25-85" title="85">meses</a>
-<a class="sourceLine" id="cb25-86" title="86"><span class="kw">as.integer</span>(meses)</a>
-<a class="sourceLine" id="cb25-87" title="87"></a>
-<a class="sourceLine" id="cb25-88" title="88"><span class="co"># Una mejor forma</span></a>
-<a class="sourceLine" id="cb25-89" title="89">meses &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>)</a>
-<a class="sourceLine" id="cb25-90" title="90">meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>),</a>
-<a class="sourceLine" id="cb25-91" title="91">                <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Enero&quot;</span>, <span class="st">&quot;Febrero&quot;</span>, <span class="st">&quot;Abril&quot;</span>))</a>
-<a class="sourceLine" id="cb25-92" title="92">meses</a>
-<a class="sourceLine" id="cb25-93" title="93"><span class="kw">as.integer</span>(meses)</a>
-<a class="sourceLine" id="cb25-94" title="94"></a>
-<a class="sourceLine" id="cb25-95" title="95"><span class="co"># Matrices</span></a>
-<a class="sourceLine" id="cb25-96" title="96">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)        </a>
-<a class="sourceLine" id="cb25-97" title="97">A</a>
-<a class="sourceLine" id="cb25-98" title="98">A[<span class="dv">2</span>, <span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb25-99" title="99">A[<span class="dv">2</span>, ] </a>
-<a class="sourceLine" id="cb25-100" title="100">A[, <span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb25-101" title="101"><span class="kw">dimnames</span>(A) =<span class="st"> </span><span class="kw">list</span>( </a>
-<a class="sourceLine" id="cb25-102" title="102">     <span class="kw">c</span>(<span class="st">&quot;fila1&quot;</span>, <span class="st">&quot;fila2&quot;</span>),        </a>
-<a class="sourceLine" id="cb25-103" title="103">     <span class="kw">c</span>(<span class="st">&quot;col1&quot;</span>, <span class="st">&quot;col2&quot;</span>, <span class="st">&quot;col3&quot;</span>))</a>
-<a class="sourceLine" id="cb25-104" title="104">A</a>
-<a class="sourceLine" id="cb25-105" title="105">A[<span class="st">&quot;fila2&quot;</span>,<span class="st">&quot;col3&quot;</span>]</a>
-<a class="sourceLine" id="cb25-106" title="106"></a>
-<a class="sourceLine" id="cb25-107" title="107">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">2</span>) </a>
-<a class="sourceLine" id="cb25-108" title="108">B</a>
-<a class="sourceLine" id="cb25-109" title="109"><span class="kw">t</span>(B)</a>
-<a class="sourceLine" id="cb25-110" title="110"></a>
-<a class="sourceLine" id="cb25-111" title="111">C &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">1</span>) </a>
-<a class="sourceLine" id="cb25-112" title="112">C </a>
-<a class="sourceLine" id="cb25-113" title="113"><span class="kw">cbind</span>(B, C)</a>
-<a class="sourceLine" id="cb25-114" title="114"></a>
-<a class="sourceLine" id="cb25-115" title="115">D &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">2</span>), <span class="dt">nrow=</span><span class="dv">1</span>,  <span class="dt">ncol=</span><span class="dv">2</span>) </a>
-<a class="sourceLine" id="cb25-116" title="116">D </a>
-<a class="sourceLine" id="cb25-117" title="117"><span class="kw">rbind</span>(B, D) </a>
-<a class="sourceLine" id="cb25-118" title="118"><span class="kw">c</span>(B) </a>
-<a class="sourceLine" id="cb25-119" title="119"></a>
-<a class="sourceLine" id="cb25-120" title="120">A<span class="op">*</span>B</a>
-<a class="sourceLine" id="cb25-121" title="121">A<span class="op">*</span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb25-122" title="122">B<span class="op">%*%</span>C</a>
-<a class="sourceLine" id="cb25-123" title="123"><span class="kw">t</span>(B)<span class="op">%*%</span>C</a>
-<a class="sourceLine" id="cb25-124" title="124"><span class="kw">solve</span>(<span class="kw">cbind</span>(B,C))</a>
-<a class="sourceLine" id="cb25-125" title="125"><span class="kw">cbind</span>(B,C)<span class="op">%*%</span><span class="kw">solve</span>(<span class="kw">cbind</span>(B,C))</a>
-<a class="sourceLine" id="cb25-126" title="126">A<span class="op">%o%</span>B</a>
-<a class="sourceLine" id="cb25-127" title="127">A<span class="op">%x%</span>B</a>
-<a class="sourceLine" id="cb25-128" title="128">B<span class="op">%o%</span>A</a>
-<a class="sourceLine" id="cb25-129" title="129">B<span class="op">%x%</span>A</a>
-<a class="sourceLine" id="cb25-130" title="130"></a>
-<a class="sourceLine" id="cb25-131" title="131"><span class="co"># Listas</span></a>
-<a class="sourceLine" id="cb25-132" title="132">n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </a>
-<a class="sourceLine" id="cb25-133" title="133">s &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>, <span class="st">&quot;dd&quot;</span>, <span class="st">&quot;ee&quot;</span>) </a>
-<a class="sourceLine" id="cb25-134" title="134">b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>) </a>
-<a class="sourceLine" id="cb25-135" title="135">x &lt;-<span class="st"> </span><span class="kw">list</span>(n, s, b, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb25-136" title="136"> </a>
-<a class="sourceLine" id="cb25-137" title="137">x[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb25-138" title="138">x[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>)]</a>
-<a class="sourceLine" id="cb25-139" title="139">x[[<span class="dv">2</span>]]</a>
-<a class="sourceLine" id="cb25-140" title="140">x[[<span class="dv">2</span>]] &lt;-<span class="st"> &quot;ta&quot;</span></a>
-<a class="sourceLine" id="cb25-141" title="141">x</a>
-<a class="sourceLine" id="cb25-142" title="142">s</a>
-<a class="sourceLine" id="cb25-143" title="143">v &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">numeros=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>), <span class="dt">nombres=</span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>)) </a>
-<a class="sourceLine" id="cb25-144" title="144">v </a>
-<a class="sourceLine" id="cb25-145" title="145">v[<span class="st">&quot;numeros&quot;</span>]</a>
-<a class="sourceLine" id="cb25-146" title="146">v[<span class="kw">c</span>(<span class="st">&quot;nombres&quot;</span>, <span class="st">&quot;numeros&quot;</span>)]</a>
-<a class="sourceLine" id="cb25-147" title="147">v[[<span class="st">&quot;numeros&quot;</span>]]</a>
-<a class="sourceLine" id="cb25-148" title="148">v<span class="op">$</span>numeros</a>
-<a class="sourceLine" id="cb25-149" title="149"></a>
-<a class="sourceLine" id="cb25-150" title="150"><span class="kw">attach</span>(v)</a>
-<a class="sourceLine" id="cb25-151" title="151">numeros</a>
-<a class="sourceLine" id="cb25-152" title="152"><span class="kw">detach</span>(v)</a>
-<a class="sourceLine" id="cb25-153" title="153"></a>
-<a class="sourceLine" id="cb25-154" title="154"></a>
-<a class="sourceLine" id="cb25-155" title="155"><span class="co"># Bases de datos (data.frames)</span></a>
-<a class="sourceLine" id="cb25-156" title="156">n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </a>
-<a class="sourceLine" id="cb25-157" title="157">s &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>) </a>
-<a class="sourceLine" id="cb25-158" title="158">b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb25-159" title="159">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(n, s, b)</a>
-<a class="sourceLine" id="cb25-160" title="160"></a>
-<a class="sourceLine" id="cb25-161" title="161">mtcars</a>
-<a class="sourceLine" id="cb25-162" title="162">mtcars[<span class="dv">1</span>, <span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb25-163" title="163">mtcars[<span class="st">&quot;Mazda RX4&quot;</span>, <span class="st">&quot;cyl&quot;</span>]</a>
-<a class="sourceLine" id="cb25-164" title="164"></a>
-<a class="sourceLine" id="cb25-165" title="165"><span class="kw">head</span>(mtcars) <span class="co"># primeras filas</span></a>
-<a class="sourceLine" id="cb25-166" title="166"><span class="kw">tail</span>(mtcars) <span class="co"># ultimas filas</span></a>
-<a class="sourceLine" id="cb25-167" title="167">mtcars[[<span class="dv">9</span>]]</a>
-<a class="sourceLine" id="cb25-168" title="168">mtcars[[<span class="st">&quot;am&quot;</span>]]</a>
-<a class="sourceLine" id="cb25-169" title="169">mtcars<span class="op">$</span>am</a>
-<a class="sourceLine" id="cb25-170" title="170">mtcars[, <span class="st">&quot;am&quot;</span>]</a>
-<a class="sourceLine" id="cb25-171" title="171">mtcars[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb25-172" title="172">mtcars[<span class="st">&quot;mpg&quot;</span>]</a>
-<a class="sourceLine" id="cb25-173" title="173">mtcars[<span class="kw">c</span>(<span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;hp&quot;</span>)]</a>
-<a class="sourceLine" id="cb25-174" title="174">mtcars[<span class="dv">24</span>, ]</a>
-<a class="sourceLine" id="cb25-175" title="175">mtcars[<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">24</span>), ]</a>
-<a class="sourceLine" id="cb25-176" title="176">mtcars[<span class="st">&quot;camaro Z28&quot;</span>, ]</a>
-<a class="sourceLine" id="cb25-177" title="177">mtcars[<span class="kw">c</span>(<span class="st">&quot;Datsun 710&quot;</span>, <span class="st">&quot;Camaro Z28&quot;</span>), ]</a>
-<a class="sourceLine" id="cb25-178" title="178"></a>
-<a class="sourceLine" id="cb25-179" title="179">L =<span class="st"> </span>mtcars<span class="op">$</span>am <span class="op">==</span><span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb25-180" title="180">L</a>
-<a class="sourceLine" id="cb25-181" title="181"></a>
-<a class="sourceLine" id="cb25-182" title="182">mtcars[L, ]</a>
-<a class="sourceLine" id="cb25-183" title="183">mtcars[L, ]<span class="op">$</span>mpg</a>
-<a class="sourceLine" id="cb25-184" title="184"></a>
-<a class="sourceLine" id="cb25-185" title="185"><span class="co"># Problemas a evitar en el uso de los &quot;data.frames&quot;</span></a>
-<a class="sourceLine" id="cb25-186" title="186">mal &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">b =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>)))</a>
-<a class="sourceLine" id="cb25-187" title="187">mal</a>
-<a class="sourceLine" id="cb25-188" title="188"><span class="kw">str</span>(mal)</a>
-<a class="sourceLine" id="cb25-189" title="189"></a>
-<a class="sourceLine" id="cb25-190" title="190">bien1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">b =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</a>
-<a class="sourceLine" id="cb25-191" title="191">bien1</a>
-<a class="sourceLine" id="cb25-192" title="192"><span class="kw">str</span>(bien1)</a>
-<a class="sourceLine" id="cb25-193" title="193"></a>
-<a class="sourceLine" id="cb25-194" title="194">bien2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">b =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb25-195" title="195">bien2</a>
-<a class="sourceLine" id="cb25-196" title="196"><span class="kw">str</span>(bien2)</a>
-<a class="sourceLine" id="cb25-197" title="197"></a>
-<a class="sourceLine" id="cb25-198" title="198"><span class="co"># &quot;Columnas&quot; especiales en las bases de datos.</span></a>
-<a class="sourceLine" id="cb25-199" title="199">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb25-200" title="200">df<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb25-201" title="201">df</a>
-<a class="sourceLine" id="cb25-202" title="202"><span class="kw">str</span>(df)</a>
-<a class="sourceLine" id="cb25-203" title="203"></a>
-<a class="sourceLine" id="cb25-204" title="204"><span class="co"># data.frame(x = 1:3, y = list(1:2, 1:3, 1:4)) # Se genera un error</span></a>
-<a class="sourceLine" id="cb25-205" title="205">dfl &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">I</span>(<span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)))</a>
-<a class="sourceLine" id="cb25-206" title="206">dfl</a>
-<a class="sourceLine" id="cb25-207" title="207"><span class="kw">str</span>(dfl)</a>
-<a class="sourceLine" id="cb25-208" title="208">dfl[<span class="dv">2</span>, <span class="st">&quot;y&quot;</span>]</a>
-<a class="sourceLine" id="cb25-209" title="209"></a>
-<a class="sourceLine" id="cb25-210" title="210">dfm &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">I</span>(<span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>)))</a>
-<a class="sourceLine" id="cb25-211" title="211">dfm</a>
-<a class="sourceLine" id="cb25-212" title="212"><span class="kw">str</span>(dfm)</a>
-<a class="sourceLine" id="cb25-213" title="213">dfm[<span class="dv">2</span>, <span class="st">&quot;y&quot;</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Vectores</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>v1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="kw">class</span>(v1)</span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="kw">typeof</span>(v1)</span>
+<span id="cb25-5"><a href="#cb25-5"></a></span>
+<span id="cb25-6"><a href="#cb25-6"></a>v2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>) </span>
+<span id="cb25-7"><a href="#cb25-7"></a><span class="kw">class</span>(v2)</span>
+<span id="cb25-8"><a href="#cb25-8"></a><span class="kw">typeof</span>(v2)</span>
+<span id="cb25-9"><a href="#cb25-9"></a></span>
+<span id="cb25-10"><a href="#cb25-10"></a>v3 &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>, <span class="st">&quot;dd&quot;</span>, <span class="st">&quot;ee&quot;</span>) </span>
+<span id="cb25-11"><a href="#cb25-11"></a><span class="kw">class</span>(v3)</span>
+<span id="cb25-12"><a href="#cb25-12"></a><span class="kw">typeof</span>(v3)</span>
+<span id="cb25-13"><a href="#cb25-13"></a></span>
+<span id="cb25-14"><a href="#cb25-14"></a>n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </span>
+<span id="cb25-15"><a href="#cb25-15"></a>s &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>, <span class="st">&quot;dd&quot;</span>, <span class="st">&quot;ee&quot;</span>) </span>
+<span id="cb25-16"><a href="#cb25-16"></a><span class="kw">c</span>(n, s) </span>
+<span id="cb25-17"><a href="#cb25-17"></a></span>
+<span id="cb25-18"><a href="#cb25-18"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>) </span>
+<span id="cb25-19"><a href="#cb25-19"></a>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>)</span>
+<span id="cb25-20"><a href="#cb25-20"></a></span>
+<span id="cb25-21"><a href="#cb25-21"></a><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>a</span>
+<span id="cb25-22"><a href="#cb25-22"></a>a <span class="op">+</span><span class="st"> </span>b </span>
+<span id="cb25-23"><a href="#cb25-23"></a>a <span class="op">-</span><span class="st"> </span>b </span>
+<span id="cb25-24"><a href="#cb25-24"></a>a <span class="op">*</span><span class="st"> </span>b </span>
+<span id="cb25-25"><a href="#cb25-25"></a>a <span class="op">/</span><span class="st"> </span>b</span>
+<span id="cb25-26"><a href="#cb25-26"></a></span>
+<span id="cb25-27"><a href="#cb25-27"></a>u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>) </span>
+<span id="cb25-28"><a href="#cb25-28"></a>v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>) </span>
+<span id="cb25-29"><a href="#cb25-29"></a>u <span class="op">+</span><span class="st"> </span>v</span>
+<span id="cb25-30"><a href="#cb25-30"></a></span>
+<span id="cb25-31"><a href="#cb25-31"></a>s &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>, <span class="st">&quot;dd&quot;</span>, <span class="st">&quot;ee&quot;</span>) </span>
+<span id="cb25-32"><a href="#cb25-32"></a>s[<span class="dv">3</span>]</span>
+<span id="cb25-33"><a href="#cb25-33"></a>s[<span class="op">-</span><span class="dv">3</span>] </span>
+<span id="cb25-34"><a href="#cb25-34"></a>s[<span class="dv">10</span>]</span>
+<span id="cb25-35"><a href="#cb25-35"></a>s[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)]</span>
+<span id="cb25-36"><a href="#cb25-36"></a>s[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>)]</span>
+<span id="cb25-37"><a href="#cb25-37"></a>s[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)] </span>
+<span id="cb25-38"><a href="#cb25-38"></a>s[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</span>
+<span id="cb25-39"><a href="#cb25-39"></a></span>
+<span id="cb25-40"><a href="#cb25-40"></a><span class="kw">help</span>(<span class="st">&quot;:&quot;</span>)</span>
+<span id="cb25-41"><a href="#cb25-41"></a></span>
+<span id="cb25-42"><a href="#cb25-42"></a>L &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>) </span>
+<span id="cb25-43"><a href="#cb25-43"></a>s[L] </span>
+<span id="cb25-44"><a href="#cb25-44"></a>s[<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)] </span>
+<span id="cb25-45"><a href="#cb25-45"></a></span>
+<span id="cb25-46"><a href="#cb25-46"></a>v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ramiro&quot;</span>, <span class="st">&quot;Gladys&quot;</span>) </span>
+<span id="cb25-47"><a href="#cb25-47"></a>v </span>
+<span id="cb25-48"><a href="#cb25-48"></a><span class="kw">names</span>(v) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Primera&quot;</span>, <span class="st">&quot;Última&quot;</span>) </span>
+<span id="cb25-49"><a href="#cb25-49"></a>v</span>
+<span id="cb25-50"><a href="#cb25-50"></a>v[<span class="st">&quot;Primera&quot;</span>]</span>
+<span id="cb25-51"><a href="#cb25-51"></a>v[<span class="kw">c</span>(<span class="st">&quot;Última&quot;</span>, <span class="st">&quot;Primera&quot;</span>)]</span>
+<span id="cb25-52"><a href="#cb25-52"></a></span>
+<span id="cb25-53"><a href="#cb25-53"></a><span class="co"># Funciones útiles con vectores</span></span>
+<span id="cb25-54"><a href="#cb25-54"></a><span class="kw">length</span>(v)</span>
+<span id="cb25-55"><a href="#cb25-55"></a></span>
+<span id="cb25-56"><a href="#cb25-56"></a><span class="co"># Factores</span></span>
+<span id="cb25-57"><a href="#cb25-57"></a>colores &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;verde&#39;</span>,<span class="st">&#39;verde&#39;</span>,<span class="st">&#39;amarillo&#39;</span>,<span class="st">&#39;rojo&#39;</span>,<span class="st">&#39;rojo&#39;</span>,<span class="st">&#39;rojo&#39;</span>,<span class="st">&#39;verde&#39;</span>)</span>
+<span id="cb25-58"><a href="#cb25-58"></a><span class="kw">class</span>(colores)</span>
+<span id="cb25-59"><a href="#cb25-59"></a><span class="kw">typeof</span>(colores)</span>
+<span id="cb25-60"><a href="#cb25-60"></a></span>
+<span id="cb25-61"><a href="#cb25-61"></a>factor_colores &lt;-<span class="st"> </span><span class="kw">factor</span>(colores)</span>
+<span id="cb25-62"><a href="#cb25-62"></a><span class="kw">print</span>(factor_colores)</span>
+<span id="cb25-63"><a href="#cb25-63"></a><span class="kw">print</span>(<span class="kw">levels</span>(factor_colores))</span>
+<span id="cb25-64"><a href="#cb25-64"></a><span class="kw">print</span>(<span class="kw">nlevels</span>(factor_colores))</span>
+<span id="cb25-65"><a href="#cb25-65"></a></span>
+<span id="cb25-66"><a href="#cb25-66"></a><span class="kw">class</span>(factor_colores)</span>
+<span id="cb25-67"><a href="#cb25-67"></a><span class="kw">typeof</span>(factor_colores)</span>
+<span id="cb25-68"><a href="#cb25-68"></a></span>
+<span id="cb25-69"><a href="#cb25-69"></a>meses &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>)</span>
+<span id="cb25-70"><a href="#cb25-70"></a>meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses)</span>
+<span id="cb25-71"><a href="#cb25-71"></a>meses</span>
+<span id="cb25-72"><a href="#cb25-72"></a><span class="kw">as.integer</span>(meses)</span>
+<span id="cb25-73"><a href="#cb25-73"></a></span>
+<span id="cb25-74"><a href="#cb25-74"></a>meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>))</span>
+<span id="cb25-75"><a href="#cb25-75"></a>meses</span>
+<span id="cb25-76"><a href="#cb25-76"></a><span class="kw">as.integer</span>(meses)</span>
+<span id="cb25-77"><a href="#cb25-77"></a></span>
+<span id="cb25-78"><a href="#cb25-78"></a>meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses, <span class="dt">labels  =</span> <span class="kw">c</span>(<span class="st">&quot;Enero&quot;</span>, <span class="st">&quot;Febrero&quot;</span>, <span class="st">&quot;Abril&quot;</span>))</span>
+<span id="cb25-79"><a href="#cb25-79"></a>meses</span>
+<span id="cb25-80"><a href="#cb25-80"></a><span class="kw">as.integer</span>(meses)</span>
+<span id="cb25-81"><a href="#cb25-81"></a></span>
+<span id="cb25-82"><a href="#cb25-82"></a><span class="co"># ¿Porqué este código es un problema?</span></span>
+<span id="cb25-83"><a href="#cb25-83"></a>meses &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>)</span>
+<span id="cb25-84"><a href="#cb25-84"></a>meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Enero&quot;</span>, <span class="st">&quot;Febrero&quot;</span>, <span class="st">&quot;Abril&quot;</span>))</span>
+<span id="cb25-85"><a href="#cb25-85"></a>meses</span>
+<span id="cb25-86"><a href="#cb25-86"></a><span class="kw">as.integer</span>(meses)</span>
+<span id="cb25-87"><a href="#cb25-87"></a></span>
+<span id="cb25-88"><a href="#cb25-88"></a><span class="co"># Una mejor forma</span></span>
+<span id="cb25-89"><a href="#cb25-89"></a>meses &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>)</span>
+<span id="cb25-90"><a href="#cb25-90"></a>meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>),</span>
+<span id="cb25-91"><a href="#cb25-91"></a>                <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Enero&quot;</span>, <span class="st">&quot;Febrero&quot;</span>, <span class="st">&quot;Abril&quot;</span>))</span>
+<span id="cb25-92"><a href="#cb25-92"></a>meses</span>
+<span id="cb25-93"><a href="#cb25-93"></a><span class="kw">as.integer</span>(meses)</span>
+<span id="cb25-94"><a href="#cb25-94"></a></span>
+<span id="cb25-95"><a href="#cb25-95"></a><span class="co"># Matrices</span></span>
+<span id="cb25-96"><a href="#cb25-96"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)        </span>
+<span id="cb25-97"><a href="#cb25-97"></a>A</span>
+<span id="cb25-98"><a href="#cb25-98"></a>A[<span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb25-99"><a href="#cb25-99"></a>A[<span class="dv">2</span>, ] </span>
+<span id="cb25-100"><a href="#cb25-100"></a>A[, <span class="dv">3</span>]</span>
+<span id="cb25-101"><a href="#cb25-101"></a><span class="kw">dimnames</span>(A) =<span class="st"> </span><span class="kw">list</span>( </span>
+<span id="cb25-102"><a href="#cb25-102"></a>     <span class="kw">c</span>(<span class="st">&quot;fila1&quot;</span>, <span class="st">&quot;fila2&quot;</span>),        </span>
+<span id="cb25-103"><a href="#cb25-103"></a>     <span class="kw">c</span>(<span class="st">&quot;col1&quot;</span>, <span class="st">&quot;col2&quot;</span>, <span class="st">&quot;col3&quot;</span>))</span>
+<span id="cb25-104"><a href="#cb25-104"></a>A</span>
+<span id="cb25-105"><a href="#cb25-105"></a>A[<span class="st">&quot;fila2&quot;</span>,<span class="st">&quot;col3&quot;</span>]</span>
+<span id="cb25-106"><a href="#cb25-106"></a></span>
+<span id="cb25-107"><a href="#cb25-107"></a>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">2</span>) </span>
+<span id="cb25-108"><a href="#cb25-108"></a>B</span>
+<span id="cb25-109"><a href="#cb25-109"></a><span class="kw">t</span>(B)</span>
+<span id="cb25-110"><a href="#cb25-110"></a></span>
+<span id="cb25-111"><a href="#cb25-111"></a>C &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">1</span>) </span>
+<span id="cb25-112"><a href="#cb25-112"></a>C </span>
+<span id="cb25-113"><a href="#cb25-113"></a><span class="kw">cbind</span>(B, C)</span>
+<span id="cb25-114"><a href="#cb25-114"></a></span>
+<span id="cb25-115"><a href="#cb25-115"></a>D &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">2</span>), <span class="dt">nrow=</span><span class="dv">1</span>,  <span class="dt">ncol=</span><span class="dv">2</span>) </span>
+<span id="cb25-116"><a href="#cb25-116"></a>D </span>
+<span id="cb25-117"><a href="#cb25-117"></a><span class="kw">rbind</span>(B, D) </span>
+<span id="cb25-118"><a href="#cb25-118"></a><span class="kw">c</span>(B) </span>
+<span id="cb25-119"><a href="#cb25-119"></a></span>
+<span id="cb25-120"><a href="#cb25-120"></a>A<span class="op">*</span>B</span>
+<span id="cb25-121"><a href="#cb25-121"></a>A<span class="op">*</span><span class="dv">5</span></span>
+<span id="cb25-122"><a href="#cb25-122"></a>B<span class="op">%*%</span>C</span>
+<span id="cb25-123"><a href="#cb25-123"></a><span class="kw">t</span>(B)<span class="op">%*%</span>C</span>
+<span id="cb25-124"><a href="#cb25-124"></a><span class="kw">solve</span>(<span class="kw">cbind</span>(B,C))</span>
+<span id="cb25-125"><a href="#cb25-125"></a><span class="kw">cbind</span>(B,C)<span class="op">%*%</span><span class="kw">solve</span>(<span class="kw">cbind</span>(B,C))</span>
+<span id="cb25-126"><a href="#cb25-126"></a>A<span class="op">%o%</span>B</span>
+<span id="cb25-127"><a href="#cb25-127"></a>A<span class="op">%x%</span>B</span>
+<span id="cb25-128"><a href="#cb25-128"></a>B<span class="op">%o%</span>A</span>
+<span id="cb25-129"><a href="#cb25-129"></a>B<span class="op">%x%</span>A</span>
+<span id="cb25-130"><a href="#cb25-130"></a></span>
+<span id="cb25-131"><a href="#cb25-131"></a><span class="co"># Listas</span></span>
+<span id="cb25-132"><a href="#cb25-132"></a>n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </span>
+<span id="cb25-133"><a href="#cb25-133"></a>s &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>, <span class="st">&quot;dd&quot;</span>, <span class="st">&quot;ee&quot;</span>) </span>
+<span id="cb25-134"><a href="#cb25-134"></a>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>) </span>
+<span id="cb25-135"><a href="#cb25-135"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(n, s, b, <span class="dv">3</span>)</span>
+<span id="cb25-136"><a href="#cb25-136"></a> </span>
+<span id="cb25-137"><a href="#cb25-137"></a>x[<span class="dv">2</span>]</span>
+<span id="cb25-138"><a href="#cb25-138"></a>x[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>)]</span>
+<span id="cb25-139"><a href="#cb25-139"></a>x[[<span class="dv">2</span>]]</span>
+<span id="cb25-140"><a href="#cb25-140"></a>x[[<span class="dv">2</span>]] &lt;-<span class="st"> &quot;ta&quot;</span></span>
+<span id="cb25-141"><a href="#cb25-141"></a>x</span>
+<span id="cb25-142"><a href="#cb25-142"></a>s</span>
+<span id="cb25-143"><a href="#cb25-143"></a>v &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">numeros=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>), <span class="dt">nombres=</span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>)) </span>
+<span id="cb25-144"><a href="#cb25-144"></a>v </span>
+<span id="cb25-145"><a href="#cb25-145"></a>v[<span class="st">&quot;numeros&quot;</span>]</span>
+<span id="cb25-146"><a href="#cb25-146"></a>v[<span class="kw">c</span>(<span class="st">&quot;nombres&quot;</span>, <span class="st">&quot;numeros&quot;</span>)]</span>
+<span id="cb25-147"><a href="#cb25-147"></a>v[[<span class="st">&quot;numeros&quot;</span>]]</span>
+<span id="cb25-148"><a href="#cb25-148"></a>v<span class="op">$</span>numeros</span>
+<span id="cb25-149"><a href="#cb25-149"></a></span>
+<span id="cb25-150"><a href="#cb25-150"></a><span class="kw">attach</span>(v)</span>
+<span id="cb25-151"><a href="#cb25-151"></a>numeros</span>
+<span id="cb25-152"><a href="#cb25-152"></a><span class="kw">detach</span>(v)</span>
+<span id="cb25-153"><a href="#cb25-153"></a></span>
+<span id="cb25-154"><a href="#cb25-154"></a></span>
+<span id="cb25-155"><a href="#cb25-155"></a><span class="co"># Bases de datos (data.frames)</span></span>
+<span id="cb25-156"><a href="#cb25-156"></a>n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </span>
+<span id="cb25-157"><a href="#cb25-157"></a>s &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>) </span>
+<span id="cb25-158"><a href="#cb25-158"></a>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>) </span>
+<span id="cb25-159"><a href="#cb25-159"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(n, s, b)</span>
+<span id="cb25-160"><a href="#cb25-160"></a></span>
+<span id="cb25-161"><a href="#cb25-161"></a>mtcars</span>
+<span id="cb25-162"><a href="#cb25-162"></a>mtcars[<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb25-163"><a href="#cb25-163"></a>mtcars[<span class="st">&quot;Mazda RX4&quot;</span>, <span class="st">&quot;cyl&quot;</span>]</span>
+<span id="cb25-164"><a href="#cb25-164"></a></span>
+<span id="cb25-165"><a href="#cb25-165"></a><span class="kw">head</span>(mtcars) <span class="co"># primeras filas</span></span>
+<span id="cb25-166"><a href="#cb25-166"></a><span class="kw">tail</span>(mtcars) <span class="co"># ultimas filas</span></span>
+<span id="cb25-167"><a href="#cb25-167"></a>mtcars[[<span class="dv">9</span>]]</span>
+<span id="cb25-168"><a href="#cb25-168"></a>mtcars[[<span class="st">&quot;am&quot;</span>]]</span>
+<span id="cb25-169"><a href="#cb25-169"></a>mtcars<span class="op">$</span>am</span>
+<span id="cb25-170"><a href="#cb25-170"></a>mtcars[, <span class="st">&quot;am&quot;</span>]</span>
+<span id="cb25-171"><a href="#cb25-171"></a>mtcars[<span class="dv">1</span>]</span>
+<span id="cb25-172"><a href="#cb25-172"></a>mtcars[<span class="st">&quot;mpg&quot;</span>]</span>
+<span id="cb25-173"><a href="#cb25-173"></a>mtcars[<span class="kw">c</span>(<span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;hp&quot;</span>)]</span>
+<span id="cb25-174"><a href="#cb25-174"></a>mtcars[<span class="dv">24</span>, ]</span>
+<span id="cb25-175"><a href="#cb25-175"></a>mtcars[<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">24</span>), ]</span>
+<span id="cb25-176"><a href="#cb25-176"></a>mtcars[<span class="st">&quot;camaro Z28&quot;</span>, ]</span>
+<span id="cb25-177"><a href="#cb25-177"></a>mtcars[<span class="kw">c</span>(<span class="st">&quot;Datsun 710&quot;</span>, <span class="st">&quot;Camaro Z28&quot;</span>), ]</span>
+<span id="cb25-178"><a href="#cb25-178"></a></span>
+<span id="cb25-179"><a href="#cb25-179"></a>L =<span class="st"> </span>mtcars<span class="op">$</span>am <span class="op">==</span><span class="st"> </span><span class="dv">0</span></span>
+<span id="cb25-180"><a href="#cb25-180"></a>L</span>
+<span id="cb25-181"><a href="#cb25-181"></a></span>
+<span id="cb25-182"><a href="#cb25-182"></a>mtcars[L, ]</span>
+<span id="cb25-183"><a href="#cb25-183"></a>mtcars[L, ]<span class="op">$</span>mpg</span>
+<span id="cb25-184"><a href="#cb25-184"></a></span>
+<span id="cb25-185"><a href="#cb25-185"></a><span class="co"># Problemas a evitar en el uso de los &quot;data.frames&quot;</span></span>
+<span id="cb25-186"><a href="#cb25-186"></a>mal &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">b =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>)))</span>
+<span id="cb25-187"><a href="#cb25-187"></a>mal</span>
+<span id="cb25-188"><a href="#cb25-188"></a><span class="kw">str</span>(mal)</span>
+<span id="cb25-189"><a href="#cb25-189"></a></span>
+<span id="cb25-190"><a href="#cb25-190"></a>bien1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">b =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</span>
+<span id="cb25-191"><a href="#cb25-191"></a>bien1</span>
+<span id="cb25-192"><a href="#cb25-192"></a><span class="kw">str</span>(bien1)</span>
+<span id="cb25-193"><a href="#cb25-193"></a></span>
+<span id="cb25-194"><a href="#cb25-194"></a>bien2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">b =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb25-195"><a href="#cb25-195"></a>bien2</span>
+<span id="cb25-196"><a href="#cb25-196"></a><span class="kw">str</span>(bien2)</span>
+<span id="cb25-197"><a href="#cb25-197"></a></span>
+<span id="cb25-198"><a href="#cb25-198"></a><span class="co"># &quot;Columnas&quot; especiales en las bases de datos.</span></span>
+<span id="cb25-199"><a href="#cb25-199"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</span>
+<span id="cb25-200"><a href="#cb25-200"></a>df<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span>
+<span id="cb25-201"><a href="#cb25-201"></a>df</span>
+<span id="cb25-202"><a href="#cb25-202"></a><span class="kw">str</span>(df)</span>
+<span id="cb25-203"><a href="#cb25-203"></a></span>
+<span id="cb25-204"><a href="#cb25-204"></a><span class="co"># data.frame(x = 1:3, y = list(1:2, 1:3, 1:4)) # Se genera un error</span></span>
+<span id="cb25-205"><a href="#cb25-205"></a>dfl &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">I</span>(<span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)))</span>
+<span id="cb25-206"><a href="#cb25-206"></a>dfl</span>
+<span id="cb25-207"><a href="#cb25-207"></a><span class="kw">str</span>(dfl)</span>
+<span id="cb25-208"><a href="#cb25-208"></a>dfl[<span class="dv">2</span>, <span class="st">&quot;y&quot;</span>]</span>
+<span id="cb25-209"><a href="#cb25-209"></a></span>
+<span id="cb25-210"><a href="#cb25-210"></a>dfm &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">I</span>(<span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>)))</span>
+<span id="cb25-211"><a href="#cb25-211"></a>dfm</span>
+<span id="cb25-212"><a href="#cb25-212"></a><span class="kw">str</span>(dfm)</span>
+<span id="cb25-213"><a href="#cb25-213"></a>dfm[<span class="dv">2</span>, <span class="st">&quot;y&quot;</span>]</span></code></pre></div>
 <p>Se debe tener mucho cuidado al utilizar estas opciones en las bases de datos porque muchas funciones asumen que cada columa de una base de datos es de tipo atómico.</p>
 </div>
 </div>
@@ -985,125 +990,125 @@ div.tocify {
 </ul>
 <div id="ejemplos-carácter-y-sartas" class="section level3">
 <h3>Ejemplos carácter y sartas</h3>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="co"># Carácter y sarta</span></a>
-<a class="sourceLine" id="cb26-2" title="2">x &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="fl">3.141592</span>) </a>
-<a class="sourceLine" id="cb26-3" title="3">x </a>
-<a class="sourceLine" id="cb26-4" title="4"></a>
-<a class="sourceLine" id="cb26-5" title="5"><span class="kw">class</span>(x)</a>
-<a class="sourceLine" id="cb26-6" title="6"><span class="kw">typeof</span>(x)</a>
-<a class="sourceLine" id="cb26-7" title="7"></a>
-<a class="sourceLine" id="cb26-8" title="8">nombres &lt;-<span class="st"> &quot;Leonidas Argemiro&quot;</span>; apellido &lt;-<span class="st"> &quot;Jaramillo&quot;</span> </a>
-<a class="sourceLine" id="cb26-9" title="9"><span class="kw">paste</span>(nombres, apellido)</a>
-<a class="sourceLine" id="cb26-10" title="10"><span class="kw">paste0</span>(nombres, apellido)</a>
-<a class="sourceLine" id="cb26-11" title="11"><span class="kw">cat</span>(nombres,<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,apellido)</a>
-<a class="sourceLine" id="cb26-12" title="12"><span class="kw">cat</span>(nombres,<span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>,apellido)</a>
-<a class="sourceLine" id="cb26-13" title="13"><span class="kw">cat</span>(nombres,<span class="st">&quot; &quot;</span>,apellido)</a>
-<a class="sourceLine" id="cb26-14" title="14"><span class="kw">cat</span>(nombres,<span class="st">&quot; (1234) &quot;</span>,apellido)</a>
-<a class="sourceLine" id="cb26-15" title="15"></a>
-<a class="sourceLine" id="cb26-16" title="16"><span class="kw">sprintf</span>(<span class="st">&quot;%s tiene %d pesos&quot;</span>, <span class="st">&quot;Julian&quot;</span>, <span class="dv">100000</span>)</a>
-<a class="sourceLine" id="cb26-17" title="17"><span class="kw">substr</span>(<span class="st">&quot;Mambrú se fue a la guerra&quot;</span>, <span class="dt">start=</span><span class="dv">3</span>, <span class="dt">stop=</span><span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb26-18" title="18"><span class="co"># sub(&quot;Mambrú&quot;, &quot;Jose&quot;, &quot;Mambrú se fue a la guerra&quot;)</span></a>
-<a class="sourceLine" id="cb26-19" title="19"></a>
-<a class="sourceLine" id="cb26-20" title="20"><span class="kw">help</span>(<span class="st">&quot;sub&quot;</span>)</a>
-<a class="sourceLine" id="cb26-21" title="21">?sub</a>
-<a class="sourceLine" id="cb26-22" title="22"></a>
-<a class="sourceLine" id="cb26-23" title="23"><span class="kw">paste</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb26-24" title="24"><span class="kw">paste</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span> <span class="st">&#39;&#39;</span>)</a>
-<a class="sourceLine" id="cb26-25" title="25"><span class="kw">paste</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb26-26" title="26"></a>
-<a class="sourceLine" id="cb26-27" title="27"><span class="kw">cat</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb26-28" title="28"><span class="kw">cat</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span> <span class="st">&#39;&#39;</span>)</a>
-<a class="sourceLine" id="cb26-29" title="29"></a>
-<a class="sourceLine" id="cb26-30" title="30">mensaje &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Ejemplo de&quot;</span>, <span class="st">&quot;un mensaje&quot;</span>, <span class="st">&quot;con &#39;paste()&#39;&quot;</span>)</a>
-<a class="sourceLine" id="cb26-31" title="31">mensaje</a>
-<a class="sourceLine" id="cb26-32" title="32"></a>
-<a class="sourceLine" id="cb26-33" title="33">mensaje &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Ejemplo de&quot;</span>, <span class="st">&quot;un mensaje&quot;</span>, <span class="st">&#39;con &quot;paste()&quot;&#39;</span>)</a>
-<a class="sourceLine" id="cb26-34" title="34">mensaje</a>
-<a class="sourceLine" id="cb26-35" title="35"><span class="kw">print</span>(mensaje)</a>
-<a class="sourceLine" id="cb26-36" title="36"><span class="kw">cat</span>(mensaje)</a>
-<a class="sourceLine" id="cb26-37" title="37"></a>
-<a class="sourceLine" id="cb26-38" title="38"><span class="kw">cat</span>(<span class="st">&quot;Otro ejemplo:</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="st">&quot;con dos renglones&quot;</span>)</a>
-<a class="sourceLine" id="cb26-39" title="39"><span class="kw">paste</span>(<span class="st">&quot;Otro ejemplo:</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="st">&quot;con dos renglones&quot;</span>)</a>
-<a class="sourceLine" id="cb26-40" title="40"></a>
-<a class="sourceLine" id="cb26-41" title="41">mensaje2 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Otro ejemplo:</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="st">&quot;con dos renglones&quot;</span>)</a>
-<a class="sourceLine" id="cb26-42" title="42">mensaje2</a>
-<a class="sourceLine" id="cb26-43" title="43"><span class="kw">print</span>(mensaje2)</a>
-<a class="sourceLine" id="cb26-44" title="44"><span class="kw">cat</span>(mensaje2)</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Carácter y sarta</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>x &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="fl">3.141592</span>) </span>
+<span id="cb26-3"><a href="#cb26-3"></a>x </span>
+<span id="cb26-4"><a href="#cb26-4"></a></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="kw">class</span>(x)</span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="kw">typeof</span>(x)</span>
+<span id="cb26-7"><a href="#cb26-7"></a></span>
+<span id="cb26-8"><a href="#cb26-8"></a>nombres &lt;-<span class="st"> &quot;Leonidas Argemiro&quot;</span>; apellido &lt;-<span class="st"> &quot;Jaramillo&quot;</span> </span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="kw">paste</span>(nombres, apellido)</span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="kw">paste0</span>(nombres, apellido)</span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="kw">cat</span>(nombres,<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,apellido)</span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="kw">cat</span>(nombres,<span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>,apellido)</span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="kw">cat</span>(nombres,<span class="st">&quot; &quot;</span>,apellido)</span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="kw">cat</span>(nombres,<span class="st">&quot; (1234) &quot;</span>,apellido)</span>
+<span id="cb26-15"><a href="#cb26-15"></a></span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="kw">sprintf</span>(<span class="st">&quot;%s tiene %d pesos&quot;</span>, <span class="st">&quot;Julian&quot;</span>, <span class="dv">100000</span>)</span>
+<span id="cb26-17"><a href="#cb26-17"></a><span class="kw">substr</span>(<span class="st">&quot;Mambrú se fue a la guerra&quot;</span>, <span class="dt">start=</span><span class="dv">3</span>, <span class="dt">stop=</span><span class="dv">12</span>)</span>
+<span id="cb26-18"><a href="#cb26-18"></a><span class="co"># sub(&quot;Mambrú&quot;, &quot;Jose&quot;, &quot;Mambrú se fue a la guerra&quot;)</span></span>
+<span id="cb26-19"><a href="#cb26-19"></a></span>
+<span id="cb26-20"><a href="#cb26-20"></a><span class="kw">help</span>(<span class="st">&quot;sub&quot;</span>)</span>
+<span id="cb26-21"><a href="#cb26-21"></a>?sub</span>
+<span id="cb26-22"><a href="#cb26-22"></a></span>
+<span id="cb26-23"><a href="#cb26-23"></a><span class="kw">paste</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</span>
+<span id="cb26-24"><a href="#cb26-24"></a><span class="kw">paste</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb26-25"><a href="#cb26-25"></a><span class="kw">paste</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</span>
+<span id="cb26-26"><a href="#cb26-26"></a></span>
+<span id="cb26-27"><a href="#cb26-27"></a><span class="kw">cat</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</span>
+<span id="cb26-28"><a href="#cb26-28"></a><span class="kw">cat</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb26-29"><a href="#cb26-29"></a></span>
+<span id="cb26-30"><a href="#cb26-30"></a>mensaje &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Ejemplo de&quot;</span>, <span class="st">&quot;un mensaje&quot;</span>, <span class="st">&quot;con &#39;paste()&#39;&quot;</span>)</span>
+<span id="cb26-31"><a href="#cb26-31"></a>mensaje</span>
+<span id="cb26-32"><a href="#cb26-32"></a></span>
+<span id="cb26-33"><a href="#cb26-33"></a>mensaje &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Ejemplo de&quot;</span>, <span class="st">&quot;un mensaje&quot;</span>, <span class="st">&#39;con &quot;paste()&quot;&#39;</span>)</span>
+<span id="cb26-34"><a href="#cb26-34"></a>mensaje</span>
+<span id="cb26-35"><a href="#cb26-35"></a><span class="kw">print</span>(mensaje)</span>
+<span id="cb26-36"><a href="#cb26-36"></a><span class="kw">cat</span>(mensaje)</span>
+<span id="cb26-37"><a href="#cb26-37"></a></span>
+<span id="cb26-38"><a href="#cb26-38"></a><span class="kw">cat</span>(<span class="st">&quot;Otro ejemplo:</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="st">&quot;con dos renglones&quot;</span>)</span>
+<span id="cb26-39"><a href="#cb26-39"></a><span class="kw">paste</span>(<span class="st">&quot;Otro ejemplo:</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="st">&quot;con dos renglones&quot;</span>)</span>
+<span id="cb26-40"><a href="#cb26-40"></a></span>
+<span id="cb26-41"><a href="#cb26-41"></a>mensaje2 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Otro ejemplo:</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="st">&quot;con dos renglones&quot;</span>)</span>
+<span id="cb26-42"><a href="#cb26-42"></a>mensaje2</span>
+<span id="cb26-43"><a href="#cb26-43"></a><span class="kw">print</span>(mensaje2)</span>
+<span id="cb26-44"><a href="#cb26-44"></a><span class="kw">cat</span>(mensaje2)</span></code></pre></div>
 </div>
 <div id="ejemplos-finales" class="section level3">
 <h3>Ejemplos finales</h3>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb27-2" title="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb27-3" title="3"></a>
-<a class="sourceLine" id="cb27-4" title="4">x</a>
-<a class="sourceLine" id="cb27-5" title="5"><span class="kw">sort</span>(x)</a>
-<a class="sourceLine" id="cb27-6" title="6"><span class="kw">rev</span>(x)</a>
-<a class="sourceLine" id="cb27-7" title="7"><span class="kw">sort</span>(x,<span class="dt">decreasing =</span> F)</a>
-<a class="sourceLine" id="cb27-8" title="8"></a>
-<a class="sourceLine" id="cb27-9" title="9">a <span class="op">+</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-10" title="10">a <span class="op">-</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-11" title="11">a <span class="op">/</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-12" title="12">a <span class="op">*</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-13" title="13">a <span class="op">^</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-14" title="14">a <span class="op">%%</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-15" title="15">a <span class="op">%/%</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-16" title="16"></a>
-<a class="sourceLine" id="cb27-17" title="17">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb27-18" title="18">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb27-19" title="19"></a>
-<a class="sourceLine" id="cb27-20" title="20">a <span class="op">+</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-21" title="21">a <span class="op">-</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-22" title="22">a <span class="op">/</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-23" title="23">a <span class="op">*</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-24" title="24">a <span class="op">^</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-25" title="25">a <span class="op">%%</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-26" title="26">a <span class="op">%/%</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-27" title="27"></a>
-<a class="sourceLine" id="cb27-28" title="28"><span class="kw">exp</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb27-29" title="29"></a>
-<a class="sourceLine" id="cb27-30" title="30"><span class="kw">options</span>()</a>
-<a class="sourceLine" id="cb27-31" title="31"></a>
-<a class="sourceLine" id="cb27-32" title="32"><span class="kw">names</span>(<span class="kw">options</span>())</a>
-<a class="sourceLine" id="cb27-33" title="33"></a>
-<a class="sourceLine" id="cb27-34" title="34"><span class="kw">options</span>()<span class="op">$</span>digits</a>
-<a class="sourceLine" id="cb27-35" title="35"></a>
-<a class="sourceLine" id="cb27-36" title="36"><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">16</span>)</a>
-<a class="sourceLine" id="cb27-37" title="37"><span class="kw">exp</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb27-38" title="38">pi</a>
-<a class="sourceLine" id="cb27-39" title="39"><span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb27-40" title="40"><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb27-41" title="41"></a>
-<a class="sourceLine" id="cb27-42" title="42">optAnt &lt;-<span class="st"> </span><span class="kw">options</span>()</a>
-<a class="sourceLine" id="cb27-43" title="43"><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb27-44" title="44">pi</a>
-<a class="sourceLine" id="cb27-45" title="45"><span class="kw">options</span>(optAnt)</a>
-<a class="sourceLine" id="cb27-46" title="46">pi</a>
-<a class="sourceLine" id="cb27-47" title="47"></a>
-<a class="sourceLine" id="cb27-48" title="48">x &lt;-<span class="st"> </span><span class="dv">10000</span></a>
-<a class="sourceLine" id="cb27-49" title="49">(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>x) <span class="op">^</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb27-50" title="50"></a>
-<a class="sourceLine" id="cb27-51" title="51">y &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>x)<span class="op">^</span>x</a>
-<a class="sourceLine" id="cb27-52" title="52">y</a>
-<a class="sourceLine" id="cb27-53" title="53"></a>
-<a class="sourceLine" id="cb27-54" title="54">(z &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>x) <span class="op">^</span><span class="st"> </span>x)</a>
-<a class="sourceLine" id="cb27-55" title="55"></a>
-<a class="sourceLine" id="cb27-56" title="56"><span class="co"># Producto interno</span></a>
-<a class="sourceLine" id="cb27-57" title="57">a <span class="op">%*%</span><span class="st"> </span>a</a>
-<a class="sourceLine" id="cb27-58" title="58"></a>
-<a class="sourceLine" id="cb27-59" title="59"><span class="co"># Producto externo</span></a>
-<a class="sourceLine" id="cb27-60" title="60">a <span class="op">%o%</span><span class="st"> </span>a</a>
-<a class="sourceLine" id="cb27-61" title="61"></a>
-<a class="sourceLine" id="cb27-62" title="62"><span class="co"># Con matrices</span></a>
-<a class="sourceLine" id="cb27-63" title="63">m1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb27-64" title="64">m1</a>
-<a class="sourceLine" id="cb27-65" title="65">m2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">7</span><span class="op">:</span><span class="dv">12</span>, <span class="dv">3</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb27-66" title="66">m2</a>
-<a class="sourceLine" id="cb27-67" title="67"></a>
-<a class="sourceLine" id="cb27-68" title="68"><span class="co"># m1 + m2 # Produce un error por dimensiones no compatibles</span></a>
-<a class="sourceLine" id="cb27-69" title="69">m1 <span class="op">+</span><span class="st"> </span><span class="kw">t</span>(m2)</a>
-<a class="sourceLine" id="cb27-70" title="70"><span class="kw">t</span>(m1) <span class="op">+</span><span class="st"> </span>m2</a>
-<a class="sourceLine" id="cb27-71" title="71">m1 <span class="op">%*%</span><span class="st"> </span>m2</a>
-<a class="sourceLine" id="cb27-72" title="72">m2 <span class="op">%*%</span><span class="st"> </span>m1</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">0</span>)</span>
+<span id="cb27-2"><a href="#cb27-2"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb27-3"><a href="#cb27-3"></a></span>
+<span id="cb27-4"><a href="#cb27-4"></a>x</span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="kw">sort</span>(x)</span>
+<span id="cb27-6"><a href="#cb27-6"></a><span class="kw">rev</span>(x)</span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="kw">sort</span>(x,<span class="dt">decreasing =</span> F)</span>
+<span id="cb27-8"><a href="#cb27-8"></a></span>
+<span id="cb27-9"><a href="#cb27-9"></a>a <span class="op">+</span><span class="st"> </span>x</span>
+<span id="cb27-10"><a href="#cb27-10"></a>a <span class="op">-</span><span class="st"> </span>x</span>
+<span id="cb27-11"><a href="#cb27-11"></a>a <span class="op">/</span><span class="st"> </span>x</span>
+<span id="cb27-12"><a href="#cb27-12"></a>a <span class="op">*</span><span class="st"> </span>x</span>
+<span id="cb27-13"><a href="#cb27-13"></a>a <span class="op">^</span><span class="st"> </span>x</span>
+<span id="cb27-14"><a href="#cb27-14"></a>a <span class="op">%%</span><span class="st"> </span>x</span>
+<span id="cb27-15"><a href="#cb27-15"></a>a <span class="op">%/%</span><span class="st"> </span>x</span>
+<span id="cb27-16"><a href="#cb27-16"></a></span>
+<span id="cb27-17"><a href="#cb27-17"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb27-18"><a href="#cb27-18"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb27-19"><a href="#cb27-19"></a></span>
+<span id="cb27-20"><a href="#cb27-20"></a>a <span class="op">+</span><span class="st"> </span>x</span>
+<span id="cb27-21"><a href="#cb27-21"></a>a <span class="op">-</span><span class="st"> </span>x</span>
+<span id="cb27-22"><a href="#cb27-22"></a>a <span class="op">/</span><span class="st"> </span>x</span>
+<span id="cb27-23"><a href="#cb27-23"></a>a <span class="op">*</span><span class="st"> </span>x</span>
+<span id="cb27-24"><a href="#cb27-24"></a>a <span class="op">^</span><span class="st"> </span>x</span>
+<span id="cb27-25"><a href="#cb27-25"></a>a <span class="op">%%</span><span class="st"> </span>x</span>
+<span id="cb27-26"><a href="#cb27-26"></a>a <span class="op">%/%</span><span class="st"> </span>x</span>
+<span id="cb27-27"><a href="#cb27-27"></a></span>
+<span id="cb27-28"><a href="#cb27-28"></a><span class="kw">exp</span>(<span class="dv">1</span>)</span>
+<span id="cb27-29"><a href="#cb27-29"></a></span>
+<span id="cb27-30"><a href="#cb27-30"></a><span class="kw">options</span>()</span>
+<span id="cb27-31"><a href="#cb27-31"></a></span>
+<span id="cb27-32"><a href="#cb27-32"></a><span class="kw">names</span>(<span class="kw">options</span>())</span>
+<span id="cb27-33"><a href="#cb27-33"></a></span>
+<span id="cb27-34"><a href="#cb27-34"></a><span class="kw">options</span>()<span class="op">$</span>digits</span>
+<span id="cb27-35"><a href="#cb27-35"></a></span>
+<span id="cb27-36"><a href="#cb27-36"></a><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">16</span>)</span>
+<span id="cb27-37"><a href="#cb27-37"></a><span class="kw">exp</span>(<span class="dv">1</span>)</span>
+<span id="cb27-38"><a href="#cb27-38"></a>pi</span>
+<span id="cb27-39"><a href="#cb27-39"></a><span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">6</span>)</span>
+<span id="cb27-40"><a href="#cb27-40"></a><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">7</span>)</span>
+<span id="cb27-41"><a href="#cb27-41"></a></span>
+<span id="cb27-42"><a href="#cb27-42"></a>optAnt &lt;-<span class="st"> </span><span class="kw">options</span>()</span>
+<span id="cb27-43"><a href="#cb27-43"></a><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">20</span>)</span>
+<span id="cb27-44"><a href="#cb27-44"></a>pi</span>
+<span id="cb27-45"><a href="#cb27-45"></a><span class="kw">options</span>(optAnt)</span>
+<span id="cb27-46"><a href="#cb27-46"></a>pi</span>
+<span id="cb27-47"><a href="#cb27-47"></a></span>
+<span id="cb27-48"><a href="#cb27-48"></a>x &lt;-<span class="st"> </span><span class="dv">10000</span></span>
+<span id="cb27-49"><a href="#cb27-49"></a>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>x) <span class="op">^</span><span class="st"> </span>x</span>
+<span id="cb27-50"><a href="#cb27-50"></a></span>
+<span id="cb27-51"><a href="#cb27-51"></a>y &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>x)<span class="op">^</span>x</span>
+<span id="cb27-52"><a href="#cb27-52"></a>y</span>
+<span id="cb27-53"><a href="#cb27-53"></a></span>
+<span id="cb27-54"><a href="#cb27-54"></a>(z &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>x) <span class="op">^</span><span class="st"> </span>x)</span>
+<span id="cb27-55"><a href="#cb27-55"></a></span>
+<span id="cb27-56"><a href="#cb27-56"></a><span class="co"># Producto interno</span></span>
+<span id="cb27-57"><a href="#cb27-57"></a>a <span class="op">%*%</span><span class="st"> </span>a</span>
+<span id="cb27-58"><a href="#cb27-58"></a></span>
+<span id="cb27-59"><a href="#cb27-59"></a><span class="co"># Producto externo</span></span>
+<span id="cb27-60"><a href="#cb27-60"></a>a <span class="op">%o%</span><span class="st"> </span>a</span>
+<span id="cb27-61"><a href="#cb27-61"></a></span>
+<span id="cb27-62"><a href="#cb27-62"></a><span class="co"># Con matrices</span></span>
+<span id="cb27-63"><a href="#cb27-63"></a>m1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb27-64"><a href="#cb27-64"></a>m1</span>
+<span id="cb27-65"><a href="#cb27-65"></a>m2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">7</span><span class="op">:</span><span class="dv">12</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb27-66"><a href="#cb27-66"></a>m2</span>
+<span id="cb27-67"><a href="#cb27-67"></a></span>
+<span id="cb27-68"><a href="#cb27-68"></a><span class="co"># m1 + m2 # Produce un error por dimensiones no compatibles</span></span>
+<span id="cb27-69"><a href="#cb27-69"></a>m1 <span class="op">+</span><span class="st"> </span><span class="kw">t</span>(m2)</span>
+<span id="cb27-70"><a href="#cb27-70"></a><span class="kw">t</span>(m1) <span class="op">+</span><span class="st"> </span>m2</span>
+<span id="cb27-71"><a href="#cb27-71"></a>m1 <span class="op">%*%</span><span class="st"> </span>m2</span>
+<span id="cb27-72"><a href="#cb27-72"></a>m2 <span class="op">%*%</span><span class="st"> </span>m1</span></code></pre></div>
 <p>Ponlo en práctica aquí:</p>
 <iframe width="100%" height="600" src="https://rdrr.io/snippets/embed/?code=%0A" frameborder="2">
 </iframe>

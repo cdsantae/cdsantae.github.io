@@ -289,6 +289,8 @@ Seleccionar un objeto y calcular:
   </div>
 </div>
 
+<hr>
+
 ## Tipos de variable
 
 Los **datos** son las observaciones recolectadas de las unidades, entonces, los *datos muestrales* son las observaciones recolectadas de las muestras. Ahora, los datos tienen sentido y no se deben tomar como meramente números o cantidades, por ejemplo, las cédulas son números de identificación únicos para llevar el registro de personas en un país, en consecuencia, no tiene sentido hacer análisis sobre estos números como calcular promedios o medianas.
