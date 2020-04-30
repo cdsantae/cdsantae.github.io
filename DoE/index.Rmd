@@ -1,0 +1,68 @@
+---
+title: "Métodos Estadísticos Para la Investigación en Construcción"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Descripción de la asignatura
+
+Un experimento no es más que una prueba o una serie de pruebas. Se realizan en todas las disciplinas científicas y de la ingeniería siendo una parte fundamental del proceso de descubrimiento y aprendizaje. Conducir un experimento o investigación requiere tres etapas, planificación, ejecución y análisis de resultados. En la primera el investigador se plantea: ¿Por qué hacer el estudio?, ¿Qué material quiero usar? y ¿Qué quiero aprender? En esta etapa es donde un diseño de experimentos causa el mayor impacto en la calidad de un trabajo de investigación. La segunda consiste en la parte de ejecución en donde se han determinado las variables de estudio y la última en el análisis de resultados mediante métodos estadísticos.
+
+El objetivo de un diseño de experimentos es de proveer herramientas que aseguren que una investigación sea capaz de proveer respuestas a nuestras preguntas de manera eficiente y con los recursos disponibles. Las conclusiones que se pueden extraer dependerán de cómo se condujo y por ellos su diseño desempeña un papel principal en la solución del problema.
+
+## Metodología
+
+Clases magistrales que ayuden a entender los diferentes temas que se pretende abordar; conceptos y ejemplos de aplicación. 
+
+Exposición por parte de los alumnos en donde presenten sus trabajos de investigación y como aplicarían un diseño experimental estadístico para dar respuesta a su pregunta de investigación. Además de artículos científicos con ejemplos de aplicación en la construcción.
+
+## Software
+
+Durante todo el curso se realizarán prácticas con `Excel` y los software estadísticos `R-project` y `MiniTab`. No obstante, se darán herramientas necesarias para que el estudiante aprenda a programar y usar `R-project` con si IDE `RStudio`.
+
+### R project
+
+<code>R</code> es un lenguaje y ambiente de alto nivel para el análisis de datos y gráficos. Está altamente relacionado con los lenguajes <code>S</code> y <code>Scheme</code>. Es un lenguaje de programación interpretado, de **distribución libre**, bajo licencia GNU, que puede correr en distintas plataformas Linux, Windows, MacOS e incluso PlayStation 3.
+
+> Chambers & Hastie (1991)<br>
+> <cite>"Buscamos que los usuarios puedan iniciar en un entorno interactivo, en el que no se vean, conscientemente, a ellos mismos como programadores. Conforme sus necesidades sean más claras y su complejidad se incremente, deberían gradualmente poder profundizar en la programación, es cuando los aspectos del lenguaje y el sistema se vuelven más importantes."</cite>
+
+En este sentido <code>R</code> no es un sistema estadístico, sino un ambiente en el que se aplican técnicas estadísticas. Es por esto que el software va de la mando del entendimiento de la teoría y técnicas estadísticas.
+
+> El Software recibe instrucciones y entrega resultados basados en las instrucciones. ¿Si el resultado no es el deseado, es culpa del software?
+
+### Instalación del software
+
+1. Descargar [R-Project](https://cloud.r-project.org/)
+
+2. Descargar [RStudio](https://www.rstudio.com/products/rstudio/download/)
+
+### MiniTab
+
+Es un software estadístico diseñado para ingenieros, con el fin de proveer soluciones y análisis estadísticos con un entorno amigable sin la necesidad de conocimiento experto. El software hacer parte de la empresa *Minitab&#174;* y cuenta con planes de licencias de acuerdo al entorno de uso.
+
+Tiene una versión gratuita de 30 días que pueden consultar [Aquí](https://www.minitab.com/es-mx/products/minitab/free-trial/)
+
+## Docentes
+
+El curso contará con dos docentes con experiencia en diseños de experimentos y análisis estadísticos enfocados a la investigación en construcción.
+
+### Cristian Santa
+
+Estadístico con diez años de experiencia en análisis y clasificación de datos, planificación de diseños experimentales, muestreo de poblaciones, modelación estadística, Data Science, Big Data, Machine Learning, Deep Learning y programación avanzada en R-project.
+
+Magíster en Ciencias Estadísticas de la Universidad Nacional sede Medellín y director de ingeniería y diseño de la empresa Ingedata Consulting S.A.S. Mis años de experiencia como consultor y docente en estadística me ha permitido avanzar en conocimientos de otras áreas para construir equipos de investigación multidisciplinarios, a la vez que mantengo actualizado con los avances de la Ciencia, Tecnología, e Innovación asociadas a la estadística.
+
+### Yhan Paul Arias
+
+
+
+### Contacto
+
+**e-mail:** cdsanta@unal.edu.co<br>
+Para enviar correos se solicita anteponer en el asunto **[DoE]**.
+
+

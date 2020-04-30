@@ -1,0 +1,105 @@
+---
+title: "Acerca del Curso"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Objetivo
+
+Capacitar al estudiante con las habilidades y herramientas necesarias para desarrollar trabajos experimentales aplicados en las áreas de la construcción tales como: la optimización de procesos y desarrollo de materiales. 
+
+## Conceptos previos necesarios
+
+El estudiante debe tener nociones básicas de estadística, cálculo diferencial, cálculo integral y manejo de herramientas de MS Office
+
+## Contenido
+
+El curso se desarrollará en tres grandes componentes
+
+<div class="panel-group">
+ <div class="panel panel-success">
+  <div class="panel-heading">
+   <h5 class="panel-title">
+    <a data-toggle="collapse" href="#c1">Introducción</a>
+   </h5>
+  </div>
+  <div id="c1" class="panel-collapse collapse">
+   <div class="panel-body">
+Fundamentos básicos de estadística
+
+- Conceptos de medición
+- Definiciones en el lenguaje estadístico
+- Métodos gráficos de resumen de información
+- Medidas de resumen estadísticas
+- Conceptos de Probabilidad
+- Distribuciones de Probabilidad
+- Estimación por Intervalos
+- Pruebas de Hipótesis e Inferencia sobre parámetros
+- Aplicaciones en `R-project`
+   </div>
+   </div>
+  </div>
+</div>
+
+<div class="panel-group">
+ <div class="panel panel-success">
+  <div class="panel-heading">
+   <h5 class="panel-title">
+    <a data-toggle="collapse" href="#c2">Diseño Experimental</a>
+   </h5>
+  </div>
+  <div id="c2" class="panel-collapse collapse">
+   <div class="panel-body">
+Análisis estadístico de diseños de experimentos aplicados a la construcción
+
+- ANOVA
+- Diseños de un solo factor
+- Diseños Aleatorios
+- Diseños por Bloques Aleatorios
+- Arreglos Factoriales
+- Diseños $2^k$
+- Diseños $3^k$
+- Diseños Factoriales Fraccionados
+- Superficies de Respuesta
+- Selección de muestras basado en el tamaño del efecto
+
+   </div>
+   </div>
+  </div>
+</div>
+
+<div class="panel-group">
+ <div class="panel panel-success">
+  <div class="panel-heading">
+   <h5 class="panel-title">
+    <a data-toggle="collapse" href="#c3">Análisis de Regresión</a>
+   </h5>
+  </div>
+  <div id="c3" class="panel-collapse collapse">
+   <div class="panel-body">
+Conceptos de modelos lineales
+
+- Análisis de Correlación
+- Regresión Lineal
+- Regresión Lineal Múltiple
+- Diagnósticos de Modelos
+
+   </div>
+   </div>
+  </div>
+</div>
+
+## Bibliografía recomendada
+
+- Montgomery, C. Douglas; Hines W., William. *Probabilidad y estadística para ingeniería y administración*.	Compañía editorial continental S.A. de C.V.-México	1996
+
+- Giesbrecht, Francis G.; Gumpertz, Marcia L.	*Planning, Construction, and Statistical Analysis of Comparative Experiments*.	John Wiley & sons, Inc.	2004
+
+- Montgomery, C. Douglas. *Applied Statistics and Probability for Engineers*. John Wiley & sons, Inc.	2014
+
+- Dean, A. Voss, D. Draguli&#263;, D. *Design and Analysis of Experiment*. Springer. 2nd Ed. 2017.
+
+- Lawson, J. *Design and Analysis of Experiment with R*. Chapman & Hall Book, Taylor & Francis Group. 2015.
