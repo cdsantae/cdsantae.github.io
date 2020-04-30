@@ -4541,7 +4541,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
     background-color: transparent;
 }
 .navbar-inverse .navbar-text {
-  color: #dfd7ca;
+  color: #3e3f3a;
 }
 .navbar-inverse .navbar-nav > li > a {
   color: #6b9430;
@@ -5596,22 +5596,22 @@ button.list-group-item-danger.active:focus {
   border-bottom: 1px solid #dfd7ca;
 }
 .panel-default {
-  border-color: #dfd7ca;
+  border-color: #3e3f3a;
 }
 .panel-default > .panel-heading {
-  color: #3e3f3a;
-    background-color: #f8f5f0;
+  color: #ffffff;
+    background-color: #3e3f3a;
     border-color: #dfd7ca;
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #dfd7ca;
 }
 .panel-default > .panel-heading .badge {
-  color: #f8f5f0;
-    background-color: #3e3f3a;
+  color: #3e3f3a;
+    background-color: #ffffff;
 }
 .panel-default > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #dfd7ca;
+  border-bottom-color: #3e3f3a;
 }
 .panel-primary {
   border-color: #325d88;
@@ -6791,5 +6791,5 @@ input:focus,
 .panel-default .panel-heading,
 .panel-default .panel-title,
 .panel-default .panel-footer {
-  color: #98978b;
+  color: #ffffff;
 }

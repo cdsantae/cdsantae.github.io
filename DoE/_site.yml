@@ -4,13 +4,13 @@ navbar:
   title: "Estadística para la Construcción"
   left:
     - text: "Acerca de"
-      href: about.html
+      href: aboutDoE.html
       icon: fa-book-open
     - text: "Introducción"
       icon: fa-chalkboard-teacher
       menu:
         - text: "Descriptiva"
-          href: intro.html
+          href: descrip.html
         - text: "Probabilidad"
           href: prob.html
         - text: "inferencia"
@@ -47,11 +47,11 @@ navbar:
       icon: fa-code
       menu:
         - text: "Instalación"
-          href: installR.html
+          href: Rinstall.html
         - text: "Introducción"
-          href: RIntro.html
+          href: IntroR.html
         - text: "Funciones y Paquetes"
-          href: RFuns.html
+          href: FunsR.html
   right:
     - icon: glyphicon glyphicon-envelope
       href: mailto:cdsanta@unal.edu.co.com

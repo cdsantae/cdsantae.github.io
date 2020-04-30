@@ -1,6 +1,8 @@
 ---
 title: "Métodos Estadísticos Para la Investigación en Construcción"
-output: html_document
+output:
+  html_document:
+    toc: no
 ---
 
 ```{r setup, include=FALSE}

@@ -1,6 +1,8 @@
 ---
 title: "Acerca del Curso"
-output: html_document
+output:
+  html_document:
+    toc: no
 ---
 
 ```{r setup, include=FALSE}
@@ -20,11 +22,11 @@ El estudiante debe tener nociones básicas de estadística, cálculo diferencial
 El curso se desarrollará en tres grandes componentes
 
 <div class="panel-group">
- <div class="panel panel-success">
+ <div class="panel panel-default">
   <div class="panel-heading">
-   <h5 class="panel-title">
+   <h4 class="panel-title">
     <a data-toggle="collapse" href="#c1">Introducción</a>
-   </h5>
+   </h4>
   </div>
   <div id="c1" class="panel-collapse collapse">
    <div class="panel-body">
@@ -45,7 +47,7 @@ Fundamentos básicos de estadística
 </div>
 
 <div class="panel-group">
- <div class="panel panel-success">
+ <div class="panel panel-default">
   <div class="panel-heading">
    <h5 class="panel-title">
     <a data-toggle="collapse" href="#c2">Diseño Experimental</a>
@@ -72,7 +74,7 @@ Análisis estadístico de diseños de experimentos aplicados a la construcción
 </div>
 
 <div class="panel-group">
- <div class="panel panel-success">
+ <div class="panel panel-default">
   <div class="panel-heading">
    <h5 class="panel-title">
     <a data-toggle="collapse" href="#c3">Análisis de Regresión</a>

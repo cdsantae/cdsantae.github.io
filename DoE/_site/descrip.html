@@ -11,7 +11,7 @@
 
 
 
-<title>Métodos Estadísticos Para la Investigación en Construcción</title>
+<title>Introducción a la Estadística</title>
 
 <script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -20,11 +20,106 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -235,6 +330,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -242,6 +400,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -383,67 +551,36 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Métodos Estadísticos Para la Investigación en Construcción</h1>
+<h1 class="title toc-ignore">Introducción a la Estadística</h1>
 
 </div>
 
 
-<div id="descripción-de-la-asignatura" class="section level2">
-<h2>Descripción de la asignatura</h2>
-<p>Un experimento no es más que una prueba o una serie de pruebas. Se realizan en todas las disciplinas científicas y de la ingeniería siendo una parte fundamental del proceso de descubrimiento y aprendizaje. Conducir un experimento o investigación requiere tres etapas, planificación, ejecución y análisis de resultados. En la primera el investigador se plantea: ¿Por qué hacer el estudio?, ¿Qué material quiero usar? y ¿Qué quiero aprender? En esta etapa es donde un diseño de experimentos causa el mayor impacto en la calidad de un trabajo de investigación. La segunda consiste en la parte de ejecución en donde se han determinado las variables de estudio y la última en el análisis de resultados mediante métodos estadísticos.</p>
-<p>El objetivo de un diseño de experimentos es de proveer herramientas que aseguren que una investigación sea capaz de proveer respuestas a nuestras preguntas de manera eficiente y con los recursos disponibles. Las conclusiones que se pueden extraer dependerán de cómo se condujo y por ellos su diseño desempeña un papel principal en la solución del problema.</p>
+<hr>
+<div id="r-markdown" class="section level2">
+<h2>R Markdown</h2>
+<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
+<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">summary</span>(cars)</span></code></pre></div>
+<pre><code>##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00</code></pre>
 </div>
-<div id="metodología" class="section level2">
-<h2>Metodología</h2>
-<p>Clases magistrales que ayuden a entender los diferentes temas que se pretende abordar; conceptos y ejemplos de aplicación.</p>
-<p>Exposición por parte de los alumnos en donde presenten sus trabajos de investigación y como aplicarían un diseño experimental estadístico para dar respuesta a su pregunta de investigación. Además de artículos científicos con ejemplos de aplicación en la construcción.</p>
-</div>
-<div id="software" class="section level2">
-<h2>Software</h2>
-<p>Durante todo el curso se realizarán prácticas con <code>Excel</code> y los software estadísticos <code>R-project</code> y <code>MiniTab</code>. No obstante, se darán herramientas necesarias para que el estudiante aprenda a programar y usar <code>R-project</code> con si IDE <code>RStudio</code>.</p>
-<div id="r-project" class="section level3">
-<h3>R project</h3>
-<p><code>R</code> es un lenguaje y ambiente de alto nivel para el análisis de datos y gráficos. Está altamente relacionado con los lenguajes <code>S</code> y <code>Scheme</code>. Es un lenguaje de programación interpretado, de <strong>distribución libre</strong>, bajo licencia GNU, que puede correr en distintas plataformas Linux, Windows, MacOS e incluso PlayStation 3.</p>
-<blockquote>
-<p>Chambers &amp; Hastie (1991)<br> <cite>“Buscamos que los usuarios puedan iniciar en un entorno interactivo, en el que no se vean, conscientemente, a ellos mismos como programadores. Conforme sus necesidades sean más claras y su complejidad se incremente, deberían gradualmente poder profundizar en la programación, es cuando los aspectos del lenguaje y el sistema se vuelven más importantes.”</cite></p>
-</blockquote>
-<p>En este sentido <code>R</code> no es un sistema estadístico, sino un ambiente en el que se aplican técnicas estadísticas. Es por esto que el software va de la mando del entendimiento de la teoría y técnicas estadísticas.</p>
-<blockquote>
-<p>El Software recibe instrucciones y entrega resultados basados en las instrucciones. ¿Si el resultado no es el deseado, es culpa del software?</p>
-</blockquote>
-</div>
-<div id="instalación-del-software" class="section level3">
-<h3>Instalación del software</h3>
-<ol style="list-style-type: decimal">
-<li><p>Descargar <a href="https://cloud.r-project.org/">R-Project</a></p></li>
-<li><p>Descargar <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a></p></li>
-</ol>
-</div>
-<div id="minitab" class="section level3">
-<h3>MiniTab</h3>
-<p>Es un software estadístico diseñado para ingenieros, con el fin de proveer soluciones y análisis estadísticos con un entorno amigable sin la necesidad de conocimiento experto. El software hacer parte de la empresa <em>Minitab®</em> y cuenta con planes de licencias de acuerdo al entorno de uso.</p>
-<p>Tiene una versión gratuita de 30 días que pueden consultar <a href="https://www.minitab.com/es-mx/products/minitab/free-trial/">Aquí</a></p>
-</div>
-</div>
-<div id="docentes" class="section level2">
-<h2>Docentes</h2>
-<p>El curso contará con dos docentes con experiencia en diseños de experimentos y análisis estadísticos enfocados a la investigación en construcción.</p>
-<div id="cristian-santa" class="section level3">
-<h3>Cristian Santa</h3>
-<p>Estadístico con diez años de experiencia en análisis y clasificación de datos, planificación de diseños experimentales, muestreo de poblaciones, modelación estadística, Data Science, Big Data, Machine Learning, Deep Learning y programación avanzada en R-project.</p>
-<p>Magíster en Ciencias Estadísticas de la Universidad Nacional sede Medellín y director de ingeniería y diseño de la empresa Ingedata Consulting S.A.S. Mis años de experiencia como consultor y docente en estadística me ha permitido avanzar en conocimientos de otras áreas para construir equipos de investigación multidisciplinarios, a la vez que mantengo actualizado con los avances de la Ciencia, Tecnología, e Innovación asociadas a la estadística.</p>
-</div>
-<div id="yhan-paul-arias" class="section level3">
-<h3>Yhan Paul Arias</h3>
-</div>
-<div id="contacto" class="section level3">
-<h3>Contacto</h3>
-<p><strong>e-mail:</strong> <a href="mailto:cdsanta@unal.edu.co" class="email">cdsanta@unal.edu.co</a><br> Para enviar correos se solicita anteponer en el asunto <strong>[DoE]</strong>.</p>
-</div>
+<div id="including-plots" class="section level2">
+<h2>Including Plots</h2>
+<p>You can also embed plots, for example:</p>
+<p><img src="descrip_files/figure-html/pressure-1.png" width="672" /></p>
+<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -476,6 +613,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
