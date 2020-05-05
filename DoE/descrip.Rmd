@@ -391,7 +391,7 @@ Se recomienda construir una tabla para la identificación de variables de la sig
 | TempAmb | Temperatura Ambiente | Continua | Intervalo | °C | Termómetro M120 | 1 °C | Anaheim Scientific | $0.45 Millones |
 | TempConc | Temperatura del Concreto | Continua | Intervalo | °C | Dual Laser 42512 | 1% | CE | $3.6 Millones |
 | AC | Relación Agua-Cemento | Contínua | Razón | l/kg | OHAUS Defender 2000 | 0.1 Kg | NTC 2031 | $100 |
-| Dias | Edad del concreto | Discreta | Razón | N/A | N/A | N/A | N/A | $100 |
+| Dias | Edad del concreto | Discreta | Razón | dia | N/A | N/A | N/A | $100 |
 | Cilindro | Tipo de cilindro según dimensión | Cualitativa | Nominal | N/A | N/A | N/A | N/A | $100 |
 | ResCon | Resistencia del Concreto | Continua | Razón | kN | Automax Multitest | 0.05% | N/A | $120 Millones |
 
@@ -844,7 +844,7 @@ Concrete <- janitor::clean_names(MAVE::Concrete)
 DT::datatable(Concrete,rownames = F,
               options = list(initComplete = DT::JS(
         "function(settings, json) {",
-        "$(this.api().table().header()).css({'font-size': '50%'});",
+        "$(this.api().table().container()).css({'font-size': '70%'});",
         "}")))
 ```
 
@@ -1212,9 +1212,9 @@ La moda es el valor que se presenta con mayor frecuencia en un conjunto de datos
 
 ```{r, echo=TRUE}
 # Se corre inicialmente la función Moda para crearla
-Moda <- function(x) {
-    keys <- na.omit(unique(x))
-    keys[which.max(tabulate(match(x, keys)))]
+Moda <- function(x){
+  d <- density(x)
+  d$x[which.max(d$y)]
 }
 
 ## Se calcular la moda de cada conjunto de datos

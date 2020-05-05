@@ -11,7 +11,7 @@
 
 
 
-<title>Métodos Estadísticos Para la Investigación en Construcción</title>
+<title>Instalación de R</title>
 
 <script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -20,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
@@ -235,6 +238,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -242,6 +308,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -383,70 +459,78 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Métodos Estadísticos Para la Investigación en Construcción</h1>
+<h1 class="title toc-ignore">Instalación de R</h1>
 
 </div>
 
 
-<div id="descripción-de-la-asignatura" class="section level2">
-<h2>Descripción de la asignatura</h2>
-<p>Un experimento no es más que una prueba o una serie de pruebas. Se realizan en todas las disciplinas científicas y de la ingeniería siendo una parte fundamental del proceso de descubrimiento y aprendizaje. Conducir un experimento o investigación requiere tres etapas, planificación, ejecución y análisis de resultados. En la primera el investigador se plantea: ¿Por qué hacer el estudio?, ¿Qué material quiero usar? y ¿Qué quiero aprender? En esta etapa es donde un diseño de experimentos causa el mayor impacto en la calidad de un trabajo de investigación. La segunda consiste en la parte de ejecución en donde se han determinado las variables de estudio y la última en el análisis de resultados mediante métodos estadísticos.</p>
-<p>El objetivo de un diseño de experimentos es de proveer herramientas que aseguren que una investigación sea capaz de proveer respuestas a nuestras preguntas de manera eficiente y con los recursos disponibles. Las conclusiones que se pueden extraer dependerán de cómo se condujo y por ellos su diseño desempeña un papel principal en la solución del problema.</p>
-</div>
-<div id="metodología" class="section level2">
-<h2>Metodología</h2>
-<p>Clases magistrales que ayuden a entender los diferentes temas que se pretende abordar; conceptos y ejemplos de aplicación.</p>
-<p>Exposición por parte de los alumnos en donde presenten sus trabajos de investigación y como aplicarían un diseño experimental estadístico para dar respuesta a su pregunta de investigación. Además de artículos científicos con ejemplos de aplicación en la construcción.</p>
-</div>
-<div id="software" class="section level2">
-<h2>Software</h2>
-<p>Durante todo el curso se realizarán prácticas con <code>Excel</code> y los software estadísticos <code>R-project</code> y <code>MiniTab</code>. No obstante, se darán herramientas necesarias para que el estudiante aprenda a programar y usar <code>R-project</code> con si IDE <code>RStudio</code>.</p>
-<div id="r-project" class="section level3">
-<h3>R project</h3>
-<p><code>R</code> es un lenguaje y ambiente de alto nivel para el análisis de datos y gráficos. Está altamente relacionado con los lenguajes <code>S</code> y <code>Scheme</code>. Es un lenguaje de programación interpretado, de <strong>distribución libre</strong>, bajo licencia GNU, que puede correr en distintas plataformas Linux, Windows, MacOS e incluso PlayStation 3.</p>
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p><code>R</code> es un lenguaje y ambiente de alto nivel para el análisis de datos y gráficos. Está altamente relacionado con los lenguajes <code>S</code> y <code>Scheme</code>. Es un lenguaje de programación interpretado, de distribución libre, bajo licencia GNU, que puede correr en distintas plataformas Linux, Windows, MacOS e incluso PlayStation 3.</p>
 <blockquote>
 <p>Chambers &amp; Hastie (1991)<br> <cite>“Buscamos que los usuarios puedan iniciar en un entorno interactivo, en el que no se vean, conscientemente, a ellos mismos como programadores. Conforme sus necesidades sean más claras y su complejidad se incremente, deberían gradualmente poder profundizar en la programación, es cuando los aspectos del lenguaje y el sistema se vuelven más importantes.”</cite></p>
 </blockquote>
-<p>En este sentido <code>R</code> no es un sistema estadístico, sino un ambiente en el que se aplican técnicas estadísticas. Es por esto que el software va de la mano del entendimiento de la teoría y técnicas estadísticas.</p>
+<p>En este sentido <code>R</code> no es un sistema estadístico, sino un ambiente en el que se aplican técnicas estadísticas. Es por esto que el software va de la mando del entendimiento de la teoría y técnicas estadísticas.</p>
 <blockquote>
 <p>El Software recibe instrucciones y entrega resultados basados en las instrucciones. ¿Si el resultado no es el deseado, es culpa del software?</p>
 </blockquote>
+<div id="ventajas-de-r" class="section level3">
+<h3>Ventajas de R</h3>
+<p><code>R</code> es uno de los software con mayor crecimiento en los últimos años, es utilizado principalmente en investigación y academia, sin embargo, el software se está expandiendo rápidamente al mundo empresarial.</p>
+<center>
+<img src="Ranking_Leng.png" title="fig:" alt="Ranking uso de lenguajes" />
+</center>
+<ul>
+<li>Es un software libre, es decir, gratis.</li>
+<li>El usuario se compromete al código ético de no comercializar el software.</li>
+<li>Se puede modificar el código fuente a preferencia del usuario.</li>
+<li>Mantiene constantemente actualizado. (v3.5.3 “Great Truth” 2019/03/11)</li>
+<li>Funciona mediante paquetes que son trabajos colaborativos de la comunidad R. (<a href="https://cran.r-project.org/">CRAN</a>, <a href="https://github.com/trending/r">GitHub</a>, <a href="https://mran.microsoft.com/packages">Microsoft</a>)</li>
+<li>La comunidad es la que ofrece la asistencia técnica. (<a href="https://stackoverflow.com/questions/tagged/r">stackOverflow</a>, <a href="https://cran.r-project.org/doc/FAQ/R-FAQ.html">R FAQ</a>, <a href="http://r.789695.n4.nabble.com/">Nabble</a>, <a href="https://stat.ethz.ch/mailman/listinfo/r-help">R-Help</a>)</li>
+<li>Existen muchos tutoriales, blogs y cursos específicos online. (<a href="https://www.r-bloggers.com/">RBloggers</a>, <a href="https://www.datacamp.com/">DataCamp</a>, <a href="https://es.coursera.org/courses?query=r">Coursera</a>)</li>
+<li>Alguien ya pensó e hizo lo que quisieras hacer.</li>
+</ul>
 </div>
-<div id="instalación-del-software" class="section level3">
-<h3>Instalación del software</h3>
+<div id="desventajas-de-r" class="section level3">
+<h3>Desventajas de R</h3>
+<ul>
+<li>El depende de a memoria RAM.</li>
+<li>Requiere saber de programación para usarlo.</li>
+<li>La actualización de los paquetes depende de los autores.</li>
+<li>No todos los paquetes son de alta calidad. ¡Existen más de 12000 paquetes solo en el CRAN!.</li>
+<li>Tiene problemas con grandes volúmenes de datos.</li>
+</ul>
+<p>Estas desventajas se convierte en oportunidades para los desarrolladores, muchos de estos problemas ya están solucionados, y siguen creciendo las nuevas propuestas.</p>
+</div>
+</div>
+<div id="rstudio" class="section level2">
+<h2>RStudio</h2>
+<p><code>RStudio</code> es un entorno de desarrollo integrado (IDE) para el lenguaje de programación <code>R</code>. Tiene una versión gratuita, más no limitada, que permite tener un entorno de trabajo más organizado y con asistencia básica.</p>
+<center>
+<img src="RStudio_Logos.png" title="fig:" alt="Desarrollos vinculados con RStudio" />
+</center>
+<hr>
+</div>
+<div id="instalación-del-software" class="section level2">
+<h2>Instalación del Software</h2>
 <ol style="list-style-type: decimal">
-<li><p>Descargar <a href="https://cloud.r-project.org/">R-Project</a></p></li>
-<li><p>Descargar <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a></p></li>
+<li>Ingresar a <a href="https://cloud.r-project.org/">R-Project</a> y seleccionar el sistema operativo del equipo</li>
+<li>Para Windows ingresar el link <strong>base</strong> y descargar el Software.</li>
+<li>Abrir el instalador y seguir las instrucciones <strong>Recomendadas</strong>.</li>
+<li>Ingresar a <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a> y dirigirse a la sección <strong>All Installers</strong>.</li>
+<li>Descargar el software de acuerdo al sistema operativo del equipo.</li>
+<li>Abrir el instalador y seguir las instrucciones <strong>Recomendadas</strong>.</li>
 </ol>
-</div>
-<div id="minitab" class="section level3">
-<h3>MiniTab</h3>
-<p>Es un software estadístico diseñado para ingenieros, con el fin de proveer soluciones y análisis estadísticos con un entorno amigable sin la necesidad de conocimiento experto. El software hacer parte de la empresa <em>Minitab®</em> y cuenta con planes de licencias de acuerdo al entorno de uso.</p>
-<p>Tiene una versión gratuita de 30 días que pueden consultar <a href="https://www.minitab.com/es-mx/products/minitab/free-trial/">Aquí</a></p>
-</div>
-</div>
-<div id="docentes" class="section level2">
-<h2>Docentes</h2>
-<p>El curso contará con dos docentes con experiencia en diseños de experimentos y análisis estadísticos enfocados a la investigación en construcción.</p>
-<div id="cristian-santa" class="section level3">
-<h3>Cristian Santa</h3>
-<p>Estadístico con diez años de experiencia en análisis y clasificación de datos, planificación de diseños experimentales, muestreo de poblaciones, modelación estadística, Data Science, Big Data, Machine Learning, Deep Learning y programación avanzada en R-project.</p>
-<p>Magíster en Ciencias Estadísticas de la Universidad Nacional sede Medellín y director de ingeniería y diseño de la empresa Ingedata Consulting S.A.S. Mis años de experiencia como consultor y docente en estadística me ha permitido avanzar en conocimientos de otras áreas para construir equipos de investigación multidisciplinarios, a la vez que mantengo actualizado con los avances de la Ciencia, Tecnología, e Innovación asociadas a la estadística.</p>
-</div>
-<div id="yhan-paul-arias" class="section level3">
-<h3>Yhan Paul Arias</h3>
-<p>Ingeniero de Materiales y MsC en Ingieniería de Materiales y Procesos, con experiencia en desarrollo de tecnologías asociadas al cemento. Profesor asistente de la Escuela de Construcción, Facultad de Arquitectura y Coordinador del Laboratorio de Construcción de la Universidad Nacional de Colombia sede Medellín.</p>
-<p>Mis años de experiencia me han permitido evaluar y desarrollar proyectos de investigación aplicando metodología estadística para el diseño experimental en el sector de la construcción, desde procesos para la estabilización de suelos para vías terciarias en el Cesar, la Guajira y Antioquia hasta empresas de fabricación de materiales como Argos, Corona, Conconcreto y otras de la cadena de suministros de la construcción.</p>
-<p><a href="http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001263986">CvLAC</a></p>
-</div>
-<div id="contacto" class="section level3">
-<h3>Contacto</h3>
-<p><strong>e-mail:</strong> <a href="mailto:cdsanta@unal.edu.co" class="email">cdsanta@unal.edu.co</a><br> Para enviar correos se solicita anteponer en el asunto <strong>[DoE]</strong>.</p>
-</div>
+<blockquote>
+<p>Una vez instalados los dos software, utilizaremos <em>siempre</em> <strong>RStudio</strong></p>
+</blockquote>
+<p>Si tiene dudas en cómo instalar los software puedes apoyarte en tutoriales de <a href="https://www.youtube.com/results?search_query=instalacion+de+R+y+Rstudio">YouTube</a></p>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -479,6 +563,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

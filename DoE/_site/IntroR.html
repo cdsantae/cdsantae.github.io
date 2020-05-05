@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Introducción a R</title>
+
+<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Estadística para la Construcción</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="aboutDoE.html">
+    <span class="fa fa-book-open"></span>
+     
+    Acerca de
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-chalkboard-teacher"></span>
+     
+    Introducción
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="descrip.html">Descriptiva</a>
+    </li>
+    <li>
+      <a href="prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="inferencia.html">inferencia</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-chalkboard-teacher"></span>
+     
+    Diseños
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="anova.html">ANOVA</a>
+    </li>
+    <li>
+      <a href="design1.html">Diseños Aleatorios</a>
+    </li>
+    <li>
+      <a href="blocks.html">Bloques Aleatorios</a>
+    </li>
+    <li>
+      <a href="fact1.html">Factoriales</a>
+    </li>
+    <li>
+      <a href="fact2k.html">2 a la k</a>
+    </li>
+    <li>
+      <a href="fact3k.html">3 a la k</a>
+    </li>
+    <li>
+      <a href="fractional.html">Fraccionados</a>
+    </li>
+    <li>
+      <a href="SurfResp.html">Superficies</a>
+    </li>
+    <li>
+      <a href="sample.html">Muestras</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-chalkboard-teacher"></span>
+     
+    Regresión
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="slm.html">Simple</a>
+    </li>
+    <li>
+      <a href="mlm.html">Múltiple</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    R-Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Rinstall.html">Instalación</a>
+    </li>
+    <li>
+      <a href="IntroR.html">Introducción</a>
+    </li>
+    <li>
+      <a href="FunsR.html">Funciones y Paquetes</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdsanta@unal.edu.co.com">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Introducción a R</h1>
+
+</div>
+
+
+<div id="nivel-de-habilidades-en-r" class="section level3">
+<h3>Nivel de habilidades en R</h3>
+<ul>
+<li><strong>Usuarios:</strong> También conocidos como <em>UseRs</em>, son aquellas personas familiarizadas con el lenguaje <code>R</code>, capaces de utilizar funciones, paquetes y construir gráficos.</li>
+<li><strong>Programadores:</strong> Son aquellos que están en capacidad de construir funciones personalizadas y paquetes básicos para la solución de problemas.</li>
+<li><strong>Desarroladores:</strong> Son aquellos con competencias de alto nivel que pueden construir paquetes complejos e integración con diversas herramientas y lenguajes.</li>
+<li><strong>HackRs:</strong> Son programadores de muy alto nivel, son aquellos que crean nuevas herramientas y aplicaciones que se integran con diversas herramientas, y optimizan el lenguaje.</li>
+</ul>
+</div>
+<div id="algoritmos" class="section level2">
+<h2>Algoritmos</h2>
+<p>Un algoritmo es un conjunto finito de instrucciones llevan a cabo una tarea específica, si se sigue rigurosamente. Tiene las siguientes características:</p>
+<ul>
+<li><strong>Entrada:</strong> Entran cero o más valores.</li>
+<li><strong>Salida:</strong> Por lo menos produce in valor.</li>
+<li><strong>Definido:</strong> Cada instrucción es clara y no ambigua.</li>
+<li><strong>Finito:</strong> El algoritmo termina en un numero finito de pasos.</li>
+<li><strong>Efectivo:</strong> Debe ser llevado a cabo por cualquier persona solo usando lápiz y papel.</li>
+</ul>
+<div id="tipos-de-operaciones" class="section level3">
+<h3>Tipos de operaciones</h3>
+<ol style="list-style-type: decimal">
+<li>Tipos de variables</li>
+</ol>
+<ul>
+<li><strong>Booleano:</strong> Solo toma valores <code>F</code> o <code>T</code> (Falso o Verdadero).</li>
+<li><strong>Numericos:</strong> Entero, Real o Complejo.</li>
+<li><strong>Alfanuméricos:</strong> Carácter o Sarta.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Relaciones de comparación</li>
+</ol>
+<ul>
+<li><strong>&gt;:</strong> mayor qué.</li>
+<li><strong>&gt;=:</strong> mayor o igual qué.</li>
+<li><strong>&lt;:</strong> menor qué.</li>
+<li><strong>&lt;=:</strong> menor o igual qué.</li>
+<li><strong>==:</strong> igual.</li>
+<li><strong>!=:</strong> diferente.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Comparaciones lógicas</li>
+</ol>
+<ul>
+<li><strong>Conjunción:</strong> &amp;, &amp;&amp;</li>
+<li><strong>Disyunción:</strong> |, ||</li>
+<li><strong>Negación:</strong> !</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>Operaciones y precedencia</li>
+</ol>
+<ul>
+<li>Potencia (^).</li>
+<li>Producto (*), división (/), división entera (%/%) y módulo (%%).</li>
+<li>Suma (+) y Diferencia (-).</li>
+<li>Relaciones de comparación.</li>
+<li>Conjunción y Disyunción.</li>
+<li>Negación</li>
+<li>Asignación</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li>Algunas funciones matemáticas</li>
+</ol>
+<ul>
+<li><code>exp()</code> exponencial.</li>
+<li><code>log()</code> logaritmo natural (<span class="math inline">\(Ln\)</span>).</li>
+<li><code>log10()</code> logaritmo base 10.</li>
+<li><code>log2()</code> logaritmo base 2.</li>
+<li><code>logb()</code> logaritmo base b.</li>
+<li><code>sqrt()</code> raíz cuadrada.</li>
+<li><code>abs()</code> valor absoluto.</li>
+</ul>
+<p>Si existen dos operadores con la misma precedencia, se ejecuta de izquierda a derecha, pero toda precedencia se puede modificar con paréntesis.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="dv">2</span><span class="op">*</span><span class="dv">6</span><span class="op">+</span><span class="dv">5</span><span class="op">/</span><span class="dv">6</span><span class="op">^</span><span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] 12.02315</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="dv">2</span><span class="op">*</span>(<span class="dv">6</span><span class="op">+</span><span class="dv">5</span>)<span class="op">/</span><span class="dv">6</span><span class="op">^</span><span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] 0.1018519</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="dv">2</span><span class="op">*</span>(<span class="dv">6</span><span class="op">+</span><span class="dv">5</span><span class="op">/</span><span class="dv">6</span>)<span class="op">^</span><span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] 638.1574</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>(<span class="dv">2</span><span class="op">*</span><span class="dv">6</span><span class="op">+</span><span class="dv">5</span>)<span class="op">/</span><span class="dv">6</span><span class="op">^</span><span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] 0.0787037</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>(<span class="dv">2</span><span class="op">*</span><span class="dv">6</span><span class="op">+</span><span class="dv">5</span><span class="op">/</span><span class="dv">6</span>)<span class="op">^</span><span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] 2113.579</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="dv">2</span><span class="op">*</span><span class="dv">6</span><span class="op">+</span>(<span class="dv">5</span><span class="op">/</span><span class="dv">6</span>)<span class="op">^</span><span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] 12.5787</code></pre>
+</div>
+<div id="estructura-de-asignación" class="section level3">
+<h3>Estructura de asignación</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="op">&lt;</span>variable<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="op">-</span><span class="st"> </span><span class="er">&lt;</span>operación<span class="op">&gt;</span></span></code></pre></div>
+<p>Para comentar el código o una línea específica se utiliza el carácter <code>#</code>, comentar implica que no se ejecuta el código.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Esto es un comentario</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>a &lt;-<span class="st"> &quot;¿Esto es R?&quot;</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>a</span></code></pre></div>
+<pre><code>## [1] &quot;¿Esto es R?&quot;</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>num1 &lt;-<span class="st"> </span><span class="dv">3</span><span class="op">*</span><span class="dv">4</span><span class="op">^</span><span class="dv">2</span><span class="op">+</span><span class="kw">sqrt</span>(<span class="dv">5</span>) <span class="co"># Este comentario no evita la evaluación del código</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>num2 &lt;-<span class="st"> </span><span class="kw">log</span>(<span class="dv">20</span>)<span class="op">/</span><span class="kw">abs</span>(<span class="op">-</span><span class="dv">10</span>) <span class="op">%%</span><span class="st"> </span><span class="dv">4</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co"># num3 &lt;- num1^num2</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a></span>
+<span id="cb16-6"><a href="#cb16-6"></a>(operacion1 &lt;-<span class="st"> </span>num1 <span class="op">+</span><span class="st"> </span>num2)</span></code></pre></div>
+<pre><code>## [1] 51.73393</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>(operacion2 &lt;-<span class="st"> </span>num1 <span class="op">==</span><span class="st"> </span>num2)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>(operacion3 &lt;-<span class="st"> </span>num1 <span class="op">/</span><span class="st"> </span>num2)</span></code></pre></div>
+<pre><code>## [1] 33.53842</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>(operacion4 &lt;-<span class="st"> </span>num1 <span class="op">&gt;</span><span class="st"> </span>num2)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+</div>
+<div id="funciones-útiles-en-r" class="section level2">
+<h2>Funciones útiles en R</h2>
+<ul>
+<li><code>str()</code>: muestra la estructura interna de cualquier objeto.</li>
+<li><code>names()</code>: muestra los nombres de los elementos de un objeto.</li>
+<li><code>class()</code>: clase interna de un objeto R.</li>
+<li><code>mode()</code> y <code>typeof()</code>: tipo de almacenamiento.</li>
+<li><code>print()</code>: imprimir en consola cualquier objeto.</li>
+<li><code>help()</code>: sistema de ayuda en R</li>
+<li><code>lenght()</code>: dimensión de vectores o listas.</li>
+<li><code>dim()</code>: dimensión de arreglos o matrices.</li>
+<li><code>ls()</code>: lista de objetos guardados en memoria.</li>
+<li><code>rm()</code>: remover objetos almacenados.</li>
+<li><code>attach()</code>: guarda en la memoria los nombres de las variables de una base de datos para llamarlas directamente.</li>
+<li><code>detach()</code>: elimina de la memoria los nombres de las variables de una base de datos.</li>
+<li><code>sessionInfo()</code>: información del R y paquetes cargados.</li>
+</ul>
+</div>
+<div id="tipo-y-clases-atómicos" class="section level2">
+<h2>Tipo y clases atómicos</h2>
+<ul>
+<li>Numéricos (<code>numeric</code>)</li>
+<li>Enteros (<code>integer</code>)</li>
+<li>Complejos (<code>complex</code>)</li>
+<li>lógicos (<code>logical</code>)</li>
+<li>Carácter (<code>character</code>)</li>
+<li>Factor (<code>factor</code>)</li>
+<li>Valor ausente (<code>NA</code>)</li>
+<li>valor no definido (<code>NaN</code>)</li>
+<li>Vectores (<code>vector</code>)</li>
+<li>Matrices (<code>matrix</code>)</li>
+<li>Arreglo (<code>array</code>)</li>
+<li>Listas (<code>list</code>)</li>
+<li>Base de datos (<code>data.frame</code>)</li>
+</ul>
+<div id="ejemplo" class="section level3">
+<h3>Ejemplo</h3>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Numéricos</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>x &lt;-<span class="st"> </span><span class="fl">10.5</span>      <span class="co"># Asigna un número con punto decimal.</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>x              <span class="co"># Muestra el contenido del objeto x.</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="kw">class</span>(x)       <span class="co"># Muestra la clase del objeto x.</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="kw">typeof</span>(x)      <span class="co"># Tipo genérico interno del R.</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="kw">storage.mode</span>(x) <span class="co"># Modo de almacenamientos específico para exportar de R.</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a></span>
+<span id="cb24-8"><a href="#cb24-8"></a>y &lt;-<span class="st"> </span><span class="dv">10</span>        <span class="co"># En general los números son reales.</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a>y</span>
+<span id="cb24-10"><a href="#cb24-10"></a><span class="kw">class</span>(y)</span>
+<span id="cb24-11"><a href="#cb24-11"></a><span class="kw">typeof</span>(y)</span>
+<span id="cb24-12"><a href="#cb24-12"></a><span class="kw">storage.mode</span>(y)</span>
+<span id="cb24-13"><a href="#cb24-13"></a><span class="kw">is.integer</span>(y)</span>
+<span id="cb24-14"><a href="#cb24-14"></a></span>
+<span id="cb24-15"><a href="#cb24-15"></a><span class="co"># Enteros</span></span>
+<span id="cb24-16"><a href="#cb24-16"></a>y &lt;-<span class="st"> </span><span class="kw">as.integer</span>(<span class="dv">3</span>) </span>
+<span id="cb24-17"><a href="#cb24-17"></a>y              </span>
+<span id="cb24-18"><a href="#cb24-18"></a><span class="kw">class</span>(y)  </span>
+<span id="cb24-19"><a href="#cb24-19"></a><span class="kw">typeof</span>(y)</span>
+<span id="cb24-20"><a href="#cb24-20"></a><span class="kw">storage.mode</span>(y)</span>
+<span id="cb24-21"><a href="#cb24-21"></a></span>
+<span id="cb24-22"><a href="#cb24-22"></a>w &lt;-<span class="st"> </span>4L</span>
+<span id="cb24-23"><a href="#cb24-23"></a>w              </span>
+<span id="cb24-24"><a href="#cb24-24"></a><span class="kw">class</span>(w)  </span>
+<span id="cb24-25"><a href="#cb24-25"></a><span class="kw">typeof</span>(w)</span>
+<span id="cb24-26"><a href="#cb24-26"></a><span class="kw">storage.mode</span>(w)</span>
+<span id="cb24-27"><a href="#cb24-27"></a></span>
+<span id="cb24-28"><a href="#cb24-28"></a><span class="co"># verificación y coerción</span></span>
+<span id="cb24-29"><a href="#cb24-29"></a><span class="kw">is.integer</span>(y)  </span>
+<span id="cb24-30"><a href="#cb24-30"></a><span class="kw">as.integer</span>(<span class="fl">3.14</span>)</span>
+<span id="cb24-31"><a href="#cb24-31"></a><span class="kw">as.integer</span>(<span class="st">&quot;5.27&quot;</span>)</span>
+<span id="cb24-32"><a href="#cb24-32"></a><span class="kw">as.integer</span>(<span class="st">&quot;Joe&quot;</span>)</span>
+<span id="cb24-33"><a href="#cb24-33"></a><span class="kw">as.integer</span>(<span class="ot">TRUE</span>)</span>
+<span id="cb24-34"><a href="#cb24-34"></a><span class="kw">as.integer</span>(<span class="ot">FALSE</span>)</span>
+<span id="cb24-35"><a href="#cb24-35"></a></span>
+<span id="cb24-36"><a href="#cb24-36"></a><span class="co"># Complejos</span></span>
+<span id="cb24-37"><a href="#cb24-37"></a>z &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>2i </span>
+<span id="cb24-38"><a href="#cb24-38"></a>z          </span>
+<span id="cb24-39"><a href="#cb24-39"></a><span class="kw">class</span>(z)   </span>
+<span id="cb24-40"><a href="#cb24-40"></a><span class="kw">typeof</span>(z)</span>
+<span id="cb24-41"><a href="#cb24-41"></a></span>
+<span id="cb24-42"><a href="#cb24-42"></a><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">4</span>) </span>
+<span id="cb24-43"><a href="#cb24-43"></a><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">4</span><span class="op">+</span>0i)</span>
+<span id="cb24-44"><a href="#cb24-44"></a><span class="kw">sqrt</span>(<span class="kw">as.complex</span>(<span class="op">-</span><span class="dv">4</span>)) </span>
+<span id="cb24-45"><a href="#cb24-45"></a></span>
+<span id="cb24-46"><a href="#cb24-46"></a><span class="co"># Lógicos (booleanos)</span></span>
+<span id="cb24-47"><a href="#cb24-47"></a>x &lt;-<span class="st"> </span><span class="dv">1</span>; y &lt;-<span class="st"> </span><span class="dv">2</span>   </span>
+<span id="cb24-48"><a href="#cb24-48"></a>z &lt;-<span class="st"> </span>x <span class="op">&gt;</span><span class="st"> </span>y      </span>
+<span id="cb24-49"><a href="#cb24-49"></a>z</span>
+<span id="cb24-50"><a href="#cb24-50"></a><span class="kw">class</span>(z)</span>
+<span id="cb24-51"><a href="#cb24-51"></a><span class="kw">typeof</span>(z)</span>
+<span id="cb24-52"><a href="#cb24-52"></a></span>
+<span id="cb24-53"><a href="#cb24-53"></a>u &lt;-<span class="st"> </span><span class="ot">TRUE</span>; v &lt;-<span class="st"> </span><span class="ot">FALSE</span> </span>
+<span id="cb24-54"><a href="#cb24-54"></a>u <span class="op">&amp;</span><span class="st"> </span>v</span>
+<span id="cb24-55"><a href="#cb24-55"></a>u <span class="op">|</span><span class="st"> </span>v</span>
+<span id="cb24-56"><a href="#cb24-56"></a><span class="op">!</span>u</span>
+<span id="cb24-57"><a href="#cb24-57"></a><span class="kw">help</span>(<span class="st">&quot;&amp;&quot;</span>)</span>
+<span id="cb24-58"><a href="#cb24-58"></a></span>
+<span id="cb24-59"><a href="#cb24-59"></a><span class="co"># verificación y remoción en memoria</span></span>
+<span id="cb24-60"><a href="#cb24-60"></a><span class="kw">ls</span>()</span>
+<span id="cb24-61"><a href="#cb24-61"></a><span class="kw">rm</span>(z)</span>
+<span id="cb24-62"><a href="#cb24-62"></a><span class="kw">ls</span>()</span>
+<span id="cb24-63"><a href="#cb24-63"></a><span class="kw">rm</span>(x,w)</span>
+<span id="cb24-64"><a href="#cb24-64"></a><span class="kw">ls</span>()</span></code></pre></div>
+</div>
+</div>
+<div id="vectores-y-matrices" class="section level2">
+<h2>Vectores y matrices</h2>
+<ul>
+<li><code>c()</code>: concatenar valores.</li>
+<li><code>matrix()</code>: construir matrices.</li>
+<li><code>array()</code>: construir arreglos multidimensionales.</li>
+<li><code>list()</code>: construir una lista de objetos.</li>
+<li><code>vector()</code>: contruir objetos vacíos.</li>
+<li><code>cbind()</code>: combinar matrices por columna.</li>
+<li><code>rbind()</code>: combinar matrices por fila.</li>
+</ul>
+<div id="operaciones-con-vectores-y-matrices" class="section level3">
+<h3>Operaciones con vectores y matrices</h3>
+<ul>
+<li>Suma vectorial y matricial uno a uno (<code>+</code>,<code>-</code>)</li>
+<li>Multiplicación y división uno a uno (<code>*</code>, <code>/</code>)</li>
+<li>Producto punto o producto entre matrices (<code>%*%</code>)</li>
+<li>Producto exterior(<code>%o%</code>)</li>
+<li>Produto Kronecker o tensor (<code>%x%</code>)</li>
+<li><code>t()</code>: Transpuesta de una matriz</li>
+<li><code>solve()</code>: inversa de una matriz</li>
+<li><code>solve(m,n)</code>: solución lineal <code>m*x=n</code></li>
+<li><code>diag()</code>: construir matrices diagonales</li>
+<li><code>colSums()</code>: suma las columnas de una matriz</li>
+<li><code>rowSums()</code>: suma las filas de una matriz</li>
+<li><code>colMeans()</code>: promedio de las columnas de una matriz</li>
+<li><code>rowMeans()</code>: promedio de las filas de una matriz</li>
+<li><code>ncol()</code>: número de columnas de una matriz o <code>data.frame</code></li>
+<li><code>nrow()</code>: numero de filas de una matriz o <code>data.frame</code></li>
+</ul>
+</div>
+<div id="coerción-de-objetos" class="section level3">
+<h3>Coerción de objetos</h3>
+<p>En algunas ocasiones se tiene mezclas de tipos de datos en una matriz o vector, o cambiar el objeto de un tipo a otro. Este tipo de cambios se puede realizar si redefinir el objeto, simplemente coercionando los valores a lo que se necesita.</p>
+<ul>
+<li><code>as.numeric()</code>: convertir todo a número</li>
+<li><code>as.integer()</code>: convertir todo a entero</li>
+<li><code>as.character()</code>: convertir todo a caracter/sarta</li>
+<li><code>as.factor()</code>: convertir todo a un factor</li>
+<li><code>as.matrix()</code>: convertir elementos a una matriz</li>
+<li><code>as.list()</code>: convertir elementos a lista</li>
+<li><code>as.data.frame()</code>: convertir elementos a un <code>data.frame</code></li>
+</ul>
+</div>
+<div id="ejemplos-vectores-matrices" class="section level3">
+<h3>Ejemplos vectores &amp; matrices</h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Vectores</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>v1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="kw">class</span>(v1)</span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="kw">typeof</span>(v1)</span>
+<span id="cb25-5"><a href="#cb25-5"></a></span>
+<span id="cb25-6"><a href="#cb25-6"></a>v2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>) </span>
+<span id="cb25-7"><a href="#cb25-7"></a><span class="kw">class</span>(v2)</span>
+<span id="cb25-8"><a href="#cb25-8"></a><span class="kw">typeof</span>(v2)</span>
+<span id="cb25-9"><a href="#cb25-9"></a></span>
+<span id="cb25-10"><a href="#cb25-10"></a>v3 &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>, <span class="st">&quot;dd&quot;</span>, <span class="st">&quot;ee&quot;</span>) </span>
+<span id="cb25-11"><a href="#cb25-11"></a><span class="kw">class</span>(v3)</span>
+<span id="cb25-12"><a href="#cb25-12"></a><span class="kw">typeof</span>(v3)</span>
+<span id="cb25-13"><a href="#cb25-13"></a></span>
+<span id="cb25-14"><a href="#cb25-14"></a>n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </span>
+<span id="cb25-15"><a href="#cb25-15"></a>s &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>, <span class="st">&quot;dd&quot;</span>, <span class="st">&quot;ee&quot;</span>) </span>
+<span id="cb25-16"><a href="#cb25-16"></a><span class="kw">c</span>(n, s) </span>
+<span id="cb25-17"><a href="#cb25-17"></a></span>
+<span id="cb25-18"><a href="#cb25-18"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>) </span>
+<span id="cb25-19"><a href="#cb25-19"></a>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>)</span>
+<span id="cb25-20"><a href="#cb25-20"></a></span>
+<span id="cb25-21"><a href="#cb25-21"></a><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>a</span>
+<span id="cb25-22"><a href="#cb25-22"></a>a <span class="op">+</span><span class="st"> </span>b </span>
+<span id="cb25-23"><a href="#cb25-23"></a>a <span class="op">-</span><span class="st"> </span>b </span>
+<span id="cb25-24"><a href="#cb25-24"></a>a <span class="op">*</span><span class="st"> </span>b </span>
+<span id="cb25-25"><a href="#cb25-25"></a>a <span class="op">/</span><span class="st"> </span>b</span>
+<span id="cb25-26"><a href="#cb25-26"></a></span>
+<span id="cb25-27"><a href="#cb25-27"></a>u &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>) </span>
+<span id="cb25-28"><a href="#cb25-28"></a>v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>) </span>
+<span id="cb25-29"><a href="#cb25-29"></a>u <span class="op">+</span><span class="st"> </span>v</span>
+<span id="cb25-30"><a href="#cb25-30"></a></span>
+<span id="cb25-31"><a href="#cb25-31"></a>s &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>, <span class="st">&quot;dd&quot;</span>, <span class="st">&quot;ee&quot;</span>) </span>
+<span id="cb25-32"><a href="#cb25-32"></a>s[<span class="dv">3</span>]</span>
+<span id="cb25-33"><a href="#cb25-33"></a>s[<span class="op">-</span><span class="dv">3</span>] </span>
+<span id="cb25-34"><a href="#cb25-34"></a>s[<span class="dv">10</span>]</span>
+<span id="cb25-35"><a href="#cb25-35"></a>s[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)]</span>
+<span id="cb25-36"><a href="#cb25-36"></a>s[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>)]</span>
+<span id="cb25-37"><a href="#cb25-37"></a>s[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)] </span>
+<span id="cb25-38"><a href="#cb25-38"></a>s[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]</span>
+<span id="cb25-39"><a href="#cb25-39"></a></span>
+<span id="cb25-40"><a href="#cb25-40"></a><span class="kw">help</span>(<span class="st">&quot;:&quot;</span>)</span>
+<span id="cb25-41"><a href="#cb25-41"></a></span>
+<span id="cb25-42"><a href="#cb25-42"></a>L &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>) </span>
+<span id="cb25-43"><a href="#cb25-43"></a>s[L] </span>
+<span id="cb25-44"><a href="#cb25-44"></a>s[<span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)] </span>
+<span id="cb25-45"><a href="#cb25-45"></a></span>
+<span id="cb25-46"><a href="#cb25-46"></a>v &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ramiro&quot;</span>, <span class="st">&quot;Gladys&quot;</span>) </span>
+<span id="cb25-47"><a href="#cb25-47"></a>v </span>
+<span id="cb25-48"><a href="#cb25-48"></a><span class="kw">names</span>(v) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Primera&quot;</span>, <span class="st">&quot;Última&quot;</span>) </span>
+<span id="cb25-49"><a href="#cb25-49"></a>v</span>
+<span id="cb25-50"><a href="#cb25-50"></a>v[<span class="st">&quot;Primera&quot;</span>]</span>
+<span id="cb25-51"><a href="#cb25-51"></a>v[<span class="kw">c</span>(<span class="st">&quot;Última&quot;</span>, <span class="st">&quot;Primera&quot;</span>)]</span>
+<span id="cb25-52"><a href="#cb25-52"></a></span>
+<span id="cb25-53"><a href="#cb25-53"></a><span class="co"># Funciones útiles con vectores</span></span>
+<span id="cb25-54"><a href="#cb25-54"></a><span class="kw">length</span>(v)</span>
+<span id="cb25-55"><a href="#cb25-55"></a></span>
+<span id="cb25-56"><a href="#cb25-56"></a><span class="co"># Factores</span></span>
+<span id="cb25-57"><a href="#cb25-57"></a>colores &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;verde&#39;</span>,<span class="st">&#39;verde&#39;</span>,<span class="st">&#39;amarillo&#39;</span>,<span class="st">&#39;rojo&#39;</span>,<span class="st">&#39;rojo&#39;</span>,<span class="st">&#39;rojo&#39;</span>,<span class="st">&#39;verde&#39;</span>)</span>
+<span id="cb25-58"><a href="#cb25-58"></a><span class="kw">class</span>(colores)</span>
+<span id="cb25-59"><a href="#cb25-59"></a><span class="kw">typeof</span>(colores)</span>
+<span id="cb25-60"><a href="#cb25-60"></a></span>
+<span id="cb25-61"><a href="#cb25-61"></a>factor_colores &lt;-<span class="st"> </span><span class="kw">factor</span>(colores)</span>
+<span id="cb25-62"><a href="#cb25-62"></a><span class="kw">print</span>(factor_colores)</span>
+<span id="cb25-63"><a href="#cb25-63"></a><span class="kw">print</span>(<span class="kw">levels</span>(factor_colores))</span>
+<span id="cb25-64"><a href="#cb25-64"></a><span class="kw">print</span>(<span class="kw">nlevels</span>(factor_colores))</span>
+<span id="cb25-65"><a href="#cb25-65"></a></span>
+<span id="cb25-66"><a href="#cb25-66"></a><span class="kw">class</span>(factor_colores)</span>
+<span id="cb25-67"><a href="#cb25-67"></a><span class="kw">typeof</span>(factor_colores)</span>
+<span id="cb25-68"><a href="#cb25-68"></a></span>
+<span id="cb25-69"><a href="#cb25-69"></a>meses &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>)</span>
+<span id="cb25-70"><a href="#cb25-70"></a>meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses)</span>
+<span id="cb25-71"><a href="#cb25-71"></a>meses</span>
+<span id="cb25-72"><a href="#cb25-72"></a><span class="kw">as.integer</span>(meses)</span>
+<span id="cb25-73"><a href="#cb25-73"></a></span>
+<span id="cb25-74"><a href="#cb25-74"></a>meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>))</span>
+<span id="cb25-75"><a href="#cb25-75"></a>meses</span>
+<span id="cb25-76"><a href="#cb25-76"></a><span class="kw">as.integer</span>(meses)</span>
+<span id="cb25-77"><a href="#cb25-77"></a></span>
+<span id="cb25-78"><a href="#cb25-78"></a>meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses, <span class="dt">labels  =</span> <span class="kw">c</span>(<span class="st">&quot;Enero&quot;</span>, <span class="st">&quot;Febrero&quot;</span>, <span class="st">&quot;Abril&quot;</span>))</span>
+<span id="cb25-79"><a href="#cb25-79"></a>meses</span>
+<span id="cb25-80"><a href="#cb25-80"></a><span class="kw">as.integer</span>(meses)</span>
+<span id="cb25-81"><a href="#cb25-81"></a></span>
+<span id="cb25-82"><a href="#cb25-82"></a><span class="co"># ¿Porqué este código es un problema?</span></span>
+<span id="cb25-83"><a href="#cb25-83"></a>meses &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>)</span>
+<span id="cb25-84"><a href="#cb25-84"></a>meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Enero&quot;</span>, <span class="st">&quot;Febrero&quot;</span>, <span class="st">&quot;Abril&quot;</span>))</span>
+<span id="cb25-85"><a href="#cb25-85"></a>meses</span>
+<span id="cb25-86"><a href="#cb25-86"></a><span class="kw">as.integer</span>(meses)</span>
+<span id="cb25-87"><a href="#cb25-87"></a></span>
+<span id="cb25-88"><a href="#cb25-88"></a><span class="co"># Una mejor forma</span></span>
+<span id="cb25-89"><a href="#cb25-89"></a>meses &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>, <span class="st">&quot;abril&quot;</span>)</span>
+<span id="cb25-90"><a href="#cb25-90"></a>meses &lt;-<span class="st"> </span><span class="kw">factor</span>(meses, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;enero&quot;</span>, <span class="st">&quot;febrero&quot;</span>, <span class="st">&quot;abril&quot;</span>),</span>
+<span id="cb25-91"><a href="#cb25-91"></a>                <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Enero&quot;</span>, <span class="st">&quot;Febrero&quot;</span>, <span class="st">&quot;Abril&quot;</span>))</span>
+<span id="cb25-92"><a href="#cb25-92"></a>meses</span>
+<span id="cb25-93"><a href="#cb25-93"></a><span class="kw">as.integer</span>(meses)</span>
+<span id="cb25-94"><a href="#cb25-94"></a></span>
+<span id="cb25-95"><a href="#cb25-95"></a><span class="co"># Matrices</span></span>
+<span id="cb25-96"><a href="#cb25-96"></a>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)        </span>
+<span id="cb25-97"><a href="#cb25-97"></a>A</span>
+<span id="cb25-98"><a href="#cb25-98"></a>A[<span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb25-99"><a href="#cb25-99"></a>A[<span class="dv">2</span>, ] </span>
+<span id="cb25-100"><a href="#cb25-100"></a>A[, <span class="dv">3</span>]</span>
+<span id="cb25-101"><a href="#cb25-101"></a><span class="kw">dimnames</span>(A) =<span class="st"> </span><span class="kw">list</span>( </span>
+<span id="cb25-102"><a href="#cb25-102"></a>     <span class="kw">c</span>(<span class="st">&quot;fila1&quot;</span>, <span class="st">&quot;fila2&quot;</span>),        </span>
+<span id="cb25-103"><a href="#cb25-103"></a>     <span class="kw">c</span>(<span class="st">&quot;col1&quot;</span>, <span class="st">&quot;col2&quot;</span>, <span class="st">&quot;col3&quot;</span>))</span>
+<span id="cb25-104"><a href="#cb25-104"></a>A</span>
+<span id="cb25-105"><a href="#cb25-105"></a>A[<span class="st">&quot;fila2&quot;</span>,<span class="st">&quot;col3&quot;</span>]</span>
+<span id="cb25-106"><a href="#cb25-106"></a></span>
+<span id="cb25-107"><a href="#cb25-107"></a>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">2</span>) </span>
+<span id="cb25-108"><a href="#cb25-108"></a>B</span>
+<span id="cb25-109"><a href="#cb25-109"></a><span class="kw">t</span>(B)</span>
+<span id="cb25-110"><a href="#cb25-110"></a></span>
+<span id="cb25-111"><a href="#cb25-111"></a>C &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">1</span>) </span>
+<span id="cb25-112"><a href="#cb25-112"></a>C </span>
+<span id="cb25-113"><a href="#cb25-113"></a><span class="kw">cbind</span>(B, C)</span>
+<span id="cb25-114"><a href="#cb25-114"></a></span>
+<span id="cb25-115"><a href="#cb25-115"></a>D &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">6</span>, <span class="dv">2</span>), <span class="dt">nrow=</span><span class="dv">1</span>,  <span class="dt">ncol=</span><span class="dv">2</span>) </span>
+<span id="cb25-116"><a href="#cb25-116"></a>D </span>
+<span id="cb25-117"><a href="#cb25-117"></a><span class="kw">rbind</span>(B, D) </span>
+<span id="cb25-118"><a href="#cb25-118"></a><span class="kw">c</span>(B) </span>
+<span id="cb25-119"><a href="#cb25-119"></a></span>
+<span id="cb25-120"><a href="#cb25-120"></a>A<span class="op">*</span>B</span>
+<span id="cb25-121"><a href="#cb25-121"></a>A<span class="op">*</span><span class="dv">5</span></span>
+<span id="cb25-122"><a href="#cb25-122"></a>B<span class="op">%*%</span>C</span>
+<span id="cb25-123"><a href="#cb25-123"></a><span class="kw">t</span>(B)<span class="op">%*%</span>C</span>
+<span id="cb25-124"><a href="#cb25-124"></a><span class="kw">solve</span>(<span class="kw">cbind</span>(B,C))</span>
+<span id="cb25-125"><a href="#cb25-125"></a><span class="kw">cbind</span>(B,C)<span class="op">%*%</span><span class="kw">solve</span>(<span class="kw">cbind</span>(B,C))</span>
+<span id="cb25-126"><a href="#cb25-126"></a>A<span class="op">%o%</span>B</span>
+<span id="cb25-127"><a href="#cb25-127"></a>A<span class="op">%x%</span>B</span>
+<span id="cb25-128"><a href="#cb25-128"></a>B<span class="op">%o%</span>A</span>
+<span id="cb25-129"><a href="#cb25-129"></a>B<span class="op">%x%</span>A</span>
+<span id="cb25-130"><a href="#cb25-130"></a></span>
+<span id="cb25-131"><a href="#cb25-131"></a><span class="co"># Listas</span></span>
+<span id="cb25-132"><a href="#cb25-132"></a>n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </span>
+<span id="cb25-133"><a href="#cb25-133"></a>s &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>, <span class="st">&quot;dd&quot;</span>, <span class="st">&quot;ee&quot;</span>) </span>
+<span id="cb25-134"><a href="#cb25-134"></a>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>) </span>
+<span id="cb25-135"><a href="#cb25-135"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(n, s, b, <span class="dv">3</span>)</span>
+<span id="cb25-136"><a href="#cb25-136"></a> </span>
+<span id="cb25-137"><a href="#cb25-137"></a>x[<span class="dv">2</span>]</span>
+<span id="cb25-138"><a href="#cb25-138"></a>x[<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>)]</span>
+<span id="cb25-139"><a href="#cb25-139"></a>x[[<span class="dv">2</span>]]</span>
+<span id="cb25-140"><a href="#cb25-140"></a>x[[<span class="dv">2</span>]] &lt;-<span class="st"> &quot;ta&quot;</span></span>
+<span id="cb25-141"><a href="#cb25-141"></a>x</span>
+<span id="cb25-142"><a href="#cb25-142"></a>s</span>
+<span id="cb25-143"><a href="#cb25-143"></a>v &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">numeros=</span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>), <span class="dt">nombres=</span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>)) </span>
+<span id="cb25-144"><a href="#cb25-144"></a>v </span>
+<span id="cb25-145"><a href="#cb25-145"></a>v[<span class="st">&quot;numeros&quot;</span>]</span>
+<span id="cb25-146"><a href="#cb25-146"></a>v[<span class="kw">c</span>(<span class="st">&quot;nombres&quot;</span>, <span class="st">&quot;numeros&quot;</span>)]</span>
+<span id="cb25-147"><a href="#cb25-147"></a>v[[<span class="st">&quot;numeros&quot;</span>]]</span>
+<span id="cb25-148"><a href="#cb25-148"></a>v<span class="op">$</span>numeros</span>
+<span id="cb25-149"><a href="#cb25-149"></a></span>
+<span id="cb25-150"><a href="#cb25-150"></a><span class="kw">attach</span>(v)</span>
+<span id="cb25-151"><a href="#cb25-151"></a>numeros</span>
+<span id="cb25-152"><a href="#cb25-152"></a><span class="kw">detach</span>(v)</span>
+<span id="cb25-153"><a href="#cb25-153"></a></span>
+<span id="cb25-154"><a href="#cb25-154"></a></span>
+<span id="cb25-155"><a href="#cb25-155"></a><span class="co"># Bases de datos (data.frames)</span></span>
+<span id="cb25-156"><a href="#cb25-156"></a>n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>) </span>
+<span id="cb25-157"><a href="#cb25-157"></a>s &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;aa&quot;</span>, <span class="st">&quot;bb&quot;</span>, <span class="st">&quot;cc&quot;</span>) </span>
+<span id="cb25-158"><a href="#cb25-158"></a>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>) </span>
+<span id="cb25-159"><a href="#cb25-159"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(n, s, b)</span>
+<span id="cb25-160"><a href="#cb25-160"></a></span>
+<span id="cb25-161"><a href="#cb25-161"></a>mtcars</span>
+<span id="cb25-162"><a href="#cb25-162"></a>mtcars[<span class="dv">1</span>, <span class="dv">2</span>]</span>
+<span id="cb25-163"><a href="#cb25-163"></a>mtcars[<span class="st">&quot;Mazda RX4&quot;</span>, <span class="st">&quot;cyl&quot;</span>]</span>
+<span id="cb25-164"><a href="#cb25-164"></a></span>
+<span id="cb25-165"><a href="#cb25-165"></a><span class="kw">head</span>(mtcars) <span class="co"># primeras filas</span></span>
+<span id="cb25-166"><a href="#cb25-166"></a><span class="kw">tail</span>(mtcars) <span class="co"># ultimas filas</span></span>
+<span id="cb25-167"><a href="#cb25-167"></a>mtcars[[<span class="dv">9</span>]]</span>
+<span id="cb25-168"><a href="#cb25-168"></a>mtcars[[<span class="st">&quot;am&quot;</span>]]</span>
+<span id="cb25-169"><a href="#cb25-169"></a>mtcars<span class="op">$</span>am</span>
+<span id="cb25-170"><a href="#cb25-170"></a>mtcars[, <span class="st">&quot;am&quot;</span>]</span>
+<span id="cb25-171"><a href="#cb25-171"></a>mtcars[<span class="dv">1</span>]</span>
+<span id="cb25-172"><a href="#cb25-172"></a>mtcars[<span class="st">&quot;mpg&quot;</span>]</span>
+<span id="cb25-173"><a href="#cb25-173"></a>mtcars[<span class="kw">c</span>(<span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;hp&quot;</span>)]</span>
+<span id="cb25-174"><a href="#cb25-174"></a>mtcars[<span class="dv">24</span>, ]</span>
+<span id="cb25-175"><a href="#cb25-175"></a>mtcars[<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">24</span>), ]</span>
+<span id="cb25-176"><a href="#cb25-176"></a>mtcars[<span class="st">&quot;camaro Z28&quot;</span>, ]</span>
+<span id="cb25-177"><a href="#cb25-177"></a>mtcars[<span class="kw">c</span>(<span class="st">&quot;Datsun 710&quot;</span>, <span class="st">&quot;Camaro Z28&quot;</span>), ]</span>
+<span id="cb25-178"><a href="#cb25-178"></a></span>
+<span id="cb25-179"><a href="#cb25-179"></a>L =<span class="st"> </span>mtcars<span class="op">$</span>am <span class="op">==</span><span class="st"> </span><span class="dv">0</span></span>
+<span id="cb25-180"><a href="#cb25-180"></a>L</span>
+<span id="cb25-181"><a href="#cb25-181"></a></span>
+<span id="cb25-182"><a href="#cb25-182"></a>mtcars[L, ]</span>
+<span id="cb25-183"><a href="#cb25-183"></a>mtcars[L, ]<span class="op">$</span>mpg</span>
+<span id="cb25-184"><a href="#cb25-184"></a></span>
+<span id="cb25-185"><a href="#cb25-185"></a><span class="co"># Problemas a evitar en el uso de los &quot;data.frames&quot;</span></span>
+<span id="cb25-186"><a href="#cb25-186"></a>mal &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">b =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>)))</span>
+<span id="cb25-187"><a href="#cb25-187"></a>mal</span>
+<span id="cb25-188"><a href="#cb25-188"></a><span class="kw">str</span>(mal)</span>
+<span id="cb25-189"><a href="#cb25-189"></a></span>
+<span id="cb25-190"><a href="#cb25-190"></a>bien1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">b =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>))</span>
+<span id="cb25-191"><a href="#cb25-191"></a>bien1</span>
+<span id="cb25-192"><a href="#cb25-192"></a><span class="kw">str</span>(bien1)</span>
+<span id="cb25-193"><a href="#cb25-193"></a></span>
+<span id="cb25-194"><a href="#cb25-194"></a>bien2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">b =</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb25-195"><a href="#cb25-195"></a>bien2</span>
+<span id="cb25-196"><a href="#cb25-196"></a><span class="kw">str</span>(bien2)</span>
+<span id="cb25-197"><a href="#cb25-197"></a></span>
+<span id="cb25-198"><a href="#cb25-198"></a><span class="co"># &quot;Columnas&quot; especiales en las bases de datos.</span></span>
+<span id="cb25-199"><a href="#cb25-199"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</span>
+<span id="cb25-200"><a href="#cb25-200"></a>df<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</span>
+<span id="cb25-201"><a href="#cb25-201"></a>df</span>
+<span id="cb25-202"><a href="#cb25-202"></a><span class="kw">str</span>(df)</span>
+<span id="cb25-203"><a href="#cb25-203"></a></span>
+<span id="cb25-204"><a href="#cb25-204"></a><span class="co"># data.frame(x = 1:3, y = list(1:2, 1:3, 1:4)) # Se genera un error</span></span>
+<span id="cb25-205"><a href="#cb25-205"></a>dfl &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">I</span>(<span class="kw">list</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)))</span>
+<span id="cb25-206"><a href="#cb25-206"></a>dfl</span>
+<span id="cb25-207"><a href="#cb25-207"></a><span class="kw">str</span>(dfl)</span>
+<span id="cb25-208"><a href="#cb25-208"></a>dfl[<span class="dv">2</span>, <span class="st">&quot;y&quot;</span>]</span>
+<span id="cb25-209"><a href="#cb25-209"></a></span>
+<span id="cb25-210"><a href="#cb25-210"></a>dfm &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">y =</span> <span class="kw">I</span>(<span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">nrow =</span> <span class="dv">3</span>)))</span>
+<span id="cb25-211"><a href="#cb25-211"></a>dfm</span>
+<span id="cb25-212"><a href="#cb25-212"></a><span class="kw">str</span>(dfm)</span>
+<span id="cb25-213"><a href="#cb25-213"></a>dfm[<span class="dv">2</span>, <span class="st">&quot;y&quot;</span>]</span></code></pre></div>
+<p>Se debe tener mucho cuidado al utilizar estas opciones en las bases de datos porque muchas funciones asumen que cada columa de una base de datos es de tipo atómico.</p>
+</div>
+</div>
+<div id="carácter-y-sartas" class="section level2">
+<h2>Carácter y Sartas</h2>
+<ul>
+<li>Separar con una nueva línea (Enter) (<code>'\n'</code>)</li>
+<li>Separar con un tabulador (<code>'\t'</code>)</li>
+<li>Separar con un espacio (<code>' '</code>)</li>
+<li><code>paste()</code>: concatenar carárcter/sarta con espacio</li>
+<li><code>paste0()</code>: concatenar carácter/sarta sin espacio</li>
+<li><code>cat()</code>: concatenar e imprimir carácter/sarta</li>
+</ul>
+<div id="ejemplos-carácter-y-sartas" class="section level3">
+<h3>Ejemplos carácter y sartas</h3>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Carácter y sarta</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>x &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="fl">3.141592</span>) </span>
+<span id="cb26-3"><a href="#cb26-3"></a>x </span>
+<span id="cb26-4"><a href="#cb26-4"></a></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="kw">class</span>(x)</span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="kw">typeof</span>(x)</span>
+<span id="cb26-7"><a href="#cb26-7"></a></span>
+<span id="cb26-8"><a href="#cb26-8"></a>nombres &lt;-<span class="st"> &quot;Leonidas Argemiro&quot;</span>; apellido &lt;-<span class="st"> &quot;Jaramillo&quot;</span> </span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="kw">paste</span>(nombres, apellido)</span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="kw">paste0</span>(nombres, apellido)</span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="kw">cat</span>(nombres,<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,apellido)</span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="kw">cat</span>(nombres,<span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>,apellido)</span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="kw">cat</span>(nombres,<span class="st">&quot; &quot;</span>,apellido)</span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="kw">cat</span>(nombres,<span class="st">&quot; (1234) &quot;</span>,apellido)</span>
+<span id="cb26-15"><a href="#cb26-15"></a></span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="kw">sprintf</span>(<span class="st">&quot;%s tiene %d pesos&quot;</span>, <span class="st">&quot;Julian&quot;</span>, <span class="dv">100000</span>)</span>
+<span id="cb26-17"><a href="#cb26-17"></a><span class="kw">substr</span>(<span class="st">&quot;Mambrú se fue a la guerra&quot;</span>, <span class="dt">start=</span><span class="dv">3</span>, <span class="dt">stop=</span><span class="dv">12</span>)</span>
+<span id="cb26-18"><a href="#cb26-18"></a><span class="co"># sub(&quot;Mambrú&quot;, &quot;Jose&quot;, &quot;Mambrú se fue a la guerra&quot;)</span></span>
+<span id="cb26-19"><a href="#cb26-19"></a></span>
+<span id="cb26-20"><a href="#cb26-20"></a><span class="kw">help</span>(<span class="st">&quot;sub&quot;</span>)</span>
+<span id="cb26-21"><a href="#cb26-21"></a>?sub</span>
+<span id="cb26-22"><a href="#cb26-22"></a></span>
+<span id="cb26-23"><a href="#cb26-23"></a><span class="kw">paste</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</span>
+<span id="cb26-24"><a href="#cb26-24"></a><span class="kw">paste</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb26-25"><a href="#cb26-25"></a><span class="kw">paste</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</span>
+<span id="cb26-26"><a href="#cb26-26"></a></span>
+<span id="cb26-27"><a href="#cb26-27"></a><span class="kw">cat</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</span>
+<span id="cb26-28"><a href="#cb26-28"></a><span class="kw">cat</span>(<span class="st">&quot;x&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb26-29"><a href="#cb26-29"></a></span>
+<span id="cb26-30"><a href="#cb26-30"></a>mensaje &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Ejemplo de&quot;</span>, <span class="st">&quot;un mensaje&quot;</span>, <span class="st">&quot;con &#39;paste()&#39;&quot;</span>)</span>
+<span id="cb26-31"><a href="#cb26-31"></a>mensaje</span>
+<span id="cb26-32"><a href="#cb26-32"></a></span>
+<span id="cb26-33"><a href="#cb26-33"></a>mensaje &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Ejemplo de&quot;</span>, <span class="st">&quot;un mensaje&quot;</span>, <span class="st">&#39;con &quot;paste()&quot;&#39;</span>)</span>
+<span id="cb26-34"><a href="#cb26-34"></a>mensaje</span>
+<span id="cb26-35"><a href="#cb26-35"></a><span class="kw">print</span>(mensaje)</span>
+<span id="cb26-36"><a href="#cb26-36"></a><span class="kw">cat</span>(mensaje)</span>
+<span id="cb26-37"><a href="#cb26-37"></a></span>
+<span id="cb26-38"><a href="#cb26-38"></a><span class="kw">cat</span>(<span class="st">&quot;Otro ejemplo:</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="st">&quot;con dos renglones&quot;</span>)</span>
+<span id="cb26-39"><a href="#cb26-39"></a><span class="kw">paste</span>(<span class="st">&quot;Otro ejemplo:</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="st">&quot;con dos renglones&quot;</span>)</span>
+<span id="cb26-40"><a href="#cb26-40"></a></span>
+<span id="cb26-41"><a href="#cb26-41"></a>mensaje2 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Otro ejemplo:</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="st">&quot;con dos renglones&quot;</span>)</span>
+<span id="cb26-42"><a href="#cb26-42"></a>mensaje2</span>
+<span id="cb26-43"><a href="#cb26-43"></a><span class="kw">print</span>(mensaje2)</span>
+<span id="cb26-44"><a href="#cb26-44"></a><span class="kw">cat</span>(mensaje2)</span></code></pre></div>
+</div>
+<div id="ejemplos-finales" class="section level3">
+<h3>Ejemplos finales</h3>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">0</span>)</span>
+<span id="cb27-2"><a href="#cb27-2"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb27-3"><a href="#cb27-3"></a></span>
+<span id="cb27-4"><a href="#cb27-4"></a>x</span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="kw">sort</span>(x)</span>
+<span id="cb27-6"><a href="#cb27-6"></a><span class="kw">rev</span>(x)</span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="kw">sort</span>(x,<span class="dt">decreasing =</span> F)</span>
+<span id="cb27-8"><a href="#cb27-8"></a></span>
+<span id="cb27-9"><a href="#cb27-9"></a>a <span class="op">+</span><span class="st"> </span>x</span>
+<span id="cb27-10"><a href="#cb27-10"></a>a <span class="op">-</span><span class="st"> </span>x</span>
+<span id="cb27-11"><a href="#cb27-11"></a>a <span class="op">/</span><span class="st"> </span>x</span>
+<span id="cb27-12"><a href="#cb27-12"></a>a <span class="op">*</span><span class="st"> </span>x</span>
+<span id="cb27-13"><a href="#cb27-13"></a>a <span class="op">^</span><span class="st"> </span>x</span>
+<span id="cb27-14"><a href="#cb27-14"></a>a <span class="op">%%</span><span class="st"> </span>x</span>
+<span id="cb27-15"><a href="#cb27-15"></a>a <span class="op">%/%</span><span class="st"> </span>x</span>
+<span id="cb27-16"><a href="#cb27-16"></a></span>
+<span id="cb27-17"><a href="#cb27-17"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb27-18"><a href="#cb27-18"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb27-19"><a href="#cb27-19"></a></span>
+<span id="cb27-20"><a href="#cb27-20"></a>a <span class="op">+</span><span class="st"> </span>x</span>
+<span id="cb27-21"><a href="#cb27-21"></a>a <span class="op">-</span><span class="st"> </span>x</span>
+<span id="cb27-22"><a href="#cb27-22"></a>a <span class="op">/</span><span class="st"> </span>x</span>
+<span id="cb27-23"><a href="#cb27-23"></a>a <span class="op">*</span><span class="st"> </span>x</span>
+<span id="cb27-24"><a href="#cb27-24"></a>a <span class="op">^</span><span class="st"> </span>x</span>
+<span id="cb27-25"><a href="#cb27-25"></a>a <span class="op">%%</span><span class="st"> </span>x</span>
+<span id="cb27-26"><a href="#cb27-26"></a>a <span class="op">%/%</span><span class="st"> </span>x</span>
+<span id="cb27-27"><a href="#cb27-27"></a></span>
+<span id="cb27-28"><a href="#cb27-28"></a><span class="kw">exp</span>(<span class="dv">1</span>)</span>
+<span id="cb27-29"><a href="#cb27-29"></a></span>
+<span id="cb27-30"><a href="#cb27-30"></a><span class="kw">options</span>()</span>
+<span id="cb27-31"><a href="#cb27-31"></a></span>
+<span id="cb27-32"><a href="#cb27-32"></a><span class="kw">names</span>(<span class="kw">options</span>())</span>
+<span id="cb27-33"><a href="#cb27-33"></a></span>
+<span id="cb27-34"><a href="#cb27-34"></a><span class="kw">options</span>()<span class="op">$</span>digits</span>
+<span id="cb27-35"><a href="#cb27-35"></a></span>
+<span id="cb27-36"><a href="#cb27-36"></a><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">16</span>)</span>
+<span id="cb27-37"><a href="#cb27-37"></a><span class="kw">exp</span>(<span class="dv">1</span>)</span>
+<span id="cb27-38"><a href="#cb27-38"></a>pi</span>
+<span id="cb27-39"><a href="#cb27-39"></a><span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">6</span>)</span>
+<span id="cb27-40"><a href="#cb27-40"></a><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">7</span>)</span>
+<span id="cb27-41"><a href="#cb27-41"></a></span>
+<span id="cb27-42"><a href="#cb27-42"></a>optAnt &lt;-<span class="st"> </span><span class="kw">options</span>()</span>
+<span id="cb27-43"><a href="#cb27-43"></a><span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">20</span>)</span>
+<span id="cb27-44"><a href="#cb27-44"></a>pi</span>
+<span id="cb27-45"><a href="#cb27-45"></a><span class="kw">options</span>(optAnt)</span>
+<span id="cb27-46"><a href="#cb27-46"></a>pi</span>
+<span id="cb27-47"><a href="#cb27-47"></a></span>
+<span id="cb27-48"><a href="#cb27-48"></a>x &lt;-<span class="st"> </span><span class="dv">10000</span></span>
+<span id="cb27-49"><a href="#cb27-49"></a>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>x) <span class="op">^</span><span class="st"> </span>x</span>
+<span id="cb27-50"><a href="#cb27-50"></a></span>
+<span id="cb27-51"><a href="#cb27-51"></a>y &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>x)<span class="op">^</span>x</span>
+<span id="cb27-52"><a href="#cb27-52"></a>y</span>
+<span id="cb27-53"><a href="#cb27-53"></a></span>
+<span id="cb27-54"><a href="#cb27-54"></a>(z &lt;-<span class="st"> </span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>x) <span class="op">^</span><span class="st"> </span>x)</span>
+<span id="cb27-55"><a href="#cb27-55"></a></span>
+<span id="cb27-56"><a href="#cb27-56"></a><span class="co"># Producto interno</span></span>
+<span id="cb27-57"><a href="#cb27-57"></a>a <span class="op">%*%</span><span class="st"> </span>a</span>
+<span id="cb27-58"><a href="#cb27-58"></a></span>
+<span id="cb27-59"><a href="#cb27-59"></a><span class="co"># Producto externo</span></span>
+<span id="cb27-60"><a href="#cb27-60"></a>a <span class="op">%o%</span><span class="st"> </span>a</span>
+<span id="cb27-61"><a href="#cb27-61"></a></span>
+<span id="cb27-62"><a href="#cb27-62"></a><span class="co"># Con matrices</span></span>
+<span id="cb27-63"><a href="#cb27-63"></a>m1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb27-64"><a href="#cb27-64"></a>m1</span>
+<span id="cb27-65"><a href="#cb27-65"></a>m2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">7</span><span class="op">:</span><span class="dv">12</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb27-66"><a href="#cb27-66"></a>m2</span>
+<span id="cb27-67"><a href="#cb27-67"></a></span>
+<span id="cb27-68"><a href="#cb27-68"></a><span class="co"># m1 + m2 # Produce un error por dimensiones no compatibles</span></span>
+<span id="cb27-69"><a href="#cb27-69"></a>m1 <span class="op">+</span><span class="st"> </span><span class="kw">t</span>(m2)</span>
+<span id="cb27-70"><a href="#cb27-70"></a><span class="kw">t</span>(m1) <span class="op">+</span><span class="st"> </span>m2</span>
+<span id="cb27-71"><a href="#cb27-71"></a>m1 <span class="op">%*%</span><span class="st"> </span>m2</span>
+<span id="cb27-72"><a href="#cb27-72"></a>m2 <span class="op">%*%</span><span class="st"> </span>m1</span></code></pre></div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

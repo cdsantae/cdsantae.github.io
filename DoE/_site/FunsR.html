@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Funciones y Paquetes en R</title>
+
+<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Estadística para la Construcción</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="aboutDoE.html">
+    <span class="fa fa-book-open"></span>
+     
+    Acerca de
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-chalkboard-teacher"></span>
+     
+    Introducción
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="descrip.html">Descriptiva</a>
+    </li>
+    <li>
+      <a href="prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="inferencia.html">inferencia</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-chalkboard-teacher"></span>
+     
+    Diseños
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="anova.html">ANOVA</a>
+    </li>
+    <li>
+      <a href="design1.html">Diseños Aleatorios</a>
+    </li>
+    <li>
+      <a href="blocks.html">Bloques Aleatorios</a>
+    </li>
+    <li>
+      <a href="fact1.html">Factoriales</a>
+    </li>
+    <li>
+      <a href="fact2k.html">2 a la k</a>
+    </li>
+    <li>
+      <a href="fact3k.html">3 a la k</a>
+    </li>
+    <li>
+      <a href="fractional.html">Fraccionados</a>
+    </li>
+    <li>
+      <a href="SurfResp.html">Superficies</a>
+    </li>
+    <li>
+      <a href="sample.html">Muestras</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-chalkboard-teacher"></span>
+     
+    Regresión
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="slm.html">Simple</a>
+    </li>
+    <li>
+      <a href="mlm.html">Múltiple</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    R-Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Rinstall.html">Instalación</a>
+    </li>
+    <li>
+      <a href="IntroR.html">Introducción</a>
+    </li>
+    <li>
+      <a href="FunsR.html">Funciones y Paquetes</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdsanta@unal.edu.co.com">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Funciones y Paquetes en R</h1>
+
+</div>
+
+
+<div id="estructura-de-decisión" class="section level2">
+<h2>Estructura de decisión</h2>
+<p>Normalmente, los operadores lógicos y relacionales se utilizan con sentencias de programación condicional <em>si</em> y <em>si no</em>. La sentencia <code>if</code> se puede utilizar sola o con la sentencia <code>else</code>. La forma de la sentencia <code>if</code> es:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Ejemplo 1</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="cf">if</span>( <span class="op">&lt;</span>condición verdadera<span class="op">&gt;</span><span class="st"> </span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  entonces haga esto</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># Ejemplo 2</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="cf">if</span>( <span class="op">&lt;</span>condición verdadera<span class="op">&gt;</span><span class="st"> </span>){</span>
+<span id="cb1-7"><a href="#cb1-7"></a>  entonces haga esto</span>
+<span id="cb1-8"><a href="#cb1-8"></a>}<span class="cf">else</span>{<span class="co">#si no</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>  entonces haga esto otro</span>
+<span id="cb1-10"><a href="#cb1-10"></a>} </span></code></pre></div>
+<p>La condición entre paréntesis usualmente usará un operador relacional para determinar si la condición es verdadera. Cuando la instrucción <code>if</code> se usa sola y la condición entre paréntesis no es verdadera, entonces no sucede nada. Por ejemplo:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>x&lt;-<span class="dv">6</span>; y&lt;-<span class="dv">2</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># Si x es menor o igual que y entonces asigne z</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="cf">if</span>(x<span class="op">&lt;=</span>y) z&lt;-x<span class="op">+</span>y</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co"># La condición no es verdadera, entonces no sucede nada</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># z</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co"># Si la relación es contraria, entonces la condición es verdadera</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="cf">if</span>(x<span class="op">&gt;=</span>y) z &lt;-<span class="st"> </span>x<span class="op">+</span>y</span>
+<span id="cb2-11"><a href="#cb2-11"></a>z</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># También se puede asignar antes del if</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>z &lt;-<span class="st"> </span><span class="cf">if</span>(x<span class="op">&gt;=</span>y) x<span class="op">+</span>y</span>
+<span id="cb4-3"><a href="#cb4-3"></a>z</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<p>Para que algo suceda si la condición entre paréntesis no es verdadera, use <code>if</code> junto con <code>else</code> para especificar una alternativa. Tenga en cuenta que no hay una condición entre paréntesis después de la instrucción <code>else</code>. En este caso, el código que sigue a continuación se ejecutará siempre que la condición <code>if</code> no sea verdadera.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="cf">if</span>(x<span class="op">&lt;</span>y){</span>
+<span id="cb6-2"><a href="#cb6-2"></a>  z &lt;-<span class="st"> </span>x<span class="op">+</span>y</span>
+<span id="cb6-3"><a href="#cb6-3"></a>}<span class="cf">else</span>{</span>
+<span id="cb6-4"><a href="#cb6-4"></a>  z &lt;-<span class="st"> </span>x<span class="op">*</span>y</span>
+<span id="cb6-5"><a href="#cb6-5"></a>}</span>
+<span id="cb6-6"><a href="#cb6-6"></a>z</span></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># El resultado se puede llevar a una variable</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>z &lt;-<span class="st"> </span><span class="cf">if</span>(x<span class="op">&lt;</span>y) {x<span class="op">+</span>y} <span class="cf">else</span> {x<span class="op">*</span>y}</span>
+<span id="cb8-3"><a href="#cb8-3"></a>z</span></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<p>En la condición se puede utilizar varios operadores lógicos.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>a &lt;-<span class="st"> </span><span class="dv">3</span>; b &lt;-<span class="st"> </span><span class="dv">5</span>; c &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="cf">if</span>(a<span class="op">&lt;</span>b <span class="op">&amp;</span><span class="st"> </span>b<span class="op">&gt;</span>c){ <span class="dv">5</span> }<span class="cf">else</span>{ <span class="dv">4</span> }</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="cf">if</span>(a<span class="op">&lt;</span>b <span class="op">&amp;</span><span class="st"> </span>b<span class="op">&lt;</span>c){ <span class="dv">5</span> }<span class="cf">else</span>{ <span class="dv">4</span> }</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="cf">if</span>(a<span class="op">&gt;</span>b <span class="op">|</span><span class="st"> </span>b<span class="op">&lt;</span>c){ <span class="dv">5</span> }<span class="cf">else</span>{ <span class="dv">4</span> }</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="cf">if</span>(a<span class="op">&gt;</span>b <span class="op">|</span><span class="st"> </span>b<span class="op">&gt;</span>c <span class="op">&amp;</span><span class="st"> </span>a<span class="op">!=</span>c){ <span class="dv">5</span> }<span class="cf">else</span>{ <span class="dv">4</span> }</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="cf">if</span>((a<span class="op">&gt;</span>b <span class="op">|</span><span class="st"> </span>b<span class="op">&gt;</span>c) <span class="op">&amp;</span><span class="st"> </span>(a<span class="op">!=</span>c <span class="op">&amp;</span><span class="st"> </span>b<span class="op">&lt;</span>a)){ <span class="dv">5</span> }<span class="cf">else</span>{ <span class="dv">4</span> }</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<p>Si se pretende evaluar varias condiciones para obtener más de dos valores de respuestas, es posible anidar los condicionales.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="cf">if</span>(a<span class="op">&lt;</span>b <span class="op">&amp;</span><span class="st"> </span>b<span class="op">&gt;</span>c){</span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="cf">if</span>(c<span class="op">&gt;</span>a){</span>
+<span id="cb20-3"><a href="#cb20-3"></a>    <span class="dv">8</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a>  }<span class="cf">else</span>{</span>
+<span id="cb20-5"><a href="#cb20-5"></a>    <span class="dv">5</span></span>
+<span id="cb20-6"><a href="#cb20-6"></a>  }</span>
+<span id="cb20-7"><a href="#cb20-7"></a>}</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="cf">if</span>(a<span class="op">&lt;</span>b <span class="op">&amp;</span><span class="st"> </span>b<span class="op">&lt;</span>c){</span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="cf">if</span>(c<span class="op">&lt;</span>a){</span>
+<span id="cb22-3"><a href="#cb22-3"></a>    <span class="dv">8</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a>  }<span class="cf">else</span>{</span>
+<span id="cb22-5"><a href="#cb22-5"></a>    <span class="dv">5</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a>  }</span>
+<span id="cb22-7"><a href="#cb22-7"></a>}<span class="cf">else</span>{</span>
+<span id="cb22-8"><a href="#cb22-8"></a>  <span class="cf">if</span>(a<span class="op">==</span>c){</span>
+<span id="cb22-9"><a href="#cb22-9"></a>    <span class="dv">7</span></span>
+<span id="cb22-10"><a href="#cb22-10"></a>  }<span class="cf">else</span>{</span>
+<span id="cb22-11"><a href="#cb22-11"></a>    <span class="dv">4</span></span>
+<span id="cb22-12"><a href="#cb22-12"></a>  }</span>
+<span id="cb22-13"><a href="#cb22-13"></a>}</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<p>En <code>R</code> existe una función útil para reemplazar valores dependiendo de un condicional.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>?ifelse</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>(x &lt;-<span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">12</span>)</span></code></pre></div>
+<pre><code>## [1]  4  5  6  7  8  9 10 11 12</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">ifelse</span>(x<span class="op">!=</span><span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## [1] 1 1 1 0 1 1 1 1 1</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">ifelse</span>(x<span class="op">!=</span><span class="dv">7</span>, <span class="dv">1</span>, x)</span></code></pre></div>
+<pre><code>## [1] 1 1 1 7 1 1 1 1 1</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">ifelse</span>(x<span class="op">!=</span><span class="dv">7</span>, x, <span class="ot">NA</span>)</span></code></pre></div>
+<pre><code>## [1]  4  5  6 NA  8  9 10 11 12</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># Muestre los impares</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="co"># na.omit(ifelse(x%%2, x, NA))</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="kw">ifelse</span>(x<span class="op">%%</span><span class="dv">2</span>, x, <span class="ot">NA</span>)</span></code></pre></div>
+<pre><code>## [1] NA  5 NA  7 NA  9 NA 11 NA</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co"># Muestre los pares</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="co"># na.omit(ifelse(x%%2, NA, x))</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="kw">ifelse</span>(x<span class="op">%%</span><span class="dv">2</span>, <span class="ot">NA</span>, x)</span></code></pre></div>
+<pre><code>## [1]  4 NA  6 NA  8 NA 10 NA 12</code></pre>
+</div>
+<div id="estructuras-de-repetición" class="section level2">
+<h2>Estructuras de repetición</h2>
+<p>El control por repetición, o bucle, le permite repetir el código de manera eficiente sin tener que escribir el mismo código una y otra vez. En <code>R</code> dos expresiones comunes de bucle son <code>for</code> y <code>while</code>.</p>
+<p>Los bucles <code>for</code> se utilizan para recorrer un proceso un número específico de veces. Se utiliza una variable de contador (generalmente designada por una letra minúscula <code>i</code>) para contar cuántas veces se ejecuta el bucle.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="cf">for</span>(<span class="op">&lt;</span>variable<span class="op">&gt;</span><span class="st"> </span><span class="cf">in</span> <span class="op">&lt;</span>comienzo<span class="op">&gt;</span><span class="er">:&lt;</span>final<span class="op">&gt;</span>){</span>
+<span id="cb37-2"><a href="#cb37-2"></a>  ejecute la tarea</span>
+<span id="cb37-3"><a href="#cb37-3"></a>}</span></code></pre></div>
+<p>Dentro de la sentencia del <code>for</code> se tiene que especificar una secuencia de recorrido, ya sea con el operador <code>:</code> o ingresando un vector definido.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){</span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="kw">print</span>(i)</span>
+<span id="cb38-3"><a href="#cb38-3"></a>}</span></code></pre></div>
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="co"># Secuencia basada en las posiciones del vector</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;d&quot;</span>)</span>
+<span id="cb40-3"><a href="#cb40-3"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>){</span>
+<span id="cb40-4"><a href="#cb40-4"></a>  <span class="kw">print</span>(x[i])</span>
+<span id="cb40-5"><a href="#cb40-5"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;a&quot;
+## [1] &quot;b&quot;
+## [1] &quot;c&quot;
+## [1] &quot;d&quot;</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="co"># Secuencia basada en el tamaño del vector</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(x)){</span>
+<span id="cb42-3"><a href="#cb42-3"></a>  <span class="kw">print</span>(x[i])</span>
+<span id="cb42-4"><a href="#cb42-4"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;a&quot;
+## [1] &quot;b&quot;
+## [1] &quot;c&quot;
+## [1] &quot;d&quot;</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="co"># Secuencia basada en los elentos del vector</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a><span class="cf">for</span>(letras <span class="cf">in</span> x){</span>
+<span id="cb44-3"><a href="#cb44-3"></a>  <span class="kw">print</span>(letras)</span>
+<span id="cb44-4"><a href="#cb44-4"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;a&quot;
+## [1] &quot;b&quot;
+## [1] &quot;c&quot;
+## [1] &quot;d&quot;</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># Se puede hacer en una sola línea</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) <span class="kw">print</span>(x[i])</span></code></pre></div>
+<pre><code>## [1] &quot;a&quot;
+## [1] &quot;b&quot;
+## [1] &quot;c&quot;
+## [1] &quot;d&quot;</code></pre>
+<p>Los bucles <code>for</code> pueden ser anidados uno dentro de otro.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>(x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    3    5
+## [2,]    2    4    6</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(x)){</span>
+<span id="cb50-2"><a href="#cb50-2"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(x)){</span>
+<span id="cb50-3"><a href="#cb50-3"></a>    <span class="kw">print</span>(x[i,j])</span>
+<span id="cb50-4"><a href="#cb50-4"></a>  }</span>
+<span id="cb50-5"><a href="#cb50-5"></a>}</span></code></pre></div>
+<pre><code>## [1] 1
+## [1] 3
+## [1] 5
+## [1] 2
+## [1] 4
+## [1] 6</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="co"># Se puede utilizar los ciclos para construir objetos</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a>(x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>, <span class="dv">4</span>, <span class="dv">4</span>))</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]   NA   NA   NA   NA
+## [2,]   NA   NA   NA   NA
+## [3,]   NA   NA   NA   NA
+## [4,]   NA   NA   NA   NA</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(x)){</span>
+<span id="cb54-2"><a href="#cb54-2"></a>    <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(x)){</span>
+<span id="cb54-3"><a href="#cb54-3"></a>      <span class="cf">if</span>(i<span class="op">%%</span><span class="dv">2</span><span class="op">==</span><span class="dv">0</span>){</span>
+<span id="cb54-4"><a href="#cb54-4"></a>        x[j,i] &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>(i<span class="op">+</span>j)</span>
+<span id="cb54-5"><a href="#cb54-5"></a>    }<span class="cf">else</span>{</span>
+<span id="cb54-6"><a href="#cb54-6"></a>        x[j,i] &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>(i<span class="op">+</span>j)<span class="op">-</span><span class="dv">1</span></span>
+<span id="cb54-7"><a href="#cb54-7"></a>    }</span>
+<span id="cb54-8"><a href="#cb54-8"></a>  }</span>
+<span id="cb54-9"><a href="#cb54-9"></a>}</span>
+<span id="cb54-10"><a href="#cb54-10"></a>x</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    3    6    7   10
+## [2,]    5    8    9   12
+## [3,]    7   10   11   14
+## [4,]    9   12   13   16</code></pre>
+<p>El bucle <code>while</code> repite una condición mientras que la expresión entre paréntesis es verdadera y toma la forma</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="cf">while</span> (<span class="op">&lt;</span>condición verdadera<span class="op">&gt;</span>) {</span>
+<span id="cb56-2"><a href="#cb56-2"></a>  ejecute la tarea</span>
+<span id="cb56-3"><a href="#cb56-3"></a>}</span></code></pre></div>
+<p>Los bucles <code>While</code> comienzan probando una condición. Si es verdad, entonces ejecutan el cuerpo del bucle. Una vez que se ejecuta el cuerpo del bucle, la condición se prueba de nuevo, y así sucesivamente, hasta que la condición es falsa, después de lo cual el bucle termina.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>count &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb57-2"><a href="#cb57-2"></a><span class="cf">while</span>(count <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>){</span>
+<span id="cb57-3"><a href="#cb57-3"></a>  <span class="kw">print</span>(count)</span>
+<span id="cb57-4"><a href="#cb57-4"></a>  count &lt;-<span class="st"> </span>count <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb57-5"><a href="#cb57-5"></a>}</span></code></pre></div>
+<pre><code>## [1] 0
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9</code></pre>
+<p>Los bucles <code>while</code> pueden dar lugar a bucles infinitos si no se escriben correctamente. ¡Usa esto con cuidado! A veces habrá más de una condición en la prueba.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a>z &lt;-<span class="st"> </span><span class="dv">5</span></span>
+<span id="cb59-2"><a href="#cb59-2"></a><span class="kw">set.seed</span>(<span class="dv">1</span>) <span class="co"># Establecer semilla de números aleatorios</span></span>
+<span id="cb59-3"><a href="#cb59-3"></a></span>
+<span id="cb59-4"><a href="#cb59-4"></a><span class="cf">while</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;&amp;</span><span class="st"> </span>z <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>){</span>
+<span id="cb59-5"><a href="#cb59-5"></a>  moneda &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>) <span class="co"># número aleatorio bernoulli p=1/2</span></span>
+<span id="cb59-6"><a href="#cb59-6"></a>  </span>
+<span id="cb59-7"><a href="#cb59-7"></a>  <span class="cf">if</span>(moneda <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){  <span class="co"># caminata aleatoria</span></span>
+<span id="cb59-8"><a href="#cb59-8"></a>    z &lt;-<span class="st"> </span>z <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb59-9"><a href="#cb59-9"></a>  }<span class="cf">else</span>{</span>
+<span id="cb59-10"><a href="#cb59-10"></a>    z &lt;-<span class="st"> </span>z <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb59-11"><a href="#cb59-11"></a>  }</span>
+<span id="cb59-12"><a href="#cb59-12"></a>}</span>
+<span id="cb59-13"><a href="#cb59-13"></a><span class="kw">print</span>(z)</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="co"># Para saber cuántas veces hace la caminata se usa un auxiliar</span></span>
+<span id="cb61-2"><a href="#cb61-2"></a>z &lt;-<span class="st"> </span><span class="dv">5</span></span>
+<span id="cb61-3"><a href="#cb61-3"></a>cuenta &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb61-4"><a href="#cb61-4"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb61-5"><a href="#cb61-5"></a></span>
+<span id="cb61-6"><a href="#cb61-6"></a><span class="cf">while</span>(z <span class="op">&gt;=</span><span class="st"> </span><span class="dv">3</span> <span class="op">&amp;&amp;</span><span class="st"> </span>z <span class="op">&lt;=</span><span class="st"> </span><span class="dv">10</span>){</span>
+<span id="cb61-7"><a href="#cb61-7"></a>  moneda &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
+<span id="cb61-8"><a href="#cb61-8"></a>  </span>
+<span id="cb61-9"><a href="#cb61-9"></a>  <span class="cf">if</span>(moneda <span class="op">==</span><span class="st"> </span><span class="dv">1</span>){</span>
+<span id="cb61-10"><a href="#cb61-10"></a>    z &lt;-<span class="st"> </span>z <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb61-11"><a href="#cb61-11"></a>  }<span class="cf">else</span>{</span>
+<span id="cb61-12"><a href="#cb61-12"></a>    z &lt;-<span class="st"> </span>z <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb61-13"><a href="#cb61-13"></a>  }</span>
+<span id="cb61-14"><a href="#cb61-14"></a>  cuenta &lt;-<span class="st"> </span>cuenta<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb61-15"><a href="#cb61-15"></a>}</span>
+<span id="cb61-16"><a href="#cb61-16"></a><span class="kw">print</span>(z)</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="kw">print</span>(cuenta)</span></code></pre></div>
+<pre><code>## [1] 32</code></pre>
+<p>El ciclo <code>repeat</code> inicia un bucle infinito desde el principio. Estos no se utilizan comúnmente en aplicaciones estadísticas o de análisis de datos, pero tienen sus usos. La única forma de salir de un ciclo de repetición es llamar a <code>break</code>.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="cf">repeat</span>{</span>
+<span id="cb65-2"><a href="#cb65-2"></a>  ejecute tareas</span>
+<span id="cb65-3"><a href="#cb65-3"></a>}</span></code></pre></div>
+<p>Un posible paradigma podría ser un algoritmo iterativo en el que esté buscando una solución y no quiera detenerse hasta que esté lo suficientemente cerca de la solución. En este tipo de situación, a menudo no se sabe de antemano cuántas iteraciones se necesitarán para “acercarse lo suficiente” a la solución.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a><span class="co"># Número de raíces cuadradas</span></span>
+<span id="cb66-2"><a href="#cb66-2"></a>x0 &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb66-3"><a href="#cb66-3"></a>tol &lt;-<span class="st"> </span><span class="fl">1e-08</span></span>
+<span id="cb66-4"><a href="#cb66-4"></a>pasos &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb66-5"><a href="#cb66-5"></a></span>
+<span id="cb66-6"><a href="#cb66-6"></a><span class="cf">repeat</span>{</span>
+<span id="cb66-7"><a href="#cb66-7"></a>  x1 &lt;-<span class="st"> </span><span class="kw">sqrt</span>(x0)</span>
+<span id="cb66-8"><a href="#cb66-8"></a>  <span class="cf">if</span>(<span class="kw">abs</span>(x1<span class="op">-</span>x0) <span class="op">&lt;</span><span class="st"> </span>tol){</span>
+<span id="cb66-9"><a href="#cb66-9"></a>    <span class="cf">break</span></span>
+<span id="cb66-10"><a href="#cb66-10"></a>  }<span class="cf">else</span>{</span>
+<span id="cb66-11"><a href="#cb66-11"></a>    x0 &lt;-<span class="st"> </span>x1</span>
+<span id="cb66-12"><a href="#cb66-12"></a>  }</span>
+<span id="cb66-13"><a href="#cb66-13"></a>  pasos &lt;-<span class="st"> </span>pasos<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb66-14"><a href="#cb66-14"></a>}</span>
+<span id="cb66-15"><a href="#cb66-15"></a>x0</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>pasos</span></code></pre></div>
+<pre><code>## [1] 30</code></pre>
+<p>Los argumentos <code>next</code> y <code>break</code> son utilizados comúnmente cuando se quiere omitir pasos de un ciclo, o cuando se quiere parar el ciclo en un momento dado, respectivamente.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>x &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb70-2"><a href="#cb70-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>){</span>
+<span id="cb70-3"><a href="#cb70-3"></a>  <span class="cf">if</span>(i <span class="op">&lt;=</span><span class="st"> </span><span class="dv">20</span>){ <span class="co">#omitir los primeros 20 pasos</span></span>
+<span id="cb70-4"><a href="#cb70-4"></a>    <span class="cf">next</span></span>
+<span id="cb70-5"><a href="#cb70-5"></a>  }</span>
+<span id="cb70-6"><a href="#cb70-6"></a>  x &lt;-<span class="st"> </span><span class="kw">c</span>(x,i)</span>
+<span id="cb70-7"><a href="#cb70-7"></a>}</span>
+<span id="cb70-8"><a href="#cb70-8"></a>x</span></code></pre></div>
+<pre><code>##  [1] 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45
+## [26] 46 47 48 49 50</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>y &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb72-2"><a href="#cb72-2"></a><span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>){</span>
+<span id="cb72-3"><a href="#cb72-3"></a>  <span class="cf">if</span>(j <span class="op">&gt;</span><span class="st"> </span><span class="dv">20</span>){ <span class="co">#parar antes de 20 iteraciones</span></span>
+<span id="cb72-4"><a href="#cb72-4"></a>    <span class="cf">break</span></span>
+<span id="cb72-5"><a href="#cb72-5"></a>  }</span>
+<span id="cb72-6"><a href="#cb72-6"></a>  y &lt;-<span class="st"> </span><span class="kw">c</span>(y,j)</span>
+<span id="cb72-7"><a href="#cb72-7"></a>}</span>
+<span id="cb72-8"><a href="#cb72-8"></a>y</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</code></pre>
+</div>
+<div id="secuencias" class="section level2">
+<h2>Secuencias</h2>
+<ul>
+<li><code>seq()</code> genera una secuencia regular de números</li>
+<li><code>rep()</code> repite un objeto un numero definido de veces</li>
+<li><code>seq_along()</code> genera una secuencia regular basado en el tamaño del objeto</li>
+<li><code>seq_len()</code> genera una secuencia regular con un tamaño específico</li>
+<li><code>sequence()</code> genera una secuencia concatenando los elementos</li>
+<li><code>gl()</code> genera una secuencia de factores</li>
+<li><code>:</code> genera una secuencia regular de números</li>
+<li><code>expand.grid()</code> crea un marco con todas las posibles combinaciones de vectores o factores</li>
+</ul>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">by =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 1 3 5 7 9</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">5</span>, <span class="dt">to =</span> <span class="dv">8</span>, <span class="dt">length.out =</span> <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##  [1] 5.000000 5.333333 5.666667 6.000000 6.333333 6.666667 7.000000 7.333333
+##  [9] 7.666667 8.000000</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a><span class="kw">seq</span>(<span class="dv">20</span>)</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a><span class="kw">seq_along</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>)</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a><span class="kw">seq_len</span>(<span class="dv">20</span>)</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a><span class="kw">rep</span>(<span class="dv">4</span>, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 4 4 4 4 4</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##  [1] 1 2 3 4 1 2 3 4 1 2 3 4</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;Hola&quot;</span>,<span class="st">&quot;Clase&quot;</span>),<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##  [1] &quot;Hola&quot;  &quot;Clase&quot; &quot;Hola&quot;  &quot;Clase&quot; &quot;Hola&quot;  &quot;Clase&quot; &quot;Hola&quot;  &quot;Clase&quot; &quot;Hola&quot; 
+## [10] &quot;Clase&quot;</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a><span class="kw">sequence</span>(<span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4</code></pre>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1"></a><span class="kw">sequence</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">5</span>))</span></code></pre></div>
+<pre><code>## [1] 1 2 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1"></a><span class="kw">sequence</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##  [1]  1  1  2  1  2  3  1  2  3  4  1  2  3  4  5  1  2  3  4  5  6  1  2  3  4
+## [26]  5  6  7  1  2  3  4  5  6  7  8  1  2  3  4  5  6  7  8  9  1  2  3  4  5
+## [51]  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1"></a><span class="kw">gl</span>(<span class="dt">n =</span> <span class="dv">1</span>,<span class="dt">k =</span> <span class="dv">6</span>)</span></code></pre></div>
+<pre><code>## [1] 1 1 1 1 1 1
+## Levels: 1</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1"></a><span class="kw">gl</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Juliana&quot;</span>,<span class="st">&quot;Carlos&quot;</span>,<span class="st">&quot;Lina&quot;</span>,<span class="st">&quot;Manuela&quot;</span>,<span class="st">&quot;Adriana&quot;</span>))</span></code></pre></div>
+<pre><code>##  [1] Juliana Juliana Carlos  Carlos  Lina    Lina    Manuela Manuela Adriana
+## [10] Adriana
+## Levels: Juliana Carlos Lina Manuela Adriana</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1"></a><span class="kw">gl</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Juliana&quot;</span>,<span class="st">&quot;Carlos&quot;</span>,<span class="st">&quot;Lina&quot;</span>,<span class="st">&quot;Manuela&quot;</span>,<span class="st">&quot;Adriana&quot;</span>),<span class="dt">ordered =</span> T)</span></code></pre></div>
+<pre><code>##  [1] Juliana Juliana Juliana Juliana Carlos  Carlos  Carlos  Carlos  Lina   
+## [10] Lina    Lina    Lina    Manuela Manuela Manuela Manuela Adriana Adriana
+## [19] Adriana Adriana
+## Levels: Juliana &lt; Carlos &lt; Lina &lt; Manuela &lt; Adriana</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1"></a><span class="kw">gl</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">18</span>)</span></code></pre></div>
+<pre><code>##  [1] 1 1 2 2 3 3 1 1 2 2 3 3 1 1 2 2 3 3
+## Levels: 1 2 3</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1"></a><span class="kw">gl</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">24</span>,<span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Chicles&quot;</span>,<span class="st">&quot;Cigarrillos&quot;</span>,<span class="st">&quot;Tinto&quot;</span>))</span></code></pre></div>
+<pre><code>##  [1] Chicles     Chicles     Chicles     Chicles     Cigarrillos Cigarrillos
+##  [7] Cigarrillos Cigarrillos Tinto       Tinto       Tinto       Tinto      
+## [13] Chicles     Chicles     Chicles     Chicles     Cigarrillos Cigarrillos
+## [19] Cigarrillos Cigarrillos Tinto       Tinto       Tinto       Tinto      
+## Levels: Chicles Cigarrillos Tinto</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1"></a><span class="kw">gl</span>(<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">24</span>,<span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Chicles&quot;</span>,<span class="st">&quot;Cigarrillos&quot;</span>,<span class="st">&quot;Tinto&quot;</span>))</span></code></pre></div>
+<pre><code>##  [1] Chicles     Cigarrillos Tinto       Chicles     Cigarrillos Tinto      
+##  [7] Chicles     Cigarrillos Tinto       Chicles     Cigarrillos Tinto      
+## [13] Chicles     Cigarrillos Tinto       Chicles     Cigarrillos Tinto      
+## [19] Chicles     Cigarrillos Tinto       Chicles     Cigarrillos Tinto      
+## Levels: Chicles Cigarrillos Tinto</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1"></a><span class="kw">expand.grid</span>(<span class="dt">a=</span><span class="kw">c</span>(<span class="dv">60</span>,<span class="dv">80</span>), <span class="dt">p=</span><span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">300</span>), <span class="dt">sexo=</span><span class="kw">c</span>(<span class="st">&quot;Macho&quot;</span>, <span class="st">&quot;Hembra&quot;</span>))</span></code></pre></div>
+<pre><code>##    a   p   sexo
+## 1 60 100  Macho
+## 2 80 100  Macho
+## 3 60 300  Macho
+## 4 80 300  Macho
+## 5 60 100 Hembra
+## 6 80 100 Hembra
+## 7 60 300 Hembra
+## 8 80 300 Hembra</code></pre>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1"></a><span class="kw">expand.grid</span>(<span class="dt">edad=</span><span class="kw">seq</span>(<span class="dv">18</span>,<span class="dv">30</span>,<span class="dt">by=</span><span class="dv">3</span>), <span class="dt">nota=</span>(<span class="kw">seq_len</span>(<span class="dv">5</span>)<span class="op">/</span><span class="dv">2</span>)<span class="op">+</span><span class="dv">2</span>,</span>
+<span id="cb110-2"><a href="#cb110-2"></a>            <span class="dt">color=</span><span class="kw">gl</span>(<span class="dv">3</span>,<span class="dv">1</span>,<span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Rojo&quot;</span>,<span class="st">&quot;Verde&quot;</span>,<span class="st">&quot;Blanco&quot;</span>)),</span>
+<span id="cb110-3"><a href="#cb110-3"></a>            <span class="dt">profesion=</span><span class="kw">c</span>(<span class="st">&quot;Ingeniero&quot;</span>,<span class="st">&quot;Arquitecto&quot;</span>))</span></code></pre></div>
+<pre><code>##     edad nota  color  profesion
+## 1     18  2.5   Rojo  Ingeniero
+## 2     21  2.5   Rojo  Ingeniero
+## 3     24  2.5   Rojo  Ingeniero
+## 4     27  2.5   Rojo  Ingeniero
+## 5     30  2.5   Rojo  Ingeniero
+## 6     18  3.0   Rojo  Ingeniero
+## 7     21  3.0   Rojo  Ingeniero
+## 8     24  3.0   Rojo  Ingeniero
+## 9     27  3.0   Rojo  Ingeniero
+## 10    30  3.0   Rojo  Ingeniero
+## 11    18  3.5   Rojo  Ingeniero
+## 12    21  3.5   Rojo  Ingeniero
+## 13    24  3.5   Rojo  Ingeniero
+## 14    27  3.5   Rojo  Ingeniero
+## 15    30  3.5   Rojo  Ingeniero
+## 16    18  4.0   Rojo  Ingeniero
+## 17    21  4.0   Rojo  Ingeniero
+## 18    24  4.0   Rojo  Ingeniero
+## 19    27  4.0   Rojo  Ingeniero
+## 20    30  4.0   Rojo  Ingeniero
+## 21    18  4.5   Rojo  Ingeniero
+## 22    21  4.5   Rojo  Ingeniero
+## 23    24  4.5   Rojo  Ingeniero
+## 24    27  4.5   Rojo  Ingeniero
+## 25    30  4.5   Rojo  Ingeniero
+## 26    18  2.5  Verde  Ingeniero
+## 27    21  2.5  Verde  Ingeniero
+## 28    24  2.5  Verde  Ingeniero
+## 29    27  2.5  Verde  Ingeniero
+## 30    30  2.5  Verde  Ingeniero
+## 31    18  3.0  Verde  Ingeniero
+## 32    21  3.0  Verde  Ingeniero
+## 33    24  3.0  Verde  Ingeniero
+## 34    27  3.0  Verde  Ingeniero
+## 35    30  3.0  Verde  Ingeniero
+## 36    18  3.5  Verde  Ingeniero
+## 37    21  3.5  Verde  Ingeniero
+## 38    24  3.5  Verde  Ingeniero
+## 39    27  3.5  Verde  Ingeniero
+## 40    30  3.5  Verde  Ingeniero
+## 41    18  4.0  Verde  Ingeniero
+## 42    21  4.0  Verde  Ingeniero
+## 43    24  4.0  Verde  Ingeniero
+## 44    27  4.0  Verde  Ingeniero
+## 45    30  4.0  Verde  Ingeniero
+## 46    18  4.5  Verde  Ingeniero
+## 47    21  4.5  Verde  Ingeniero
+## 48    24  4.5  Verde  Ingeniero
+## 49    27  4.5  Verde  Ingeniero
+## 50    30  4.5  Verde  Ingeniero
+## 51    18  2.5 Blanco  Ingeniero
+## 52    21  2.5 Blanco  Ingeniero
+## 53    24  2.5 Blanco  Ingeniero
+## 54    27  2.5 Blanco  Ingeniero
+## 55    30  2.5 Blanco  Ingeniero
+## 56    18  3.0 Blanco  Ingeniero
+## 57    21  3.0 Blanco  Ingeniero
+## 58    24  3.0 Blanco  Ingeniero
+## 59    27  3.0 Blanco  Ingeniero
+## 60    30  3.0 Blanco  Ingeniero
+## 61    18  3.5 Blanco  Ingeniero
+## 62    21  3.5 Blanco  Ingeniero
+## 63    24  3.5 Blanco  Ingeniero
+## 64    27  3.5 Blanco  Ingeniero
+## 65    30  3.5 Blanco  Ingeniero
+## 66    18  4.0 Blanco  Ingeniero
+## 67    21  4.0 Blanco  Ingeniero
+## 68    24  4.0 Blanco  Ingeniero
+## 69    27  4.0 Blanco  Ingeniero
+## 70    30  4.0 Blanco  Ingeniero
+## 71    18  4.5 Blanco  Ingeniero
+## 72    21  4.5 Blanco  Ingeniero
+## 73    24  4.5 Blanco  Ingeniero
+## 74    27  4.5 Blanco  Ingeniero
+## 75    30  4.5 Blanco  Ingeniero
+## 76    18  2.5   Rojo Arquitecto
+## 77    21  2.5   Rojo Arquitecto
+## 78    24  2.5   Rojo Arquitecto
+## 79    27  2.5   Rojo Arquitecto
+## 80    30  2.5   Rojo Arquitecto
+## 81    18  3.0   Rojo Arquitecto
+## 82    21  3.0   Rojo Arquitecto
+## 83    24  3.0   Rojo Arquitecto
+## 84    27  3.0   Rojo Arquitecto
+## 85    30  3.0   Rojo Arquitecto
+## 86    18  3.5   Rojo Arquitecto
+## 87    21  3.5   Rojo Arquitecto
+## 88    24  3.5   Rojo Arquitecto
+## 89    27  3.5   Rojo Arquitecto
+## 90    30  3.5   Rojo Arquitecto
+## 91    18  4.0   Rojo Arquitecto
+## 92    21  4.0   Rojo Arquitecto
+## 93    24  4.0   Rojo Arquitecto
+## 94    27  4.0   Rojo Arquitecto
+## 95    30  4.0   Rojo Arquitecto
+## 96    18  4.5   Rojo Arquitecto
+## 97    21  4.5   Rojo Arquitecto
+## 98    24  4.5   Rojo Arquitecto
+## 99    27  4.5   Rojo Arquitecto
+## 100   30  4.5   Rojo Arquitecto
+## 101   18  2.5  Verde Arquitecto
+## 102   21  2.5  Verde Arquitecto
+## 103   24  2.5  Verde Arquitecto
+## 104   27  2.5  Verde Arquitecto
+## 105   30  2.5  Verde Arquitecto
+## 106   18  3.0  Verde Arquitecto
+## 107   21  3.0  Verde Arquitecto
+## 108   24  3.0  Verde Arquitecto
+## 109   27  3.0  Verde Arquitecto
+## 110   30  3.0  Verde Arquitecto
+## 111   18  3.5  Verde Arquitecto
+## 112   21  3.5  Verde Arquitecto
+## 113   24  3.5  Verde Arquitecto
+## 114   27  3.5  Verde Arquitecto
+## 115   30  3.5  Verde Arquitecto
+## 116   18  4.0  Verde Arquitecto
+## 117   21  4.0  Verde Arquitecto
+## 118   24  4.0  Verde Arquitecto
+## 119   27  4.0  Verde Arquitecto
+## 120   30  4.0  Verde Arquitecto
+## 121   18  4.5  Verde Arquitecto
+## 122   21  4.5  Verde Arquitecto
+## 123   24  4.5  Verde Arquitecto
+## 124   27  4.5  Verde Arquitecto
+## 125   30  4.5  Verde Arquitecto
+## 126   18  2.5 Blanco Arquitecto
+## 127   21  2.5 Blanco Arquitecto
+## 128   24  2.5 Blanco Arquitecto
+## 129   27  2.5 Blanco Arquitecto
+## 130   30  2.5 Blanco Arquitecto
+## 131   18  3.0 Blanco Arquitecto
+## 132   21  3.0 Blanco Arquitecto
+## 133   24  3.0 Blanco Arquitecto
+## 134   27  3.0 Blanco Arquitecto
+## 135   30  3.0 Blanco Arquitecto
+## 136   18  3.5 Blanco Arquitecto
+## 137   21  3.5 Blanco Arquitecto
+## 138   24  3.5 Blanco Arquitecto
+## 139   27  3.5 Blanco Arquitecto
+## 140   30  3.5 Blanco Arquitecto
+## 141   18  4.0 Blanco Arquitecto
+## 142   21  4.0 Blanco Arquitecto
+## 143   24  4.0 Blanco Arquitecto
+## 144   27  4.0 Blanco Arquitecto
+## 145   30  4.0 Blanco Arquitecto
+## 146   18  4.5 Blanco Arquitecto
+## 147   21  4.5 Blanco Arquitecto
+## 148   24  4.5 Blanco Arquitecto
+## 149   27  4.5 Blanco Arquitecto
+## 150   30  4.5 Blanco Arquitecto</code></pre>
+</div>
+<div id="funciones" class="section level2">
+<h2>Funciones</h2>
+<p>Construir funciones es una las principales actividades para pasar de ser usuarios a programadores en el lenguaje <code>R</code>. Las funciones se utilizan a menudo para encapsular una secuencia de expresiones que deben ejecutarse varias veces, quizás en condiciones ligeramente diferentes. Las funciones también suelen escribirse cuando el código debe compartirse con otros o con el público.</p>
+<p>La escritura de una función permite a un desarrollador crear una interfaz para el código, que se especifica explícitamente con un conjunto de parámetros. Esta interfaz proporciona una abstracción del código a los usuarios potenciales. Esta abstracción simplifica la vida de los usuarios porque les libera de tener que saber cada detalle de cómo funciona el código. Además, la creación de una interfaz permite al desarrollador comunicar al usuario los aspectos del código que son importantes o más relevantes.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1"></a>NombreFuncion &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="op">&lt;</span>argumentos<span class="op">&gt;</span>){</span>
+<span id="cb112-2"><a href="#cb112-2"></a>  Cálculos con los argumentos de la función.</span>
+<span id="cb112-3"><a href="#cb112-3"></a>  Series de instrucciones en R.</span>
+<span id="cb112-4"><a href="#cb112-4"></a>  Desarrollo del cuerpo de la función.</span>
+<span id="cb112-5"><a href="#cb112-5"></a>}</span></code></pre></div>
+<div id="elementos-de-una-función." class="section level3">
+<h3>Elementos de una función.</h3>
+<p>Todas las funciones en <code>R</code> tienen las siguientes partes:</p>
+<ul>
+<li><strong>El Cuerpo:</strong> Es el código propio de la función <code>body()</code>.</li>
+<li><strong>Parámetros Formales:</strong> Lista de argumentos de la función <code>formals()</code>, <code>formalsArgs()</code> o <code>args()</code>.</li>
+<li><strong>Entorno:</strong> Mapa donde se localizan las variables de la función <code>environment()</code>.</li>
+</ul>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1"></a>FuncionEjemplo &lt;-<span class="st"> </span><span class="cf">function</span>(){</span>
+<span id="cb113-2"><a href="#cb113-2"></a>  <span class="co"># Esta función no hace nada, pero no es un error</span></span>
+<span id="cb113-3"><a href="#cb113-3"></a>}</span>
+<span id="cb113-4"><a href="#cb113-4"></a>FuncionEjemplo</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1"></a>CuadradoNumero &lt;-<span class="st"> </span><span class="cf">function</span>(n){</span>
+<span id="cb114-2"><a href="#cb114-2"></a>  n<span class="op">*</span>n <span class="co">#Halle el cuadrado del número</span></span>
+<span id="cb114-3"><a href="#cb114-3"></a>}</span>
+<span id="cb114-4"><a href="#cb114-4"></a><span class="kw">CuadradoNumero</span>(<span class="dv">8</span>)</span></code></pre></div>
+<pre><code>## [1] 64</code></pre>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1"></a><span class="kw">formals</span>(CuadradoNumero)</span></code></pre></div>
+<pre><code>## $n</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1"></a><span class="kw">body</span>(CuadradoNumero)</span></code></pre></div>
+<pre><code>## {
+##     n * n
+## }</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1"></a><span class="kw">environment</span>(CuadradoNumero)</span></code></pre></div>
+<pre><code>## &lt;environment: R_GlobalEnv&gt;</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1"></a>a &lt;-<span class="st"> </span><span class="dv">20</span></span>
+<span id="cb122-2"><a href="#cb122-2"></a>m &lt;-<span class="st"> </span><span class="kw">CuadradoNumero</span>(a)</span>
+<span id="cb122-3"><a href="#cb122-3"></a>m</span></code></pre></div>
+<pre><code>## [1] 400</code></pre>
+</div>
+<div id="entrega-de-resultados" class="section level3">
+<h3>Entrega de resultados</h3>
+<p>La instrucción <code>return()</code> finaliza la función, y se recomienda usar al final de la función.</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1"></a>promedio &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb124-2"><a href="#cb124-2"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
+<span id="cb124-3"><a href="#cb124-3"></a>  suma &lt;-<span class="st"> </span><span class="kw">sum</span>(x)</span>
+<span id="cb124-4"><a href="#cb124-4"></a>  pro &lt;-<span class="st"> </span>suma<span class="op">/</span>n</span>
+<span id="cb124-5"><a href="#cb124-5"></a>  <span class="kw">return</span>(pro)</span>
+<span id="cb124-6"><a href="#cb124-6"></a>}</span>
+<span id="cb124-7"><a href="#cb124-7"></a></span>
+<span id="cb124-8"><a href="#cb124-8"></a><span class="kw">set.seed</span>(<span class="dv">2019</span>)</span>
+<span id="cb124-9"><a href="#cb124-9"></a>(y &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">x =</span> <span class="dv">10</span>,<span class="dt">size =</span> <span class="dv">8</span>))</span></code></pre></div>
+<pre><code>## [1]  9  5 10  1  8  4  3  2</code></pre>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1"></a><span class="kw">promedio</span>(y)</span></code></pre></div>
+<pre><code>## [1] 5.25</code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1"></a><span class="co"># Entrega incorrecta de resultados</span></span>
+<span id="cb128-2"><a href="#cb128-2"></a>funMala &lt;-<span class="st"> </span><span class="cf">function</span>(a,b){</span>
+<span id="cb128-3"><a href="#cb128-3"></a>  w &lt;-<span class="st"> </span>a<span class="op">/</span>b</span>
+<span id="cb128-4"><a href="#cb128-4"></a>  x &lt;-<span class="st"> </span>a<span class="op">+</span>b</span>
+<span id="cb128-5"><a href="#cb128-5"></a>  y &lt;-<span class="st"> </span>a<span class="op">^</span>b</span>
+<span id="cb128-6"><a href="#cb128-6"></a>  z &lt;-<span class="st"> </span>b<span class="op">*</span>a</span>
+<span id="cb128-7"><a href="#cb128-7"></a>}</span>
+<span id="cb128-8"><a href="#cb128-8"></a>r1 &lt;-<span class="st"> </span><span class="kw">funMala</span>(<span class="dv">5</span>,<span class="dv">7</span>)</span>
+<span id="cb128-9"><a href="#cb128-9"></a>r1</span></code></pre></div>
+<pre><code>## [1] 35</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1"></a><span class="co"># Entrega correcta de resultados</span></span>
+<span id="cb130-2"><a href="#cb130-2"></a>funBuena &lt;-<span class="st"> </span><span class="cf">function</span>(a,b){</span>
+<span id="cb130-3"><a href="#cb130-3"></a>  w &lt;-<span class="st"> </span>a<span class="op">/</span>b</span>
+<span id="cb130-4"><a href="#cb130-4"></a>  x &lt;-<span class="st"> </span>a<span class="op">+</span>b</span>
+<span id="cb130-5"><a href="#cb130-5"></a>  y &lt;-<span class="st"> </span>a<span class="op">^</span>b</span>
+<span id="cb130-6"><a href="#cb130-6"></a>  z &lt;-<span class="st"> </span>b<span class="op">*</span>a</span>
+<span id="cb130-7"><a href="#cb130-7"></a>  <span class="kw">return</span>(<span class="kw">c</span>(w,x,y,z))</span>
+<span id="cb130-8"><a href="#cb130-8"></a>}</span>
+<span id="cb130-9"><a href="#cb130-9"></a>r2 &lt;-<span class="st"> </span><span class="kw">funBuena</span>(<span class="dv">5</span>,<span class="dv">7</span>)</span>
+<span id="cb130-10"><a href="#cb130-10"></a>r2</span></code></pre></div>
+<pre><code>## [1] 7.142857e-01 1.200000e+01 7.812500e+04 3.500000e+01</code></pre>
+<p>Si se quiere entregar resultados más complejos se recomienda devolverlo en forma de lista con la función <code>list()</code>.</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1"></a>MiFuncion1 &lt;-<span class="st"> </span><span class="cf">function</span>(x,y){</span>
+<span id="cb132-2"><a href="#cb132-2"></a>  z &lt;-<span class="st"> </span><span class="kw">sqrt</span>((x<span class="dv">-0</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>(y<span class="dv">-0</span>)<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb132-3"><a href="#cb132-3"></a>  coord &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">punto=</span><span class="kw">c</span>(x,y),<span class="dt">origen=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb132-4"><a href="#cb132-4"></a>  <span class="kw">list</span>(z,coord)</span>
+<span id="cb132-5"><a href="#cb132-5"></a>}</span>
+<span id="cb132-6"><a href="#cb132-6"></a><span class="kw">MiFuncion1</span>(<span class="fl">14.2</span>,<span class="op">-</span><span class="fl">5.8</span>)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 15.33884
+## 
+## [[2]]
+##   punto origen
+## 1  14.2      0
+## 2  -5.8      0
+## 3  14.2      0
+## 4  -5.8      0</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1"></a><span class="kw">MiFuncion1</span>(<span class="fl">14.2</span>,<span class="op">-</span><span class="fl">5.8</span>)[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>## [1] 15.33884</code></pre>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1"></a><span class="kw">MiFuncion1</span>(<span class="fl">14.2</span>,<span class="op">-</span><span class="fl">5.8</span>)[[<span class="dv">2</span>]]</span></code></pre></div>
+<pre><code>##   punto origen
+## 1  14.2      0
+## 2  -5.8      0
+## 3  14.2      0
+## 4  -5.8      0</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1"></a><span class="kw">MiFuncion1</span>(<span class="fl">14.2</span>,<span class="op">-</span><span class="fl">5.8</span>)<span class="op">$</span>coord</span></code></pre></div>
+<pre><code>## NULL</code></pre>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1"></a>MiFuncion2 &lt;-<span class="st"> </span><span class="cf">function</span>(x,y){</span>
+<span id="cb140-2"><a href="#cb140-2"></a>  z &lt;-<span class="st"> </span><span class="kw">sqrt</span>((x<span class="dv">-0</span>)<span class="op">^</span><span class="dv">2</span><span class="op">+</span>(y<span class="dv">-0</span>)<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb140-3"><a href="#cb140-3"></a>  coord &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">punto=</span><span class="kw">c</span>(x,y),<span class="dt">origen=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb140-4"><a href="#cb140-4"></a>  <span class="kw">list</span>(<span class="dt">distancia=</span>z,<span class="dt">coordenadas=</span>coord)</span>
+<span id="cb140-5"><a href="#cb140-5"></a>}</span>
+<span id="cb140-6"><a href="#cb140-6"></a><span class="kw">MiFuncion2</span>(<span class="fl">14.2</span>,<span class="op">-</span><span class="fl">5.8</span>)</span></code></pre></div>
+<pre><code>## $distancia
+## [1] 15.33884
+## 
+## $coordenadas
+##   punto origen
+## 1  14.2      0
+## 2  -5.8      0
+## 3  14.2      0
+## 4  -5.8      0</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1"></a><span class="kw">MiFuncion2</span>(<span class="fl">14.2</span>,<span class="op">-</span><span class="fl">5.8</span>)<span class="op">$</span>distancia</span></code></pre></div>
+<pre><code>## [1] 15.33884</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1"></a><span class="kw">MiFuncion2</span>(<span class="fl">14.2</span>,<span class="op">-</span><span class="fl">5.8</span>)<span class="op">$</span>coordenadas</span></code></pre></div>
+<pre><code>##   punto origen
+## 1  14.2      0
+## 2  -5.8      0
+## 3  14.2      0
+## 4  -5.8      0</code></pre>
+</div>
+<div id="tipos-de-argumentos" class="section level3">
+<h3>Tipos de argumentos</h3>
+<p>Las funciones pueden recibir cualquier clase de atómico y sus construciones particulares, ya sean vectores, matrices, listas o dataframes, siempre y cuando el cuerpo de la función y los cálculos con los argumentos lo permitan.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">-8</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">9</span>)</span>
+<span id="cb146-2"><a href="#cb146-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.2</span>, <span class="dv">7</span>, <span class="fl">6.5</span>, <span class="dv">-9</span>, <span class="dv">8</span>)</span>
+<span id="cb146-3"><a href="#cb146-3"></a><span class="kw">MiFuncion2</span>(x,y)</span></code></pre></div>
+<pre><code>## $distancia
+## [1]  5.003998 10.630146  9.552487 13.453624 12.041595
+## 
+## $coordenadas
+##    punto origen
+## 1    5.0      0
+## 2   -8.0      0
+## 3    7.0      0
+## 4   10.0      0
+## 5    9.0      0
+## 6    0.2      0
+## 7    7.0      0
+## 8    6.5      0
+## 9   -9.0      0
+## 10   8.0      0
+## 11   5.0      0
+## 12  -8.0      0
+## 13   7.0      0
+## 14  10.0      0
+## 15   9.0      0
+## 16   0.2      0
+## 17   7.0      0
+## 18   6.5      0
+## 19  -9.0      0
+## 20   8.0      0</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1"></a><span class="kw">set.seed</span>(<span class="dv">2019</span>)</span>
+<span id="cb148-2"><a href="#cb148-2"></a>(x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">20</span>,<span class="dv">9</span>),<span class="dv">3</span>,<span class="dv">3</span>))</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   10   17   18
+## [2,]    5    8   12
+## [3,]   13    7    3</code></pre>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1"></a>(y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dv">9</span>,<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>),<span class="dv">3</span>,<span class="dv">3</span>))</span></code></pre></div>
+<pre><code>##           [,1]      [,2]       [,3]
+## [1,]  1.605425  1.947276  2.0031486
+## [2,] -2.830757  1.354530 -1.2520473
+## [3,] -3.049825 -4.318799 -0.3090575</code></pre>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1"></a><span class="kw">MiFuncion2</span>(x,y)</span></code></pre></div>
+<pre><code>## $distancia
+##          [,1]      [,2]      [,3]
+## [1,] 10.12805 17.111163 18.111118
+## [2,]  5.74571  8.113862 12.065141
+## [3,] 13.35296  8.225085  3.015877
+## 
+## $coordenadas
+##         punto origen
+## 1  10.0000000      0
+## 2   5.0000000      0
+## 3  13.0000000      0
+## 4  17.0000000      0
+## 5   8.0000000      0
+## 6   7.0000000      0
+## 7  18.0000000      0
+## 8  12.0000000      0
+## 9   3.0000000      0
+## 10  1.6054247      0
+## 11 -2.8307566      0
+## 12 -3.0498250      0
+## 13  1.9472759      0
+## 14  1.3545297      0
+## 15 -4.3187987      0
+## 16  2.0031486      0
+## 17 -1.2520473      0
+## 18 -0.3090575      0
+## 19 10.0000000      0
+## 20  5.0000000      0
+## 21 13.0000000      0
+## 22 17.0000000      0
+## 23  8.0000000      0
+## 24  7.0000000      0
+## 25 18.0000000      0
+## 26 12.0000000      0
+## 27  3.0000000      0
+## 28  1.6054247      0
+## 29 -2.8307566      0
+## 30 -3.0498250      0
+## 31  1.9472759      0
+## 32  1.3545297      0
+## 33 -4.3187987      0
+## 34  2.0031486      0
+## 35 -1.2520473      0
+## 36 -0.3090575      0</code></pre>
+</div>
+<div id="el-argumento-..." class="section level3">
+<h3>El argumento <code>...</code></h3>
+<p>El argumento <code>...</code> indica un número variable de argumentos, que usualmente se pasan a otras funciones. <code>...</code> se usa para extender otra función y no se quiere copiar la lista completa de los argumentos de la función.</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1"></a>mean</span></code></pre></div>
+<pre><code>## function (x, ...) 
+## UseMethod(&quot;mean&quot;)
+## &lt;bytecode: 0x000000001555ae88&gt;
+## &lt;environment: namespace:base&gt;</code></pre>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1"></a>DesvMedicion &lt;-<span class="st"> </span><span class="cf">function</span>(x,...){</span>
+<span id="cb156-2"><a href="#cb156-2"></a>  m &lt;-<span class="st"> </span><span class="kw">mean</span>(x,...)</span>
+<span id="cb156-3"><a href="#cb156-3"></a>  d &lt;-<span class="st"> </span><span class="kw">sd</span>(x,...)</span>
+<span id="cb156-4"><a href="#cb156-4"></a>  res &lt;-<span class="st"> </span><span class="kw">c</span>(m<span class="op">-</span>d,m,m<span class="op">+</span>d)</span>
+<span id="cb156-5"><a href="#cb156-5"></a>  <span class="kw">return</span>(res)</span>
+<span id="cb156-6"><a href="#cb156-6"></a>}</span>
+<span id="cb156-7"><a href="#cb156-7"></a></span>
+<span id="cb156-8"><a href="#cb156-8"></a><span class="kw">set.seed</span>(<span class="dv">2019</span>)</span>
+<span id="cb156-9"><a href="#cb156-9"></a>(a &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>,<span class="dt">mean =</span> <span class="dv">5</span>,<span class="dt">sd =</span> <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>##  [1] 6.477045 3.970479 1.719637 6.832074 2.465036 6.476496 3.434754 6.018592
+##  [9] 2.020122 4.361641</code></pre>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1"></a><span class="kw">DesvMedicion</span>(a)</span></code></pre></div>
+<pre><code>## [1] 2.409349 4.377588 6.345826</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1"></a>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">8</span>,<span class="fl">7.5</span>,<span class="ot">NA</span>,<span class="fl">5.4</span>,<span class="fl">9.2</span>,<span class="dv">8</span>)</span>
+<span id="cb160-2"><a href="#cb160-2"></a><span class="kw">DesvMedicion</span>(b)</span></code></pre></div>
+<pre><code>## [1] NA NA NA</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1"></a><span class="kw">DesvMedicion</span>(b,<span class="dt">na.rm=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 6.230036 7.620000 9.009964</code></pre>
+</div>
+</div>
+<div id="recomedaciones" class="section level2">
+<h2>Recomedaciones</h2>
+<ul>
+<li>Realice los ejercicios de algoritmos. (Adquira un pensamiento algorítmico).</li>
+<li>Comente su código.</li>
+<li><strong>RTFM!. (LEMM o LEPM)</strong></li>
+<li>Piense antes de escribir. (Piense primero en el que y luego en el como).</li>
+<li>Diseñe en forma “top-down”, codifique en forma “bottom up”.</li>
+<li>Divida el problema en pequeñas funciones significativas.</li>
+<li>Evite escribir la misma rutina dos veces.</li>
+<li>Use nombres relevantes.</li>
+<li>Realice una prueba de escritorio o seguimiento. (función por función en forma “bottom up”)</li>
+<li>No se rinda, ¡¡quéjese!! (ayuda a listas, compañeros, etc).</li>
+<li>Evite iteracciones (R es vectorizado)</li>
+</ul>
+</div>
+<div id="uso-de-librerías" class="section level2">
+<h2>Uso de librerías</h2>
+<p>Todas las funciones y conjuntos de datos de <code>R</code> están alojados en librerías o paquetes, solamente cuando los paquetes son cargados sus contenidos estarán disponibles.</p>
+<p>Para ver cuáles paquetes están instalados en su computador, use este comando.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1"></a><span class="kw">library</span>()</span></code></pre></div>
+<p>Si quiere cargar un paquete, por ejemplo <code>psych</code>, use este comando.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1"></a><span class="kw">library</span>(psych)</span>
+<span id="cb165-2"><a href="#cb165-2"></a><span class="kw">require</span>(psych)</span></code></pre></div>
+<p>Si aparece un error, significa que no tienes instalado o correctamente instalado el paquete que deseas usar. Para conectarse a internet e instalar o actualizar un paquete, usa estos comandos.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1"></a><span class="co"># Instalar un paquete</span></span>
+<span id="cb166-2"><a href="#cb166-2"></a><span class="kw">install.packages</span>(<span class="st">&quot;psych&quot;</span>,<span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb166-3"><a href="#cb166-3"></a></span>
+<span id="cb166-4"><a href="#cb166-4"></a><span class="co"># Actualizar un paquete</span></span>
+<span id="cb166-5"><a href="#cb166-5"></a><span class="kw">update.packages</span>(<span class="st">&quot;psych&quot;</span>)</span></code></pre></div>
+<p>Para ver cuales paquetes están cargados actualmente, puedes ver en la pestaña <strong>Packages</strong> de RStudio o utilizar los siguientes comandos.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1"></a><span class="kw">search</span>()</span>
+<span id="cb167-2"><a href="#cb167-2"></a><span class="kw">sessionInfo</span>()</span>
+<span id="cb167-3"><a href="#cb167-3"></a>sessioninfo<span class="op">::</span><span class="kw">package_info</span>()</span></code></pre></div>
+<p>Para utilizar paquetes dentro de las funciones se recomienda cargarlos con el comando <code>require</code>, ya que permite que el código se ejecute así no exista el paquete; utilizar el comando <code>library</code> dentro de una función puede parar la ejecución sino existe el paquete.</p>
+<p>En algunas ocasiones no es necesario cargar el paqute para utilizar una función determinada, con el operador <code>::</code> se puede acceder al paquete y extraer la función deseada.</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="#cb168-1"></a><span class="kw">summary</span>(mtcars) <span class="co"># Resumen estadístico básico</span></span></code></pre></div>
+<pre><code>##       mpg             cyl             disp             hp       
+##  Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  
+##  1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  
+##  Median :19.20   Median :6.000   Median :196.3   Median :123.0  
+##  Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  
+##  3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  
+##  Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  
+##       drat             wt             qsec             vs        
+##  Min.   :2.760   Min.   :1.513   Min.   :14.50   Min.   :0.0000  
+##  1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   1st Qu.:0.0000  
+##  Median :3.695   Median :3.325   Median :17.71   Median :0.0000  
+##  Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  
+##  3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  
+##  Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  
+##        am              gear            carb      
+##  Min.   :0.0000   Min.   :3.000   Min.   :1.000  
+##  1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :0.0000   Median :4.000   Median :2.000  
+##  Mean   :0.4062   Mean   :3.688   Mean   :2.812  
+##  3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  
+##  Max.   :1.0000   Max.   :5.000   Max.   :8.000</code></pre>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="#cb170-1"></a>psych<span class="op">::</span><span class="kw">describe</span>(mtcars) <span class="co"># Resumen estadístico detallado</span></span></code></pre></div>
+<pre><code>##      vars  n   mean     sd median trimmed    mad   min    max  range  skew
+## mpg     1 32  20.09   6.03  19.20   19.70   5.41 10.40  33.90  23.50  0.61
+## cyl     2 32   6.19   1.79   6.00    6.23   2.97  4.00   8.00   4.00 -0.17
+## disp    3 32 230.72 123.94 196.30  222.52 140.48 71.10 472.00 400.90  0.38
+## hp      4 32 146.69  68.56 123.00  141.19  77.10 52.00 335.00 283.00  0.73
+## drat    5 32   3.60   0.53   3.70    3.58   0.70  2.76   4.93   2.17  0.27
+## wt      6 32   3.22   0.98   3.33    3.15   0.77  1.51   5.42   3.91  0.42
+## qsec    7 32  17.85   1.79  17.71   17.83   1.42 14.50  22.90   8.40  0.37
+## vs      8 32   0.44   0.50   0.00    0.42   0.00  0.00   1.00   1.00  0.24
+## am      9 32   0.41   0.50   0.00    0.38   0.00  0.00   1.00   1.00  0.36
+## gear   10 32   3.69   0.74   4.00    3.62   1.48  3.00   5.00   2.00  0.53
+## carb   11 32   2.81   1.62   2.00    2.65   1.48  1.00   8.00   7.00  1.05
+##      kurtosis    se
+## mpg     -0.37  1.07
+## cyl     -1.76  0.32
+## disp    -1.21 21.91
+## hp      -0.14 12.12
+## drat    -0.71  0.09
+## wt      -0.02  0.17
+## qsec     0.34  0.32
+## vs      -2.00  0.09
+## am      -1.92  0.09
+## gear    -1.07  0.13
+## carb     1.26  0.29</code></pre>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="#cb172-1"></a>psych<span class="op">::</span><span class="kw">describeBy</span>(iris,iris<span class="op">$</span>Species) <span class="co"># Resumen estadístico detallado por factor</span></span></code></pre></div>
+<pre><code>## 
+##  Descriptive statistics by group 
+## group: setosa
+##              vars  n mean   sd median trimmed  mad min max range skew kurtosis
+## Sepal.Length    1 50 5.01 0.35    5.0    5.00 0.30 4.3 5.8   1.5 0.11    -0.45
+## Sepal.Width     2 50 3.43 0.38    3.4    3.42 0.37 2.3 4.4   2.1 0.04     0.60
+## Petal.Length    3 50 1.46 0.17    1.5    1.46 0.15 1.0 1.9   0.9 0.10     0.65
+## Petal.Width     4 50 0.25 0.11    0.2    0.24 0.00 0.1 0.6   0.5 1.18     1.26
+## Species*        5 50 1.00 0.00    1.0    1.00 0.00 1.0 1.0   0.0  NaN      NaN
+##                se
+## Sepal.Length 0.05
+## Sepal.Width  0.05
+## Petal.Length 0.02
+## Petal.Width  0.01
+## Species*     0.00
+## ------------------------------------------------------------ 
+## group: versicolor
+##              vars  n mean   sd median trimmed  mad min max range  skew kurtosis
+## Sepal.Length    1 50 5.94 0.52   5.90    5.94 0.52 4.9 7.0   2.1  0.10    -0.69
+## Sepal.Width     2 50 2.77 0.31   2.80    2.78 0.30 2.0 3.4   1.4 -0.34    -0.55
+## Petal.Length    3 50 4.26 0.47   4.35    4.29 0.52 3.0 5.1   2.1 -0.57    -0.19
+## Petal.Width     4 50 1.33 0.20   1.30    1.32 0.22 1.0 1.8   0.8 -0.03    -0.59
+## Species*        5 50 2.00 0.00   2.00    2.00 0.00 2.0 2.0   0.0   NaN      NaN
+##                se
+## Sepal.Length 0.07
+## Sepal.Width  0.04
+## Petal.Length 0.07
+## Petal.Width  0.03
+## Species*     0.00
+## ------------------------------------------------------------ 
+## group: virginica
+##              vars  n mean   sd median trimmed  mad min max range  skew kurtosis
+## Sepal.Length    1 50 6.59 0.64   6.50    6.57 0.59 4.9 7.9   3.0  0.11    -0.20
+## Sepal.Width     2 50 2.97 0.32   3.00    2.96 0.30 2.2 3.8   1.6  0.34     0.38
+## Petal.Length    3 50 5.55 0.55   5.55    5.51 0.67 4.5 6.9   2.4  0.52    -0.37
+## Petal.Width     4 50 2.03 0.27   2.00    2.03 0.30 1.4 2.5   1.1 -0.12    -0.75
+## Species*        5 50 3.00 0.00   3.00    3.00 0.00 3.0 3.0   0.0   NaN      NaN
+##                se
+## Sepal.Length 0.09
+## Sepal.Width  0.05
+## Petal.Length 0.08
+## Petal.Width  0.04
+## Species*     0.00</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
