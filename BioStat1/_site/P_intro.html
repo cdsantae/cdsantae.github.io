@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Introducción a la Probabilidad</title>
+
+<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Investigación II</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_phv.html">PH para varianza</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="I_et2.html">Potencia</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-equalizer"></span>
+     
+    Muestreo
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="M_effect.html">Sobre el efecto</a>
+    </li>
+    <li>
+      <a href="M_MAS.html">MAS</a>
+    </li>
+    <li>
+      <a href="M_MAE.html">MAE</a>
+    </li>
+    <li>
+      <a href="M_Cluster.html">Cluster</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    R-Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Rinstall.html">Instalación</a>
+    </li>
+    <li>
+      <a href="IntroR.html">Introducción</a>
+    </li>
+    <li>
+      <a href="FunsR.html">Funciones y Paquetes</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Introducción a la Probabilidad</h1>
+
+</div>
+
+
+<hr>
+<div id="técnicas-de-conteo" class="section level2">
+<h2>Técnicas de Conteo</h2>
+<p>Para calcular las probabilidades de varios eventos es necesario contar el número de resultados posibles de un experimento, o contar el número de resultados favorables en un evento dado. el proceso de conteo puede simplificarse mediante el empleo de dos técnicas de conteo denominadas Permutaciones y combinaciones.</p>
+<div id="regla-de-la-adición" class="section level3">
+<h3>Regla de la Adición</h3>
+<p>Si un suceso <span class="math inline">\(A\)</span> puede ocurrir de <span class="math inline">\(n\)</span> maneras y otro suceso <span class="math inline">\(B\)</span> puede ocurrir de <span class="math inline">\(m\)</span> maneras, entonces el suceso <span class="math inline">\(A\)</span> <strong>o el</strong> <span class="math inline">\(B\)</span> (sucede el evento <span class="math inline">\(A\)</span> o sucede el evento <span class="math inline">\(B\)</span>) pueden ocurrir de <span class="math inline">\(n + m\)</span> formas, siempre y cuando los eventos no puedan suceder <em>simultáneamente</em>. En los problemas de conteo, el conector “o” se traduce en suma.</p>
+<p><span class="math display">\[\sum_{i=1}^k n_i\]</span></p>
+<blockquote>
+<p><strong>Ejemplo</strong><br> Cinco empresas de transporte terrestre tienen servicio diario entre Medellín y Bogotá. Tres empresas de aviación tienen vuelo diario entre Medellín y Bogotá. En consecuencia, hay <span class="math inline">\(5 + 3 = 8\)</span> maneras de ir de Medellín a Bogotá por aire o por tierra.</p>
+</blockquote>
+<blockquote>
+<p><strong>Ejemplo</strong><br> En el lanzamiento de un dado, ¿de cuántas maneras se puede obtener un número inferior a 2 o mayor que 4?<br> A: número inferior a 2, sucede solo de una manera.<br> B: número superior a 4, sucede de dos maneras.<br> A o B: número inferior a 2 o superior a 4, sucede de 1 + 2 = 3 maneras.</p>
+</blockquote>
+</div>
+<div id="regla-de-la-multiplicación" class="section level3">
+<h3>Regla de la Multiplicación</h3>
+<p>Si un suceso <span class="math inline">\(A\)</span> puede ocurrir de <span class="math inline">\(n\)</span> maneras y un suceso <span class="math inline">\(B\)</span> de <span class="math inline">\(m\)</span> formas, entonces el suceso <span class="math inline">\(A\)</span> <strong>y</strong> <span class="math inline">\(B\)</span> (sucede el evento <span class="math inline">\(A\)</span> y sucede el evento <span class="math inline">\(B\)</span>) puede ocurrir de <span class="math inline">\(n*m\)</span> modos. En los problemas de conteo, el conector “y” se traduce en multiplicación.</p>
+<p><span class="math display">\[\prod_{i=1}^k n_i\]</span></p>
+<blockquote>
+<p><strong>Ejemplo</strong><br> El menú de un restaurante ofrece 3 platos calientes y 4 postres. ¿De cuántas maneras se puede elegir un almuerzo de 1 plato caliente y 1 postre?<br> Podríamos hacer una lista de todas las posibilidades, pero será mucho más cómodo aplicar el principio de la multiplicación: hay 3 maneras de elegir el plato caliente y para cada una de ellas hay 4 maneras de elegir el postre. Por lo tanto, hay <span class="math inline">\(3 \times 4 = 12\)</span> comidas posibles.</p>
+</blockquote>
+<blockquote>
+<p><strong>Ejemplo</strong><br> ¿Cuántos códigos de una letra y un número de un dígito se pueden formar con las 27 letras del alfabeto y los números del 0 al 9?<br>Uno de los métodos podría ser listar todas las posibilidades <span class="math inline">\(A0\)</span>, <span class="math inline">\(A1\)</span> … <span class="math inline">\(A9\)</span>; <span class="math inline">\(B0\)</span>, <span class="math inline">\(B1\)</span> … <span class="math inline">\(B9\)</span> … <span class="math inline">\(Z0\)</span>, <span class="math inline">\(Z1\)</span> … <span class="math inline">\(Z9\)</span> hasta obtener 27 filas de 10 códigos en cada una.<br> Es más simple utilizar el principio de la <strong>multiplicación</strong>: hay 27 maneras de elegir la letra y para cada una de ellas hay 10 maneras de elegir el número, de modo que son <span class="math inline">\(27 \times 10 = 270\)</span> maneras en total.</p>
+</blockquote>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#e1">Ejercicios</a>
+</h5>
+</div>
+<div id="e1" class="panel-collapse collapse">
+<div class="panel-body">
+<ul>
+<li><p>Si una librería vende libros de literatura, biología, medicina, arquitectura y química, de los cuales posee 15 tipos diferentes de libros de literatura, 25 de biología, 12 de medicina, 8 de arquitectura y 10 de química, ¿cuántas opciones tiene una persona para escoger un libro de arquitectura o un libro de biología?</p></li>
+<li><p>¿Cuántos resultados se pueden obtener si se lanza un dado 2 veces?</p></li>
+<li><p>¿De cuántas formas se puede cruzar un río, sabiendo que se dispone de 3 botes y 4 barcos?</p></li>
+<li><p>¿Cuántos resultados distintos se puede obtener si se lanza una moneda 3 veces? ¿Y si se lanza 5 veces?</p></li>
+<li><p>Un repuesto de automóvil se vende en 3 tiendas de Medellín y en 8 tiendas de Bogotá. ¿De cuántas formas se puede adquirir el repuesto?</p></li>
+<li><p>Una persona quiere comprar un par de zapatos. Cuando llega a la zapatería encuentra solamente dos modelos diferentes de su talla de calzado. De uno hay dos colores disponibles, y del otro cinco colores disponibles. ¿Cuántas maneras tiene esta persona de realizar esta compra?</p></li>
+<li><p>¿De cuántas formas se puede ordenar una pizza, si hay 2 opciones de masa (tradicional y especial), y 4 sabores (hawaiana, carne, vegetariana y americana)? Solo se puede pedir una masa y un sabor.</p></li>
+<li><p>De la ciudad A a la ciudad B, se puede ir mediante 2 buses o 3 trenes. De la ciudad B a la ciudad C se puede ir mediante 2 barcos, 2 trenes o 3 aviones. ¿De cuántas formas se puede ir de la ciudad A a la ciudad C, pasando por B?</p></li>
+<li><p>¿Cuántos números del 1 al 1000, no contienen la cifra 4?</p></li>
+<li><p>Los números telefónicos de la ciudad de Medellín son de ocho dígitos, de los cuales el primero tiene que ser 4 y el segundo no puede ser 0, 1 ni 7. ¿Cuántos números telefónicos diferentes se pueden formar?</p>
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+<hr>
+<p><strong>Muestreo con reemplazo</strong>: es el procedimiento de observar una unidad dentro de una población y retornarla al mismo conjunto. Entonces para <span class="math inline">\(m\)</span> muestras de <span class="math inline">\(n\)</span> objetos existen <span class="math inline">\(n^m\)</span> opciones de seleccionar una muestra.</p>
+<p><strong>Muestreo sin reemplazo</strong>: es el procedimiento de observar una unidad dentro de una población y extraerla del conjunto. Para seleccionar una muestra, es preciso preguntar ¿importa el orden?</p>
+</div>
+<div id="permutaciones" class="section level3">
+<h3>Permutaciones</h3>
+<p>Se quiere seleccionar <span class="math inline">\(r\)</span> elementos de un conjunto de <span class="math inline">\(n\)</span> objetos, cuando <strong>importa el orden de selección</strong>.</p>
+<blockquote>
+<p>Consideremos un conjunto de tres libros diferentes: física, química y matemáticas. El número de formas en que pueden ubicarse en una estantería es una permutación de tres elementos, tomados de a tres. Representemos cada uno por su letra inicial. <span class="math display">\[\{F,\,Q,\,M\}\]</span> Las permutaciones posibles para el conjunto dado son: <span class="math display">\[\begin{align*}
+FQM &amp;\quad QMF \quad MFQ \\
+FMQ &amp;\quad QFM \quad MQF \end{align*}\]</span> Es decir, que los libros se pueden ordenar de 6 maneras diferentes. Para calcular el número de permutaciones para estos tres elementos, sin hacer una representación de cada caso, podemos usar el principio multiplicativo.<br> Hay <span class="math inline">\(n_1 = 3\)</span> maneras de escoger el primer libro que se va a ubicar en el estante. Una vez escogido este, quedan <span class="math inline">\(n_2 = 2\)</span> opciones para la segunda posición y de forma análoga <span class="math inline">\(n_3 = 1\)</span> maneras de escoger el último elemento. La cantidad de permutaciones es: <span class="math display">\[n_1 \times n_2 \times n_3 = 3 \times 2 \times 1 = 6\]</span></p>
+</blockquote>
+<p>Si generalizamos el procedimiento para un conjunto de <span class="math inline">\(n\)</span> elementos distintos, el número de formas diferentes en que puede ordenarse es:</p>
+<p><span class="math display">\[_nP_n = P^n_n = n \times (n − 1) \times (n − 2) \times \dots \times 2 \times 1\]</span> Esto es</p>
+<p><span class="math display">\[_nP_n = P^n_n = P_n = n!\]</span></p>
+<p>Ahora supongamos que no se toma el total de elementos disponibles en el conjunto, sino que se toman de a dos, de a tres, etc. Por ejemplo, si se realiza un cuadrangular de fútbol entre las selecciones de Colombia, Argentina, México y Uruguay, en el que cada partido tiene un equipo que juega como local y el otro es visitante, los diferentes partidos que se jugarán son:</p>
+<center>
+<table border="1" class="table table-hover ">
+<thead>
+<tr class="info">
+<th>
+Local
+</th>
+<th>
+Visitante
+</th>
+</tr>
+<tr>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Colombia
+</td>
+<td>
+Argentina
+</td>
+</tr>
+<tr>
+<td>
+Argentina
+</td>
+<td>
+Colombia
+</td>
+</tr>
+<tr>
+<td>
+Colombia
+</td>
+<td>
+México
+</td>
+</tr>
+<tr>
+<td>
+México
+</td>
+<td>
+Colombia
+</td>
+</tr>
+<tr>
+<td>
+Colombia
+</td>
+<td>
+Uruguay
+</td>
+</tr>
+<tr>
+<td>
+Uruguay
+</td>
+<td>
+Colombia
+</td>
+</tr>
+<tr>
+<td>
+Argentina
+</td>
+<td>
+México
+</td>
+</tr>
+<tr>
+<td>
+México
+</td>
+<td>
+Argentina
+</td>
+</tr>
+<tr>
+<td>
+Argentina
+</td>
+<td>
+Uruguay
+</td>
+</tr>
+<tr>
+<td>
+Uruguay
+</td>
+<td>
+Argentina
+</td>
+</tr>
+<tr>
+<td>
+México
+</td>
+<td>
+Uruguay
+</td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>En cada pareja formada interesa el orden en que se disponen los elementos, es decir, cuál selección jugará como local. Queremos entonces calcular el número de permutaciones de 4 elementos tomados de a 2. Usando nuevamente el principio multiplicativo, tenemos 2 posiciones para llenar con <span class="math inline">\(n_1 = 4\)</span> opciones para la primera y <span class="math inline">\(n_2 = 3\)</span> para la segunda.</p>
+<p><span class="math display">\[\underset{\text{Local}} 4 \times \underset{\text{Visitante}} 3  = 12\]</span></p>
+<p>En general, para calcular el número de permutaciones de <span class="math inline">\(n\)</span> elementos tomados de a <span class="math inline">\(r\)</span> a la vez, comenzamos a hacer el factorial de <span class="math inline">\(n\)</span>, pero solo tomando los primeros <span class="math inline">\(r\)</span> factores:</p>
+<p><span class="math display">\[n(n-1)(n-2)...(n-r+1)=\cfrac{n!}{(n-r)!}=P_{n}^{r}\]</span></p>
+<blockquote>
+<p><strong>Ejemplo</strong><br> Si se realiza un cuadrangular de fútbol entre las selecciones de Colombia, Argentina, México y Uruguay, en el que cada partido tiene un equipo que juega como <strong>local</strong> y el otro es <strong>visitante</strong>, ¿Cuántos partidos se jugarán?<br> En cada pareja formada interesa el orden en que se disponen los elementos, es decir, cuál selección jugará como local. <span class="math display">\[P_{4}^{2}=\frac{4!}{(4-2)!}=\frac{4\times 3\times 2 \times 1}{2 \times 1}=4\times 3=12\]</span></p>
+</blockquote>
+<p>Si generalizamos el procedimiento para un conjunto de <span class="math inline">\(n\)</span> elementos distintos, el número de formas diferentes en que puede ordenarse es:</p>
+<p><span class="math display">\[P_{n}^{n}=\cfrac{n!}{(n-n)!}=n!\]</span></p>
+<blockquote>
+<p><strong>Ejemplo</strong><br> Un comité de cinco personas ha de repartir los cinco puestos directivos de presidente, vicepresidente, secretario, tesorero y vocal. ¿De cuántas maneras es posible hacerlo?<br> Se trata de ordenar las cinco personas en los cinco lugares; por lo tanto el número de maneras es: <span class="math display">\[P_{5}^{5} = 5! = 5 \times 4 \times 3 \times 2 \times 1 = 120\]</span></p>
+</blockquote>
+<blockquote>
+<p><strong>Ejemplo</strong><br> ¿Cuántas palabras diferentes se pueden formar con las letras n, l, o, e, así no tengan sentido? <span class="math display">\[P4 = 4! = 4 * 3 * 2 = 24\]</span></p>
+</blockquote>
+<blockquote>
+<p><strong>Ejemplo</strong><br> Con las letras de la palabra <em>libro</em>. ¿Cuántas ordenaciones distintas se pueden hacer que empiecen por vocal? <span class="math display">\[P_2 \times P_4 = (2 \times 1) \times (4 \times 3 \times 2 \times 1)=48\]</span></p>
+</blockquote>
+<p>Cuando se quiere ordenar <span class="math inline">\(n\)</span> elementos entre los cuales hay objetos idénticos entre sí, algunos resultados estarán repetidos un cierto número de veces. Por ejemplo si se quiere ordenar de maneras diferentes las letras de la palabra <strong>COROZO</strong>, se encontrarán 6 resultados repetidos para cada palabra distinta, debido a que la letra <strong>O</strong> se encuentra 3 veces en la palabra.</p>
+<p>Para conocer el número de palabras diferentes que podemos formar, se calcula la permutación del total de elementos, en este caso 6, y se divide por la permutación de los elementos que se encuentran repetidos.</p>
+<p><span class="math display">\[\frac{\text{COROZO}}{\text{O&#39;s repetidos}}=\frac{P_6^6}{P_3^3}=\frac{720}{6}=120\]</span></p>
+<p>En general, si se tiene <span class="math inline">\(n\)</span> objetos, <span class="math inline">\(n_1\)</span> de tipo 1, <span class="math inline">\(n_2\)</span> de tipo 2, …, <span class="math inline">\(n_r\)</span> de tipo <span class="math inline">\(r\)</span>, talque <span class="math inline">\(\sum_{i=1}^r=n\)</span>, entonces las formas de seleccionar los objetos en grupos es:</p>
+<p><span class="math display">\[P_{n}^{n_1 n_2 ... n_r}=\cfrac{n!}{n_1!n_2!...n_r!}\]</span></p>
+<blockquote>
+<p><strong>Ejemplo</strong><br> ¿Cuántas palabras diferentes, aun sin significado, se pueden formar con las letras de la palabra <strong>AMOROSOS</strong>? <span class="math display">\[P_8^{1,1,3,1,2}=\frac{8!}{1!1!3!1!2!}=\frac{8!}{3!2!}=3360\]</span></p>
+</blockquote>
+</div>
+<div id="combinatorias" class="section level3">
+<h3>Combinatorias</h3>
+<p>Son los grupos que se pueden formar con varios elementos tomándolos uno a uno, dos a dos, tres a tres, etc., de modo que dos grupos que tengan el mismo número de elementos se diferencien por lo menos en un elemento. Es decir, <strong>sin que importe el orden en que se disponen</strong>.</p>
+<blockquote>
+<p>En una combinación se prescinde del orden, a diferencia de una permutación. Por ejemplo las combinaciones de las tres letras <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, <span class="math inline">\(c\)</span> tomadas de dos en dos, son <span class="math inline">\(ab\)</span>, <span class="math inline">\(bc\)</span> y <span class="math inline">\(ac\)</span>. Cualquiera de estas es una combinación. Observa que <span class="math inline">\(ab\)</span> y <span class="math inline">\(ba\)</span> son una misma combinación (se prescinde del orden), mientras que constituyen dos permutaciones distintas (importa el orden), de las letras <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span>.</p>
+</blockquote>
+<p>Se quiere seleccionar <span class="math inline">\(r\)</span> elementos de <span class="math inline">\(n\)</span> objetos donde no importa el orden.</p>
+<p><span class="math display">\[C_n^r={n\choose r}=\cfrac{n!}{r!(n-r)!}\]</span></p>
+<blockquote>
+<p><strong>Ejemplo</strong><br> ¿Cuántos comités de cuatro personas se pueden formar de un grupo de 9 personas?<br> Cada comité (sin establecer puestos directivos) es una selección de cuatro objetos de un total de nueve. El número de comités es: <span class="math display">\[{9\choose 4}=\frac{9!}{4!(9-4)!}=\frac{9 \times 8 \times 7 \times  6 \times 5!}{4!5!}=126\]</span></p>
+</blockquote>
+<blockquote>
+<p><strong>Ejemplo</strong><br> A una reunión asisten 10 personas y se intercambian saludos entre todos. ¿Cuántos saludos se han intercambiado? <span class="math display">\[{10\choose2} = \frac{10 \times 9}{2} = 45\]</span></p>
+</blockquote>
+<blockquote>
+<p><strong>Ejemplo</strong><br> Un grupo, compuesto por cinco hombres y siete mujeres, forma un comité de 5 hombres y 3 mujeres. De cuántas formas puede formarse, si:<br> - Puede pertenecer a él cualquier hombre o mujer. <span class="math display">\[C^2_5\,C^3_7 = {5\choose2}{7\choose3}=10 \times 35 =350\]</span> - Una mujer determinada debe pertenecer al comité. <span class="math display">\[C^2_5\,C^2_6 = {5\choose2}{6\choose2}=10 \times 15 =150\]</span> - Dos hombres determinados no pueden estar en el comit <span class="math display">\[C^2_3\,C^3_7 = {3\choose2}{7\choose3}=3 \times 35 =105\]</span></p>
+</blockquote>
+<p>Son combinaciones con repetición todas las agrupaciones de <span class="math inline">\(k\)</span> elementos, dispuestos linealmente, que se pueden formar a partir de n elementos distintos, donde cada uno de los elementos puede formar parte de la agrupación tantas veces como sea posible y sin importar el orden de ellos.</p>
+<p>Igual que las combinaciones, pero admitiendo elementos repetidos.</p>
+<p><span class="math display">\[CR_n^r={n+r-1\choose r}=\cfrac{(n+r-1)!}{r!(n-1)!}\]</span></p>
+<blockquote>
+<p><strong>Ejemplo</strong><br> En una repostería hay cinco tipos diferentes de pasteles. ¿De cuántas formas se pueden elegir cuatro pasteles?<br> No importa el orden (son pasteles). Puede haber dos o más pasteles en un grupo, luego con repetición. <span class="math display">\[CR_5^4={5+4-1\choose 4}=\frac{8!}{4!(5-1)!}=\frac{8!}{4!4!}=70\]</span></p>
+</blockquote>
+<blockquote>
+<p><strong>Ejemplo</strong><br>En una bodega hay 5 tipos diferentes de botellas, ¿cuántas formas existen de elegir 4 botellas? <span class="math display">\[CR_5^4={5+4-1\choose 4}=\cfrac{(5+4-1)!}{4!(5-1)!}=\cfrac{8!}{4!4!}=70\]</span></p>
+</blockquote>
+<p>Los números de las combinatorias se les llama frecuentemente <em>coeficientes binomiales</em> puesto que provienen de la <em>expansión binomial</em>:</p>
+<p><span class="math display">\[(x+y)^n=x^n+{n\choose1}x^{n-1}y+{n\choose2}x^{n-2}y^2+\dots+{n\choose n}y^n=\sum_{r=0}^n{n\choose r}x^r y^{n-r}\]</span></p>
+<blockquote>
+<p><strong>Ejemplo</strong> <span class="math display">\[\begin{align*}
+(x+y)^4 &amp;=x^4+{4\choose1}x^3y+{4\choose2}x^2y^2+{4\choose3}xy^3+{4\choose4}y^4\\
+&amp;=x^4+4x^3y+6x^2y^2+4xy^3+y^4
+\end{align*}\]</span></p>
+</blockquote>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#e2">Ejercicios</a>
+</h5>
+</div>
+<div id="e2" class="panel-collapse collapse">
+<div class="panel-body">
+<ul>
+<li><p>En un juego de naipes una mano está compuesta por cinco cartas. ¿De cuántas formas se puede formar una mano con 3 picas y 2 corazones?</p></li>
+<li><p>¿Cuántas ensaladas pueden prepararse con lechuga, tomate, cebolla, aceitunas y rábanos?</p></li>
+<li><p>¿De cuántas formas puede un grupo de 10 personas dividirse en (a) dos grupos de 7 y 3 personas, (b) tres grupos de 5, 3 y 2 personas?</p></li>
+<li><p>Un restaurante ofrece a sus clientes la posibilidad de armar las ensaladas a su gusto.Cada ensalada puede llevar dos proteínas y dos aderezos. Si el restaurante dispone de 5 proteinas diferentes y 4 aderezos de los que se puede elegir, ¿cuantas ensaladas diferentes se pueden preparar?</p></li>
+<li><p>¿De cuántas formas pueden sentarse ocho personas en una fila de butacas?</p></li>
+<li><p>En el Baloto se eligen 5 números del 1 al 43 y una súperbalota con números del 1 al 16. ¿Cuántas combinaciones existen?</p>
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+<div id="concepto-de-probabilidad" class="section level2">
+<h2>Concepto de Probabilidad</h2>
+<p>La probabilidad es una medida de la certidumbre asociada a un suceso o <strong>evento futuro</strong> y suele expresarse como un número entre 0 y 1 (o entre 0% y 100%). Antes de establecer una definición formal de probabilidad, es necesario comprender qué son los eventos y los espacios muestrales.</p>
+<div id="aleatoriedad" class="section level3">
+<h3>Aleatoriedad</h3>
+<p>La aleatoriedad está asociada a todo proceso cuyo resultado <strong>no puede ser determinado antes de que éste se produzca</strong>, debido a que los resultados de dicho proceso no contiene patrones reconocibles o regulares, que permitan pronosticar un resultado futuro.</p>
+<p><strong>Experimento aleatorio:</strong> Es aquel experimento que, a pesar de controlar las condiciones iniciales bajo las cuales se realiza, lo resultados obtenidos no son esencialmente los mismos, es decir, <em>no es posible garantizar los mismos resultados</em> que se obtienen inicialmente, debido a que su resultado es determinado por el azar.</p>
+<p><strong>Experimento estadístico:</strong> Es cualquier acción o proceso que se puede llevar a cabo bajo ciertas condiciones, de modo que <em>en cada realización se presente un resultado</em>, ya sea numérico o no numérico. Éstos deben cumplir ciertas características:</p>
+<ul>
+<li>No es posible predecir el resultado exacto del experimento, en cualquiera de sus ejecuciones.</li>
+<li>Es posible conocer todos los posibles resultados del experimento, previo a las realizaciones del mismo.</li>
+<li>Es posible repetir el experimento bajo condiciones idénticas o similares.</li>
+</ul>
+</div>
+<div id="espacio-muestral" class="section level3">
+<h3>Espacio Muestral</h3>
+<p>Los posibles resultados de un experimento son llamados eventos simples. Un experimento se dice “<em>aleatorio</em>” si proporciona diferentes resultados, aún cuando se realiza en las mismas condiciones.</p>
+<p>El conjunto de todos los posibles resultados de un experimento estadístico es llamado <strong>Espacio Muestral</strong> y se denota como <span class="math inline">\(\Omega\)</span>. Estos espacios pueden dividirse en espacios muestrales discretos y continuos.</p>
+<p><strong>Espacio muestral discreto:</strong> Es aquel que posee un número finito de posibilidades o una serie interminable con tantos elementos como <em>números enteros</em> existentes.</p>
+<blockquote>
+<p><strong>Ejemplo</strong> <br> Se lanza una moneada no cargada, e identifica los resultados como “cara” y “sello”, entonces: <span class="math display">\[\Omega=\{s,c\}\]</span></p>
+</blockquote>
+<blockquote>
+<p><strong>Ejemplo</strong><br> Considere el experimento de lanzar un dado convencional de 6 caras. Escriba el espacio muestral asociado a este experimento. <span class="math display">\[\Omega=\{1,2,3,4,5,6\}\]</span></p>
+</blockquote>
+<p><strong>Espacio muestral continuo:</strong> Es aquel que posee un número infinito de posibilidades igual al número de puntos en un segmento de linea.</p>
+<blockquote>
+<p><strong>Ejemplo</strong> <br> Se selecciona una bombilla y se registra su duración en horas, entonces: <span class="math display">\[\Omega=[0,\infty)\]</span></p>
+</blockquote>
+<blockquote>
+<p><strong>Ejemplo</strong> <br> Considere el experimento del tiempo de espera en minutos que pasa hasta que un estudiante termine el parcial en el horario de clase, si la clase dura 2 horas. Escriba el espacio muestral asociado a este experimento. <span class="math display">\[\Omega=[0,120)\]</span></p>
+</blockquote>
+</div>
+<div id="eventos" class="section level3">
+<h3>Eventos</h3>
+<p>Un <em>evento</em> es un subconjunto del espacio muestral <span class="math inline">\(\Omega\)</span>, se dice que un evento <span class="math inline">\(A\)</span> ocurre si el resultado del experimento aleatorio pertenece a <span class="math inline">\(A\)</span></p>
+<p><img src="P_intro_files/figure-html/unnamed-chunk-1-1.png" width="280" style="display: block; margin: auto;" /></p>
+<p>Los eventos pueden ser clasificados en:</p>
+<ul>
+<li><strong>Simple:</strong> se da cuando el evento tiene un solo resultado o punto muestral.</li>
+</ul>
+<blockquote>
+<p><strong>Ejemplo</strong><br> Considere el experimento de lanzar un dado convencional de 6 caras. <span class="math inline">\(A\)</span> es el evento en el cual se saca un número 3 en el dado. <span class="math display">\[A=\{3\}\]</span></p>
+</blockquote>
+<ul>
+<li><strong>Compuesto:</strong> se da cuando el evento tiene más de un resultado o punto muestral. Estos resultados pueden ser dependientes o independientes.</li>
+</ul>
+<blockquote>
+<p><strong>Ejemplo</strong><br> Considere el experimento de lanzar un dado convencional de 6 caras. <span class="math inline">\(B\)</span> es el evento en el cual se saca un número primo en el dado. <span class="math display">\[A=\{2,3,5\}\]</span></p>
+</blockquote>
+<ul>
+<li><strong>Imposible:</strong> se da cuando el evento no puede ocurrir dentro del espacio muestral. El evento se denota entonces por el símbolo <span class="math inline">\(\emptyset\)</span> que representa al conjunto vacío.</li>
+</ul>
+<blockquote>
+<p><strong>Ejemplo</strong><br> Considere el experimento de lanzar un dado convencional de 6 caras. <span class="math inline">\(C\)</span> es el evento en el cual se saca un 8 en el dado. <span class="math display">\[A=\{\emptyset\}\]</span></p>
+</blockquote>
+</div>
+<div id="teoría-de-conjuntos" class="section level3">
+<h3>Teoría de conjuntos</h3>
+<p>Dado que un evento puede estar compuesto por un conjunto de datos, las relaciones y resultados de la teoría de conjuntos, pueden ser utilizados para solucionar problemas de probabilidad. Por ello definimos como:</p>
+<ul>
+<li><strong>Subconjunto</strong>: Sean dos eventos <span class="math inline">\(A\)</span> y <span class="math inline">\(B\)</span>. Si los elementos de un evento están contenidos en el otro, se llama subconjunto. <span class="math inline">\(A \subset B\)</span>: <em><span class="math inline">\(A\)</span> está contenido en <span class="math inline">\(B\)</span></em>, o <span class="math inline">\(B \subset A\)</span>: <em><span class="math inline">\(B\)</span> contiene <span class="math inline">\(A\)</span></em>.</li>
+</ul>
+<p><img src="P_intro_files/figure-html/unnamed-chunk-2-1.png" width="560" style="display: block; margin: auto;" /></p>
+<ul>
+<li><strong>Conjuntos Equivalentes</strong>: Si <span class="math inline">\(A \subset B\)</span> y <span class="math inline">\(B \subset A\)</span> entonces <span class="math inline">\(A=B\)</span>.</li>
+</ul>
+<p><img src="P_intro_files/figure-html/unnamed-chunk-3-1.png" width="280" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p><strong>Conjunto Vacío</strong>: Si <span class="math inline">\(A\)</span> no contienen elementos se llama vacío o nulo y se denota como <span class="math inline">\(\emptyset\)</span>.</p></li>
+<li><p><strong>Complemento</strong>: El complemento de un evento <span class="math inline">\(A\)</span> respecto al espacio <span class="math inline">\(\Omega\)</span>, son los elementos que están en <span class="math inline">\(\Omega\)</span> pero no en <span class="math inline">\(A\)</span>, se denota como <span class="math inline">\(\bar{A}\)</span>, <span class="math inline">\(A^c\)</span>, <span class="math inline">\(A^{\prime}\)</span> o <span class="math inline">\(\Omega - A\)</span>.</p></li>
+</ul>
+<p><img src="P_intro_files/figure-html/unnamed-chunk-4-1.png" width="280" style="display: block; margin: auto;" /></p>
+<ul>
+<li><strong>Intersección</strong>: Sean dos eventos <span class="math inline">\((A, B) \in \Omega\)</span>, cuando todos los elementos están contenidos en <span class="math inline">\(A\)</span> y <span class="math inline">\(B\)</span> se le llama intersección de eventos <span class="math inline">\(A \cap B\)</span>.</li>
+</ul>
+<p><img src="P_intro_files/figure-html/unnamed-chunk-5-1.png" width="280" style="display: block; margin: auto;" /></p>
+<ul>
+<li><strong>Unión</strong>: Sean dos eventos <span class="math inline">\((A, B) \in \Omega\)</span>, cuando todos los elementos están contenidos en <span class="math inline">\(A\)</span> o <span class="math inline">\(B\)</span> o en ambos, se le llama unión de eventos. <span class="math inline">\(A \cup B=A+B-A\cap B\)</span></li>
+</ul>
+<p><img src="P_intro_files/figure-html/unnamed-chunk-6-1.png" width="280" style="display: block; margin: auto;" /></p>
+<ul>
+<li><strong>Diferencia de Conjuntos</strong>: Sean dos eventos <span class="math inline">\((A, B) \in \Omega\)</span>, todos los elementos de <span class="math inline">\(A\)</span> que no se encuentran en <span class="math inline">\(B\)</span> determina la diferencia de conjuntos <span class="math inline">\(A-B\)</span>.</li>
+</ul>
+<p><img src="P_intro_files/figure-html/unnamed-chunk-7-1.png" width="280" style="display: block; margin: auto;" /></p>
+</div>
+<div id="teoremas-de-eventos" class="section level3">
+<h3>Teoremas de eventos</h3>
+<ol style="list-style-type: decimal">
+<li>Ley conmutativa: <span class="math inline">\(\{A \cup B=B\cup A\}\)</span>, <span class="math inline">\(\{A \cap B = B \cap A\}\)</span></li>
+<li>Ley asociativa: <span class="math inline">\(\{A \cup (B \cup C)=(A \cup B) \cup C\}\)</span>, <span class="math inline">\(\{A \cap (B \cap C)=(A \cap B) \cap C\}\)</span></li>
+<li>Ley distributiva: <span class="math inline">\(\{A \cap (B \cup C)=(A \cap B) \cup (A \cap C)\}\)</span>, <span class="math inline">\(\{A \cup (B \cap C)=(A \cup B) \cap (A \cup C)\}\)</span></li>
+<li><span class="math inline">\(\overline{(\bar{A})}=(A^\prime)^\prime=A\)</span></li>
+<li><span class="math inline">\(\{A \Omega= A\}\)</span>, <span class="math inline">\(\{A \cup \Omega = \Omega\}\)</span>, <span class="math inline">\(\{A\emptyset=\emptyset\}\)</span>, <span class="math inline">\(\{A \cup \emptyset=A\}\)</span></li>
+<li><span class="math inline">\(\{A\bar{A}=\emptyset\}\)</span>, <span class="math inline">\(\{A \cup \bar A=\Omega\}\)</span>, <span class="math inline">\(\{A \cap A=A\}\)</span>, <span class="math inline">\(\{A \cup A=A\}\)</span></li>
+<li><span class="math inline">\(\{\overline{A\cup B}=\bar A \cap \bar B\}\)</span>, <span class="math inline">\(\{\overline{A\cap B}=\bar A \cup \bar B\}\)</span></li>
+<li><span class="math inline">\(A-B=A\bar B\)</span></li>
+<li>Ley de Morgan.
+<ul>
+<li><span class="math inline">\(\overline{\bigcup_{\lambda \in \Lambda}A_\lambda}=\bigcap_{\lambda\in\Lambda}\bar{A_\lambda}\)</span></li>
+<li><span class="math inline">\(\overline{\bigcap_{\lambda \in \Lambda}A_\lambda}=\bigcup_{\lambda\in\Lambda}\bar{A_\lambda}\)</span></li>
+</ul></li>
+<li>Si <span class="math inline">\((A, B) \in \Omega\)</span> entonces <span class="math inline">\(\{A=AB \cup A\bar B\}\)</span> y <span class="math inline">\(\{AB \cap A\bar B=\emptyset\}\)</span>.</li>
+<li>Si <span class="math inline">\(A \subset B\)</span> entonces <span class="math inline">\(AB=A\)</span> y <span class="math inline">\(A\cup B=B\)</span>.</li>
+</ol>
+<p><br></p>
+<div id="disyunción-o-eventos-mutuamente-excluyentes" class="section level4">
+<h4>Disyunción o Eventos Mutuamente Excluyentes</h4>
+<p>Sean <span class="math inline">\((A, B) \in \Omega\)</span>, los eventos son disjuntos si <span class="math inline">\(A \cap B=\emptyset\)</span>. En general una colección de eventos <span class="math inline">\(A_1, A_2,...\)</span> son mutuamente excluyentes si <span class="math inline">\(A_i \cap A_j = \emptyset, \: \forall i \neq j\)</span>.</p>
+<blockquote>
+<p><strong>Ejemplo</strong><br> Si en cierta población el 65% son fumadores y el 70% son obesos, ¿Cuál es el mínimo porcentaje de obesos fumadores?<br> Se tiene que <span class="math inline">\(F=65\%\)</span>, <span class="math inline">\(O=70\%\)</span> y <span class="math inline">\((F \cup O)=100\%\)</span>, por definición se sabe que: <span class="math display">\[A \cup B=A+B-A\cap B\]</span> Entonces, el mínimo porcentaje de obesos fumadores es: <span class="math display">\[F \cap O \geq F+O-(F\cup O) \geq 65+10-100 \geq 35\]</span></p>
+</blockquote>
+<blockquote>
+<p><strong>Ejemplo</strong><br> En la escuela de nutrición, de los estudiantes del nivel 5 el 53% de los alumnos aprueban Planificación Alimentaria y Nutricional, el 52% Alimentación y Nutrición del Niño y el 20% ninguna de las dos asignaturas. Halle el porcentaje de alumnos que aprueban ambas materias.<br> Se tiene que <span class="math inline">\(PAN=53\%\)</span>, <span class="math inline">\(ANN = 52\%\)</span> y <span class="math inline">\((\overline{PAN} \cap \overline{ANN}) = 20\%\)</span>, por teorema se sabe que: <span class="math display">\[(\overline{A \cup B})=(\bar{A} \cap \bar{B})\]</span> Entonces <span class="math inline">\((PAN \cup ANN) = 1-(\overline{A \cup B}) = 80\%\)</span>, de acuerdo a esto el porcentaje que aprueban ambas materias es: <span class="math display">\[(PAN \cap ANN)=PAN+ANN-(PAN \cup ANN)=53+52-80=25\%\]</span></p>
+</blockquote>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#e3">Ejercicios</a>
+</h5>
+</div>
+<div id="e3" class="panel-collapse collapse">
+<div class="panel-body">
+<ul>
+<li><p>En una pizzería, se hizo una encuesta sobre cuál era la pizza de preferencia entre ranchera y hawaiana. 20 personas respondieron “Ranchera”, 23 dijeron que les gustaba la hawaiana, a 8 personas les gustaban las dos y a 3 personas no les gusta ninguna. ¿Cuál fue el total de los encuestados? ¿A cuántas personas solo les gusta la pizza ranchera? ¿Cuántas personas no les gusta la pizza hawaiana?</p></li>
+<li><p>En el último semestre de Ingeniería Electrónica, los estudiantes se pueden matricular en 3 cursos opcionales: Telecomunicaciones, Teoría de la Computabilidad y Automatización. Se sabe que 106 estudiantes en total se han matriculado, así:</p>
+<ul>
+<li>60 en Automatización.</li>
+<li>45 en Teoría de la Computabilidad.</li>
+<li>28 en Automatización y Teoría de la Computabilidad.</li>
+<li>27 en Automatización y Telecomunicaciones.</li>
+<li>17 en Teoría de la Computabilidad y Telecomunicaciones.</li>
+<li>15 en las 3 asignaturas.</li>
+<li>8 no desean ver ninguno de estos cursos. <br><br> ¿Cuál es el número de estudiantes matriculados en Telecomunicaciones? ¿Cuántos estudiantes solo están matriculados en Telecomunicaciones y Automatización? ¿Cuántos estudiantes solo están matriculados en Teoría de la Computabilidad?
+</div>
+</div></li>
+</ul>
+</div></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
