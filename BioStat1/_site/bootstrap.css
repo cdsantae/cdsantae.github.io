@@ -2268,7 +2268,7 @@ caption {
   text-align: left;
 }
 th {
-  text-align: left;
+  text-align: center;
 }
 .table {
   width: 100%;
@@ -2283,12 +2283,14 @@ th {
 .table > tfoot > tr > td {
   padding: 6px;
   line-height: 1.42857143;
-  vertical-align: top;
+  vertical-align: middle;
   border-top: 1px solid #4e5d6c;
+  text-align: center;
 }
 .table > thead > tr > th {
-  vertical-align: bottom;
+  vertical-align: middle;
   border-bottom: 2px solid #4e5d6c;
+  text-align: center;
 }
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
