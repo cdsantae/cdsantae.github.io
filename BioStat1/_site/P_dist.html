@@ -554,229 +554,44 @@ div.tocify {
 <h2>Variables Aleatorias</h2>
 <p>En la mayoría de problemas a los que comúnmente nos enfrentamos, la descripción del conjunto de posibles resultados de un experimento aleatorio puede ser complicado y por lo tanto el cálculo de probabilidades también se dificulta.</p>
 <p>Por ejemplo, si una persona es seleccionada de una población, diversas características pueden ser de interés y cada una aporta al entendimiento de un fenómeno en especial, como son, el tiempo que emplea en transportarse de su casa al lugar de trabajo, que tan lejos está de su casa el sitio donde trabaja, cuantos hijos tiene, cuantas horas duerme, cuantas personas conforman su grupo familiar, cuanto gana, cuanto gasta, cuanto paga por servicios, cuantas llamadas hace diariamente, etc.</p>
-<p>Una <strong>Variable Aleatoria</strong> es una función definida en un <strong>Espacio Muestral</strong> que asigna a cada resultado de un experimento aleatorio un valor real. Usualmente son denotadas con letras mayúsculas como (<span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span>, <span class="math inline">\(Z\)</span>, <span class="math inline">\(T\)</span>, etc). Al conjunto de todos los posibles resultados de una variable aleatoria se le llamará <strong>Rango de la variable</strong> (<span class="math inline">\(A_X\)</span>).</p>
+<p>Una Variable Aleatoria es una función definida en un Espacio Muestral que asigna a cada resultado de un experimento aleatorio un valor real. Usualmente son denotadas con letras mayúsculas como (<span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span>, <span class="math inline">\(Z\)</span>, <span class="math inline">\(T\)</span>, etc). Al conjunto de todos los posibles resultados de una variable aleatoria se le llamará Rango de la variable (<span class="math inline">\(A_X\)</span>)</p>
 <div id="variables-aleatorias-discretas" class="section level3">
 <h3>Variables Aleatorias Discretas</h3>
 <blockquote>
-<p>Un grupo de <span class="math inline">\(n\)</span> sujetos es sometido a cierto tratamiento y después de un tiempo se registra cuantos logran mejorar con dicho tratamiento. Sea X la variable aleatoria que cuenta cuántos sujetos mejoran con el tratamiento. Entonces el rango de <span class="math inline">\(X\)</span> será <span class="math inline">\(A_X = {0, 1, 2,..., n}\)</span>.</p>
+<p>Un grupo de <span class="math inline">\(n\)</span> sujetos es sometido a cierto tratamiento y después de un tiempo se registra cuantos logran mejorar con dicho tratamiento. Sea <span class="math inline">\(X\)</span> la variable aleatoria que cuenta cuántos sujetos mejoran con el tratamiento. Entonces el rango de <span class="math inline">\(X\)</span> será <span class="math inline">\(A_X=0,1,2,...,n\)</span>.</p>
 </blockquote>
 <blockquote>
-<p>En una gran población se encuestan de manera aleatoria sujetos hasta encontrar el primero que responde afirmativamente a una pregunta de interés. Si <span class="math inline">\(X\)</span> es la variable aleatoria que cuenta el número de sujetos encuestados hasta encontrar el primero que responde afirmativamente, entonces el rango de <span class="math inline">\(X\)</span> está dado por <span class="math inline">\(A_X = {1, 2, 3,...}\)</span>.</p>
+<p>En una gran población se encuestan de manera aleatoria sujetos hasta encontrar el primero que responde afirmativamente a una pregunta de interés. Si <span class="math inline">\(X\)</span> es la variable aleatoria que cuenta el número de sujetos encuestados hasta encontrar el primero que responde afirmativamente, entonces el rango de <span class="math inline">\(X\)</span> está dado por <span class="math inline">\(A_X=1,2,3,...\)</span></p>
 </blockquote>
-<p>Este tipo de variables se traducen en funciones matemáticas o valores tabulados, y la probabilidad se calcula a través de la <em>función de masa de probabilidad</em> (f.m.p). Sea la variable aleatoria discreta <span class="math inline">\(X\)</span>, para cualquier resultado posible de <span class="math inline">\(X\)</span> se cumple que:</p>
+<p>Este tipo de variables se traducen en funciones matemáticas o valores tabulados, y la probabilidad se calcula a través de <em>la función de masa de probabilidad (f.m.p)</em>. Sea la variable aleatoria discreta <span class="math inline">\(X\)</span>, para cualquier resultado posible de <span class="math inline">\(X\)</span> se cumple que:</p>
 <ol style="list-style-type: decimal">
-<li><span class="math inline">\(p(x)\geq0\)</span> para todo <span class="math inline">\(x\)</span> en el rango de <span class="math inline">\(X\)</span>.</li>
+<li><span class="math inline">\(p(x) \geq 0\)</span> para todo <span class="math inline">\(x\)</span> en el rango de <span class="math inline">\(X\)</span>.</li>
 <li><span class="math inline">\(\sum_x p(x)=1\)</span></li>
 <li><span class="math inline">\(p(x)=P(X=x)\)</span></li>
+<li><span class="math inline">\(P(X &lt; x) = \sum_{min}^{x-1} p(x)\)</span></li>
+<li><span class="math inline">\(P(X \leq x) = \sum_{min}^{x} p(x)\)</span></li>
+<li><span class="math inline">\(P(X &gt; x) = \sum_{x+1}^{max} p(x)\)</span></li>
+<li><span class="math inline">\(P(X \geq x) = \sum_{x}^{max} p(x)\)</span></li>
 </ol>
-<blockquote>
-Suponga un experimento aleatorio que consta en consultar una familia conformada por 3 hijos, en donde, se asume que la probabilidad de ser niño o niña es la misma. Si se define la variable aleatoria <span class="math inline">\(X\)</span>, el número de niñas que hay en la familia.<br><br> Sea <span class="math inline">\(H\)</span> la letra que representa que el miembro de la familia es niño y <span class="math inline">\(M\)</span> para denotar que el miembro de la familia es niña, entonces, se tendrá que el espacio muestral se define como <span class="math display">\[\Omega=\{HHH,HHM,HMH,MHH,HMM,MHM,MMH,MMM\}\]</span> Como el interés de la variable aleatoria <span class="math inline">\(X\)</span> radica en el número de niñas que hay en la familia, se tendrá entonces que a partir del espacio muestral <span class="math inline">\(\Omega\)</span> se puede contar el número de éxitos que hay en cada situación asignando los valores <span class="math inline">\(0\)</span>, <span class="math inline">\(1\)</span>, <span class="math inline">\(2\)</span> y <span class="math inline">\(3\)</span> a la variable aleatoria <span class="math inline">\(X\)</span>.<br><br> Para encontrar la función de probabilidades del experimento aleatorio asociadas a la variable aleatoria <span class="math inline">\(X\)</span>, podemos emplear la definición de la <strong>probabilidad <em>a priori</em></strong>, aprovechando que todos los puntos del espacio muestral poseen la misma probabilidad. En otro caso podríamos emplear un diagrama de árbol para encontrar dichas probabilidades.<br> Para el caso de <span class="math inline">\(X=0\)</span>, observamos que de las <span class="math inline">\(8\)</span> posibles situaciones que hay dentro del espacio muestral <span class="math inline">\(\Omega\)</span>, solo tenemos una situación en donde no hay ninguna mujer, y en consecuencia, al aplicar la definición de probabilidad a priori, se tendrá que la probabilidad de que <span class="math inline">\(X=0\)</span>, es: <span class="math display">\[P(X=0)=\frac{1}{8}\]</span> Procedimiento similar se aplica para <span class="math inline">\(X=1\)</span>, <span class="math inline">\(X=2\)</span> y <span class="math inline">\(X=3\)</span>, obteniendo como resultado la siguiente tabla de probabilidades:<br>
-<table class="table table-hover">
-<tr>
-<td align="center">
-<span class="math inline">\(X\)</span>
-</td>
-<td align="center">
-<span class="math inline">\(0\)</span>
-</td>
-<td align="center">
-<span class="math inline">\(1\)</span>
-</td>
-<td align="center">
-<span class="math inline">\(2\)</span>
-</td>
-<td align="center">
-<span class="math inline">\(3\)</span>
-</td>
-</tr>
-<tr>
-<td align="center">
-<span class="math inline">\(p(x)\)</span>
-</td>
-<td align="center">
-<span class="math inline">\(\frac{1}{8}\)</span>
-</td>
-<td align="center">
-<span class="math inline">\(\frac{3}{8}\)</span>
-</td>
-<td align="center">
-<span class="math inline">\(\frac{3}{8}\)</span>
-</td>
-<td align="center">
-<span class="math inline">\(\frac{1}{8}\)</span>
-</td>
-</tr>
-</table>
-<p>Para calcular la probabilidad de que en una familia que posee tres hijos, hayan 2 o más niñas entonces se aplica la suma de probabilidades. <span class="math display">\[P(X \geq 2)=\sum_{x=2}^{3} p(x)=p(2)+p(3)=\frac{3}{8}+\frac{1}{8}=\frac{1}{2}\]</span></p>
-</blockquote>
-</div>
-<div id="función-de-distribución-acumulada-caso-discreto" class="section level3">
-<h3>Función de distribución acumulada caso discreto</h3>
-<p>La función de distribución acumulada (f.d.a) denotada por <span class="math inline">\(F(x)\)</span>, para una variable aleatoria discreta <span class="math inline">\(X\)</span> con distribución de probabilidad <span class="math inline">\(p(x)\)</span> es de la forma</p>
-<p><span class="math display">\[F(x)=P(X\leq x)=∑_{t\leq x} p(t)\quad −\infty&lt;x&lt;\infty\]</span></p>
-<p>para cualquier <span class="math inline">\(x\)</span> dentro del rango de <span class="math inline">\(X\)</span>, <span class="math inline">\(F(x)\)</span> será la suma acumulada de todos los valores de rango de <span class="math inline">\(X\)</span> menores a <span class="math inline">\(x\)</span>.</p>
+<p>En algunos casos es posible calcular una función que acumula las probabilidades puntuales de la variable en rangos definidos. <strong>La función de distribución acumulada (f.d.a)</strong> denotada por <span class="math inline">\(F(x)\)</span>, para una variable aleatoria discreta <span class="math inline">\(X\)</span> con distribución de probabilidad <span class="math inline">\(p(x)\)</span> es de la forma</p>
+<p><span class="math display">\[F(x)=P(X \leq x)=\sum_{t \leq x} p(t) \qquad -\infty&lt;x&lt;\infty\]</span></p>
+<p>Para cualquier <span class="math inline">\(x\)</span> dentro del rango de <span class="math inline">\(X\)</span>, <span class="math inline">\(F(x)\)</span> será la suma acumulada de todos los valores de rango de <span class="math inline">\(X\)</span> menores a <span class="math inline">\(x\)</span>.</p>
 <p><strong>Nota:</strong> Si se quieren calcular probabilidades con la función de distribución acumulada en el caso discreto, entonces, si <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> son dos números constantes enteras, deberán tenerse en cuenta las siguientes reglas</p>
 <ul>
-<li><span class="math inline">\(P(a\leq X\leq b)=F(b)−F(a−1)\)</span></li>
-<li><span class="math inline">\(P(a&lt;X\leq b)=F(b)−F(a)\)</span></li>
-<li><span class="math inline">\(P(a\leq X&lt;b)=F(b−1)−F(a−1)\)</span></li>
-<li><span class="math inline">\(P(a&lt;X&lt;b)=F(b−1)−F(a)\)</span></li>
-<li><span class="math inline">\(P(X \geq a)=1-P(X &lt; a)=1−F(a−1)\)</span></li>
-<li><span class="math inline">\(P(X&gt;a)=1-P(X\leq a)=1−F(a)\)</span></li>
+<li><span class="math inline">\(P(a\leq X \leq b)=P(X\leq b)-P(X \leq a-1)=F(b)−F(a−1)\)</span></li>
+<li><span class="math inline">\(P(a&lt;X\leq b)=P(X\leq b)-P(X \leq a)=F(b)−F(a)\)</span></li>
+<li><span class="math inline">\(P(a \leq X&lt;b)=P(X\leq b-1)-P(X \leq a-1)=F(b−1)−F(a−1)\)</span></li>
+<li><span class="math inline">\(P(a&lt;X&lt;b)=P(X\leq b-1)-P(X \leq a)=F(b−1)−F(a)\)</span></li>
+<li><span class="math inline">\(P(X\geq a)=1−P(X&lt;a)=1−F(a−1)\)</span></li>
+<li><span class="math inline">\(P(X&gt;a)=1−P(X\leq a)=1−F(a)\)</span></li>
 <li><span class="math inline">\(P(X\leq b)=F(b)\)</span></li>
 <li><span class="math inline">\(P(X&lt;b)=F(b−1)\)</span></li>
 </ul>
-<blockquote>
-<p>Basado en el ejemplo anterior, calculemos la función de distribución acumulada <span class="math inline">\(F(x)\)</span> y calculemos la probabilidad de que en una familia que posee tres hijos, hayan 2 o más niñas.<br><br> A partir de la tabla donde se define la función de masa de probabilidad se procede a realizar el cálculo de la función de distribución acumulada <span class="math inline">\(F(x)\)</span>. Para ello, debemos calcular las siguientes probabilidades. <span class="math display">\[\begin{align*}
-F(0) =&amp; P(X\leq 0)=p(0)=1/8\\\\
-F(1) =&amp; P(X\leq 1)=p(0)+p(1)=4/8\\\\
-F(2) =&amp; P(X\leq 2)=p(0)+p(1)+p(2)=7/8\\\\
-F(3) =&amp; P(X\leq 3)=p(0)+p(1)+p(2)+p(3)=8/8
-\end{align*}\]</span> Entonces, mediante el empleo de estas probabilidades, podemos construir la función de distribución acumulada para la variable aleatoria <span class="math inline">\(X\)</span>, tal que <span class="math display">\[\begin{align*}
-F(x) = \begin{cases} 0 &amp; x&lt;0 \\
-\frac{1}{8}  &amp; 0\leq x&lt;1 \\
-\frac{4}{8}  &amp; 1\leq x&lt;2 \\
-\frac{7}{8}  &amp; 2\leq x&lt;3 \\
-\frac{8}{8}  &amp; x\geq 3
-\end{cases}
-\end{align*}\]</span> Dado que el interés es calcular la probabilidad de que el número de niñas sea mayor a <span class="math inline">\(1\)</span> pero no más de <span class="math inline">\(2\)</span>, entonces se tendrá que la probabilidad de interés es la siguiente <span class="math display">\[P(1 &lt; X \leq 2)\]</span> Entonces, siguiendo las reglas anteriormente expuestas, dicha probabilidad puede calcularse mediante <span class="math display">\[\begin{align*}
-P(X \geq 2) &amp; = 1 - F(2-1) \\
-&amp; = 1 - F(1) \\
-&amp; = 1 - \frac{4}{8}\\
-&amp; = \frac{4}{8} = \frac{1}{2}
-\end{align*}\]</span> y por tanto, se tendrá que la probabilidad de que en una familia de <span class="math inline">\(3\)</span> hijos, tengan <span class="math inline">\(2\)</span> o más niñas es de 50%.</p>
-</blockquote>
-</div>
-<div id="esperanza-matemática-caso-discreto" class="section level3">
-<h3>Esperanza matemática caso discreto</h3>
-<p>Si x es una variable aleatoria con fmp p(x), entonces <strong>la media</strong> o <strong>valor esperado</strong> de la variable aleatoria se denota por <span class="math inline">\(E[X]\)</span> o <span class="math inline">\(\mu\)</span> está dada por</p>
-<p><span class="math display">\[E[X]=\sum_x xp(x)\]</span></p>
-<blockquote>
-<p>El valor esperado del número de niñas que hay en una familia que posee 3 hijos sería: <span class="math display">\[\begin{align*}
-E[X]&amp;=\sum_{0}^3x\,p(x) \\\\
-&amp;=0\,p(0)+1\,p(1)+2\,p(2)+3\,p(3) \\\\
-&amp;=0\left(\frac{1}{8}\right)+1\left(\frac{3}{8}\right)+2\left(\frac{3}{8}\right)+3\left(\frac{1}{8}\right) \\\\
-&amp;=0+\frac{3}{8}+\frac{6}{8}+\frac{3}{8} \\\\
-&amp;=\frac{12}{8} \\\\
-&amp;=1.5
-\end{align*}\]</span> es decir, se tedrá que en una familia que posea <span class="math inline">\(3\)</span> hijos, se espera encontrar que el número promedio de niñas será de <span class="math inline">\(1.5\)</span> niñas.</p>
-</blockquote>
-<div id="propiedades-de-la-esperanza-matemática" class="section level4">
-<h4>Propiedades de la esperanza matemática</h4>
-<p>Sea <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> dos números constantes (reales) y <span class="math inline">\(X\)</span> una variable aleatoria, entonces se tiene que</p>
-<ul>
-<li><span class="math inline">\(E[a]=a\)</span></li>
-<li><span class="math inline">\(E[X+b]=E[X]+b\)</span></li>
-<li><span class="math inline">\(E[aX]=aE[X]\)</span></li>
-<li>si <span class="math inline">\(g(X)\)</span> es una función de <span class="math inline">\(X\)</span>, entonces</li>
-</ul>
-<p><span class="math display">\[E[g(X)]=\sum_xg(x)p(x)\]</span></p>
-</div>
-</div>
-<div id="varianza-caso-discreto" class="section level3">
-<h3>Varianza caso discreto</h3>
-<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria con <em>fmp</em> <span class="math inline">\(p(x)\)</span>, entonces si <span class="math inline">\(m(X) = (X - E[X])^2\)</span>, se tendrá que la varianza de <span class="math inline">\(X\)</span> que se denota <span class="math inline">\(Var[X]\)</span> o <span class="math inline">\(\sigma^2\)</span> estará dada por</p>
-<p><span class="math display">\[Var[X] = E\left\{\left(X-E[X]\right)^2\right\}=\sum_x(x-E[X])^2p(x)\]</span></p>
-<p>Puede demostrarse a partir de la ecuación anterior, que una alternativa para el cálculo de la <span class="math inline">\(Var[X]\)</span> es de la forma</p>
-<p><span class="math display">\[Var[X] = E[X^2]-E[X]^2\]</span></p>
-<p>además, la raíz cuadrada de la varianza de <span class="math inline">\(X\)</span> se llama desviación estándar de <span class="math inline">\(X\)</span>, se denota por <span class="math inline">\(SD[X]\)</span> o <span class="math inline">\(\sigma\)</span> y se define como</p>
-<p><span class="math display">\[SD[X] = \sqrt{Var[X]}\]</span></p>
-<blockquote>
-<p>La desviación estándar del número de niñas que hay en una familia que posee 3 hijos requiere del cálculo de la varianza, entonces primero se debe calcular <span class="math inline">\(E(X^2)\)</span>: <span class="math display">\[\begin{align*}
-E[X^2]&amp;=\sum_{0}^3x^2\,p(x) \\\\
-&amp;=0^2\,p(0)+1^2\,p(1)+2^2\,p(2)+3^2\,p(3) \\\\
-&amp;=0\left(\frac{1}{8}\right)+1\left(\frac{3}{8}\right)+4\left(\frac{3}{8}\right)+9\left(\frac{1}{8}\right) \\\\
-&amp;=0+\frac{3}{8}+\frac{12}{8}+\frac{9}{8} \\\\
-&amp;=\frac{24}{8} \\\\
-&amp;=3
-\end{align*}\]</span> Entonces la varianza es: <span class="math display">\[\begin{align*}
-Var[X]&amp;=E[X^2] - E[X]^2 \\
-&amp;=3 - (1.5)^2 \\
-&amp;=3 - 2.25 \\
-&amp;=0.75
-\end{align*}\]</span> Por lo tanto la desviación estándar es <span class="math inline">\(SD[X]=\sqrt{0.75}=0.8660\)</span>. Es decir, se tendrá que el número promedio de niñas que tiene una familia que posee <span class="math inline">\(3\)</span> hijos es de <span class="math inline">\(1.5\)</span> niñas, con una desviación estándar de <span class="math inline">\(0.8660\)</span> niñas.</p>
-</blockquote>
-<div id="propiedades-de-la-varianza" class="section level4">
-<h4>Propiedades de la varianza</h4>
-<ul>
-<li><span class="math inline">\(Var[X]=E[X^2]-E[X]^2\)</span></li>
-<li><span class="math inline">\(Var[a]=0\)</span>, donde <span class="math inline">\(a\in\mathbb{R}\)</span></li>
-<li><span class="math inline">\(Var[aX+b]=a^2Var[x]\)</span>, donde <span class="math inline">\(a,b \in\mathbb{R}\)</span></li>
-</ul>
-</div>
-</div>
-<div id="variables-aleatorias-continuas" class="section level3">
-<h3>Variables Aleatorias Continuas</h3>
-<blockquote>
-<p>De la producción diaria de jabones se escoge uno al azar y se mide su pH. Sea <span class="math inline">\(X\)</span>: el pH del jabón. El rango de la variable aleatoria <span class="math inline">\(X\)</span> es cualquier valor entre 0 y 14. Así: <span class="math inline">\(A_X = [0 , 14]\)</span>.</p>
-</blockquote>
-<blockquote>
-<p>El desgaste de una llanta en un período de un año es una variable aleatoria. Si <span class="math inline">\(X\)</span> es la variable aleatoria que representa el desgaste en décimas de milímetros, <span class="math inline">\(A_X = (0 , a)\)</span>, donde <span class="math inline">\(a\)</span> representa la profundidad mínima de la llanta estando nueva.</p>
-</blockquote>
-<p>Este tipo de variables se caracteriza porque el rango es un intervalo real, y su comportamiento está determinado por una función matemática y la probabilidad se calcula através de la <em>función de densidad de probabilidad</em> (p.d.f). Se dice que la función <span class="math inline">\(f(x)\)</span> es una función de densidad de probabilidad (fdp) de la variable aleatoria continua <span class="math inline">\(X\)</span>, definida en el conjunto de números reales si:</p>
-<ol style="list-style-type: decimal">
-<li><span class="math inline">\(f(x)\geq0\)</span> para todo <span class="math inline">\(x\)</span> en los Reales</li>
-<li><span class="math inline">\(\int_{-\infty}^{\infty} f(x)dx=1\)</span></li>
-<li><span class="math inline">\(\int_b^a f(x)dx=P(a&lt;X&lt;b)\)</span></li>
-</ol>
-</div>
-<div id="función-de-distribución-acumulada-caso-continuo" class="section level3">
-<h3>Función de distribución acumulada caso continuo</h3>
-<p>La función de distribución acumulada (fda) denotada por <span class="math inline">\(F(x)\)</span>, para una variable aleatoria continua <span class="math inline">\(X\)</span> con distribución de probabilidad <span class="math inline">\(f(x)\)</span> es de la forma</p>
-<p><span class="math display">\[F(x)=P(X\leq x)=\int_{-\infty}^x f(t)dt\]</span></p>
-<p>para cualquier <span class="math inline">\(x\)</span>, <span class="math inline">\(F(x)\)</span> es el <strong>área izquierda bajo la curva de densidad</strong>.</p>
-<p><img src="P_dist_files/figure-html/unnamed-chunk-1-1.png" width="320" style="display: block; margin: auto;" /></p>
-<p><strong>Nota:</strong> Si se quieren calcular probabilidades con la función de distribución acumulada en el caso continuo, entonces, si <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> son dos números constantes, deberán tenerse en cuenta las siguientes reglas</p>
-<ul>
-<li><span class="math inline">\(P(a\leq X\leq b)=F(b)−F(a)\)</span></li>
-<li><span class="math inline">\(P(X\geq a)=1−F(a)\)</span></li>
-<li><span class="math inline">\(P(X\leq b)=F(b)\)</span></li>
-</ul>
-<blockquote>
-<p><strong>Nota:</strong> Recordar que en el caso continuo, las probabilidad con o sin la igualdad son equivalentes, y por tanto, solo se escriben las tres reglas anteriores para generalizar todos los casos.</p>
-</blockquote>
-</div>
-<div id="esperanza-matemática-caso-continuo" class="section level3">
-<h3>Esperanza matemática caso continuo</h3>
-<p>Si <span class="math inline">\(x\)</span> es una variable aleatoria con fdp <span class="math inline">\(f(x)\)</span>, entonces la media o valor esperado de la variable aleatoria se denota por <span class="math inline">\(E[X]\)</span> o <span class="math inline">\(\mu\)</span> está dada por</p>
-<p><span class="math display">\[E[X]=\int_{-\infty}^{\infty} xf(x)dx\]</span></p>
-<div id="propiedades-de-la-esperanza-matemática-1" class="section level4">
-<h4>Propiedades de la esperanza matemática</h4>
-<p>Sea <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> dos números constantes (reales) y <span class="math inline">\(X\)</span> una variable aleatoria, entonces se tiene que</p>
-<ul>
-<li><span class="math inline">\(E[a]=a\)</span></li>
-<li><span class="math inline">\(E[X+b]=E[X]+b\)</span></li>
-<li><span class="math inline">\(E[aX]=aE[X]\)</span></li>
-<li>si <span class="math inline">\(g(X)\)</span> es una función de <span class="math inline">\(X\)</span>, entonces</li>
-</ul>
-<p><span class="math display">\[E[g(X)]=\int_x g(x)p(x)dx\]</span></p>
-</div>
-</div>
-<div id="varianza-caso-continuo" class="section level3">
-<h3>Varianza caso continuo</h3>
-<p>Si <span class="math inline">\(g(X)=(X-\mu_X)^2\)</span>, entonces <span class="math inline">\(E[g(X)]\)</span> será la Varianza de <span class="math inline">\(X\)</span>, la cual se denotar? <span class="math inline">\(Var[x]\)</span> o <span class="math inline">\(\sigma_X^2\)</span> o simplemente <span class="math inline">\(\sigma^2\)</span>, y se define como:</p>
-<p><span class="math display">\[Var[X]=E[(X-\mu_X)^2]=E[X^2]-E[X]^2\]</span></p>
-<p>además, la raíz cuadrada de la varianza de <span class="math inline">\(X\)</span> se llama desviación estándar de <span class="math inline">\(X\)</span>, se denota por <span class="math inline">\(SD[X]\)</span> o <span class="math inline">\(\sigma\)</span> y se define como</p>
-<p><span class="math display">\[SD[X] = \sqrt{Var[X]}\]</span></p>
-<div id="propiedades-de-la-varianza-1" class="section level4">
-<h4>Propiedades de la varianza</h4>
-<ul>
-<li><span class="math inline">\(Var[X]=E[X^2]-E[X]^2\)</span></li>
-<li><span class="math inline">\(Var[a]=0\)</span>, donde <span class="math inline">\(a\in\mathbb{R}\)</span></li>
-<li><span class="math inline">\(Var[aX+b]=a^2Var[x]\)</span>, donde <span class="math inline">\(a,b \in\mathbb{R}\)</span></li>
-</ul>
-<hr>
-</div>
-</div>
-</div>
-<div id="distribuciones-de-probabilidad" class="section level2">
-<h2>Distribuciones de probabilidad</h2>
 <p>Por muchos años los matemáticos y estadísticos han establecido funciones de probabilidad a diversos fenómenos de la naturaleza y la sociedad. No obstante, en algunos casos se observa que se cumplen ciertos patrones, por lo tanto, el comportamiento de un fenómeno se puede modelar con la misma función de probabilidad de otro fenómeno. En este sentido, se establecen las distribuciones de probabilidad como funciones definidas para entender el comportamiento de fenómenos que tienen un patrón identificable.</p>
-<div id="distribuciones-de-probabilidad-discretas" class="section level3">
-<h3>Distribuciones de Probabilidad Discretas</h3>
 </div>
-<div id="distribución-binomial" class="section level3">
-<h3>Distribución Binomial</h3>
+</div>
+<div id="distribución-binomial" class="section level2">
+<h2>Distribución Binomial</h2>
 <blockquote>
 <p><strong>Proceso de Bernoulli</strong><br><br> Una secuencia de ensayos de Bernoulli forma un <em>proceso de Bernoulli</em>, si se cumplen las siguientes condiciones:<br><br> 1. En cada ensayo ocurre uno de dos posibles resultados, mutuamente excluyentes. Uno de los posibles resultados se denota (arbitrariamente) como un exito y el otro, como fracaso.<br><br> 2. La probabilidad de un exito, denotado por <span class="math inline">\(p\)</span>, permanece constante de un ensayo a otro, y la probabilidad de fracaso, <span class="math inline">\(1-p\)</span>, se denota con <span class="math inline">\(q\)</span>.<br><br> 3. Los ensayos son independientes, es decir, el resultado de algún ensayo en particular no es afectado por el resultado de cualquier otro ensayo.</p>
 </blockquote>
@@ -810,7 +625,7 @@ P(6 \leq x &lt; 12) &amp;= \sum_{x=6}^{11} \left(\begin{array}{c}20\\ x\end{arra
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># solución 2</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="kw">pbinom</span>(<span class="dt">q =</span> <span class="dv">11</span>,<span class="dt">size =</span> <span class="dv">20</span>,<span class="dt">prob =</span> <span class="fl">0.6</span>)<span class="op">-</span><span class="kw">pbinom</span>(<span class="dt">q =</span> <span class="dv">5</span>,<span class="dt">size =</span> <span class="dv">20</span>,<span class="dt">prob =</span> <span class="fl">0.6</span>)</span></code></pre></div>
 <pre><code>## [1] 0.4027898</code></pre>
-<p><img src="P_dist_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="P_dist_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
 </div>
 <div id="distribución-binomial-con-n10-p0.1" class="section level4">
 <h4>Distribución binomial con n=10, p=0.1</h4>
@@ -830,18 +645,29 @@ P(6 \leq x &lt; 12) &amp;= \sum_{x=6}^{11} \left(\begin{array}{c}20\\ x\end{arra
 <div class="panel panel-primary">
 <div class="panel-heading">
 <h5 class="panel-title">
-<a data-toggle="collapse" href="#e4">Ejercicio</a>
+<a data-toggle="collapse" href="#e4">Ejercicios</a>
 </h5>
 </div>
 <div id="e4" class="panel-collapse collapse">
 <div class="panel-body">
-El Hospital Pablo Tobón Uribe sabe que cada 7 de 150 deportistas presentan desgarros musculares, si en un mes consultan 35 deportistas al hospital ¿Cuál es la probabilidad de que más de dos presenten desgarros musculares? ¿Cuántos deportistas se esperan que presenten desgarros musculares en el mes?
+<ul>
+<li><p>Suponga que se sabe que 30 por ciento de cierta poblacion es inmune a alguna enfermedad. Si se escoge una muestra aleatoria de 10 elementos de entre esta población, ¿Cuál es la probabilidad de que dicha muestra contenga exactamente cuatro personas inmunes?</p></li>
+<li><p>El Hospital Pablo Tobón Uribe sabe que cada 7 de 150 deportistas presentan desgarros musculares, si en un mes consultan 35 deportistas al hospital ¿Cuál es la probabilidad de que más de dos presenten desgarros musculares? ¿Cuántos deportistas se esperan que presenten desgarros musculares en el mes?</p></li>
+<li><p>En un estudio realizado en una comunidad determinó que el 4% de los hogares no adquieren productos ultraprocesados en su canasta familiar. El gobierno local desea formular una estrategia para que disminuya el consumo de este tipo de productos basado en una encuesta aleatoria a 18 hogares. ¿Cuál es la probabilidad que se encuentren la menos de 3 pero máximo 8 hogares que adquieran productos ultraprocesados?</p></li>
+<li><p>Suponga que se sabe que en cierta poblacion 10 por ciento es daltonica. Si se extrae una muestra aleatoria de 25 personas de esa poblacion, encuentre la probabilidad de que existan cinco o más daltónicos. Si se espera que hayan más de dos daltónicos, ¿Cuál es la probabilidad de que a lo sumo se encuentren cuatro?</p></li>
+<li><p>Sobre la base del amilisis de datos recolectados por el National Center for Health Statistics, Najjar y Rowland informaron que 25.7 por ciento de las personas adultas de EUA tienen sobrepeso. Si se extrae una muestra aleatoria simple de 20 adultos, encuentre la probabilidad de que el numero de personas con sobrepeso, dentro de la muestra, sean:</p>
+<ul>
+<li>Exactamente tres personas</li>
+<li>Tres o mas personas</li>
+<li>Menos de tres</li>
+<li>Entre tres y siete, inclusive
 </div>
-</div>
-</div>
+</div></li>
+</ul>
+</div></li>
+</ul>
 </div>
 <hr>
-</div>
 </div>
 </div>
 
