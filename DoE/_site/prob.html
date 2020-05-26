@@ -28,6 +28,98 @@
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -995,11 +1087,11 @@ P(N_1) P(A_2) &amp;=P(N_1)P(A_2|N_1)\\\\
 <p><span class="math display">\[P(A)=P(A\cap B_1)+P(A\cap B_2)+\dots+P(A\cap B_k)\]</span></p>
 <p>o alternativamente, al aplicar la formula de la <strong>Regla multiplicativa</strong>, tenemos que</p>
 <p><span class="math display">\[P(A)=\sum_{j=1}^{n}P(A \cap B_j)=\sum_{j=1}^{n}P(B_j)P(A|B_j)\]</span></p>
-<p>En una obra se tienen tres mezcladoras exclusivas para lozas <span class="math inline">\(M_1\)</span>, <span class="math inline">\(M_2\)</span> y <span class="math inline">\(M_3\)</span>, las cuales preparan el 30%, 45% y 25% de las mezclas respectivamente. Se sabe por experiencia que el 4%, 5% y 2% de las lozas presentan fisuras después del periódo de secado según la mezcla que entrega la máquina respectivamente. Si se inspecciona de forma aleatoria una loza, ¿Cuál es la probabilidad de que presente fisuras?</p>
+<p>En una obra se tienen tres mezcladoras exclusivas para losas <span class="math inline">\(M_1\)</span>, <span class="math inline">\(M_2\)</span> y <span class="math inline">\(M_3\)</span>, las cuales preparan el 30%, 45% y 25% de las mezclas respectivamente. Se sabe por experiencia que el 4%, 5% y 2% de las losas presentan fisuras después del periódo de secado según la mezcla que entrega la máquina respectivamente. Si se inspecciona de forma aleatoria una losa, ¿Cuál es la probabilidad de que presente fisuras?</p>
 <p>Definamos los eventos:</p>
-<p><span class="math inline">\(A\)</span>: La loza presenta fisura.<br> <span class="math inline">\(M_1\)</span>: la mezcla fue preaparada por la máquina 1.<br> <span class="math inline">\(M_2\)</span>: la mezcla fue preaparada por la máquina 2.<br> <span class="math inline">\(M_3\)</span>: la mezcla fue preaparada por la máquina 3.</p>
+<p><span class="math inline">\(A\)</span>: La losa presenta fisura.<br> <span class="math inline">\(M_1\)</span>: la mezcla fue preaparada por la máquina 1.<br> <span class="math inline">\(M_2\)</span>: la mezcla fue preaparada por la máquina 2.<br> <span class="math inline">\(M_3\)</span>: la mezcla fue preaparada por la máquina 3.</p>
 <p>Dado que el interés radica en encontrar la probabilidad de que se seleccione una loza y presente fisuras, entonces nos están pidiendo que se desea calcular la <span class="math inline">\(P(A)\)</span>.</p>
-<p>Como entre la información dada en el enunciado no nos da la probabilidad de que una loza se encuentre fisurada, entonces podemos tratar de calcularla mediante el <strong>teorema de probabilidad total</strong>, aprovechando que los eventos <span class="math inline">\(M_1\)</span>, <span class="math inline">\(M_2\)</span>, <span class="math inline">\(M_3\)</span> son eventos mutuamente excluyentes (Una mezcla para loza, no puede ser realizada simultáneamente entre máquinas), exhaustivos (El total de las lozas, solo puede ser mezcladas por alguna de estas tres máquinas) y que nos están dando las probabilidades de los eventos <span class="math inline">\(A|M_1\)</span>, <span class="math inline">\(A|M_2\)</span> y <span class="math inline">\(A|M_3\)</span>.</p>
+<p>Como entre la información dada en el enunciado no nos da la probabilidad de que una losa se encuentre fisurada, entonces podemos tratar de calcularla mediante el <strong>teorema de probabilidad total</strong>, aprovechando que los eventos <span class="math inline">\(M_1\)</span>, <span class="math inline">\(M_2\)</span>, <span class="math inline">\(M_3\)</span> son eventos mutuamente excluyentes (Una mezcla para losa, no puede ser realizada simultáneamente entre máquinas), exhaustivos (El total de las losas, solo puede ser mezcladas por alguna de estas tres máquinas) y que nos están dando las probabilidades de los eventos <span class="math inline">\(A|M_1\)</span>, <span class="math inline">\(A|M_2\)</span> y <span class="math inline">\(A|M_3\)</span>.</p>
 <p>Partiendo de esto tenemos las siguientes probabilidades:</p>
 <p><span class="math display">\[P(M_1)=0.30 \quad P(M_2)=0.45\quad P(M_3)=0.25\\
 P(A|M_1)=0.04 \quad P(A|M_2)=0.05\quad P(A|M_3)=0.02\]</span></p>
@@ -1009,7 +1101,7 @@ P(A) &amp;=P(M_1)P(A|M_1)+P(M_2)P(A|M_2)+P(M_3)P(A|M_3)\\
  &amp;=0.30\times0.04 + 0.45\times0.05+ 0.25\times0.02\\
  &amp;=0.0395
 \end{align*}\]</span></p>
-<p>Por tanto, la probabilidad de que una loza mezclada por cualquier máquina presente fisuras después del periódo de secado es del 3.95%.</p>
+<p>Por tanto, la probabilidad de que una losa mezclada por cualquier máquina presente fisuras después del periódo de secado es del 3.95%.</p>
 </div>
 <div id="teorema-de-bayes" class="section level3">
 <h3>Teorema de Bayes</h3>
@@ -1124,6 +1216,8 @@ P(X \geq 2) &amp; = 1 - F(2-1) \\
 &amp; = \frac{4}{8} = \frac{1}{2}
 \end{align*}\]</span> y por tanto, se tendrá que la probabilidad de que en una familia de <span class="math inline">\(3\)</span> hijos, tengan <span class="math inline">\(2\)</span> o más niñas es de 50%.</p>
 </blockquote>
+<p>Es usual que en ejercicios de estadística o en preguntas de investigación se manifieste en palabras los símbolos de comparación o relación para el cálculo de probabilidades</p>
+<p><span class="math inline">\(\quad = \qquad\)</span> Igual; Exactamente<br> <span class="math inline">\(\quad &lt; \qquad\)</span> Menor que; Inferior a<br> <span class="math inline">\(\quad &gt; \qquad\)</span> Mayor que; Superior a<br> <span class="math inline">\(\quad \leq \qquad\)</span> A lo más; No mas de; A lo sumo, Máximo; Menor o igual que<br> <span class="math inline">\(\quad \geq \qquad\)</span> Al menos; No menos de; Mínimo; Menor igual que</p>
 </div>
 <div id="variables-aleatorias-continuas" class="section level3">
 <h3>Variables Aleatorias Continuas</h3>
@@ -1226,480 +1320,606 @@ Var[X]&amp;=E[X^2] - E[X]^2 \\
 <li><span class="math inline">\(Var[aX+b]=a^2Var[x]\)</span>, donde <span class="math inline">\(a,b \in\mathbb{R}\)</span></li>
 </ul>
 <hr>
-<!--
-## Distribuciones de probabilidad
-
-Por muchos años los matemáticos y estadísticos han establecido funciones de probabilidad a diversos fenómenos de la naturaleza y la sociedad. No obstante, en algunos casos se observa que se cumplen ciertos patrones, por lo tanto, el comportamiento de un fenómeno se puede modelar con la misma función de probabilidad de otro fenómeno. En este sentido, se establecen las distribuciones de probabilidad como funciones definidas para entender el comportamiento de fenómenos que tienen un patrón identificable.
-
-### Distribuciones de Probabilidad Discretas
-
-### Distribución Binomial
-
->**Proceso de Bernoulli**<br><br>
-Una secuencia de ensayos de Bernoulli forma un *proceso de Bernoulli*, si se cumplen las siguientes condiciones:<br><br>
-1. En cada ensayo ocurre uno de dos posibles resultados, mutuamente excluyentes. Uno de los posibles resultados se denota (arbitrariamente) como un exito y el otro, como fracaso.<br><br>
-2. La probabilidad de un exito, denotado por $p$, permanece constante de un ensayo a otro, y la probabilidad de fracaso, $1-p$, se denota con $q$.<br><br>
-3. Los ensayos son independientes, es decir, el resultado de algún ensayo en particular no es afectado por el resultado de cualquier otro ensayo.
-
-La distribución binomial es una distribución de probabilidad discreta que cuenta el número de éxitos en una secuencia de *n* ensayos de Bernoulli independientes entre sí, con una probabilidad fija *p* de ocurrencia del éxito entre los ensayos. Para $n = 1$, la binomial se convierte, de hecho, en una distribución de *Bernoulli*.
-
-$$p(x)={n \choose x}p^x(1-p)^{n-x}\quad x = \{0, 1, 2, \dots , n\}$$
-
-Por notación $X \sim Bin(n,p)$, además $E[X]=np$ y $VAR[X]=np(1-p)$.
-
-#### Ejemplo
-
-Suponga que en un estudio se encontró que 2 de cada 5 estudiantes no desea tomar clases virtuales. Si se selecciona aleatoriamente 20 estudiantes, ¿Cuál es la probabilidad de que no menos de 6 pero menos de 12 deseen tomar clases virtuales?
-
-En este caso estamos interesados en la variable $X$, que representa el número de estudiantes que desean tomar clases virtuales, en donde sabemos que si, 2 de cada 5 no quieren tomar clases virtuales, entonces se tendrá que 3 de cada 5 si desean tomar clases virtuales. Por tanto al aplicar la definición de frecuencia relativa se tiene que
-
-$$p=\frac{\text{Número de éxitos}}{\text{Número de ensayos (muestras)}}=\frac{3}{5}=0.6$$
-
-siendo $p$ la probabilidad de que un estudiante desee tomar clases virtuales. Entonces la distribución de probabilidad es:
-
-$$p(x)={20 \choose x}p^x(1-p)^{20-x}\quad x = \{0, 1, 2, \dots , 20\}$$
-
-Ahora, se tiene interés en conocer la probabilidad de que no menos de 6 pero menos de 12 deseen tomar clases virtuales. En este caso, la probabilidad asociada puede calcularse de la siguiente manera.
-
-$$\begin{align*}
-P(6 \leq x < 12) &= \sum_{x=6}^{11} \left(\begin{array}{c}20\\ x\end{array}\right)0.6^x(1-0.6)^{20-x} \\\\
-           &= \left(\begin{array}{c}20\\ 6\end{array}\right)0.6^6(0.4)^{20-6} + \ldots + \left(\begin{array}{c}20\\ 11\end{array}\right)0.6^{11}(0.4)^{20-11} \\\\
-           &= 0.4027898
-\end{align*}$$
-
-Es decir que, la probabilidad de que como mínimo 6 pero menos de 12 estudiantes deseen tomar clases virtuales de los 20 seleccionados, es del 40.28%. En `R` también se pueden calcular estas probabilidades con las funciones basadas en `binom`
-
-- `rbinom`: genera `n` valores aleatorios binomiales con tamaño `size` y probabilidad `prob`
-- `dbinom`: calcula la probabilidad binomial exacta de `x` con tamaño `size` y probabilidad `prob`.
-- `pbinom`: calcula la probabilidad acumulada binomial de `q` con tamaño `size` y probabilidad `prob`.
-- `qbinom`: calcula el valor de $x$ basado en la probabilidad `p` de una binomial con tamaño `size` y probabilidad `prob`.
-
-
-```r
-# Solución 1
-estudiantes <- 6:11
-sum(dbinom(estudiantes,size = 20, prob = 0.6))
-```
-
-```
-## [1] 0.4027898
-```
-
-```r
-# solución 2
-pbinom(q = 11,size = 20,prob = 0.6)-pbinom(q = 5,size = 20,prob = 0.6)
-```
-
-```
-## [1] 0.4027898
-```
-
-<img src="prob_files/figure-html/unnamed-chunk-10-1.png" width="480" style="display: block; margin: auto;" />
-
-#### Distribución binomial con n=10, p=0.1
-
-<img src="prob_files/figure-html/b1-1.png" width="540" style="display: block; margin: auto;" />
-
-Se puede observar que para una distribución binomial con parámetro $p < 0.5$ la distribución presenta asimetría hacia la izquierda. Por otra parte la distribución empírica se ajusta a la distribución teórica para tamaños de muestra grandes; para el caso de la distribución con parámetro $p=0.1$, se observa que hay un buen ajuste para tamaños de muestra $N \geq 50$.
-
-#### Distribución Binomial con n=10, p=0.5
-
-<img src="prob_files/figure-html/b2-1.png" width="540" style="display: block; margin: auto;" />
-
-Se puede observar que para una distribución binomial con parámetro $p = 0.5$ la distribución teórica es simétrica. Por otra parte la distribución empírica se ajusta a la distribución teórica para tamaños de muestra muy grandes; contrario al caso anterior, el ajuste es más lento y se require tamaños de muestra $N \geq 1000$.
-
-#### Distribución Binomial con n=10, p=0.9
-
-<img src="prob_files/figure-html/b3-1.png" width="540" style="display: block; margin: auto;" />
-
-Se puede observar que para una distribución binomial con parámetro $p > 0.5$ la distribución presenta asimetría hacia la derecha. Por otra parte la distribución empírica se ajusta a la distribución teórica para tamaños de muestra grandes; para el caso de la distribución con parámetro $p=0.9$, se observa que hay un buen ajuste para tamaños de muestra $N \geq 50$.
-
-<div class="panel-group">
- <div class="panel panel-primary">
-  <div class="panel-heading">
-   <h5 class="panel-title">
-    <a data-toggle="collapse" href="#e4">Ejercicio</a>
-   </h5>
-  </div>
-  <div id="e4" class="panel-collapse collapse">
-   <div class="panel-body">
-El Hospital Pablo Tobón Uribe sabe que cada 7 de 150 deportistas presentan desgarros musculares, si en un mes consultan 35 deportistas al hospital ¿Cuál es la probabilidad de que más de dos presenten desgarros musculares? ¿Cuántos deportistas se esperan que presenten desgarros musculares en el mes?
-   </div>
-   </div>
-  </div>
 </div>
-
-<hr>
-
-### Distribución Poisson
-
-Es otra distribución discreta de probabilidad muy útil en la que la variable aleatoria representa **el número de eventos independientes que ocurren en un tiempo/espacio constante**, por ejemplo: el número de accidentes en un cruce por hora, número de errores ortográficos por página, número de llamadas telefónicas a una central por minuto, número de imperfecciones en un material por $cm^2$, número de huecos en una carretera por kilómetro, número de tarjetas amarillas en un partido.
-
-Algunos de estos experimentos tienen características similares:
-
-1. El experimento consiste en contar el número de veces que ocurre un cierto evento de interés por unidad de tiempo o espacio.
-2. En cada unidad establecida, el número de eventos que ocurren es independiente de los que ocurren en otras unidades.
-3. Es posible asumir que la probabilidad de que un evento ocurra en una cierta unidad es la misma para todas las unidades de su tipo.
-
-Dado un intervalo real, suponga que el conteo de ocurrencias es aleatorio en dicho intervalo. Si este intervalo puede sub-dividirse en sub-intervalos suficientemente pequeños tales que:
-
-1. La probabilidad de más de una ocurrencia en cada subintervalo es despreciable.
-2. La probabilidad de ocurrencia en un subintervalo es la misma para todos los subintevalos de la misma longitud y es proporcional a la longitud de dicho subintervalo.
-3. El conteo de ocurrencias en cada subintervalo es independiente del conteo de ocurrencias en los demás subintervalos.
-
->Si un experimento cumple estas condiciones, es llamado **Experimento Poisson**. La variable aleatoria de interés será $X:$ <i>Número de ocurrencias en el intervalo real</i>. Se dice que $X$ tiene una distribución Poisson con parámetro $\lambda$, donde $\lambda$: representa el número promedio de ocurrencias por unidad de tiempo o espacio.
-
-La distribución de *Poisson* es una distribución de probabilidad discreta que expresa, a partir de una frecuencia de ocurrencia media, la probabilidad de que ocurra un determinado número de eventos durante cierto período de tiempo. Concretamente, se especializa en la probabilidad de ocurrencia de sucesos con probabilidades muy pequeñas, o sucesos "raros".
-
-$$p(x;\lambda)=\frac{e^{-\lambda} \lambda^x}{x!}\qquad x=0,1,2,... \quad \lambda>0$$
-Por notación $X \sim Pois(\lambda)$, además $E[X]=\lambda$ y $Var[X]=\lambda$.
-
-#### Ejemplo
-
-De acuerdo con @pedritonumeros el promedio de goles en la Bundes Liga es 3.06 goles por encuentro, cuando se reanude la liga ¿Cuál es la probabilidad de que en el primer partido se marquen 7 goles?. Si en el segundo partido se anotaron más de dos goles, ¿Cuál es la probabilidad que en el tercero marquen menos de 5?
-
-Sea $X$ la variable que representa el número de goles en un partido de la Bundes Liga, entonces de acuerdo a la información previa $X \sim Pois(\lambda=3.06)$. La probabilidad de que en el primer partido se marquen 7 goles es:
-
-$$\begin{align*}
-P(X=7)=&\frac{e^{-3.06}3.06^7}{7!}\\\\
-=&\frac{(0.0468877)(2512.176)}{5040}\\\\
-=&0.02337106
-\end{align*}$$
-
-Por lo tanto la probabilidad de que en el primer partido se marquen 7 goles es del 2.34%. Para el segundo caso se pide que en el tercer partido se marquen menos de 5 goles si en el segundo partido se anotaron más de dos goles, entonces se pide una probabilidad condicional. En un proceso poisson no influye los intervalos de tiempo, a menos que se amplie o disminuya el intervalo, en este caso se habla entre partidos, por lo tanto el parámetro $\lambda$ sigue fijo para la distribución.
-
-$$\begin{align*}
-P(X<5|X>2)=&\frac{P(2 < X < 5)}{P(X>2)}\\\\
-=& \frac{P(3 \leq X \leq 4)}{1-P(X\leq2)}\\\\
-=& \frac{\sum_3^4 \frac{e^{-3.06}3.06^x}{x!}}{1-\sum_0^2 \frac{e^{-3.06}3.06^x}{x!}}\\\\
-=& \frac{p(3)+p(4)}{1-[p(0)+p(1)+p(2)]}\\\\
-=& \frac{0.3951997}{1-0.4098829}\\\\
-=& \frac{0.3951997}{0.5901171} = 0.669697
-\end{align*}$$
-
-Por lo tanto la probabilidad de que en el tercer partido se marquen menos de 5 goles dado que en el segundo se marcaron 2 es del 66.97%. En `R` también se pueden calcular estas probabilidades con las funciones basadas en `pois`
-
-- `rpois`: genera `n` valores aleatorios Poisson con parámetro `lambda`.
-- `dpois`: calcula la probabilidad Poisson exacta de `x` con parámetro `lambda`.
-- `ppois`: calcula la probabilidad acumulada Poisson de `q` con parámetro `lambda`.
-- `qpois`: calcula el valor de $x$ basado en la probabilidad `p` de una Poisson con parámetro `lambda`.
-
-
-```r
-# Solución 1
-goles <- 7
-dpois(goles,lambda = 3.06)
-```
-
-```
-## [1] 0.02337106
-```
-
-```r
-# solución 2
-numerador <- dpois(3,3.06)+dpois(4,3.06)
-denominador <- 1-ppois(2,3.06)
-numerador/denominador
-```
-
-```
-## [1] 0.6696971
-```
-
-<img src="prob_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;" />
-
-#### Distribución Poission $\lambda=2$
-
-<img src="prob_files/figure-html/pois1-1.png" width="540" style="display: block; margin: auto;" />
-
-En el gráfico se evidencia que la distribución *Poisson* es asimétrica hacia la izquerda para valores del parámetro $\lambda$ pequeños, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra $N \geq 300$. 
-
-#### Distribución Poission $\lambda=5$
-
-<img src="prob_files/figure-html/pois2-1.png" width="540" style="display: block; margin: auto;" />
-
-En el gráfico se evidencia que la distribución *Poisson* es asimétrica hacia la izquierda para valores del parámetro $\lambda$ pequeños, sin embargo, a medida que aumenta el valor del parámetro, la distribución presenta cola hacia la izquierda, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra $N \geq 300$. 
-
-#### Distribución Poission $\lambda=10$
-
-<img src="prob_files/figure-html/pois3-1.png" width="540" style="display: block; margin: auto;" />
-
-En el gráfico se evidencia que para valores grandes del parámetro $\lambda$ la distribución *Poisson* se hace simétrica presentando colas hacia ambos lados de la distribución, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra $N \geq 1000$.
-
-<div class="panel-group">
- <div class="panel panel-primary">
-  <div class="panel-heading">
-   <h5 class="panel-title">
-    <a data-toggle="collapse" href="#e5">Ejercicio</a>
-   </h5>
-  </div>
-  <div id="e5" class="panel-collapse collapse">
-   <div class="panel-body">
-En la NBA se sabe que el promedio de puntos realizados entre los equipos en un cuarto (10 min) es de 51.6 puntos. ¿Cuál es la probablidad que en un partido entre los Celtics y los Lakers se anoten 62 puntos en el segundo cuarto? En un partido cualquiera ¿Cuál es la probabilidad que **en todo el partido** se anoten más de 220 puntos entre los dos equipos?
-   </div>
-   </div>
-  </div>
 </div>
-
+</div>
+<div id="distribuciones-de-probabilidad" class="section level2">
+<h2>Distribuciones de probabilidad</h2>
+<p>Por muchos años los matemáticos y estadísticos han establecido funciones de probabilidad a diversos fenómenos de la naturaleza y la sociedad. No obstante, en algunos casos se observa que se cumplen ciertos patrones, por lo tanto, el comportamiento de un fenómeno se puede modelar con la misma función de probabilidad de otro fenómeno. En este sentido, se establecen las distribuciones de probabilidad como funciones definidas para entender el comportamiento de fenómenos que tienen un patrón identificable.</p>
+<div id="distribuciones-de-probabilidad-discretas" class="section level3">
+<h3>Distribuciones de Probabilidad Discretas</h3>
+</div>
+<div id="distribución-binomial" class="section level3">
+<h3>Distribución Binomial</h3>
+<blockquote>
+<p><strong>Proceso de Bernoulli</strong><br><br> Una secuencia de ensayos de Bernoulli forma un <em>proceso de Bernoulli</em>, si se cumplen las siguientes condiciones:<br><br> 1. En cada ensayo ocurre uno de dos posibles resultados, mutuamente excluyentes. Uno de los posibles resultados se denota (arbitrariamente) como un exito y el otro, como fracaso.<br><br> 2. La probabilidad de un exito, denotado por <span class="math inline">\(p\)</span>, permanece constante de un ensayo a otro, y la probabilidad de fracaso, <span class="math inline">\(1-p\)</span>, se denota con <span class="math inline">\(q\)</span>.<br><br> 3. Los ensayos son independientes, es decir, el resultado de algún ensayo en particular no es afectado por el resultado de cualquier otro ensayo.</p>
+</blockquote>
+<p>La distribución binomial es una distribución de probabilidad discreta que cuenta el número de éxitos en una secuencia de <em>n</em> ensayos de Bernoulli independientes entre sí, con una probabilidad fija <em>p</em> de ocurrencia del éxito entre los ensayos. Para <span class="math inline">\(n = 1\)</span>, la binomial se convierte, de hecho, en una distribución de <em>Bernoulli</em>.</p>
+<p><span class="math display">\[p(x)={n \choose x}p^x(1-p)^{n-x}\quad x = \{0, 1, 2, \dots , n\}\]</span></p>
+<p>Por notación <span class="math inline">\(X \sim Bin(n,p)\)</span>, además <span class="math inline">\(E[X]=np\)</span> y <span class="math inline">\(VAR[X]=np(1-p)\)</span>.</p>
+<div id="ejemplo" class="section level4">
+<h4>Ejemplo</h4>
+<p>Suponga que en un estudio se encontró que 2 de cada 5 estudiantes no desea tomar clases virtuales. Si se selecciona aleatoriamente 20 estudiantes, ¿Cuál es la probabilidad de que no menos de 6 pero a lo sumo de 12 deseen tomar clases virtuales?</p>
+<p>En este caso estamos interesados en la variable <span class="math inline">\(X\)</span>, que representa el número de estudiantes que desean tomar clases virtuales, en donde sabemos que si, 2 de cada 5 no quieren tomar clases virtuales, entonces se tendrá que 3 de cada 5 si desean tomar clases virtuales. Por tanto al aplicar la definición de frecuencia relativa se tiene que</p>
+<p><span class="math display">\[p=\frac{\text{Número de éxitos}}{\text{Número de ensayos (muestras)}}=\frac{3}{5}=0.6\]</span></p>
+<p>siendo <span class="math inline">\(p\)</span> la probabilidad de que un estudiante desee tomar clases virtuales. Entonces la distribución de probabilidad es:</p>
+<p><span class="math display">\[p(x)={20 \choose x}p^x(1-p)^{20-x}\quad x = \{0, 1, 2, \dots , 20\}\]</span></p>
+<p>Ahora, se tiene interés en conocer la probabilidad de que no menos de 6 pero menos de 12 deseen tomar clases virtuales. En este caso, la probabilidad asociada puede calcularse de la siguiente manera.</p>
+<p><span class="math display">\[\begin{align*}
+P(6 \leq x &lt; 12) &amp;= \sum_{x=6}^{11} \left(\begin{array}{c}20\\ x\end{array}\right)0.6^x(1-0.6)^{20-x} \\\\
+           &amp;= \left(\begin{array}{c}20\\ 6\end{array}\right)0.6^6(0.4)^{20-6} + \ldots + \left(\begin{array}{c}20\\ 11\end{array}\right)0.6^{11}(0.4)^{20-11} \\\\
+           &amp;= 0.4027898
+\end{align*}\]</span></p>
+<p>Es decir que, la probabilidad de que como mínimo 6 pero menos de 12 estudiantes deseen tomar clases virtuales de los 20 seleccionados, es del 40.28%. En <code>R</code> también se pueden calcular estas probabilidades con las funciones basadas en <code>binom</code></p>
+<ul>
+<li><code>rbinom</code>: genera <code>n</code> valores aleatorios binomiales con tamaño <code>size</code> y probabilidad <code>prob</code></li>
+<li><code>dbinom</code>: calcula la probabilidad binomial exacta de <code>x</code> con tamaño <code>size</code> y probabilidad <code>prob</code>.</li>
+<li><code>pbinom</code>: calcula la probabilidad acumulada binomial de <code>q</code> con tamaño <code>size</code> y probabilidad <code>prob</code>.</li>
+<li><code>qbinom</code>: calcula el valor de <span class="math inline">\(x\)</span> basado en la probabilidad <code>p</code> de una binomial con tamaño <code>size</code> y probabilidad <code>prob</code>.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Solución 1</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>estudiantes &lt;-<span class="st"> </span><span class="dv">6</span><span class="op">:</span><span class="dv">11</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">sum</span>(<span class="kw">dbinom</span>(estudiantes,<span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>))</span></code></pre></div>
+<pre><code>## [1] 0.4027898</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># solución 2</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">pbinom</span>(<span class="dt">q =</span> <span class="dv">11</span>,<span class="dt">size =</span> <span class="dv">20</span>,<span class="dt">prob =</span> <span class="fl">0.6</span>)<span class="op">-</span><span class="kw">pbinom</span>(<span class="dt">q =</span> <span class="dv">5</span>,<span class="dt">size =</span> <span class="dv">20</span>,<span class="dt">prob =</span> <span class="fl">0.6</span>)</span></code></pre></div>
+<pre><code>## [1] 0.4027898</code></pre>
+<p><img src="prob_files/figure-html/unnamed-chunk-10-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="distribución-binomial-con-n10-p0.1" class="section level4">
+<h4>Distribución binomial con n=10, p=0.1</h4>
+<p><img src="prob_files/figure-html/b1-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Se puede observar que para una distribución binomial con parámetro <span class="math inline">\(p &lt; 0.5\)</span> la distribución presenta asimetría hacia la izquierda. Por otra parte la distribución empírica se ajusta a la distribución teórica para tamaños de muestra grandes; para el caso de la distribución con parámetro <span class="math inline">\(p=0.1\)</span>, se observa que hay un buen ajuste para tamaños de muestra <span class="math inline">\(N \geq 50\)</span>.</p>
+</div>
+<div id="distribución-binomial-con-n10-p0.5" class="section level4">
+<h4>Distribución Binomial con n=10, p=0.5</h4>
+<p><img src="prob_files/figure-html/b2-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Se puede observar que para una distribución binomial con parámetro <span class="math inline">\(p = 0.5\)</span> la distribución teórica es simétrica. Por otra parte la distribución empírica se ajusta a la distribución teórica para tamaños de muestra muy grandes; contrario al caso anterior, el ajuste es más lento y se require tamaños de muestra <span class="math inline">\(N \geq 1000\)</span>.</p>
+</div>
+<div id="distribución-binomial-con-n10-p0.9" class="section level4">
+<h4>Distribución Binomial con n=10, p=0.9</h4>
+<p><img src="prob_files/figure-html/b3-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Se puede observar que para una distribución binomial con parámetro <span class="math inline">\(p &gt; 0.5\)</span> la distribución presenta asimetría hacia la derecha. Por otra parte la distribución empírica se ajusta a la distribución teórica para tamaños de muestra grandes; para el caso de la distribución con parámetro <span class="math inline">\(p=0.9\)</span>, se observa que hay un buen ajuste para tamaños de muestra <span class="math inline">\(N \geq 50\)</span>.</p>
+<div class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#e4">Ejercicio</a>
+</h5>
+</div>
+<div id="e4" class="panel-collapse collapse">
+<div class="panel-body">
+En un estudio del Instituto Social de Vivienda y Hábitat de Medellín (ISVIMED) 2017, los habitantes de un edificio reportan en el sistema de atención al usuario: Peticiones, Quejas y Reclamos (PQR) debido a problemas eléctricos en 16 de 144 unidades de vivienda. Si se realiza una visita y se escogen al azar 35 de las unidades de vivienda ¿Cuál es la probabilidad de que más de dos presenten PQR? ¿Cuántas unidades de vivienda se esperan que presenten PQR en la visita?
+</div>
+</div>
+</div>
+</div>
 <hr>
-
-### Distribuciones de Probabilidad Continuas
-
-### Distribución Normal
-
-La **Distribución Normal** o **Gaussiana** es indudablemente la más importante y la de mayor uso de todas las distribuciones de probabilidad continua. Es la piedra angular en la aplicación de la <u>inferencia estadística</u> en el analisis de datos, puesto que las distribuciones de muchas <u>estadísticas muestrales</u> tienden hacia la distribución normal conforme crece el tamaño de muestra.
-
-* Precipitación pluvial
-* Temperaturas
-* Mediciones en organismos vivos
-* Calificaciones de pruebas de actitud
-* Mediciones físicas en manufactura
-* **Errores de instrumentación**
-
-Debe tenerse mucho cuidado al suponer para una situación dada un modelo de probabilidad normal sin previa comprobación. Si bien es cierto que esta distribución es la de mayor uso, también es de la que más se abusa. Quizás por la mala interpretación de la palabra "*normal*", especialmente si se aplica su significado literal de "*patrón o estándar aceptado*".
-
-Es posible que una distribución normal proporcione de manera razonable una aproximación alrededor de una media de una variable aleatoria; sin embargo, puede resultar que para valores extremos se encuentren en cualquier dirección. La apariencia gráfica de la distribución normal es una curva simétrica con forma de campana, que se extiende sin límite tanto en dirección positiva como negativa.
-
-Sea $X$ una variable aleatoria continua, se dice que $X$ tiene una **distribución normal** si su f.d.p es de la forma:
-
-$$f(x)=\cfrac{1}{\sqrt{2 \pi} \sigma} \mathit{e}^{- \frac{1}{2} \frac{(x-\mu)^2}{\sigma^2}};\qquad -\infty< x <\infty \quad \mu \in \mathit{R}\quad \sigma>0$$
-
-Por notación $X \sim N(\mu,\sigma^2)$. Los parámetros $\mu$ y $\sigma^2$ se les conoce de localización y escala, respectivamente. Las siguientes afirmaciones se cumplen para la variable aleatoria $X$.
-
-* El área abajo de curva normal comprendida entre $(−\infty, \infty)$ es igual a 1.
-* La normal es simétrica respecto a $\mu$. Como consecuencia de esto, el área bajo de la curva en el intervalo $[\mu, \infty)$ es igual a 0.5.
-* La distribución normal tiene forma de campana.
-* La normal queda completamente caracterizada con el conocimiento de sus parámetros de localización y de escala.
-* La **media** es igual a la **mediana** y a su vez igual a la **moda**.
-* <b>En la práctica la normalidad se alcanza de manera aproximada</b>.
-* $E[X]=\mu$ y $Var[X]=\sigma^2$.
-* Cuanto más grande es el parámetro $\sigma^2$ el gráfico de la función es mas "achatada" y de colas más largas.
-
-<img src="prob_files/figure-html/unnamed-chunk-13-1.png" width="900" style="display: block; margin: auto;" />
-
-
-<img src="prob_files/figure-html/unnamed-chunk-14-1.png" width="900" style="display: block; margin: auto;" />
-
-#### Normal Estándar
-
-Cuando $\mu=0$ y $\sigma^2=1$, se obtiene una distribución normal especial, conocida como _Normal Estándar_ y usualmente es denotada cola letra $Z$ y se escribe $Z \sim N(0,1)$.
-
-$$P(x_1 < X < x_2)= \int\limits_{x_1}^{x_2} \cfrac{1}{\sqrt{2 \pi} \sigma} \large e^{- \frac{1}{2} \frac{(x-\mu)^2}{\sigma^2}} \small dx$$
-
-Esta probabilidad no puede ser resuelta de manera explícita, además cada vez que se modifique $\mu$ o $\sigma^2$, se debe calcular de nuevo la integral.
-
-#### Normalización
-
-Para evitar este problema, se utiliza el cambio de variable $Z=\frac{X-\mu}{\sigma}$, del cual se obtiene que $dz=\frac{1}{\sigma}dx$.
-
-$$
+</div>
+</div>
+<div id="distribución-poisson" class="section level3">
+<h3>Distribución Poisson</h3>
+<p>Es otra distribución discreta de probabilidad muy útil en la que la variable aleatoria representa <strong>el número de eventos independientes que ocurren en un tiempo/espacio constante</strong>, por ejemplo: el número de accidentes en un cruce por hora, número de errores ortográficos por página, número de llamadas telefónicas a una central por minuto, número de imperfecciones en un material por <span class="math inline">\(cm^2\)</span>, número de huecos en una carretera por kilómetro, número de tarjetas amarillas en un partido.</p>
+<p>Algunos de estos experimentos tienen características similares:</p>
+<ol style="list-style-type: decimal">
+<li>El experimento consiste en contar el número de veces que ocurre un cierto evento de interés por unidad de tiempo o espacio.</li>
+<li>En cada unidad establecida, el número de eventos que ocurren es independiente de los que ocurren en otras unidades.</li>
+<li>Es posible asumir que la probabilidad de que un evento ocurra en una cierta unidad es la misma para todas las unidades de su tipo.</li>
+</ol>
+<p>Dado un intervalo real, suponga que el conteo de ocurrencias es aleatorio en dicho intervalo. Si este intervalo puede sub-dividirse en sub-intervalos suficientemente pequeños tales que:</p>
+<ol style="list-style-type: decimal">
+<li>La probabilidad de más de una ocurrencia en cada subintervalo es despreciable.</li>
+<li>La probabilidad de ocurrencia en un subintervalo es la misma para todos los subintevalos de la misma longitud y es proporcional a la longitud de dicho subintervalo.</li>
+<li>El conteo de ocurrencias en cada subintervalo es independiente del conteo de ocurrencias en los demás subintervalos.</li>
+</ol>
+<blockquote>
+<p>Si un experimento cumple estas condiciones, es llamado <strong>Experimento Poisson</strong>. La variable aleatoria de interés será <span class="math inline">\(X:\)</span> <i>Número de ocurrencias en el intervalo real</i>. Se dice que <span class="math inline">\(X\)</span> tiene una distribución Poisson con parámetro <span class="math inline">\(\lambda\)</span>, donde <span class="math inline">\(\lambda\)</span>: representa el número promedio de ocurrencias por unidad de tiempo o espacio.</p>
+</blockquote>
+<p>La distribución de <em>Poisson</em> es una distribución de probabilidad discreta que expresa, a partir de una frecuencia de ocurrencia media, la probabilidad de que ocurra un determinado número de eventos durante cierto período de tiempo. Concretamente, se especializa en la probabilidad de ocurrencia de sucesos con probabilidades muy pequeñas, o sucesos “raros”.</p>
+<p><span class="math display">\[p(x;\lambda)=\frac{e^{-\lambda} \lambda^x}{x!}\qquad x=0,1,2,... \quad \lambda&gt;0\]</span> Por notación <span class="math inline">\(X \sim Pois(\lambda)\)</span>, además <span class="math inline">\(E[X]=\lambda\)</span> y <span class="math inline">\(Var[X]=\lambda\)</span>.</p>
+<div id="ejemplo-1" class="section level4">
+<h4>Ejemplo</h4>
+<p>De acuerdo con <span class="citation">@pedritonumeros</span> el promedio de goles en la Bundes Liga es 3.06 goles por encuentro, cuando se reanude la liga ¿Cuál es la probabilidad de que en el primer partido se marquen 7 goles?. Si en el segundo partido se anotaron más de dos goles, ¿Cuál es la probabilidad que en el tercero marquen menos de 5?</p>
+<p>Sea <span class="math inline">\(X\)</span> la variable que representa el número de goles en un partido de la Bundes Liga, entonces de acuerdo a la información previa <span class="math inline">\(X \sim Pois(\lambda=3.06)\)</span>. La probabilidad de que en el primer partido se marquen 7 goles es:</p>
+<p><span class="math display">\[\begin{align*}
+P(X=7)=&amp;\frac{e^{-3.06}3.06^7}{7!}\\\\
+=&amp;\frac{(0.0468877)(2512.176)}{5040}\\\\
+=&amp;0.02337106
+\end{align*}\]</span></p>
+<p>Por lo tanto la probabilidad de que en el primer partido se marquen 7 goles es del 2.34%. Para el segundo caso se pide que en el tercer partido se marquen menos de 5 goles si en el segundo partido se anotaron más de dos goles, entonces se pide una probabilidad condicional. En un proceso poisson no influye los intervalos de tiempo, a menos que se amplie o disminuya el intervalo, en este caso se habla entre partidos, por lo tanto el parámetro <span class="math inline">\(\lambda\)</span> sigue fijo para la distribución.</p>
+<p><span class="math display">\[\begin{align*}
+P(X&lt;5|X&gt;2)=&amp;\frac{P(2 &lt; X &lt; 5)}{P(X&gt;2)}\\\\
+=&amp; \frac{P(3 \leq X \leq 4)}{1-P(X\leq2)}\\\\
+=&amp; \frac{\sum_3^4 \frac{e^{-3.06}3.06^x}{x!}}{1-\sum_0^2 \frac{e^{-3.06}3.06^x}{x!}}\\\\
+=&amp; \frac{p(3)+p(4)}{1-[p(0)+p(1)+p(2)]}\\\\
+=&amp; \frac{0.3951997}{1-0.4098829}\\\\
+=&amp; \frac{0.3951997}{0.5901171} = 0.669697
+\end{align*}\]</span></p>
+<p>Por lo tanto la probabilidad de que en el tercer partido se marquen menos de 5 goles dado que en el segundo se marcaron 2 es del 66.97%. En <code>R</code> también se pueden calcular estas probabilidades con las funciones basadas en <code>pois</code></p>
+<ul>
+<li><code>rpois</code>: genera <code>n</code> valores aleatorios Poisson con parámetro <code>lambda</code>.</li>
+<li><code>dpois</code>: calcula la probabilidad Poisson exacta de <code>x</code> con parámetro <code>lambda</code>.</li>
+<li><code>ppois</code>: calcula la probabilidad acumulada Poisson de <code>q</code> con parámetro <code>lambda</code>.</li>
+<li><code>qpois</code>: calcula el valor de <span class="math inline">\(x\)</span> basado en la probabilidad <code>p</code> de una Poisson con parámetro <code>lambda</code>.</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Solución 1</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>goles &lt;-<span class="st"> </span><span class="dv">7</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">dpois</span>(goles,<span class="dt">lambda =</span> <span class="fl">3.06</span>)</span></code></pre></div>
+<pre><code>## [1] 0.02337106</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># solución 2</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>numerador &lt;-<span class="st"> </span><span class="kw">dpois</span>(<span class="dv">3</span>,<span class="fl">3.06</span>)<span class="op">+</span><span class="kw">dpois</span>(<span class="dv">4</span>,<span class="fl">3.06</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>denominador &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">ppois</span>(<span class="dv">2</span>,<span class="fl">3.06</span>)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>numerador<span class="op">/</span>denominador</span></code></pre></div>
+<pre><code>## [1] 0.6696971</code></pre>
+<p><img src="prob_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="distribución-poission-lambda2" class="section level4">
+<h4>Distribución Poission <span class="math inline">\(\lambda=2\)</span></h4>
+<p><img src="prob_files/figure-html/pois1-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>En el gráfico se evidencia que la distribución <em>Poisson</em> es asimétrica hacia la izquerda para valores del parámetro <span class="math inline">\(\lambda\)</span> pequeños, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra <span class="math inline">\(N \geq 300\)</span>.</p>
+</div>
+<div id="distribución-poission-lambda5" class="section level4">
+<h4>Distribución Poission <span class="math inline">\(\lambda=5\)</span></h4>
+<p><img src="prob_files/figure-html/pois2-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>En el gráfico se evidencia que la distribución <em>Poisson</em> es asimétrica hacia la izquierda para valores del parámetro <span class="math inline">\(\lambda\)</span> pequeños, sin embargo, a medida que aumenta el valor del parámetro, la distribución presenta cola hacia la izquierda, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra <span class="math inline">\(N \geq 300\)</span>.</p>
+</div>
+<div id="distribución-poission-lambda10" class="section level4">
+<h4>Distribución Poission <span class="math inline">\(\lambda=10\)</span></h4>
+<p><img src="prob_files/figure-html/pois3-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>En el gráfico se evidencia que para valores grandes del parámetro <span class="math inline">\(\lambda\)</span> la distribución <em>Poisson</em> se hace simétrica presentando colas hacia ambos lados de la distribución, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra <span class="math inline">\(N \geq 1000\)</span>.</p>
+<hr>
+</div>
+</div>
+<div id="distribución-geométrica" class="section level3">
+<h3>Distribución Geométrica</h3>
+<p>La variable aleatoria geométrica representa el número de fallas que ocurren antes de que se presente el primer éxito. La función de masa de probabilidad está dada por:</p>
+<p><span class="math display">\[p(x) = (1 - p)^{x-1}p\]</span></p>
+<div id="distribución-geometrica-con-p0.3" class="section level4">
+<h4>Distribución Geometrica con p=0.3</h4>
+<p><img src="prob_files/figure-html/g1-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>Se observa que la distribución teórica es asimétrica hacia la izquierda, pues cuenta el número de ensayos antes de obtener el primer éxito, por otra parte el número de ensayos aumenta cuando el parámetro <em>p</em> es pequeño, además la distribución empírica se ajusta a la teórica para tamaños de muestra grandes; en este caso la distribución con <span class="math inline">\(p=0.3\)</span>, el ajuste de la distribución se alcanza para tamaños de muestra <span class="math inline">\(N \geq 1000\)</span></p>
+</div>
+<div id="distribución-geometrica-con-p0.5" class="section level4">
+<h4>Distribución Geometrica con p=0.5</h4>
+<p><img src="prob_files/figure-html/g2-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>Se observa que la distribución teórica es asimétrica hacia la izquierda, pues cuenta el número de ensayos antes de obtener el primer éxito, por otra parte el número de ensayos aumenta cuando el parámetro <em>p</em> es pequeño, además la distribución empírica se ajusta a la teórica para tamaños de muestra grandes; en este caso la distribución con <span class="math inline">\(p=0.5\)</span>, el ajuste de la distribución se alcanza para tamaños de muestra <span class="math inline">\(N \geq 100\)</span></p>
+</div>
+<div id="distribución-geometrica-con-p0.7" class="section level4">
+<h4>Distribución Geometrica con p=0.7</h4>
+<p><img src="prob_files/figure-html/g3-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>Se observa que la distribución teórica es asimétrica hacia la izquierda, pues cuenta el número de ensayos antes de obtener el primer éxito, por otra parte el número de ensayos disminuye cuando el parámetro <em>p</em> es grande, además la distribución empírica se ajusta a la teórica para tamaños de muestra grandes; en este caso la distribución con <span class="math inline">\(p=0.7\)</span>, el ajuste de la distribución se alcanza para tamaños de muestra <span class="math inline">\(N \geq 50\)</span></p>
+<hr>
+</div>
+</div>
+<div id="distribución-binomial-negativa" class="section level3">
+<h3>Distribución Binomial Negativa</h3>
+<p>Esta distribución puede considerarse como una extensión o ampliación de la distribución <em>geométrica</em>. La distribución binomial negativa es un modelo adecuado para tratar aquellos procesos en los que se repite un determinado ensayo o prueba hasta conseguir un número determinado de resultados favorables (por vez primera) .Es por tanto de gran utilidad para aquellos muestreos que procedan de esta manera. Si el número de resultados favorables buscados fuera 1 estaríamos en el caso de la distribución geométrica.</p>
+<p><span class="math display">\[p(x)= {x-1 \choose x-k}p^k(1-p)^{x-k} = {x-1 \choose k-1}p^k(1-p)^{x-k}\]</span></p>
+<div id="distribución-binomial-negativa-con-k3-y-p0.3" class="section level4">
+<h4>Distribución Binomial Negativa con k=3 y p=0.3</h4>
+<p><img src="prob_files/figure-html/nb1-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>Se observa que la distribución empírica se ajusta a la teórica con tamaños de muestra grandes. En particular para un número de éxitos fijo <span class="math inline">\(k=3\)</span>, se observa que la distribución es asimétrica hacia la izquierda y con <span class="math inline">\(p=0.3\)</span> la distribución empírica se ajusta con tamaños de muestra <span class="math inline">\(N \geq 1000\)</span>. Por otra parte, a medida que aumenta el parámetro <em>p</em> el número de ensayos disminuyen y la densidad de probabilidad aumenta.</p>
+</div>
+<div id="distribución-binomial-negativa-con-k3-y-p0.5" class="section level4">
+<h4>Distribución Binomial Negativa con k=3 y p=0.5</h4>
+<p><img src="prob_files/figure-html/nb2-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>Se observa que la distribución empírica se ajusta a la teórica con tamaños de muestra grandes. En particular para un número de éxitos fijo <span class="math inline">\(k=3\)</span>, se observa que la distribución es asimétrica hacia la izquierda y con <span class="math inline">\(p=0.5\)</span> la distribución empírica se ajusta con tamaños de muestra <span class="math inline">\(N \geq 1000\)</span>. Por otra parte, a medida que aumenta el parámetro <em>p</em> el número de ensayos disminuyen y la densidad de probabilidad aumenta.</p>
+</div>
+<div id="distribución-binomial-negativa-con-k3-y-p0.7" class="section level4">
+<h4>Distribución Binomial Negativa con k=3 y p=0.7</h4>
+<p><img src="prob_files/figure-html/nb3-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>Se observa que la distribución empírica se ajusta a la teórica con tamaños de muestra grandes. En particular para un número de éxitos fijo <span class="math inline">\(k=3\)</span>, se observa que la distribución es asimétrica hacia la izquierda y con <span class="math inline">\(p=0.7\)</span> la distribución empírica se ajusta con tamaños de muestra <span class="math inline">\(N \geq 1000\)</span>. Por otra parte, a medida que aumenta el parámetro <em>p</em> el número de ensayos disminuyen y la densidad de probabilidad aumenta.</p>
+</div>
+<div id="distribución-binomial-negativa-con-k30-y-p0.30.50.7" class="section level4">
+<h4>Distribución Binomial Negativa con k=30 y p=[0.3,0.5,0.7]</h4>
+<p><img src="prob_files/figure-html/nb4-1.png" width="2400" style="display: block; margin: auto;" /></p>
+<p>Se observa que la distribución empírica se ajusta a la teórica con tamaños de muestra grandes. Se puede observar que a medida que el parámetro <em>p</em> aumenta, disminuye el número de ensayos antes de obtener los <em>k</em> éxitos y aumenta la densidad de probabilidad; por otra parte cuando el parámetro <em>k</em> aumenta se observa la distribución tiende a ser simétrica.</p>
+<hr>
+</div>
+</div>
+<div id="distribución-hipergeométrica" class="section level3">
+<h3>Distribución Hipergeométrica</h3>
+<p>La distribución hipergeométrica es una distribución discreta que modela el número de eventos en una muestra de tamaño fijo cuando se conoce el número total de elementos en la población de la cual proviene la muestra. Las muestras no tienen reemplazo, por lo que cada elemento de la muestra es diferente. Cuando se elige un elemento de la población, no se puede volver a elegir. Por lo tanto, la probabilidad de que un elemento en particular sea seleccionado aumenta con cada ensayo, suponiendo que aún no ha sido seleccionado.</p>
+<p><span class="math display">\[P(X=x)=\frac{{k \choose x}{{N-k \choose n-x}}}{{N \choose n}} \quad x=0,1,...,k\]</span></p>
+<p>Donde <span class="math inline">\(N\)</span> es el tamaño de población, <span class="math inline">\(n\)</span> es el tamaño de la muestra extraída, <span class="math inline">\(k\)</span> es el número de elementos en la población original que pertenecen a la categoría deseada y <span class="math inline">\(x\)</span> es el número de elementos en la muestra que pertenecen a dicha categoría.</p>
+<div id="distribución-hipergeométrica-n80-k10-n10" class="section level4">
+<h4>Distribución hipergeométrica <span class="math inline">\(N=80\)</span> <span class="math inline">\(k=10\)</span> <span class="math inline">\(n=10\)</span></h4>
+<p><img src="prob_files/figure-html/hyp1-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>En el gráfico se ve que cuando el parámetro que denota el número de elementos de interés en la población original (<span class="math inline">\(k\)</span>) es pequeño e igual a la muestra extraída (<span class="math inline">\(n\)</span>), la distribución es asimétrica hacia la derecha, además a medida que el tamaño de muestra aumenta la distribución muestral se ajusta a la función de densidad con tamaños superiores a <span class="math inline">\(100\)</span>.</p>
+</div>
+<div id="distribución-hipergeométrica-n60-k10-n25" class="section level4">
+<h4>Distribución hipergeométrica <span class="math inline">\(N=60\)</span> <span class="math inline">\(k=10\)</span> <span class="math inline">\(n=25\)</span></h4>
+<p><img src="prob_files/figure-html/hyp2-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>En el gráfico se ve que cuando el parámetro que denota el número de elementos de interés en la población original (<span class="math inline">\(k\)</span>) es menor a la muestra extraída (<span class="math inline">\(n\)</span>), la distribución tiende a ser simétrica, además a medida que el tamaño de muestra aumenta la distribución muestral se ajusta a la función de densidad con tamaños superiores a <span class="math inline">\(300\)</span>.</p>
+</div>
+<div id="distribución-hipergeométrica-n60-k35-n25" class="section level4">
+<h4>Distribución hipergeométrica <span class="math inline">\(N=60\)</span> <span class="math inline">\(k=35\)</span> <span class="math inline">\(n=25\)</span></h4>
+<p><img src="prob_files/figure-html/hyp3-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>En el gráfico se ve que cuando el parámetro que denota el número de elementos de interés en la población original (<span class="math inline">\(k\)</span>) es mayor a la muestra extraída (<span class="math inline">\(n\)</span>), la distribución es asimétrica hacia la derecha, además a medida que el tamaño de muestra aumenta la distribución muestral se ajusta a la función de densidad con tamaños superiores a <span class="math inline">\(1000\)</span>.</p>
+<hr>
+</div>
+</div>
+<div id="distribución-multinomial" class="section level3">
+<h3>Distribución Multinomial</h3>
+<p>La distribución multinomial es una generalización de la distribución binomial, la cual es la probabilidad de un número de éxitos en <span class="math inline">\(N\)</span> sucesos de <em>Bernoulli</em> independientes, con la misma probabilidad de éxito en cada suceso. En una distribución multinomial, el análogo a la distribución de Bernoulli es la distribución categórica, donde cada suceso concluye en únicamente un resultado de un número finito <span class="math inline">\(K\)</span> de los posibles, con probabilidades <span class="math inline">\(p_1, \dots , p_k\)</span> (tal que <span class="math inline">\(p_i \geq 0\)</span> para <span class="math inline">\(i\)</span> entre <span class="math inline">\(1\)</span> y <span class="math inline">\(K\)</span> y <span class="math inline">\(\sum_{i=1}^k p_i = 1\)</span>) y con <span class="math inline">\(n\)</span> sucesos independientes.</p>
+<p>Entonces sea la variable aleatoria <span class="math inline">\(x_i\)</span>, que indica el número de veces que se ha dado el resultado <span class="math inline">\(i\)</span> sobre los n sucesos. El vector <span class="math inline">\(x=(x_1,..., x_k)\)</span> sigue una distribución multinomial con parámetros <span class="math inline">\(n\)</span> y <span class="math inline">\(p\)</span>, donde <span class="math inline">\(p=(p_1,...,p_k)\)</span> la distribución multinomial es una generalización de la distribución binomial.</p>
+<p>Para el caso de la <em>distribución trinomial</em>, la función de masa de probabilidad es:</p>
+<p><span class="math display">\[
+p(x,y) = { \displaystyle {n! \over x!y!(n-x-y)!}p_1^{x}p_2^{y}(1-p_1-p_2)^{n-x-y}}, \quad \mbox{cuando } x+y \leq n
+\]</span></p>
+<div id="distribución-trinomial-p_10.1-p_20.8-n10" class="section level4">
+<h4>Distribución Trinomial <span class="math inline">\(p_1=0.1\)</span> <span class="math inline">\(p_2=0.8\)</span> <span class="math inline">\(n=10\)</span></h4>
+<p><img src="prob_files/figure-html/mult1-1.png" width="1500" style="display: block; margin: auto;" /></p>
+<p>Por la ley de los grandes números se sabe que a medida que el tamaño de muestra aumenta la distribución empírica se ajusta a la distribución teórica. Para la distribución trinomial se evidencia que a medida que la probabilidad <span class="math inline">\(p_2\)</span> aumenta, la densidad se recarga en valores altos para el eje <span class="math inline">\(y\)</span> y en valores bajos para el eje <span class="math inline">\(x\)</span>.</p>
+</div>
+<div id="distribución-trinomial-p_10.45-p_20.45-n10" class="section level4">
+<h4>Distribución Trinomial <span class="math inline">\(p_1=0.45\)</span> <span class="math inline">\(p_2=0.45\)</span> <span class="math inline">\(n=10\)</span></h4>
+<p><img src="prob_files/figure-html/mult2-1.png" width="1500" style="display: block; margin: auto;" /></p>
+<p>Por la ley de los grandes números se sabe que a medida que el tamaño de muestra aumenta la distribución empírica se ajusta a la distribución teórica. Para la distribución trinomial se evidencia que a medida que cuando la probabilidad <span class="math inline">\(p_2=p_1\)</span>, la densidad se recarga en el centro del plano <span class="math inline">\((x,y)\)</span>.</p>
+</div>
+<div id="distribución-trinomial-p_10.8-p_20.1-n10" class="section level4">
+<h4>Distribución Trinomial <span class="math inline">\(p_1=0.8\)</span> <span class="math inline">\(p_2=0.1\)</span> <span class="math inline">\(n=10\)</span></h4>
+<p><img src="prob_files/figure-html/mult3-1.png" width="1500" style="display: block; margin: auto;" /></p>
+<p>Por la ley de los grandes números se sabe que a medida que el tamaño de muestra aumenta la distribución empírica se ajusta a la distribución teórica. Para la distribución trinomial se evidencia que a medida que la probabilidad <span class="math inline">\(p_1\)</span> aumenta, la densidad se recarga en valores altos para el eje <span class="math inline">\(x\)</span> y en valores bajos para el eje <span class="math inline">\(y\)</span>.</p>
+<hr>
+</div>
+</div>
+<div id="distribuciones-de-probabilidad-continuas" class="section level3">
+<h3>Distribuciones de Probabilidad Continuas</h3>
+</div>
+<div id="distribución-normal" class="section level3">
+<h3>Distribución Normal</h3>
+<p>La <strong>Distribución Normal</strong> o <strong>Gaussiana</strong> es indudablemente la más importante y la de mayor uso de todas las distribuciones de probabilidad continua. Es la piedra angular en la aplicación de la <u>inferencia estadística</u> en el analisis de datos, puesto que las distribuciones de muchas <u>estadísticas muestrales</u> tienden hacia la distribución normal conforme crece el tamaño de muestra.</p>
+<ul>
+<li>Precipitación pluvial</li>
+<li>Temperaturas</li>
+<li>Mediciones en organismos vivos</li>
+<li>Calificaciones de pruebas de actitud</li>
+<li>Mediciones físicas en manufactura</li>
+<li>Densidades</li>
+<li>Fuerza</li>
+<li><strong>Errores de instrumentación</strong></li>
+</ul>
+<p>Debe tenerse mucho cuidado al suponer para una situación dada un modelo de probabilidad normal sin previa comprobación. Si bien es cierto que esta distribución es la de mayor uso, también es de la que más se abusa. Quizás por la mala interpretación de la palabra “<em>normal</em>”, especialmente si se aplica su significado literal de “<em>patrón o estándar aceptado</em>”.</p>
+<p>Es posible que una distribución normal proporcione de manera razonable una aproximación alrededor de una media de una variable aleatoria; sin embargo, puede resultar que para valores extremos se encuentren en cualquier dirección. La apariencia gráfica de la distribución normal es una curva simétrica con forma de campana, que se extiende sin límite tanto en dirección positiva como negativa.</p>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria continua, se dice que <span class="math inline">\(X\)</span> tiene una <strong>distribución normal</strong> si su f.d.p es de la forma:</p>
+<p><span class="math display">\[f(x)=\cfrac{1}{\sqrt{2 \pi} \sigma} \mathit{e}^{- \frac{1}{2} \frac{(x-\mu)^2}{\sigma^2}};\qquad -\infty&lt; x &lt;\infty \quad \mu \in \mathit{R}\quad \sigma&gt;0\]</span></p>
+<p>Por notación <span class="math inline">\(X \sim N(\mu,\sigma^2)\)</span>. Los parámetros <span class="math inline">\(\mu\)</span> y <span class="math inline">\(\sigma^2\)</span> se les conoce de localización y escala, respectivamente. Las siguientes afirmaciones se cumplen para la variable aleatoria <span class="math inline">\(X\)</span>.</p>
+<ul>
+<li>El área abajo de curva normal comprendida entre <span class="math inline">\((−\infty, \infty)\)</span> es igual a 1.</li>
+<li>La normal es simétrica respecto a <span class="math inline">\(\mu\)</span>. Como consecuencia de esto, el área bajo de la curva en el intervalo <span class="math inline">\([\mu, \infty)\)</span> es igual a 0.5.</li>
+<li>La distribución normal tiene forma de campana.</li>
+<li>La normal queda completamente caracterizada con el conocimiento de sus parámetros de localización y de escala.</li>
+<li>La <strong>media</strong> es igual a la <strong>mediana</strong> y a su vez igual a la <strong>moda</strong>.</li>
+<li><b>En la práctica la normalidad se alcanza de manera aproximada</b>.</li>
+<li><span class="math inline">\(E[X]=\mu\)</span> y <span class="math inline">\(Var[X]=\sigma^2\)</span>.</li>
+<li>Cuanto más grande es el parámetro <span class="math inline">\(\sigma^2\)</span> el gráfico de la función es mas “achatada” y de colas más largas.</li>
+</ul>
+<p><img src="prob_files/figure-html/unnamed-chunk-14-1.png" width="900" style="display: block; margin: auto;" /></p>
+<p><img src="prob_files/figure-html/unnamed-chunk-15-1.png" width="900" style="display: block; margin: auto;" /></p>
+<div id="normal-estándar" class="section level4">
+<h4>Normal Estándar</h4>
+<p>Cuando <span class="math inline">\(\mu=0\)</span> y <span class="math inline">\(\sigma^2=1\)</span>, se obtiene una distribución normal especial, conocida como <em>Normal Estándar</em> y usualmente es denotada cola letra <span class="math inline">\(Z\)</span> y se escribe <span class="math inline">\(Z \sim N(0,1)\)</span>.</p>
+<p><span class="math display">\[P(x_1 &lt; X &lt; x_2)= \int\limits_{x_1}^{x_2} \cfrac{1}{\sqrt{2 \pi} \sigma} \large e^{- \frac{1}{2} \frac{(x-\mu)^2}{\sigma^2}} \small dx\]</span></p>
+<p>Esta probabilidad no puede ser resuelta de manera explícita, además cada vez que se modifique <span class="math inline">\(\mu\)</span> o <span class="math inline">\(\sigma^2\)</span>, se debe calcular de nuevo la integral.</p>
+</div>
+<div id="normalización" class="section level4">
+<h4>Normalización</h4>
+<p>Para evitar este problema, se utiliza el cambio de variable <span class="math inline">\(Z=\frac{X-\mu}{\sigma}\)</span>, del cual se obtiene que <span class="math inline">\(dz=\frac{1}{\sigma}dx\)</span>.</p>
+<p><span class="math display">\[
 \begin{aligned}
-P(x_1 < X < x_2) &= \int\limits_{z_1}^{z_2} \cfrac{1}{\sqrt{2 \pi}} \mathit{e}^{- \cfrac{z^2}{2}} dz \\
-&= P(z_1 < Z < z_2)\\
+P(x_1 &lt; X &lt; x_2) &amp;= \int\limits_{z_1}^{z_2} \cfrac{1}{\sqrt{2 \pi}} \mathit{e}^{- \cfrac{z^2}{2}} dz \\
+&amp;= P(z_1 &lt; Z &lt; z_2)\\
 \end{aligned}
-$$
-
-donde $z_1=\frac{x_1-\mu}{\sigma}$ y $z_2=\frac{x_2-\mu}{\sigma}$. Esto indica que cualquier cálculo de probabilidades para una variable aleatoria $N(\mu, \sigma^2)$ puede reducirse al cálculo de probabilidades con una variable aleatoria $N(0,1)$. El proceso de transformar una v.a normal en una normal estándar se conoce como _Estandarización_ o _Normalización_.
-
+\]</span></p>
+<p>donde <span class="math inline">\(z_1=\frac{x_1-\mu}{\sigma}\)</span> y <span class="math inline">\(z_2=\frac{x_2-\mu}{\sigma}\)</span>. Esto indica que cualquier cálculo de probabilidades para una variable aleatoria <span class="math inline">\(N(\mu, \sigma^2)\)</span> puede reducirse al cálculo de probabilidades con una variable aleatoria <span class="math inline">\(N(0,1)\)</span>. El proceso de transformar una v.a normal en una normal estándar se conoce como <em>Estandarización</em> o <em>Normalización</em>.</p>
 <center>
-![Normalización](Estandarizacion.jpg)
+<img src="Estandarizacion.jpg" title="fig:" alt="Normalización" />
 </center>
-
-Para el cálculo de probabilidades con una variable $N(0, 1)$, la c.d.f. estará dada por:
-
-$$\Phi(z)=P(Z \leq z)=\int\limits_{-\infty}^{z} \cfrac{1}{\sqrt{2 \pi}} \large e^{- \frac{z^2}{2}} \small dz$$
-
-De esta manera se tiene que:
-
-$$P(x_1 < X < x_2)=P(z_1 < Z < z_2)=\Phi(z_2)-\Phi(z_1)$$
-
-Los valores de la función $\Phi(z)$ están tabulados en casi todos los textos de estadística.
-
+<p>Para el cálculo de probabilidades con una variable <span class="math inline">\(N(0, 1)\)</span>, la c.d.f. estará dada por:</p>
+<p><span class="math display">\[\Phi(z)=P(Z \leq z)=\int\limits_{-\infty}^{z} \cfrac{1}{\sqrt{2 \pi}} \large e^{- \frac{z^2}{2}} \small dz\]</span></p>
+<p>De esta manera se tiene que:</p>
+<p><span class="math display">\[P(x_1 &lt; X &lt; x_2)=P(z_1 &lt; Z &lt; z_2)=\Phi(z_2)-\Phi(z_1)\]</span></p>
+<p>Los valores de la función <span class="math inline">\(\Phi(z)\)</span> están tabulados en casi todos los textos de estadística.</p>
 <center>
 <a href="./R/Tabla_Normal.pdf" class="btn btn-info"  target="_blank">Tabla Distribución Normal</a>
 </center>
-
-#### Cálculo de probabilidades
-
-Sea $Z$ una v.a tal que $Z \sim N(0,1)$
-
-- $P(Z = z) = 0$
-
-- $P(Z>z)=1-P(Z \leq z)$
-
-- $P(Z<-z)=P(Z>z)$
-
-- $P(-z < Z < 0) = P(0 < Z < z)$
-
-- $P(Z < 0) = P(Z > 0) = \cfrac{1}{2}$
-
-- $P(-z_1 < Z < -z_2)=P(z_2 < Z < z_1)$
-
-#### Características Distribución Normal
-
-<img src="prob_files/figure-html/unnamed-chunk-15-1.png" width="900" style="display: block; margin: auto;" />
-
-#### Percentiles en una Normal Estándar
-
-Sea $0 < \alpha < 1$ y suponga que $Z \sim N(0,1)$. El valor de $Z$ que deja un área $\alpha$ a la derecha se denota $z_{\alpha}$. Es decir,
-
-$$P(Z>z_{\alpha})=\alpha$$
-
-$z_{\alpha}$ es llamado percentil $100(1-\alpha)\%$ de la distribución de $Z$.
-
-<img src="prob_files/figure-html/unnamed-chunk-16-1.png" width="450" style="display: block; margin: auto;" />
-
-#### Ejemplo Manejo de la tabla
-
-Suponga que poseemos una distribución normal estándar, tal que $Z \sim N(0,1)$. Entonces, a partir de esta distribución y empleando la Tabla de la Distribución Normal Estándar, calcule:
-
-* $P(Z \leq 1.96)$
-* $P(−2.42<Z \leq 0.24)$
-
-Para calcular probabilidades con la tabla de la distribución normal estándar, es necesario tener en cuenta el funcionamiento de la tabla misma, y para ello, se debe entender su funcionamiento. Y para ello se presenta la siguiente imagen.
-
-<center>
-![TablaNormal](TablaNormalEst.jpg)
-</center>
-
-En donde, se aprecia que, los **cuadros rojos** representan los **valores críticos** $z$ que se emplea para calcular probabilidades, en donde, el cuadro rojo de **la parte izquierda muestra la parte entera y el primer decimal**, mientras que el cuadro rojo de **la parte superior muestra el segundo decimal**. El **cuadro azul** representa las probabilidades $\alpha$ que se desean calcular a partir de los valores críticos. Finalmente, el **cuadro azul claro** representa el funcionamiento de la tabla , la cual muestra las probabilidades que poseen la forma $P(Z<z)=\alpha$.
-
-La primera probabilidad a calcular es $P(Z\leq1.96)$. Entonces como esta probabilidad tiene la estructura establecida por la tabla $P(Z\leq z)$, será cuestión de buscar el valor crítico 1.96 para localizar la probabilidad asociada, tal que se busca en la parte izquierda, el valor 1.9 y en la parte superior el valor 0.06, y en donde se encuentre el cruce de ambos valores, se encontrará el valor de la probabilidad asociada a 1.96. Dicho procedimiento se muestra en la siguiente imagen
-
-<center>
-![P1.96](TablaNormalEst2.jpg)
-</center>
-
-Donde se aprecia que
-
-$$P(Z\leq1.96)=0.9750$$
-
-Para el segundo caso, se desea calcular la $P(−2.42<Z\leq0.24)$, y se observa que la estructura de dicha probabilidad es diferente a la establecida por la tabla $P(Z\leq z)$, pero también podemos apreciar que si aplicamos las propiedades de la función de distribución acumulada para el caso continuo, podemos llevar la probabilidad de interés a la forma
-
-$$P(−2.42<Z\leq0.24)=P(Z\leq0.24)−P(Z\leq−2.42)$$
-
-obteniendo que la probabilidad $P(−2.42<Z\leq0.24)$, puede calcularse mediante el empleo de las probabilidades acumuladas $P(Z\leq0.24)$ y $P(Z\leq−2.42)$, las cuales pueden calcularse en la tabla de forma similar a los dos puntos anteriores.
-
-<center>
-![-2.42x0.24](TablaNormalEst4.jpg)
-</center>
-
-Donde se aprecia que
-
-$$P(Z\leq−2.42)=0.0078 \quad \text{y} \quad P(Z\leq0.24)=0.5948$$
-
-y por tanto, se tendrá que
-
-$$\begin{align*}
-P(−2.42<Z\leq0.24)=&P(Z\leq0.24)−P(Z\leq−2.42)\\
-=&0.5948−0.0078\\
-=&0.587
-\end{align*}$$
-
-#### Ejemplo
-
-La nota promedio obtenida por un estudiante de cierto curso tienen una distribución aproximadamente normal con una nota promedio de 3.3 y una desviación estándar de 0.4. Si se desea que solo el 5% de todos los estudiantes de dicho curso reprueben, ¿Cuál debe ser la nota mínima para que esto sea posible?
-
-Tenemos que $X$ es la nota promedio de un estudiante y que $X \sim N(3.3,0.4^2)$, para obtener la nota mínima para que solo el 5% reprueben, primero debemos estimar cuál es la probabilidad de que los estudiantes reprueben
-
-$$\begin{align*}
-P(X<3)=&P\left(\frac{X-3.3}{0.4}<\frac{3-3.3}{0.4}\right)\\\\
-=&P(Z<-0.75)\\
-=&1-P(Z \leq 0.75) = 0.2266
-\end{align*}$$
-
-Se espera que el 22.66% de los estudiantes pierdan el curso. Sea $K$ la nota mínima aprobatoria que satisface $P (X <K) = 0.05$, es decir, el 5% de los estudiantes tienen notas inferiores a $K$ y reprobarán el curso.
-
-$$\begin{align*}
-P(X<K)=0.05 \quad \Rightarrow \quad &P\left(\frac{X-3.3}{0.4}<\frac{K-3.3}{0.4}\right)=0.05\\\\
-&P(Z<z)=0.05, \quad \text{con}\quad z=\frac{K-3.3}{0.4}
-\end{align*}$$
-
-Usando la tabla de la normal se encuentra que valor de $z$ para una probabilidad de $0.05$ es $-1.645$ entonces:
-
-$$-1.645=\frac{K-3.3}{0.4} \quad \Rightarrow K=2.64$$
-
-Así, la nota mínima aprobatoria será 2.6, para que solo el 5% pierda la materia. En otras palabras, se ajusta la nota de todos sumando 0.4 para que solo pierda el 5 %. En `R` también se pueden calcular estas probabilidades con las funciones basadas en `norm`
-
-- `rnorm`: genera `n` valores aleatorios Normales con media `mu` y desviación `sigma`.
-- `dnorm`: calcula la densidad Normal exacta de `x` con media `mu` y desviación `sigma`.
-- `pnorm`: calcula la probabilidad acumulada Normal de `q` con media `mu` y desviación `sigma`.
-- `qnorm`: calcula el valor de $x$ basado en la probabilidad `p` de una Normal con media `mu` y desviación `sigma`.
-
-
-```r
-# Solución 1
-pnorm(3,mean = 3.3,sd = 0.4)
-```
-
-```
-## [1] 0.2266274
-```
-
-```r
-pnorm((3-3.3)/0.4,mean = 0,sd = 1)
-```
-
-```
-## [1] 0.2266274
-```
-
-```r
-# solución 2
-qnorm(0.05,mean = 3.3,sd = 0.4)
-```
-
-```
-## [1] 2.642059
-```
-
-```r
-qnorm(0.05,mean = 0,sd = 1)*0.4+3.3
-```
-
-```
-## [1] 2.642059
-```
-
-<img src="prob_files/figure-html/unnamed-chunk-18-1.png" width="480" style="display: block; margin: auto;" />
-
-#### Distribución normal con $\mu=0$ y $\sigma=1$
-
-<img src="prob_files/figure-html/norm1-1.png" width="720" style="display: block; margin: auto;" />
-
-En el gráfico se evidencia que la distribución *Normal* es simétrica en $\mu=0$, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra $N \geq 100$.
-
-#### Distribución normal con $\mu=0$ y $\sigma=5$
-
-<img src="prob_files/figure-html/norm2-1.png" width="720" style="display: block; margin: auto;" />
-
-En el gráfico se evidencia que la distribución *Normal* es simétrica en $\mu=0$ y que debido a la varianza tan grande el rango de la variable aumenta considerablemente, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra $N \geq 100$.
-
-
-<div class="panel-group">
- <div class="panel panel-primary">
-  <div class="panel-heading">
-   <h5 class="panel-title">
-    <a data-toggle="collapse" href="#e6">Ejercicio</a>
-   </h5>
-  </div>
-  <div id="e6" class="panel-collapse collapse">
-   <div class="panel-body">
-La UCI sabe que la capacidad aeróbica ($VO_2\,\max$) de los ciclistas que participarán en el Tour de Francia es una variable aleatoria Normal con parámetros $\mu=79$ y $\sigma^2=12.96$.
-
-- Si se selecciona un cicilista al azar ¿cuál es la probabilidad de que el ($VO_2\,\max$) esté entre 83 y 88?
-
-- Si la UCI quiere condicionar a que más del 15% de los ciclistas participen en el Tour de Francie ¿Cuál es el ($VO_2\,\max$) mínimo requerido para cumplir con la exigencia?
-
-- Si se selecciona un ciclista, y se sabe que tiene un capacidad aerobica que supera al 50% de los demás ciclistas, ¿Cuál es la probabilidad de que su capacidad aerobica esté entre 86 y 90?
-   </div>
-   </div>
-  </div>
 </div>
-
+<div id="cálculo-de-probabilidades" class="section level4">
+<h4>Cálculo de probabilidades</h4>
+<p>Sea <span class="math inline">\(Z\)</span> una v.a tal que <span class="math inline">\(Z \sim N(0,1)\)</span></p>
+<ul>
+<li><p><span class="math inline">\(P(Z = z) = 0\)</span></p></li>
+<li><p><span class="math inline">\(P(Z&gt;z)=1-P(Z \leq z)\)</span></p></li>
+<li><p><span class="math inline">\(P(Z&lt;-z)=P(Z&gt;z)\)</span></p></li>
+<li><p><span class="math inline">\(P(-z &lt; Z &lt; 0) = P(0 &lt; Z &lt; z)\)</span></p></li>
+<li><p><span class="math inline">\(P(Z &lt; 0) = P(Z &gt; 0) = \cfrac{1}{2}\)</span></p></li>
+<li><p><span class="math inline">\(P(-z_1 &lt; Z &lt; -z_2)=P(z_2 &lt; Z &lt; z_1)\)</span></p></li>
+</ul>
+</div>
+<div id="características-distribución-normal" class="section level4">
+<h4>Características Distribución Normal</h4>
+<p><img src="prob_files/figure-html/unnamed-chunk-16-1.png" width="900" style="display: block; margin: auto;" /></p>
+</div>
+<div id="percentiles-en-una-normal-estándar" class="section level4">
+<h4>Percentiles en una Normal Estándar</h4>
+<p>Sea <span class="math inline">\(0 &lt; \alpha &lt; 1\)</span> y suponga que <span class="math inline">\(Z \sim N(0,1)\)</span>. El valor de <span class="math inline">\(Z\)</span> que deja un área <span class="math inline">\(\alpha\)</span> a la derecha se denota <span class="math inline">\(z_{\alpha}\)</span>. Es decir,</p>
+<p><span class="math display">\[P(Z&gt;z_{\alpha})=\alpha\]</span></p>
+<p><span class="math inline">\(z_{\alpha}\)</span> es llamado percentil <span class="math inline">\(100(1-\alpha)\%\)</span> de la distribución de <span class="math inline">\(Z\)</span>.</p>
+<p><img src="prob_files/figure-html/unnamed-chunk-17-1.png" width="450" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ejemplo-manejo-de-la-tabla" class="section level4">
+<h4>Ejemplo Manejo de la tabla</h4>
+<p>Suponga que poseemos una distribución normal estándar, tal que <span class="math inline">\(Z \sim N(0,1)\)</span>. Entonces, a partir de esta distribución y empleando la Tabla de la Distribución Normal Estándar, calcule:</p>
+<ul>
+<li><span class="math inline">\(P(Z \leq 1.96)\)</span></li>
+<li><span class="math inline">\(P(−2.42&lt;Z \leq 0.24)\)</span></li>
+</ul>
+<p>Para calcular probabilidades con la tabla de la distribución normal estándar, es necesario tener en cuenta el funcionamiento de la tabla misma, y para ello, se debe entender su funcionamiento. Y para ello se presenta la siguiente imagen.</p>
+<center>
+<img src="TablaNormalEst.jpg" title="fig:" alt="TablaNormal" />
+</center>
+<p>En donde, se aprecia que, los <strong>cuadros rojos</strong> representan los <strong>valores críticos</strong> <span class="math inline">\(z\)</span> que se emplea para calcular probabilidades, en donde, el cuadro rojo de <strong>la parte izquierda muestra la parte entera y el primer decimal</strong>, mientras que el cuadro rojo de <strong>la parte superior muestra el segundo decimal</strong>. El <strong>cuadro azul</strong> representa las probabilidades <span class="math inline">\(\alpha\)</span> que se desean calcular a partir de los valores críticos. Finalmente, el <strong>cuadro azul claro</strong> representa el funcionamiento de la tabla , la cual muestra las probabilidades que poseen la forma <span class="math inline">\(P(Z&lt;z)=\alpha\)</span>.</p>
+<p>La primera probabilidad a calcular es <span class="math inline">\(P(Z\leq1.96)\)</span>. Entonces como esta probabilidad tiene la estructura establecida por la tabla <span class="math inline">\(P(Z\leq z)\)</span>, será cuestión de buscar el valor crítico 1.96 para localizar la probabilidad asociada, tal que se busca en la parte izquierda, el valor 1.9 y en la parte superior el valor 0.06, y en donde se encuentre el cruce de ambos valores, se encontrará el valor de la probabilidad asociada a 1.96. Dicho procedimiento se muestra en la siguiente imagen</p>
+<center>
+<img src="TablaNormalEst2.jpg" title="fig:" alt="P1.96" />
+</center>
+<p>Donde se aprecia que</p>
+<p><span class="math display">\[P(Z\leq1.96)=0.9750\]</span></p>
+<p>Para el segundo caso, se desea calcular la <span class="math inline">\(P(−2.42&lt;Z\leq0.24)\)</span>, y se observa que la estructura de dicha probabilidad es diferente a la establecida por la tabla <span class="math inline">\(P(Z\leq z)\)</span>, pero también podemos apreciar que si aplicamos las propiedades de la función de distribución acumulada para el caso continuo, podemos llevar la probabilidad de interés a la forma</p>
+<p><span class="math display">\[P(−2.42&lt;Z\leq0.24)=P(Z\leq0.24)−P(Z\leq−2.42)\]</span></p>
+<p>obteniendo que la probabilidad <span class="math inline">\(P(−2.42&lt;Z\leq0.24)\)</span>, puede calcularse mediante el empleo de las probabilidades acumuladas <span class="math inline">\(P(Z\leq0.24)\)</span> y <span class="math inline">\(P(Z\leq−2.42)\)</span>, las cuales pueden calcularse en la tabla de forma similar a los dos puntos anteriores.</p>
+<center>
+<img src="TablaNormalEst4.jpg" title="fig:" alt="-2.42x0.24" />
+</center>
+<p>Donde se aprecia que</p>
+<p><span class="math display">\[P(Z\leq−2.42)=0.0078 \quad \text{y} \quad P(Z\leq0.24)=0.5948\]</span></p>
+<p>y por tanto, se tendrá que</p>
+<p><span class="math display">\[\begin{align*}
+P(−2.42&lt;Z\leq0.24)=&amp;P(Z\leq0.24)−P(Z\leq−2.42)\\
+=&amp;0.5948−0.0078\\
+=&amp;0.587
+\end{align*}\]</span></p>
+</div>
+<div id="ejemplo-2" class="section level4">
+<h4>Ejemplo</h4>
+<p>La resistencia promedio del concreto, obtenida por pruebas en laboratorio, tienen una distribución aproximadamente normal con una resistencia promedio de 31.5 MPa y una desviación estándar de 2 MPa. Si se desea que solo el 5% de todas las pruebas de resistencia sean menores que 30 MPa ¿Cuál debe ser la resistencia mínima para que esto sea posible?</p>
+<p>Tenemos que <span class="math inline">\(X\)</span> es la resistencia promedio del concreto y que <span class="math inline">\(X \sim N(31.5,2^2)\)</span>, para obtener el valor mínimo para que solo el 5% de las pruebas sean menores de 30 MPa, primero debemos estimar cuál es la probabilidad de que las resistencias sean menores a 30 MPa.</p>
+<p><span class="math display">\[\begin{align*}
+P(X&lt;30)=&amp;P\left(\frac{X-31.5}{2}&lt;\frac{30-31.5}{2}\right)\\\\
+=&amp;P(Z&lt;-0.75)\\
+=&amp;1-P(Z \leq 0.75) = 0.2266
+\end{align*}\]</span></p>
+<p>Se espera que el 22.66% de las resistencias del concreto estén por debajo de 30 MPa. Sea <span class="math inline">\(K\)</span> el valor de la resistencia mínima que satisface <span class="math inline">\(P (X &lt; K) = 0.05\)</span>, es decir, el 5% de las resistencias del concreto tienen valores inferiores a <span class="math inline">\(K\)</span>.</p>
+<p><span class="math display">\[\begin{align*}
+P(X&lt;K)=0.05 \quad \Rightarrow \quad &amp;P\left(\frac{X-31.5}{2}&lt;\frac{K-31.5}{2}\right)=0.05\\\\
+&amp;P(Z&lt;z)=0.05, \quad \text{con}\quad z=\frac{K-31.5}{2}
+\end{align*}\]</span></p>
+<p>Usando la tabla de la normal se encuentra que valor de <span class="math inline">\(z\)</span> para una probabilidad de <span class="math inline">\(0.05\)</span> es <span class="math inline">\(-1.645\)</span> entonces:</p>
+<p><span class="math display">\[-1.645=\frac{K-31.5}{2} \quad \Rightarrow K=28.21\]</span></p>
+<p>Así, la resistencia mínima del concreto será 28.21 MPa, para que solo el 5% esté por debajo de 30 MPa. En <code>R</code> también se pueden calcular estas probabilidades con las funciones basadas en <code>norm</code></p>
+<ul>
+<li><code>rnorm</code>: genera <code>n</code> valores aleatorios Normales con media <code>mu</code> y desviación <code>sigma</code>.</li>
+<li><code>dnorm</code>: calcula la densidad Normal exacta de <code>x</code> con media <code>mu</code> y desviación <code>sigma</code>.</li>
+<li><code>pnorm</code>: calcula la probabilidad acumulada Normal de <code>q</code> con media <code>mu</code> y desviación <code>sigma</code>.</li>
+<li><code>qnorm</code>: calcula el valor de <span class="math inline">\(x\)</span> basado en la probabilidad <code>p</code> de una Normal con media <code>mu</code> y desviación <code>sigma</code>.</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Solución 1</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">pnorm</span>(<span class="dv">30</span>,<span class="dt">mean =</span> <span class="fl">31.5</span>,<span class="dt">sd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 0.2266274</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">pnorm</span>((<span class="dv">30</span><span class="fl">-31.5</span>)<span class="op">/</span><span class="dv">2</span>,<span class="dt">mean =</span> <span class="dv">0</span>,<span class="dt">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 0.2266274</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># solución 2</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="kw">qnorm</span>(<span class="fl">0.05</span>,<span class="dt">mean =</span> <span class="fl">31.5</span>,<span class="dt">sd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 28.21029</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">qnorm</span>(<span class="fl">0.05</span>,<span class="dt">mean =</span> <span class="dv">0</span>,<span class="dt">sd =</span> <span class="dv">1</span>)<span class="op">*</span><span class="dv">2</span><span class="fl">+31.5</span></span></code></pre></div>
+<pre><code>## [1] 28.21029</code></pre>
+<p><img src="prob_files/figure-html/unnamed-chunk-19-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="distribución-normal-con-mu0-y-sigma1" class="section level4">
+<h4>Distribución normal con <span class="math inline">\(\mu=0\)</span> y <span class="math inline">\(\sigma=1\)</span></h4>
+<p><img src="prob_files/figure-html/norm1-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>En el gráfico se evidencia que la distribución <em>Normal</em> es simétrica en <span class="math inline">\(\mu=0\)</span>, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra <span class="math inline">\(N \geq 100\)</span>.</p>
+</div>
+<div id="distribución-normal-con-mu0-y-sigma5" class="section level4">
+<h4>Distribución normal con <span class="math inline">\(\mu=0\)</span> y <span class="math inline">\(\sigma=5\)</span></h4>
+<p><img src="prob_files/figure-html/norm2-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>En el gráfico se evidencia que la distribución <em>Normal</em> es simétrica en <span class="math inline">\(\mu=0\)</span> y que debido a la varianza tan grande el rango de la variable aumenta considerablemente, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra <span class="math inline">\(N \geq 100\)</span>.</p>
 <hr>
--->
 </div>
+</div>
+<div id="distribución-uniforme" class="section level3">
+<h3>Distribución Uniforme</h3>
+<p>Sea <span class="math inline">\(X\)</span> una v.a continua definida en el intervalo <span class="math inline">\((a,b)\)</span> tal que <span class="math inline">\(\forall_I \subset (a,b)\)</span> la <span class="math inline">\(P(X \in I)\)</span> es proporcional a la longitud del intervalo.</p>
+<p>Entonces se dice que <span class="math inline">\(X\)</span> tiene una distribución uniforme en el intervalo <span class="math inline">\((a,b)\)</span>. Para hallar la p.d.f. de X, como la probabilidad de que X pertenezca a cualquier subintervalo de <span class="math inline">\((a,b)\)</span> es proporcional a su longitud, necesariamente la p.d.f. de X es una función constante;</p>
+<p><span class="math display">\[
+f(x) =
+  \begin{cases}
+    k       &amp; ; \quad a&lt;x&lt;b\\
+    0  &amp; ; \quad \text{en otro caso}\\
+  \end{cases}
+\]</span></p>
+<p><span class="math display">\[P(X \in (a,b))=k(b-a)=1 \Rightarrow k=\cfrac{1}{b-a}\]</span></p>
+<p>De esta manera, la p.d.f. de la variable aleatoria X es de la forma:</p>
+<p><span class="math display">\[
+f(x) =
+  \begin{cases}
+    \cfrac{1}{b-a}   &amp; ; \quad a&lt;x&lt;b\\
+    \\
+    0  &amp; ; \quad \text{en otro caso}\\
+  \end{cases}
+\]</span></p>
+<p><span class="math display">\[
+F(x) =
+  \begin{cases}
+    0 &amp; ; \quad x&lt;a \\\\
+    \cfrac{x-a}{b-a}   &amp; ; \quad a \leq x \leq b \\\\
+    1  &amp; ; \quad x&gt;b\\
+  \end{cases}
+\]</span></p>
+<p>Entonces <span class="math inline">\(X \sim U(a,b)\)</span>, además:</p>
+<p><span class="math display">\[M_X(t)=
+\begin{cases}
+\cfrac{\large e^{tb}-\large e^{ta}}{t(a-b)} \quad t \neq 0 \\ \\
+\quad  \quad 1 \quad \quad \quad t=0 \\
+\end{cases}\]</span></p>
+<p>Así, <span class="math inline">\(E[X]=\cfrac{a+b}{2}\)</span> y <span class="math inline">\(\text{Var}[X]=\cfrac{(b-a)^2}{12}\)</span></p>
+<p><img src="prob_files/figure-html/unnamed-chunk-20-1.png" width="3000" style="display: block; margin: auto;" /></p>
+<hr>
+<div id="distribución-exponencial" class="section level4">
+<h4>Distribución Exponencial</h4>
+<p>La distribución exponencial tiene una gran utilidad práctica ya que podemos considerarla como un modelo adecuado para la distribución de probabilidad del tiempo de espera entre dos hechos que sigan un proceso de Poisson. De hecho la distribución exponencial puede derivarse de un proceso experimental de Poisson con las mismas características que las que enunciábamos al estudiar la distribución de Poisson, pero tomando como variable aleatoria, en este caso, el tiempo que tarda en producirse un hecho.</p>
+<p>Sea <span class="math inline">\(X\)</span> una v.a continua. <span class="math inline">\(X \sim Exp(\lambda)\)</span>.</p>
+<p><span class="math display">\[f(x) =
+  \begin{cases}
+    \lambda \mathit{e}^{-\lambda x} &amp;;\qquad x &gt; 0\\
+    0  &amp;;\qquad \text{en otro caso}\\
+  \end{cases}\]</span></p>
+<p>La función generadora de momentos está dada por:</p>
+<p><span class="math display">\[M_X(t)=E\left[ e^{tx}\right]=\cfrac{\lambda}{\lambda-t}\]</span></p>
+<p>Así,<span class="math inline">\(E[X]=\frac{1}{\lambda}\)</span> y <span class="math inline">\(\text{Var}[X]=\frac{1}{\lambda^2}\)</span>.</p>
+<p>La función acumulada está dada por:</p>
+<p><span class="math display">\[F(x) =
+  \begin{cases}
+    1 - \mathit{e}^{-\lambda x} &amp;;\qquad x \geq 0\\
+    0  &amp;;\qquad x &lt; 0\\
+  \end{cases}\]</span></p>
+<p>Por lo general en la distribución exponencial se da el tiempo promedio hasta la ocurrencia de un evento Poisson, es útil igualar el promedio a <span class="math inline">\(E[X]\)</span> para hallar el parámetro <span class="math inline">\(\lambda\)</span> despejando de la ecuación.</p>
+<p><img src="prob_files/figure-html/unnamed-chunk-21-1.png" width="3000" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ejemplo-3" class="section level4">
+<h4>Ejemplo</h4>
+<p>Suponga que en horas pico el tiempo entre llegadas sucesiva de personas al ascensor de un conjunto residencial (edificio), posee una distribución Exponencial con un tiempo promedio de <span class="math inline">\(0.8\)</span> minutos. Entonces, basados en ésto</p>
+<p><strong>Calcule la probabilidad de que la próxima persona en llegar al ascensor tarde más de 4 minutos?</strong></p>
+<p>Para calcular la probabilidad de que la próxima persona tarde más de 4 minutos en llegar al ascensor, debemos primero encontrar el valor del parámetro de la distribución Exponencial, en donde, nos dicen en el enunciado, que el tiempo promedio entre llegadas sucesivas es de <span class="math inline">\(0.8\)</span> minutos, tal que</p>
+<p><span class="math display">\[E[X]=\frac{1}{\lambda}=0.8\]</span></p>
+<p>Entonces <span class="math inline">\(\lambda=1.25\)</span>. Ahora, con el valor de este parámetro podemos calcular la probabilidad de interés empleando la función de distribución acumulada Exponencial, tal que</p>
+<p><span class="math display">\[\begin{align*}
+P(X&gt;4)&amp;=1-P(X\leq 4)\\
+&amp;=1-F(4)\\
+&amp;=1-[1 - \mathit{e}^{-\lambda 4}]\\
+&amp;=1-[1 - \mathit{e}^{-(1.25)(4)}]\\
+&amp;=\mathit{e}^{-5}\\
+&amp;=0.006737947
+\end{align*}\]</span></p>
+<p>Es decir que la probabilidad de que la próxima persona en llegar al ascensor tarde más de 4 minutos es de 0.67%.</p>
+<p><strong>Si han pasado 2 minutos y aún no llega ninguna persona al ascensor, cuál es la probabilidad de que la próxima persona tarde más de 4 minutos?</strong></p>
+<p>En esta ocasión estamos interesados en calcular una probabilidad condicional, en donde nos piden la probabilidad de que una persona tarde más de 4 minutos en llegar al ascensor, si se sabe que ya han pasado 2 minutos y aún no llega ningúna persona, es decir</p>
+<p><span class="math display">\[\begin{align*}
+P(X&gt;4|X&gt;2) &amp;= \frac{P(X&gt;4 \cap X&gt;2)}{P(X&gt;2)}\\\\
+&amp;=\frac{P(X&gt;4)}{P(X&gt;2)}\\\\
+&amp;=\frac{1-P(X \leq 4)}{1-P(X\leq 2)}\\\\
+&amp;=\frac{1-F(4)}{1-F(2)}\\\\
+&amp;=\frac{1-[1 - \mathit{e}^{-(1.25)(4)}]}{1-[1 - \mathit{e}^{-(1.25)(2)}]}\\\\
+&amp;=\frac{\mathit{e}^{-5}}{\mathit{e}^{-2.5}}\\
+&amp;=\frac{0.006737947}{0.082085}\\
+&amp;=0.082085
+\end{align*}\]</span></p>
+<p>Y por tanto se tendrá una probabilidad de 8.21% de que la próxima persona que llega al ascensor tarde más de 4 minutos, dado que ya han pasado 2 minutos y aún no ha llegado ninguna persona.</p>
+</div>
+<div id="propiedad-de-carencia-de-memoria" class="section level4">
+<h4>Propiedad de carencia de memoria</h4>
+<p>Suponga que <span class="math inline">\(X\)</span> es una variable aleatoria tal que <span class="math inline">\(X \sim Exp(\lambda)\)</span>. Sean <span class="math inline">\(t_1\)</span> y <span class="math inline">\(t_2\)</span> reales positivos. Entonces:</p>
+<p><span class="math display">\[P(X &lt; t_1+ t_2 |X \geq t_1) = P (X &lt; t_2)\]</span> <span class="math display">\[P(X &gt; t_1+ t_2 |X \geq t_1) = P (X &gt; t_2)\]</span></p>
+<p><strong>Cuál es la probabilidad de que la próxima persona tarde a lo más 2 minutos, si ya han pasado 0.8 minutos y aún no llega ninguna persona al ascensor?</strong></p>
+<p>Dado que para este ejercicio tenemos que el tiempo que tarda una persona en llegar al ascensor se distribuye Exponencialmente con parámetro <span class="math inline">\(\lambda=1.25\)</span>, tendremos que, la probabilidad de que la próxima persona tarde a lo más 2 minutos, dado que ya han pasado 0.8 minutos y no llega ninguna persona, estará dada por una probabilidad condicional de la forma</p>
+<p><span class="math display">\[P(X \leq 2 | X &gt; 0.8) = \frac{P(X\leq2 \,\cap\, X&gt;0.8)}{P(X&gt;0.8)}\]</span></p>
+<p>Otra alternativa surge debido a que el tiempo que tarda una persona en llegar al ascensor posee una distribución Exponencial, y por tanto, por propiedad de <em>carencia de memoria</em>, la probabilidad condicional será igual a</p>
+<p><span class="math display">\[\begin{align*}
+P(X \leq 2 | X &gt; 0.8) &amp;= P(X\leq2-0.8+0.8|X&gt;0.8)\\
+&amp;=P(X\leq1.2+0.8|X&gt;0.8)\\
+&amp;=P(X \leq 1.2)\\
+&amp;=F(1.2)\\
+&amp;=1 - \mathit{e}^{-(1.25)(1.2)}\\
+&amp;=1-0.2231302\\
+&amp;=0.7768698
+\end{align*}\]</span></p>
+<p>Lo cual significa, que exite una probablidad de 77.69% de que una persona tarde como maximo 2 minutos en llegar al ascensor, si ya han pasado a lo más 0.8 minutos y aún no ha llegado ninguna persona.</p>
+</div>
+<div id="relación-exponencialpoisson" class="section level4">
+<h4>Relación Exponencial–Poisson</h4>
+<p>Suponga que el número de eventos que ocurren en un intervalo de tiempo de longitud <span class="math inline">\(t\)</span>, tiene una distribución de Poisson con parámetro <span class="math inline">\(\alpha\)</span> y que el número de ocurrencias en intervalos que no se translapan son independientes entre sí. Entonces, la distribución del tiempo transcurrido entre la presentación de 2 eventos sucesivos es <em>exponencial</em> con parámetro <span class="math inline">\(\lambda=\alpha\)</span>.</p>
+<p>En otras palabras, suponga que <span class="math inline">\(X \sim pois(\lambda)\)</span> donde <span class="math inline">\(\lambda\)</span> es el número promedio de ocurrencias por unidad de tiempo. Sea <span class="math inline">\(T\)</span> la variable aleatoria que representa el tiempo entre ocurrencias de este proceso Poisson. Entonces <span class="math inline">\(T \sim Exp(\lambda)\)</span>. Para mostrar este resultado, se hallará la c.d.f de <span class="math inline">\(T\)</span>, es decir, calcular <span class="math inline">\(F(t) = P(T \leq t)\)</span>. Por facilidad se calculará primero <span class="math inline">\(P(T &gt; t)\)</span>. Para ello se define la variable aleatoria <span class="math inline">\(Y\)</span>: número de ocurrencias en un intervalo de longitud <span class="math inline">\(t\)</span>. Entonces <span class="math inline">\(Y \sim pois(\lambda^*)\)</span>. En este caso <span class="math inline">\(\lambda^* = \lambda t\)</span>.</p>
+<p>Así, <span class="math inline">\(Y \sim pois(\lambda t)\)</span>. De esta manera:</p>
+<p><span class="math display">\[F(t)=1-P(T&gt;t)=1-P(Y=0)=1-\mathit{e}^{-\lambda t}\]</span></p>
+<p>La cual corresponde a la acumulada de una exponencial con parámetro <span class="math inline">\(\lambda\)</span>.</p>
+<hr>
+</div>
+</div>
+<div id="distribución-log-normal" class="section level3">
+<h3>Distribución Log-Normal</h3>
+<p>Una variable aleatoria <span class="math inline">\(X\)</span>, no negativa, tiene una p.d.f Lognormal si <span class="math inline">\(Y = ln(X)\)</span> es una v.a con p.d.f normal. Haciendo <span class="math inline">\(\mu = E[Y]\)</span> y <span class="math inline">\(\sigma^2 = Var[Y]\)</span>, la p.d.f de <span class="math inline">\(X\)</span> es de la forma</p>
+<p><span class="math display">\[f(x)=\cfrac{1}{x\sigma \sqrt{2 \pi}} \large e^{- \frac{1}{2} \frac{(\text{ln}(x)-\mu)^2}{\sigma^2}}; \quad \small \forall_x &gt;0\]</span></p>
+<p><span class="math inline">\(\mu\)</span> y <span class="math inline">\(\sigma^2\)</span> <b>NO</b> son la media y varianza de <span class="math inline">\(X\)</span>. Son la media y varianza de <span class="math inline">\(\text{ln}(X)\)</span>.</p>
+<p><span class="math display">\[E[X]=\mathit{e}^{\mu+\frac{\sigma^2}{2}} \quad\quad Var[X]=\mathit{e}^{2\mu+\sigma^2}\Big(\mathit{e}^{\sigma^2}-1\Big)\]</span></p>
+<p>El cálculo de probabilidades con una p.d.f Lognormal es algo complicado. Pero debido al hecho de que <em>el logaritmo natural de un v.a Lognormal es una v.a normal</em>, podemos usar las tablas para una normal estándar para calcular dichas probabilidades. Como <span class="math inline">\(\text{ln}(X)\)</span> es una función estrictamente creciente, entonces:</p>
+<p><span class="math display">\[
+\begin{aligned}
+P(X \leq a) &amp;= P\left(\text{ln}[X] \leq \text{ln}[a]\right)=P\left(\cfrac{\text{ln}[X]-\mu}{\sigma} \leq \cfrac{\text{ln}[a]-\mu}{\sigma}\right) \\\\
+&amp;= P\left(Z \leq \cfrac{\text{ln}[a]-\mu}{\sigma}\right)= \Phi\left(\cfrac{\text{ln}[X]-\mu}{\sigma}\right)
+\end{aligned}
+\]</span></p>
+<p>Así, la f.d.a de <span class="math inline">\(X\)</span> es de la forma:</p>
+<p><span class="math display">\[F(X)=P(X \leq x)=\Phi\left(\cfrac{\text{ln}[X]-\mu}{\sigma}\right); \quad \forall_x &gt;0\]</span></p>
+<p><img src="prob_files/figure-html/unnamed-chunk-22-1.png" width="3000" style="display: block; margin: auto;" /></p>
+<hr>
+</div>
+<div id="distribución-gamma" class="section level3">
+<h3>Distribución Gamma</h3>
+<p>En distintos ámbitos interesa modela fenomenos que involucren conteos y tiempos al mismo tiempo. Hasta ahora hemos visto una aproximación con las distribuciones Exponencial y Poisson, siempre y cuando los parámetros sean proporcionales. ¿Qué pasaría si esto no se cumple?</p>
+<p>Conocer el comportamiento de muchos fenómenos que relacionen el tiempo supervivencia (vida util) entre un número de ocurrencias de un evento, se de gran interés. En este caso es muy importante conocer una distribución que nos permita conocer las probabilidades, un valor esperado y una variabilidad de la ocrurrencia de el evento de interés y para ello vamos a considerar la siguiente distribución.</p>
+<p>Esta distribución es usualmente usada en el análisis de superivencia, en confiabilidad y demás áreas que tienen un enfoque relacionado en observar el tiempo de falla o de vida de una persona, duración de productos industriales, tiempo que transcurre un número de personas en una fila.</p>
+<p>Recuerde que la función Gamma está dada por:</p>
+<p><span class="math display">\[\Gamma(\alpha)=\int_{0}^{\infty}x^{\alpha-1}e^{-x}dx \qquad x&gt;0,\quad a&gt;0 \]</span></p>
+<p>Sea <span class="math inline">\(X\)</span> una variable aletoria continua tal que <span class="math inline">\(X\sim Gamma(\alpha,\beta)\)</span>. Así la f.d.p está dada por:</p>
+<p><span class="math display">\[f_{(\alpha,\beta)}(x)= \frac{1}{\Gamma(\alpha)\beta^{\alpha}}x^{\alpha-1}e^{-x/\beta} \quad \alpha,\beta,x&gt;0\]</span></p>
+<ul>
+<li><p>El parámetro <span class="math inline">\(\alpha\)</span> se le conoce como de <i>escala</i> y se puede interpretar como el número necesario de veces que se debe realizar un experimento hasta observar el evento de interés hasta un tiempo <span class="math inline">\(t\)</span>, por ejemplo se requieren 2 ciclos de un proceso para que una pieza falle.</p></li>
+<li><p>Por otro lado <span class="math inline">\(\beta\)</span> se le conoce como un parámetro de forma y se interpreta como el número de ocurrencias en una unidad de tiempo o intervalo específico, por ejemplo 3 piezas falla cada 100 horas.</p></li>
+</ul>
+<p>La probabilidad de llegar hasta un valor de x <span class="math inline">\(P(X&lt;x)\)</span> es decir, la f.d.a es:</p>
+<p><span class="math display">\[P(X&lt;x)=\int_{0}^{x}\frac{1}{\Gamma(\alpha)\beta^{\alpha}}t^{\alpha-1}e^{-t/\beta}dt \quad \alpha,\beta,t&gt;0\]</span></p>
+<p><span class="math display">\[M_{x}(t)=(1-\beta t)^{-\alpha}, \quad t&lt; \frac{1}{\beta}\]</span></p>
+<p>Entonces <span class="math inline">\(E[x]=\alpha \beta\)</span> y <span class="math inline">\(\text{Var}[X]=\alpha\beta^{2}\)</span>.</p>
+<p><img src="prob_files/figure-html/unnamed-chunk-23-1.png" width="2700" style="display: block; margin: auto;" /></p>
+<hr>
+</div>
+<div id="distribución-beta" class="section level3">
+<h3>Distribución Beta</h3>
+<p>En muchos casos no es posble encontrar proporciones constantes en un fenómeno como el caso de una distribución uniforme, sin embargo hay una distribución que nos permite darle forma y controlar ciertos parámetros para obtener una f.d.p que es “conocida” y tiene una forma matematicamente cerrada, a esta distribución se le conoce como la distribución Beta.</p>
+<p>Hoy en día la distribución <em>beta</em> ha tomado mucha importancia en el campo de la estadística bayesiana tomándose como distribución a priori para modelar proporciones por ejemplo de una distribución binomial, realizar estimaciones de una prevalencia o para modelar índices de riesgos.</p>
+<p>Sea <span class="math inline">\(X\)</span> una v.a continua tal que <span class="math inline">\(X\sim Beta(\alpha,\beta)\)</span> con dominio solo para <span class="math inline">\(x\in[0,1]\)</span></p>
+<p>Cuya f.d.p viene dada por:</p>
+<p><span class="math display">\[f_{(\alpha,\beta)}(x)= \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\beta^{\alpha}}x^{\alpha-1}(1-x)^{\beta-1} \quad \alpha,\beta&gt;0; \quad 0&lt;x&lt;1\]</span></p>
+<p>La probabilidad de estar entre <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> con <span class="math inline">\(0&lt;a&lt;b&lt;1\)</span> será:</p>
+<p><span class="math inline">\(P(a&lt;X&lt;b)= \int_{a}^{b} \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\beta^{\alpha}}x^{\alpha-1}(1-x)^{\beta-1}dt \quad \alpha,\beta&gt;0; \quad 0&lt;x&lt;1\)</span></p>
+<p>La probailidad de llegar hasta un valor x <span class="math inline">\(P(X&lt;x)\)</span> la f.d.a se calcula como:</p>
+<p><span class="math inline">\(P(X&lt;x)= \int_{0}^{x} \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\beta^{\alpha}}t^{\alpha-1}(1-t)^{\beta-1}dt \quad \alpha,\beta&gt;0; \quad 0&lt;t&lt;1\)</span></p>
+<p><span class="math display">\[M_{x}(t)=1+\sum_{k=1}^{\infty}\left(\prod_{r=0}^{k-1}\frac{\alpha+r}{\alpha+\beta+r}\right)\frac{t^{k}}{k!} \]</span></p>
+<p>Entonces <span class="math inline">\(E[X]=\frac{\alpha}{\alpha+\beta}\)</span> y <span class="math inline">\(\text{Var}[X]=\frac{\alpha \beta}{(\alpha+\beta)^{2}(\alpha+\beta+1)}\)</span>.</p>
+<p><img src="prob_files/figure-html/unnamed-chunk-24-1.png" width="3000" style="display: block; margin: auto;" /></p>
+<hr>
+</div>
+<div id="distribución-chi2" class="section level3">
+<h3>Distribución <span class="math inline">\(\chi^2\)</span></h3>
+<p>La distribución de <em>Pearson</em>, llamada también <em>ji cuadrada(o)</em> o <em>chi cuadrado(a)</em> (<span class="math inline">\(\chi^2\)</span>), es una distribución de probabilidad continua con un parámetro <span class="math inline">\(r\)</span> que representa los grados de libertad de la variable aleatoria.</p>
+<p><span class="math display">\[
+f(x)=
+\begin{cases}\displaystyle
+\frac{1}{2^{r/2}\Gamma(r/2)}\,x^{(r/2) - 1} e^{-x/2}&amp;\text{para }x&gt;0,\\
+0&amp;\text{en otro caso}
+\end{cases}
+\]</span></p>
+<p><img src="prob_files/figure-html/chi-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<hr>
+</div>
+<div id="distribución-t-student" class="section level3">
+<h3>Distribución <em>t-student</em></h3>
+<p>La distribución <em>t-de Student</em> es una distribución de probabilidad que surge del problema de estimar la media de una población normalmente distribuida cuando el tamaño de la muestra es pequeño. Su <em>f.d.p</em> está dada por:</p>
+<p><span class="math display">\[f(x) = \frac{\Gamma\left(\dfrac{\nu + 1}{2}\right)}{\Gamma\left(\dfrac{\nu}{2}\right)\sqrt{\pi\nu}\sigma} \left[1+\frac{1}{\nu}\left(\frac{x-\mu}{\sigma}\right)^2\right]^{-\tfrac{\nu+1}{2}}\]</span></p>
+<p><img src="prob_files/figure-html/t-1.png" width="1800" style="display: block; margin: auto;" /></p>
+<p>En esta gráfica podemos apreciar la realción que existe entre las distribuciones <em>Cauchy</em>, <em>t-de Student</em> y la <em>Normal Estandarizada</em>. Se observa que la distribución <em>t-de Student</em> con <span class="math inline">\(v = 1\)</span> grado de libertad es una <em>distribución Cauchy</em> la cual es la más achatada y presenta las colas mas pesadas en comparación las demás distribuciones presentes en la gráfica. Además se puede evidenciar que a medida que aumentan los grados de libertad en la <em>distribución t</em>, ésta tiende a la <em>Normal</em>.</p>
+<hr>
 </div>
 </div>
 
