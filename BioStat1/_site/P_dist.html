@@ -673,6 +673,194 @@ P(6 \leq x &lt; 12) &amp;= \sum_{x=6}^{11} \left(\begin{array}{c}20\\ x\end{arra
 <hr>
 </div>
 </div>
+<div id="distribución-normal" class="section level2">
+<h2>Distribución Normal</h2>
+<p>La <strong>Distribución Normal</strong> o <strong>Gaussiana</strong> es indudablemente la más importante y la de mayor uso de todas las distribuciones de probabilidad continua. Es la piedra angular en la aplicación de la <u>inferencia estadística</u> en el analisis de datos, puesto que las distribuciones de muchas <u>estadísticas muestrales</u> tienden hacia la distribución normal conforme crece el tamaño de muestra.</p>
+<ul>
+<li>Precipitación pluvial</li>
+<li>Temperaturas</li>
+<li>Mediciones en organismos vivos</li>
+<li>Calificaciones de pruebas de actitud</li>
+<li>Mediciones físicas en manufactura</li>
+<li>Antropometría</li>
+<li><strong>Errores de instrumentación</strong></li>
+</ul>
+<p>Debe tenerse mucho cuidado al suponer para una situación dada un modelo de probabilidad normal sin previa comprobación. Si bien es cierto que esta distribución es la de mayor uso, también es de la que más se abusa. Quizás por la mala interpretación de la palabra “<em>normal</em>”, especialmente si se aplica su significado literal de “<em>patrón o estándar aceptado</em>”.</p>
+<p>Es posible que una distribución normal proporcione de manera razonable una aproximación alrededor de una media de una variable aleatoria; sin embargo, puede resultar que para valores extremos se encuentren en cualquier dirección. La apariencia gráfica de la distribución normal es una curva simétrica con forma de campana, que se extiende sin límite tanto en dirección positiva como negativa.</p>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria continua, se dice que <span class="math inline">\(X\)</span> tiene una <strong>distribución normal</strong> si su f.d.p es de la forma:</p>
+<p><span class="math display">\[f(x)=\cfrac{1}{\sqrt{2 \pi} \sigma} \mathit{e}^{- \frac{1}{2} \frac{(x-\mu)^2}{\sigma^2}};\qquad -\infty&lt; x &lt;\infty \quad \mu \in \mathit{R}\quad \sigma&gt;0\]</span></p>
+<p>Por notación <span class="math inline">\(X \sim N(\mu,\sigma^2)\)</span>. Los parámetros <span class="math inline">\(\mu\)</span> y <span class="math inline">\(\sigma^2\)</span> se les conoce de localización y escala, respectivamente. Las siguientes afirmaciones se cumplen para la variable aleatoria <span class="math inline">\(X\)</span>.</p>
+<ul>
+<li>El área abajo de curva normal comprendida entre <span class="math inline">\((−\infty, \infty)\)</span> es igual a 1.</li>
+<li>La normal es simétrica respecto a <span class="math inline">\(\mu\)</span>. Como consecuencia de esto, el área bajo de la curva en el intervalo <span class="math inline">\([\mu, \infty)\)</span> es igual a 0.5.</li>
+<li>La distribución normal tiene forma de campana.</li>
+<li>La normal queda completamente caracterizada con el conocimiento de sus parámetros de localización y de escala.</li>
+<li>La <strong>media</strong> es igual a la <strong>mediana</strong> y a su vez igual a la <strong>moda</strong>.</li>
+<li><b>En la práctica la normalidad se alcanza de manera aproximada</b>.</li>
+<li><span class="math inline">\(E[X]=\mu\)</span> y <span class="math inline">\(Var[X]=\sigma^2\)</span>.</li>
+<li>Cuanto más grande es el parámetro <span class="math inline">\(\sigma^2\)</span> el gráfico de la función es mas “achatada” y de colas más largas.</li>
+</ul>
+<p><img src="P_dist_files/figure-html/unnamed-chunk-3-1.png" width="900" style="display: block; margin: auto;" /></p>
+<p><img src="P_dist_files/figure-html/unnamed-chunk-4-1.png" width="900" style="display: block; margin: auto;" /></p>
+<div id="normal-estándar" class="section level3">
+<h3>Normal Estándar</h3>
+<p>Cuando <span class="math inline">\(\mu=0\)</span> y <span class="math inline">\(\sigma^2=1\)</span>, se obtiene una distribución normal especial, conocida como <em>Normal Estándar</em> y usualmente es denotada cola letra <span class="math inline">\(Z\)</span> y se escribe <span class="math inline">\(Z \sim N(0,1)\)</span>.</p>
+<p><span class="math display">\[P(x_1 &lt; X &lt; x_2)= \int\limits_{x_1}^{x_2} \cfrac{1}{\sqrt{2 \pi} \sigma} \large e^{- \frac{1}{2} \frac{(x-\mu)^2}{\sigma^2}} \small dx\]</span></p>
+<p>Esta probabilidad no puede ser resuelta de manera explícita, además cada vez que se modifique <span class="math inline">\(\mu\)</span> o <span class="math inline">\(\sigma^2\)</span>, se debe calcular de nuevo la integral.</p>
+<div id="normalización" class="section level4">
+<h4>Normalización</h4>
+<p>Para evitar este problema, se utiliza el cambio de variable <span class="math inline">\(Z=\frac{X-\mu}{\sigma}\)</span>, del cual se obtiene que <span class="math inline">\(dz=\frac{1}{\sigma}dx\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+P(x_1 &lt; X &lt; x_2) &amp;= \int\limits_{z_1}^{z_2} \cfrac{1}{\sqrt{2 \pi}} \mathit{e}^{- \cfrac{z^2}{2}} dz \\
+&amp;= P(z_1 &lt; Z &lt; z_2)\\
+\end{aligned}
+\]</span></p>
+<p>donde <span class="math inline">\(z_1=\frac{x_1-\mu}{\sigma}\)</span> y <span class="math inline">\(z_2=\frac{x_2-\mu}{\sigma}\)</span>. Esto indica que cualquier cálculo de probabilidades para una variable aleatoria <span class="math inline">\(N(\mu, \sigma^2)\)</span> puede reducirse al cálculo de probabilidades con una variable aleatoria <span class="math inline">\(N(0,1)\)</span>. El proceso de transformar una v.a normal en una normal estándar se conoce como <em>Estandarización</em> o <em>Normalización</em>.</p>
+<center>
+<img src="Estandarizacion.jpg" title="fig:" alt="Normalización" />
+</center>
+<p>Para el cálculo de probabilidades con una variable <span class="math inline">\(N(0, 1)\)</span>, la c.d.f. estará dada por:</p>
+<p><span class="math display">\[\Phi(z)=P(Z \leq z)=\int\limits_{-\infty}^{z} \cfrac{1}{\sqrt{2 \pi}} \large e^{- \frac{z^2}{2}} \small dz\]</span></p>
+<p>De esta manera se tiene que:</p>
+<p><span class="math display">\[P(x_1 &lt; X &lt; x_2)=P(z_1 &lt; Z &lt; z_2)=\Phi(z_2)-\Phi(z_1)\]</span></p>
+<p>Los valores de la función <span class="math inline">\(\Phi(z)\)</span> están tabulados en casi todos los textos de estadística.</p>
+<center>
+<a href="./R/Tabla_Normal.pdf" class="btn btn-info"  target="_blank">Tabla Distribución Normal</a>
+</center>
+</div>
+</div>
+<div id="cálculo-de-probabilidades" class="section level3">
+<h3>Cálculo de probabilidades</h3>
+<p>Sea <span class="math inline">\(Z\)</span> una v.a tal que <span class="math inline">\(Z \sim N(0,1)\)</span></p>
+<ul>
+<li><p><span class="math inline">\(P(Z = z) = 0\)</span></p></li>
+<li><p><span class="math inline">\(P(Z&gt;z)=1-P(Z \leq z)\)</span></p></li>
+<li><p><span class="math inline">\(P(Z&lt;-z)=P(Z&gt;z)\)</span></p></li>
+<li><p><span class="math inline">\(P(-z &lt; Z &lt; 0) = P(0 &lt; Z &lt; z)\)</span></p></li>
+<li><p><span class="math inline">\(P(Z &lt; 0) = P(Z &gt; 0) = \cfrac{1}{2}\)</span></p></li>
+<li><p><span class="math inline">\(P(-z_1 &lt; Z &lt; -z_2)=P(z_2 &lt; Z &lt; z_1)\)</span></p></li>
+</ul>
+</div>
+<div id="características-distribución-normal" class="section level3">
+<h3>Características Distribución Normal</h3>
+<p><img src="P_dist_files/figure-html/unnamed-chunk-5-1.png" width="900" style="display: block; margin: auto;" /></p>
+</div>
+<div id="percentiles-en-una-normal-estándar" class="section level3">
+<h3>Percentiles en una Normal Estándar</h3>
+<p>Sea <span class="math inline">\(0 &lt; \alpha &lt; 1\)</span> y suponga que <span class="math inline">\(Z \sim N(0,1)\)</span>. El valor de <span class="math inline">\(Z\)</span> que deja un área <span class="math inline">\(\alpha\)</span> a la derecha se denota <span class="math inline">\(z_{\alpha}\)</span>. Es decir,</p>
+<p><span class="math display">\[P(Z&gt;z_{\alpha})=\alpha\]</span></p>
+<p><span class="math inline">\(z_{\alpha}\)</span> es llamado percentil <span class="math inline">\(100(1-\alpha)\%\)</span> de la distribución de <span class="math inline">\(Z\)</span>.</p>
+<p><img src="P_dist_files/figure-html/unnamed-chunk-6-1.png" width="450" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ejemplo-manejo-de-la-tabla" class="section level3">
+<h3>Ejemplo Manejo de la tabla</h3>
+<p>Suponga que poseemos una distribución normal estándar, tal que <span class="math inline">\(Z \sim N(0,1)\)</span>. Entonces, a partir de esta distribución y empleando la Tabla de la Distribución Normal Estándar, calcule:</p>
+<ul>
+<li><span class="math inline">\(P(Z \leq 1.96)\)</span></li>
+<li><span class="math inline">\(P(−2.42&lt;Z \leq 0.24)\)</span></li>
+</ul>
+<p>Para calcular probabilidades con la tabla de la distribución normal estándar, es necesario tener en cuenta el funcionamiento de la tabla misma, y para ello, se debe entender su funcionamiento. Y para ello se presenta la siguiente imagen.</p>
+<center>
+<img src="TablaNormalEst.jpg" title="fig:" alt="TablaNormal" />
+</center>
+<p>En donde, se aprecia que, los <strong>cuadros rojos</strong> representan los <strong>valores críticos</strong> <span class="math inline">\(z\)</span> que se emplea para calcular probabilidades, en donde, el cuadro rojo de <strong>la parte izquierda muestra la parte entera y el primer decimal</strong>, mientras que el cuadro rojo de <strong>la parte superior muestra el segundo decimal</strong>. El <strong>cuadro azul</strong> representa las probabilidades <span class="math inline">\(\alpha\)</span> que se desean calcular a partir de los valores críticos. Finalmente, el <strong>cuadro azul claro</strong> representa el funcionamiento de la tabla , la cual muestra las probabilidades que poseen la forma <span class="math inline">\(P(Z&lt;z)=\alpha\)</span>.</p>
+<p>La primera probabilidad a calcular es <span class="math inline">\(P(Z\leq1.96)\)</span>. Entonces como esta probabilidad tiene la estructura establecida por la tabla <span class="math inline">\(P(Z\leq z)\)</span>, será cuestión de buscar el valor crítico 1.96 para localizar la probabilidad asociada, tal que se busca en la parte izquierda, el valor 1.9 y en la parte superior el valor 0.06, y en donde se encuentre el cruce de ambos valores, se encontrará el valor de la probabilidad asociada a 1.96. Dicho procedimiento se muestra en la siguiente imagen</p>
+<center>
+<img src="TablaNormalEst2.jpg" title="fig:" alt="P1.96" />
+</center>
+<p>Donde se aprecia que</p>
+<p><span class="math display">\[P(Z\leq1.96)=0.9750\]</span></p>
+<p>Para el segundo caso, se desea calcular la <span class="math inline">\(P(−2.42&lt;Z\leq0.24)\)</span>, y se observa que la estructura de dicha probabilidad es diferente a la establecida por la tabla <span class="math inline">\(P(Z\leq z)\)</span>, pero también podemos apreciar que si aplicamos las propiedades de la función de distribución acumulada para el caso continuo, podemos llevar la probabilidad de interés a la forma</p>
+<p><span class="math display">\[P(−2.42&lt;Z\leq0.24)=P(Z\leq0.24)−P(Z\leq−2.42)\]</span></p>
+<p>obteniendo que la probabilidad <span class="math inline">\(P(−2.42&lt;Z\leq0.24)\)</span>, puede calcularse mediante el empleo de las probabilidades acumuladas <span class="math inline">\(P(Z\leq0.24)\)</span> y <span class="math inline">\(P(Z\leq−2.42)\)</span>, las cuales pueden calcularse en la tabla de forma similar a los dos puntos anteriores.</p>
+<center>
+<img src="TablaNormalEst4.jpg" title="fig:" alt="-2.42x0.24" />
+</center>
+<p>Donde se aprecia que</p>
+<p><span class="math display">\[P(Z\leq−2.42)=0.0078 \quad \text{y} \quad P(Z\leq0.24)=0.5948\]</span></p>
+<p>y por tanto, se tendrá que</p>
+<p><span class="math display">\[\begin{align*}
+P(−2.42&lt;Z\leq0.24)=&amp;P(Z\leq0.24)−P(Z\leq−2.42)\\
+=&amp;0.5948−0.0078\\
+=&amp;0.587
+\end{align*}\]</span></p>
+<blockquote>
+<h4 id="ejemplo-1">Ejemplo<br></h4>
+<p>La nota promedio obtenida por un estudiante de cierto curso tienen una distribución aproximadamente normal con una nota promedio de 3.3 y una desviación estándar de 0.4. Si se desea que solo el 5% de todos los estudiantes de dicho curso reprueben, ¿Cuál debe ser la nota mínima para que esto sea posible?<br><br> Tenemos que <span class="math inline">\(X\)</span> es la nota promedio de un estudiante y que <span class="math inline">\(X \sim N(3.3,0.4^2)\)</span>, para obtener la nota mínima para que solo el 5% reprueben, primero debemos estimar cuál es la probabilidad de que los estudiantes reprueben.<br><br> <span class="math display">\[\begin{align*}
+P(X&lt;3)=&amp;P\left(\frac{X-3.3}{0.4}&lt;\frac{3-3.3}{0.4}\right)\\\\
+=&amp;P(Z&lt;-0.75)\\
+=&amp;1-P(Z \leq 0.75) = 0.2266
+\end{align*}\]</span> Se espera que el 22.66% de los estudiantes pierdan el curso. Sea <span class="math inline">\(K\)</span> la nota mínima aprobatoria que satisface <span class="math inline">\(P(X&lt;K)=0.05\)</span>, es decir, el 5% de los estudiantes tienen notas inferiores a <span class="math inline">\(K\)</span> y reprobarán el curso.<br><br> <span class="math display">\[\begin{align*}
+P(X&lt;K)=0.05 \quad \Rightarrow \quad &amp;P\left(\frac{X-3.3}{0.4}&lt;\frac{K-3.3}{0.4}\right)=0.05\\\\
+&amp;P(Z&lt;z)=0.05, \quad \text{con}\quad z=\frac{K-3.3}{0.4}
+\end{align*}\]</span> Usando la tabla de la normal se encuentra que valor de <span class="math inline">\(z\)</span> para una probabilidad de <span class="math inline">\(0.05\)</span> es <span class="math inline">\(-1.645\)</span> entonces:<br> <span class="math display">\[-1.645=\frac{K-3.3}{0.4} \quad \Rightarrow K=2.64\]</span> Así, la nota mínima aprobatoria será <span class="math inline">\(2.6\)</span>, para que solo el 5% pierda la materia. En otras palabras, se ajusta la nota de todos sumando <span class="math inline">\(0.4\)</span> para que solo pierda el 5 %.</p>
+</blockquote>
+<p>En <code>R</code> también se pueden calcular estas probabilidades con las funciones basadas en <code>norm</code>.</p>
+<ul>
+<li><code>rnorm</code>: genera <code>n</code> valores aleatorios Normales con media <code>mu</code> y desviación <code>sigma</code>.</li>
+<li><code>dnorm</code>: calcula la densidad Normal exacta de <code>x</code> con media <code>mu</code> y desviación <code>sigma</code>.</li>
+<li><code>pnorm</code>: calcula la probabilidad acumulada Normal de <code>q</code> con media <code>mu</code> y desviación <code>sigma</code>.</li>
+<li><code>qnorm</code>: calcula el valor de <span class="math inline">\(x\)</span> basado en la probabilidad <code>p</code> de una Normal con media <code>mu</code> y desviación <code>sigma</code>.</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Solución 1</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">pnorm</span>(<span class="dv">3</span>,<span class="dt">mean =</span> <span class="fl">3.3</span>,<span class="dt">sd =</span> <span class="fl">0.4</span>)</span></code></pre></div>
+<pre><code>## [1] 0.2266274</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">pnorm</span>((<span class="dv">3</span><span class="fl">-3.3</span>)<span class="op">/</span><span class="fl">0.4</span>,<span class="dt">mean =</span> <span class="dv">0</span>,<span class="dt">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 0.2266274</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># solución 2</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">qnorm</span>(<span class="fl">0.05</span>,<span class="dt">mean =</span> <span class="fl">3.3</span>,<span class="dt">sd =</span> <span class="fl">0.4</span>)</span></code></pre></div>
+<pre><code>## [1] 2.642059</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">qnorm</span>(<span class="fl">0.05</span>,<span class="dt">mean =</span> <span class="dv">0</span>,<span class="dt">sd =</span> <span class="dv">1</span>)<span class="op">*</span><span class="fl">0.4+3.3</span></span></code></pre></div>
+<pre><code>## [1] 2.642059</code></pre>
+<p><img src="P_dist_files/figure-html/unnamed-chunk-8-1.png" width="480" style="display: block; margin: auto;" /></p>
+<div id="distribución-normal-con-mu0-y-sigma1" class="section level4">
+<h4>Distribución normal con <span class="math inline">\(\mu=0\)</span> y <span class="math inline">\(\sigma=1\)</span></h4>
+<p><img src="P_dist_files/figure-html/norm1-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>En el gráfico se evidencia que la distribución <em>Normal</em> es simétrica en <span class="math inline">\(\mu=0\)</span>, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra <span class="math inline">\(N \geq 100\)</span>.</p>
+</div>
+<div id="distribución-normal-con-mu0-y-sigma5" class="section level4">
+<h4>Distribución normal con <span class="math inline">\(\mu=0\)</span> y <span class="math inline">\(\sigma=5\)</span></h4>
+<p><img src="P_dist_files/figure-html/norm2-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>En el gráfico se evidencia que la distribución <em>Normal</em> es simétrica en <span class="math inline">\(\mu=0\)</span> y que debido a la varianza tan grande el rango de la variable aumenta considerablemente, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra <span class="math inline">\(N \geq 100\)</span>.</p>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#e5">Ejercicios</a>
+</h5>
+</div>
+<div id="e5" class="panel-collapse collapse">
+<div class="panel-body">
+<ul>
+<li><p>Suponga que se sabe que la estatura de cierta población de individuos sigue una distribución aproximadamente normal con media de 177.8 centímetros y una desviaci6n estandar de 7.62 centímetros. ¿Cual es la probabilidad de que una persona seleccionada al azar de este grupo tenga una estatura entre 165.1 y 187.96 centímetros? En una población de 10.000 personas ¿Cuántas personas se espera que tengan una estatura de 1.95 m?</p></li>
+<li><p>Suponga que las edades deinicio de cierta enfermedad tienen una distribuci6n aproximadamente normal, con una media de 11.5 años y una desviación estándar de 3 años. Un niño contrae recientemente la enfermedad. Cuál es la probabilidad de que la edad del nino sea:</p>
+<ul>
+<li>Entre 8.5 y 14.5 años</li>
+<li>Más de 10 años</li>
+<li>Menos de 12</li>
+</ul></li>
+<li><p>Si la capacidad de la cavidad craneana de una poblacion tiene una distribución aproximadamente normal, con una media de 1400 cc y una desviación estándar de 125 cc, calcule la probabilidad de que una persona, elegida al azar entre esa población, tenga una capacidad de cavidad craneana:</p>
+<ul>
+<li>Mayor que 1450 cc</li>
+<li>Menor que 1350 cc</li>
+<li>Entre 1300 y 1500 cc</li>
+</ul></li>
+<li><p>Si el nivel total de colesterol en cierta población tiene una distribución aproximadamente normal, con una media de 200 mgl/100ml y una desviación estándar de 20 mg/100ml, calcule la probabilidad de que un individuo, elegido al azar de entre esa población, tenga un nivel de colesterol:</p>
+<ul>
+<li>Entre 180 y 200 mg/100ml</li>
+<li>Mayor que 225 mg/100ml</li>
+<li>Menor que 150 mg/100ml</li>
+<li>Si se seleccionan 100.000 personas de esta población, cuántas se esperarían que tengan colesterol entre 190 y 210 mg/100ml
+</div>
+</div></li>
+</ul>
+</div></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 
 
 
