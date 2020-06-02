@@ -567,11 +567,11 @@ div.tocify {
 <div id="muestras-aleatorias" class="section level2">
 <h2>Muestras Aleatorias</h2>
 <p>En el proceso de identificar y explicar las características esenciales que permiten describir el comportamiento de un fenómeno, nuestro objetivo es el de establecer de manera aproximada dicho comportamiento usando parte de toda la información relevante acerca del fenómeno.</p>
-<div id="htmlwidget-ba968fae44de79cdcee4" style="width:1500px;height:120px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ba968fae44de79cdcee4">{"x":{"diagram":"\ngraph LR\n\nAA((Parámetros))\nA((Población))-- Se extraen -->B(Muestras)\nB-- Se analizan -->BB(Estadísticas)\nBB-- Se estiman -->AA\nA--contienen-->AA\n\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7526bc5636ae307b6748" style="width:1500px;height:120px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7526bc5636ae307b6748">{"x":{"diagram":"\ngraph LR\n\nAA((Parámetros))\nA((Población))-- Se extraen -->B(Muestras)\nB-- Se analizan -->BB(Estadísticas)\nBB-- Se estiman -->AA\nA--contienen-->AA\n\n"},"evals":[],"jsHooks":[]}</script>
 <p>Cuando se desea estimar un parámetro poblacional se puede presentar cualquiera de los próximos 3 casos:</p>
 <ul>
-<li>Estimar una proporcion</li>
+<li>Estimar una proporción</li>
 <li>Estimar un promedio</li>
 <li>Estimar una varianza</li>
 </ul>
@@ -600,7 +600,7 @@ Var[\bar{X}]&amp;=Var\left[\sum_1^n \frac{X_i}{n}\right]=\frac{1}{n^2}\sum_1^n V
 <h3>Teorema central del límite</h3>
 <p>Suponga que <span class="math inline">\(X_1,\dots,X_n\)</span> es una muestra aleatoria de una población con media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^2\)</span>. Sea <span class="math inline">\(\bar{X}\)</span> la media muestral que depende de <span class="math inline">\(n\)</span> entonces cuando <span class="math inline">\(n \rightarrow \infty\)</span> se cumple que:</p>
 <p><span class="math display">\[\Large \cfrac{\bar{X}-\mu}{\frac{\sigma}{\sqrt{n}}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
-<p>Entre mayor sea <span class="math inline">\(n\)</span> mejor es la aproximación. Si la distribución de la muestra es simétrica y continua, los tamañoos muestrales relativamente pequeños, permiten obtener buenas aproximaciones. Si la distribución es discreta, se requiere de tamaños muestrales grandes.</p>
+<p>Entre mayor sea <span class="math inline">\(n\)</span> mejor es la aproximación. Si la distribución de la muestra es simétrica y continua, los tamaños muestrales relativamente pequeños, permiten obtener buenas aproximaciones. Si la distribución es discreta, se requiere de tamaños muestrales grandes.</p>
 <p><span class="math display">\[P(\bar{X}&lt;a)=P\left(\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}&lt;\frac{\bar{X}-a}{\sigma/\sqrt{n}}\right) \approx P\left(Z&lt;\frac{\bar{X}-a}{\sigma/\sqrt{n}}\right)\]</span></p>
 <p>Si se desconoce el valor de <span class="math inline">\(\sigma^2\)</span> y <span class="math inline">\(n\)</span> es grande, se puede reemplazar <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(S^2\)</span>.</p>
 <p><span class="math display">\[\Large \cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
@@ -662,10 +662,10 @@ P(2497&lt;\bar{X}&lt;2505)&amp;=P\left(\frac{2497-2500}{50/\sqrt{36}}&lt;\frac{\
 </div>
 <div id="intervalos-de-confianza-para-la-media" class="section level3">
 <h3>Intervalos de confianza para la media</h3>
-<p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria de una población normal <span class="math inline">\(N(\mu,\sigma^2)\)</span> con media desconocidad y <strong>varianza conocida</strong>. Un intervalo de confianza para <span class="math inline">\(\mu\)</span> al <span class="math inline">\(100(1-\alpha)\%\)</span> está dado por:</p>
+<p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria de una población normal <span class="math inline">\(N(\mu,\sigma^2)\)</span> con media desconocida y <strong>varianza conocida</strong>. Un intervalo de confianza para <span class="math inline">\(\mu\)</span> al <span class="math inline">\(100(1-\alpha)\%\)</span> está dado por:</p>
 <p><span class="math display">\[\bar{X}\,\pm\,Z_{\alpha/2}\frac{\sigma}{\sqrt{n}}\]</span></p>
 <blockquote>
-<p>Un fabricante produce anillos para los pistones de un motor de automóvil. Se sabe que el diámetro del anillo tiene una distribución aproximadamente normal. De la experiencia se ha encontrado que la dispersión en los diámetros es aproximadamente de 0.05 mm. Se escogen al azar 15 anillos y se miden sus diámetros. El diámetro promedio resultó en 74.04 mm.<br><br> - Calcule el I.C. al 95% para el diámetro medio real de estos anillos.<br> - Si se desea que la presición del intervalo sea inferior a 0.01, con una confianza del 95%. ¿Cuál debe ser el mínimo tamaño de muestra para cumplir éste objetivo?<br><br> Para la primera parte se tiene que <span class="math inline">\(X_1,\dots,X_{15}\)</span> es una muestra aleatoria que representa los diámetros de 15 anillos, cada <span class="math inline">\(X_i\sim N(\mu,0.05^2)\)</span>, además de la muestra se obtiene que <span class="math inline">\(\bar{X}=74.04\,\text{mm}\)</span><br> Un IC al 95% para <span class="math inline">\(\mu\)</span> está dado por: <span class="math display">\[74.04\,\pm\,Z_{0.025}\frac{0.05}{\sqrt{15}} \,\Rightarrow\, (74.0147;\,74.0653) \]</span> La precisión de un intervalo está dado por <span class="math inline">\(max\{\theta-L,U-\theta\}\)</span>, en este caso tenemos un intervalo simétrico entonces la magnitud está dada por el término del error <span class="math inline">\(Z_{0.025}(0.05/\sqrt{n})\)</span>$, entonces: <span class="math display">\[\begin{align*}
+<p>Un fabricante produce anillos para los pistones de un motor de automóvil. Se sabe que el diámetro del anillo tiene una distribución aproximadamente normal. De la experiencia se ha encontrado que la dispersión en los diámetros es aproximadamente de 0.05 mm. Se escogen al azar 15 anillos y se miden sus diámetros. El diámetro promedio resultó en 74.04 mm.<br><br> - Calcule el I.C. al 95% para el diámetro medio real de estos anillos.<br> - Si se desea que la precisión del intervalo sea inferior a 0.01, con una confianza del 95%. ¿Cuál debe ser el mínimo tamaño de muestra para cumplir éste objetivo?<br><br> Para la primera parte se tiene que <span class="math inline">\(X_1,\dots,X_{15}\)</span> es una muestra aleatoria que representa los diámetros de 15 anillos, cada <span class="math inline">\(X_i\sim N(\mu,0.05^2)\)</span>, además de la muestra se obtiene que <span class="math inline">\(\bar{X}=74.04\,\text{mm}\)</span><br> Un IC al 95% para <span class="math inline">\(\mu\)</span> está dado por: <span class="math display">\[74.04\,\pm\,Z_{0.025}\frac{0.05}{\sqrt{15}} \,\Rightarrow\, (74.0147;\,74.0653) \]</span> La precisión de un intervalo está dado por <span class="math inline">\(max\{\theta-L,U-\theta\}\)</span>, en este caso tenemos un intervalo simétrico entonces la magnitud está dada por el término del error <span class="math inline">\(Z_{0.025}(0.05/\sqrt{n})\)</span>$, entonces: <span class="math display">\[\begin{align*}
 \frac{1.96\times 0.05}{\sqrt{n}}&amp;&lt;0.01\\\\
 \frac{1.96\times0.05}{0.01}&amp;&lt;\sqrt{n}\\\\
 n&amp;&gt;96.03647 \approx 97
@@ -691,7 +691,7 @@ n&amp;&gt;96.03647 \approx 97
 <pre><code>## [1] 0.00995021</code></pre>
 <p>Suponga que <span class="math inline">\(X_1,\dots,X_n\)</span> es una muestra aleatoria de una <span class="math inline">\(N(\mu,\sigma^2)\)</span>, si la <strong>varianza es desconocida</strong> la distribución de <span class="math inline">\(\bar{X}\)</span> estandarizada <strong>NO</strong> es normal. Si reemplazamos <span class="math inline">\(\sigma\)</span> por <span class="math inline">\(S\)</span>, el estadístico resultante es:</p>
 <p><span class="math display">\[T=\cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \sim t_{(n-1)}\]</span></p>
-<p>Realizando un proceso similar al caso de muestras aleatorias con media desconocida, se puede encontar que un IC al <span class="math inline">\(100(1 − \alpha)\%\)</span> para <span class="math inline">\(\mu\)</span> es de la forma:</p>
+<p>Realizando un proceso similar al caso de muestras aleatorias con media desconocida, se puede encontrar que un IC al <span class="math inline">\(100(1 − \alpha)\%\)</span> para <span class="math inline">\(\mu\)</span> es de la forma:</p>
 <p><span class="math display">\[\bar{X} \pm t_{(\alpha/2,\,n-1)}\frac{S}{\sqrt{n}}\]</span></p>
 <p><img src="inferencia_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;" /></p>
 <blockquote>
@@ -711,79 +711,234 @@ n&amp;&gt;96.03647 \approx 97
 <span id="cb14-6"><a href="#cb14-6"></a><span class="kw">ICt</span>(<span class="dt">Xbar =</span> <span class="fl">83.5</span>,<span class="dt">sigma =</span> <span class="fl">2.8</span>,<span class="dt">n =</span> <span class="dv">15</span>,<span class="dt">alpha =</span> <span class="fl">0.03</span>)</span></code></pre></div>
 <pre><code>## [1] 81.75413 85.24587</code></pre>
 <hr>
-<!--
-### Pruebas de hipótesis para la proporción
-
-Una hipótesis Estadística es una afirmación que se hace con respecto a una o algunas características desconocidas de una población de interés o acerca de la misma población.
-
-Una afirmación hecha acerca de una población o de una de sus características de interés, tiene sentido solo si es evaluada con base en la información obtenida a partir de una muestra aleatoria de dicha población.
-
-Como dicha afirmación puede ser o no cierta, dos hipótesis (antagónicas) pueden ser planteadas:
-
-$$H_0:\text{La hipótesis es cierta    vs}\quad H_a:\text{La hipótesis es falsa}$$
-$H_0$ y $H_a$ se conocen como hipótesis nula y alternativa respectivamente. $H_0$ se rechaza, solo si la evidencia muestral apoya fuertemente esa decisión. En otro caso diremos que la evidencia muestral no es suficiente para rechazar $H_0$ y se asume $H_a$ como cierta. El proceso por medio del cual escogemos una de las dos hipótesis es llamado **Prueba de Hipótesis**.
-
-La decisión de aceptar o rechazar una hiótesis se basa en una muestra aleatoria $X_1,X_2,...,X_n$ de la distribución de $X$, por tanto la decisión podría ser equivocada. Los errores que se pueden cometer son:
-
-- Aceptar $H_0$ siendo falsa.
-
-- Rechazar $H_0$ siendo verdadera.
-
+</div>
+<div id="pruebas-de-hipótesis-para-la-proporción" class="section level3">
+<h3>Pruebas de hipótesis para la proporción</h3>
+<p>Una hipótesis Estadística es una afirmación que se hace con respecto a una o algunas características desconocidas de una población de interés o acerca de la misma población.</p>
+<p>Una afirmación hecha acerca de una población o de una de sus características de interés, tiene sentido solo si es evaluada con base en la información obtenida a partir de una muestra aleatoria de dicha población.</p>
+<p>Como dicha afirmación puede ser o no cierta, dos hipótesis (antagónicas) pueden ser planteadas:</p>
+<p><span class="math display">\[H_0:\text{La hipótesis es cierta    vs}\quad H_a:\text{La hipótesis es falsa}\]</span> <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_a\)</span> se conocen como hipótesis nula y alternativa respectivamente. <span class="math inline">\(H_0\)</span> se rechaza, solo si la evidencia muestral apoya fuertemente esa decisión. En otro caso diremos que la evidencia muestral no es suficiente para rechazar <span class="math inline">\(H_0\)</span> y se asume <span class="math inline">\(H_a\)</span> como cierta. El proceso por medio del cual escogemos una de las dos hipótesis es llamado <strong>Prueba de Hipótesis</strong>.</p>
+<p>Para rechazar o aceptar una hipótesis necesitamos a parir de la muestra aleatoria construir un <strong>estadístico de prueba</strong> tal que, comparado con valor crítico calcula con un nivel de significancia, otorgue la suficiente evidencia para sacar una conclusión. El contraste de la hipótesis nula determina las posibles <strong>regiones de rechazo</strong> donde será comparado el estadístico de prueba.</p>
+<p><span class="math display">\[1:\,\{x\,|\,x &gt; |k|\}\\2:\,\{x\,|\,x &lt; -k\}\\3:\,\{x\,|\,x &gt; k\}\]</span></p>
+<p>Así toda prueba de hipótesis consta de:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Hipótesis nula <span class="math inline">\(H_0\)</span>.</li>
+<li>Hipótesis alternativa <span class="math inline">\(H_a\)</span>.</li>
+<li>Estadístico de prueba.</li>
+<li>Región de rechazo.</li>
+</ol>
+<p>En general, sea un parámetro de interés desconocido <span class="math inline">\(\theta\)</span> y un valor particular <span class="math inline">\(\theta_0\)</span>. Es posible plantear una de tres hipótesis alternativas:</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \theta=\theta_0 \quad \text{vs} \quad H_a: \begin{cases} \theta &amp;&lt;\theta_0 \\
+                     \theta &amp;&gt; \theta_0 \\
+                     \theta &amp;\neq \theta_0 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>Existe un estadístico <span class="math inline">\(\hat\theta\)</span> estimado a partir de la muestra aleatoria, el cual sirve para contrastar la hipótesis construyendo las posibles regiones de rechazo (de acuerdo a <span class="math inline">\(H_a\)</span>) con un nivel de significancia <span class="math inline">\(\alpha\)</span> dado.</p>
+<p><span class="math display">\[\{\hat\theta\,|\,\hat\theta &gt; |k|\}\quad \{\hat\theta\,|\,\hat\theta &lt; k\}\quad \{\hat\theta\,|\,\hat\theta &gt; k\}\]</span></p>
+<p>Otra forma de contrastar la hipótesis es calcular el valor mínimo de <span class="math inline">\(\alpha\)</span>, es decir la probabilidad de rechazar la hipótesis nula. A este cálculo se le conoce como el <strong>valor-p</strong> de la prueba:</p>
+<p><span class="math display">\[P(|\hat\theta| &gt; |k|)\quad P(\hat\theta &lt; k)\quad P(\hat\theta &gt; k)\]</span></p>
+<p>La decisión de aceptar o rechazar una hipótesis se basa en una muestra aleatoria <span class="math inline">\(X_1,X_2,...,X_n\)</span> de la distribución de <span class="math inline">\(X\)</span>, por tanto la decisión podría ser equivocada. Los errores que se pueden cometer son:</p>
+<ul>
+<li><p>Aceptar <span class="math inline">\(H_0\)</span> siendo falsa.</p></li>
+<li><p>Rechazar <span class="math inline">\(H_0\)</span> siendo verdadera.</p></li>
+</ul>
 <center>
-|    Decisión    | $H_0$ es Verdadera |   $H_0$ es Falsa  |
-|:--------------:|:------------------:|:-----------------:|
-| Rechazar $H_0$ |  **Error Tipo I**  | Decisión Correcta |
-|  Aceptar $H_0$ |  Decisión Correcta | **Error Tipo II** |
+<div class="container">
+<div class="col-sm-2">
+
+</div>
+<div class="col-sm-6">
+<table class="table">
+<thead>
+<tr class="active">
+<th style="text-align:center">
+Decisión
+</th>
+<th style="text-align:center">
+<span class="math inline">\(H_0\)</span> es Verdadera
+</th>
+<th style="text-align:center">
+<span class="math inline">\(H_0\)</span> es Falsa
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">
+<b>Rechazar <span class="math inline">\(H_0\)</span></b>
+</td>
+<td style="text-align:center">
+Error Tipo I
+</td>
+<td style="text-align:center">
+Decisión Correcta
+</td>
+</tr>
+<tr>
+<td style="text-align:center">
+<b>Aceptar <span class="math inline">\(H_0\)</span></b>
+</td>
+<td style="text-align:center">
+Decisión Correcta
+</td>
+<td style="text-align:center">
+Error Tipo II
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </center>
-
-Es lógico que se desea minimizar las probabilidades de cometer los errores en la decisión (tipo 1 ó 2), pero esto depende de la m.a $X_1,X_2,...,X_n$. Sin embargo, si P(cometer error tipo 1)=0, entonces P(cometer error tipo 2)=1. 
-
-$$\alpha = P(\text{Error Tipo I})$$
-$$\beta = P(\text{Error Tipo II})$$
-$\alpha$ es llamado nivel de significancia de la prueba o tamaño de la región crítica y $1-\beta$ es la potencia de la prueba.
-
-<img src="inferencia_files/figure-html/unnamed-chunk-12-1.png" width="2100" style="display: block; margin: auto;" />
-
-Suponga que $X$ es una v.a tal que $X \sim bin(n , p)$, con $p$ desconocida. Sea $p_0$ un valor de interés para $p$. Tres hipótesis pueden ser planteadas acerca de $p$.
-
-$$\begin{align*}
-H_0: p=p_0 \quad \text{vs} \quad H_a: \begin{cases} p &<p_0 \\
-                     p &> p_0 \\
-                     p &\neq p_0 \\
-                     
-       \end{cases}
-\end{align*}$$
-
-Por el TCL sabemos que si $n$ es grande entonces:
-
-$$\cfrac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)$$
-
-Entonces el **estadístico de prueba** a ser usado es:
-
-$$Z_c=\cfrac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}$$
-
-Para un $\alpha$ dado, la Región Crítica es de la forma:
-
-$$\begin{align*}
-R.C: \begin{cases} Z_c &\rightarrow\, Z_c <-z_\alpha \\
-                   Z_c &\rightarrow\, Z_c >z_\alpha \\
-                   Z_c &\rightarrow\, |Z_c| >z_{\alpha/2} \\
-                     
-       \end{cases}
-\end{align*}$$
-
->En una muestra de 85 juntas de dilatación de losas, 10 presentan fisuras perpendiculares. La constructora sabe que si el porcentaje de fisuras supera el 20% deberá detener la obra para realizar los refuerzos necesarios. Con un nivel de significaciá del 5% ¿es necesario suspender las obras?<br><br>
-Tenemos las siguientes hipótesis
-$$H_0: p=0.2 \qued\text{vs}\quad H_a: p>0.2$$
-Entonces con el estadístico de prueba se puede estimar la región crítica:
-
-$$Z_c=\frac{10/85-0.2}{\sqrt{\frac{0.2 \times 0.8}{85}}}$$
-
-
-### Pruebas de hipótesis para la media
-
-
-
+<p>Es lógico que se desea minimizar las probabilidades de cometer los errores en la decisión (tipo 1 ó 2), pero esto depende de la m.a <span class="math inline">\(X_1,X_2,...,X_n\)</span>. Sin embargo, si P(cometer error tipo 1)=0, entonces P(cometer error tipo 2)=1.</p>
+<p><span class="math display">\[\alpha = P(\text{Error Tipo I})\]</span> <span class="math display">\[\beta = P(\text{Error Tipo II})\]</span> <span class="math inline">\(\alpha\)</span> es llamado nivel de significancia de la prueba o tamaño de la región crítica y <span class="math inline">\(1-\beta\)</span> es la potencia de la prueba.</p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-12-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>Suponga que <span class="math inline">\(X\)</span> es una v.a tal que <span class="math inline">\(X \sim bin(n , p)\)</span>, con <span class="math inline">\(p\)</span> desconocida. Sea <span class="math inline">\(p_0\)</span> un valor de interés para <span class="math inline">\(p\)</span>. Tres hipótesis pueden ser planteadas acerca de <span class="math inline">\(p\)</span>.</p>
+<p><span class="math display">\[\begin{align*}
+H_0: p=p_0 \quad \text{vs} \quad H_a: \begin{cases} p &amp;&lt;p_0 \\
+                     p &amp;&gt; p_0 \\
+                     p &amp;\neq p_0 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>Por el TCL sabemos que si <span class="math inline">\(n\)</span> es grande entonces:</p>
+<p><span class="math display">\[\cfrac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
+<p>Entonces el <strong>estadístico de prueba</strong> a ser usado es:</p>
+<p><span class="math display">\[Z_c=\cfrac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}\]</span></p>
+<p>Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} Z_c &amp;\rightarrow\, Z_c &lt;z_\alpha \\
+                   Z_c &amp;\rightarrow\, Z_c &gt;z_{1-\alpha} \\
+                   Z_c &amp;\rightarrow\, |Z_c| &gt;z_{1-\alpha/2} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(Z &lt; Z_c) \\
+                   P(Z &gt; Z_c) \\
+                   P(|Z| &gt; |Z_c|) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<blockquote>
+<p>En una muestra de 85 juntas de dilatación de losas, 10 presentan fisuras perpendiculares. La constructora sabe que si el porcentaje de fisuras supera el 10% deberá detener la obra para realizar los refuerzos necesarios. Con un nivel de significancia del 5% ¿es necesario suspender las obras?<br><br> Tenemos las siguientes hipótesis <span class="math display">\[H_0: p=0.1 \quad\text{vs}\quad H_a: p&gt;0.1\]</span> Entonces con el estadístico de prueba se puede estimar la región crítica: <span class="math display">\[Z_c=\frac{10/85-0.1}{\sqrt{\frac{0.1 \times 0.9}{85}}}=0.542326\]</span> Si <span class="math inline">\(\alpha =0.05\)</span> entonces se tiene que <span class="math inline">\(Z_{0.95}=1.645\)</span> y así la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&gt;Z_{0.95}\}=\{Z_c\,|\,0.542326&gt;1.645\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&gt;0.542326)=1-P(Z&lt;0.542326)=0.2938\]</span> Como <span class="math inline">\(ZC\ngtr 1.645\)</span> o <span class="math inline">\(0.2938 &gt; 0.05\)</span>, entonces no existe suficiente evidencia muestral que soporte la suspensión de las obras, por lo tanto no se rechaza <span class="math inline">\(H_0\)</span>.</p>
+</blockquote>
+<p>En <code>R</code> se puede hacer fácilmente las pruebas de hipótesis para la proporción, ya sea a partir de un conjunto de datos, una tabla/matriz o con la proporción directa. La función <code>prop.test</code> hace los cálculos necesarios para las pruebas de hipótesis incluyendo el intervalo de confianza, no obstante, el estadístico de prueba que utiliza está basado en la distribución <span class="math inline">\(\chi^2\)</span> y los intervalos de confianza son estimados a través del método Wilson, adicionalmente tiene la opción de hacer el cálculo a partir de la corrección de Yates para tamaños de muestra pequeños.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">prop.test</span>(<span class="dt">x =</span> <span class="dv">10</span>,<span class="dt">n =</span> <span class="dv">85</span>,<span class="dt">p =</span> <span class="fl">0.1</span>,<span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>,<span class="dt">correct =</span> F,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test without continuity correction
+## 
+## data:  10 out of 85, null probability 0.1
+## X-squared = 0.29412, df = 1, p-value = 0.2938
+## alternative hypothesis: true p is greater than 0.1
+## 95 percent confidence interval:
+##  0.0716376 1.0000000
+## sample estimates:
+##         p 
+## 0.1176471</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">prop.test</span>(<span class="dt">x =</span> <span class="dv">10</span>,<span class="dt">n =</span> <span class="dv">85</span>,<span class="dt">p =</span> <span class="fl">0.1</span>,<span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>,<span class="dt">correct =</span> T,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test with continuity correction
+## 
+## data:  10 out of 85, null probability 0.1
+## X-squared = 0.13072, df = 1, p-value = 0.3588
+## alternative hypothesis: true p is greater than 0.1
+## 95 percent confidence interval:
+##  0.06712105 1.00000000
+## sample estimates:
+##         p 
+## 0.1176471</code></pre>
+</div>
+<div id="pruebas-de-hipótesis-para-la-media" class="section level3">
+<h3>Pruebas de hipótesis para la media</h3>
+<p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria de una población con media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^2\)</span> si se tienen una muestra grande, entonces para un valor <span class="math inline">\(\mu_0\)</span> de interés para <span class="math inline">\(\mu\)</span> se pueden plantear uno de los siguientes contrastes de hipótesis.</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \mu=\mu_0 \quad \text{vs} \quad H_a: \begin{cases} \mu &amp;&lt;\mu_0 \\
+                     \mu &amp;&gt; \mu \\
+                     \mu &amp;\neq \mu_0 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>El <strong>Estadístico de Prueba</strong> está dado por:</p>
+<p><span class="math display">\[Zc=\cfrac{\bar{X}-\mu_0}{\frac{\sigma}{\sqrt{n}}}\]</span></p>
+<p>Si <span class="math inline">\(\sigma^2\)</span> es desconocida se puede reemplazar por <span class="math inline">\(S^2\)</span>. Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} Z_c &amp;\rightarrow\, Z_c &lt;z_\alpha \\
+                   Z_c &amp;\rightarrow\, Z_c &gt;z_{1-\alpha} \\
+                   Z_c &amp;\rightarrow\, |Z_c| &gt;z_{1-\alpha/2} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(Z &lt; Z_c) \\
+                   P(Z &gt; Z_c) \\
+                   P(|Z| &gt; |Z_c|) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<blockquote>
+<p>Se estudia el rendimiento de un proceso químico. Con base en la observación de 50 días. Se obtuvo un rendimiento promedio del 90.48% con una desviación estándar de 1.1514 %. ¿Se puede afirmar que el rendimiento real del proceso es superior al 90%, con un nivel de significancia del 1%?. Las pruebas de hipótesis son: <span class="math display">\[H_0: \mu=90 \quad\text{vs}\quad H_a: \mu&gt;90\]</span> Del enunciado tenemos que <span class="math inline">\(E[X_i]=90.48\)</span> y como <span class="math inline">\(\sigma^2\)</span> es desconocido, entonces se usa <span class="math inline">\(S^2=1.1514\)</span>, así el estadístico de prueba está dado por: <span class="math display">\[Z_c=\cfrac{\bar{X}-90}{\frac{1.1514}{\sqrt{50}}}=\cfrac{90.48-90}{\frac{1.1514}{\sqrt{50}}}=2.947814\]</span> Como <span class="math inline">\(\alpha=001\)</span> se tiene que <span class="math inline">\(Z_{0.99}=2.3264\)</span>, entonces la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&gt;Z_{0.01}\}=\{Z_c\,|\,2.947814&gt;2.3264\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&gt;2.947814)=1-P(Z&lt;2.947814)=0.0016\]</span> Como <span class="math inline">\(Z_c&gt;2.33\)</span> o <span class="math inline">\(0.0016&lt;0.01\)</span> entonces se rechaza <span class="math inline">\(H_0\)</span>, por lo tanto existe evidencia muestral suficiente que el rendimiento del proceso químico es mayor del 90% con un nivel de significancia del 1%.</p>
+</blockquote>
+<p>En procesos de investigación no es común hacer procesos de muestreo o experimentación, que involucren una gran cantidad de datos, y para realizar pruebas de hipótesis en estas circunstancias es necesario comprobar si los datos provienen de una distribución normal o no.</p>
+<p>Las pruebas de hipótesis para la media basadas en <strong>poblaciones normales</strong> asume que la muestra aleatoria <span class="math inline">\(X_1,\dots,X_n\)</span> proviene de una <span class="math inline">\(N(\mu,\sigma^2)\)</span> con ambos parámetros desconocidos, sabemos por el teorema central del límite que:</p>
+<p><span class="math display">\[\cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \sim t_{n-1}\]</span></p>
+<p>Así, si <span class="math inline">\(\mu_0\)</span> es un valor particular de <span class="math inline">\(\mu\)</span>, se pueden plantear una de las siguientes tres hipótesis:</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \mu=\mu_0 \quad \text{vs} \quad H_a: \begin{cases} \mu &amp;&lt;\mu_0 \\
+                     \mu &amp;&gt; \mu \\
+                     \mu &amp;\neq \mu_0 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>El <strong>Estadístico de Prueba</strong> está dado por:</p>
+<p><span class="math display">\[Tc=\cfrac{\bar{X}-\mu_0}{\frac{S}{\sqrt{n}}}\]</span></p>
+<p>Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} T_c &amp;\rightarrow\, T_c &lt;t_{(\alpha,\,n-1)} \\
+                   T_c &amp;\rightarrow\, T_c &gt;t_{(1-\alpha,\,n-1)} \\
+                   T_c &amp;\rightarrow\, |T_c| &gt;t_{(1-\alpha/2,\,n-1)} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(t_{n-1} &lt; T_c) \\
+                   P(t_{n-1} &gt; T_c) \\
+                   P(|t_{n-1}| &gt; |T_c|) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<br>
+<center>
+<a href="./R/Tabla_t.pdf" class="btn btn-info"  target="_blank">Tabla Distribución <i>t-student</i></a>
+</center>
+<p><br></p>
+<blockquote>
+<p>El tiempo de secado de un cierto tipo de pintura es una variable aleatoria aproximadamente Normal con media <span class="math inline">\(\mu=75\)</span>. Un grupo de investigadores proponen incorporar un aditivo a la pintura que permitirá reducir el tiempo de secado al que actualmente se tiene. Se cree que los tiempos de secado para esta pintura con el aditivo se seguirán comportando de manera normal, se consideran 25 pruebas donde se aplica la pintura con el aditivo y se registran los tiempos de secado. Del experimento se estimó que el tiempo medio de secado es de 71.8 min con una desviación estándar de 8.7 min. Con un nivel de confianza del 95% ¿se optimiza el tiempo de sacado con el aditivo experimental? Las pruebas de hipótesis son: <span class="math display">\[H_0: \mu=75 \quad\text{vs}\quad H_a: \mu&lt;75\]</span> Del enunciado tenemos que <span class="math inline">\(E[X_i]=71.8\)</span> y <span class="math inline">\(S^2=8.7\)</span>, así el estadístico de prueba está dado por: <span class="math display">\[T_c=\cfrac{\bar{X}-75}{\frac{8.7}{\sqrt{25}}}=\cfrac{71.8-75}{\frac{8.7}{\sqrt{25}}}=-1.83908\]</span> Como <span class="math inline">\(\alpha=001\)</span> se tiene que <span class="math inline">\(t_{(0.05,24)}=-1.710882\)</span>, entonces la región de rechazo es de la forma: <span class="math display">\[RC=\{T_c\,|\,T_c&lt;t_{(0.05,24)}\}=\{T_c\,|\,-1.83908&lt;-1.710882\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(T&gt;T_c)=P(T&lt;-1.83908)=1-P(T&lt;1.83908)=0.0391\]</span> Como <span class="math inline">\(T_c&lt;-1.711\)</span> o <span class="math inline">\(0.0391&lt;0.05\)</span> entonces se rechaza <span class="math inline">\(H_0\)</span>, por lo tanto existe evidencia muestral suficiente que agregar el aditivo experimental a la pintura optimiza el tiempo de secado con un nivel de significancia del 5%.</p>
+</blockquote>
+<p>En <code>R</code> los análisis se realizan directamente a las muestras, entonces no es posible replicar el ejmplo anterior con la información suministrada a no ser que se programe la función ingresando los estadísticos. La función <code>t.test</code> realizar la prueba de hipótesis basado en poblaciones normales, puede emplearse para comparar grupos o para contrastar una muestra aleatoria contra un valor teórico de <span class="math inline">\(\mu\)</span>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>?t.test</span></code></pre></div>
+<p>En el siguiente ejemplo retomaremos la base de datos <code>Concrete</code> del paquete <code>MAVE</code>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">require</span>(MAVE)</span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="kw">require</span>(janitor)</span>
+<span id="cb21-3"><a href="#cb21-3"></a>Concrete &lt;-<span class="st"> </span><span class="kw">clean_names</span>(Concrete)</span></code></pre></div>
+<blockquote>
+<p>Nos interesa conocer el comportamiento de la resistencia a la compresión del concreto a los 180 días de curado sin adiciones de ceniza, los requisitos del diseñador estructural exigen que la resistencia a la compresión en estas condiciones debe superar los 40 MPa, ¿con un nivel de significancia del 5% esta información cumple con la norma?</p>
+</blockquote>
+<p>Para resolver esta inquietud primero debemos preparar los datos, es necesario filtrar la base de datos con las variables de <strong>edad</strong> a 180 días y <strong>ceniza</strong> si tiene o no, esto lo podemos hacer fácilmente con el paquete <code>dplyr</code>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">require</span>(dplyr)</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="co"># Llamaremos a la nueva base de datos FiltConc</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>FiltConc &lt;-<span class="st"> </span>Concrete <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(fly_ash<span class="op">==</span><span class="dv">0</span>,age<span class="op">==</span><span class="dv">180</span>)</span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="co"># Resumen estadístico de la resistencia</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a>FiltConc <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">n=</span><span class="kw">length</span>(concrete_compressive_strength),</span>
+<span id="cb22-6"><a href="#cb22-6"></a>                       <span class="dt">media=</span><span class="kw">mean</span>(concrete_compressive_strength),</span>
+<span id="cb22-7"><a href="#cb22-7"></a>                       <span class="dt">desv=</span><span class="kw">sd</span>(concrete_compressive_strength))</span></code></pre></div>
+<pre><code>##    n    media    desv
+## 1 26 41.73038 10.9291</code></pre>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-17-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>Si asumimos que el comportamiento de la resistencia a la compresión proviene de una distribución <span class="math inline">\(N(\mu,\sigma^2)\)</span> entonces la hipótesis a probar es:</p>
+<p><span class="math display">\[H_0: \mu=40 \quad\text{vs}\quad H_a: \mu&gt;40\]</span></p>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  FiltConc$concrete_compressive_strength
+## t = 0.80732, df = 25, p-value = 0.2135
+## alternative hypothesis: true mean is greater than 40
+## 5 percent confidence interval:
+##  45.39157      Inf
+## sample estimates:
+## mean of x 
+##  41.73038</code></pre>
+<p>Los resultados nos muestran el valor del estadístico de prueba, los grados de libertad de la distribución <em>t-student</em> y el valor-p de la prueba. Adicionalmente, presenta el intervalo de confianza unilateral al 95% de confianza y el valor estimado de la media.</p>
+<blockquote>
+<p>Como el <span class="math inline">\(valor-p &gt; \alpha\)</span> entonces no se puede rechazar <span class="math inline">\(H_0\)</span>, por lo tanto no hay evidencia muestral suficiente para concluir que los requisitos del diseñador estructural para la resistencia a la compresión del concreto se cumplan, con un nivel de significancia del 5%.</p>
+</blockquote>
+<!--
 ## Inferencia comparación de grupos
 
 ### Intervalos de confianza diferencia de proporciones
@@ -796,8 +951,7 @@ $$Z_c=\frac{10/85-0.2}{\sqrt{\frac{0.2 \times 0.8}{85}}}$$
 
 ### Pruebas de hipótesis diferencia de medias
 
-### Pruebas de hipótesis razón de varianzas
--->
+### Pruebas de hipótesis razón de varianzas-->
 </div>
 </div>
 
