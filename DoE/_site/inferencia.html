@@ -400,6 +400,7 @@ div.tocify {
 
 </style>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
 
 
 </head>
@@ -567,8 +568,8 @@ div.tocify {
 <div id="muestras-aleatorias" class="section level2">
 <h2>Muestras Aleatorias</h2>
 <p>En el proceso de identificar y explicar las características esenciales que permiten describir el comportamiento de un fenómeno, nuestro objetivo es el de establecer de manera aproximada dicho comportamiento usando parte de toda la información relevante acerca del fenómeno.</p>
-<div id="htmlwidget-a3314e34d27233415cf7" style="width:1500px;height:120px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a3314e34d27233415cf7">{"x":{"diagram":"\ngraph LR\n\nAA((Parámetros))\nA((Población))-- Se extraen -->B(Muestras)\nB-- Se analizan -->BB(Estadísticas)\nBB-- Se estiman -->AA\nA--contienen-->AA\n\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-758f2e6303931f6fbc19" style="width:1500px;height:120px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-758f2e6303931f6fbc19">{"x":{"diagram":"\ngraph LR\n\nAA((Parámetros))\nA((Población))-- Se extraen -->B(Muestras)\nB-- Se analizan -->BB(Estadísticas)\nBB-- Se estiman -->AA\nA--contienen-->AA\n\n"},"evals":[],"jsHooks":[]}</script>
 <script>
 var config = {
     startOnLoad:true,
@@ -880,7 +881,7 @@ V_p: \begin{cases} P(Z &lt; Z_c) \\
                    \end{cases}
 \end{align*}\]</span></p>
 <blockquote>
-<p>Se estudia el rendimiento de un proceso químico. Con base en la observación de 50 días. Se obtuvo un rendimiento promedio del 90.48% con una desviación estándar de 1.1514 %. ¿Se puede afirmar que el rendimiento real del proceso es superior al 90%, con un nivel de significancia del 1%?. Las pruebas de hipótesis son: <span class="math display">\[H_0: \mu=90 \quad\text{vs}\quad H_a: \mu&gt;90\]</span> Del enunciado tenemos que <span class="math inline">\(E[X_i]=90.48\)</span> y como <span class="math inline">\(\sigma^2\)</span> es desconocido, entonces se usa <span class="math inline">\(S^2=1.1514\)</span>, así el estadístico de prueba está dado por: <span class="math display">\[Z_c=\cfrac{\bar{X}-90}{\frac{1.1514}{\sqrt{50}}}=\cfrac{90.48-90}{\frac{1.1514}{\sqrt{50}}}=2.947814\]</span> Como <span class="math inline">\(\alpha=001\)</span> se tiene que <span class="math inline">\(Z_{0.99}=2.3264\)</span>, entonces la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&gt;Z_{0.01}\}=\{Z_c\,|\,2.947814&gt;2.3264\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&gt;2.947814)=1-P(Z&lt;2.947814)=0.0016\]</span> Como <span class="math inline">\(Z_c&gt;2.33\)</span> o <span class="math inline">\(0.0016&lt;0.01\)</span> entonces se rechaza <span class="math inline">\(H_0\)</span>, por lo tanto existe evidencia muestral suficiente que el rendimiento del proceso químico es mayor del 90% con un nivel de significancia del 1%.</p>
+<p>Se estudia el rendimiento de un proceso químico. Con base en la observación de 50 días. Se obtuvo un rendimiento promedio del 90.48% con una desviación estándar de 1.1514 %. ¿Se puede afirmar que el rendimiento real del proceso es superior al 90%, con un nivel de significancia del 1%?. Las pruebas de hipótesis son: <span class="math display">\[H_0: \mu=90 \quad\text{vs}\quad H_a: \mu&gt;90\]</span> Del enunciado tenemos que <span class="math inline">\(E[X_i]=90.48\)</span> y como <span class="math inline">\(\sigma\)</span> es desconocido, entonces se usa <span class="math inline">\(S=1.1514\)</span>, así el estadístico de prueba está dado por: <span class="math display">\[Z_c=\cfrac{\bar{X}-90}{\frac{1.1514}{\sqrt{50}}}=\cfrac{90.48-90}{\frac{1.1514}{\sqrt{50}}}=2.947814\]</span> Como <span class="math inline">\(\alpha=0.01\)</span> se tiene que <span class="math inline">\(Z_{0.99}=2.3264\)</span>, entonces la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&gt;Z_{0.99}\}=\{Z_c\,|\,2.947814&gt;2.3264\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&gt;2.947814)=1-P(Z&lt;2.947814)=0.0016\]</span> Como <span class="math inline">\(Z_c&gt;2.33\)</span> o <span class="math inline">\(0.0016&lt;0.01\)</span> entonces se rechaza <span class="math inline">\(H_0\)</span>, por lo tanto existe evidencia muestral suficiente que el rendimiento del proceso químico es mayor del 90% con un nivel de significancia del 1%.</p>
 </blockquote>
 <p>En procesos de investigación no es común hacer procesos de muestreo o experimentación, que involucren una gran cantidad de datos, y para realizar pruebas de hipótesis en estas circunstancias es necesario comprobar si los datos provienen de una distribución normal o no.</p>
 <p>Las pruebas de hipótesis para la media basadas en <strong>poblaciones normales</strong> asume que la muestra aleatoria <span class="math inline">\(X_1,\dots,X_n\)</span> proviene de una <span class="math inline">\(N(\mu,\sigma^2)\)</span> con ambos parámetros desconocidos, sabemos por el teorema central del límite que:</p>
@@ -911,7 +912,7 @@ V_p: \begin{cases} P(t_{n-1} &lt; T_c) \\
 </center>
 <p><br></p>
 <blockquote>
-<p>El tiempo de secado de un cierto tipo de pintura es una variable aleatoria aproximadamente Normal con media <span class="math inline">\(\mu=75\)</span>. Un grupo de investigadores proponen incorporar un aditivo a la pintura que permitirá reducir el tiempo de secado al que actualmente se tiene. Se cree que los tiempos de secado para esta pintura con el aditivo se seguirán comportando de manera normal, se consideran 25 pruebas donde se aplica la pintura con el aditivo y se registran los tiempos de secado. Del experimento se estimó que el tiempo medio de secado es de 71.8 min con una desviación estándar de 8.7 min. Con un nivel de confianza del 95% ¿se optimiza el tiempo de sacado con el aditivo experimental? Las pruebas de hipótesis son: <span class="math display">\[H_0: \mu=75 \quad\text{vs}\quad H_a: \mu&lt;75\]</span> Del enunciado tenemos que <span class="math inline">\(E[X_i]=71.8\)</span> y <span class="math inline">\(S^2=8.7\)</span>, así el estadístico de prueba está dado por: <span class="math display">\[T_c=\cfrac{\bar{X}-75}{\frac{8.7}{\sqrt{25}}}=\cfrac{71.8-75}{\frac{8.7}{\sqrt{25}}}=-1.83908\]</span> Como <span class="math inline">\(\alpha=001\)</span> se tiene que <span class="math inline">\(t_{(0.05,24)}=-1.710882\)</span>, entonces la región de rechazo es de la forma: <span class="math display">\[RC=\{T_c\,|\,T_c&lt;t_{(0.05,24)}\}=\{T_c\,|\,-1.83908&lt;-1.710882\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(T&gt;T_c)=P(T&lt;-1.83908)=1-P(T&lt;1.83908)=0.0391\]</span> Como <span class="math inline">\(T_c&lt;-1.711\)</span> o <span class="math inline">\(0.0391&lt;0.05\)</span> entonces se rechaza <span class="math inline">\(H_0\)</span>, por lo tanto existe evidencia muestral suficiente que agregar el aditivo experimental a la pintura optimiza el tiempo de secado con un nivel de significancia del 5%.</p>
+<p>El tiempo de secado de un cierto tipo de pintura es una variable aleatoria aproximadamente Normal con media <span class="math inline">\(\mu=75\)</span>. Un grupo de investigadores proponen incorporar un aditivo a la pintura que permitirá reducir el tiempo de secado al que actualmente se tiene. Se cree que los tiempos de secado para esta pintura con el aditivo se seguirán comportando de manera normal, se consideran 25 pruebas donde se aplica la pintura con el aditivo y se registran los tiempos de secado. Del experimento se estimó que el tiempo medio de secado es de 71.8 min con una desviación estándar de 8.7 min. Con un nivel de confianza del 95% ¿se optimiza el tiempo de sacado con el aditivo experimental? Las pruebas de hipótesis son: <span class="math display">\[H_0: \mu=75 \quad\text{vs}\quad H_a: \mu&lt;75\]</span> Del enunciado tenemos que <span class="math inline">\(E[X_i]=71.8\)</span> y <span class="math inline">\(S=8.7\)</span>, así el estadístico de prueba está dado por: <span class="math display">\[T_c=\cfrac{\bar{X}-75}{\frac{8.7}{\sqrt{25}}}=\cfrac{71.8-75}{\frac{8.7}{\sqrt{25}}}=-1.83908\]</span> Como <span class="math inline">\(\alpha=0.05\)</span> se tiene que <span class="math inline">\(t_{(0.05,24)}=-1.710882\)</span>, entonces la región de rechazo es de la forma: <span class="math display">\[RC=\{T_c\,|\,T_c&lt;t_{(0.05,24)}\}=\{T_c\,|\,-1.83908&lt;-1.710882\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(T&gt;T_c)=P(T&lt;-1.83908)=1-P(T&lt;1.83908)=0.0391\]</span> Como <span class="math inline">\(T_c&lt;-1.711\)</span> o <span class="math inline">\(0.0391&lt;0.05\)</span> entonces se rechaza <span class="math inline">\(H_0\)</span>, por lo tanto existe evidencia muestral suficiente que agregar el aditivo experimental a la pintura optimiza el tiempo de secado con un nivel de significancia del 5%.</p>
 </blockquote>
 <p>En <code>R</code> los análisis se realizan directamente a las muestras, entonces no es posible replicar el ejmplo anterior con la información suministrada a no ser que se programe la función ingresando los estadísticos. La función <code>t.test</code> realizar la prueba de hipótesis basado en poblaciones normales, puede emplearse para comparar grupos o para contrastar una muestra aleatoria contra un valor teórico de <span class="math inline">\(\mu\)</span>.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>?t.test</span></code></pre></div>
@@ -935,14 +936,19 @@ V_p: \begin{cases} P(t_{n-1} &lt; T_c) \\
 <p><img src="inferencia_files/figure-html/unnamed-chunk-17-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>Si asumimos que el comportamiento de la resistencia a la compresión proviene de una distribución <span class="math inline">\(N(\mu,\sigma^2)\)</span> entonces la hipótesis a probar es:</p>
 <p><span class="math display">\[H_0: \mu=40 \quad\text{vs}\quad H_a: \mu&gt;40\]</span></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Evaluemos la prueba de hipótesis</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="kw">t.test</span>(<span class="dt">x =</span> FiltConc<span class="op">$</span>concrete_compressive_strength,</span>
+<span id="cb24-3"><a href="#cb24-3"></a>       <span class="dt">mu=</span><span class="dv">40</span>,</span>
+<span id="cb24-4"><a href="#cb24-4"></a>       <span class="dt">conf.level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb24-5"><a href="#cb24-5"></a>       <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
 ## data:  FiltConc$concrete_compressive_strength
 ## t = 0.80732, df = 25, p-value = 0.2135
 ## alternative hypothesis: true mean is greater than 40
-## 5 percent confidence interval:
-##  45.39157      Inf
+## 95 percent confidence interval:
+##  38.0692     Inf
 ## sample estimates:
 ## mean of x 
 ##  41.73038</code></pre>
