@@ -567,8 +567,20 @@ div.tocify {
 <div id="muestras-aleatorias" class="section level2">
 <h2>Muestras Aleatorias</h2>
 <p>En el proceso de identificar y explicar las características esenciales que permiten describir el comportamiento de un fenómeno, nuestro objetivo es el de establecer de manera aproximada dicho comportamiento usando parte de toda la información relevante acerca del fenómeno.</p>
-<div id="htmlwidget-9dbce7b066a27c65c6fd" style="width:1500px;height:120px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9dbce7b066a27c65c6fd">{"x":{"diagram":"\ngraph LR\n\nAA((Parámetros))\nA((Población))-- Se extraen -->B(Muestras)\nB-- Se analizan -->BB(Estadísticas)\nBB-- Se estiman -->AA\nA--contienen-->AA\n\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a3314e34d27233415cf7" style="width:1500px;height:120px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a3314e34d27233415cf7">{"x":{"diagram":"\ngraph LR\n\nAA((Parámetros))\nA((Población))-- Se extraen -->B(Muestras)\nB-- Se analizan -->BB(Estadísticas)\nBB-- Se estiman -->AA\nA--contienen-->AA\n\n"},"evals":[],"jsHooks":[]}</script>
+<script>
+var config = {
+    startOnLoad:true,
+    theme: 'forest',
+    flowchart:{
+            useMaxWidth:true,
+            htmlLabels:true
+        }
+};
+mermaid.initialize(config);
+window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+</script>
 <p>Cuando se desea estimar un parámetro poblacional se puede presentar cualquiera de los próximos 3 casos:</p>
 <ul>
 <li>Estimar una proporción</li>
