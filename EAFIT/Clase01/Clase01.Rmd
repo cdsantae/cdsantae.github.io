@@ -1,7 +1,6 @@
 ---
 title: "Manejo de datos con R y RStudio"
 author: "Cristian Santa"
-date: "Marzo de 2019"
 output:
   rmdformats::readthedown:
     df_print: paged
@@ -52,7 +51,7 @@ Por esta razón, se vieron en la necesidad de crear, en 1997, dos listas de corr
 * Es un software libre, es decir, gratis.
 * El usuario se compromete al código ético de no comercializar el software.
 * Se puede modificar el código fuente a preferencia del usuario.
-* Mantiene constantemente actualizado. (v3.5.3 "Great Truth" 2019/03/11)
+* Mantiene constantemente actualizado. (v4.0.1 "See Things Now" 2020/06/06)
 * Funciona mediante paquetes que son trabajos colaborativos de la comunidad R. ([CRAN](https://cran.r-project.org/), [GitHub](https://github.com/trending/r), [Microsoft](https://mran.microsoft.com/packages))
 * La comunidad es la que ofrece la asistencia técnica. ([stackOverflow](https://stackoverflow.com/questions/tagged/r),  [R FAQ](https://cran.r-project.org/doc/FAQ/R-FAQ.html),  [Nabble](http://r.789695.n4.nabble.com/),  [R-Help](https://stat.ethz.ch/mailman/listinfo/r-help))
 * Existen muchos tutoriales, blogs y cursos específicos online. ([RBloggers](https://www.r-bloggers.com/), [DataCamp](https://www.datacamp.com/), [Coursera](https://es.coursera.org/courses?query=r))

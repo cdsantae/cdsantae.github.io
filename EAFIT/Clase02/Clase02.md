@@ -1,7 +1,6 @@
 ---
 title: "Estructuras de datos en R"
 author: "Cristian Santa"
-date: "Marzo de 2019"
 output:
   rmdformats::readthedown:
     df_print: paged

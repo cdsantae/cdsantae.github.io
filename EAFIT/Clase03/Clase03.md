@@ -1,7 +1,6 @@
 ---
 title: "Condicionales, ciclos y secuencias"
 author: "Cristian Santa"
-date: "Marzo de 2019"
 output:
   rmdformats::readthedown:
     df_print: paged
@@ -528,8 +527,8 @@ x
 ```
 
 ```
-##  [1] 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43
-## [24] 44 45 46 47 48 49 50
+##  [1] 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45
+## [26] 46 47 48 49 50
 ```
 
 ```r
@@ -572,8 +571,8 @@ seq(from = 5, to = 8, length.out = 10)
 ```
 
 ```
-##  [1] 5.000000 5.333333 5.666667 6.000000 6.333333 6.666667 7.000000
-##  [8] 7.333333 7.666667 8.000000
+##  [1] 5.000000 5.333333 5.666667 6.000000 6.333333 6.666667 7.000000 7.333333
+##  [9] 7.666667 8.000000
 ```
 
 ```r
@@ -621,8 +620,8 @@ rep(c("Hola","Clase"),5)
 ```
 
 ```
-##  [1] "Hola"  "Clase" "Hola"  "Clase" "Hola"  "Clase" "Hola"  "Clase"
-##  [9] "Hola"  "Clase"
+##  [1] "Hola"  "Clase" "Hola"  "Clase" "Hola"  "Clase" "Hola"  "Clase" "Hola" 
+## [10] "Clase"
 ```
 
 ```r
@@ -646,9 +645,9 @@ sequence(1:10)
 ```
 
 ```
-##  [1]  1  1  2  1  2  3  1  2  3  4  1  2  3  4  5  1  2  3  4  5  6  1  2
-## [24]  3  4  5  6  7  1  2  3  4  5  6  7  8  1  2  3  4  5  6  7  8  9  1
-## [47]  2  3  4  5  6  7  8  9 10
+##  [1]  1  1  2  1  2  3  1  2  3  4  1  2  3  4  5  1  2  3  4  5  6  1  2  3  4
+## [26]  5  6  7  1  2  3  4  5  6  7  8  1  2  3  4  5  6  7  8  9  1  2  3  4  5
+## [51]  6  7  8  9 10
 ```
 
 ```r
@@ -665,8 +664,8 @@ gl(5, 2, labels = c("Juliana","Carlos","Lina","Manuela","Adriana"))
 ```
 
 ```
-##  [1] Juliana Juliana Carlos  Carlos  Lina    Lina    Manuela Manuela
-##  [9] Adriana Adriana
+##  [1] Juliana Juliana Carlos  Carlos  Lina    Lina    Manuela Manuela Adriana
+## [10] Adriana
 ## Levels: Juliana Carlos Lina Manuela Adriana
 ```
 
@@ -675,9 +674,9 @@ gl(5, 4, labels = c("Juliana","Carlos","Lina","Manuela","Adriana"),ordered = T)
 ```
 
 ```
-##  [1] Juliana Juliana Juliana Juliana Carlos  Carlos  Carlos  Carlos 
-##  [9] Lina    Lina    Lina    Lina    Manuela Manuela Manuela Manuela
-## [17] Adriana Adriana Adriana Adriana
+##  [1] Juliana Juliana Juliana Juliana Carlos  Carlos  Carlos  Carlos  Lina   
+## [10] Lina    Lina    Lina    Manuela Manuela Manuela Manuela Adriana Adriana
+## [19] Adriana Adriana
 ## Levels: Juliana < Carlos < Lina < Manuela < Adriana
 ```
 
@@ -695,11 +694,10 @@ gl(3,4,24,labels = c("Chicles","Cigarrillos","Tinto"))
 ```
 
 ```
-##  [1] Chicles     Chicles     Chicles     Chicles     Cigarrillos
-##  [6] Cigarrillos Cigarrillos Cigarrillos Tinto       Tinto      
-## [11] Tinto       Tinto       Chicles     Chicles     Chicles    
-## [16] Chicles     Cigarrillos Cigarrillos Cigarrillos Cigarrillos
-## [21] Tinto       Tinto       Tinto       Tinto      
+##  [1] Chicles     Chicles     Chicles     Chicles     Cigarrillos Cigarrillos
+##  [7] Cigarrillos Cigarrillos Tinto       Tinto       Tinto       Tinto      
+## [13] Chicles     Chicles     Chicles     Chicles     Cigarrillos Cigarrillos
+## [19] Cigarrillos Cigarrillos Tinto       Tinto       Tinto       Tinto      
 ## Levels: Chicles Cigarrillos Tinto
 ```
 
@@ -708,11 +706,10 @@ gl(3,1,24,labels = c("Chicles","Cigarrillos","Tinto"))
 ```
 
 ```
-##  [1] Chicles     Cigarrillos Tinto       Chicles     Cigarrillos
-##  [6] Tinto       Chicles     Cigarrillos Tinto       Chicles    
-## [11] Cigarrillos Tinto       Chicles     Cigarrillos Tinto      
-## [16] Chicles     Cigarrillos Tinto       Chicles     Cigarrillos
-## [21] Tinto       Chicles     Cigarrillos Tinto      
+##  [1] Chicles     Cigarrillos Tinto       Chicles     Cigarrillos Tinto      
+##  [7] Chicles     Cigarrillos Tinto       Chicles     Cigarrillos Tinto      
+## [13] Chicles     Cigarrillos Tinto       Chicles     Cigarrillos Tinto      
+## [19] Chicles     Cigarrillos Tinto       Chicles     Cigarrillos Tinto      
 ## Levels: Chicles Cigarrillos Tinto
 ```
 

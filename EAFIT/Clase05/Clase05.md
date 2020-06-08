@@ -1,7 +1,6 @@
 ---
 title: "Ilustraciones en R"
 author: "Cristian Santa"
-date: "Abril de 2019"
 output:
   rmdformats::readthedown:
     df_print: paged
@@ -56,7 +55,8 @@ args(plot.default)
 ## function (x, y = NULL, type = "p", xlim = NULL, ylim = NULL, 
 ##     log = "", main = NULL, sub = NULL, xlab = NULL, ylab = NULL, 
 ##     ann = par("ann"), axes = TRUE, frame.plot = axes, panel.first = NULL, 
-##     panel.last = NULL, asp = NA, ...) 
+##     panel.last = NULL, asp = NA, xgap.axis = NA, ygap.axis = NA, 
+##     ...) 
 ## NULL
 ```
 
@@ -151,6 +151,8 @@ legend("topright",fill=1:3,legend = levels(factor(mtcars$gear)),
 <img src="Clase05_files/figure-html/unnamed-chunk-8-2.png" style="display: block; margin: auto;" />
 
 ![](Colores.png)
+
+<center><b><a href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf" target="_blank">Otros Colores</b></a></center>
 
 ## Demostraciones
 
