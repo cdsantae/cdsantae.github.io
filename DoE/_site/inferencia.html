@@ -567,8 +567,8 @@ div.tocify {
 <div id="muestras-aleatorias" class="section level2">
 <h2>Muestras Aleatorias</h2>
 <p>En el proceso de identificar y explicar las características esenciales que permiten describir el comportamiento de un fenómeno, nuestro objetivo es el de establecer de manera aproximada dicho comportamiento usando parte de toda la información relevante acerca del fenómeno.</p>
-<div id="htmlwidget-9bf6fae5003ae25bfc3b" style="width:1500px;height:120px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9bf6fae5003ae25bfc3b">{"x":{"diagram":"\ngraph LR\n\nAA((Parámetros))\nA((Población))-- Se extraen -->B(Muestras)\nB-- Se analizan -->BB(Estadísticas)\nBB-- Se estiman -->AA\nA--contienen-->AA\n\n"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d068eff8ad8629750e6c" style="width:1500px;height:120px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d068eff8ad8629750e6c">{"x":{"diagram":"\ngraph LR\n\nAA((Parámetros))\nA((Población))-- Se extraen -->B(Muestras)\nB-- Se analizan -->BB(Estadísticas)\nBB-- Se estiman -->AA\nA--contienen-->AA\n\n"},"evals":[],"jsHooks":[]}</script>
 <script>
 var config = {
     startOnLoad:true,
@@ -1232,6 +1232,10 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 ## ratio of variances 
 ##           0.730172</code></pre>
 <p>Entonces, como los datos son normales y tienen varianzas iguales, de acuerdo con el árbol de decisión el mejor estadístico de prueba está basado en la <em>t-student</em> y es necesario estimar la varianza conjunta, no obstante, el software lo hace:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="kw">with</span>(SoloRA,</span>
+<span id="cb65-2"><a href="#cb65-2"></a>     <span class="kw">t.test</span>(IPO[TL<span class="op">==</span><span class="st">&quot;Ron&quot;</span>],</span>
+<span id="cb65-3"><a href="#cb65-3"></a>            IPO[TL<span class="op">==</span><span class="st">&quot;Whisky&quot;</span>],</span>
+<span id="cb65-4"><a href="#cb65-4"></a>            <span class="dt">var.equal =</span> T,<span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
@@ -1244,6 +1248,35 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 ## mean of x mean of y 
 ##   3185673   3591694</code></pre>
 <p>En conclusión, el ipoconsumo del ron es menor al del whisky con un nivel de significancia del 5%. Entonces la cantidad de impuestos que deja de percibir el departamento tiene mayor aporte en el Whisky, sin embargo, las cantidades de Ron son casi el doble que las de Whisky lo que sugiere que este licor es preferido para la adulteración. Los controles se deben aumentar para incautar más Ron y establecer una estrategia para que no aumente la adulteración del Whisky que es la que más afecta los recursos para salud.</p>
+<p>El tercer punto nos piden calcular una nueva variable, si <span class="math inline">\(GAQ=GAE\)</span> el licor se clasifica como <strong>contrabando</strong> en caso contrario se llamará <strong>fraudulento</strong>.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a>Licores &lt;-<span class="st"> </span>Licores <span class="op">%&gt;%</span></span>
+<span id="cb67-2"><a href="#cb67-2"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">TipoLicor =</span> <span class="kw">factor</span>(<span class="kw">ifelse</span>(GAQ<span class="op">==</span>GAE,<span class="st">&quot;Contrabando&quot;</span>,<span class="st">&quot;Fraudulento&quot;</span>)))</span></code></pre></div>
+<p>Luego preguntan si la proporción de licores Fraudulentos es superior al 65%. Entonces las hipótesis son:</p>
+<p><span class="math display">\[H_0: p_F = 0.65 \qquad H_a: p_F &gt;0.65\]</span></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a><span class="kw">with</span>(Licores,<span class="kw">table</span>(TipoLicor))</span></code></pre></div>
+<pre><code>## TipoLicor
+## Contrabando Fraudulento 
+##          83         217</code></pre>
+<p>Como en <code>R</code> los factores se organizan alfabéticamente, entonces debemos cambiar la hipótesis hacia los licores de <strong>contrabando</strong>, así:</p>
+<p><span class="math display">\[H_0: p_C = 0.35 \qquad H_a: p_C &lt; 0.35\]</span></p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a><span class="kw">with</span>(Licores,</span>
+<span id="cb70-2"><a href="#cb70-2"></a>     <span class="kw">prop.test</span>(<span class="kw">table</span>(TipoLicor),</span>
+<span id="cb70-3"><a href="#cb70-3"></a>               <span class="dt">p =</span> <span class="fl">0.35</span>,</span>
+<span id="cb70-4"><a href="#cb70-4"></a>               <span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>,</span>
+<span id="cb70-5"><a href="#cb70-5"></a>               <span class="dt">conf.level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb70-6"><a href="#cb70-6"></a>               <span class="dt">correct =</span> F))</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test without continuity correction
+## 
+## data:  table(TipoLicor), null probability 0.35
+## X-squared = 7.0916, df = 1, p-value = 0.003872
+## alternative hypothesis: true p is less than 0.35
+## 95 percent confidence interval:
+##  0.0000000 0.3210025
+## sample estimates:
+##         p 
+## 0.2766667</code></pre>
+<p>Como el valor-p es mucho menor al nivel de significancia, entonces se rechaza <span class="math inline">\(H_0\)</span> por lo tanto existe evidencia muestral para afirmar que la proporción de licores Fraudulentos es mayor del 65%. Por lo tanto, las rentas ilegales de licores están basadas en mayor medida de la adulteración, el impacto para la salud pública es muy grave, pues los efectos nocivos de los licores que no son correctamente destilados aumenta los riesgos clínicos como la ceguera, el cáncer de órganos digestivos o la muerte.</p>
 </div>
 </div>
 </div>
