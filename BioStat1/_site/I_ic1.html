@@ -592,7 +592,6 @@ div.tocify {
 <pre><code>## [1] 0.05788185 0.20573312
 ## attr(,&quot;conf.level&quot;)
 ## [1] 0.95</code></pre>
-<hr>
 <div class="panel-group">
 <div class="panel panel-primary">
 <div class="panel-heading">
@@ -612,6 +611,96 @@ div.tocify {
 </div></li>
 </ul>
 </div>
+<hr>
+</div>
+<div id="intervalos-de-confianza-para-la-media" class="section level2">
+<h2>Intervalos de confianza para la media</h2>
+<p>La estimación del parámetro <span class="math inline">\(\mu\)</span> a través de intervalos de confianza, dependerá de dos situaciones.</p>
+<ol style="list-style-type: decimal">
+<li>Si la muestra aleatoria es de tamaño relativamente grande y no necesariamente provenga de una distribución normal.</li>
+<li>Si la muestra aleatoria proviene de una distribución normal.</li>
+</ol>
+<hr>
+<div id="ic-para-poblaciones-no-normales" class="section level3">
+<h3>IC para poblaciones no normales</h3>
+<p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria de una población con media desconocida y <strong>varianza conocida</strong> <span class="math inline">\(\mu\)</span>. Un intervalo de confianza para <span class="math inline">\(\mu\)</span> con muestras grnades al <span class="math inline">\(100(1-\alpha)\%\)</span> está dado por:</p>
+<p><span class="math display">\[\bar{X}\,\pm\,Z_{1-\alpha/2}\frac{\sigma}{\sqrt{n}}\]</span></p>
+<blockquote>
+<p>Una Nutricionista de una clínica es la encargada de los planes de ganancia de peso en embarazadas. De acuerdo a los parámetros se sabe que la variación de la ganancia de peso al final de la gestación es de 4 kilos. Se escogen al azar 45 embarazadas adultas con IMC normal y se registra sus ganancias de peso al final de la gestación y la ganancia promedio resultó en 14.5 kg. Calcule el I.C. al 95% para la ganancia de peso media real de estas embarazadas.<br><br> Se tiene que <span class="math inline">\(X_1,\dots,X_{45}\)</span> es una muestra aleatoria que representa las ganancias de peso de las embarazadas de 45 mujeres, además de la muestra se obtiene que <span class="math inline">\(\bar{X}=14.5\,\text{kg}\)</span><br> Un IC al 95% para <span class="math inline">\(\mu\)</span> está dado por: <span class="math display">\[14.5\,\pm\,Z_{0.975}\frac{4}{\sqrt{45}} \,\Rightarrow\, (12.4758;\,16.5242) \]</span></p>
+</blockquote>
+<p>En el caso de que en la muestra aleatoria no se tenga información de <span class="math inline">\(\sigma\)</span>, es decir, que tiene <strong>varianza desconocida</strong> entonces se puede reemplazar <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(S^2\)</span> siempre y cuando se tenga tamaños de muestra grandes tal que:</p>
+<p><span class="math display">\[\bar{X}\,\pm\,Z_{\alpha/2}\frac{S}{\sqrt{n}}\]</span></p>
+<p>El siguiente ejercicio de simulación muestra el concepto de la probabilidad de los intervalos de confianza y la influencia de los tamaños de muestra</p>
+<p><img src="I_ic1_files/figure-html/unnamed-chunk-6-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>En términos de la cobertura del intervalo, se espera que para cualquier valor estimado de <span class="math inline">\(\mu\)</span> la probabilidad de cobertura sea cercana al nivel de confianza <span class="math inline">\(100(1-\alpha)\%\)</span>.</p>
+<p><img src="I_ic1_files/figure-html/unnamed-chunk-7-1.png" width="810" style="display: block; margin: auto;" /></p>
+<p>En <code>R</code> no existe una función como tal para calcular intervalos de confianza para la distribución normal, sin embargo, no es difícil realizar su programación</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>ICNorm &lt;-<span class="st"> </span><span class="cf">function</span>(Xbar,sigma,n,<span class="dt">alpha=</span><span class="fl">0.05</span>){</span>
+<span id="cb8-2"><a href="#cb8-2"></a>  ic &lt;-<span class="st"> </span>Xbar<span class="op">+</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="op">*</span><span class="kw">qnorm</span>(<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>)<span class="op">*</span>sigma<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="kw">return</span>(ic)</span>
+<span id="cb8-4"><a href="#cb8-4"></a>}</span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co"># Para el ejemplo de la ganancia de peso</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="kw">ICNorm</span>(<span class="dt">Xbar =</span> <span class="fl">14.5</span>,<span class="dt">sigma =</span> <span class="dv">4</span>,<span class="dt">n =</span> <span class="dv">45</span>,<span class="dt">alpha=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 13.3313 15.6687</code></pre>
+<hr>
+</div>
+<div id="ic-para-poblaciones-normales" class="section level3">
+<h3>IC para poblaciones normales</h3>
+<p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria de una población normal <span class="math inline">\(N(\mu,\sigma^2)\)</span> con media desconocida y <strong>varianza conocida</strong>. Un intervalo de confianza para <span class="math inline">\(\mu\)</span> al <span class="math inline">\(100(1-\alpha)\%\)</span> está dado por:</p>
+<p><span class="math display">\[\bar{X}\,\pm\,Z_{\alpha/2}\frac{\sigma}{\sqrt{n}}\]</span></p>
+<blockquote>
+<p>Una planta de procesamiento de alimentos preparan una nueva línea de pechugas de pollo. Se sabe que la energía aportada por las pechugas de pollo tiene una distribución aproximadamente normal. De acuerdo a la investigación de los nutricionistas de la planta se ha encontrado que la dispersión en la energía es aproximadamente de 0.05 kcal. Se escogen al azar 15 pechucgas y se estima su aporte energético. La energía promedio resultó en 74.04 kcal.<br><br> - Calcule el I.C. al 95% para la energía media real de las pechugas.<br> - Si se desea que la precisión del intervalo sea inferior a 0.01, con una confianza del 95%. ¿Cuál debe ser el mínimo tamaño de muestra para cumplir éste objetivo?<br><br> Para la primera parte se tiene que <span class="math inline">\(X_1,\dots,X_{15}\)</span> es una muestra aleatoria que representa la energía de las 15 pechugas de pollo, cada <span class="math inline">\(X_i\sim N(\mu,0.05^2)\)</span>, además de la muestra se obtiene que <span class="math inline">\(\bar{X}=74.04\,\text{mm}\)</span><br> Un IC al 95% para <span class="math inline">\(\mu\)</span> está dado por: <span class="math display">\[74.04\,\pm\,Z_{0.025}\frac{0.05}{\sqrt{15}} \,\Rightarrow\, (74.0147;\,74.0653) \]</span> La precisión de un intervalo está dado por <span class="math inline">\(max\{\theta-L,U-\theta\}\)</span>, en este caso tenemos un intervalo simétrico entonces la magnitud está dada por el término del error <span class="math inline">\(Z_{0.025}(0.05/\sqrt{n})\)</span>$, entonces: <span class="math display">\[\begin{align*}
+\frac{1.96\times 0.05}{\sqrt{n}}&amp;&lt;0.01\\\\
+\frac{1.96\times0.05}{0.01}&amp;&lt;\sqrt{n}\\\\
+n&amp;&gt;96.03647 \approx 97
+\end{align*}\]</span></p>
+</blockquote>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Para el ejemplo de las pechugas de pollo</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">ICNorm</span>(<span class="dt">Xbar =</span> <span class="fl">74.04</span>,<span class="dt">sigma =</span> <span class="fl">0.05</span>,<span class="dt">n =</span> <span class="dv">15</span>,<span class="dt">alpha=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 74.0147 74.0653</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">ICNorm</span>(<span class="dt">Xbar =</span> <span class="fl">74.04</span>,<span class="dt">sigma =</span> <span class="fl">0.05</span>,<span class="dt">n =</span> <span class="dv">97</span>)</span></code></pre></div>
+<pre><code>## [1] 74.03005 74.04995</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">diff</span>(<span class="kw">ICNorm</span>(<span class="dt">Xbar =</span> <span class="fl">74.04</span>,<span class="dt">sigma =</span> <span class="fl">0.05</span>,<span class="dt">n =</span> <span class="dv">97</span>))<span class="op">/</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 0.00995021</code></pre>
+<p>Suponga que <span class="math inline">\(X_1,\dots,X_n\)</span> es una muestra aleatoria de una <span class="math inline">\(N(\mu,\sigma^2)\)</span>, si la <strong>varianza es desconocida</strong> la distribución de <span class="math inline">\(\bar{X}\)</span> estandarizada <strong>NO</strong> es normal. Si reemplazamos <span class="math inline">\(\sigma\)</span> por <span class="math inline">\(S\)</span>, el estadístico resultante es:</p>
+<p><span class="math display">\[T=\cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \sim t_{(n-1)}\]</span></p>
+<p>La distribución <em>t-de Student</em> es una distribución de probabilidad que surge del problema de estimar la media de una población normalmente distribuida cuando el tamaño de la muestra es pequeño. Su <em>f.d.p</em> está dada por:</p>
+<p><span class="math display">\[f(x) = \frac{\Gamma\left(\dfrac{\nu + 1}{2}\right)}{\Gamma\left(\dfrac{\nu}{2}\right)\sqrt{\pi\nu}\sigma} \left[1+\frac{1}{\nu}\left(\frac{x-\mu}{\sigma}\right)^2\right]^{-\tfrac{\nu+1}{2}}\]</span></p>
+<p><img src="I_ic1_files/figure-html/t-1.png" width="1800" style="display: block; margin: auto;" /></p>
+<p>En esta gráfica podemos apreciar la realción que existe entre las distribuciones <em>Cauchy</em>, <em>t-de Student</em> y la <em>Normal Estandarizada</em>. Se observa que la distribución <em>t-de Student</em> con <span class="math inline">\(v = 1\)</span> grado de libertad es una <em>distribución Cauchy</em> la cual es la más achatada y presenta las colas mas pesadas en comparación las demás distribuciones presentes en la gráfica. Además se puede evidenciar que a medida que aumentan los grados de libertad en la <em>distribución t</em>, ésta tiende a la <em>Normal</em>.</p>
+<p>Realizando un proceso similar al caso de muestras aleatorias con media desconocida, se puede encontrar que un IC al <span class="math inline">\(100(1 − \alpha)\%\)</span> para <span class="math inline">\(\mu\)</span> es de la forma:</p>
+<p><span class="math display">\[\bar{X} \pm t_{(\alpha/2,\,n-1)}\frac{S}{\sqrt{n}}\]</span></p>
+<p><img src="I_ic1_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;" /></p>
+<br>
+<center>
+<a href="./R/Tabla_t.pdf" class="btn btn-info"  target="_blank">Tabla Distribución <i>t-student</i></a>
+</center>
+<p><br></p>
+<blockquote>
+<p>De acuerdo a estudios sobre la fuerza prensil manual en adultos mayores que la fuerza de prensión se distribuye normalmente. Se toma una muestra aleatoria de 16 adultos mayores y se obtiene un fuerza de prensión promedio para la mano débil de 15.63 kgf con una desviación estándar de 5.18 kgf. Estime la fuerza prensil manual débil de los adultos mayores usando un IC al 97%.<br><br> Sea <span class="math inline">\(X_1,\dots,X_16\)</span> una muestra aleatoria que representa la fuerza prensil de la mano débil de los adultos mayores. Suponga que <span class="math inline">\(E[X_i]=\mu\)</span> y <span class="math inline">\(Var[X_i]=\sigma^2\)</span> ambas desconocidas, además del enunciado se tiene que <span class="math inline">\(\bar{x}=15.63\)</span>, <span class="math inline">\(S=5.18\)</span> y <span class="math inline">\(n=16\)</span> entonces un IC al 97% para <span class="math inline">\(\mu\)</span> está dado por: <span class="math display">\[\begin{align*}
+\bar{X}\,&amp;\pm\,t_{0.985,n-1}\frac{S}{\sqrt{n}}\\\\
+15.63\,&amp;\pm\,t_{0.985,15}\frac{5.18}{\sqrt{16}}\\\\
+15.63\,&amp;\pm\,2.397005\frac{5.18}{\sqrt{16}}\\
+15.63\,&amp;\pm\,3.104122
+\end{align*}\]</span> Se espera que la fuerza prensil media real de la mano débil de los adultos mayores esté entre 12.53 kgf y 18.73 kgf con una confianza del 97%.</p>
+</blockquote>
+<p>En <code>R</code> no hay forma de hacer estimaciones de por intervalo con estadísticos calculados, la única forma es con un vector de datos o una base de datos. No obstante, no es difícil programar una función para calcular intervalos de confianza para la <em>t-student</em> cuando se tienen los estadísticos calculados.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>ICt &lt;-<span class="st"> </span><span class="cf">function</span>(Xbar,sigma,n,<span class="dt">alpha=</span><span class="fl">0.05</span>){</span>
+<span id="cb16-2"><a href="#cb16-2"></a>  ic &lt;-<span class="st"> </span>Xbar<span class="op">+</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="op">*</span><span class="kw">qt</span>(<span class="dt">p =</span> <span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> n<span class="dv">-1</span>)<span class="op">*</span>sigma<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="kw">return</span>(ic)</span>
+<span id="cb16-4"><a href="#cb16-4"></a>}</span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="co"># Para el ejemplo de la resistencia</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="kw">ICt</span>(<span class="dt">Xbar =</span> <span class="fl">15.63</span>,<span class="dt">sigma =</span> <span class="fl">5.18</span>,<span class="dt">n =</span> <span class="dv">16</span>,<span class="dt">alpha =</span> <span class="fl">0.03</span>)</span></code></pre></div>
+<pre><code>## [1] 12.52588 18.73412</code></pre>
+<hr>
+</div>
+</div>
+<div id="resumen" class="section level2">
+<h2>Resumen</h2>
+<center>
+<img src="IC_mu.png" title="fig:" alt="Resumen IC" />
+</center>
+<hr>
 </div>
 
 
