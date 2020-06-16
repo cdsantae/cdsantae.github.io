@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Intervalos de Confianza para dos grupos</title>
+
+<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Investigación II</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_phv.html">PH para varianza</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="I_et2.html">Potencia</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-equalizer"></span>
+     
+    Muestreo
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="M_effect.html">Sobre el efecto</a>
+    </li>
+    <li>
+      <a href="M_MAS.html">MAS</a>
+    </li>
+    <li>
+      <a href="M_MAE.html">MAE</a>
+    </li>
+    <li>
+      <a href="M_Cluster.html">Cluster</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    R-Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Rinstall.html">Instalación</a>
+    </li>
+    <li>
+      <a href="IntroR.html">Introducción</a>
+    </li>
+    <li>
+      <a href="FunsR.html">Funciones y Paquetes</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Intervalos de Confianza para dos grupos</h1>
+
+</div>
+
+
+<div id="inferencia-comparación-de-grupos" class="section level2">
+<h2>Inferencia comparación de grupos</h2>
+<p>Hasta ahora se ha realizado estimaciónes y verificaciones de hipótesis para un parámetros. Ahora, el interés es comparar dos grupos, es decir, comparar una característica común pero que se diferencian en dos estados distinos y que no existen otras condiciones adicionales que diferencien las dos muestras.</p>
+<p>Para estos casos se presentan dos situaciones, que las muestras sean <strong>independientes</strong> o que las muestras sean <strong>pareadas</strong>, es decir, que es el seguimiento de un solo individuo en el cambio de estado (tiempo, área, condición).</p>
+<p><img src="I_ic2_files/figure-html/unnamed-chunk-1-1.png" width="1200" style="display: block; margin: auto;" /></p>
+<p>Dada estas situaciones entonces surge la pregunta ¿Existe diferencia significativa entre los dos grupos? Para responder esta peregunta tenemos dos procedimientos para llegar a la respuesta:</p>
+<ul>
+<li><strong>Intervalos de confianza</strong></li>
+<li><strong>Pruebas de hipótesis</strong></li>
+</ul>
+<hr>
+</div>
+<div id="intervalo-de-confianza-para-la-diferencia-de-proporciones" class="section level2">
+<h2>Intervalo de confianza para la diferencia de proporciones</h2>
+<p>A menudo se tiene interés en conocer la magnitud de la diferencia entre las proporciones de dos poblaciones. Es posible que se quiera comparar, por ejemplo, entre hombres y mujeres, dos grupos de edades, dos grupos socioeconómicos o dos grupos de diagnóstico con respecto a la proporción que posee alguna caractenstica de interés.</p>
+<p>Se tienen <span class="math inline">\(X_1,\dots,X_n\)</span> y <span class="math inline">\(Y_1,\dots,Y_n\)</span> dos muestras aleatorias cada una pertenecientes a una distribución binomial <span class="math inline">\(X\sim bin(n_1,p_1)\)</span> y <span class="math inline">\(Y\sim bin(n_2,p_2)\)</span>. Un estimador puntual insesgado de la diferencia entre dos proporciones de las poblaciones se obtiene al calcular la diferencia de las proporciones de las muestras <span class="math inline">\(\hat{p_1}-\hat{p_2}\)</span>. Tal como se ha visto, cuando <span class="math inline">\(n_1\)</span> <span class="math inline">\(n_2\)</span> son de <strong>gran tamano</strong> y las proporciones de la población no estan muy cerca de <span class="math inline">\(0\)</span> o de <span class="math inline">\(1\)</span>, es posible aplicar el <strong>teorema central del limite</strong> y utilizar la teoría de la distribución normal para obtener los intervalos de confianza.</p>
+<p>El error estándar de la estimación se calcula mediante la siguiente formula:</p>
+<p><span class="math display">\[\Large\hat{\sigma}_{\hat{p_1}-\hat{p_2}}=\sqrt{\frac{\hat{p_1}(1-\hat{p_1})}{n_1}+\frac{\hat{p_2}(1-\hat{p_2})}{n_2}}\]</span></p>
+<p>Entonces un intervalo de confianza al <span class="math inline">\(100(1-\alpha)\%\)</span> para <span class="math inline">\(p_1-p_2\)</span> se obtiene de:</p>
+<p><span class="math display">\[(\hat{p_1}-\hat{p_2})\,\pm\,Z_{1-\alpha/2}\sqrt{\frac{\hat{p_1}(1-\hat{p_1})}{n_1}+\frac{\hat{p_2}(1-\hat{p_2})}{n_2}}\]</span></p>
+<blockquote>
+<p>Entonces cuando el intervalo contenga el valor <span class="math inline">\(0\)</span> significa que los grupos son <strong>estadística mente iguales</strong>, eso se debe a: <span class="math display">\[p_1 - p_2 = 0 \quad \rightarrow \quad p_1=p_2\]</span></p>
+</blockquote>
+<hr>
+</div>
+<div id="intervalo-de-confianza-para-la-diferencia-de-medias" class="section level2">
+<h2>Intervalo de confianza para la diferencia de medias</h2>
+<p>El procedimiento de compar grupos a través de los medias estimadas, similar a estimar un solo parámetro, requiere de una serie de evaluaciones para seleccionar el método correcto de acuerdo al comportamiento de los datos.</p>
+<ol style="list-style-type: decimal">
+<li>Verificar que los datos distribuyen normal o no.</li>
+<li>Verificar si los tamaños de cada muestra son suficientemente grandes.</li>
+<li>Verificar si las varianzas de cada muestra son iguales o no.</li>
+<li>Seleccionar el método de estimación.</li>
+</ol>
+<hr>
+<div id="verificación-de-la-normalidad" class="section level3">
+<h3>Verificación de la normalidad</h3>
+<p>El primer paso se realiza a través de los métodos de <strong>Pruebas de Hipótesis</strong> que se abordará en el siguiente capítulo, no obstante de acuerdo a las propiedades de la <strong>Distribución Normal</strong> se puede realizar una inspección gráfica.</p>
+<p><img src="I_ic2_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Estos tres gráficos nos ayudarán para explorar el comportamiento de los datos y se pueden combinar con los gráficos de las distribuciones teóricas para evaluar qué tanto se parecen.</p>
+<p>El primer gráfico se llama <strong>Gráfico de Densidad</strong>, muestra cómo es la distribución empírica de probabilidad, a diferencia del <em>Histograma</em> es una buena aproximación de las distribuciones continuas.</p>
+<p>El segundo gráfico se llama <strong>Gráfico Densidad Acumulada Empírica</strong>, este gráfico es muy útil cuando se compara con <em>La densidad acumulada</em> de las distribuciones teóricas. Además, el gráfico muestra el salto de cada muestra en la función de densidad acumulada empírica.</p>
+<p>El tercer gráfico se llama <strong>Gráfico de Comparación de Cuantiles</strong>, contrasta las muestras con los cuantiles de la distribución teórica. La ventaja de este gráfico es que dibuja una recta en la cual se <em>espera</em> que el conjunto de datos se ajuste, además dibuja bandas de confianza para mostrar hasta dónde se puede considerar que los puntos se ajustan a la recta.</p>
+<p><img src="I_ic2_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>La idea de este gráfico es que los puntos estén muy cercanos a la recta y entre los límites de confianza. Hay que tener cuidado en los extremos de las muestras, ya que algunos puntos pueden salir de las bandas pero esto no significa que no tengan la distribución que se está evaluando; si la mayoría de los puntos están ajustados a la recta y son muy pocos datos <strong>en los extremos</strong> que salen de las bandas, se puede considerar un buen ajuste.</p>
+<hr>
+</div>
+<div id="pruebas-de-igualdad-de-varianza" class="section level3">
+<h3>Pruebas de igualdad de Varianza</h3>
+<p>Otro paso importante es verificar si las varianzas de ambos grupos son iguales o no, esto es importante porque la intención de la comparación de grupos a partir de la diferencia de promedios solamente debe comparar un factor o grupo que diferencia las muestras. La presencia de variabilidad excesiva en una de las muestras indicaría que existe otra condición no analizada que puede afectar la comparación, sin embargo, es posible controlar este problema estimando una variación conjunta entre los dos grupos.</p>
+<p>La comparación de dos varianzas se realiza a través de su razón, <span class="math inline">\(\sigma_1/\sigma_2\)</span> si las varianzas son iguales entonces la razón será <span class="math inline">\(1\)</span>. Por lo general, las variancias de las poblaciones son desconocidas y, en consecuencia, toda comparación que haga deberá basarse en las variancias de las muestras. Basado en el Teorema Central del Límite se puede demostrar que la razón de dos varianzas tiene una distribución <strong>F de Snedecor</strong>. Entonces un intervalo de confianza para la razón de varianzas está dado por:</p>
+<p><span class="math display">\[F_{(\alpha/2,n_1-1,n_2-1)}&lt;\cfrac{S^2_1/\sigma^2_2}{S^2_2/\sigma^2_2}&lt;F_{(1-\alpha/2,n_1-1,n_2-1)}\\\\
+F_{(\alpha/2,n_1-1,n_2-1)}&lt;\cfrac{S^2_1}{S^2_2}\times\cfrac{\sigma^2_2}{\sigma^2_1}&lt;F_{(1-\alpha/2,n_1-1,n_2-1)}\\\\
+\cfrac{F_{(\alpha/2,n_1-1,n_2-1)}}{S^2_1/S^2_2}&lt;\cfrac{\sigma^2_2}{\sigma^2_1}&lt;\cfrac{F_{(1-\alpha/2,n_1-1,n_2-1)}}{S^2_1/S^2_2}\\\\
+\cfrac{S^2_1/S^2_2}{F_{(\alpha/2,n_1-1,n_2-1)}}&gt;\cfrac{\sigma^2_1}{\sigma^2_2}&gt;\cfrac{S^2_1/S^2_2}{F_{(1-\alpha/2,n_1-1,n_2-1)}}\]</span></p>
+<p>Un intervalo al <span class="math inline">\(100(1-\alpha)\%\)</span> para <span class="math inline">\(\sigma^2_1/\sigma^2_2\)</span> está dado por:</p>
+<p><span class="math display">\[\cfrac{S^2_1/S^2_2}{F_{(1-\alpha/2,n_1-1,n_2-1)}}&lt;\cfrac{\sigma^2_1}{\sigma^2_2}&lt;\cfrac{S^2_1/S^2_2}{F_{(\alpha/2,n_1-1,n_2-1)}}\]</span></p>
+<p><img src="I_ic2_files/figure-html/unnamed-chunk-4-1.png" width="700" style="display: block; margin: auto;" /></p>
+<p>En el primer gráfico se evidencia cómo el parámetro <span class="math inline">\(d_2\)</span> determina la altura de la densidad cuando el parámetro <span class="math inline">\(d_1\)</span> está fijo, mientras que en el segundo se ve cómo el parámetro <span class="math inline">\(d_1\)</span> mueve la distribución en el eje <span class="math inline">\(x\)</span> de forma positiva cuando el parámetro <span class="math inline">\(d_2\)</span> está fijo.</p>
+<p><img src="I_ic2_files/figure-html/unnamed-chunk-5-1.png" width="700" style="display: block; margin: auto;" /></p>
+<p>Cuando los parámetros de la distribución son iguales se nota que para valores <span class="math inline">\(&lt;3\)</span> la distribución tiene tendencia exponencial, y aparece de forma notable la varianza con parámetros <span class="math inline">\(d1=d2\geq4\)</span>. Por otra parte, si ambos parámetros son muy grandes, en el límite la distribución se transforma en una distribución degenerada en <span class="math inline">\(x=1\)</span>.</p>
+<hr>
+</div>
+</div>
+<div id="resumen" class="section level2">
+<h2>Resumen</h2>
+<center>
+<img src="IC_mu-mu.png" title="fig:" alt="Resumen IC" />
+</center>
+<p>Con:</p>
+<p><span class="math display">\[SP=\sqrt{\cfrac{(n_1-1)S^2_1+(n_2-1)S^2_2}{n_1+n_2-2}}\]</span> y</p>
+<p><span class="math display">\[\large v= \cfrac{\left(\frac{S^2_1}{n_1}+\frac{S^2_2}{n_2}\right)^2}{\frac{\left(\frac{S^2_1}{n_1}\right)^2}{n_1-1}+\frac{\left(\frac{S^2_2}{n_2}\right)^2}{n_2-1}}\]</span></p>
+<hr>
+</div>
+<div id="ejemplo-práctico" class="section level2">
+<h2>Ejemplo práctico</h2>
+<p>La siguiente base de datos contiene información acerca de incautaciones de bebidas alcohólicas fraudulentas y de contrabando en la ciudad de Medellín en un mes, que afectan los recursos para Salud y Educación en el Departamento de Antioquia y de acuerdo a los resultados se toma decisiones para aumentar o disminuir los controles.</p>
+<center>
+<a href="./R/Licores.xlsx" class="btn btn-default" target="_blank">Licores</a>
+</center>
+<p>La base de datos contiene las variables - <strong>TL</strong> (Tipo de Licor) - <strong>PI</strong> (Precio de incautación: se refiere al precio de venta en el establecimiento por unidad) - <strong>GAE</strong> (Grados de Alcohol en etiqueta) - <strong>GAQ</strong> (grados de alcohol en prueba química) - <strong>CE</strong> (Cantidades estandarizadas: número de unidades estandarizadas a 750 ml).</p>
+<p>Usando la información de su base de datos responda a las siguientes preguntas.</p>
+<ol style="list-style-type: decimal">
+<li><p>El <strong>precio total</strong> de la incautación se calcula como la cantidad estandarizada por el precio de incautación. ¿Se puede afirmar que el precio total promedio de la incautación es superior a $7’500.000?</p></li>
+<li><p>El <strong>ipoconsumo</strong>, es el impuesto que deja de percibir el Estado para salud y educación, el cual se calcula como: <span class="math inline">\(GAQ \times CE \times 400\)</span> (pesos). ¿Se puede afirmar que el ipoconsumo promedio del ron es inferior al ipoconsumo medio del Whisky? ¿Qué decisión se puede tomar frente al control?</p></li>
+<li><p>El licor incautado se clasifica como “Fraudulento” si los GAE son distintos a los GAQ y como “contrabando” si son iguales. ¿La proporción de licores fraudulentos es superior al 65%? ¿Qué significa éste resultado?</p></li>
+</ol>
+<div id="solución-usando-r" class="section level4">
+<h4>Solución usando R</h4>
+<p>Lo primero es descargar la base de datos en la carpeta que se considere, luego debemos cargar la base de datos en <code>RStudio</code> para realizar los análisis. Antes de comenzar con el análisis necesitamos instalar o cargar las librerías necesarias para el análisis</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Para manipular datos</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(dplyr)) <span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># Gráficos con estilo</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(ggplot2)) <span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># Gráficos QQ-plot con IC</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(car)) <span class="kw">install.packages</span>(<span class="st">&quot;car&quot;</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Importar/Exportar datos de Excel</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(openxlsx)) <span class="kw">install.packages</span>(<span class="st">&quot;openxlsx&quot;</span>)</span></code></pre></div>
+<p>El siguiente paso es cargar la base de datos, esto lo podemos realizar directamente de <code>RStudio</code> con el siguiente comando:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>Licores &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>(<span class="kw">file.choose</span>(),<span class="dt">sheet =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Revisemos la estructura de los datos, para verificar si fueron cargados correctamente.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">str</span>(Licores)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    300 obs. of  5 variables:
+##  $ TL : chr  &quot;Ron&quot; &quot;Aguardiente&quot; &quot;Ron&quot; &quot;Aguardiente&quot; ...
+##  $ PI : num  34719 26900 27062 29317 32471 ...
+##  $ GAE: num  35 29 35 29 38 29 29 38 35 40 ...
+##  $ GAQ: num  30.2 29 32.2 29 32.6 ...
+##  $ CE : num  221 253 249 254 267 ...</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># cambiando caracter por factor</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>Licores &lt;-<span class="st"> </span>Licores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_if</span>(is.character,as.factor)</span></code></pre></div>
+<p>El primer punto nos piden calcular <strong>el precio total</strong> de incautación, y se pregunta si el promedio de esa nueva variable es superior a 7.5 millones. Para seleccionar el estadístico de prueba más indicado, debemos probar si la distribución del precio total de incautación es Normal.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>Licores<span class="op">$</span>PT &lt;-<span class="st"> </span>Licores<span class="op">$</span>CE<span class="op">*</span>Licores<span class="op">$</span>PI</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">hist</span>(Licores<span class="op">$</span>PT,<span class="dt">freq=</span>F,<span class="dt">col=</span><span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="kw">lines</span>(<span class="kw">density</span>(Licores<span class="op">$</span>PT),<span class="dt">main=</span><span class="st">&quot;Density Plot&quot;</span>,<span class="dt">col=</span><span class="dv">2</span>)</span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">plot</span>(<span class="kw">ecdf</span>(Licores<span class="op">$</span>PT),<span class="dt">main=</span><span class="st">&quot;Cumulative Plot&quot;</span>,<span class="dt">cex=</span><span class="dv">1</span>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="kw">qqPlot</span>(Licores<span class="op">$</span>PT,<span class="dt">main =</span> <span class="st">&quot;QQ - Plot&quot;</span>,<span class="dt">pch=</span><span class="dv">20</span>,<span class="dt">id=</span>F,<span class="dt">cex=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="I_ic2_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Entonces, siguiendo el árbol de decisión tenemos que los datos se distribuyen normal y no conocemos los parámetros poblacionales, por lo tanto el estadístico de prueba está basado en la <em>t-student</em>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">t.test</span>(Licores<span class="op">$</span>PT,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  Licores$PT
+## t = 102.67, df = 299, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  7325868 7612193
+## sample estimates:
+## mean of x 
+##   7469031</code></pre>
+<p>Como el intervalo de confianza está compuesto por <span class="math inline">\((7&#39;325.868;\,7&#39;612.193)\)</span> y contiene el valor teórico de los 7.5 millones, existe evidencia muestral suficiente de que el promedio del precio de incautaciones mesual es de $7’500.000, esto implica anualmente se esperaría que alrededor de 90 millones de pesos deje de circular ilegalmente gracias a lo no pago de impuestos o adulteración de licores.</p>
+<hr>
+<p>En la siguiente pregunta se pide calcular el <em>ipoconsumo</em> de acuerdo a una formulación, y luego comparar si el impuesto de los licores de tipo <em>Ron</em> son menores a los de <em>Whisky</em> basado en los promedios.</p>
+<p>De acuerdo al árbol de decisión tenemos que hacer los siguientes pasos:</p>
+<ul>
+<li>Calcular el ipoconsumo</li>
+<li>Separar la base de datos en Ron y Whisky</li>
+<li>Probar la normalidad de ambos grupos</li>
+<li>Comprobar la igualdad de varianzas de los grupos</li>
+<li>Escoger el mejor estadístico de prueba y realizar el análisis.</li>
+<li>Concluir</li>
+</ul>
+<p>Los primeros dos pasos son sencillos:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>Licores &lt;-<span class="st"> </span>Licores <span class="op">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">IPO =</span> GAQ<span class="op">*</span>CE<span class="op">*</span><span class="dv">400</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="kw">hist</span>(Licores<span class="op">$</span>IPO,<span class="dt">col=</span><span class="st">&quot;lightblue&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="I_ic2_files/figure-html/unnamed-chunk-12-1.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>SoloRW &lt;-<span class="st"> </span>Licores <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="st">   </span><span class="kw">filter</span>(TL <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ron&quot;</span>,<span class="st">&quot;Whisky&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="st">   </span>droplevels</span>
+<span id="cb10-4"><a href="#cb10-4"></a>SoloRW <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(TL) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="st">   </span><span class="kw">summarise</span>(<span class="dt">n=</span><span class="kw">length</span>(IPO),</span>
+<span id="cb10-6"><a href="#cb10-6"></a>             <span class="dt">media=</span><span class="kw">mean</span>(IPO),</span>
+<span id="cb10-7"><a href="#cb10-7"></a>             <span class="dt">desv=</span><span class="kw">sd</span>(IPO))</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   TL         n    media    desv
+##   &lt;fct&gt;  &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Ron       52 3185673. 270971.
+## 2 Whisky    27 3591694. 317110.</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>SoloRW <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>IPO,<span class="dt">fill=</span>TL))<span class="op">+</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="st">   </span><span class="kw">geom_density</span>(<span class="dt">alpha=</span><span class="fl">0.5</span>)<span class="op">+</span><span class="kw">xlim</span>(<span class="kw">c</span>(<span class="fl">2e06</span>,<span class="fl">5e06</span>))<span class="op">+</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="I_ic2_files/figure-html/unnamed-chunk-12-2.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Luego debemos probar la normalidad de los datos. Una opción es separar la base de datos y construir dos nuevas con los grupos de interés.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Evaluar - Normalidad</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="kw">with</span>(SoloRW <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(TL<span class="op">==</span><span class="st">&quot;Ron&quot;</span>),</span>
+<span id="cb13-4"><a href="#cb13-4"></a>     <span class="kw">qqPlot</span>(IPO,<span class="dt">pch=</span><span class="dv">20</span>,<span class="dt">main =</span> <span class="st">&quot;QQ-Plot Ron&quot;</span>,<span class="dt">id=</span>F,<span class="dt">col.lines =</span> <span class="dv">2</span>))</span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="kw">with</span>(SoloRW <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(TL<span class="op">==</span><span class="st">&quot;Whisky&quot;</span>),</span>
+<span id="cb13-6"><a href="#cb13-6"></a>     <span class="kw">qqPlot</span>(IPO,<span class="dt">pch=</span><span class="dv">20</span>,<span class="dt">main =</span> <span class="st">&quot;QQ-Plot Whisky&quot;</span>,<span class="dt">id=</span>F,<span class="dt">col.lines =</span> <span class="dv">4</span>))</span></code></pre></div>
+<p><img src="I_ic2_files/figure-html/unnamed-chunk-13-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Como ambas muestras distribuyen normal, es necesario verificar si existe igualdad en sus varianzas, esto se comprueba con la función <code>var.test</code>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">with</span>(SoloRW,<span class="kw">var.test</span>(IPO<span class="op">~</span>TL))</span></code></pre></div>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  IPO by TL
+## F = 0.73017, num df = 51, denom df = 26, p-value = 0.3333
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.3562148 1.3878542
+## sample estimates:
+## ratio of variances 
+##           0.730172</code></pre>
+<p>Entonces, como los datos son normales y tienen varianzas iguales, de acuerdo con el árbol de decisión el mejor estadístico de prueba está basado en la <em>t-student</em> y es necesario estimar la varianza conjunta, no obstante, el software lo hace:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">with</span>(SoloRW,</span>
+<span id="cb16-2"><a href="#cb16-2"></a>     <span class="kw">t.test</span>(IPO[TL<span class="op">==</span><span class="st">&quot;Ron&quot;</span>],</span>
+<span id="cb16-3"><a href="#cb16-3"></a>            IPO[TL<span class="op">==</span><span class="st">&quot;Whisky&quot;</span>],</span>
+<span id="cb16-4"><a href="#cb16-4"></a>            <span class="dt">var.equal =</span> T))</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  IPO[TL == &quot;Ron&quot;] and IPO[TL == &quot;Whisky&quot;]
+## t = -5.9561, df = 77, p-value = 7.258e-08
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -541763.2 -270279.6
+## sample estimates:
+## mean of x mean of y 
+##   3185673   3591694</code></pre>
+<p>En conclusión, el ipoconsumo del ron es menor al del whisky ya que el IC al 95% no contiene el cero. Entonces la cantidad de impuestos que deja de percibir el departamento tiene mayor aporte en el Whisky, sin embargo, las cantidades de Ron son casi el doble que las de Whisky lo que sugiere que este licor es preferido para la adulteración. Los controles se deben aumentar para incautar más Ron y establecer una estrategia para que no aumente la adulteración del Whisky que es la que más afecta los recursos para salud.</p>
+<hr>
+<p>El tercer punto nos piden calcular una nueva variable, si <span class="math inline">\(GAQ=GAE\)</span> el licor se clasifica como <strong>contrabando</strong> en caso contrario se llamará <strong>fraudulento</strong>.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>Licores &lt;-<span class="st"> </span>Licores <span class="op">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">TipoLicor =</span> <span class="kw">factor</span>(<span class="kw">ifelse</span>(GAQ<span class="op">==</span>GAE,<span class="st">&quot;Contrabando&quot;</span>,<span class="st">&quot;Fraudulento&quot;</span>)))</span></code></pre></div>
+<p>Luego preguntan si la proporción de licores Fraudulentos es superior al 65%.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">with</span>(Licores,<span class="kw">table</span>(TipoLicor))</span></code></pre></div>
+<pre><code>## TipoLicor
+## Contrabando Fraudulento 
+##          83         217</code></pre>
+<p>Como en <code>R</code> los factores se organizan alfabéticamente, entonces debemos cambiar la hipótesis hacia los licores de <strong>contrabando</strong>, entoces se evaluará si la proporción de licores de contrabando es del 35%.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">with</span>(Licores,</span>
+<span id="cb21-2"><a href="#cb21-2"></a>     <span class="kw">prop.test</span>(<span class="kw">table</span>(TipoLicor),</span>
+<span id="cb21-3"><a href="#cb21-3"></a>               <span class="dt">conf.level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb21-4"><a href="#cb21-4"></a>               <span class="dt">correct =</span> F))</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test without continuity correction
+## 
+## data:  table(TipoLicor), null probability 0.5
+## X-squared = 59.853, df = 1, p-value = 1.022e-14
+## alternative hypothesis: true p is not equal to 0.5
+## 95 percent confidence interval:
+##  0.2291106 0.3298699
+## sample estimates:
+##         p 
+## 0.2766667</code></pre>
+<p>Como el intervalo está dado por <span class="math inline">\((22.91\%;\,32.99\%)\)</span> y el valor teórico está por fuera del rango, por lo tanto existe evidencia muestral para afirmar que la proporción de licores Fraudulentos es mayor del 65%. Por lo tanto, las rentas ilegales de licores están basadas en mayor medida de la adulteración, el impacto para la salud pública es muy grave, pues los efectos nocivos de los licores que no son correctamente destilados aumenta los riesgos clínicos como la ceguera, el cáncer de órganos digestivos o la muerte.</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
