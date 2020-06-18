@@ -32,7 +32,7 @@ Introducir al estudiante al manejo del software estadístico más usado en inves
 | **Clase** |                                 **Descripción**                                |
 |:---------:|--------------------------------------------------------------------------------|
 |  <a href="./Clase01/Clase01.html">C_01</a>  | Introducción a R-Project y R-Studio. Instalación y configuración del software. |
-|  <a href="./Clase02/Clase02a.html">C_02</a>  | Estructuras de datos, tipos y clases de objetos. Vectores y matrices.       |
+|  <a href="./Clase02/Clase02.html">C_02</a>  | Estructuras de datos, tipos y clases de objetos. Vectores y matrices.       |
 |  <a href="./Clase03/Clase03a.html">C_03</a>  | Condicionales y ciclos. Secuencias. Número aleatorios.                         |
 |  <a href="./Clase04/Clase04a.html">C_04</a>  | Funciones en R y uso de librerías.                                             |
 |  <a href="./Clase05/Clase05a.html">C_05</a>  | Gráficos básicos.                                                              |
