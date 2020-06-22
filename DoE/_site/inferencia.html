@@ -24,14 +24,6 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="site_libs/d3-3.3.8/d3.min.js"></script>
-<script src="site_libs/dagre-0.4.0/dagre-d3.min.js"></script>
-<link href="site_libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
-<script src="site_libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
-<link href="site_libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-<script src="site_libs/chromatography-0.1/chromatography.js"></script>
-<script src="site_libs/DiagrammeR-binding-1.0.6.1/DiagrammeR.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -471,10 +463,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="anova.html">ANOVA</a>
-    </li>
-    <li>
-      <a href="design1.html">Diseños Aleatorios</a>
+      <a href="anova.html">ANOVA y DCA</a>
     </li>
     <li>
       <a href="blocks.html">Bloques Aleatorios</a>
@@ -567,20 +556,9 @@ div.tocify {
 <div id="muestras-aleatorias" class="section level2">
 <h2>Muestras Aleatorias</h2>
 <p>En el proceso de identificar y explicar las características esenciales que permiten describir el comportamiento de un fenómeno, nuestro objetivo es el de establecer de manera aproximada dicho comportamiento usando parte de toda la información relevante acerca del fenómeno.</p>
-<div id="htmlwidget-d068eff8ad8629750e6c" style="width:1500px;height:120px;" class="DiagrammeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d068eff8ad8629750e6c">{"x":{"diagram":"\ngraph LR\n\nAA((Parámetros))\nA((Población))-- Se extraen -->B(Muestras)\nB-- Se analizan -->BB(Estadísticas)\nBB-- Se estiman -->AA\nA--contienen-->AA\n\n"},"evals":[],"jsHooks":[]}</script>
-<script>
-var config = {
-    startOnLoad:true,
-    theme: 'forest',
-    flowchart:{
-            useMaxWidth:true,
-            htmlLabels:true
-        }
-};
-mermaid.initialize(config);
-window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
-</script>
+<center>
+<img src="Diagram.png" title="fig:" alt="Diagrama" />
+</center>
 <p>Cuando se desea estimar un parámetro poblacional se puede presentar cualquiera de los próximos 3 casos:</p>
 <ul>
 <li>Estimar una proporción</li>
@@ -648,11 +626,11 @@ P(2497&lt;\bar{X}&lt;2505)&amp;=P\left(\frac{2497-2500}{50/\sqrt{36}}&lt;\frac{\
 <p>En una muestra de 85 juntas de dilatación de losas, 10 presentan fisuras perpendiculares. ¿Cuál es la proporción real de fisuras en las juntas de dilatación con una confianza del 95%?<br><br> Sea <span class="math inline">\(X\)</span> el número de fisuras en las juntas de dilatación de las losas, entonces <span class="math inline">\(X\sim bin(85,p)\)</span>. Del enunciado se tiene que: <span class="math inline">\(\hat{p}=x/85=10/85=0.1176471\)</span><br> Un Intervalo de Confianza (IC) aproximado al 95% para <span class="math inline">\(p\)</span> es de la forma: <span class="math display">\[\frac{10}{85}\,\pm\,1.96\sqrt{\frac{(10/85)(75/85)}{85}}\,\Rightarrow\,0.1176\,\pm\,0.0685\,\Rightarrow(0.0492;0.1861)\]</span> En conclusión, con una confianza deñ 95% la proporción de fisuras perpendiculares en las juntas de dilatación de las losas se estiman entre (0.0492;0.1861)</p>
 </blockquote>
 <p>El siguiente ejercicio de simulación muestra el concepto de la probabilidad de los intervalos de confianza y la influencia de los tamaños de muestra</p>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-2-1.png" width="700" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-1-1.png" width="700" style="display: block; margin: auto;" /></p>
 <p>Cuando aumenta el tamaño de muestra los intervalos tienen menor amplitud, lo cual es lo deseado, ya que la amplitud es una medida de precisión.</p>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-3-1.png" width="700" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-2-1.png" width="700" style="display: block; margin: auto;" /></p>
 <p>En términos de la cobertura del intervalo, se espera que para cualquier valor estimado de <span class="math inline">\(p\)</span> la probabilidad de cobertura sea cercana al nivel de confianza <span class="math inline">\(100(1-\alpha)\%\)</span>.</p>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-4-1.png" width="600" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-3-1.png" width="600" style="display: block; margin: auto;" /></p>
 <p>Este es el inconveniente que presenta esta propuesta de intervalo para la proporción llamada <em>método Wald</em>. En la literatura existe muchas propuestas para intervalos de confianza para la proporción, de hecho, sigue siendo un caso de estudio por varios estadísticos.</p>
 <p>En 1934 Clopper y Pearson presentaron una propuesta para los intervalos de confianza basados en la <em>Distribución Beta</em> que, a su vez, está relacionada con la <em>Distribución F</em>, sin embargo, lo complejo de sus cálculos no le dio el protagonismo para la época. Ahora este intervalo se ha puesto a prueba gracias a los avances computacionales haciendo fácil el cálculo y entregando mejores resultados en términos de probabilidad de cobertura.</p>
 <p><span class="math display">\[B(\alpha/2;\,x,\,n-x+1)&lt;\hat{p}&lt;B(1-\alpha/2;\,x+1,\,n-x)\]</span></p>
@@ -684,9 +662,9 @@ n&amp;&gt;96.03647 \approx 97
 \end{align*}\]</span></p>
 </blockquote>
 <p>El siguiente ejercicio de simulación muestra el concepto de la probabilidad de los intervalos de confianza y la influencia de los tamaños de muestra</p>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-7-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-6-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>En términos de la cobertura del intervalo, se espera que para cualquier valor estimado de <span class="math inline">\(p\)</span> la probabilidad de cobertura sea cercana al nivel de confianza <span class="math inline">\(100(1-\alpha)\%\)</span>.</p>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-8-1.png" width="810" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-7-1.png" width="810" style="display: block; margin: auto;" /></p>
 <p>En el caso de que las muestra aleatoria que proviene de una distribución normal <span class="math inline">\(N(\mu,\sigma^2)\)</span> no se tenga información de <span class="math inline">\(\sigma\)</span>, es decir, que tiene <strong>varianza desconocida</strong> entonces se puede reemplazar <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(S^2\)</span> siempre y cuando se tenga tamaños de muestra grandes tal que:</p>
 <p><span class="math display">\[\bar{X}\,\pm\,Z_{\alpha/2}\frac{S}{\sqrt{n}}\]</span></p>
 <p>En <code>R</code> no existe una función como tal para calcular intervalos de confianza para la distribución normal, sin embargo, no es difícil realizar su programación</p>
@@ -705,7 +683,7 @@ n&amp;&gt;96.03647 \approx 97
 <p><span class="math display">\[T=\cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \sim t_{(n-1)}\]</span></p>
 <p>Realizando un proceso similar al caso de muestras aleatorias con media desconocida, se puede encontrar que un IC al <span class="math inline">\(100(1 − \alpha)\%\)</span> para <span class="math inline">\(\mu\)</span> es de la forma:</p>
 <p><span class="math display">\[\bar{X} \pm t_{(\alpha/2,\,n-1)}\frac{S}{\sqrt{n}}\]</span></p>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /></p>
 <blockquote>
 <p>De acuerdo a estudios sobre el concreto se encontró que el porcentaje de resistencia a los 28 días de curado se distribuye normalmente. Se toma una muestra aleatoria de 15 cilindros de concreto con 28 días de curado y se obtiene un porcentaje promedio de resistencia de 83.5% con una desviación estándar de 2.8%. Estime el porcentaje promedio de resistencia real del concreto usando un IC al 97%.<br><br> Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria que representa el porcentaje de resistencia del concreto. Suponga que <span class="math inline">\(E[X_i]=\mu\)</span> y <span class="math inline">\(Var[X_i]=\sigma^2\)</span> ambas desconocidas, además del enunciado se tiene que <span class="math inline">\(\bar{x}=83.5\)</span>, <span class="math inline">\(S=2.8\)</span> y <span class="math inline">\(n=15\)</span> entonces un IC al 97% para <span class="math inline">\(\mu\)</span> está dado por: <span class="math display">\[\begin{align*}
 \bar{X}\,&amp;\pm\,t_{0.015,n-1}\frac{S}{\sqrt{n}}\\\\
@@ -805,7 +783,7 @@ Error Tipo II
 </center>
 <p>Es lógico que se desea minimizar las probabilidades de cometer los errores en la decisión (tipo 1 ó 2), pero esto depende de la m.a <span class="math inline">\(X_1,X_2,...,X_n\)</span>. Sin embargo, si P(cometer error tipo 1)=0, entonces P(cometer error tipo 2)=1.</p>
 <p><span class="math display">\[\alpha = P(\text{Error Tipo I})\]</span> <span class="math display">\[\beta = P(\text{Error Tipo II})\]</span> <span class="math inline">\(\alpha\)</span> es llamado nivel de significancia de la prueba o tamaño de la región crítica y <span class="math inline">\(1-\beta\)</span> es la potencia de la prueba.</p>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-12-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-11-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>Suponga que <span class="math inline">\(X\)</span> es una v.a tal que <span class="math inline">\(X \sim bin(n , p)\)</span>, con <span class="math inline">\(p\)</span> desconocida. Sea <span class="math inline">\(p_0\)</span> un valor de interés para <span class="math inline">\(p\)</span>. Tres hipótesis pueden ser planteadas acerca de <span class="math inline">\(p\)</span>.</p>
 <p><span class="math display">\[\begin{align*}
 H_0: p=p_0 \quad \text{vs} \quad H_a: \begin{cases} p &amp;&lt;p_0 \\
@@ -932,7 +910,7 @@ V_p: \begin{cases} P(t_{n-1} &lt; T_c) \\
 <span id="cb22-7"><a href="#cb22-7"></a>                       <span class="dt">desv=</span><span class="kw">sd</span>(concrete_compressive_strength))</span></code></pre></div>
 <pre><code>##    n    media    desv
 ## 1 26 41.73038 10.9291</code></pre>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-17-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-16-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>Si asumimos que el comportamiento de la resistencia a la compresión proviene de una distribución <span class="math inline">\(N(\mu,\sigma^2)\)</span> entonces la hipótesis a probar es:</p>
 <p><span class="math display">\[H_0: \mu=40 \quad\text{vs}\quad H_a: \mu&gt;40\]</span></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Evaluemos la prueba de hipótesis</span></span>
@@ -962,7 +940,7 @@ V_p: \begin{cases} P(t_{n-1} &lt; T_c) \\
 <h2>Inferencia comparación de grupos</h2>
 <p>Hasta ahora se ha realizado estimaciónes y verificaciones de hipótesis para un parámetros. Ahora, el interés es comparar dos grupos, es decir, comparar una característica común pero que se diferencian en dos estados distinos y que no existen otras condiciones adicionales que diferencien las dos muestras.</p>
 <p>Para estos casos se presentan dos situaciones, que las muestras sean <strong>independientes</strong> o que las muestras sean <strong>pareadas</strong>, es decir, que es el seguimiento de un solo individuo en el cambio de estado (tiempo, área, condición).</p>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-19-1.png" width="3000" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-18-1.png" width="3000" style="display: block; margin: auto;" /></p>
 <p>Dada estas situaciones entonces surge la pregunta ¿Existe diferencia significativa entre los dos grupos? Para responder esta peregunta tenemos dos procedimientos para llegar a la respuesta:</p>
 <ul>
 <li><strong>Intervalos de confianza</strong></li>
@@ -977,12 +955,12 @@ V_p: \begin{cases} P(t_{n-1} &lt; T_c) \\
 \text{vs}\\
 H_0:\text{los datos NO destribuyen }N(\mu,\sigma^2)\\\]</span></p>
 <p>Para determinar si un conjunto de datos tiene una distribución conocida, se pueden realizar análisis exploratorios con algunos gráficos que ayudan a apreciar de manera aproximada cómo podrían distribuir los datos.</p>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-20-1.png" width="2400" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-19-1.png" width="2400" style="display: block; margin: auto;" /></p>
 <p>Estos tres gráficos nos ayudarán para explorar el comportamiento de los datos y se pueden combinar con los gráficos de las distribuciones teóricas para evaluar qué tanto se parecen.</p>
 <p>El primer gráfico se llama <strong>Gráfico de Densidad</strong>, muestra cómo es la distribución empírica de probabilidad, a diferencia del <em>Histograma</em> es una buena aproximación de las distribuciones continuas.</p>
 <p>El segundo gráfico se llama <strong>Gráfico Densidad Acumulada Empírica</strong>, este gráfico es muy útil cuando se compara con <em>La densidad acumulada</em> de las distribuciones teóricas. Además, el gráfico muestra el salto de cada muestra en la función de densidad acumulada empírica.</p>
 <p>El tercer gráfico se llama <strong>Gráfico de Comparación de Cuantiles</strong>, contrasta las muestras con los cuantiles de la distribución teórica. La ventaja de este gráfico es que dibuja una recta en la cual se <em>espera</em> que el conjunto de datos se ajuste, además dibuja bandas de confianza para mostrar hasta dónde se puede considerar que los puntos se ajustan a la recta.</p>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-21-1.png" width="2400" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-20-1.png" width="2400" style="display: block; margin: auto;" /></p>
 <p>La idea de este gráfico es que los puntos estén muy cercanos a la recta y entre los límites de confianza. Hay que tener cuidado en los extremos de las muestras, ya que algunos puntos pueden salir de las bandas pero esto no significa que no tengan la distribución que se está evaluando; si la mayoría de los puntos están ajustados a la recta y son muy pocos datos <strong>en los extremos</strong> que salen de las bandas, se puede considerar un buen ajuste.</p>
 <p>Existen <strong>muchas</strong> pruebas de bondad de ajuste para la normalidad que incluso están disponibles en <code>R</code> y otros paquetes, no obstante, las más utilizadas y referenciadas en la literatua son:</p>
 <ul>
@@ -1080,7 +1058,7 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 <p><span class="math display">\[H_0:PT \sim N(\mu,\sigma^2) \qquad H_a: PT\not\sim N(\mu,\sigma^2)\]</span></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>Licores<span class="op">$</span>PT &lt;-<span class="st"> </span>Licores<span class="op">$</span>CE<span class="op">*</span>Licores<span class="op">$</span>PI</span>
 <span id="cb31-2"><a href="#cb31-2"></a><span class="kw">hist</span>(Licores<span class="op">$</span>PT,<span class="dt">col=</span><span class="st">&quot;lightblue&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-26-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-25-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># pruebas de hipótesis</span></span>
 <span id="cb32-2"><a href="#cb32-2"></a><span class="kw">shapiro.test</span>(Licores<span class="op">$</span>PT)</span></code></pre></div>
 <pre><code>## 
@@ -1129,7 +1107,7 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>Licores &lt;-<span class="st"> </span>Licores <span class="op">%&gt;%</span></span>
 <span id="cb40-2"><a href="#cb40-2"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">IPO =</span> GAQ<span class="op">*</span>CE<span class="op">*</span><span class="dv">400</span>)</span>
 <span id="cb40-3"><a href="#cb40-3"></a><span class="kw">hist</span>(Licores<span class="op">$</span>IPO,<span class="dt">col=</span><span class="st">&quot;lightblue&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-28-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-27-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>SoloRA &lt;-<span class="st"> </span>Licores <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb41-2"><a href="#cb41-2"></a><span class="st">   </span><span class="kw">filter</span>(TL <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ron&quot;</span>,<span class="st">&quot;Whisky&quot;</span>)) <span class="op">%&gt;%</span></span>
 <span id="cb41-3"><a href="#cb41-3"></a><span class="st">   </span>droplevels</span>
@@ -1144,7 +1122,7 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 ## 2 Whisky    27 3591694. 317110.</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>SoloRA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>IPO,<span class="dt">fill=</span>TL))<span class="op">+</span></span>
 <span id="cb43-2"><a href="#cb43-2"></a><span class="st">   </span><span class="kw">geom_density</span>()<span class="op">+</span><span class="kw">xlim</span>(<span class="kw">c</span>(<span class="fl">2e06</span>,<span class="fl">5e06</span>))<span class="op">+</span><span class="kw">theme_bw</span>()</span></code></pre></div>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-28-2.png" width="2100" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-27-2.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>Luego debemos probar la normalidad de los datos, esto lo podemos hacer de dos formas. La primera es separar la base de datos y construir dos nuevas con los grupos de interés, la otra es evaluar al mismo tiempo los valores-p de las pruebas usando <code>dplyr</code>.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="co"># Primer método - Ron</span></span>
 <span id="cb44-2"><a href="#cb44-2"></a>SoloRA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(TL<span class="op">==</span><span class="st">&quot;Ron&quot;</span>) <span class="op">%&gt;%</span></span>
@@ -1217,7 +1195,7 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 <span id="cb62-3"><a href="#cb62-3"></a>     <span class="kw">qqPlot</span>(IPO,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">main =</span> <span class="st">&quot;QQ-Plot Ron&quot;</span>,<span class="dt">id=</span>F,<span class="dt">col.lines =</span> <span class="dv">2</span>))</span>
 <span id="cb62-4"><a href="#cb62-4"></a><span class="kw">with</span>(SoloRA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(TL<span class="op">==</span><span class="st">&quot;Whisky&quot;</span>),</span>
 <span id="cb62-5"><a href="#cb62-5"></a>     <span class="kw">qqPlot</span>(IPO,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">main =</span> <span class="st">&quot;QQ-Plot Whisky&quot;</span>,<span class="dt">id=</span>F,<span class="dt">col.lines =</span> <span class="dv">4</span>))</span></code></pre></div>
-<p><img src="inferencia_files/figure-html/unnamed-chunk-29-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-28-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>Como ambas muestras distribuyen normal, es necesario verificar si existe igualdad en sus varianzas, esto se comprueba con la función <code>var.test</code>.</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="kw">with</span>(SoloRA,<span class="kw">var.test</span>(IPO<span class="op">~</span>TL))</span></code></pre></div>
 <pre><code>## 

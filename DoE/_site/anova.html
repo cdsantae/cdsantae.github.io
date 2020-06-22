@@ -463,10 +463,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="anova.html">ANOVA</a>
-    </li>
-    <li>
-      <a href="design1.html">Diseños Aleatorios</a>
+      <a href="anova.html">ANOVA y DCA</a>
     </li>
     <li>
       <a href="blocks.html">Bloques Aleatorios</a>
@@ -572,8 +569,8 @@ H_a: \mu_1\neq\mu_2\neq\mu_3\neq\mu_4\neq\mu_5\]</span></p>
 <h2>Diseños completamente al azar</h2>
 <p>Es el más simple de todos los diseños, ya que el objetivo es comparar dos o más tratamientos y solo considera dos fuentes de variabilidad: <em>los tratamientos</em> y <em>el error aleatorio</em>. Se llama completamente al azar (DCA) porque todas las corridas se realizan en orden aleatorio completo con el fin de reducir los sesgos aleatorios y sistemáticos.</p>
 <p>El análisis del diseño experimental se basa en resolver estadísticamente la siguiente ecuación:</p>
-<p><span class="math display">\[\large y_{ij} = \mu+\tau_{ij}+\varepsilon_{ij}\]</span></p>
-<p>Donde <span class="math inline">\(y\)</span> representa la variable respuesta, <span class="math inline">\(\mu\)</span> es la media global ajustada o el promedio común a todos los tratamientos, <span class="math inline">\(\tau\)</span> representa el factor con <span class="math inline">\(j\)</span> niveles o tratamientos y <span class="math inline">\(\varepsilon\)</span> representa el error aleatorio asociado al diseño experimental o atribuible a la medición. Este modelo se conoce como <strong>modelo de efectos fijos</strong>.</p>
+<p><span class="math display">\[\large y_{ij} = \mu+\tau_{i}+\varepsilon_{ij}\]</span></p>
+<p>Donde <span class="math inline">\(y\)</span> representa la variable respuesta, <span class="math inline">\(\mu\)</span> es la media global ajustada o el promedio común a todos los tratamientos, <span class="math inline">\(\tau\)</span> representa el factor con <span class="math inline">\(i\)</span> niveles o tratamientos y <span class="math inline">\(\varepsilon\)</span> representa el error aleatorio asociado al diseño experimental o atribuible a la medición. Este modelo se conoce como <strong>modelo de efectos fijos</strong>.</p>
 <blockquote>
 <p><strong>Notación de puntos</strong><br> Antes de abordar los análisis de los datos para comparar tratamientos, conviene introducir la notación de puntos que simplifica las fórmulas para el análisis. Sirve para representar de manera abreviada cantidades numéricas que se pueden calcular a partir de los datos experimentales, donde <span class="math inline">\(Y_{ij}\)</span> representa la j-ésima observación en el tratamiento <em>i</em>, con <span class="math inline">\(i = 1, 2, \dots, k\)</span> y <span class="math inline">\(j = 1, 2, \dots, n_i\)</span>. Las cantidades de interés son las siguientes:<br><br> <span class="math inline">\(Y_i.=\)</span> Suma de las observaciones del tratamiento <em>i</em>.<br> <span class="math inline">\(\bar{Y}_i.=\)</span> Media de las observaciones del i-ésimo tratamiento.<br> <span class="math inline">\(Y.. =\)</span> Suma total de las <span class="math inline">\(N = n1 + n2 + \dots + nk\)</span> mediciones.<br> <span class="math inline">\(\bar{Y}..=\)</span> Media global o promedio de todas las observaciones.<br><br> Note que el punto indica la suma sobre el correspondiente subíndice. Así, algunas relaciones válidas son, <span class="math display">\[Y_i.=\sum_{j=1}^{n_i}Y_{ij}\quad \bar{Y}_i.=\frac{\sum_{j=1}^{n_i}Y_{ij}}{n_{i}}\quad Y..=\sum_{i=1}^{k}\sum_{j=1}^{n_i}Y_{ij}\quad \bar{Y}..=\frac{Y..}{N}\]</span> Donde <span class="math inline">\(N=\sum_{i=1}^k n_i\)</span> es el total de observaciones.</p>
 </blockquote>
@@ -728,8 +725,8 @@ H_1: \mu_i \neq \mu_j\]</span></p>
 <hr>
 </div>
 </div>
-<div id="ejemplo" class="section level2">
-<h2>Ejemplo</h2>
+<div id="ejemplo-1" class="section level2">
+<h2>Ejemplo 1</h2>
 <p>Un equipo de mejora investiga el efecto de cuatro métodos de ensamble A, B, C y D, sobre el tiempo de ensamble en minutos. En primera instancia, la estrategia experimental es aplicar cuatro veces los cuatro métodos de ensamble en orden completamente aleatorio (las 16 pruebas en orden aleatorio). Si se usa el diseño completamente al azar (DCA), se supone que, además del método de ensamble, no existe ningún otro factor que influya de manera significativa sobre la variable de respuesta (tiempo de ensamble). Los tiempos de ensamble obtenidos son:</p>
 <center>
 <table class="table table-striped">
@@ -1020,6 +1017,313 @@ D
 ## (Adjusted p values reported -- single-step method)</code></pre>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">plot</span>(Dunnett.mc)</span></code></pre></div>
 <p><img src="anova_files/figure-html/unnamed-chunk-10-3.png" width="540" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ejemplo-2" class="section level2">
+<h2>Ejemplo 2</h2>
+<p>Un fabricante de calzado desea mejorar la calidad de las suelas, las cuales se pueden hacer con uno de los cuatro tipos de cuero A, B, C y D disponibles en el mercado. Para ello, prueba los cueros con una máquina que hace pasar los zapatos por una superficie abrasiva; la suela de éstos se desgasta al pasarla por dicha superficie. Como criterio de desgaste se usa la pérdida de peso después de un número fijo de ciclos. Se prueban en orden aleatorio 24 zapatos, seis de cada tipo de cuero. Al hacer las pruebas en orden completamente al azar se evitan sesgos y las mediciones en un tipo de cuero resultan independientes de las demás. Los datos (en miligramos) sobre el desgaste de cada tipo de cuero se muestran a continuación.</p>
+<center>
+<table class="table table-striped">
+<caption style="text-align:center">
+Método de Ensamble
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;">
+A
+</th>
+<th style="text-align:center;">
+B
+</th>
+<th style="text-align:center;">
+C
+</th>
+<th style="text-align:center;">
+D
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+264
+</td>
+<td style="text-align:center;">
+208
+</td>
+<td style="text-align:center;">
+220
+</td>
+<td style="text-align:center;">
+217
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+260
+</td>
+<td style="text-align:center;">
+220
+</td>
+<td style="text-align:center;">
+263
+</td>
+<td style="text-align:center;">
+226
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+258
+</td>
+<td style="text-align:center;">
+216
+</td>
+<td style="text-align:center;">
+219
+</td>
+<td style="text-align:center;">
+215
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+241
+</td>
+<td style="text-align:center;">
+200
+</td>
+<td style="text-align:center;">
+225
+</td>
+<td style="text-align:center;">
+227
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+262
+</td>
+<td style="text-align:center;">
+213
+</td>
+<td style="text-align:center;">
+230
+</td>
+<td style="text-align:center;">
+220
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+255
+</td>
+<td style="text-align:center;">
+206
+</td>
+<td style="text-align:center;">
+228
+</td>
+<td style="text-align:center;">
+222
+</td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>El modelo a evaluar es:</p>
+<p><span class="math display">\[y_{ij}=\mu+\tau_i+\varepsilon_{ij}\qquad \varepsilon_{ij}\sim N(0,\sigma^2)\]</span></p>
+<p>Utilizando <code>R</code> el análisis estadístico de este diseño experimental es sencillo. Los pasos a seguir son los siguientes:</p>
+<ol style="list-style-type: decimal">
+<li>Cargar/Construir la base de datos con la información de interés.</li>
+</ol>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>ejm2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">respuesta=</span><span class="kw">c</span>(<span class="dv">264</span>,<span class="dv">208</span>,<span class="dv">220</span>,<span class="dv">217</span>,</span>
+<span id="cb33-2"><a href="#cb33-2"></a>                               <span class="dv">260</span>,<span class="dv">220</span>,<span class="dv">263</span>,<span class="dv">226</span>,</span>
+<span id="cb33-3"><a href="#cb33-3"></a>                               <span class="dv">258</span>,<span class="dv">216</span>,<span class="dv">219</span>,<span class="dv">215</span>,</span>
+<span id="cb33-4"><a href="#cb33-4"></a>                               <span class="dv">241</span>,<span class="dv">200</span>,<span class="dv">225</span>,<span class="dv">227</span>,</span>
+<span id="cb33-5"><a href="#cb33-5"></a>                               <span class="dv">262</span>,<span class="dv">213</span>,<span class="dv">230</span>,<span class="dv">220</span>,</span>
+<span id="cb33-6"><a href="#cb33-6"></a>                               <span class="dv">255</span>,<span class="dv">206</span>,<span class="dv">228</span>,<span class="dv">222</span>),</span>
+<span id="cb33-7"><a href="#cb33-7"></a>                   <span class="dt">tratamientos=</span><span class="kw">rep</span>(LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>],<span class="dv">6</span>))</span>
+<span id="cb33-8"><a href="#cb33-8"></a></span>
+<span id="cb33-9"><a href="#cb33-9"></a><span class="co"># Verificar la tabla de datos</span></span>
+<span id="cb33-10"><a href="#cb33-10"></a><span class="kw">unstack</span>(ejm2)</span></code></pre></div>
+<pre><code>##     A   B   C   D
+## 1 264 208 220 217
+## 2 260 220 263 226
+## 3 258 216 219 215
+## 4 241 200 225 227
+## 5 262 213 230 220
+## 6 255 206 228 222</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Realizar un análisis descriptivo de la información.</li>
+</ol>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">ggplot</span>(ejm2,<span class="kw">aes</span>(<span class="dt">x=</span>tratamientos,<span class="dt">y=</span>respuesta,<span class="dt">fill=</span>tratamientos))<span class="op">+</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Diagrama de Cajas y Bigotes&quot;</span>)<span class="op">+</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="anova_files/figure-html/unnamed-chunk-12-1.png" width="540" style="display: block; margin: auto;" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Ajustar el modelo a través del ANOVA.</li>
+</ol>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># Anova</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>fit2 &lt;-<span class="st"> </span><span class="kw">aov</span>(respuesta<span class="op">~</span>tratamientos,<span class="dt">data =</span> ejm2)</span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="kw">anova</span>(fit2)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: respuesta
+##              Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## tratamientos  3 7019.5 2339.82  22.755 1.176e-06 ***
+## Residuals    20 2056.5  102.83                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Validar los supuestos del modelo.</li>
+</ol>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="co"># normalidad</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb38-3"><a href="#cb38-3"></a><span class="kw">qqnorm</span>(fit2<span class="op">$</span>residuals,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">las=</span><span class="dv">1</span>)</span>
+<span id="cb38-4"><a href="#cb38-4"></a><span class="kw">qqline</span>(fit2<span class="op">$</span>residuals)</span>
+<span id="cb38-5"><a href="#cb38-5"></a><span class="kw">qqPlot</span>(fit2<span class="op">$</span>residuals,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">main=</span><span class="st">&quot;Normal Q-Q Plot&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="anova_files/figure-html/unnamed-chunk-14-1.png" width="720" style="display: block; margin: auto;" /></p>
+<pre><code>## [1]  7 13</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">shapiro.test</span>(fit2<span class="op">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  fit2$residuals
+## W = 0.88326, p-value = 0.00967</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="kw">ad.test</span>(fit2<span class="op">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  fit2$residuals
+## A = 0.64761, p-value = 0.08005</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">lillie.test</span>(fit2<span class="op">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  fit2$residuals
+## D = 0.14365, p-value = 0.2256</code></pre>
+<p>¿Los residuales del modelo distribuyen normalmente?</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># independecia</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a><span class="kw">plot</span>(fit2<span class="op">$</span>residuals,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">type=</span><span class="st">&quot;b&quot;</span>,</span>
+<span id="cb46-3"><a href="#cb46-3"></a>     <span class="dt">main=</span><span class="st">&quot;Independencia&quot;</span>)</span>
+<span id="cb46-4"><a href="#cb46-4"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>,<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="anova_files/figure-html/unnamed-chunk-15-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="kw">durbinWatsonTest</span>(fit2)</span></code></pre></div>
+<pre><code>##  lag Autocorrelation D-W Statistic p-value
+##    1       0.4405003      1.092512   0.044
+##  Alternative hypothesis: rho != 0</code></pre>
+<p>¿Existe independencia en los residuales del modelo?</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="co"># Homocedasticidad</span></span>
+<span id="cb49-2"><a href="#cb49-2"></a><span class="kw">bartlett.test</span>(fit2<span class="op">$</span>residuals,ejm2<span class="op">$</span>tratamientos)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  fit2$residuals and ejm2$tratamientos
+## Bartlett&#39;s K-squared = 7.4634, df = 3, p-value = 0.05851</code></pre>
+<p>¿Se cumple el modelo de homocedasticidad?</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="co"># Supuestos globales</span></span>
+<span id="cb51-2"><a href="#cb51-2"></a><span class="kw">plot</span>(fit2,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="anova_files/figure-html/unnamed-chunk-17-1.png" width="540" style="display: block; margin: auto;" /><img src="anova_files/figure-html/unnamed-chunk-17-2.png" width="540" style="display: block; margin: auto;" /><img src="anova_files/figure-html/unnamed-chunk-17-3.png" width="540" style="display: block; margin: auto;" /><img src="anova_files/figure-html/unnamed-chunk-17-4.png" width="540" style="display: block; margin: auto;" /></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Realizar las pruebas post-hoc.</li>
+</ol>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="co">#### Pruebas post-hoc ####</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a><span class="co"># LSD</span></span>
+<span id="cb52-3"><a href="#cb52-3"></a>lsd &lt;-<span class="st"> </span><span class="kw">LSD.test</span>(<span class="dt">y =</span> fit2,<span class="dt">trt =</span> <span class="st">&quot;tratamientos&quot;</span>,<span class="dt">console =</span> T)</span></code></pre></div>
+<pre><code>## 
+## Study: fit2 ~ &quot;tratamientos&quot;
+## 
+## LSD t Test for respuesta 
+## 
+## Mean Square Error:  102.825 
+## 
+## tratamientos,  means and individual ( 95 %) CI
+## 
+##   respuesta       std r      LCL      UCL Min Max
+## A  256.6667  8.286535 6 248.0313 265.3020 241 264
+## B  210.5000  7.259477 6 201.8646 219.1354 200 220
+## C  230.8333 16.339115 6 222.1980 239.4687 219 263
+## D  221.1667  4.792355 6 212.5313 229.8020 215 227
+## 
+## Alpha: 0.05 ; DF Error: 20
+## Critical Value of t: 2.085963 
+## 
+## least Significant Difference: 12.21224 
+## 
+## Treatments with the same letter are not significantly different.
+## 
+##   respuesta groups
+## A  256.6667      a
+## C  230.8333      b
+## D  221.1667     bc
+## B  210.5000      c</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="kw">plot</span>(lsd,<span class="dt">las=</span><span class="dv">1</span>);<span class="kw">grid</span>()</span></code></pre></div>
+<p><img src="anova_files/figure-html/unnamed-chunk-18-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="co"># Tukey HSD</span></span>
+<span id="cb55-2"><a href="#cb55-2"></a>(hsd &lt;-<span class="st"> </span><span class="kw">TukeyHSD</span>(fit2))</span></code></pre></div>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = respuesta ~ tratamientos, data = ejm2)
+## 
+## $tratamientos
+##           diff        lwr        upr     p adj
+## B-A -46.166667 -62.552998 -29.780336 0.0000008
+## C-A -25.833333 -42.219664  -9.447002 0.0014117
+## D-A -35.500000 -51.886331 -19.113669 0.0000349
+## C-B  20.333333   3.947002  36.719664 0.0118160
+## D-B  10.666667  -5.719664  27.052998 0.2926431
+## D-C  -9.666667 -26.052998   6.719664 0.3742863</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a><span class="kw">plot</span>(hsd,<span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="anova_files/figure-html/unnamed-chunk-18-2.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="co"># Duncan</span></span>
+<span id="cb58-2"><a href="#cb58-2"></a><span class="kw">duncan.test</span>(<span class="dt">y =</span> fit2,<span class="dt">trt =</span> <span class="st">&quot;tratamientos&quot;</span>,<span class="dt">console =</span> T,<span class="dt">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit2 ~ &quot;tratamientos&quot;
+## 
+## Duncan&#39;s new multiple range test
+## for respuesta 
+## 
+## Mean Square Error:  102.825 
+## 
+## tratamientos,  means
+## 
+##   respuesta       std r Min Max
+## A  256.6667  8.286535 6 241 264
+## B  210.5000  7.259477 6 200 220
+## C  230.8333 16.339115 6 219 263
+## D  221.1667  4.792355 6 215 227
+## 
+## Comparison between treatments means
+## 
+##       difference pvalue signif.        LCL       UCL
+## A - B  46.166667 0.0000     ***  32.962466 59.370868
+## A - C  25.833333 0.0003     ***  13.621091 38.045575
+## A - D  35.500000 0.0000     ***  22.681249 48.318751
+## B - C -20.333333 0.0032      ** -33.152084 -7.514582
+## B - D -10.666667 0.0835       . -22.878909  1.545575
+## C - D   9.666667 0.1143          -2.545575 21.878909</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="co"># Dunnet</span></span>
+<span id="cb60-2"><a href="#cb60-2"></a>Dunnett.mc &lt;-<span class="st"> </span><span class="kw">glht</span>(fit2,<span class="dt">linfct=</span><span class="kw">mcp</span>(<span class="dt">tratamientos =</span> <span class="st">&quot;Dunnett&quot;</span>))</span>
+<span id="cb60-3"><a href="#cb60-3"></a><span class="kw">summary</span>(Dunnett.mc)</span></code></pre></div>
+<pre><code>## 
+##   Simultaneous Tests for General Linear Hypotheses
+## 
+## Multiple Comparisons of Means: Dunnett Contrasts
+## 
+## 
+## Fit: aov(formula = respuesta ~ tratamientos, data = ejm2)
+## 
+## Linear Hypotheses:
+##            Estimate Std. Error t value Pr(&gt;|t|)    
+## B - A == 0  -46.167      5.854  -7.886   &lt;0.001 ***
+## C - A == 0  -25.833      5.854  -4.413   &lt;0.001 ***
+## D - A == 0  -35.500      5.854  -6.064   &lt;0.001 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## (Adjusted p values reported -- single-step method)</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="kw">plot</span>(Dunnett.mc,<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">60</span>,<span class="dv">0</span>))</span></code></pre></div>
+<p><img src="anova_files/figure-html/unnamed-chunk-18-3.png" width="540" style="display: block; margin: auto;" /></p>
 </div>
 
 
