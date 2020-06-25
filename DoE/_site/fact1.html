@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Diseños Factoriales</title>
+
+<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.10/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.19/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.19/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Estadística para la Construcción</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="aboutDoE.html">
+    <span class="fa fa-book-open"></span>
+     
+    Acerca de
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-chalkboard-teacher"></span>
+     
+    Introducción
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="descrip.html">Descriptiva</a>
+    </li>
+    <li>
+      <a href="prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="inferencia.html">inferencia</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-chalkboard-teacher"></span>
+     
+    Diseños
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="anova.html">ANOVA y DCA</a>
+    </li>
+    <li>
+      <a href="blocks.html">Bloques Aleatorios</a>
+    </li>
+    <li>
+      <a href="fact1.html">Factoriales</a>
+    </li>
+    <li>
+      <a href="fact2k.html">2 a la k</a>
+    </li>
+    <li>
+      <a href="fact3k.html">3 a la k</a>
+    </li>
+    <li>
+      <a href="fractional.html">Fraccionados</a>
+    </li>
+    <li>
+      <a href="SurfResp.html">Superficies</a>
+    </li>
+    <li>
+      <a href="sample.html">Muestras</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-chalkboard-teacher"></span>
+     
+    Regresión
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="slm.html">Simple</a>
+    </li>
+    <li>
+      <a href="mlm.html">Múltiple</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    R-Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Rinstall.html">Instalación</a>
+    </li>
+    <li>
+      <a href="IntroR.html">Introducción</a>
+    </li>
+    <li>
+      <a href="FunsR.html">Funciones y Paquetes</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdsanta@unal.edu.co.com">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Diseños Factoriales</h1>
+
+</div>
+
+
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p>El objetivo de los diseños experimentales factoriales es analizar los efectos de dos o más factores que <strong>son de interés</strong> sobre una o más respuestas. Además, otro objetivo particular en los diseños factoriales es determinar una combinación de niveles de los factores en la que el desempeño del proeceso sea mejor.</p>
+<p>Los diseños factoriales se dividen en <strong>diseños de efectos fijos</strong> y <strong>diseños de efectos mixtos</strong>, en el primer caso se tiene que los factores pueden ser de tipo <em>cuantitativo</em> o <em>cualitativo</em> pero sus niveles deben estar fijos, es decir, que se garantizan las condiciones para que las corridas adquieran el valor determinado por el investigador en los niveles del factor. Para estudiar la manera en que influye cada factor sobre la variable de respuesta es necesario elegir al menos dos niveles de prueba para cada uno de ellos.</p>
+<p>En el caso de los diseños de efectos mixtos se tiene una combinación de factores fijos o aleatorios, donde la variable respuesta se ve afectada por la variación entre los factores y la variación dentro de los factores. Por lo general, en los modelos mixtos se considera una fuente de variación adicional dentro de la unidad de medición que se analíza a través de las réplicas.</p>
+<p>Cuando se tienen diseños factoriales se construye la matriz de diseño o <em>arreglo factorial</em> a partir de los puntos experimentales o tratamientos que pueden formarse considerando todas las posibles combinaciones de los niveles de los factores. Por ejemplo con <span class="math inline">\(k=2\)</span> factores, ambos con dos niveles, se forma el diseño factorial <span class="math inline">\(2\times2=2^2\)</span> que consiste en cuatro combinaciones o puntos experimentales. ahora si se tiene dos factores, uno con 3 niveles y otro con 2 niveles, entonces el arreglo factorial es de la forma <span class="math inline">\(3\times2\)</span>.</p>
+<p>Finalmente, las corridas experimentales se calcula con el número de puntos experimentales multiplicado por el <strong>número de réplicas</strong> considerada en el diseño experimental.</p>
+<blockquote>
+<p><strong>Ejemplo</strong><br> Se planea realizar un diseño experimental factorial con tres factores, el primero tiene 3 niveles, el segundo tiene dos niveles y el tercero tiene 4 niveles. Además, se presupuesta realizar 4 réplicas por cada punto experimental, entonces el número de corridas es: <span class="math display">\[\underset{\text{Factor 1}} 3 \times \underset{\text{Factor 2}} 2 \times\underset{\text{Factor 3}} 4 \times \underset{\text{Réplicas}} 4 = \underset{\text{Corridas}} {96}\]</span></p>
+</blockquote>
+<hr>
+</div>
+<div id="análisis-de-los-efectos" class="section level2">
+<h2>Análisis de los efectos</h2>
+<p>Suponga que en un proceso de fabricación de galletas se quiere analizar el efecto de la temperatura de cocción y el tiempo en horno que tiene sobre la cantidad de galletas bien cocidas en diferentes lotes.</p>
+<div id="htmlwidget-011045f7bed13e59ab42" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-011045f7bed13e59ab42">{"x":{"filter":"none","data":[[30,35,60,58,60,64,30,35],["Baja","Baja","Baja","Baja","Alta","Alta","Alta","Alta"],["Corto","Corto","Largo","Largo","Corto","Corto","Largo","Largo"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>lote<\/th>\n      <th>temperatura<\/th>\n      <th>tiempo<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>El efecto de un factor se define como el cambio observado en la variable de respuesta debido a un cambio de nivel de tal factor En particular, los efectos principales son los cambios en la media de la variable de respuesta que se deben a la acción individual de cada factor.</p>
+<hr>
+<div id="efecto-principal" class="section level3">
+<h3>Efecto principal</h3>
+<p>En términos matemáticos, el efecto principal de un factor con dos niveles es la diferencia entre la respuesta media observada cuando tal factor estuvo en su primer nivel, y la respuesta media observada cuando el factor estuvo en su segundo nivel.</p>
+<p>Si el efecto de un factor A es mayor al efecto de un factor B, entonces en términos absolutos el efecto principal de A es mayor al de B.</p>
+<hr>
+</div>
+<div id="efecto-de-interacción" class="section level3">
+<h3>Efecto de interacción</h3>
+<p>Se dice que los factores interactúan entre si o tienen un <strong>efecto de interacción</strong> sobre la variable respuesta, cuando el efecto de un factor depende del nivel en que se encuentra el otro.</p>
+<p>Por ejemplo con las galletas se puede ver los siguiente:</p>
+<p><img src="fact1_files/figure-html/unnamed-chunk-2-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Los datos muestran que el rendimiento de buenas galletas es mejor cuando, o bien la temperatura es elevada y el tiempo en el horno es corto, o la temperatura es baja y el tiempo en el horno es larga. Si las galletas se dejan en el horno durante mucho tiempo a una temperatura elevada, hay galletas quemadas y el rendimiento es bajo.</p>
+<p>El efecto combinado que ejercen ambos factores sobre la variable respuesta representan el efecto de interacción dentro del modelo, y su interpretación debe se de sumo cuidado, esto dependerá del efecto <strong>causal</strong> que tiene uno de los factores en presencia del otro. Es posible que se presenten efectos <strong>casuales</strong> que donten interacción, pero ¿cómo se define la causalidad o la casualidad?</p>
+<p><br></p>
+</div>
+</div>
+<div id="ventajas-de-los-diseños-factoriales" class="section level2">
+<h2>Ventajas de los diseños factoriales</h2>
+<ol style="list-style-type: decimal">
+<li><p>Permiten estudiar el efecto individual y de interacción de los distintos factores.</p></li>
+<li><p>Son diseños que se pueden aumentar para formar diseños compuestos en caso de que se requiera una exploración más completa. Por ejemplo, es útil aumentar el diseño si el comportamiento de la respuesta no es lineal en los factores controlados.</p></li>
+<li><p>Se pueden correr fracciones de diseños factoriales, las cuales son de gran utilidad en las primeras etapas de una investigación que involucra a muchos factores, cuando interesa descartar de manera económica los que no son importantes, antes de hacer un estudio más detallado con los factores que sí son importantes.</p></li>
+<li><p>Pueden utilizarse en combinación con diseños de bloques en situaciones en las que no puede correrse todo el diseño factorial bajo las mismas condiciones. Por ejemplo, cuando cada lote de material sólo alcanza para correr la mitad del experimento, éste se puede realizar en dos bloques (dos lotes), lo cual implica repartir las pruebas en los dos lotes de la manera más conveniente posible.</p></li>
+<li><p>La interpretación y el cálculo de los efectos en los experimentos factoriales se puede hacer con aritmética elemental, en particular cuando cada factor se prueba en dos niveles.</p></li>
+</ol>
+<hr>
+</div>
+<div id="diseños-factoriales-con-dos-factores" class="section level2">
+<h2>Diseños factoriales con dos factores</h2>
+<p>Considere los factores <span class="math inline">\(A\)</span> y <span class="math inline">\(B\)</span> con <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> <span class="math inline">\((a, b \geq 2)\)</span> niveles de prueba, respectivamente. Con ellos se puede construir el arreglo o diseño factorial <span class="math inline">\(a \times b\)</span> o combinaciones de tratamientos.</p>
+<p>Algunos casos particulares de uso frecuente son: el factorial <span class="math inline">\(2^2\)</span>, el factorial <span class="math inline">\(3^2\)</span> y el factorial <span class="math inline">\(3 \times 2\)</span>. Se llama <strong>réplica</strong> a cada corrida completa del arreglo factorial. Los diseños factoriales que involucran menos de cuatro factores por lo regular se corren replicados para tener <strong>la potencia necesaria</strong> en las pruebas estadísticas sobre los efectos de interés. Si se hacen <span class="math inline">\(n\)</span> réplicas, el número total de corridas experimentales es <span class="math inline">\(n(a \times b)\)</span>.</p>
+<p>Consideremos un experimento en el que se quiere estudiar el efecto de los factores A: <em>profundidad de corte</em> sobre <em>el acabado</em> de un metal y B: <em>velocidad de alimentación</em>. Aunque los factores son de naturaleza continua, en este proceso sólo se puede trabajar en 4 y 3 niveles, respectivamente. Por ello, se decide correr un factorial completo <span class="math inline">\(4 \times 3\)</span> con tres réplicas, que permitirá obtener toda la información relevante en relación al efecto de estos factores sobre el acabado (<span class="math inline">\(Y\)</span>) el cuál está en unidades de gramos y el interés está en minimizar su valor . Al aleatorizar las 36 pruebas se obtienen los datos de la tabla</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th colspan="2" rowspan="2">
+</th>
+<th style="text-align:center;" colspan="3">
+Velocidad
+</th>
+</tr>
+<tr>
+<td style="text-align:center;">
+<b>0.20</b>
+</td>
+<td style="text-align:center;">
+<b>0.25</b>
+</td>
+<td style="text-align:center;">
+<b>0.30</b>
+</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;vertical-align:middle" class="col-md-3" rowspan="12">
+<b>Profundidad</b>
+</td>
+<td style="text-align:center;vertical-align:middle" rowspan="3">
+<b>0.15</b>
+</td>
+<td style="text-align:center;">
+74
+</td>
+<td style="text-align:center;">
+92
+</td>
+<td style="text-align:center;">
+99
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+64
+</td>
+<td style="text-align:center;">
+86
+</td>
+<td style="text-align:center;">
+98
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+60
+</td>
+<td style="text-align:center;">
+88
+</td>
+<td style="text-align:center;">
+102
+</td>
+</tr>
+<tr>
+<td style="text-align:center;vertical-align:middle" rowspan="3">
+<b>0.18</b>
+</td>
+<td style="text-align:center;">
+79
+</td>
+<td style="text-align:center;">
+98
+</td>
+<td style="text-align:center;">
+104
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+68
+</td>
+<td style="text-align:center;">
+104
+</td>
+<td style="text-align:center;">
+99
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+73
+</td>
+<td style="text-align:center;">
+88
+</td>
+<td style="text-align:center;">
+95
+</td>
+</tr>
+<tr>
+<td style="text-align:center;vertical-align:middle" rowspan="3">
+<b>0.21</b>
+</td>
+<td style="text-align:center;">
+82
+</td>
+<td style="text-align:center;">
+99
+</td>
+<td style="text-align:center;">
+108
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+88
+</td>
+<td style="text-align:center;">
+108
+</td>
+<td style="text-align:center;">
+110
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+92
+</td>
+<td style="text-align:center;">
+95
+</td>
+<td style="text-align:center;">
+99
+</td>
+</tr>
+<tr>
+<td style="text-align:center;vertical-align:middle" rowspan="3">
+<b>0.24</b>
+</td>
+<td style="text-align:center;">
+99
+</td>
+<td style="text-align:center;">
+104
+</td>
+<td style="text-align:center;">
+114
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+104
+</td>
+<td style="text-align:center;">
+110
+</td>
+<td style="text-align:center;">
+111
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+96
+</td>
+<td style="text-align:center;">
+99
+</td>
+<td style="text-align:center;">
+107
+</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div id="modelo-estadístico-e-hipótesis" class="section level3">
+<h3>Modelo estadístico e hipótesis</h3>
+<p>El modelo de efectos fijos para este diseño experimental está dado por:</p>
+<p><span class="math display">\[Y_{ijk}=\mu+\alpha_i+\beta_j+(\alpha\beta)_{ij}+\varepsilon_{ijk}\\
+i=1,2,\dots,a\quad j=1,2,\dots,b\quad k=1,2,\dots,n\\
+\varepsilon_{ijk}~NID(0,\sigma^2)\]</span></p>
+<p>donde <span class="math inline">\(\mu\)</span> es la media general, <span class="math inline">\(\alpha_i\)</span> es el efecto debido al i-ésimo nivel del factor A, <span class="math inline">\(\beta_j\)</span> es el efecto del j-ésimo nivel del factor B, <span class="math inline">\((\alpha\beta)_{ij}\)</span> representa al efecto de interacción en la combinación <span class="math inline">\(ij\)</span> y <span class="math inline">\(\varepsilon_{ijk}\)</span> es el error aleatorio que se supone sigue una distribución normal con media cero y varianza constante <span class="math inline">\(\sigma^2\)</span> e independientes entre si.</p>
+<p>Para este modelo se tiene <span class="math inline">\(a=4\)</span>, <span class="math inline">\(b=3\)</span> y <span class="math inline">\(n=3\)</span> réplicas. Las hipótesis de interés para los tres efectos del modelo son:</p>
+<p><span class="math display">\[H_0: \text{Efecto de profundidad }(A) = 0\\
+H_a: \text{Efecto de profundidad }(A) \neq 0\]</span></p>
+<p><span class="math display">\[H_0: \text{Efecto de velocidad }(B) = 0\\
+H_a: \text{Efecto de velocidad }(B) \neq 0\]</span></p>
+<p><span class="math display">\[H_0: \text{Profundidad}\times\text{Velocidad } (AB) = 0\\
+H_a: \text{Profundidad}\times\text{Velocidad } (AB) \neq 0\]</span></p>
+<p>Y en términos de los parámetros del modelo, las hipótesis se puede reescribir como:</p>
+<p><span class="math display">\[H_0: \alpha_1 = \alpha_2 = \dots = \alpha_a = 0\\
+H_a: \alpha_i \neq 0 \quad \text{para algun}\quad i\]</span></p>
+<p><span class="math display">\[H_0: \beta_1 = \beta_2 = \dots = \beta_b = 0\\
+H_a: \beta_j \neq 0 \quad \text{para algun}\quad j\]</span></p>
+<p><span class="math display">\[H_0: (\alpha\beta)_{ij} = 0 \quad \text{para todo}\quad ij\\
+H_a: (\alpha\beta)_{ij} \neq 0 \quad \text{para algun}\quad ij\]</span></p>
+<p>Las hipótesis se prueban mediante el análisis de varianza (ANOVA), como tenemos un diseño factorial con réplicas de la forma <span class="math inline">\(a \times b \times n\)</span> entonces es necesario descomponer la variación total.</p>
+<p><span class="math display">\[SS_T = SS_A + SS_B + SS_{AB} + SS_E\]</span></p>
+<p>Donde los respectivos grados de libertad son:</p>
+<p><span class="math display">\[(nab-1)=(a-1)+(b-1)+(a-1)(b-1)+ab(n-1)\]</span></p>
+<p>El total de observaciones es <span class="math inline">\(N=nab\)</span>. La parte <span class="math inline">\((n-1)\)</span> en los grados de libertad de la suma de cuadrados del error señala que se necesitan dos o más réplicas para poder estimar el modelo vía ANOVA.</p>
+<hr>
+</div>
+<div id="anova" class="section level3">
+<h3>ANOVA</h3>
+<center>
+<table style="width:100%;">
+<colgroup>
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fuente de Variación</th>
+<th>SS</th>
+<th>gl</th>
+<th>MS</th>
+<th>F</th>
+<th>valor-p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Efecto A</td>
+<td><span class="math inline">\(SS_A\)</span></td>
+<td><span class="math inline">\(a-1\)</span></td>
+<td><span class="math inline">\(MS_A=\frac{SS_A}{a-1}\)</span></td>
+<td><span class="math inline">\(F_0=\frac{MS_A}{MSE}\)</span></td>
+<td><span class="math inline">\(P(F&gt;F_0)\)</span></td>
+</tr>
+<tr class="even">
+<td>Efecto B</td>
+<td><span class="math inline">\(SS_B\)</span></td>
+<td><span class="math inline">\(b-1\)</span></td>
+<td><span class="math inline">\(MS_B=\frac{SS_B}{b-1}\)</span></td>
+<td><span class="math inline">\(F_0=\frac{MS_B}{MSE}\)</span></td>
+<td><span class="math inline">\(P(F&gt;F_0)\)</span></td>
+</tr>
+<tr class="odd">
+<td>Efecto AB</td>
+<td><span class="math inline">\(SS_{AB}\)</span></td>
+<td><span class="math inline">\((a-1)(b-1)\)</span></td>
+<td><span class="math inline">\(MS_{AB}=\frac{SS_{AB}}{(a-1)(b-1)}\)</span></td>
+<td><span class="math inline">\(F_0=\frac{MS_{AB}}{MSE}\)</span></td>
+<td><span class="math inline">\(P(F&gt;F_0)\)</span></td>
+</tr>
+<tr class="even">
+<td>Error</td>
+<td><span class="math inline">\(SS_E\)</span></td>
+<td><span class="math inline">\(ab(n-1)\)</span></td>
+<td><span class="math inline">\(MSE=\frac{SS_E}{ab(n-1)}\)</span></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td><span class="math inline">\(SS_T\)</span></td>
+<td><span class="math inline">\(abn-1\)</span></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>Donde las sumas de cuadrados están dadas por:</p>
+<p><span class="math display">\[SS_T=\sum_{i=1}^a \sum_{j=1}^b \sum_{k=1}^n Y^2_{ijk}-\frac{Y^2_{...}}{N}\]</span></p>
+<p><span class="math display">\[SC_A=\sum_{i=1}^a \frac{Y^2_{i..}}{bn}-\frac{Y^2_{...}}{N}\]</span></p>
+<p><span class="math display">\[SC_B=\sum_{j=1}^b \frac{Y^2_{.j.}}{an}-\frac{Y^2_{...}}{N}\]</span></p>
+<p><span class="math display">\[SC_{AB}=\sum_{i=1}^a \sum_{j=1}^b \frac{Y^2_{ij.}}{n} - \frac{Y^2_{...}}{N}-SS_A-SS_B\]</span></p>
+<p><span class="math display">\[SS_E=SS_T-SS_A-SS_B-SS_{AB}\]</span></p>
+<p>Una vez se construye la tabla de ANOVA se verifican los supuestos del modelos a través de los residuales o errores aleatorios, similar a los diseños de un solo factor, entonces hay que comprobar:</p>
+<ol style="list-style-type: decimal">
+<li>Normalidad</li>
+<li>Independencia</li>
+<li>Homocesdasticidad</li>
+</ol>
+<p>Con los supuestos del modelos validados, se procede a realizar las pruebas post-hoc si se desea inferir sobre los niveles de los tratamientos del modelo. Se pueden utilizar los métodos:</p>
+<ul>
+<li>Comparaciones de diferencia mínima significativa (LSD)</li>
+<li>Método Tukey HSD</li>
+<li>Método Duncan</li>
+<li>Método Dunnet para fijar un nivel como un control</li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="ejemplo-1" class="section level2">
+<h2>Ejemplo 1</h2>
+<p>Continuando con el ejmplo del <strong>acabado de un metal</strong> tenemos el factor <strong>Profundidad del corte</strong> con los niveles 0.15, 0.18, 0.21 y 0.24, el factor <strong>Velocidad</strong> con los niveles 0.20, 0.25 y 0.30. El modelo a evaluar es:</p>
+<p><span class="math display">\[Y_{ijk}=\mu+\alpha_i+\beta_j+(\alpha\beta)_{ij}+\varepsilon_{ijk}\\
+i=1,2,3,4\quad j=1,2,3\quad k=1,2,3\\
+\varepsilon_{ijk}~NID(0,\sigma^2)\]</span></p>
+<p>Donde el número de corridas totales es <span class="math inline">\(N=nab=36\)</span>. Utilizando <code>R</code> el análisis estadístico de este diseño experimental es sencillo. Los pasos a seguir son los siguientes:</p>
+<ol style="list-style-type: decimal">
+<li>Cargar/Construir la base de datos con la información de interés.</li>
+<li>Realizar un análisis descriptivo de la información.</li>
+<li>Ajustar el modelo a través del ANOVA.</li>
+<li>Validar los supuestos del modelo.</li>
+<li>Realizar las pruebas post-hoc.</li>
+</ol>
+<p>Necesitamos las siguientes librerías.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Para gráficos con estilo</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">require</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Para manejar bases de datos</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">require</span>(dplyr)</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Para construir los qq-plots</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="kw">require</span>(car)</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># Para las pruebas de normalidad</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="kw">require</span>(nortest)</span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="co"># Para evaluar las interacciones</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="kw">require</span>(phia)</span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># Para las pruebas post-hoc</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="kw">require</span>(agricolae)</span>
+<span id="cb1-18"><a href="#cb1-18"></a><span class="kw">require</span>(multcomp)</span></code></pre></div>
+<p>El primer paso es cargar o construir la base de datos, esto puede hacerse en excel y luego importarlas a <code>R</code> o se puede construir la base de datos de la siguiente forma:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">acabado=</span><span class="kw">c</span>(<span class="dv">74</span>,<span class="dv">92</span>,<span class="dv">99</span>,</span>
+<span id="cb2-2"><a href="#cb2-2"></a>                                 <span class="dv">64</span>,<span class="dv">86</span>,<span class="dv">98</span>,</span>
+<span id="cb2-3"><a href="#cb2-3"></a>                                 <span class="dv">60</span>,<span class="dv">88</span>,<span class="dv">102</span>,</span>
+<span id="cb2-4"><a href="#cb2-4"></a>                                 <span class="dv">79</span>,<span class="dv">98</span>,<span class="dv">104</span>,</span>
+<span id="cb2-5"><a href="#cb2-5"></a>                                 <span class="dv">68</span>,<span class="dv">104</span>,<span class="dv">99</span>,</span>
+<span id="cb2-6"><a href="#cb2-6"></a>                                 <span class="dv">73</span>,<span class="dv">88</span>,<span class="dv">95</span>,</span>
+<span id="cb2-7"><a href="#cb2-7"></a>                                 <span class="dv">82</span>,<span class="dv">99</span>,<span class="dv">108</span>,</span>
+<span id="cb2-8"><a href="#cb2-8"></a>                                 <span class="dv">88</span>,<span class="dv">108</span>,<span class="dv">110</span>,</span>
+<span id="cb2-9"><a href="#cb2-9"></a>                                 <span class="dv">92</span>,<span class="dv">95</span>,<span class="dv">99</span>,</span>
+<span id="cb2-10"><a href="#cb2-10"></a>                                 <span class="dv">99</span>,<span class="dv">104</span>,<span class="dv">114</span>,</span>
+<span id="cb2-11"><a href="#cb2-11"></a>                                 <span class="dv">104</span>,<span class="dv">110</span>,<span class="dv">111</span>,</span>
+<span id="cb2-12"><a href="#cb2-12"></a>                                 <span class="dv">96</span>,<span class="dv">99</span>,<span class="dv">107</span>),</span>
+<span id="cb2-13"><a href="#cb2-13"></a>                    <span class="dt">profundidad=</span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;0.15&quot;</span>,<span class="st">&quot;0.18&quot;</span>,<span class="st">&quot;0.21&quot;</span>,<span class="st">&quot;0.24&quot;</span>),<span class="dt">each=</span><span class="dv">9</span>),</span>
+<span id="cb2-14"><a href="#cb2-14"></a>                    <span class="dt">velocidad=</span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;0.2&quot;</span>,<span class="st">&quot;0.25&quot;</span>,<span class="st">&quot;0.3&quot;</span>),<span class="dv">12</span>))</span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co"># verificar la tabla de datos</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="kw">str</span>(datos)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    36 obs. of  3 variables:
+##  $ acabado    : num  74 92 99 64 86 98 60 88 102 79 ...
+##  $ profundidad: Factor w/ 4 levels &quot;0.15&quot;,&quot;0.18&quot;,..: 1 1 1 1 1 1 1 1 1 2 ...
+##  $ velocidad  : Factor w/ 3 levels &quot;0.2&quot;,&quot;0.25&quot;,&quot;0.3&quot;: 1 2 3 1 2 3 1 2 3 1 ...</code></pre>
+<p>Los análisis descriptivos sirven para evaluar visualmente si existe un posible efecto del tratamiento en la variable respuesta, los candidatos a para esto son los BoxPlot ya que se presentan réplicas, además es necesario evaluar el efecto medio, entonces con gráficos de punto y línea y de interacción se realiza el análisis exploratorio.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Box plot</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">ggplot</span>(datos,<span class="kw">aes</span>(<span class="dt">x=</span>profundidad,<span class="dt">y=</span>acabado,<span class="dt">fill=</span>profundidad))<span class="op">+</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Diagrama de Cajas y Bigotes: Factor A (Profundidad)&quot;</span>)<span class="op">+</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-5-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">ggplot</span>(datos,<span class="kw">aes</span>(<span class="dt">x=</span>velocidad,<span class="dt">y=</span>acabado,<span class="dt">fill=</span>velocidad))<span class="op">+</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Diagrama de Cajas y Bigotes: Factor B (Velocidad)&quot;</span>)<span class="op">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-5-2.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Interacción con Base</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">with</span>(datos,</span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="kw">interaction.plot</span>(profundidad,velocidad,acabado,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>                   <span class="dt">las=</span><span class="dv">1</span>,<span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,<span class="dt">pch=</span><span class="kw">rep</span>(<span class="dv">19</span>,<span class="dv">3</span>),<span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>                   <span class="dt">main=</span><span class="st">&quot;Gráfico de Interacción AB&quot;</span>))</span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="kw">grid</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-5-3.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">with</span>(datos,</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="kw">interaction.plot</span>(velocidad,profundidad,acabado,</span>
+<span id="cb7-3"><a href="#cb7-3"></a>                   <span class="dt">las=</span><span class="dv">1</span>,<span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,<span class="dt">pch=</span><span class="kw">rep</span>(<span class="dv">19</span>,<span class="dv">4</span>),<span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>                   <span class="dt">main=</span><span class="st">&quot;Gráfico de Interacción BA&quot;</span>))</span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="kw">grid</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-5-4.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Interacción con ggplot</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>Inter &lt;-<span class="st"> </span>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(profundidad,velocidad) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">acabado =</span> <span class="kw">mean</span>(acabado))</span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">ggplot</span>(Inter,<span class="kw">aes</span>(<span class="dt">x=</span>profundidad,<span class="dt">y=</span>acabado,</span>
+<span id="cb8-6"><a href="#cb8-6"></a>                 <span class="dt">group=</span>velocidad,<span class="dt">colour=</span>velocidad))<span class="op">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">lwd=</span><span class="dv">1</span>)<span class="op">+</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Gráfico de Interacción AB&quot;</span>)<span class="op">+</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-5-5.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">ggplot</span>(Inter,<span class="kw">aes</span>(<span class="dt">x=</span>velocidad,<span class="dt">y=</span>acabado,</span>
+<span id="cb9-2"><a href="#cb9-2"></a>                 <span class="dt">group=</span>profundidad,<span class="dt">colour=</span>profundidad))<span class="op">+</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">lwd=</span><span class="dv">1</span>)<span class="op">+</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Gráfico de Interacción BA&quot;</span>)<span class="op">+</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-5-6.png" width="540" style="display: block; margin: auto;" /></p>
+<p>De acuerdo con los gráficos, en ambos factores los niveles altos son los que expresan respuestas más altas en el acabado del metal, por otra parte parece que existe interacción entre la velocidad a 0.30 y la profundidad en los niveles 0.15 y 0.18.</p>
+<p>Luego se construye el modelo con el comando <code>aov</code> dando como argumentos la fórmula, después se ejecuta el comando <code>anova</code> para construir la tabla e interpretar.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Anova</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>fit &lt;-<span class="st"> </span><span class="kw">aov</span>(acabado<span class="op">~</span>profundidad<span class="op">*</span>velocidad,<span class="dt">data =</span> datos)</span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">anova</span>(fit)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: acabado
+##                       Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## profundidad            3 2125.11  708.37 24.6628 1.652e-07 ***
+## velocidad              2 3160.50 1580.25 55.0184 1.086e-09 ***
+## profundidad:velocidad  6  557.06   92.84  3.2324   0.01797 *  
+## Residuals             24  689.33   28.72                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>De acuerdo con el ANOVA los factores de profundidad y velocidad son significativos en el modelo, además se considera la interacción entre los dos factores en el acabado del metal. Es necesario validar los supuestos del modelo antes de realizar las pruebas post-hoc y concluir más allá.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># normalidad</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="kw">qqPlot</span>(fit<span class="op">$</span>residuals,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">main=</span><span class="st">&quot;Normal Q-Q Plot&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-7-1.png" width="540" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] 17  1</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">shapiro.test</span>(fit<span class="op">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  fit$residuals
+## W = 0.97051, p-value = 0.4397</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">ad.test</span>(fit<span class="op">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  fit$residuals
+## A = 0.32588, p-value = 0.5097</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">lillie.test</span>(fit<span class="op">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  fit$residuals
+## D = 0.085574, p-value = 0.7251</code></pre>
+<p>Se cumple el supuesto de normalidad dado que no se rechaza la hipótesis nula. Como no tenemos el orden de las corridas del modelo, no es posible evaluar independencia enlo residuales.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Homocedasticidad</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="kw">plot</span>(<span class="kw">predict</span>(fit),fit<span class="op">$</span>residuals,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">las=</span><span class="dv">1</span>,</span>
+<span id="cb20-3"><a href="#cb20-3"></a>     <span class="dt">main=</span><span class="st">&quot;Homogeneidad de Varianza&quot;</span>,</span>
+<span id="cb20-4"><a href="#cb20-4"></a>     <span class="dt">xlab=</span><span class="st">&quot;Valores Predictivos&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Residuales&quot;</span>)</span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>,<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-8-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">bartlett.test</span>(fit<span class="op">$</span>residuals,datos<span class="op">$</span>profundidad)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  fit$residuals and datos$profundidad
+## Bartlett&#39;s K-squared = 1.2548, df = 3, p-value = 0.7399</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">bartlett.test</span>(fit<span class="op">$</span>residuals,datos<span class="op">$</span>velocidad)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  fit$residuals and datos$velocidad
+## Bartlett&#39;s K-squared = 1.4598, df = 2, p-value = 0.482</code></pre>
+<p>De acuerdo a los resultados no existe diferencias de varianza entre los tratamientos y entre los bloques, es decir, hay <strong>homcedasticidad</strong> u homogeneidad de varianzas.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># Supuestos globales</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="kw">plot</span>(fit,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-9-1.png" width="540" style="display: block; margin: auto;" /><img src="fact1_files/figure-html/unnamed-chunk-9-2.png" width="540" style="display: block; margin: auto;" /><img src="fact1_files/figure-html/unnamed-chunk-9-3.png" width="540" style="display: block; margin: auto;" /><img src="fact1_files/figure-html/unnamed-chunk-9-4.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Finalmente, como los supuestos del modelo se cumplen, entonces podemos buscar cuáles son los tratamientos más significativos sobre los acabados del metal mediante las pruebas post-hoc.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">#### Pruebas post-hoc ####</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>lsd &lt;-<span class="st"> </span><span class="kw">LSD.test</span>(<span class="dt">y =</span> fit,<span class="dt">trt =</span> <span class="st">&quot;profundidad&quot;</span>,<span class="dt">console =</span> T)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;profundidad&quot;
+## 
+## LSD t Test for acabado 
+## 
+## Mean Square Error:  28.72222 
+## 
+## profundidad,  means and individual ( 95 %) CI
+## 
+##        acabado       std r       LCL      UCL Min Max
+## 0.15  84.77778 15.409232 9  81.09075  88.4648  60 102
+## 0.18  89.77778 13.507200 9  86.09075  93.4648  68 104
+## 0.21  97.88889  9.662355 9  94.20186 101.5759  82 110
+## 0.24 104.88889  6.132790 9 101.20186 108.5759  96 114
+## 
+## Alpha: 0.05 ; DF Error: 24
+## Critical Value of t: 2.063899 
+## 
+## least Significant Difference: 5.214241 
+## 
+## Treatments with the same letter are not significantly different.
+## 
+##        acabado groups
+## 0.24 104.88889      a
+## 0.21  97.88889      b
+## 0.18  89.77778      c
+## 0.15  84.77778      c</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">plot</span>(lsd,<span class="dt">las=</span><span class="dv">1</span>);<span class="kw">grid</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-10-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="kw">LSD.test</span>(<span class="dt">y =</span> fit,<span class="dt">trt =</span> <span class="st">&quot;profundidad&quot;</span>,<span class="dt">console =</span> T,<span class="dt">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;profundidad&quot;
+## 
+## LSD t Test for acabado 
+## 
+## Mean Square Error:  28.72222 
+## 
+## profundidad,  means and individual ( 95 %) CI
+## 
+##        acabado       std r       LCL      UCL Min Max
+## 0.15  84.77778 15.409232 9  81.09075  88.4648  60 102
+## 0.18  89.77778 13.507200 9  86.09075  93.4648  68 104
+## 0.21  97.88889  9.662355 9  94.20186 101.5759  82 110
+## 0.24 104.88889  6.132790 9 101.20186 108.5759  96 114
+## 
+## Alpha: 0.05 ; DF Error: 24
+## Critical Value of t: 2.063899 
+## 
+## Comparison between treatments means
+## 
+##             difference pvalue signif.       LCL         UCL
+## 0.15 - 0.18  -5.000000 0.0594       . -10.21424   0.2142411
+## 0.15 - 0.21 -13.111111 0.0000     *** -18.32535  -7.8968700
+## 0.15 - 0.24 -20.111111 0.0000     *** -25.32535 -14.8968700
+## 0.18 - 0.21  -8.111111 0.0037      ** -13.32535  -2.8968700
+## 0.18 - 0.24 -15.111111 0.0000     *** -20.32535  -9.8968700
+## 0.21 - 0.24  -7.000000 0.0106       * -12.21424  -1.7857589</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>lsd &lt;-<span class="st"> </span><span class="kw">LSD.test</span>(<span class="dt">y =</span> fit,<span class="dt">trt =</span> <span class="st">&quot;velocidad&quot;</span>,<span class="dt">console =</span> T)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;velocidad&quot;
+## 
+## LSD t Test for acabado 
+## 
+## Mean Square Error:  28.72222 
+## 
+## velocidad,  means and individual ( 95 %) CI
+## 
+##        acabado       std  r       LCL       UCL Min Max
+## 0.2   81.58333 14.336592 12  78.39028  84.77639  60 104
+## 0.25  97.58333  8.005207 12  94.39028 100.77639  86 110
+## 0.3  103.83333  6.072791 12 100.64028 107.02639  95 114
+## 
+## Alpha: 0.05 ; DF Error: 24
+## Critical Value of t: 2.063899 
+## 
+## least Significant Difference: 4.515665 
+## 
+## Treatments with the same letter are not significantly different.
+## 
+##        acabado groups
+## 0.3  103.83333      a
+## 0.25  97.58333      b
+## 0.2   81.58333      c</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">plot</span>(lsd,<span class="dt">las=</span><span class="dv">1</span>);<span class="kw">grid</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-10-2.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">LSD.test</span>(<span class="dt">y =</span> fit,<span class="dt">trt =</span> <span class="st">&quot;velocidad&quot;</span>,<span class="dt">console =</span> T,<span class="dt">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;velocidad&quot;
+## 
+## LSD t Test for acabado 
+## 
+## Mean Square Error:  28.72222 
+## 
+## velocidad,  means and individual ( 95 %) CI
+## 
+##        acabado       std  r       LCL       UCL Min Max
+## 0.2   81.58333 14.336592 12  78.39028  84.77639  60 104
+## 0.25  97.58333  8.005207 12  94.39028 100.77639  86 110
+## 0.3  103.83333  6.072791 12 100.64028 107.02639  95 114
+## 
+## Alpha: 0.05 ; DF Error: 24
+## Critical Value of t: 2.063899 
+## 
+## Comparison between treatments means
+## 
+##            difference pvalue signif.       LCL        UCL
+## 0.2 - 0.25     -16.00 0.0000     *** -20.51567 -11.484335
+## 0.2 - 0.3      -22.25 0.0000     *** -26.76567 -17.734335
+## 0.25 - 0.3      -6.25 0.0087      ** -10.76567  -1.734335</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># Tukey HSD</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>(hsd &lt;-<span class="st"> </span><span class="kw">TukeyHSD</span>(fit))</span></code></pre></div>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = acabado ~ profundidad * velocidad, data = datos)
+## 
+## $profundidad
+##                diff         lwr      upr     p adj
+## 0.18-0.15  5.000000 -1.96935966 11.96936 0.2236177
+## 0.21-0.15 13.111111  6.14175145 20.08047 0.0001427
+## 0.24-0.15 20.111111 13.14175145 27.08047 0.0000002
+## 0.21-0.18  8.111111  1.14175145 15.08047 0.0183181
+## 0.24-0.18 15.111111  8.14175145 22.08047 0.0000202
+## 0.24-0.21  7.000000  0.03064034 13.96936 0.0487217
+## 
+## $velocidad
+##           diff       lwr      upr     p adj
+## 0.25-0.2 16.00 10.536111 21.46389 0.0000004
+## 0.3-0.2  22.25 16.786111 27.71389 0.0000000
+## 0.3-0.25  6.25  0.786111 11.71389 0.0228257
+## 
+## $`profundidad:velocidad`
+##                            diff         lwr       upr     p adj
+## 0.18:0.2-0.15:0.2     7.3333333  -8.4443944 23.111061 0.8621754
+## 0.21:0.2-0.15:0.2    21.3333333   5.5556056 37.111061 0.0026516
+## 0.24:0.2-0.15:0.2    33.6666667  17.8889389 49.444394 0.0000035
+## 0.15:0.25-0.15:0.2   22.6666667   6.8889389 38.444394 0.0012723
+## 0.18:0.25-0.15:0.2   30.6666667  14.8889389 46.444394 0.0000165
+## 0.21:0.25-0.15:0.2   34.6666667  18.8889389 50.444394 0.0000021
+## 0.24:0.25-0.15:0.2   38.3333333  22.5556056 54.111061 0.0000004
+## 0.15:0.3-0.15:0.2    33.6666667  17.8889389 49.444394 0.0000035
+## 0.18:0.3-0.15:0.2    33.3333333  17.5556056 49.111061 0.0000041
+## 0.21:0.3-0.15:0.2    39.6666667  23.8889389 55.444394 0.0000002
+## 0.24:0.3-0.15:0.2    44.6666667  28.8889389 60.444394 0.0000000
+## 0.21:0.2-0.18:0.2    14.0000000  -1.7777277 29.777728 0.1156484
+## 0.24:0.2-0.18:0.2    26.3333333  10.5556056 42.111061 0.0001693
+## 0.15:0.25-0.18:0.2   15.3333333  -0.4443944 31.111061 0.0620975
+## 0.18:0.25-0.18:0.2   23.3333333   7.5556056 39.111061 0.0008807
+## 0.21:0.25-0.18:0.2   27.3333333  11.5556056 43.111061 0.0000982
+## 0.24:0.25-0.18:0.2   31.0000000  15.2222723 46.777728 0.0000139
+## 0.15:0.3-0.18:0.2    26.3333333  10.5556056 42.111061 0.0001693
+## 0.18:0.3-0.18:0.2    26.0000000  10.2222723 41.777728 0.0002031
+## 0.21:0.3-0.18:0.2    32.3333333  16.5556056 48.111061 0.0000069
+## 0.24:0.3-0.18:0.2    37.3333333  21.5556056 53.111061 0.0000006
+## 0.24:0.2-0.21:0.2    12.3333333  -3.4443944 28.111061 0.2331919
+## 0.15:0.25-0.21:0.2    1.3333333 -14.4443944 17.111061 1.0000000
+## 0.18:0.25-0.21:0.2    9.3333333  -6.4443944 25.111061 0.6067268
+## 0.21:0.25-0.21:0.2   13.3333333  -2.4443944 29.111061 0.1548689
+## 0.24:0.25-0.21:0.2   17.0000000   1.2222723 32.777728 0.0270232
+## 0.15:0.3-0.21:0.2    12.3333333  -3.4443944 28.111061 0.2331919
+## 0.18:0.3-0.21:0.2    12.0000000  -3.7777277 27.777728 0.2649724
+## 0.21:0.3-0.21:0.2    18.3333333   2.5556056 34.111061 0.0134649
+## 0.24:0.3-0.21:0.2    23.3333333   7.5556056 39.111061 0.0008807
+## 0.15:0.25-0.24:0.2  -11.0000000 -26.7777277  4.777728 0.3773797
+## 0.18:0.25-0.24:0.2   -3.0000000 -18.7777277 12.777728 0.9998762
+## 0.21:0.25-0.24:0.2    1.0000000 -14.7777277 16.777728 1.0000000
+## 0.24:0.25-0.24:0.2    4.6666667 -11.1110611 20.444394 0.9935407
+## 0.15:0.3-0.24:0.2     0.0000000 -15.7777277 15.777728 1.0000000
+## 0.18:0.3-0.24:0.2    -0.3333333 -16.1110611 15.444394 1.0000000
+## 0.21:0.3-0.24:0.2     6.0000000  -9.7777277 21.777728 0.9585056
+## 0.24:0.3-0.24:0.2    11.0000000  -4.7777277 26.777728 0.3773797
+## 0.18:0.25-0.15:0.25   8.0000000  -7.7777277 23.777728 0.7881462
+## 0.21:0.25-0.15:0.25  12.0000000  -3.7777277 27.777728 0.2649724
+## 0.24:0.25-0.15:0.25  15.6666667  -0.1110611 31.444394 0.0528028
+## 0.15:0.3-0.15:0.25   11.0000000  -4.7777277 26.777728 0.3773797
+## 0.18:0.3-0.15:0.25   10.6666667  -5.1110611 26.444394 0.4200394
+## 0.21:0.3-0.15:0.25   17.0000000   1.2222723 32.777728 0.0270232
+## 0.24:0.3-0.15:0.25   22.0000000   6.2222723 37.777728 0.0018375
+## 0.21:0.25-0.18:0.25   4.0000000 -11.7777277 19.777728 0.9982365
+## 0.24:0.25-0.18:0.25   7.6666667  -8.1110611 23.444394 0.8270901
+## 0.15:0.3-0.18:0.25    3.0000000 -12.7777277 18.777728 0.9998762
+## 0.18:0.3-0.18:0.25    2.6666667 -13.1110611 18.444394 0.9999609
+## 0.21:0.3-0.18:0.25    9.0000000  -6.7777277 24.777728 0.6544316
+## 0.24:0.3-0.18:0.25   14.0000000  -1.7777277 29.777728 0.1156484
+## 0.24:0.25-0.21:0.25   3.6666667 -12.1110611 19.444394 0.9991877
+## 0.15:0.3-0.21:0.25   -1.0000000 -16.7777277 14.777728 1.0000000
+## 0.18:0.3-0.21:0.25   -1.3333333 -17.1110611 14.444394 1.0000000
+## 0.21:0.3-0.21:0.25    5.0000000 -10.7777277 20.777728 0.9888577
+## 0.24:0.3-0.21:0.25   10.0000000  -5.7777277 25.777728 0.5112272
+## 0.15:0.3-0.24:0.25   -4.6666667 -20.4443944 11.111061 0.9935407
+## 0.18:0.3-0.24:0.25   -5.0000000 -20.7777277 10.777728 0.9888577
+## 0.21:0.3-0.24:0.25    1.3333333 -14.4443944 17.111061 1.0000000
+## 0.24:0.3-0.24:0.25    6.3333333  -9.4443944 22.111061 0.9410768
+## 0.18:0.3-0.15:0.3    -0.3333333 -16.1110611 15.444394 1.0000000
+## 0.21:0.3-0.15:0.3     6.0000000  -9.7777277 21.777728 0.9585056
+## 0.24:0.3-0.15:0.3    11.0000000  -4.7777277 26.777728 0.3773797
+## 0.21:0.3-0.18:0.3     6.3333333  -9.4443944 22.111061 0.9410768
+## 0.24:0.3-0.18:0.3    11.3333333  -4.4443944 27.111061 0.3371703
+## 0.24:0.3-0.21:0.3     5.0000000 -10.7777277 20.777728 0.9888577</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="kw">plot</span>(hsd,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">cex.axis=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-10-3.png" width="540" style="display: block; margin: auto;" /><img src="fact1_files/figure-html/unnamed-chunk-10-4.png" width="540" style="display: block; margin: auto;" /><img src="fact1_files/figure-html/unnamed-chunk-10-5.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="co"># Duncan</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="kw">duncan.test</span>(<span class="dt">y =</span> fit,<span class="dt">trt =</span> <span class="st">&quot;profundidad&quot;</span>,<span class="dt">console =</span> T,<span class="dt">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;profundidad&quot;
+## 
+## Duncan&#39;s new multiple range test
+## for acabado 
+## 
+## Mean Square Error:  28.72222 
+## 
+## profundidad,  means
+## 
+##        acabado       std r Min Max
+## 0.15  84.77778 15.409232 9  60 102
+## 0.18  89.77778 13.507200 9  68 104
+## 0.21  97.88889  9.662355 9  82 110
+## 0.24 104.88889  6.132790 9  96 114
+## 
+## Comparison between treatments means
+## 
+##             difference pvalue signif.       LCL         UCL
+## 0.15 - 0.18  -5.000000 0.0594       . -10.21424   0.2142407
+## 0.15 - 0.21 -13.111111 0.0000     *** -18.58763  -7.6345905
+## 0.15 - 0.24 -20.111111 0.0000     *** -25.75603 -14.4661950
+## 0.18 - 0.21  -8.111111 0.0037      ** -13.32535  -2.8968704
+## 0.18 - 0.24 -15.111111 0.0000     *** -20.58763  -9.6345905
+## 0.21 - 0.24  -7.000000 0.0106       * -12.21424  -1.7857593</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">duncan.test</span>(<span class="dt">y =</span> fit,<span class="dt">trt =</span> <span class="st">&quot;velocidad&quot;</span>,<span class="dt">console =</span> T,<span class="dt">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;velocidad&quot;
+## 
+## Duncan&#39;s new multiple range test
+## for acabado 
+## 
+## Mean Square Error:  28.72222 
+## 
+## velocidad,  means
+## 
+##        acabado       std  r Min Max
+## 0.2   81.58333 14.336592 12  60 104
+## 0.25  97.58333  8.005207 12  86 110
+## 0.3  103.83333  6.072791 12  95 114
+## 
+## Comparison between treatments means
+## 
+##            difference pvalue signif.       LCL        UCL
+## 0.2 - 0.25     -16.00 0.0000     *** -20.51566 -11.484335
+## 0.2 - 0.3      -22.25 0.0000     *** -26.99281 -17.507194
+## 0.25 - 0.3      -6.25 0.0087      ** -10.76566  -1.734335</code></pre>
+<p>Las comparaciones múltiples indican que los niveles bajos de ambos factores minimizan las unidades en gramos del acabado del metal, no obstante, el efecto de la interacción se observa en muchos de los cruces de las variables, para poder definir los puntos especificos donde esto pasa, es necesario revisar nuevamente los resultados de <strong>Tukey</strong> pero organizado de menor a mayor los valores-p de la prueba, además es necesario graficar las interacciones con sus respectivos intervalos de confianza.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>(IM &lt;-<span class="st"> </span><span class="kw">interactionMeans</span>(fit))</span></code></pre></div>
+<pre><code>##    profundidad velocidad adjusted mean std. error
+## 1         0.15       0.2      66.00000     3.0942
+## 2         0.18       0.2      73.33333     3.0942
+## 3         0.21       0.2      87.33333     3.0942
+## 4         0.24       0.2      99.66667     3.0942
+## 5         0.15      0.25      88.66667     3.0942
+## 6         0.18      0.25      96.66667     3.0942
+## 7         0.21      0.25     100.66667     3.0942
+## 8         0.24      0.25     104.33333     3.0942
+## 9         0.15       0.3      99.66667     3.0942
+## 10        0.18       0.3      99.33333     3.0942
+## 11        0.21       0.3     105.66667     3.0942
+## 12        0.24       0.3     110.66667     3.0942</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="kw">plot</span>(IM)</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-11-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div id="htmlwidget-b8a9e908787ecaca6402" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b8a9e908787ecaca6402">{"x":{"filter":"none","data":[["0.24:0.3-0.15:0.2","0.21:0.3-0.15:0.2","0.24:0.25-0.15:0.2","0.24:0.3-0.18:0.2","0.21:0.25-0.15:0.2","0.24:0.2-0.15:0.2","0.15:0.3-0.15:0.2","0.18:0.3-0.15:0.2","0.21:0.3-0.18:0.2","0.24:0.25-0.18:0.2","0.18:0.25-0.15:0.2","0.21:0.25-0.18:0.2","0.24:0.2-0.18:0.2","0.15:0.3-0.18:0.2","0.18:0.3-0.18:0.2","0.18:0.25-0.18:0.2","0.24:0.3-0.21:0.2","0.15:0.25-0.15:0.2","0.24:0.3-0.15:0.25","0.21:0.2-0.15:0.2","0.21:0.3-0.21:0.2","0.21:0.3-0.15:0.25","0.24:0.25-0.21:0.2","0.24:0.25-0.15:0.25","0.15:0.25-0.18:0.2","0.21:0.2-0.18:0.2","0.24:0.3-0.18:0.25","0.21:0.25-0.21:0.2","0.24:0.2-0.21:0.2","0.15:0.3-0.21:0.2","0.21:0.25-0.15:0.25","0.18:0.3-0.21:0.2","0.24:0.3-0.18:0.3","0.15:0.25-0.24:0.2","0.15:0.3-0.15:0.25","0.24:0.3-0.24:0.2","0.24:0.3-0.15:0.3","0.18:0.3-0.15:0.25","0.24:0.3-0.21:0.25","0.18:0.25-0.21:0.2","0.21:0.3-0.18:0.25","0.18:0.25-0.15:0.25","0.24:0.25-0.18:0.25","0.18:0.2-0.15:0.2","0.24:0.3-0.24:0.25","0.21:0.3-0.18:0.3","0.21:0.3-0.24:0.2","0.21:0.3-0.15:0.3","0.21:0.3-0.21:0.25","0.18:0.3-0.24:0.25","0.24:0.3-0.21:0.3","0.24:0.25-0.24:0.2","0.15:0.3-0.24:0.25","0.21:0.25-0.18:0.25","0.24:0.25-0.21:0.25","0.18:0.25-0.24:0.2","0.15:0.3-0.18:0.25","0.18:0.3-0.18:0.25","0.15:0.25-0.21:0.2","0.18:0.3-0.21:0.25","0.21:0.3-0.24:0.25","0.21:0.25-0.24:0.2","0.15:0.3-0.21:0.25","0.15:0.3-0.24:0.2","0.18:0.3-0.24:0.2","0.18:0.3-0.15:0.3"],[44.6666666666666,39.6666666666666,38.3333333333333,37.3333333333333,34.6666666666666,33.6666666666666,33.6666666666666,33.3333333333333,32.3333333333333,31,30.6666666666666,27.3333333333333,26.3333333333333,26.3333333333333,26,23.3333333333333,23.3333333333333,22.6666666666666,22,21.3333333333333,18.3333333333333,17,17,15.6666666666667,15.3333333333333,14,14,13.3333333333333,12.3333333333333,12.3333333333333,12,12,11.3333333333333,-11,11,11,11,10.6666666666667,10,9.33333333333331,9.00000000000001,8,7.66666666666667,7.33333333333329,6.33333333333334,6.33333333333334,6,6,5,-5,5,4.66666666666666,-4.66666666666666,4.00000000000001,3.66666666666666,-3.00000000000001,3.00000000000001,2.66666666666667,1.33333333333331,-1.33333333333334,1.33333333333334,1,-1,0,-0.333333333333343,-0.333333333333343],[28.8889389229543,23.8889389229543,22.555605589621,21.555605589621,18.8889389229543,17.8889389229543,17.8889389229543,17.555605589621,16.555605589621,15.2222722562877,14.8889389229543,11.555605589621,10.555605589621,10.555605589621,10.2222722562877,7.55560558962101,7.55560558962101,6.88893892295429,6.22227225628769,5.55560558962098,2.55560558962101,1.22227225628769,1.22227225628767,-0.111061077045649,-0.444394410378992,-1.77772774371231,-1.77772774371231,-2.44439441037899,-3.44439441037899,-3.44439441037899,-3.77772774371231,-3.77772774371233,-4.44439441037898,-26.7777277437123,-4.77772774371231,-4.77772774371232,-4.77772774371232,-5.11106107704565,-5.77772774371232,-6.44439441037901,-6.77772774371231,-7.77772774371232,-8.11106107704565,-8.44439441037903,-9.44439441037898,-9.44439441037898,-9.77772774371232,-9.77772774371232,-10.7777277437123,-20.7777277437123,-10.7777277437123,-11.1110610770457,-20.444394410379,-11.7777277437123,-12.1110610770457,-18.7777277437123,-12.7777277437123,-13.1110610770456,-14.444394410379,-17.1110610770457,-14.444394410379,-14.7777277437123,-16.7777277437123,-15.7777277437123,-16.1110610770457,-16.1110610770457],[60.4443944103789,55.4443944103789,54.1110610770456,53.1110610770457,50.4443944103789,49.4443944103789,49.4443944103789,49.1110610770456,48.1110610770457,46.7777277437123,46.4443944103789,43.1110610770457,42.1110610770457,42.1110610770457,41.7777277437123,39.1110610770456,39.1110610770456,38.4443944103789,37.7777277437123,37.1110610770456,34.1110610770456,32.7777277437123,32.7777277437123,31.444394410379,31.1110610770456,29.7777277437123,29.7777277437123,29.1110610770456,28.1110610770456,28.1110610770456,27.7777277437123,27.7777277437123,27.1110610770457,4.77772774371231,26.7777277437123,26.7777277437123,26.7777277437123,26.444394410379,25.7777277437123,25.1110610770456,24.7777277437123,23.7777277437123,23.444394410379,23.1110610770456,22.1110610770457,22.1110610770457,21.7777277437123,21.7777277437123,20.7777277437123,10.7777277437123,20.7777277437123,20.444394410379,11.1110610770457,19.7777277437123,19.444394410379,12.7777277437123,18.7777277437123,18.444394410379,17.1110610770456,14.444394410379,17.1110610770457,16.7777277437123,14.7777277437123,15.7777277437123,15.444394410379,15.444394410379],[1.92734717074927e-008,1.86257141043811e-007,3.50384855130059e-007,5.67087133918065e-007,2.11343167810796e-006,3.5020939629371e-006,3.5020939629371e-006,4.14997710196374e-006,6.93394671413827e-006,1.38760611890776e-005,1.65304031509717e-005,9.82290152171661e-005,0.000169283277156707,0.000169283277156707,0.000203115378017649,0.000880710873076951,0.000880710873076951,0.0012723287457953,0.00183749870251049,0.00265162244608486,0.0134649183089226,0.0270232335306437,0.0270232335306444,0.0528028179188652,0.0620974653816202,0.115648397968695,0.115648397968695,0.154868917134662,0.233191887104595,0.233191887104595,0.26497237370356,0.264972373703563,0.337170272901743,0.377379667835064,0.377379667835064,0.377379667835066,0.377379667835066,0.420039433848089,0.511227220944611,0.606726758597119,0.65443161640574,0.788146218206615,0.827090116725547,0.862175427129746,0.941076757071099,0.941076757071099,0.958505604510369,0.958505604510369,0.988857676454972,0.988857676454972,0.988857676454972,0.993540730880426,0.993540730880426,0.998236536502043,0.999187668621483,0.999876182328413,0.999876182328413,0.999960911813108,0.999999971056633,0.999999971056633,0.999999971056633,0.999999998698761,0.999999998698761,1,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>padj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatRound(this, row, data, 1, 5, 3, \",\", \".\");\nDTWidget.formatRound(this, row, data, 2, 5, 3, \",\", \".\");\nDTWidget.formatRound(this, row, data, 3, 5, 3, \",\", \".\");\nDTWidget.formatRound(this, row, data, 4, 5, 3, \",\", \".\");\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
