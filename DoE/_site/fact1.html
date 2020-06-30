@@ -576,8 +576,8 @@ div.tocify {
 <div id="análisis-de-los-efectos" class="section level2">
 <h2>Análisis de los efectos</h2>
 <p>Suponga que en un proceso de fabricación de galletas se quiere analizar el efecto de la temperatura de cocción y el tiempo en horno que tiene sobre la cantidad de galletas bien cocidas en diferentes lotes.</p>
-<div id="htmlwidget-011045f7bed13e59ab42" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-011045f7bed13e59ab42">{"x":{"filter":"none","data":[[30,35,60,58,60,64,30,35],["Baja","Baja","Baja","Baja","Alta","Alta","Alta","Alta"],["Corto","Corto","Largo","Largo","Corto","Corto","Largo","Largo"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>lote<\/th>\n      <th>temperatura<\/th>\n      <th>tiempo<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-cbff3117a53aded530b4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cbff3117a53aded530b4">{"x":{"filter":"none","data":[[30,35,60,58,60,64,30,35],["Baja","Baja","Baja","Baja","Alta","Alta","Alta","Alta"],["Corto","Corto","Largo","Largo","Corto","Corto","Largo","Largo"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>lote<\/th>\n      <th>temperatura<\/th>\n      <th>tiempo<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p>El efecto de un factor se define como el cambio observado en la variable de respuesta debido a un cambio de nivel de tal factor En particular, los efectos principales son los cambios en la media de la variable de respuesta que se deben a la acción individual de cada factor.</p>
 <hr>
 <div id="efecto-principal" class="section level3">
@@ -1322,8 +1322,349 @@ i=1,2,3,4\quad j=1,2,3\quad k=1,2,3\\
 ## 12        0.24       0.3     110.66667     3.0942</code></pre>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="kw">plot</span>(IM)</span></code></pre></div>
 <p><img src="fact1_files/figure-html/unnamed-chunk-11-1.png" width="540" style="display: block; margin: auto;" /></p>
-<div id="htmlwidget-b8a9e908787ecaca6402" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b8a9e908787ecaca6402">{"x":{"filter":"none","data":[["0.24:0.3-0.15:0.2","0.21:0.3-0.15:0.2","0.24:0.25-0.15:0.2","0.24:0.3-0.18:0.2","0.21:0.25-0.15:0.2","0.24:0.2-0.15:0.2","0.15:0.3-0.15:0.2","0.18:0.3-0.15:0.2","0.21:0.3-0.18:0.2","0.24:0.25-0.18:0.2","0.18:0.25-0.15:0.2","0.21:0.25-0.18:0.2","0.24:0.2-0.18:0.2","0.15:0.3-0.18:0.2","0.18:0.3-0.18:0.2","0.18:0.25-0.18:0.2","0.24:0.3-0.21:0.2","0.15:0.25-0.15:0.2","0.24:0.3-0.15:0.25","0.21:0.2-0.15:0.2","0.21:0.3-0.21:0.2","0.21:0.3-0.15:0.25","0.24:0.25-0.21:0.2","0.24:0.25-0.15:0.25","0.15:0.25-0.18:0.2","0.21:0.2-0.18:0.2","0.24:0.3-0.18:0.25","0.21:0.25-0.21:0.2","0.24:0.2-0.21:0.2","0.15:0.3-0.21:0.2","0.21:0.25-0.15:0.25","0.18:0.3-0.21:0.2","0.24:0.3-0.18:0.3","0.15:0.25-0.24:0.2","0.15:0.3-0.15:0.25","0.24:0.3-0.24:0.2","0.24:0.3-0.15:0.3","0.18:0.3-0.15:0.25","0.24:0.3-0.21:0.25","0.18:0.25-0.21:0.2","0.21:0.3-0.18:0.25","0.18:0.25-0.15:0.25","0.24:0.25-0.18:0.25","0.18:0.2-0.15:0.2","0.24:0.3-0.24:0.25","0.21:0.3-0.18:0.3","0.21:0.3-0.24:0.2","0.21:0.3-0.15:0.3","0.21:0.3-0.21:0.25","0.18:0.3-0.24:0.25","0.24:0.3-0.21:0.3","0.24:0.25-0.24:0.2","0.15:0.3-0.24:0.25","0.21:0.25-0.18:0.25","0.24:0.25-0.21:0.25","0.18:0.25-0.24:0.2","0.15:0.3-0.18:0.25","0.18:0.3-0.18:0.25","0.15:0.25-0.21:0.2","0.18:0.3-0.21:0.25","0.21:0.3-0.24:0.25","0.21:0.25-0.24:0.2","0.15:0.3-0.21:0.25","0.15:0.3-0.24:0.2","0.18:0.3-0.24:0.2","0.18:0.3-0.15:0.3"],[44.6666666666666,39.6666666666666,38.3333333333333,37.3333333333333,34.6666666666666,33.6666666666666,33.6666666666666,33.3333333333333,32.3333333333333,31,30.6666666666666,27.3333333333333,26.3333333333333,26.3333333333333,26,23.3333333333333,23.3333333333333,22.6666666666666,22,21.3333333333333,18.3333333333333,17,17,15.6666666666667,15.3333333333333,14,14,13.3333333333333,12.3333333333333,12.3333333333333,12,12,11.3333333333333,-11,11,11,11,10.6666666666667,10,9.33333333333331,9.00000000000001,8,7.66666666666667,7.33333333333329,6.33333333333334,6.33333333333334,6,6,5,-5,5,4.66666666666666,-4.66666666666666,4.00000000000001,3.66666666666666,-3.00000000000001,3.00000000000001,2.66666666666667,1.33333333333331,-1.33333333333334,1.33333333333334,1,-1,0,-0.333333333333343,-0.333333333333343],[28.8889389229543,23.8889389229543,22.555605589621,21.555605589621,18.8889389229543,17.8889389229543,17.8889389229543,17.555605589621,16.555605589621,15.2222722562877,14.8889389229543,11.555605589621,10.555605589621,10.555605589621,10.2222722562877,7.55560558962101,7.55560558962101,6.88893892295429,6.22227225628769,5.55560558962098,2.55560558962101,1.22227225628769,1.22227225628767,-0.111061077045649,-0.444394410378992,-1.77772774371231,-1.77772774371231,-2.44439441037899,-3.44439441037899,-3.44439441037899,-3.77772774371231,-3.77772774371233,-4.44439441037898,-26.7777277437123,-4.77772774371231,-4.77772774371232,-4.77772774371232,-5.11106107704565,-5.77772774371232,-6.44439441037901,-6.77772774371231,-7.77772774371232,-8.11106107704565,-8.44439441037903,-9.44439441037898,-9.44439441037898,-9.77772774371232,-9.77772774371232,-10.7777277437123,-20.7777277437123,-10.7777277437123,-11.1110610770457,-20.444394410379,-11.7777277437123,-12.1110610770457,-18.7777277437123,-12.7777277437123,-13.1110610770456,-14.444394410379,-17.1110610770457,-14.444394410379,-14.7777277437123,-16.7777277437123,-15.7777277437123,-16.1110610770457,-16.1110610770457],[60.4443944103789,55.4443944103789,54.1110610770456,53.1110610770457,50.4443944103789,49.4443944103789,49.4443944103789,49.1110610770456,48.1110610770457,46.7777277437123,46.4443944103789,43.1110610770457,42.1110610770457,42.1110610770457,41.7777277437123,39.1110610770456,39.1110610770456,38.4443944103789,37.7777277437123,37.1110610770456,34.1110610770456,32.7777277437123,32.7777277437123,31.444394410379,31.1110610770456,29.7777277437123,29.7777277437123,29.1110610770456,28.1110610770456,28.1110610770456,27.7777277437123,27.7777277437123,27.1110610770457,4.77772774371231,26.7777277437123,26.7777277437123,26.7777277437123,26.444394410379,25.7777277437123,25.1110610770456,24.7777277437123,23.7777277437123,23.444394410379,23.1110610770456,22.1110610770457,22.1110610770457,21.7777277437123,21.7777277437123,20.7777277437123,10.7777277437123,20.7777277437123,20.444394410379,11.1110610770457,19.7777277437123,19.444394410379,12.7777277437123,18.7777277437123,18.444394410379,17.1110610770456,14.444394410379,17.1110610770457,16.7777277437123,14.7777277437123,15.7777277437123,15.444394410379,15.444394410379],[1.92734717074927e-008,1.86257141043811e-007,3.50384855130059e-007,5.67087133918065e-007,2.11343167810796e-006,3.5020939629371e-006,3.5020939629371e-006,4.14997710196374e-006,6.93394671413827e-006,1.38760611890776e-005,1.65304031509717e-005,9.82290152171661e-005,0.000169283277156707,0.000169283277156707,0.000203115378017649,0.000880710873076951,0.000880710873076951,0.0012723287457953,0.00183749870251049,0.00265162244608486,0.0134649183089226,0.0270232335306437,0.0270232335306444,0.0528028179188652,0.0620974653816202,0.115648397968695,0.115648397968695,0.154868917134662,0.233191887104595,0.233191887104595,0.26497237370356,0.264972373703563,0.337170272901743,0.377379667835064,0.377379667835064,0.377379667835066,0.377379667835066,0.420039433848089,0.511227220944611,0.606726758597119,0.65443161640574,0.788146218206615,0.827090116725547,0.862175427129746,0.941076757071099,0.941076757071099,0.958505604510369,0.958505604510369,0.988857676454972,0.988857676454972,0.988857676454972,0.993540730880426,0.993540730880426,0.998236536502043,0.999187668621483,0.999876182328413,0.999876182328413,0.999960911813108,0.999999971056633,0.999999971056633,0.999999971056633,0.999999998698761,0.999999998698761,1,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>padj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatRound(this, row, data, 1, 5, 3, \",\", \".\");\nDTWidget.formatRound(this, row, data, 2, 5, 3, \",\", \".\");\nDTWidget.formatRound(this, row, data, 3, 5, 3, \",\", \".\");\nDTWidget.formatRound(this, row, data, 4, 5, 3, \",\", \".\");\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+<div id="htmlwidget-a2c4aa2086ce5aed46e1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a2c4aa2086ce5aed46e1">{"x":{"filter":"none","data":[["0.24:0.3-0.15:0.2","0.21:0.3-0.15:0.2","0.24:0.25-0.15:0.2","0.24:0.3-0.18:0.2","0.21:0.25-0.15:0.2","0.24:0.2-0.15:0.2","0.15:0.3-0.15:0.2","0.18:0.3-0.15:0.2","0.21:0.3-0.18:0.2","0.24:0.25-0.18:0.2","0.18:0.25-0.15:0.2","0.21:0.25-0.18:0.2","0.24:0.2-0.18:0.2","0.15:0.3-0.18:0.2","0.18:0.3-0.18:0.2","0.18:0.25-0.18:0.2","0.24:0.3-0.21:0.2","0.15:0.25-0.15:0.2","0.24:0.3-0.15:0.25","0.21:0.2-0.15:0.2","0.21:0.3-0.21:0.2","0.21:0.3-0.15:0.25","0.24:0.25-0.21:0.2","0.24:0.25-0.15:0.25","0.15:0.25-0.18:0.2","0.21:0.2-0.18:0.2","0.24:0.3-0.18:0.25","0.21:0.25-0.21:0.2","0.24:0.2-0.21:0.2","0.15:0.3-0.21:0.2","0.21:0.25-0.15:0.25","0.18:0.3-0.21:0.2","0.24:0.3-0.18:0.3","0.15:0.25-0.24:0.2","0.15:0.3-0.15:0.25","0.24:0.3-0.24:0.2","0.24:0.3-0.15:0.3","0.18:0.3-0.15:0.25","0.24:0.3-0.21:0.25","0.18:0.25-0.21:0.2","0.21:0.3-0.18:0.25","0.18:0.25-0.15:0.25","0.24:0.25-0.18:0.25","0.18:0.2-0.15:0.2","0.24:0.3-0.24:0.25","0.21:0.3-0.18:0.3","0.21:0.3-0.24:0.2","0.21:0.3-0.15:0.3","0.21:0.3-0.21:0.25","0.18:0.3-0.24:0.25","0.24:0.3-0.21:0.3","0.24:0.25-0.24:0.2","0.15:0.3-0.24:0.25","0.21:0.25-0.18:0.25","0.24:0.25-0.21:0.25","0.18:0.25-0.24:0.2","0.15:0.3-0.18:0.25","0.18:0.3-0.18:0.25","0.15:0.25-0.21:0.2","0.18:0.3-0.21:0.25","0.21:0.3-0.24:0.25","0.21:0.25-0.24:0.2","0.15:0.3-0.21:0.25","0.15:0.3-0.24:0.2","0.18:0.3-0.24:0.2","0.18:0.3-0.15:0.3"],[44.6666666666666,39.6666666666666,38.3333333333333,37.3333333333333,34.6666666666666,33.6666666666666,33.6666666666666,33.3333333333333,32.3333333333333,31,30.6666666666666,27.3333333333333,26.3333333333333,26.3333333333333,26,23.3333333333333,23.3333333333333,22.6666666666666,22,21.3333333333333,18.3333333333333,17,17,15.6666666666667,15.3333333333333,14,14,13.3333333333333,12.3333333333333,12.3333333333333,12,12,11.3333333333333,-11,11,11,11,10.6666666666667,10,9.33333333333331,9.00000000000001,8,7.66666666666667,7.33333333333329,6.33333333333334,6.33333333333334,6,6,5,-5,5,4.66666666666666,-4.66666666666666,4.00000000000001,3.66666666666666,-3.00000000000001,3.00000000000001,2.66666666666667,1.33333333333331,-1.33333333333334,1.33333333333334,1,-1,0,-0.333333333333343,-0.333333333333343],[28.8889389229543,23.8889389229543,22.555605589621,21.555605589621,18.8889389229543,17.8889389229543,17.8889389229543,17.555605589621,16.555605589621,15.2222722562877,14.8889389229543,11.555605589621,10.555605589621,10.555605589621,10.2222722562877,7.55560558962101,7.55560558962101,6.88893892295429,6.22227225628769,5.55560558962098,2.55560558962101,1.22227225628769,1.22227225628767,-0.111061077045649,-0.444394410378992,-1.77772774371231,-1.77772774371231,-2.44439441037899,-3.44439441037899,-3.44439441037899,-3.77772774371231,-3.77772774371233,-4.44439441037898,-26.7777277437123,-4.77772774371231,-4.77772774371232,-4.77772774371232,-5.11106107704565,-5.77772774371232,-6.44439441037901,-6.77772774371231,-7.77772774371232,-8.11106107704565,-8.44439441037903,-9.44439441037898,-9.44439441037898,-9.77772774371232,-9.77772774371232,-10.7777277437123,-20.7777277437123,-10.7777277437123,-11.1110610770457,-20.444394410379,-11.7777277437123,-12.1110610770457,-18.7777277437123,-12.7777277437123,-13.1110610770456,-14.444394410379,-17.1110610770457,-14.444394410379,-14.7777277437123,-16.7777277437123,-15.7777277437123,-16.1110610770457,-16.1110610770457],[60.4443944103789,55.4443944103789,54.1110610770456,53.1110610770457,50.4443944103789,49.4443944103789,49.4443944103789,49.1110610770456,48.1110610770457,46.7777277437123,46.4443944103789,43.1110610770457,42.1110610770457,42.1110610770457,41.7777277437123,39.1110610770456,39.1110610770456,38.4443944103789,37.7777277437123,37.1110610770456,34.1110610770456,32.7777277437123,32.7777277437123,31.444394410379,31.1110610770456,29.7777277437123,29.7777277437123,29.1110610770456,28.1110610770456,28.1110610770456,27.7777277437123,27.7777277437123,27.1110610770457,4.77772774371231,26.7777277437123,26.7777277437123,26.7777277437123,26.444394410379,25.7777277437123,25.1110610770456,24.7777277437123,23.7777277437123,23.444394410379,23.1110610770456,22.1110610770457,22.1110610770457,21.7777277437123,21.7777277437123,20.7777277437123,10.7777277437123,20.7777277437123,20.444394410379,11.1110610770457,19.7777277437123,19.444394410379,12.7777277437123,18.7777277437123,18.444394410379,17.1110610770456,14.444394410379,17.1110610770457,16.7777277437123,14.7777277437123,15.7777277437123,15.444394410379,15.444394410379],[1.92734717074927e-008,1.86257141043811e-007,3.50384855130059e-007,5.67087133918065e-007,2.11343167810796e-006,3.5020939629371e-006,3.5020939629371e-006,4.14997710196374e-006,6.93394671413827e-006,1.38760611890776e-005,1.65304031509717e-005,9.82290152171661e-005,0.000169283277156707,0.000169283277156707,0.000203115378017649,0.000880710873076951,0.000880710873076951,0.0012723287457953,0.00183749870251049,0.00265162244608486,0.0134649183089226,0.0270232335306437,0.0270232335306444,0.0528028179188652,0.0620974653816202,0.115648397968695,0.115648397968695,0.154868917134662,0.233191887104595,0.233191887104595,0.26497237370356,0.264972373703563,0.337170272901743,0.377379667835064,0.377379667835064,0.377379667835066,0.377379667835066,0.420039433848089,0.511227220944611,0.606726758597119,0.65443161640574,0.788146218206615,0.827090116725547,0.862175427129746,0.941076757071099,0.941076757071099,0.958505604510369,0.958505604510369,0.988857676454972,0.988857676454972,0.988857676454972,0.993540730880426,0.993540730880426,0.998236536502043,0.999187668621483,0.999876182328413,0.999876182328413,0.999960911813108,0.999999971056633,0.999999971056633,0.999999971056633,0.999999998698761,0.999999998698761,1,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>diff<\/th>\n      <th>lwr<\/th>\n      <th>upr<\/th>\n      <th>padj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data) {\nDTWidget.formatRound(this, row, data, 1, 5, 3, \",\", \".\");\nDTWidget.formatRound(this, row, data, 2, 5, 3, \",\", \".\");\nDTWidget.formatRound(this, row, data, 3, 5, 3, \",\", \".\");\nDTWidget.formatRound(this, row, data, 4, 5, 3, \",\", \".\");\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
+</div>
+<div id="ejemplo-2" class="section level2">
+<h2>Ejemplo 2</h2>
+<p>Los siguientes datos corresponden a diseño <span class="math inline">\(3 \times 3\)</span> con tres réplicas. Interesa investigar el efecto de ambos factores sobre <span class="math inline">\(Y\)</span>, para encontrar las condiciones adecuadas para maximizar.</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th style="text-align:center;vertical-align:middle" rowspan="2">
+<span class="math inline">\(A\)</span>
+</th>
+<th style="text-align:center;vertical-align:middle" colspan="3">
+<span class="math inline">\(B\)</span>
+</th>
+</tr>
+<tr>
+<td style="text-align:center;">
+<b><span class="math inline">\(B_1\)</span></b>
+</td>
+<td style="text-align:center;">
+<b><span class="math inline">\(B_2\)</span></b>
+</td>
+<td style="text-align:center;">
+<b><span class="math inline">\(B_3\)</span></b>
+</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<b><span class="math inline">\(A_1\)</span></b>
+</td>
+<td style="text-align:center;">
+10  6  14
+</td>
+<td style="text-align:center;">
+3  5  1
+</td>
+<td style="text-align:center;">
+1  2  1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<b><span class="math inline">\(A_2\)</span></b>
+</td>
+<td style="text-align:center;">
+60  73  79
+</td>
+<td style="text-align:center;">
+88  70  76
+</td>
+<td style="text-align:center;">
+71  71  69
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<b><span class="math inline">\(A_3\)</span></b>
+</td>
+<td style="text-align:center;">
+44  35  28
+</td>
+<td style="text-align:center;">
+38  22  26
+</td>
+<td style="text-align:center;">
+29  20  22
+</td>
+</tr>
+</tbody>
+</table>
+<p>El modelo a evaluar es:</p>
+<p><span class="math display">\[Y_{ijk}=\mu + \alpha_i + \beta_j + (\alpha\beta)_{ij}+\varepsilon_{ijk}\]</span></p>
+<p>Un modelo factorial de dos factores cada uno con tres niveles, se plantea dentro del modelo la posibilidad de encontrar interacción entre los factores. Utilizando <code>R</code> el análisis estadístico de este diseño experimental es sencillo. Los pasos a seguir son los siguientes:</p>
+<ol style="list-style-type: decimal">
+<li>Cargar/Construir la base de datos con la información de interés.</li>
+<li>Realizar un análisis descriptivo de la información.</li>
+<li>Ajustar el modelo a través del ANOVA.</li>
+<li>Validar los supuestos del modelo.</li>
+<li>Realizar las pruebas post-hoc.</li>
+</ol>
+<p>Necesitamos las siguientes librerías.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="co"># Para gráficos con estilo</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a><span class="kw">require</span>(ggplot2)</span>
+<span id="cb46-3"><a href="#cb46-3"></a></span>
+<span id="cb46-4"><a href="#cb46-4"></a><span class="co"># Para manejar bases de datos</span></span>
+<span id="cb46-5"><a href="#cb46-5"></a><span class="kw">require</span>(dplyr)</span>
+<span id="cb46-6"><a href="#cb46-6"></a></span>
+<span id="cb46-7"><a href="#cb46-7"></a><span class="co"># Para construir los qq-plots</span></span>
+<span id="cb46-8"><a href="#cb46-8"></a><span class="kw">require</span>(car)</span>
+<span id="cb46-9"><a href="#cb46-9"></a></span>
+<span id="cb46-10"><a href="#cb46-10"></a><span class="co"># Para las pruebas de normalidad</span></span>
+<span id="cb46-11"><a href="#cb46-11"></a><span class="kw">require</span>(nortest)</span>
+<span id="cb46-12"><a href="#cb46-12"></a></span>
+<span id="cb46-13"><a href="#cb46-13"></a><span class="co"># Para evaluar las interacciones</span></span>
+<span id="cb46-14"><a href="#cb46-14"></a><span class="kw">require</span>(phia)</span>
+<span id="cb46-15"><a href="#cb46-15"></a></span>
+<span id="cb46-16"><a href="#cb46-16"></a><span class="co"># Para las pruebas post-hoc</span></span>
+<span id="cb46-17"><a href="#cb46-17"></a><span class="kw">require</span>(agricolae)</span>
+<span id="cb46-18"><a href="#cb46-18"></a><span class="kw">require</span>(multcomp)</span></code></pre></div>
+<p>El primer paso es cargar o construir la base de datos, esto puede hacerse en excel y luego importarlas a <code>R</code> o se puede construir la base de datos de la siguiente forma:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>datos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Y=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">6</span>,<span class="dv">14</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,</span>
+<span id="cb47-2"><a href="#cb47-2"></a>                        <span class="dv">60</span>,<span class="dv">73</span>,<span class="dv">79</span>,<span class="dv">88</span>,<span class="dv">70</span>,<span class="dv">76</span>,<span class="dv">71</span>,<span class="dv">71</span>,<span class="dv">69</span>,</span>
+<span id="cb47-3"><a href="#cb47-3"></a>                        <span class="dv">44</span>,<span class="dv">35</span>,<span class="dv">28</span>,<span class="dv">38</span>,<span class="dv">22</span>,<span class="dv">26</span>,<span class="dv">29</span>,<span class="dv">20</span>,<span class="dv">22</span>),</span>
+<span id="cb47-4"><a href="#cb47-4"></a>                    <span class="dt">A=</span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;A1&quot;</span>,<span class="dv">9</span>),<span class="kw">rep</span>(<span class="st">&quot;A2&quot;</span>,<span class="dv">9</span>),<span class="kw">rep</span>(<span class="st">&quot;A3&quot;</span>,<span class="dv">9</span>)),</span>
+<span id="cb47-5"><a href="#cb47-5"></a>                    <span class="dt">B=</span><span class="kw">rep</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;B1&quot;</span>,<span class="st">&quot;B2&quot;</span>,<span class="st">&quot;B3&quot;</span>),<span class="dt">each=</span><span class="dv">3</span>),<span class="dv">3</span>))</span>
+<span id="cb47-6"><a href="#cb47-6"></a></span>
+<span id="cb47-7"><a href="#cb47-7"></a><span class="co"># verificar la tabla de datos</span></span>
+<span id="cb47-8"><a href="#cb47-8"></a><span class="kw">str</span>(datos)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    27 obs. of  3 variables:
+##  $ Y: num  10 6 14 3 5 1 1 2 1 60 ...
+##  $ A: Factor w/ 3 levels &quot;A1&quot;,&quot;A2&quot;,&quot;A3&quot;: 1 1 1 1 1 1 1 1 1 2 ...
+##  $ B: Factor w/ 3 levels &quot;B1&quot;,&quot;B2&quot;,&quot;B3&quot;: 1 1 1 2 2 2 3 3 3 1 ...</code></pre>
+<p>Los análisis descriptivos sirven para evaluar visualmente si existe un posible efecto del tratamiento en la variable respuesta, los candidatos a para esto son los BoxPlot ya que se presentan réplicas, además es necesario evaluar el efecto medio, entonces con gráficos de punto y línea y de interacción se realiza el análisis exploratorio.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="co"># Box plot</span></span>
+<span id="cb49-2"><a href="#cb49-2"></a><span class="kw">ggplot</span>(datos,<span class="kw">aes</span>(<span class="dt">y=</span>Y,<span class="dt">x=</span>A,<span class="dt">fill=</span>A))<span class="op">+</span></span>
+<span id="cb49-3"><a href="#cb49-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span><span class="kw">theme_bw</span>()<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Factor A&quot;</span>)</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-15-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="kw">ggplot</span>(datos,<span class="kw">aes</span>(<span class="dt">y=</span>Y,<span class="dt">x=</span>B,<span class="dt">fill=</span>B))<span class="op">+</span></span>
+<span id="cb50-2"><a href="#cb50-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span><span class="kw">theme_bw</span>()<span class="op">+</span><span class="kw">ggtitle</span>(<span class="st">&quot;Factor B&quot;</span>)</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-15-2.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="co"># Interacción con Base</span></span>
+<span id="cb51-2"><a href="#cb51-2"></a><span class="kw">with</span>(datos,</span>
+<span id="cb51-3"><a href="#cb51-3"></a>     <span class="kw">interaction.plot</span>(A,B,Y,</span>
+<span id="cb51-4"><a href="#cb51-4"></a>                      <span class="dt">las=</span><span class="dv">1</span>,<span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,<span class="dt">pch=</span><span class="kw">rep</span>(<span class="dv">19</span>,<span class="dv">3</span>),<span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,</span>
+<span id="cb51-5"><a href="#cb51-5"></a>                      <span class="dt">main=</span><span class="st">&quot;Gráfico de Interacción AB&quot;</span>))</span>
+<span id="cb51-6"><a href="#cb51-6"></a><span class="kw">grid</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-15-3.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="kw">with</span>(datos,</span>
+<span id="cb52-2"><a href="#cb52-2"></a>     <span class="kw">interaction.plot</span>(B,A,Y,</span>
+<span id="cb52-3"><a href="#cb52-3"></a>                      <span class="dt">las=</span><span class="dv">1</span>,<span class="dt">type =</span> <span class="st">&quot;b&quot;</span>,<span class="dt">pch=</span><span class="kw">rep</span>(<span class="dv">19</span>,<span class="dv">3</span>),<span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,</span>
+<span id="cb52-4"><a href="#cb52-4"></a>                      <span class="dt">main=</span><span class="st">&quot;Gráfico de Interacción BA&quot;</span>))</span>
+<span id="cb52-5"><a href="#cb52-5"></a><span class="kw">grid</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-15-4.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="co"># Interacción con ggplot</span></span>
+<span id="cb53-2"><a href="#cb53-2"></a>Inter &lt;-<span class="st"> </span>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(A,B) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb53-3"><a href="#cb53-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Ym =</span> <span class="kw">mean</span>(Y))</span>
+<span id="cb53-4"><a href="#cb53-4"></a></span>
+<span id="cb53-5"><a href="#cb53-5"></a><span class="kw">ggplot</span>(Inter,<span class="kw">aes</span>(<span class="dt">x=</span>A,<span class="dt">y=</span>Ym,</span>
+<span id="cb53-6"><a href="#cb53-6"></a>                 <span class="dt">group=</span>B,<span class="dt">colour=</span>B))<span class="op">+</span></span>
+<span id="cb53-7"><a href="#cb53-7"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">lwd=</span><span class="dv">1</span>)<span class="op">+</span></span>
+<span id="cb53-8"><a href="#cb53-8"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Gráfico de Interacción AB&quot;</span>)<span class="op">+</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-15-5.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="kw">ggplot</span>(Inter,<span class="kw">aes</span>(<span class="dt">x=</span>B,<span class="dt">y=</span>Ym,</span>
+<span id="cb54-2"><a href="#cb54-2"></a>                 <span class="dt">group=</span>A,<span class="dt">colour=</span>A))<span class="op">+</span></span>
+<span id="cb54-3"><a href="#cb54-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">lwd=</span><span class="dv">1</span>)<span class="op">+</span></span>
+<span id="cb54-4"><a href="#cb54-4"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Gráfico de Interacción BA&quot;</span>)<span class="op">+</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-15-6.png" width="540" style="display: block; margin: auto;" /></p>
+<p>De acuerdo con los gráficos, aparentemente no hay interacción entre los factores debido a que no se cruzan los niveles entre ellos, por otra parte en el factor <span class="math inline">\(A\)</span> el nivel <span class="math inline">\(A_1\)</span> parece ser sel que maximiza la respuesta, y el nivel <span class="math inline">\(B_1\)</span> hace lo mismo en el factor <span class="math inline">\(B\)</span>.</p>
+<p>El cambio que muestran los niveles del factor <span class="math inline">\(A\)</span> sugiere que existe un efecto curvatura, con el siguiente gráfico se puede realizar una aproximación.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="co"># Efecto Curvatura</span></span>
+<span id="cb55-2"><a href="#cb55-2"></a><span class="kw">ggplot</span>(datos,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">as.numeric</span>(A),<span class="dt">y=</span>Y,</span>
+<span id="cb55-3"><a href="#cb55-3"></a>                 <span class="dt">group=</span>B,<span class="dt">colour=</span>B))<span class="op">+</span></span>
+<span id="cb55-4"><a href="#cb55-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>Inter,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">as.numeric</span>(A),<span class="dt">y=</span>Ym),<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span></span>
+<span id="cb55-5"><a href="#cb55-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se=</span>F,<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>)<span class="op">+</span></span>
+<span id="cb55-6"><a href="#cb55-6"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Gráfico de Interacción AB</span><span class="ch">\n</span><span class="st">Efecto Curvatura&quot;</span>)<span class="op">+</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-16-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="kw">ggplot</span>(datos,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">as.numeric</span>(B),<span class="dt">y=</span>Y,</span>
+<span id="cb56-2"><a href="#cb56-2"></a>                 <span class="dt">group=</span>A,<span class="dt">colour=</span>A))<span class="op">+</span></span>
+<span id="cb56-3"><a href="#cb56-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>Inter,<span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">as.numeric</span>(B),<span class="dt">y=</span>Ym),<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span></span>
+<span id="cb56-4"><a href="#cb56-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se=</span>F,<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>)<span class="op">+</span></span>
+<span id="cb56-5"><a href="#cb56-5"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Gráfico de Interacción BA</span><span class="ch">\n</span><span class="st">Efecto Curvatura&quot;</span>)<span class="op">+</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-16-2.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Luego se construye el modelo con el comando <code>aov</code> dando como argumentos la fórmula, después se ejecuta el comando <code>anova</code> para construir la tabla e interpretar.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a><span class="co"># Anova</span></span>
+<span id="cb57-2"><a href="#cb57-2"></a>fit &lt;-<span class="st"> </span><span class="kw">aov</span>(Y<span class="op">~</span>A<span class="op">*</span>B,<span class="dt">data =</span> datos)</span>
+<span id="cb57-3"><a href="#cb57-3"></a><span class="kw">anova</span>(fit)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Y
+##           Df  Sum Sq Mean Sq  F value    Pr(&gt;F)    
+## A          2 21492.1 10746.0 271.6695 3.584e-14 ***
+## B          2   230.3   115.1   2.9110   0.08028 .  
+## A:B        4   227.3    56.8   1.4363   0.26263    
+## Residuals 18   712.0    39.6                       
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>De acuerdo con el ANOVA el factor <span class="math inline">\(A\)</span> es significativo en el modelo, la interacción no lo es y el factor <span class="math inline">\(B\)</span> podría ser significativo. Para elegir el modelo definitivo es necesario extraer paso a paso los efectos no significativos partiendo desde aquel que tiene el valor-p más alto, volver a evaluar el ANOVA y repetir el procedimiento si es necesario.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a><span class="co"># Anova 2</span></span>
+<span id="cb59-2"><a href="#cb59-2"></a>fit &lt;-<span class="st"> </span><span class="kw">update</span>(fit,.<span class="op">~</span>.<span class="op">-</span>A<span class="op">:</span>B)</span>
+<span id="cb59-3"><a href="#cb59-3"></a><span class="kw">anova</span>(fit)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Y
+##           Df  Sum Sq Mean Sq  F value    Pr(&gt;F)    
+## A          2 21492.1 10746.0 251.7013 6.938e-16 ***
+## B          2   230.3   115.1   2.6971   0.08962 .  
+## Residuals 22   939.3    42.7                       
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Cuando se extrae la interacción del modelo aumentan los grados de libertad para el error, además,este modelo de efectos fijos muestra que el factor <span class="math inline">\(B\)</span> no es significativo para explicar la respuesta <span class="math inline">\(Y\)</span>, por lo tanto, también hay que extraerlo del modelo.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="co"># Anova 3</span></span>
+<span id="cb61-2"><a href="#cb61-2"></a>fit &lt;-<span class="st"> </span><span class="kw">update</span>(fit,.<span class="op">~</span>.<span class="op">-</span>B)</span>
+<span id="cb61-3"><a href="#cb61-3"></a><span class="kw">anova</span>(fit)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Y
+##           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## A          2 21492.1 10746.0  220.52 3.571e-16 ***
+## Residuals 24  1169.6    48.7                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Finalmente, el modelo es significativo solo para el factor <span class="math inline">\(A\)</span>. Es necesario validar los supuestos del modelo antes de realizar las pruebas post-hoc y concluir más allá.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="co"># normalidad</span></span>
+<span id="cb63-2"><a href="#cb63-2"></a><span class="kw">qqPlot</span>(fit<span class="op">$</span>residuals,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">main=</span><span class="st">&quot;Normal Q-Q Plot&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-20-1.png" width="540" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] 13 19</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a><span class="kw">shapiro.test</span>(fit<span class="op">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  fit$residuals
+## W = 0.94818, p-value = 0.1936</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a><span class="kw">ad.test</span>(fit<span class="op">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  fit$residuals
+## A = 0.6392, p-value = 0.08543</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1"></a><span class="kw">lillie.test</span>(fit<span class="op">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  fit$residuals
+## D = 0.15345, p-value = 0.1053</code></pre>
+<p>Se cumple el supuesto de normalidad dado que no se rechaza la hipótesis nula. Como no tenemos el orden de las corridas del modelo, no es posible evaluar independencia enlo residuales.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a><span class="co"># Homocedasticidad</span></span>
+<span id="cb71-2"><a href="#cb71-2"></a><span class="kw">plot</span>(<span class="kw">predict</span>(fit),fit<span class="op">$</span>residuals,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">las=</span><span class="dv">1</span>,</span>
+<span id="cb71-3"><a href="#cb71-3"></a>     <span class="dt">main=</span><span class="st">&quot;Homogeneidad de Varianza&quot;</span>,</span>
+<span id="cb71-4"><a href="#cb71-4"></a>     <span class="dt">xlab=</span><span class="st">&quot;Valores Predictivos&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Residuales&quot;</span>)</span>
+<span id="cb71-5"><a href="#cb71-5"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>,<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-21-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a><span class="co"># Bartlett</span></span>
+<span id="cb72-2"><a href="#cb72-2"></a><span class="kw">bartlett.test</span>(fit<span class="op">$</span>residuals,datos<span class="op">$</span>A)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  fit$residuals and datos$A
+## Bartlett&#39;s K-squared = 2.6233, df = 2, p-value = 0.2694</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a><span class="co"># Levene</span></span>
+<span id="cb74-2"><a href="#cb74-2"></a><span class="kw">leveneTest</span>(fit<span class="op">$</span>residuals,datos<span class="op">$</span>A)</span></code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  2  0.8097 0.4568
+##       24</code></pre>
+<p>De acuerdo a los resultados no existe diferencias de varianza entre los tratamientos y entre los bloques, es decir, hay <strong>homcedasticidad</strong> u homogeneidad de varianzas.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a><span class="co"># Supuestos globales</span></span>
+<span id="cb76-2"><a href="#cb76-2"></a><span class="kw">plot</span>(fit,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-22-1.png" width="540" style="display: block; margin: auto;" /><img src="fact1_files/figure-html/unnamed-chunk-22-2.png" width="540" style="display: block; margin: auto;" /><img src="fact1_files/figure-html/unnamed-chunk-22-3.png" width="540" style="display: block; margin: auto;" /><img src="fact1_files/figure-html/unnamed-chunk-22-4.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Finalmente, como los supuestos del modelo se cumplen, entonces podemos buscar cuáles son los tratamientos más significativos sobre los acabados del metal mediante las pruebas post-hoc.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1"></a><span class="co">#### Pruebas post-hoc ####</span></span>
+<span id="cb77-2"><a href="#cb77-2"></a>lsd &lt;-<span class="st"> </span><span class="kw">LSD.test</span>(<span class="dt">y =</span> fit,<span class="dt">trt =</span> <span class="st">&quot;A&quot;</span>,<span class="dt">console =</span> T)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;A&quot;
+## 
+## LSD t Test for Y 
+## 
+## Mean Square Error:  48.73148 
+## 
+## A,  means and individual ( 95 %) CI
+## 
+##            Y      std r         LCL       UCL Min Max
+## A1  4.777778 4.576510 9 -0.02477229  9.580328   1  14
+## A2 73.000000 7.681146 9 68.19744994 77.802550  60  88
+## A3 29.333333 8.139410 9 24.53078327 34.135883  20  44
+## 
+## Alpha: 0.05 ; DF Error: 24
+## Critical Value of t: 2.063899 
+## 
+## least Significant Difference: 6.791831 
+## 
+## Treatments with the same letter are not significantly different.
+## 
+##            Y groups
+## A2 73.000000      a
+## A3 29.333333      b
+## A1  4.777778      c</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1"></a><span class="kw">plot</span>(lsd,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">variation=</span><span class="st">&quot;SE&quot;</span>);<span class="kw">grid</span>()</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-23-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a><span class="kw">LSD.test</span>(<span class="dt">y =</span> fit,<span class="dt">trt =</span> <span class="st">&quot;A&quot;</span>,<span class="dt">console =</span> T,<span class="dt">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;A&quot;
+## 
+## LSD t Test for Y 
+## 
+## Mean Square Error:  48.73148 
+## 
+## A,  means and individual ( 95 %) CI
+## 
+##            Y      std r         LCL       UCL Min Max
+## A1  4.777778 4.576510 9 -0.02477229  9.580328   1  14
+## A2 73.000000 7.681146 9 68.19744994 77.802550  60  88
+## A3 29.333333 8.139410 9 24.53078327 34.135883  20  44
+## 
+## Alpha: 0.05 ; DF Error: 24
+## Critical Value of t: 2.063899 
+## 
+## Comparison between treatments means
+## 
+##         difference pvalue signif.       LCL       UCL
+## A1 - A2  -68.22222      0     *** -75.01405 -61.43039
+## A1 - A3  -24.55556      0     *** -31.34739 -17.76372
+## A2 - A3   43.66667      0     ***  36.87484  50.45850</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a><span class="co"># Tukey HSD</span></span>
+<span id="cb82-2"><a href="#cb82-2"></a>(hsd &lt;-<span class="st"> </span><span class="kw">TukeyHSD</span>(fit))</span></code></pre></div>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = Y ~ A, data = datos)
+## 
+## $A
+##            diff       lwr       upr p adj
+## A2-A1  68.22222  60.00421  76.44024 0e+00
+## A3-A1  24.55556  16.33754  32.77357 3e-07
+## A3-A2 -43.66667 -51.88468 -35.44865 0e+00</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a><span class="kw">plot</span>(hsd,<span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="fact1_files/figure-html/unnamed-chunk-23-2.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1"></a><span class="co"># Duncan</span></span>
+<span id="cb85-2"><a href="#cb85-2"></a><span class="kw">duncan.test</span>(<span class="dt">y =</span> fit,<span class="dt">trt =</span> <span class="st">&quot;A&quot;</span>,<span class="dt">console =</span> T,<span class="dt">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;A&quot;
+## 
+## Duncan&#39;s new multiple range test
+## for Y 
+## 
+## Mean Square Error:  48.73148 
+## 
+## A,  means
+## 
+##            Y      std r Min Max
+## A1  4.777778 4.576510 9   1  14
+## A2 73.000000 7.681146 9  60  88
+## A3 29.333333 8.139410 9  20  44
+## 
+## Comparison between treatments means
+## 
+##         difference pvalue signif.       LCL       UCL
+## A1 - A2  -68.22222      0     *** -75.35569 -61.08876
+## A1 - A3  -24.55556      0     *** -31.34739 -17.76372
+## A2 - A3   43.66667      0     ***  36.87484  50.45850</code></pre>
+<p>Las comparaciones múltiples indican que el nivel <span class="math inline">\(A_2\)</span> es el que maximiza la respuesta, además existen diferencias significativas entre todos los tratamientos del factor.</p>
 </div>
 
 
