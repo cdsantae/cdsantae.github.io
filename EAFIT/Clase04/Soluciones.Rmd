@@ -57,7 +57,7 @@ saludo("Natalia")
 #### Lea un número real y muestre su valor absoluto, sin utilizar estructuras y sin funciones predeterminadas.
 
 ```{r}
-ValAbs <- function(x) return(sqrt(x^2))
+ValAbs <- function(x) return(((x)^2)^(1/2))
 ValAbs(7.65)
 ValAbs(-5.922)
 ```
