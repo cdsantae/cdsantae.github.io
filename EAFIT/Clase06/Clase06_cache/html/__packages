@@ -3,3 +3,7 @@ ggplot2
 plyr
 plotly
 gapminder
+spData
+maps
+rbokeh
+leaflet

@@ -329,4 +329,141 @@ anim_save("Mi_Animacion.gif")
 
 ![](ejemplo.gif)
 
+### Mapas interactivos
+
+`R` tiene la capacidad de hacer análisis geoestadísticos y de estadística espacial de datos **raster**, **areales** o de **patrones de puntos** y existe una bartería amplia de paquetes para graficar mapas y resultados estáticos o interactivos. 
+
+Las librerías más utilizadas para graficar mapas estáticos son `raster`, `rasterVis`, `cartogram`, `tmap` y `ggplot2`, por otra parte para los mapas interactivos basandos en `HMTL` se cuenta con los paquetes `leaflet`, `rbokeh`, `plotly`, `ggiraph`, `highcharter`, `gganimate`, `mapview`, `mapdeck`, `googleway`, entre otros.
+
+```{r,eval=FALSE}
+install.packages("leaflet",dependencies = T)
+install.packages("spData",dependencies = T)
+install.packages("tmap",dependencies = T)
+install.packages("ggiraph",dependencies = T)
+install.packages("sf",dependencies = T)
+install.packages("sp",dependencies = T)
+install.packages("maps",dependencies = T)
+install.packages("rbokeh",dependencies = T)
+```
+
+```{r, warning=FALSE,message=FALSE}
+library(spData)
+library(maps)
+data(world.cities)
+library(rbokeh)
+caps <- dplyr::filter(world.cities, capital == 1)
+caps$population <- prettyNum(caps$pop, big.mark = ",")
+plot <- suppressWarnings(figure(width = 800, height = 450, padding_factor = 0) %>%
+  ly_map("world", col = "gray") %>%
+  ly_points(long, lat, data = caps, size = 5,
+            hover = c(name, country.etc, population)))
+
+widgetframe::frameWidget(plot,width=600,height=400)
+```
+
+
+```{r,warning=FALSE,message=FALSE}
+require(leaflet)
+leaflet() %>%
+  setView(lat = 6.1999, lng = -75.5791, zoom=15) %>%
+  addTiles()
+```
+
+```{r}
+leaflet() %>%
+  setView(lat = 6.1999, lng = -75.5791, zoom=15) %>%
+  addTiles()%>%
+  addProviderTiles(providers$Stamen.Toner)
+```
+
+```{r}
+leaflet() %>%
+  setView(lat = 6.1999, lng = -75.5791, zoom=15) %>%
+  addTiles()%>%
+  addProviderTiles(providers$CartoDB.Positron)
+```
+
+```{r}
+leaflet() %>%
+  setView(lat = 6.1999, lng = -75.5791, zoom=15) %>%
+  addTiles()%>%
+  addProviderTiles(providers$MtbMap) %>%
+  addProviderTiles(providers$Stamen.TonerLines,
+    options = providerTileOptions(opacity = 0.35)) %>%
+  addProviderTiles(providers$Stamen.TonerLabels)
+```
+
+```{r}
+leaflet() %>% addTiles() %>% setView(-87.65, 38.0285, zoom = 6) %>%
+  addWMSTiles(
+    "http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi",
+    layers = "nexrad-n0r-900913",
+    options = WMSTileOptions(format = "image/png", transparent = TRUE),
+    attribution = "Weather data © 2012 IEM Nexrad"
+  )
+```
+
+```{r}
+leaflet(quakes) %>% addTiles() %>% addMarkers(
+  clusterOptions = markerClusterOptions()
+)
+```
+
+```{r}
+df <- sp::SpatialPointsDataFrame(
+  cbind(
+    (runif(20) - .5) - 75.5,  # lng
+    (runif(20) - .5) + 6.1  # lat
+  ),
+  data.frame(type = factor(
+    ifelse(runif(20) > 0.75, "alto", "bajo"),
+    c("alto", "bajo")
+  ))
+)
+leaflet(df) %>% addTiles() %>% addCircleMarkers()
+pal <- colorFactor(c("navy", "red"), domain = c("bajo", "alto"))
+
+leaflet(df) %>% addTiles() %>%
+  addCircleMarkers(
+    radius = ~ifelse(type == "alto", 6, 10),
+    color = ~pal(type),
+    stroke = FALSE, fillOpacity = 0.5
+  )
+```
+
+```{r}
+leaflet() %>% addTiles() %>% addTerminator()
+```
+
+```{r}
+leaflet() %>%
+  addTiles() %>%
+  addTerminator(
+    resolution=10,
+    time = "2020-05-01T21:00:00Z",
+    group = "daylight") %>%
+  addLayersControl(
+    overlayGroups = "daylight",
+    options = layersControlOptions(collapsed = FALSE))
+```
+
+```{r}
+leaflet() %>% setView(-75,6,5) %>%
+  addProviderTiles(providers$Esri.WorldStreetMap) %>%
+  addMiniMap(
+    tiles = providers$Esri.WorldStreetMap,
+    toggleDisplay = TRUE)
+```
+
+```{r,warning=FALSE,message=FALSE}
+pal = colorNumeric("RdYlBu", domain = cycle_hire$nbikes)
+leaflet(data = cycle_hire) %>% 
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addCircles(col = ~pal(nbikes), opacity = 0.9) %>% 
+  addPolygons(data = lnd, fill = FALSE) %>% 
+  addLegend(pal = pal, values = ~nbikes) %>% 
+  setView(lng = -0.1, 51.5, zoom = 12) %>% 
+  addMiniMap()
+```
+
 ## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
