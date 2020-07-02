@@ -181,7 +181,7 @@ ZigZag <- function(col,row){
       }
     }
   }
-  return(y)
+  list(Matriz=x,ZigZag=y)
 }
 ZigZag(4,5)
 ZigZag(6,6)
