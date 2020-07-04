@@ -991,7 +991,7 @@ Ponlo en práctica aquí:
 
 ### Gráfico densidad acumulada empírica
 
-Este gráfico es similar a la ojiva, pero se diferencia en que hace la evaluación de la distribución cumulada de todos los datos cuantitativos.
+Este gráfico es similar a la ojiva, pero se diferencia en que hace la evaluación de la distribución cumulada de todos los datos cuantitativos. Sirve también para calcular probabilidades empíricas.
 
 ```{r,fig.width=6,fig.height=5,dpi=90}
 plot(ecdf(Pitching$ER),ylab="Densidad Acumulada",
@@ -1009,6 +1009,9 @@ En `R` es fácil construir este gráfico con el siguiente código:
 plot(ecdf(Pitching$ER),ylab="Densidad Acumulada",
            xlab="Carreras Realizadas",pch=20,
            main="Distribución acumulada de las\nCarreras Realizadas entre 1871 y 2018")
+
+# P(x<=50)
+ecdf(Pitching$ER)(50)
 
 # Consulta la ayuda
 ?ecdf
@@ -1328,9 +1331,9 @@ La moda es el valor que se presenta con mayor frecuencia en un conjunto de datos
 
 ```{r, echo=TRUE}
 # Se corre inicialmente la función Moda para crearla
-Moda <- function(x) {
-    keys <- na.omit(unique(x))
-    keys[which.max(tabulate(match(x, keys)))]
+Moda <- function(x,na.rm=T){
+  d <- density(x,na.rm = na.rm)
+  d$x[which.max(d$y)]
 }
 
 ## Se calcular la moda de cada conjunto de datos

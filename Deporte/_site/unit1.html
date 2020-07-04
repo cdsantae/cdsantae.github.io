@@ -1441,7 +1441,7 @@ Cerrar
 </div>
 <div id="gráfico-densidad-acumulada-empírica" class="section level3">
 <h3>Gráfico densidad acumulada empírica</h3>
-<p>Este gráfico es similar a la ojiva, pero se diferencia en que hace la evaluación de la distribución cumulada de todos los datos cuantitativos.</p>
+<p>Este gráfico es similar a la ojiva, pero se diferencia en que hace la evaluación de la distribución cumulada de todos los datos cuantitativos. Sirve también para calcular probabilidades empíricas.</p>
 <p><img src="unit1_files/figure-html/unnamed-chunk-38-1.png" width="540" style="display: block; margin: auto;" /></p>
 <p>En <code>R</code> es fácil construir este gráfico con el siguiente código:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># La finción &quot;ecdf&quot; se calcula la densidad acumulada</span></span>
@@ -1451,8 +1451,11 @@ Cerrar
 <span id="cb15-5"><a href="#cb15-5"></a>           <span class="dt">xlab=</span><span class="st">&quot;Carreras Realizadas&quot;</span>,<span class="dt">pch=</span><span class="dv">20</span>,</span>
 <span id="cb15-6"><a href="#cb15-6"></a>           <span class="dt">main=</span><span class="st">&quot;Distribución acumulada de las</span><span class="ch">\n</span><span class="st">Carreras Realizadas entre 1871 y 2018&quot;</span>)</span>
 <span id="cb15-7"><a href="#cb15-7"></a></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="co"># Consulta la ayuda</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a>?ecdf</span></code></pre></div>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="co"># P(x&lt;=50)</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="kw">ecdf</span>(Pitching<span class="op">$</span>ER)(<span class="dv">50</span>)</span>
+<span id="cb15-10"><a href="#cb15-10"></a></span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="co"># Consulta la ayuda</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a>?ecdf</span></code></pre></div>
 <p>Ponlo en práctica aquí:</p>
 <iframe width="100%" height="500" src="https://rdrr.io/snippets/embed/?code=require(Lahman)%0Aplot(ecdf(Pitching%24ER)%2Cylab%3D%22Densidad%20Acumulada%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20xlab%3D%22Carreras%20Realizadas%22%2Cpch%3D20%2C%0A%20%20%20%20%20%20%20%20%20%20%20main%3D%22Distribucion%20acumulada%20de%20las%5CnCarreras%20Realizadas%20entre%201871%20y%202018%22)" frameborder="2">
 </iframe>
@@ -1729,16 +1732,16 @@ Puedes combinar otras variables para hacer los gráficos, la intención es explo
 <p>Para el caso de las variables continuas de intervalo o razón, existen debates en cuando a la estimación de la Moda, algunos argumentan que no es posible estimarla debido a la naturaleza continua de la variable, y otros sostienen que puede hacerse una aproximación estimando el valor que maximiza la densidad de probabilidad.</p>
 </blockquote>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="co"># Se corre inicialmente la función Moda para crearla</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a>Moda &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb40-3"><a href="#cb40-3"></a>    keys &lt;-<span class="st"> </span><span class="kw">na.omit</span>(<span class="kw">unique</span>(x))</span>
-<span id="cb40-4"><a href="#cb40-4"></a>    keys[<span class="kw">which.max</span>(<span class="kw">tabulate</span>(<span class="kw">match</span>(x, keys)))]</span>
+<span id="cb40-2"><a href="#cb40-2"></a>Moda &lt;-<span class="st"> </span><span class="cf">function</span>(x,<span class="dt">na.rm=</span>T){</span>
+<span id="cb40-3"><a href="#cb40-3"></a>  d &lt;-<span class="st"> </span><span class="kw">density</span>(x,<span class="dt">na.rm =</span> na.rm)</span>
+<span id="cb40-4"><a href="#cb40-4"></a>  d<span class="op">$</span>x[<span class="kw">which.max</span>(d<span class="op">$</span>y)]</span>
 <span id="cb40-5"><a href="#cb40-5"></a>}</span>
 <span id="cb40-6"><a href="#cb40-6"></a></span>
 <span id="cb40-7"><a href="#cb40-7"></a><span class="co">## Se calcular la moda de cada conjunto de datos</span></span>
 <span id="cb40-8"><a href="#cb40-8"></a><span class="kw">Moda</span>(Pitching<span class="op">$</span>ER)</span></code></pre></div>
-<pre><code>## [1] 4</code></pre>
+<pre><code>## [1] 5.43357</code></pre>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="kw">Moda</span>(Master<span class="op">$</span>weight)</span></code></pre></div>
-<pre><code>## [1] 180</code></pre>
+<pre><code>## [1] 179.4859</code></pre>
 <p>La moda también puede representarse gráficamente, ya sea en un BoxPlot o un histograma, sin embargo, hay que tener en cuenta que es una aproximación. El problema real es cuando existen más de una moda, ya que es más complicado estimarlas.</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">hist</span>(Pitching<span class="op">$</span>ER,<span class="dt">col=</span><span class="st">&quot;darkcyan&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Densidad&quot;</span>,<span class="dt">cex.axis=</span><span class="fl">0.8</span>,<span class="dt">las=</span><span class="dv">1</span>,</span>
 <span id="cb44-2"><a href="#cb44-2"></a>     <span class="dt">main=</span><span class="st">&quot;Distribución de Carreras Realizadas entre 1871 y 2018&quot;</span>,</span>
