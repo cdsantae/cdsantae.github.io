@@ -1,0 +1,6 @@
+base
+stringr
+xml2
+rvest
+plyr
+wordcloud2

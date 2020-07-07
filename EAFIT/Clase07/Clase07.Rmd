@@ -1,6 +1,7 @@
 ---
 title: "Expresiones Regulares"
 author: "Cristian Santa"
+always_allow_html: yes
 output:
   rmdformats::readthedown:
     df_print: paged
@@ -410,8 +411,19 @@ palabras
 library(plyr)
 (conteo <- data.frame(ddply(palabras, "V1",summarise, cuenta=length(V1) )))
 (conteo[order(-conteo$cuenta),])
-
 ```
+
+```{r,echo=FALSE,eval=FALSE}
+require(wordcloud2)
+wc = wordcloud2(conteo,size=1.5,color='random-dark',gridSize = 10)
+htmlwidgets::saveWidget(wc,"conteo.html",selfcontained = F)
+```
+
+```{r,eval=T}
+require(wordcloud2)
+wordcloud2(conteo,size=1,color='random-dark',gridSize = 10)
+```
+
 
 
 ## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>

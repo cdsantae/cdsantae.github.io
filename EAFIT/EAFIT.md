@@ -37,7 +37,7 @@ Introducir al estudiante al manejo del software estadístico más usado en inves
 |  <a href="./Clase04/Clase04.html">C_04</a>  | Funciones en R y uso de librerías.                                             |
 |  <a href="./Clase05/Clase05.html">C_05</a>  | Gráficos básicos.                                                              |
 |  <a href="./Clase06/Clase06.html">C_06</a>  | Gráficos avanzados.                                                            |
-|  <a href="./Clase07/Clase07a.html">C_07</a>  | Expresiones Regulares.                                                         |
+|  <a href="./Clase07/Clase07.html">C_07</a>  | Expresiones Regulares.                                                         |
 |  <a href="./Clase08/Clase08a.html">C_08</a>  | Manejo de bases de datos.                                                      |
 |  <a href="./Clase09/Clase09a.html">C_09</a>  | Manejo de datos temporales y operaciones con tiempos.                          |
 |  <a href="./Clase10/Clase10a.html">C_10</a>  | Trabajo práctico.                                                              |
