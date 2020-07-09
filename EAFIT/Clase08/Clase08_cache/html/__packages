@@ -5,3 +5,6 @@ haven
 foreign
 dplyr
 ggplot2
+foreach
+iterators
+doParallel

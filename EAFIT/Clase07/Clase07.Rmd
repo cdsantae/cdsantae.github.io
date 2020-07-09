@@ -424,8 +424,6 @@ require(wordcloud2)
 wordcloud2(conteo,size=1,color='random-dark',gridSize = 10)
 ```
 
-
-
 ## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
 
 

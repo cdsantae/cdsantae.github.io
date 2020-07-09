@@ -78,6 +78,7 @@ install.packages("foreign",dependencies = T)
 # Archivos de excel
 install.packages("xlsx",dependencies = T) # Requiere Java
 install.packages("readxl",dependencies = T)
+install.packages("openxlsx",dependencies = T)
 
 # SQL
 install.packages("sqldf",dependencies = T)
@@ -94,6 +95,7 @@ La base de datos de el **ICFES 2015-02**  está disponible en Excel, todos los e
 ```{r,eval=FALSE,warning=FALSE,message=FALSE}
 library(xlsx)
 library(readxl)
+library(openxlsx)
 
 Icfes <- read.csv("ICFES20152.csv",sep = ",")
 ```
@@ -107,6 +109,9 @@ Icfes <- read.xlsx2(file = "ICFES20152.xls",sheetIndex = 1)
 
 # Con readxl
 Icfes <- read_xlsx(path = "ICFES20152.xlsx")
+
+# Con openxlsx
+Icfes <- read.xlsx(file = "ICFES20152.xlsx",sheet = 1)
 ```
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
@@ -117,6 +122,21 @@ Icfes <- read_xlsx("ICFES20152.xlsx")
 ```
 
 Para cargar los archivos de esta manera es necesario que se encuentren alojados en la carpeta de trabajo que puede verificar con el comand `getwd()`, y para asignar una nuava ruta se utiliza el comando `setwd()`. Una función muy útil para buscar carpetas es `choose.dir()`, y para seleccionar una archivo específico `file.choose()`.
+
+```{r,eval=FALSE}
+# CSV
+Icfes <- read.csv(file.choose(),sep = ",")
+
+# Con xlsx
+Icfes <- read.xlsx(file = file.choose(),sheetName = 1,encoding = "UTF-8")
+Icfes <- read.xlsx2(file = file.choose(),sheetIndex = 1)
+
+# Con readxl
+Icfes <- read_xlsx(path = file.choose())
+
+# Con openxlsx
+Icfes <- read.xlsx(file = file.choose(),sheet = 1)
+```
 
 ```{r}
 Icfes
@@ -170,14 +190,16 @@ by(Icfes[,c(9:18)], Icfes$CALENDARIO, colMeans)
 l <- list(a = 1:10, b = 11:20)
 lapply(l, mean)
 lapply(l, sum)
+lapply(Icfes,summary)
 ```
 
 `sapply()` Aplica una función sobre una lista o un vector y si el resultado se puede simplificar en un formato más simple, lo hace.
 
-```{r}
+```{r,message=FALSE,warning=FALSE}
 l <- list(a = 1:10, b = 11:20)
 sapply(l, mean)
 sapply(l, sum)
+sapply(Icfes,mean)
 ```
 
 `vapply()` Aplica la función sobre una lista y devuelve el resultado de acuerdo
@@ -191,6 +213,11 @@ lFivenum <- vapply(l,
                      Mediana = 0, "3er Cuart." = 0, Max. = 0))
 class(lFivenum)
 lFivenum
+QuantIcfes <- vapply(Icfes[,9:23],
+                     quantile,
+                     c(Min. = 0, "1er Cuart." = 0,
+                       Mediana = 0, "3er Cuart." = 0, Max. = 0))
+t(QuantIcfes)
 ```
 
 `replicate()` Replica la ejecución de una función un número específico de veces.s
@@ -208,6 +235,8 @@ mapply(sum, l1$a, l1$b, l2$c, l2$d)
 mapply(sum, l1, l2)
 l2 <- list(c = c(21:30), d = c(31:40), z = c(31:50))
 mapply(sum, l1$a, l1$b, l2$c, l2$z)
+with(Icfes,mapply(`-`,PROMMATEMATICA,
+                  PROMRAZONAMIENTOCUANTITA)[1:30])
 ```
 
 `tapply()` Aplica la función sobre un vector, de acuerdo a una clasificación de la variable tipo `factor`.
@@ -324,6 +353,13 @@ Icfes2 %>%
   summarise(mean(PROMMATEMATICA))
 ```
 
+```{r}
+Icfes2 %>% 
+  group_by(DEPARTAMENTO) %>% 
+  select(PROMMATEMATICA:PROMCOMPETENCIASCIUDADAN) %>%
+  summarise_if(is.numeric,mean)
+```
+
 Combinación de manejo de datos
 
 ```{r}
@@ -359,7 +395,94 @@ Icfes2 %>%
                         axis.text.x = element_text(angle = 90))
 ```
 
+## Aumentando el poder
 
+En algunas ocasiones se requiere realizar análisis estadísticos de un conjunto **enorme** de datos, los cuales pueden contener muchas variables categóricas o de tiempo, y el interés es evaluar en cada categoría o tiempo los resultados estadisticos de las variables importantes. Esto se puede suplir con la familia `apply`, el paquete `dplyr` o usando los ciclos `for`, `while` o `repeat`, no obstante, hay que recordar que una de las limitaciones de `R` es el uso de la memoria RAM para la compilación de resultados.
+
+Esto significa que realizar ejecuciones con grandes cantidades de datos y múltiples opciones, el software deba hacer paso a paso cada ejecución, esto consume mucha memoria y relentiza tanto el equipo como la velocidad de ejecución. Para este tipo de casos, se puede usar **la computación en paralelo**, lo que significa asignar a cada núcleo del procesador una parte equitativa de tareas para que divida la ejecución y optimice recursos.
+
+En `R` se puede hacer este tipo programación con varios paquetes como `parallel`, `foreach`, `doParallel`, `snow`, `doSNOW`, entre otros. Todos los paquetes para hacer computación paralela funcionan muy bien en sistemas operativos Unix y Mac, pero presenta algunas excepciones para Windows.
+
+```{r}
+results <- data.frame()
+system.time({
+  for (i in 1:20000) {
+    # Saco una muestra de 1000 numeros entre 1 y 12162
+    ind <- sample(1:nrow(Icfes), size = 1000)
+    Icfes_s <- Icfes[ind, ]
+    # Hago un lm
+    fit <- lm(Icfes_s$PROMMATEMATICA~Icfes_s$PROMLECTURACRITICA)
+    
+    # Extraigo el R2 y los coeficientes
+    R2 <- summary(fit)$r.squared
+    coef <- coefficients(fit)
+    # lo junto todo en la data.frame de resultados
+    results <- rbind(results, c(R2, coef))
+  }
+})
+```
+
+Los resultados son entregados en segundos, estos tiempos variarán entre equipos, ya que depende de su configuración. Este ciclo se puede parelelizar con el paquete `foreach` y con los paquetes `parallel` y `doParallel` se establecen los núcleos del procesador a utilizar.
+
+```{r}
+require(foreach)
+require(parallel)
+require(doParallel)
+
+numcores <- detectCores()
+cl <- makeCluster(numcores)
+registerDoParallel(cl)
+system.time({
+  foreach(i=1:20000, .combine=rbind) %dopar% {
+    # Saco una muestra de 1000 numeros entre 1 y 12162
+    ind <- sample(1:nrow(Icfes), size = 1000)
+    Icfes_s <- Icfes[ind, ]
+    # Hago un lm
+    fit <- lm(Icfes_s$PROMMATEMATICA~Icfes_s$PROMLECTURACRITICA)
+    
+    # Extraigo el R2 y los coeficientes
+    R2 <- summary(fit)$r.squared
+    coef <- coefficients(fit)
+    # lo junto todo en la data.frame de resultados
+    results <- rbind(c(R2=R2,coef))
+  }
+})
+stopCluster(cl) # siempre hay que usarlo
+```
+
+En comparación con un ciclo simple, la reducción del tiempo es significativa, además aumentando las habilidades de programación se puede hacer mucho más rápido. Para evitar realizar ciclos se puede construir una función que ejecute la regresión lineal según una muestra aleatoria de los datos, y con la familia `apply` se puede hacer las iteraciones necesarias, esto ahorra más tiempo de ejecución en comparación con los ciclos.
+
+```{r}
+lm_boot <- function(iter,data) {
+  ind <- sample(1:nrow(data), size = 1000)
+  Icfes_s <- data[ind, ]
+  # Hago un lm
+  fit <- with(Icfes_s,
+              lm(PROMMATEMATICA~PROMLECTURACRITICA))
+  # Extraigo el R2 y los coeficientes
+  R2 <- summary(fit)$r.squared
+  coef <- coefficients(fit)
+  # Creo un vector con los resultados
+  results <- c("R2" = R2, coef)
+  # El output de mi función
+  return(results)
+}
+
+iter <- seq(1, 20000)
+system.time({
+  results <- lapply(iter, lm_boot, Icfes)
+})
+```
+
+En el paquete `parallel` existen una funciones basadas en la familia `apply` pero para ejecuciones en paralelo, sin embargo, solamente la función `parLapply` funciona para Windows.
+
+```{r}
+cl <- makeCluster(numcores) # Hacemos el cluster
+system.time(
+  results <- parLapply(cl, iter, lm_boot,Icfes)
+)
+stopCluster(cl) # Cerramos el cluster, NO OLVIDAR
+```
 
 
 ## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
