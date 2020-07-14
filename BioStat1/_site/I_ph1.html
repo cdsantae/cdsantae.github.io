@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Pruebas de Hipótesis</title>
+
+<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Investigación II</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_phv.html">PH para varianza</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="I_et2.html">Potencia</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-equalizer"></span>
+     
+    Muestreo
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="M_effect.html">Sobre el efecto</a>
+    </li>
+    <li>
+      <a href="M_MAS.html">MAS</a>
+    </li>
+    <li>
+      <a href="M_MAE.html">MAE</a>
+    </li>
+    <li>
+      <a href="M_Cluster.html">Cluster</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    R-Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Rinstall.html">Instalación</a>
+    </li>
+    <li>
+      <a href="IntroR.html">Introducción</a>
+    </li>
+    <li>
+      <a href="FunsR.html">Funciones y Paquetes</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Pruebas de Hipótesis</h1>
+
+</div>
+
+
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p>Una hipótesis Estadística es una afirmación que se hace con respecto a una o algunas características desconocidas de una población de interés o acerca de la misma población.</p>
+<p>Una afirmación hecha acerca de una población o de una de sus características de interés, tiene sentido solo si es evaluada con base en la información obtenida a partir de una muestra aleatoria de dicha población.</p>
+<p>Como dicha afirmación puede ser o no cierta, dos hipótesis (antagónicas) pueden ser planteadas:</p>
+<p><span class="math display">\[H_0:\text{La hipótesis es cierta    vs}\quad H_a:\text{La hipótesis es falsa}\]</span> <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_a\)</span> se conocen como hipótesis nula y alternativa respectivamente. <span class="math inline">\(H_0\)</span> se rechaza, solo si la evidencia muestral apoya fuertemente esa decisión. En otro caso diremos que la evidencia muestral no es suficiente para rechazar <span class="math inline">\(H_0\)</span> y se asume <span class="math inline">\(H_a\)</span> como cierta. El proceso por medio del cual escogemos una de las dos hipótesis es llamado <strong>Prueba de Hipótesis</strong>.</p>
+<p>Para rechazar o aceptar una hipótesis necesitamos a parir de la muestra aleatoria construir un <strong>estadístico de prueba</strong> tal que, comparado con valor crítico calcula con un nivel de significancia, otorgue la suficiente evidencia para sacar una conclusión. El contraste de la hipótesis nula determina las posibles <strong>regiones de rechazo</strong> donde será comparado el estadístico de prueba.</p>
+<p><span class="math display">\[1:\,\{x\,|\,x &gt; |k|\}\\2:\,\{x\,|\,x &lt; -k\}\\3:\,\{x\,|\,x &gt; k\}\]</span></p>
+<p>Así toda prueba de hipótesis consta de:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Hipótesis nula <span class="math inline">\(H_0\)</span>.</li>
+<li>Hipótesis alternativa <span class="math inline">\(H_a\)</span>.</li>
+<li>Estadístico de prueba.</li>
+<li>Región de rechazo.</li>
+</ol>
+<p>En general, sea un parámetro de interés desconocido <span class="math inline">\(\theta\)</span> y un valor particular <span class="math inline">\(\theta_0\)</span>. Es posible plantear una de tres hipótesis alternativas:</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \theta=\theta_0 \quad \text{vs} \quad H_a: \begin{cases} \theta &amp;&lt;\theta_0 \\
+                     \theta &amp;&gt; \theta_0 \\
+                     \theta &amp;\neq \theta_0 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>Existe un estadístico <span class="math inline">\(\hat\theta\)</span> estimado a partir de la muestra aleatoria, el cual sirve para contrastar la hipótesis construyendo las posibles regiones de rechazo (de acuerdo a <span class="math inline">\(H_a\)</span>) con un nivel de significancia <span class="math inline">\(\alpha\)</span> dado.</p>
+<p><span class="math display">\[\{\hat\theta\,|\,\hat\theta &gt; |k|\}\quad \{\hat\theta\,|\,\hat\theta &lt; k\}\quad \{\hat\theta\,|\,\hat\theta &gt; k\}\]</span></p>
+<p>Otra forma de contrastar la hipótesis es calcular el valor mínimo de <span class="math inline">\(\alpha\)</span>, es decir la probabilidad de rechazar la hipótesis nula. A este cálculo se le conoce como el <strong>valor-p</strong> de la prueba:</p>
+<p><span class="math display">\[P(|\hat\theta| &gt; |k|)\quad P(\hat\theta &lt; k)\quad P(\hat\theta &gt; k)\]</span></p>
+<p>La decisión de aceptar o rechazar una hipótesis se basa en una muestra aleatoria <span class="math inline">\(X_1,X_2,...,X_n\)</span> de la distribución de <span class="math inline">\(X\)</span>, por tanto la decisión podría ser equivocada. Los errores que se pueden cometer son:</p>
+<ul>
+<li><p>Aceptar <span class="math inline">\(H_0\)</span> siendo falsa.</p></li>
+<li><p>Rechazar <span class="math inline">\(H_0\)</span> siendo verdadera.</p></li>
+</ul>
+<center>
+<div class="container">
+<div class="col-sm-2">
+
+</div>
+<div class="col-sm-6">
+<table class="table">
+<thead>
+<tr class="active">
+<th style="text-align:center">
+Decisión
+</th>
+<th style="text-align:center">
+<span class="math inline">\(H_0\)</span> es Verdadera
+</th>
+<th style="text-align:center">
+<span class="math inline">\(H_0\)</span> es Falsa
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">
+<b>Rechazar <span class="math inline">\(H_0\)</span></b>
+</td>
+<td style="text-align:center">
+Error Tipo I
+</td>
+<td style="text-align:center">
+Decisión Correcta
+</td>
+</tr>
+<tr>
+<td style="text-align:center">
+<b>Aceptar <span class="math inline">\(H_0\)</span></b>
+</td>
+<td style="text-align:center">
+Decisión Correcta
+</td>
+<td style="text-align:center">
+Error Tipo II
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</center>
+<p>Es lógico que se desea minimizar las probabilidades de cometer los errores en la decisión (tipo 1 ó 2), pero esto depende de la m.a <span class="math inline">\(X_1,X_2,...,X_n\)</span>. Sin embargo, si P(cometer error tipo 1)=0, entonces P(cometer error tipo 2)=1.</p>
+<p><span class="math display">\[\alpha = P(\text{Error Tipo I})\]</span> <span class="math display">\[\beta = P(\text{Error Tipo II})\]</span> <span class="math inline">\(\alpha\)</span> es llamado nivel de significancia de la prueba o tamaño de la región crítica y <span class="math inline">\(1-\beta\)</span> es la potencia de la prueba.</p>
+<p><img src="I_ph1_files/figure-html/unnamed-chunk-1-1.png" width="840" style="display: block; margin: auto;" /></p>
+<hr>
+</div>
+<div id="ph-para-la-proporción" class="section level2">
+<h2>PH para la proporción</h2>
+<p>Suponga que <span class="math inline">\(X\)</span> es una v.a tal que <span class="math inline">\(X \sim bin(n , p)\)</span>, con <span class="math inline">\(p\)</span> desconocida. Sea <span class="math inline">\(p_0\)</span> un valor de interés para <span class="math inline">\(p\)</span>. Tres hipótesis pueden ser planteadas acerca de <span class="math inline">\(p\)</span>.</p>
+<p><span class="math display">\[\begin{align*}
+H_0: p=p_0 \quad \text{vs} \quad H_a: \begin{cases} p &amp;&lt;p_0 \\
+                     p &amp;&gt; p_0 \\
+                     p &amp;\neq p_0 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>Por el TCL sabemos que si <span class="math inline">\(n\)</span> es grande entonces:</p>
+<p><span class="math display">\[\cfrac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
+<p>Entonces el <strong>estadístico de prueba</strong> a ser usado es:</p>
+<p><span class="math display">\[Z_c=\cfrac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}\]</span></p>
+<p>Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} Z_c &amp;\rightarrow\, Z_c &lt;z_\alpha \\
+                   Z_c &amp;\rightarrow\, Z_c &gt;z_{1-\alpha} \\
+                   Z_c &amp;\rightarrow\, |Z_c| &gt;z_{1-\alpha/2} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(Z &lt; Z_c) \\
+                   P(Z &gt; Z_c) \\
+                   P(|Z| &gt; |Z_c|) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<blockquote>
+<p>En una muestra de 85 recién nacidos, 10 presentaron riesgo de desnutrición. ¿Cuál es la proporción real de recién nacidos con riesgo de desnutrición con una confianza del 95%? Las secretaría de sañud sabe que si el porcentaje de recién nacidos en riesgo de desnutrición supera el 10% deberá generar una alerta al Ministerio de Saludo para hacer un plan de contingencia. Con un nivel de significancia del 5% ¿es necesario generar la alerta?<br><br> Tenemos las siguientes hipótesis <span class="math display">\[H_0: p=0.1 \quad\text{vs}\quad H_a: p&gt;0.1\]</span> Entonces con el estadístico de prueba se puede estimar la región crítica: <span class="math display">\[Z_c=\frac{10/85-0.1}{\sqrt{\frac{0.1 \times 0.9}{85}}}=0.542326\]</span> Si <span class="math inline">\(\alpha =0.05\)</span> entonces se tiene que <span class="math inline">\(Z_{0.95}=1.645\)</span> y así la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&gt;Z_{0.95}\}=\{Z_c\,|\,0.542326&gt;1.645\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&gt;0.542326)=1-P(Z&lt;0.542326)=0.2938\]</span> Como <span class="math inline">\(ZC\ngtr 1.645\)</span> o <span class="math inline">\(0.2938 &gt; 0.05\)</span>, entonces no existe suficiente evidencia muestral que soporte la creación de la alerta al Ministerio de Salud, por lo tanto no se rechaza <span class="math inline">\(H_0\)</span>.</p>
+</blockquote>
+<p>En <code>R</code> se puede hacer fácilmente las pruebas de hipótesis para la proporción, ya sea a partir de un conjunto de datos, una tabla/matriz o con la proporción directa. La función <code>prop.test</code> hace los cálculos necesarios para las pruebas de hipótesis incluyendo el intervalo de confianza, no obstante, el estadístico de prueba que utiliza está basado en la distribución <span class="math inline">\(\chi^2\)</span> y los intervalos de confianza son estimados a través del método Wilson, adicionalmente tiene la opción de hacer el cálculo a partir de la corrección de Yates para tamaños de muestra pequeños.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">prop.test</span>(<span class="dt">x =</span> <span class="dv">10</span>,<span class="dt">n =</span> <span class="dv">85</span>,<span class="dt">p =</span> <span class="fl">0.1</span>,<span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>,<span class="dt">correct =</span> F,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test without continuity correction
+## 
+## data:  10 out of 85, null probability 0.1
+## X-squared = 0.29412, df = 1, p-value = 0.2938
+## alternative hypothesis: true p is greater than 0.1
+## 95 percent confidence interval:
+##  0.0716376 1.0000000
+## sample estimates:
+##         p 
+## 0.1176471</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">prop.test</span>(<span class="dt">x =</span> <span class="dv">10</span>,<span class="dt">n =</span> <span class="dv">85</span>,<span class="dt">p =</span> <span class="fl">0.1</span>,<span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>,<span class="dt">correct =</span> T,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test with continuity correction
+## 
+## data:  10 out of 85, null probability 0.1
+## X-squared = 0.13072, df = 1, p-value = 0.3588
+## alternative hypothesis: true p is greater than 0.1
+## 95 percent confidence interval:
+##  0.06712105 1.00000000
+## sample estimates:
+##         p 
+## 0.1176471</code></pre>
+<blockquote>
+<p>Gracias al impacto de las redes sociales y la desinformación de <em>influencers</em> que se declaran expertos en nutrición, calidad de vida y salud, se piensa que la cantidad de bebés que no reciben leche materna ha disminuído significativamente, principalmente en los estratos Altos. Se sabe que la prevalencia de lactancia materna en esta población hace 5 años es del 75%. Neonatólogos del San Vicente realizaron una investigación en 254 bebés, de los cuales 171 reciben lactancia materna. Con un nivel de confianza del 95% ¿La hipótesis de los neonatólogos es cierta?<br><br> Tenemos las siguientes hipótesis <span class="math display">\[H_0: p=0.75 \quad\text{vs}\quad H_a: p&lt;0.75\]</span> Entonces con el estadístico de prueba se puede estimar la región crítica: <span class="math display">\[Z_c=\frac{171/254-0.75}{\sqrt{\frac{0.75 \times 0.25}{254}}}=-2.825642\]</span> Si <span class="math inline">\(\alpha =0.05\)</span> entonces se tiene que <span class="math inline">\(Z_{0.05}=-1.645\)</span> y así la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&lt;Z_{0.05}\}=\{Z_c\,|\,-2.825642&lt;-1.645\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&lt;-2.825642)=1-P(Z&lt;2.825642)=0.002359299\]</span> Como <span class="math inline">\(ZC&lt; -1.645\)</span> o <span class="math inline">\(0.002359 &lt; 0.05\)</span>, entonces se reachaza la hipótesis nula <span class="math inline">\(H_0\)</span>, por lo tanto, existe suficiente evidencia muestral que soporta la disminución estadísticamente significativa de la lactancia materna.</p>
+</blockquote>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">prop.test</span>(<span class="dt">x =</span> <span class="dv">171</span>,<span class="dt">n =</span> <span class="dv">254</span>,<span class="dt">p =</span> <span class="fl">0.75</span>,<span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>,<span class="dt">correct =</span> F,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test without continuity correction
+## 
+## data:  171 out of 254, null probability 0.75
+## X-squared = 7.9843, df = 1, p-value = 0.002359
+## alternative hypothesis: true p is less than 0.75
+## 95 percent confidence interval:
+##  0.0000000 0.7195891
+## sample estimates:
+##         p 
+## 0.6732283</code></pre>
+<hr>
+</div>
+<div id="ph-para-la-media" class="section level2">
+<h2>PH para la media</h2>
+<p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria de una población con media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^2\)</span> si se tienen una muestra grande, entonces para un valor <span class="math inline">\(\mu_0\)</span> de interés para <span class="math inline">\(\mu\)</span> se pueden plantear uno de los siguientes contrastes de hipótesis.</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \mu=\mu_0 \quad \text{vs} \quad H_a: \begin{cases} \mu &amp;&lt;\mu_0 \\
+                     \mu &amp;&gt; \mu \\
+                     \mu &amp;\neq \mu_0 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>El <strong>Estadístico de Prueba</strong> está dado por:</p>
+<p><span class="math display">\[Zc=\cfrac{\bar{X}-\mu_0}{\frac{\sigma}{\sqrt{n}}}\]</span></p>
+<p>Si <span class="math inline">\(\sigma^2\)</span> es desconocida se puede reemplazar por <span class="math inline">\(S^2\)</span>. Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} Z_c &amp;\rightarrow\, Z_c &lt;z_\alpha \\
+                   Z_c &amp;\rightarrow\, Z_c &gt;z_{1-\alpha} \\
+                   Z_c &amp;\rightarrow\, |Z_c| &gt;z_{1-\alpha/2} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(Z &lt; Z_c) \\
+                   P(Z &gt; Z_c) \\
+                   P(|Z| &gt; |Z_c|) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<blockquote>
+<p>Una Nutricionista de una clínica es la encargada de los planes de ganancia de peso en embarazadas. De acuerdo a los parámetros se sabe que la variación de la ganancia de peso al final de la gestación es de 5 kilos. Se tiene la hipótesis que en los últimos años las gestantes están ganando más de lo recomendado y por lo tanto nacen bebés macrosómicos. Se escogen al azar 45 embarazadas adultas con IMC normal y se registra sus ganancias de peso al final de la gestación y la ganancia promedio resultó en 17.3 kg. Con un nivel de significancia del 5% ¿La hipótesis es verdadera?<br><br> De a cuerdo con el Instituto de Medicina y Consejo Nacional de Investigación, la ganancia de peso máxima para gestantes en normo peso es de 16 kilos, entonces las pruebas de hipótesis son: <span class="math display">\[H_0: \mu=16 \quad\text{vs}\quad H_a: \mu&gt;16\]</span> Del enunciado tenemos que <span class="math inline">\(E[X_i]=17.3\)</span> y como <span class="math inline">\(\sigma=5\)</span>, así el estadístico de prueba está dado por: <span class="math display">\[Z_c=\cfrac{\bar{X}-16}{\frac{5}{\sqrt{45}}}=\cfrac{17.3-16}{\frac{5}{\sqrt{45}}}=1.744133\]</span> Como <span class="math inline">\(\alpha=0.05\)</span> se tiene que <span class="math inline">\(Z_{0.95}=1.645\)</span>, entonces la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&gt;Z_{0.95}\}=\{Z_c\,|\,1.744133&gt;1.645\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&gt;1.744133)=1-P(Z&lt;1.744133)=0.04056795\]</span> Como <span class="math inline">\(Z_c&gt;1.645\)</span> o <span class="math inline">\(0.0406&lt;0.05\)</span> entonces se rechaza <span class="math inline">\(H_0\)</span>, por lo tanto existe evidencia muestral suficiente que en los últimos años las gestantes están ganando más de lo recomendado con un nivel de significancia del 5%.</p>
+</blockquote>
+<p>En procesos de investigación no es común hacer procesos de muestreo o experimentación, que involucren una gran cantidad de datos, y para realizar pruebas de hipótesis en estas circunstancias es necesario comprobar si los datos provienen de una distribución normal o no.</p>
+<p>Las pruebas de hipótesis para la media basadas en <strong>poblaciones normales</strong> asume que la muestra aleatoria <span class="math inline">\(X_1,\dots,X_n\)</span> proviene de una <span class="math inline">\(N(\mu,\sigma^2)\)</span> con ambos parámetros desconocidos, sabemos por el teorema central del límite que:</p>
+<p><span class="math display">\[\cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \sim t_{n-1}\]</span></p>
+<p>Así, si <span class="math inline">\(\mu_0\)</span> es un valor particular de <span class="math inline">\(\mu\)</span>, se pueden plantear una de las siguientes tres hipótesis:</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \mu=\mu_0 \quad \text{vs} \quad H_a: \begin{cases} \mu &amp;&lt;\mu_0 \\
+                     \mu &amp;&gt; \mu \\
+                     \mu &amp;\neq \mu_0 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>El <strong>Estadístico de Prueba</strong> está dado por:</p>
+<p><span class="math display">\[Tc=\cfrac{\bar{X}-\mu_0}{\frac{S}{\sqrt{n}}}\]</span></p>
+<p>Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} T_c &amp;\rightarrow\, T_c &lt;t_{(\alpha,\,n-1)} \\
+                   T_c &amp;\rightarrow\, T_c &gt;t_{(1-\alpha,\,n-1)} \\
+                   T_c &amp;\rightarrow\, |T_c| &gt;t_{(1-\alpha/2,\,n-1)} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(t_{n-1} &lt; T_c) \\
+                   P(t_{n-1} &gt; T_c) \\
+                   P(|t_{n-1}| &gt; |T_c|) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<br>
+<center>
+<a href="./R/Tabla_t.pdf" class="btn btn-info"  target="_blank">Tabla Distribución <i>t-student</i></a>
+</center>
+<p><br></p>
+<blockquote>
+<p>De acuerdo con estudios sobre la fuerza prensil manual en adultos mayores que la fuerza de prensión se distribuye normalmente. Se sabe que la fuerza prensil está asociada con riesgos cardiovasculares, y de la literatura se supone que los valores menores a 16 kgf en esta población infiere riesgos a la salud. Se toma una muestra aleatoria de 16 adultos mayores y se obtiene un fuerza de prensión promedio para la mano débil de 15.63 kgf con una desviación estándar de 2.18 kgf. Con un nivel de siginificancia del 3% ¿Esta población estaría en riesgo?<br><br> Las pruebas de hipótesis son: <span class="math display">\[H_0: \mu=16 \quad\text{vs}\quad H_a: \mu&lt;16\]</span> Del enunciado tenemos que <span class="math inline">\(E[X_i]=15.63\)</span> y <span class="math inline">\(S=2.18\)</span>, así el estadístico de prueba está dado por: <span class="math display">\[T_c=\cfrac{\bar{X}-16}{\frac{2.18}{\sqrt{16}}}=\cfrac{15.63-16}{\frac{2.18}{\sqrt{16}}}=-0.6788991\]</span> Como <span class="math inline">\(\alpha=0.03\)</span> se tiene que <span class="math inline">\(t_{(0.03,15)}=-2.034289\)</span>, entonces la región de rechazo es de la forma: <span class="math display">\[RC=\{T_c\,|\,T_c&lt;t_{(0.02,15)}\}=\{T_c\,|\,-0.6788991&lt;-2.034289\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(T&gt;T_c)=P(T&lt;-0.6788991)=1-P(T&lt;0.6788991)=0.7462289\]</span> Como <span class="math inline">\(T_c\nless-2.034\)</span> o <span class="math inline">\(0.7462\nless0.03\)</span> entonces no se rechaza <span class="math inline">\(H_0\)</span>, por lo tanto no existe evidencia muestral suficiente para suponer que la población tienen riegos cardiovasculares basados en la fuerza prensil con un nivel de significancia del 5%.</p>
+</blockquote>
+<p>n <code>R</code> los análisis se realizan directamente a las muestras, entonces no es posible replicar el ejmplo anterior con la información suministrada a no ser que se programe la función ingresando los estadísticos. La función <code>t.test</code> realizar la prueba de hipótesis basado en poblaciones normales, puede emplearse para comparar grupos o para contrastar una muestra aleatoria contra un valor teórico de <span class="math inline">\(\mu\)</span>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>?t.test</span></code></pre></div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
