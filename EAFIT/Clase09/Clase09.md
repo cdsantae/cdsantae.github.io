@@ -1,7 +1,6 @@
 ---
 title: "Formatos de Fecha y Tiempos"
 author: "Cristian Santa"
-date: "Abril de 2019"
 output:
   rmdformats::readthedown:
     df_print: paged
@@ -124,7 +123,7 @@ as.Date("15mar.92", format="%d%b%y")
 ## [1] "1992-03-15"
 ```
 
-Internamente los objetos tipo `Date` guarga un número de días comenzando desde Enero 01 de 1970, con la función `as.numeric` se puede coercionar la fecha para convertirla en número.
+Internamente los objetos tipo `Date` guarda un número de días comenzando desde Enero 01 de 1970, con la función `as.numeric` se puede coercionar la fecha para convertirla en número.
 
 
 ```r
@@ -259,7 +258,7 @@ chron(dates. = fechas, times. = tiempos,format = c("y-month-d","h:m:s"))
 ## [5] (2002-July-07 17:30:40)
 ```
 
-Hay dos clases de fecha/hora de tipo POSIX, que difieren en la forma en que los valores se almacenan internamente. La clase `POSIXct` almacena los valores fecha/hora como el úmero de segundos desde el 1 de Enero de 1970, mientras que la clase `POSIXlt` los almacena como una lista con elementos para el segundo, minuto, hora, día, mes y año, entre otros. A menos que necesite la naturaleza de lista de la clase `POSIXlt`, la clase `POSIXct` es la opción habitual para almacenar fechas en `R`.
+Hay dos clases de fecha/hora de tipo POSIX, que difieren en la forma en que los valores se almacenan internamente. La clase `POSIXct` almacena los valores fecha/hora como el número de segundos desde el 1 de Enero de 1970, mientras que la clase `POSIXlt` los almacena como una lista con elementos para el segundo, minuto, hora, día, mes y año, entre otros. A menos que necesite la naturaleza de lista de la clase `POSIXlt`, la clase `POSIXct` es la opción habitual para almacenar fechas en `R`.
 
 El formato de entrada predeterminado para las fechas POSIX consiste en el año, seguido del mes y el día, separados por barras o guiones; para los valores de fecha/hora, la fecha puede ir seguida de un espacio en blanco y una hora en la forma hora:minutos:segundos o hora:minutos.
 
