@@ -26,7 +26,7 @@ Sys.Date()
 ```
 
 ```
-## [1] "2019-04-23"
+## [1] "2020-07-14"
 ```
 
 ```r
@@ -34,7 +34,7 @@ Sys.time()
 ```
 
 ```
-## [1] "2019-04-23 16:47:09 -05"
+## [1] "2020-07-14 19:53:40 -05"
 ```
 
 ```r
@@ -58,8 +58,8 @@ methods(as.Date)
 ```
 
 ```
-## [1] as.Date.character as.Date.dates*    as.Date.default   as.Date.factor   
-## [5] as.Date.numeric   as.Date.POSIXct   as.Date.POSIXlt  
+## [1] as.Date.character as.Date.default   as.Date.factor    as.Date.numeric  
+## [5] as.Date.POSIXct   as.Date.POSIXlt  
 ## see '?methods' for accessing help and source code
 ```
 
@@ -182,7 +182,7 @@ days(Dnac)
 
 ```
 ## [1] 16 17 25 6 
-## 31 Levels: 1 < 2 < 3 < 4 < 5 < 6 < 7 < 8 < 9 < 10 < 11 < 12 < ... < 31
+## 31 Levels: 1 < 2 < 3 < 4 < 5 < 6 < 7 < 8 < 9 < 10 < 11 < 12 < 13 < ... < 31
 ```
 
 ```r
@@ -356,7 +356,7 @@ data.frame(OlsonNames())
 
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["OlsonNames.."],"name":[1],"type":["fctr"],"align":["left"]}],"data":[{"1":"Africa/Abidjan"},{"1":"Africa/Accra"},{"1":"Africa/Addis_Ababa"},{"1":"Africa/Algiers"},{"1":"Africa/Asmara"},{"1":"Africa/Asmera"},{"1":"Africa/Bamako"},{"1":"Africa/Bangui"},{"1":"Africa/Banjul"},{"1":"Africa/Bissau"},{"1":"Africa/Blantyre"},{"1":"Africa/Brazzaville"},{"1":"Africa/Bujumbura"},{"1":"Africa/Cairo"},{"1":"Africa/Casablanca"},{"1":"Africa/Ceuta"},{"1":"Africa/Conakry"},{"1":"Africa/Dakar"},{"1":"Africa/Dar_es_Salaam"},{"1":"Africa/Djibouti"},{"1":"Africa/Douala"},{"1":"Africa/El_Aaiun"},{"1":"Africa/Freetown"},{"1":"Africa/Gaborone"},{"1":"Africa/Harare"},{"1":"Africa/Johannesburg"},{"1":"Africa/Juba"},{"1":"Africa/Kampala"},{"1":"Africa/Khartoum"},{"1":"Africa/Kigali"},{"1":"Africa/Kinshasa"},{"1":"Africa/Lagos"},{"1":"Africa/Libreville"},{"1":"Africa/Lome"},{"1":"Africa/Luanda"},{"1":"Africa/Lubumbashi"},{"1":"Africa/Lusaka"},{"1":"Africa/Malabo"},{"1":"Africa/Maputo"},{"1":"Africa/Maseru"},{"1":"Africa/Mbabane"},{"1":"Africa/Mogadishu"},{"1":"Africa/Monrovia"},{"1":"Africa/Nairobi"},{"1":"Africa/Ndjamena"},{"1":"Africa/Niamey"},{"1":"Africa/Nouakchott"},{"1":"Africa/Ouagadougou"},{"1":"Africa/Porto-Novo"},{"1":"Africa/Sao_Tome"},{"1":"Africa/Timbuktu"},{"1":"Africa/Tripoli"},{"1":"Africa/Tunis"},{"1":"Africa/Windhoek"},{"1":"America/Adak"},{"1":"America/Anchorage"},{"1":"America/Anguilla"},{"1":"America/Antigua"},{"1":"America/Araguaina"},{"1":"America/Argentina/Buenos_Aires"},{"1":"America/Argentina/Catamarca"},{"1":"America/Argentina/ComodRivadavia"},{"1":"America/Argentina/Cordoba"},{"1":"America/Argentina/Jujuy"},{"1":"America/Argentina/La_Rioja"},{"1":"America/Argentina/Mendoza"},{"1":"America/Argentina/Rio_Gallegos"},{"1":"America/Argentina/Salta"},{"1":"America/Argentina/San_Juan"},{"1":"America/Argentina/San_Luis"},{"1":"America/Argentina/Tucuman"},{"1":"America/Argentina/Ushuaia"},{"1":"America/Aruba"},{"1":"America/Asuncion"},{"1":"America/Atikokan"},{"1":"America/Atka"},{"1":"America/Bahia"},{"1":"America/Bahia_Banderas"},{"1":"America/Barbados"},{"1":"America/Belem"},{"1":"America/Belize"},{"1":"America/Blanc-Sablon"},{"1":"America/Boa_Vista"},{"1":"America/Bogota"},{"1":"America/Boise"},{"1":"America/Buenos_Aires"},{"1":"America/Cambridge_Bay"},{"1":"America/Campo_Grande"},{"1":"America/Cancun"},{"1":"America/Caracas"},{"1":"America/Catamarca"},{"1":"America/Cayenne"},{"1":"America/Cayman"},{"1":"America/Chicago"},{"1":"America/Chihuahua"},{"1":"America/Coral_Harbour"},{"1":"America/Cordoba"},{"1":"America/Costa_Rica"},{"1":"America/Creston"},{"1":"America/Cuiaba"},{"1":"America/Curacao"},{"1":"America/Danmarkshavn"},{"1":"America/Dawson"},{"1":"America/Dawson_Creek"},{"1":"America/Denver"},{"1":"America/Detroit"},{"1":"America/Dominica"},{"1":"America/Edmonton"},{"1":"America/Eirunepe"},{"1":"America/El_Salvador"},{"1":"America/Ensenada"},{"1":"America/Fort_Nelson"},{"1":"America/Fort_Wayne"},{"1":"America/Fortaleza"},{"1":"America/Glace_Bay"},{"1":"America/Godthab"},{"1":"America/Goose_Bay"},{"1":"America/Grand_Turk"},{"1":"America/Grenada"},{"1":"America/Guadeloupe"},{"1":"America/Guatemala"},{"1":"America/Guayaquil"},{"1":"America/Guyana"},{"1":"America/Halifax"},{"1":"America/Havana"},{"1":"America/Hermosillo"},{"1":"America/Indiana/Indianapolis"},{"1":"America/Indiana/Knox"},{"1":"America/Indiana/Marengo"},{"1":"America/Indiana/Petersburg"},{"1":"America/Indiana/Tell_City"},{"1":"America/Indiana/Vevay"},{"1":"America/Indiana/Vincennes"},{"1":"America/Indiana/Winamac"},{"1":"America/Indianapolis"},{"1":"America/Inuvik"},{"1":"America/Iqaluit"},{"1":"America/Jamaica"},{"1":"America/Jujuy"},{"1":"America/Juneau"},{"1":"America/Kentucky/Louisville"},{"1":"America/Kentucky/Monticello"},{"1":"America/Knox_IN"},{"1":"America/Kralendijk"},{"1":"America/La_Paz"},{"1":"America/Lima"},{"1":"America/Los_Angeles"},{"1":"America/Louisville"},{"1":"America/Lower_Princes"},{"1":"America/Maceio"},{"1":"America/Managua"},{"1":"America/Manaus"},{"1":"America/Marigot"},{"1":"America/Martinique"},{"1":"America/Matamoros"},{"1":"America/Mazatlan"},{"1":"America/Mendoza"},{"1":"America/Menominee"},{"1":"America/Merida"},{"1":"America/Metlakatla"},{"1":"America/Mexico_City"},{"1":"America/Miquelon"},{"1":"America/Moncton"},{"1":"America/Monterrey"},{"1":"America/Montevideo"},{"1":"America/Montreal"},{"1":"America/Montserrat"},{"1":"America/Nassau"},{"1":"America/New_York"},{"1":"America/Nipigon"},{"1":"America/Nome"},{"1":"America/Noronha"},{"1":"America/North_Dakota/Beulah"},{"1":"America/North_Dakota/Center"},{"1":"America/North_Dakota/New_Salem"},{"1":"America/Ojinaga"},{"1":"America/Panama"},{"1":"America/Pangnirtung"},{"1":"America/Paramaribo"},{"1":"America/Phoenix"},{"1":"America/Port-au-Prince"},{"1":"America/Port_of_Spain"},{"1":"America/Porto_Acre"},{"1":"America/Porto_Velho"},{"1":"America/Puerto_Rico"},{"1":"America/Punta_Arenas"},{"1":"America/Rainy_River"},{"1":"America/Rankin_Inlet"},{"1":"America/Recife"},{"1":"America/Regina"},{"1":"America/Resolute"},{"1":"America/Rio_Branco"},{"1":"America/Rosario"},{"1":"America/Santa_Isabel"},{"1":"America/Santarem"},{"1":"America/Santiago"},{"1":"America/Santo_Domingo"},{"1":"America/Sao_Paulo"},{"1":"America/Scoresbysund"},{"1":"America/Shiprock"},{"1":"America/Sitka"},{"1":"America/St_Barthelemy"},{"1":"America/St_Johns"},{"1":"America/St_Kitts"},{"1":"America/St_Lucia"},{"1":"America/St_Thomas"},{"1":"America/St_Vincent"},{"1":"America/Swift_Current"},{"1":"America/Tegucigalpa"},{"1":"America/Thule"},{"1":"America/Thunder_Bay"},{"1":"America/Tijuana"},{"1":"America/Toronto"},{"1":"America/Tortola"},{"1":"America/Vancouver"},{"1":"America/Virgin"},{"1":"America/Whitehorse"},{"1":"America/Winnipeg"},{"1":"America/Yakutat"},{"1":"America/Yellowknife"},{"1":"Antarctica/Casey"},{"1":"Antarctica/Davis"},{"1":"Antarctica/DumontDUrville"},{"1":"Antarctica/Macquarie"},{"1":"Antarctica/Mawson"},{"1":"Antarctica/McMurdo"},{"1":"Antarctica/Palmer"},{"1":"Antarctica/Rothera"},{"1":"Antarctica/South_Pole"},{"1":"Antarctica/Syowa"},{"1":"Antarctica/Troll"},{"1":"Antarctica/Vostok"},{"1":"Arctic/Longyearbyen"},{"1":"Asia/Aden"},{"1":"Asia/Almaty"},{"1":"Asia/Amman"},{"1":"Asia/Anadyr"},{"1":"Asia/Aqtau"},{"1":"Asia/Aqtobe"},{"1":"Asia/Ashgabat"},{"1":"Asia/Ashkhabad"},{"1":"Asia/Atyrau"},{"1":"Asia/Baghdad"},{"1":"Asia/Bahrain"},{"1":"Asia/Baku"},{"1":"Asia/Bangkok"},{"1":"Asia/Barnaul"},{"1":"Asia/Beirut"},{"1":"Asia/Bishkek"},{"1":"Asia/Brunei"},{"1":"Asia/Calcutta"},{"1":"Asia/Chita"},{"1":"Asia/Choibalsan"},{"1":"Asia/Chongqing"},{"1":"Asia/Chungking"},{"1":"Asia/Colombo"},{"1":"Asia/Dacca"},{"1":"Asia/Damascus"},{"1":"Asia/Dhaka"},{"1":"Asia/Dili"},{"1":"Asia/Dubai"},{"1":"Asia/Dushanbe"},{"1":"Asia/Famagusta"},{"1":"Asia/Gaza"},{"1":"Asia/Harbin"},{"1":"Asia/Hebron"},{"1":"Asia/Ho_Chi_Minh"},{"1":"Asia/Hong_Kong"},{"1":"Asia/Hovd"},{"1":"Asia/Irkutsk"},{"1":"Asia/Istanbul"},{"1":"Asia/Jakarta"},{"1":"Asia/Jayapura"},{"1":"Asia/Jerusalem"},{"1":"Asia/Kabul"},{"1":"Asia/Kamchatka"},{"1":"Asia/Karachi"},{"1":"Asia/Kashgar"},{"1":"Asia/Kathmandu"},{"1":"Asia/Katmandu"},{"1":"Asia/Khandyga"},{"1":"Asia/Kolkata"},{"1":"Asia/Krasnoyarsk"},{"1":"Asia/Kuala_Lumpur"},{"1":"Asia/Kuching"},{"1":"Asia/Kuwait"},{"1":"Asia/Macao"},{"1":"Asia/Macau"},{"1":"Asia/Magadan"},{"1":"Asia/Makassar"},{"1":"Asia/Manila"},{"1":"Asia/Muscat"},{"1":"Asia/Nicosia"},{"1":"Asia/Novokuznetsk"},{"1":"Asia/Novosibirsk"},{"1":"Asia/Omsk"},{"1":"Asia/Oral"},{"1":"Asia/Phnom_Penh"},{"1":"Asia/Pontianak"},{"1":"Asia/Pyongyang"},{"1":"Asia/Qatar"},{"1":"Asia/Qyzylorda"},{"1":"Asia/Rangoon"},{"1":"Asia/Riyadh"},{"1":"Asia/Saigon"},{"1":"Asia/Sakhalin"},{"1":"Asia/Samarkand"},{"1":"Asia/Seoul"},{"1":"Asia/Shanghai"},{"1":"Asia/Singapore"},{"1":"Asia/Srednekolymsk"},{"1":"Asia/Taipei"},{"1":"Asia/Tashkent"},{"1":"Asia/Tbilisi"},{"1":"Asia/Tehran"},{"1":"Asia/Tel_Aviv"},{"1":"Asia/Thimbu"},{"1":"Asia/Thimphu"},{"1":"Asia/Tokyo"},{"1":"Asia/Tomsk"},{"1":"Asia/Ujung_Pandang"},{"1":"Asia/Ulaanbaatar"},{"1":"Asia/Ulan_Bator"},{"1":"Asia/Urumqi"},{"1":"Asia/Ust-Nera"},{"1":"Asia/Vientiane"},{"1":"Asia/Vladivostok"},{"1":"Asia/Yakutsk"},{"1":"Asia/Yangon"},{"1":"Asia/Yekaterinburg"},{"1":"Asia/Yerevan"},{"1":"Atlantic/Azores"},{"1":"Atlantic/Bermuda"},{"1":"Atlantic/Canary"},{"1":"Atlantic/Cape_Verde"},{"1":"Atlantic/Faeroe"},{"1":"Atlantic/Faroe"},{"1":"Atlantic/Jan_Mayen"},{"1":"Atlantic/Madeira"},{"1":"Atlantic/Reykjavik"},{"1":"Atlantic/South_Georgia"},{"1":"Atlantic/St_Helena"},{"1":"Atlantic/Stanley"},{"1":"Australia/ACT"},{"1":"Australia/Adelaide"},{"1":"Australia/Brisbane"},{"1":"Australia/Broken_Hill"},{"1":"Australia/Canberra"},{"1":"Australia/Currie"},{"1":"Australia/Darwin"},{"1":"Australia/Eucla"},{"1":"Australia/Hobart"},{"1":"Australia/LHI"},{"1":"Australia/Lindeman"},{"1":"Australia/Lord_Howe"},{"1":"Australia/Melbourne"},{"1":"Australia/North"},{"1":"Australia/NSW"},{"1":"Australia/Perth"},{"1":"Australia/Queensland"},{"1":"Australia/South"},{"1":"Australia/Sydney"},{"1":"Australia/Tasmania"},{"1":"Australia/Victoria"},{"1":"Australia/West"},{"1":"Australia/Yancowinna"},{"1":"Brazil/Acre"},{"1":"Brazil/DeNoronha"},{"1":"Brazil/East"},{"1":"Brazil/West"},{"1":"Canada/Atlantic"},{"1":"Canada/Central"},{"1":"Canada/Eastern"},{"1":"Canada/Mountain"},{"1":"Canada/Newfoundland"},{"1":"Canada/Pacific"},{"1":"Canada/Saskatchewan"},{"1":"Canada/Yukon"},{"1":"CET"},{"1":"Chile/Continental"},{"1":"Chile/EasterIsland"},{"1":"CST6CDT"},{"1":"Cuba"},{"1":"EET"},{"1":"Egypt"},{"1":"Eire"},{"1":"EST"},{"1":"EST5EDT"},{"1":"Etc/GMT"},{"1":"Etc/GMT-0"},{"1":"Etc/GMT-1"},{"1":"Etc/GMT-10"},{"1":"Etc/GMT-11"},{"1":"Etc/GMT-12"},{"1":"Etc/GMT-13"},{"1":"Etc/GMT-14"},{"1":"Etc/GMT-2"},{"1":"Etc/GMT-3"},{"1":"Etc/GMT-4"},{"1":"Etc/GMT-5"},{"1":"Etc/GMT-6"},{"1":"Etc/GMT-7"},{"1":"Etc/GMT-8"},{"1":"Etc/GMT-9"},{"1":"Etc/GMT+0"},{"1":"Etc/GMT+1"},{"1":"Etc/GMT+10"},{"1":"Etc/GMT+11"},{"1":"Etc/GMT+12"},{"1":"Etc/GMT+2"},{"1":"Etc/GMT+3"},{"1":"Etc/GMT+4"},{"1":"Etc/GMT+5"},{"1":"Etc/GMT+6"},{"1":"Etc/GMT+7"},{"1":"Etc/GMT+8"},{"1":"Etc/GMT+9"},{"1":"Etc/GMT0"},{"1":"Etc/Greenwich"},{"1":"Etc/UCT"},{"1":"Etc/Universal"},{"1":"Etc/UTC"},{"1":"Etc/Zulu"},{"1":"Europe/Amsterdam"},{"1":"Europe/Andorra"},{"1":"Europe/Astrakhan"},{"1":"Europe/Athens"},{"1":"Europe/Belfast"},{"1":"Europe/Belgrade"},{"1":"Europe/Berlin"},{"1":"Europe/Bratislava"},{"1":"Europe/Brussels"},{"1":"Europe/Bucharest"},{"1":"Europe/Budapest"},{"1":"Europe/Busingen"},{"1":"Europe/Chisinau"},{"1":"Europe/Copenhagen"},{"1":"Europe/Dublin"},{"1":"Europe/Gibraltar"},{"1":"Europe/Guernsey"},{"1":"Europe/Helsinki"},{"1":"Europe/Isle_of_Man"},{"1":"Europe/Istanbul"},{"1":"Europe/Jersey"},{"1":"Europe/Kaliningrad"},{"1":"Europe/Kiev"},{"1":"Europe/Kirov"},{"1":"Europe/Lisbon"},{"1":"Europe/Ljubljana"},{"1":"Europe/London"},{"1":"Europe/Luxembourg"},{"1":"Europe/Madrid"},{"1":"Europe/Malta"},{"1":"Europe/Mariehamn"},{"1":"Europe/Minsk"},{"1":"Europe/Monaco"},{"1":"Europe/Moscow"},{"1":"Europe/Nicosia"},{"1":"Europe/Oslo"},{"1":"Europe/Paris"},{"1":"Europe/Podgorica"},{"1":"Europe/Prague"},{"1":"Europe/Riga"},{"1":"Europe/Rome"},{"1":"Europe/Samara"},{"1":"Europe/San_Marino"},{"1":"Europe/Sarajevo"},{"1":"Europe/Saratov"},{"1":"Europe/Simferopol"},{"1":"Europe/Skopje"},{"1":"Europe/Sofia"},{"1":"Europe/Stockholm"},{"1":"Europe/Tallinn"},{"1":"Europe/Tirane"},{"1":"Europe/Tiraspol"},{"1":"Europe/Ulyanovsk"},{"1":"Europe/Uzhgorod"},{"1":"Europe/Vaduz"},{"1":"Europe/Vatican"},{"1":"Europe/Vienna"},{"1":"Europe/Vilnius"},{"1":"Europe/Volgograd"},{"1":"Europe/Warsaw"},{"1":"Europe/Zagreb"},{"1":"Europe/Zaporozhye"},{"1":"Europe/Zurich"},{"1":"GB"},{"1":"GB-Eire"},{"1":"GMT"},{"1":"GMT-0"},{"1":"GMT+0"},{"1":"GMT0"},{"1":"Greenwich"},{"1":"Hongkong"},{"1":"HST"},{"1":"Iceland"},{"1":"Indian/Antananarivo"},{"1":"Indian/Chagos"},{"1":"Indian/Christmas"},{"1":"Indian/Cocos"},{"1":"Indian/Comoro"},{"1":"Indian/Kerguelen"},{"1":"Indian/Mahe"},{"1":"Indian/Maldives"},{"1":"Indian/Mauritius"},{"1":"Indian/Mayotte"},{"1":"Indian/Reunion"},{"1":"Iran"},{"1":"Israel"},{"1":"Jamaica"},{"1":"Japan"},{"1":"Kwajalein"},{"1":"Libya"},{"1":"MET"},{"1":"Mexico/BajaNorte"},{"1":"Mexico/BajaSur"},{"1":"Mexico/General"},{"1":"MST"},{"1":"MST7MDT"},{"1":"Navajo"},{"1":"NZ"},{"1":"NZ-CHAT"},{"1":"Pacific/Apia"},{"1":"Pacific/Auckland"},{"1":"Pacific/Bougainville"},{"1":"Pacific/Chatham"},{"1":"Pacific/Chuuk"},{"1":"Pacific/Easter"},{"1":"Pacific/Efate"},{"1":"Pacific/Enderbury"},{"1":"Pacific/Fakaofo"},{"1":"Pacific/Fiji"},{"1":"Pacific/Funafuti"},{"1":"Pacific/Galapagos"},{"1":"Pacific/Gambier"},{"1":"Pacific/Guadalcanal"},{"1":"Pacific/Guam"},{"1":"Pacific/Honolulu"},{"1":"Pacific/Johnston"},{"1":"Pacific/Kiritimati"},{"1":"Pacific/Kosrae"},{"1":"Pacific/Kwajalein"},{"1":"Pacific/Majuro"},{"1":"Pacific/Marquesas"},{"1":"Pacific/Midway"},{"1":"Pacific/Nauru"},{"1":"Pacific/Niue"},{"1":"Pacific/Norfolk"},{"1":"Pacific/Noumea"},{"1":"Pacific/Pago_Pago"},{"1":"Pacific/Palau"},{"1":"Pacific/Pitcairn"},{"1":"Pacific/Pohnpei"},{"1":"Pacific/Ponape"},{"1":"Pacific/Port_Moresby"},{"1":"Pacific/Rarotonga"},{"1":"Pacific/Saipan"},{"1":"Pacific/Samoa"},{"1":"Pacific/Tahiti"},{"1":"Pacific/Tarawa"},{"1":"Pacific/Tongatapu"},{"1":"Pacific/Truk"},{"1":"Pacific/Wake"},{"1":"Pacific/Wallis"},{"1":"Pacific/Yap"},{"1":"Poland"},{"1":"Portugal"},{"1":"PRC"},{"1":"PST8PDT"},{"1":"ROC"},{"1":"ROK"},{"1":"Singapore"},{"1":"Turkey"},{"1":"UCT"},{"1":"Universal"},{"1":"US/Alaska"},{"1":"US/Aleutian"},{"1":"US/Arizona"},{"1":"US/Central"},{"1":"US/East-Indiana"},{"1":"US/Eastern"},{"1":"US/Hawaii"},{"1":"US/Indiana-Starke"},{"1":"US/Michigan"},{"1":"US/Mountain"},{"1":"US/Pacific"},{"1":"US/Pacific-New"},{"1":"US/Samoa"},{"1":"UTC"},{"1":"W-SU"},{"1":"WET"},{"1":"Zulu"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["OlsonNames.."],"name":[1],"type":["fctr"],"align":["left"]}],"data":[{"1":"Africa/Abidjan"},{"1":"Africa/Accra"},{"1":"Africa/Addis_Ababa"},{"1":"Africa/Algiers"},{"1":"Africa/Asmara"},{"1":"Africa/Asmera"},{"1":"Africa/Bamako"},{"1":"Africa/Bangui"},{"1":"Africa/Banjul"},{"1":"Africa/Bissau"},{"1":"Africa/Blantyre"},{"1":"Africa/Brazzaville"},{"1":"Africa/Bujumbura"},{"1":"Africa/Cairo"},{"1":"Africa/Casablanca"},{"1":"Africa/Ceuta"},{"1":"Africa/Conakry"},{"1":"Africa/Dakar"},{"1":"Africa/Dar_es_Salaam"},{"1":"Africa/Djibouti"},{"1":"Africa/Douala"},{"1":"Africa/El_Aaiun"},{"1":"Africa/Freetown"},{"1":"Africa/Gaborone"},{"1":"Africa/Harare"},{"1":"Africa/Johannesburg"},{"1":"Africa/Juba"},{"1":"Africa/Kampala"},{"1":"Africa/Khartoum"},{"1":"Africa/Kigali"},{"1":"Africa/Kinshasa"},{"1":"Africa/Lagos"},{"1":"Africa/Libreville"},{"1":"Africa/Lome"},{"1":"Africa/Luanda"},{"1":"Africa/Lubumbashi"},{"1":"Africa/Lusaka"},{"1":"Africa/Malabo"},{"1":"Africa/Maputo"},{"1":"Africa/Maseru"},{"1":"Africa/Mbabane"},{"1":"Africa/Mogadishu"},{"1":"Africa/Monrovia"},{"1":"Africa/Nairobi"},{"1":"Africa/Ndjamena"},{"1":"Africa/Niamey"},{"1":"Africa/Nouakchott"},{"1":"Africa/Ouagadougou"},{"1":"Africa/Porto-Novo"},{"1":"Africa/Sao_Tome"},{"1":"Africa/Timbuktu"},{"1":"Africa/Tripoli"},{"1":"Africa/Tunis"},{"1":"Africa/Windhoek"},{"1":"America/Adak"},{"1":"America/Anchorage"},{"1":"America/Anguilla"},{"1":"America/Antigua"},{"1":"America/Araguaina"},{"1":"America/Argentina/Buenos_Aires"},{"1":"America/Argentina/Catamarca"},{"1":"America/Argentina/ComodRivadavia"},{"1":"America/Argentina/Cordoba"},{"1":"America/Argentina/Jujuy"},{"1":"America/Argentina/La_Rioja"},{"1":"America/Argentina/Mendoza"},{"1":"America/Argentina/Rio_Gallegos"},{"1":"America/Argentina/Salta"},{"1":"America/Argentina/San_Juan"},{"1":"America/Argentina/San_Luis"},{"1":"America/Argentina/Tucuman"},{"1":"America/Argentina/Ushuaia"},{"1":"America/Aruba"},{"1":"America/Asuncion"},{"1":"America/Atikokan"},{"1":"America/Atka"},{"1":"America/Bahia"},{"1":"America/Bahia_Banderas"},{"1":"America/Barbados"},{"1":"America/Belem"},{"1":"America/Belize"},{"1":"America/Blanc-Sablon"},{"1":"America/Boa_Vista"},{"1":"America/Bogota"},{"1":"America/Boise"},{"1":"America/Buenos_Aires"},{"1":"America/Cambridge_Bay"},{"1":"America/Campo_Grande"},{"1":"America/Cancun"},{"1":"America/Caracas"},{"1":"America/Catamarca"},{"1":"America/Cayenne"},{"1":"America/Cayman"},{"1":"America/Chicago"},{"1":"America/Chihuahua"},{"1":"America/Coral_Harbour"},{"1":"America/Cordoba"},{"1":"America/Costa_Rica"},{"1":"America/Creston"},{"1":"America/Cuiaba"},{"1":"America/Curacao"},{"1":"America/Danmarkshavn"},{"1":"America/Dawson"},{"1":"America/Dawson_Creek"},{"1":"America/Denver"},{"1":"America/Detroit"},{"1":"America/Dominica"},{"1":"America/Edmonton"},{"1":"America/Eirunepe"},{"1":"America/El_Salvador"},{"1":"America/Ensenada"},{"1":"America/Fort_Nelson"},{"1":"America/Fort_Wayne"},{"1":"America/Fortaleza"},{"1":"America/Glace_Bay"},{"1":"America/Godthab"},{"1":"America/Goose_Bay"},{"1":"America/Grand_Turk"},{"1":"America/Grenada"},{"1":"America/Guadeloupe"},{"1":"America/Guatemala"},{"1":"America/Guayaquil"},{"1":"America/Guyana"},{"1":"America/Halifax"},{"1":"America/Havana"},{"1":"America/Hermosillo"},{"1":"America/Indiana/Indianapolis"},{"1":"America/Indiana/Knox"},{"1":"America/Indiana/Marengo"},{"1":"America/Indiana/Petersburg"},{"1":"America/Indiana/Tell_City"},{"1":"America/Indiana/Vevay"},{"1":"America/Indiana/Vincennes"},{"1":"America/Indiana/Winamac"},{"1":"America/Indianapolis"},{"1":"America/Inuvik"},{"1":"America/Iqaluit"},{"1":"America/Jamaica"},{"1":"America/Jujuy"},{"1":"America/Juneau"},{"1":"America/Kentucky/Louisville"},{"1":"America/Kentucky/Monticello"},{"1":"America/Knox_IN"},{"1":"America/Kralendijk"},{"1":"America/La_Paz"},{"1":"America/Lima"},{"1":"America/Los_Angeles"},{"1":"America/Louisville"},{"1":"America/Lower_Princes"},{"1":"America/Maceio"},{"1":"America/Managua"},{"1":"America/Manaus"},{"1":"America/Marigot"},{"1":"America/Martinique"},{"1":"America/Matamoros"},{"1":"America/Mazatlan"},{"1":"America/Mendoza"},{"1":"America/Menominee"},{"1":"America/Merida"},{"1":"America/Metlakatla"},{"1":"America/Mexico_City"},{"1":"America/Miquelon"},{"1":"America/Moncton"},{"1":"America/Monterrey"},{"1":"America/Montevideo"},{"1":"America/Montreal"},{"1":"America/Montserrat"},{"1":"America/Nassau"},{"1":"America/New_York"},{"1":"America/Nipigon"},{"1":"America/Nome"},{"1":"America/Noronha"},{"1":"America/North_Dakota/Beulah"},{"1":"America/North_Dakota/Center"},{"1":"America/North_Dakota/New_Salem"},{"1":"America/Ojinaga"},{"1":"America/Panama"},{"1":"America/Pangnirtung"},{"1":"America/Paramaribo"},{"1":"America/Phoenix"},{"1":"America/Port-au-Prince"},{"1":"America/Port_of_Spain"},{"1":"America/Porto_Acre"},{"1":"America/Porto_Velho"},{"1":"America/Puerto_Rico"},{"1":"America/Punta_Arenas"},{"1":"America/Rainy_River"},{"1":"America/Rankin_Inlet"},{"1":"America/Recife"},{"1":"America/Regina"},{"1":"America/Resolute"},{"1":"America/Rio_Branco"},{"1":"America/Rosario"},{"1":"America/Santa_Isabel"},{"1":"America/Santarem"},{"1":"America/Santiago"},{"1":"America/Santo_Domingo"},{"1":"America/Sao_Paulo"},{"1":"America/Scoresbysund"},{"1":"America/Shiprock"},{"1":"America/Sitka"},{"1":"America/St_Barthelemy"},{"1":"America/St_Johns"},{"1":"America/St_Kitts"},{"1":"America/St_Lucia"},{"1":"America/St_Thomas"},{"1":"America/St_Vincent"},{"1":"America/Swift_Current"},{"1":"America/Tegucigalpa"},{"1":"America/Thule"},{"1":"America/Thunder_Bay"},{"1":"America/Tijuana"},{"1":"America/Toronto"},{"1":"America/Tortola"},{"1":"America/Vancouver"},{"1":"America/Virgin"},{"1":"America/Whitehorse"},{"1":"America/Winnipeg"},{"1":"America/Yakutat"},{"1":"America/Yellowknife"},{"1":"Antarctica/Casey"},{"1":"Antarctica/Davis"},{"1":"Antarctica/DumontDUrville"},{"1":"Antarctica/Macquarie"},{"1":"Antarctica/Mawson"},{"1":"Antarctica/McMurdo"},{"1":"Antarctica/Palmer"},{"1":"Antarctica/Rothera"},{"1":"Antarctica/South_Pole"},{"1":"Antarctica/Syowa"},{"1":"Antarctica/Troll"},{"1":"Antarctica/Vostok"},{"1":"Arctic/Longyearbyen"},{"1":"Asia/Aden"},{"1":"Asia/Almaty"},{"1":"Asia/Amman"},{"1":"Asia/Anadyr"},{"1":"Asia/Aqtau"},{"1":"Asia/Aqtobe"},{"1":"Asia/Ashgabat"},{"1":"Asia/Ashkhabad"},{"1":"Asia/Atyrau"},{"1":"Asia/Baghdad"},{"1":"Asia/Bahrain"},{"1":"Asia/Baku"},{"1":"Asia/Bangkok"},{"1":"Asia/Barnaul"},{"1":"Asia/Beirut"},{"1":"Asia/Bishkek"},{"1":"Asia/Brunei"},{"1":"Asia/Calcutta"},{"1":"Asia/Chita"},{"1":"Asia/Choibalsan"},{"1":"Asia/Chongqing"},{"1":"Asia/Chungking"},{"1":"Asia/Colombo"},{"1":"Asia/Dacca"},{"1":"Asia/Damascus"},{"1":"Asia/Dhaka"},{"1":"Asia/Dili"},{"1":"Asia/Dubai"},{"1":"Asia/Dushanbe"},{"1":"Asia/Famagusta"},{"1":"Asia/Gaza"},{"1":"Asia/Harbin"},{"1":"Asia/Hebron"},{"1":"Asia/Ho_Chi_Minh"},{"1":"Asia/Hong_Kong"},{"1":"Asia/Hovd"},{"1":"Asia/Irkutsk"},{"1":"Asia/Istanbul"},{"1":"Asia/Jakarta"},{"1":"Asia/Jayapura"},{"1":"Asia/Jerusalem"},{"1":"Asia/Kabul"},{"1":"Asia/Kamchatka"},{"1":"Asia/Karachi"},{"1":"Asia/Kashgar"},{"1":"Asia/Kathmandu"},{"1":"Asia/Katmandu"},{"1":"Asia/Khandyga"},{"1":"Asia/Kolkata"},{"1":"Asia/Krasnoyarsk"},{"1":"Asia/Kuala_Lumpur"},{"1":"Asia/Kuching"},{"1":"Asia/Kuwait"},{"1":"Asia/Macao"},{"1":"Asia/Macau"},{"1":"Asia/Magadan"},{"1":"Asia/Makassar"},{"1":"Asia/Manila"},{"1":"Asia/Muscat"},{"1":"Asia/Nicosia"},{"1":"Asia/Novokuznetsk"},{"1":"Asia/Novosibirsk"},{"1":"Asia/Omsk"},{"1":"Asia/Oral"},{"1":"Asia/Phnom_Penh"},{"1":"Asia/Pontianak"},{"1":"Asia/Pyongyang"},{"1":"Asia/Qatar"},{"1":"Asia/Qostanay"},{"1":"Asia/Qyzylorda"},{"1":"Asia/Rangoon"},{"1":"Asia/Riyadh"},{"1":"Asia/Saigon"},{"1":"Asia/Sakhalin"},{"1":"Asia/Samarkand"},{"1":"Asia/Seoul"},{"1":"Asia/Shanghai"},{"1":"Asia/Singapore"},{"1":"Asia/Srednekolymsk"},{"1":"Asia/Taipei"},{"1":"Asia/Tashkent"},{"1":"Asia/Tbilisi"},{"1":"Asia/Tehran"},{"1":"Asia/Tel_Aviv"},{"1":"Asia/Thimbu"},{"1":"Asia/Thimphu"},{"1":"Asia/Tokyo"},{"1":"Asia/Tomsk"},{"1":"Asia/Ujung_Pandang"},{"1":"Asia/Ulaanbaatar"},{"1":"Asia/Ulan_Bator"},{"1":"Asia/Urumqi"},{"1":"Asia/Ust-Nera"},{"1":"Asia/Vientiane"},{"1":"Asia/Vladivostok"},{"1":"Asia/Yakutsk"},{"1":"Asia/Yangon"},{"1":"Asia/Yekaterinburg"},{"1":"Asia/Yerevan"},{"1":"Atlantic/Azores"},{"1":"Atlantic/Bermuda"},{"1":"Atlantic/Canary"},{"1":"Atlantic/Cape_Verde"},{"1":"Atlantic/Faeroe"},{"1":"Atlantic/Faroe"},{"1":"Atlantic/Jan_Mayen"},{"1":"Atlantic/Madeira"},{"1":"Atlantic/Reykjavik"},{"1":"Atlantic/South_Georgia"},{"1":"Atlantic/St_Helena"},{"1":"Atlantic/Stanley"},{"1":"Australia/ACT"},{"1":"Australia/Adelaide"},{"1":"Australia/Brisbane"},{"1":"Australia/Broken_Hill"},{"1":"Australia/Canberra"},{"1":"Australia/Currie"},{"1":"Australia/Darwin"},{"1":"Australia/Eucla"},{"1":"Australia/Hobart"},{"1":"Australia/LHI"},{"1":"Australia/Lindeman"},{"1":"Australia/Lord_Howe"},{"1":"Australia/Melbourne"},{"1":"Australia/North"},{"1":"Australia/NSW"},{"1":"Australia/Perth"},{"1":"Australia/Queensland"},{"1":"Australia/South"},{"1":"Australia/Sydney"},{"1":"Australia/Tasmania"},{"1":"Australia/Victoria"},{"1":"Australia/West"},{"1":"Australia/Yancowinna"},{"1":"Brazil/Acre"},{"1":"Brazil/DeNoronha"},{"1":"Brazil/East"},{"1":"Brazil/West"},{"1":"Canada/Atlantic"},{"1":"Canada/Central"},{"1":"Canada/Eastern"},{"1":"Canada/Mountain"},{"1":"Canada/Newfoundland"},{"1":"Canada/Pacific"},{"1":"Canada/Saskatchewan"},{"1":"Canada/Yukon"},{"1":"CET"},{"1":"Chile/Continental"},{"1":"Chile/EasterIsland"},{"1":"CST6CDT"},{"1":"Cuba"},{"1":"EET"},{"1":"Egypt"},{"1":"Eire"},{"1":"EST"},{"1":"EST5EDT"},{"1":"Etc/GMT"},{"1":"Etc/GMT-0"},{"1":"Etc/GMT-1"},{"1":"Etc/GMT-10"},{"1":"Etc/GMT-11"},{"1":"Etc/GMT-12"},{"1":"Etc/GMT-13"},{"1":"Etc/GMT-14"},{"1":"Etc/GMT-2"},{"1":"Etc/GMT-3"},{"1":"Etc/GMT-4"},{"1":"Etc/GMT-5"},{"1":"Etc/GMT-6"},{"1":"Etc/GMT-7"},{"1":"Etc/GMT-8"},{"1":"Etc/GMT-9"},{"1":"Etc/GMT+0"},{"1":"Etc/GMT+1"},{"1":"Etc/GMT+10"},{"1":"Etc/GMT+11"},{"1":"Etc/GMT+12"},{"1":"Etc/GMT+2"},{"1":"Etc/GMT+3"},{"1":"Etc/GMT+4"},{"1":"Etc/GMT+5"},{"1":"Etc/GMT+6"},{"1":"Etc/GMT+7"},{"1":"Etc/GMT+8"},{"1":"Etc/GMT+9"},{"1":"Etc/GMT0"},{"1":"Etc/Greenwich"},{"1":"Etc/UCT"},{"1":"Etc/Universal"},{"1":"Etc/UTC"},{"1":"Etc/Zulu"},{"1":"Europe/Amsterdam"},{"1":"Europe/Andorra"},{"1":"Europe/Astrakhan"},{"1":"Europe/Athens"},{"1":"Europe/Belfast"},{"1":"Europe/Belgrade"},{"1":"Europe/Berlin"},{"1":"Europe/Bratislava"},{"1":"Europe/Brussels"},{"1":"Europe/Bucharest"},{"1":"Europe/Budapest"},{"1":"Europe/Busingen"},{"1":"Europe/Chisinau"},{"1":"Europe/Copenhagen"},{"1":"Europe/Dublin"},{"1":"Europe/Gibraltar"},{"1":"Europe/Guernsey"},{"1":"Europe/Helsinki"},{"1":"Europe/Isle_of_Man"},{"1":"Europe/Istanbul"},{"1":"Europe/Jersey"},{"1":"Europe/Kaliningrad"},{"1":"Europe/Kiev"},{"1":"Europe/Kirov"},{"1":"Europe/Lisbon"},{"1":"Europe/Ljubljana"},{"1":"Europe/London"},{"1":"Europe/Luxembourg"},{"1":"Europe/Madrid"},{"1":"Europe/Malta"},{"1":"Europe/Mariehamn"},{"1":"Europe/Minsk"},{"1":"Europe/Monaco"},{"1":"Europe/Moscow"},{"1":"Europe/Nicosia"},{"1":"Europe/Oslo"},{"1":"Europe/Paris"},{"1":"Europe/Podgorica"},{"1":"Europe/Prague"},{"1":"Europe/Riga"},{"1":"Europe/Rome"},{"1":"Europe/Samara"},{"1":"Europe/San_Marino"},{"1":"Europe/Sarajevo"},{"1":"Europe/Saratov"},{"1":"Europe/Simferopol"},{"1":"Europe/Skopje"},{"1":"Europe/Sofia"},{"1":"Europe/Stockholm"},{"1":"Europe/Tallinn"},{"1":"Europe/Tirane"},{"1":"Europe/Tiraspol"},{"1":"Europe/Ulyanovsk"},{"1":"Europe/Uzhgorod"},{"1":"Europe/Vaduz"},{"1":"Europe/Vatican"},{"1":"Europe/Vienna"},{"1":"Europe/Vilnius"},{"1":"Europe/Volgograd"},{"1":"Europe/Warsaw"},{"1":"Europe/Zagreb"},{"1":"Europe/Zaporozhye"},{"1":"Europe/Zurich"},{"1":"GB"},{"1":"GB-Eire"},{"1":"GMT"},{"1":"GMT-0"},{"1":"GMT+0"},{"1":"GMT0"},{"1":"Greenwich"},{"1":"Hongkong"},{"1":"HST"},{"1":"Iceland"},{"1":"Indian/Antananarivo"},{"1":"Indian/Chagos"},{"1":"Indian/Christmas"},{"1":"Indian/Cocos"},{"1":"Indian/Comoro"},{"1":"Indian/Kerguelen"},{"1":"Indian/Mahe"},{"1":"Indian/Maldives"},{"1":"Indian/Mauritius"},{"1":"Indian/Mayotte"},{"1":"Indian/Reunion"},{"1":"Iran"},{"1":"Israel"},{"1":"Jamaica"},{"1":"Japan"},{"1":"Kwajalein"},{"1":"Libya"},{"1":"MET"},{"1":"Mexico/BajaNorte"},{"1":"Mexico/BajaSur"},{"1":"Mexico/General"},{"1":"MST"},{"1":"MST7MDT"},{"1":"Navajo"},{"1":"NZ"},{"1":"NZ-CHAT"},{"1":"Pacific/Apia"},{"1":"Pacific/Auckland"},{"1":"Pacific/Bougainville"},{"1":"Pacific/Chatham"},{"1":"Pacific/Chuuk"},{"1":"Pacific/Easter"},{"1":"Pacific/Efate"},{"1":"Pacific/Enderbury"},{"1":"Pacific/Fakaofo"},{"1":"Pacific/Fiji"},{"1":"Pacific/Funafuti"},{"1":"Pacific/Galapagos"},{"1":"Pacific/Gambier"},{"1":"Pacific/Guadalcanal"},{"1":"Pacific/Guam"},{"1":"Pacific/Honolulu"},{"1":"Pacific/Johnston"},{"1":"Pacific/Kiritimati"},{"1":"Pacific/Kosrae"},{"1":"Pacific/Kwajalein"},{"1":"Pacific/Majuro"},{"1":"Pacific/Marquesas"},{"1":"Pacific/Midway"},{"1":"Pacific/Nauru"},{"1":"Pacific/Niue"},{"1":"Pacific/Norfolk"},{"1":"Pacific/Noumea"},{"1":"Pacific/Pago_Pago"},{"1":"Pacific/Palau"},{"1":"Pacific/Pitcairn"},{"1":"Pacific/Pohnpei"},{"1":"Pacific/Ponape"},{"1":"Pacific/Port_Moresby"},{"1":"Pacific/Rarotonga"},{"1":"Pacific/Saipan"},{"1":"Pacific/Samoa"},{"1":"Pacific/Tahiti"},{"1":"Pacific/Tarawa"},{"1":"Pacific/Tongatapu"},{"1":"Pacific/Truk"},{"1":"Pacific/Wake"},{"1":"Pacific/Wallis"},{"1":"Pacific/Yap"},{"1":"Poland"},{"1":"Portugal"},{"1":"PRC"},{"1":"PST8PDT"},{"1":"ROC"},{"1":"ROK"},{"1":"Singapore"},{"1":"Turkey"},{"1":"UCT"},{"1":"Universal"},{"1":"US/Alaska"},{"1":"US/Aleutian"},{"1":"US/Arizona"},{"1":"US/Central"},{"1":"US/East-Indiana"},{"1":"US/Eastern"},{"1":"US/Hawaii"},{"1":"US/Indiana-Starke"},{"1":"US/Michigan"},{"1":"US/Mountain"},{"1":"US/Pacific"},{"1":"US/Pacific-New"},{"1":"US/Samoa"},{"1":"UTC"},{"1":"W-SU"},{"1":"WET"},{"1":"Zulu"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 
@@ -466,7 +466,7 @@ library(lubridate)
 ```
 
 ```
-## [1] "2019-04-23"
+## [1] "2020-07-14"
 ```
 
 ```r
@@ -474,7 +474,7 @@ year(hoy)
 ```
 
 ```
-## [1] 2019
+## [1] 2020
 ```
 
 ```r
@@ -482,7 +482,7 @@ month(hoy)
 ```
 
 ```
-## [1] 4
+## [1] 7
 ```
 
 ```r
@@ -490,7 +490,7 @@ day(hoy)
 ```
 
 ```
-## [1] 23
+## [1] 14
 ```
 
 ```r
@@ -507,7 +507,7 @@ wday(hoy,label = T)
 
 ```
 ## [1] mar\\.
-## 7 Levels: dom\\. < lun\\. < mar\\. < mié\\. < jue\\. < ... < sáb\\.
+## Levels: dom\\. < lun\\. < mar\\. < mié\\. < jue\\. < vie\\. < sáb\\.
 ```
 
 ```r
@@ -515,7 +515,7 @@ mday(hoy)
 ```
 
 ```
-## [1] 23
+## [1] 14
 ```
 
 ```r
@@ -523,7 +523,7 @@ yday(hoy)
 ```
 
 ```
-## [1] 113
+## [1] 196
 ```
 
 ```r
@@ -531,7 +531,7 @@ yday(hoy)
 ```
 
 ```
-## [1] "2019-04-23 16:59:43 -05"
+## [1] "2020-07-14 19:53:41 -05"
 ```
 
 ```r
@@ -539,7 +539,7 @@ hour(ya)
 ```
 
 ```
-## [1] 16
+## [1] 19
 ```
 
 ```r
@@ -547,7 +547,7 @@ minute(ya)
 ```
 
 ```
-## [1] 59
+## [1] 53
 ```
 
 ```r
@@ -555,7 +555,7 @@ second(ya)
 ```
 
 ```
-## [1] 43.39224
+## [1] 41.69896
 ```
 
 ```r
@@ -628,7 +628,7 @@ update(ya, hours = 8, minutes = 34, seconds = 55)
 ```
 
 ```
-## [1] "2019-04-23 08:34:55 -05"
+## [1] "2020-07-14 08:34:55 -05"
 ```
 
 ```r
@@ -644,7 +644,7 @@ now("America/New_York")
 ```
 
 ```
-## [1] "2019-04-23 17:59:43 EDT"
+## [1] "2020-07-14 20:53:41 EDT"
 ```
 
 ```r
@@ -652,7 +652,7 @@ now("Japan")
 ```
 
 ```
-## [1] "2019-04-24 06:59:43 JST"
+## [1] "2020-07-15 09:53:41 JST"
 ```
 
 ```r
@@ -660,7 +660,7 @@ now("Europe/Andorra")
 ```
 
 ```
-## [1] "2019-04-23 23:59:43 CEST"
+## [1] "2020-07-15 02:53:41 CEST"
 ```
 
 ```r
@@ -668,7 +668,7 @@ now("Europe/Andorra")
 ```
 
 ```
-## [1] "2019-04-23 18:59:43 -03"
+## [1] "2020-07-14 21:53:41 -03"
 ```
 
 ```r
@@ -676,7 +676,7 @@ CABA + days(2)
 ```
 
 ```
-## [1] "2019-04-25 18:59:43 -03"
+## [1] "2020-07-16 21:53:41 -03"
 ```
 
 ```r
@@ -684,7 +684,7 @@ CABA + hours(10) + minutes(35)
 ```
 
 ```
-## [1] "2019-04-24 05:34:43 -03"
+## [1] "2020-07-15 08:28:41 -03"
 ```
 
 ```r
@@ -692,7 +692,7 @@ with_tz(CABA,"US/Alaska")
 ```
 
 ```
-## [1] "2019-04-23 13:59:43 AKDT"
+## [1] "2020-07-14 16:53:41 AKDT"
 ```
 
 ```r
@@ -700,7 +700,7 @@ with_tz(CABA + hours(10) + minutes(35),"America/Bogota")
 ```
 
 ```
-## [1] "2019-04-24 03:34:43 -05"
+## [1] "2020-07-15 06:28:41 -05"
 ```
 
 ```r
@@ -716,7 +716,7 @@ with_tz(CABA + hours(10) + minutes(35),"America/Bogota")
 ```
 
 ```
-## [1] 2008-06-17 +08--2019-04-24 05:59:43 +08
+## [1] 2008-06-17 +08--2020-07-15 08:53:41 +08
 ```
 
 ```r
@@ -724,7 +724,7 @@ as.period(cuanto)
 ```
 
 ```
-## [1] "10y 10m 7d 5H 59M 43.4352490901947S"
+## [1] "12y 0m 28d 8H 53M 41.7669699192047S"
 ```
 
 ```r
@@ -732,7 +732,7 @@ antes %--% CABA
 ```
 
 ```
-## [1] 2008-06-17 +08--2019-04-24 05:59:43 +08
+## [1] 2008-06-17 +08--2020-07-15 08:53:41 +08
 ```
 
 ```r
@@ -740,7 +740,7 @@ as.duration(cuanto)
 ```
 
 ```
-## [1] "342424783.435249s (~10.85 years)"
+## [1] "381142421.76697s (~12.08 years)"
 ```
 
 ```r
@@ -748,7 +748,7 @@ cuanto/dweeks(1)
 ```
 
 ```
-## [1] 566.1785
+## [1] 630.1958
 ```
 
 ```r
@@ -756,7 +756,7 @@ cuanto/dweeks(5)
 ```
 
 ```
-## [1] 113.2357
+## [1] 126.0392
 ```
 
 ```r
@@ -764,7 +764,7 @@ cuanto/dhours(1)
 ```
 
 ```
-## [1] 95118
+## [1] 105872.9
 ```
 
 ```r
@@ -772,7 +772,7 @@ cuanto/dhours(12)
 ```
 
 ```
-## [1] 7926.5
+## [1] 8822.741
 ```
 
 ```r
@@ -780,7 +780,7 @@ cuanto/dminutes(1)
 ```
 
 ```
-## [1] 5707080
+## [1] 6352374
 ```
 
 ```r
@@ -788,7 +788,7 @@ cuanto/dminutes(30)
 ```
 
 ```
-## [1] 190236
+## [1] 211745.8
 ```
 
 ```r
@@ -796,7 +796,7 @@ cuanto/dyears(1)
 ```
 
 ```
-## [1] 10.85822
+## [1] 12.07767
 ```
 
 ```r
@@ -804,7 +804,7 @@ cuanto/dyears(3)
 ```
 
 ```
-## [1] 3.619406
+## [1] 4.025892
 ```
 
 ```r
