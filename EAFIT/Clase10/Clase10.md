@@ -1,7 +1,5 @@
 ---
 title: "Trabajo Práctico"
-author: "Cristian Santa"
-date: "Abril de 2019"
 output:
   rmdformats::readthedown:
     df_print: paged
