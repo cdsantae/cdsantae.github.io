@@ -48,6 +48,6 @@ Es de necesario describir cada paso para responder las preguntas y mostrar los c
 
 ### Entregable
 
-El trabajo se debe realizar en `Rmarkdown` y exportar un archivo `.html` que deberá ser enviado por correo antes del 2 de Mayo.
+El trabajo se debe realizar en `Rmarkdown` y exportar un archivo `.html` que deberá ser enviado por correo antes del 23 de Julio.
 
 ## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
