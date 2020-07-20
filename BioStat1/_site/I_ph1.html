@@ -703,8 +703,8 @@ V_p: \begin{cases} P(Z &lt; Z_c) \\
 ## 0.6732283</code></pre>
 <hr>
 </div>
-<div id="ph-para-la-media" class="section level2">
-<h2>PH para la media</h2>
+<div id="ph-para-la-media-población-no-normal" class="section level2">
+<h2>PH para la media (población no Normal)</h2>
 <p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria de una población con media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^2\)</span> si se tienen una muestra grande, entonces para un valor <span class="math inline">\(\mu_0\)</span> de interés para <span class="math inline">\(\mu\)</span> se pueden plantear uno de los siguientes contrastes de hipótesis.</p>
 <p><span class="math display">\[\begin{align*}
 H_0: \mu=\mu_0 \quad \text{vs} \quad H_a: \begin{cases} \mu &amp;&lt;\mu_0 \\
@@ -729,6 +729,33 @@ V_p: \begin{cases} P(Z &lt; Z_c) \\
 <p>Una Nutricionista de una clínica es la encargada de los planes de ganancia de peso en embarazadas. De acuerdo a los parámetros se sabe que la variación de la ganancia de peso al final de la gestación es de 5 kilos. Se tiene la hipótesis que en los últimos años las gestantes están ganando más de lo recomendado y por lo tanto nacen bebés macrosómicos. Se escogen al azar 45 embarazadas adultas con IMC normal y se registra sus ganancias de peso al final de la gestación y la ganancia promedio resultó en 17.3 kg. Con un nivel de significancia del 5% ¿La hipótesis es verdadera?<br><br> De a cuerdo con el Instituto de Medicina y Consejo Nacional de Investigación, la ganancia de peso máxima para gestantes en normo peso es de 16 kilos, entonces las pruebas de hipótesis son: <span class="math display">\[H_0: \mu=16 \quad\text{vs}\quad H_a: \mu&gt;16\]</span> Del enunciado tenemos que <span class="math inline">\(E[X_i]=17.3\)</span> y como <span class="math inline">\(\sigma=5\)</span>, así el estadístico de prueba está dado por: <span class="math display">\[Z_c=\cfrac{\bar{X}-16}{\frac{5}{\sqrt{45}}}=\cfrac{17.3-16}{\frac{5}{\sqrt{45}}}=1.744133\]</span> Como <span class="math inline">\(\alpha=0.05\)</span> se tiene que <span class="math inline">\(Z_{0.95}=1.645\)</span>, entonces la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&gt;Z_{0.95}\}=\{Z_c\,|\,1.744133&gt;1.645\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&gt;1.744133)=1-P(Z&lt;1.744133)=0.04056795\]</span> Como <span class="math inline">\(Z_c&gt;1.645\)</span> o <span class="math inline">\(0.0406&lt;0.05\)</span> entonces se rechaza <span class="math inline">\(H_0\)</span>, por lo tanto existe evidencia muestral suficiente que en los últimos años las gestantes están ganando más de lo recomendado con un nivel de significancia del 5%.</p>
 </blockquote>
 <p>En procesos de investigación no es común hacer procesos de muestreo o experimentación, que involucren una gran cantidad de datos, y para realizar pruebas de hipótesis en estas circunstancias es necesario comprobar si los datos provienen de una distribución normal o no.</p>
+<hr>
+</div>
+<div id="pruebas-de-normalidad" class="section level2">
+<h2>Pruebas de Normalidad</h2>
+<p>Si el interés es realizar inferencias sobre la diferencia promedio de dos grupos entonces es necesario verificar que las muestras aleatorias de ambos grupos distribuyan apróximadamente normal. Este procedimiento se realiza con una prueba de hipótesis llamada <strong>prueba de bondad de ajuste</strong> en este caso para la normal.</p>
+<p><span class="math display">\[H_0:\text{los datos SI destribuyen }N(\mu,\sigma^2)\\
+\text{vs}\\
+H_0:\text{los datos NO destribuyen }N(\mu,\sigma^2)\\\]</span></p>
+<p>Para determinar si un conjunto de datos tiene una distribución conocida, se pueden realizar análisis exploratorios con algunos gráficos que ayudan a apreciar de manera aproximada cómo podrían distribuir los datos.</p>
+<p><img src="I_ph1_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Estos tres gráficos nos ayudarán para explorar el comportamiento de los datos y se pueden combinar con los gráficos de las distribuciones teóricas para evaluar qué tanto se parecen.</p>
+<p>El primer gráfico se llama <strong>Gráfico de Densidad</strong>, muestra cómo es la distribución empírica de probabilidad, a diferencia del <em>Histograma</em> es una buena aproximación de las distribuciones continuas.</p>
+<p>El segundo gráfico se llama <strong>Gráfico Densidad Acumulada Empírica</strong>, este gráfico es muy útil cuando se compara con <em>La densidad acumulada</em> de las distribuciones teóricas. Además, el gráfico muestra el salto de cada muestra en la función de densidad acumulada empírica.</p>
+<p>El tercer gráfico se llama <strong>Gráfico de Comparación de Cuantiles</strong>, contrasta las muestras con los cuantiles de la distribución teórica. La ventaja de este gráfico es que dibuja una recta en la cual se <em>espera</em> que el conjunto de datos se ajuste, además dibuja bandas de confianza para mostrar hasta dónde se puede considerar que los puntos se ajustan a la recta.</p>
+<p><img src="I_ph1_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>La idea de este gráfico es que los puntos estén muy cercanos a la recta y entre los límites de confianza. Hay que tener cuidado en los extremos de las muestras, ya que algunos puntos pueden salir de las bandas pero esto no significa que no tengan la distribución que se está evaluando; si la mayoría de los puntos están ajustados a la recta y son muy pocos datos <strong>en los extremos</strong> que salen de las bandas, se puede considerar un buen ajuste.</p>
+<p>Existen <strong>muchas</strong> pruebas de bondad de ajuste para la normalidad que incluso están disponibles en <code>R</code> y otros paquetes (<code>nortest</code>), no obstante, las más utilizadas y referenciadas en la literatua son:</p>
+<ul>
+<li>Test Kolmogorov-Smirnoff (<code>ks.test()</code>)</li>
+<li>Test Lilliefors (<code>nortest::lillie.test()</code>)</li>
+<li>Test Anderson Darling (<code>nortest::ad.test()</code>)</li>
+<li>Test Shapiro-Wilks (<code>shapiro.test()</code>)</li>
+</ul>
+<hr>
+</div>
+<div id="ph-para-la-media-población-normal" class="section level2">
+<h2>PH para la media (población Normal)</h2>
 <p>Las pruebas de hipótesis para la media basadas en <strong>poblaciones normales</strong> asume que la muestra aleatoria <span class="math inline">\(X_1,\dots,X_n\)</span> proviene de una <span class="math inline">\(N(\mu,\sigma^2)\)</span> con ambos parámetros desconocidos, sabemos por el teorema central del límite que:</p>
 <p><span class="math display">\[\cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \sim t_{n-1}\]</span></p>
 <p>Así, si <span class="math inline">\(\mu_0\)</span> es un valor particular de <span class="math inline">\(\mu\)</span>, se pueden plantear una de las siguientes tres hipótesis:</p>
@@ -761,6 +788,21 @@ V_p: \begin{cases} P(t_{n-1} &lt; T_c) \\
 </blockquote>
 <p>n <code>R</code> los análisis se realizan directamente a las muestras, entonces no es posible replicar el ejmplo anterior con la información suministrada a no ser que se programe la función ingresando los estadísticos. La función <code>t.test</code> realizar la prueba de hipótesis basado en poblaciones normales, puede emplearse para comparar grupos o para contrastar una muestra aleatoria contra un valor teórico de <span class="math inline">\(\mu\)</span>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>?t.test</span></code></pre></div>
+<hr>
+</div>
+<div id="resumen" class="section level2">
+<h2>Resumen</h2>
+<center>
+<img src="PH1_1.png" />
+</center>
+<br>
+<center>
+<img src="PH1_2.png" />
+</center>
+<br>
+<center>
+<img src="PH1_3.png" />
+</center>
 </div>
 
 
