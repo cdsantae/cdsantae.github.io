@@ -43,7 +43,7 @@ Introducir al estudiante al manejo del software estadístico más usado en inves
 |  <a href="./Clase08/Clase08.html">C_08</a>  | Manejo de bases de datos.                                                      |
 |  <a href="./Clase09/Clase09.html">C_09</a>  | Manejo de datos temporales y operaciones con tiempos.                          |
 |  <a href="./Clase10/Clase10.html">C_10</a>  | Trabajo práctico.                                                              |
-|  <a href="./Clase11/Clase11a.html">C_11</a>  | Introducción al análisis estadístico con R.                                    |
+|  <a href="./Clase11/Clase11.html">C_11</a>  | Introducción al análisis estadístico con R.                                    |
 |  <a href="./Clase12/Clase12a.html">C_12</a>  | Análisis estadístico con R (II).                                               |
 
 ## Docente
