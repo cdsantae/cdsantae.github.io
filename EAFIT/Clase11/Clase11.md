@@ -1,7 +1,6 @@
 ---
 title: "Análisis Estadístico con R - Parte I"
 author: "Cristian Santa"
-date: "Abril de 2019"
 header-include:
   - \usepackage{xcolor}
 output:
@@ -1818,4 +1817,428 @@ $\gamma_c(\theta)=P_{\theta}[(X_1,X_2,...,X_n) \in C]$, $\theta \in W_1$
 
 [Resumen de Pruebas de Hipótesis](Resumen_PH.pdf)
 
-## <a href="../EAFIT.html" class="btn" role="button">Regresar</a>
+### Ejemplo
+
+La siguiente base de datos contiene información acerca de incautaciones de bebidas alcohólicas fraudulentas y de contrabando en la ciudad de Medellín en un mes, que afectan los recursos para Salud y Educación en el Departamento de Antioquia y de acuerdo a los resultados se toma decisiones para aumentar o disminuir los controles.
+
+<center>
+<a href="./Licores.xlsx" class="btn btn-default" target="_blank">Licores</a>
+</center>
+
+La base de datos contiene las variables 
+- **TL** (Tipo de Licor)
+- **PI** (Precio de incautación: se refiere al precio de venta en el establecimiento por unidad)
+- **GAE** (Grados de Alcohol en etiqueta)
+- **GAQ** (grados de alcohol en prueba química)
+- **CE** (Cantidades estandarizadas: número de unidades estandarizadas a 750 ml).
+
+Usando la información de su base de datos responda a las siguientes preguntas.
+
+1.	El **precio total** de la incautación se calcula como la cantidad estandarizada por el precio de incautación. ¿Se puede afirmar que el precio total promedio de la incautación es superior a $7’500.000?
+
+2.	El **ipoconsumo**, es el impuesto que deja de percibir el Estado para salud y educación, el cual se calcula como: $GAQ \times CE \times 400$ (pesos). ¿Se puede afirmar que el ipoconsumo promedio del ron es inferior al ipoconsumo medio del Whisky? ¿Qué decisión se puede tomar frente al control?
+
+3.	El licor incautado se clasifica como “Fraudulento” si los GAE son distintos a los GAQ y como “contrabando” si son iguales. ¿La proporción de licores fraudulentos es superior al 65%? ¿Qué significa éste resultado?
+
+#### Solución usando R
+
+Lo primero es descargar la base de datos en la carpeta que se considere, luego debemos cargar la base de datos en `RStudio` para realizar los análisis. Antes de comenzar con el análisis necesitamos instalar o cargar las librerías necesarias para el análisis
+
+
+```r
+# Para manipular datos
+if(!require(dplyr)) install.packages("dplyr")
+# Gráficos con estilo
+if(!require(ggplot2)) install.packages("ggplot2")
+# Pruebas de bondad de ajuste
+if(!require(nortest)) install.packages("nortest")
+# Gráficos QQ-plot con IC
+if(!require(car)) install.packages("car")
+# Importar/Exportar datos de Excel
+if(!require(openxlsx)) install.packages("openxlsx")
+```
+
+El siguiente paso es cargar la base de datos, esto lo podemos realizar directamente de `RStudio` con el siguiente comando:
+
+
+```r
+Licores <- read.xlsx(file.choose(),sheet = 1)
+```
+
+
+```r
+Licores <- read.xlsx("Licores.xlsx",sheet = 1)
+```
+
+Revisemos la estructura de los datos, para verificar si fueron cargados correctamente.
+
+
+```r
+str(Licores)
+```
+
+```
+## 'data.frame':	300 obs. of  5 variables:
+##  $ TL : chr  "Ron" "Aguardiente" "Ron" "Aguardiente" ...
+##  $ PI : num  34719 26900 27062 29317 32471 ...
+##  $ GAE: num  35 29 35 29 38 29 29 38 35 40 ...
+##  $ GAQ: num  30.2 29 32.2 29 32.6 ...
+##  $ CE : num  221 253 249 254 267 ...
+```
+
+```r
+# cambiando caracter por factor
+Licores <- Licores %>% mutate_if(is.character,as.factor)
+```
+
+El primer punto nos piden calcular **el precio total** de incautación, y se pregunta si el promedio de esa nueva variable es superior a 7.5 millones. Entonces tenemos las hipótesis:
+
+$$H_o: \mu_{pt} = 7'500.000 \qquad H_a:\mu_{pt} > 7'500.000$$
+
+Para seleccionar el estadístico de prueba más indicado, debemos probar si la distribución del precio total de incautación es Normal.
+
+$$H_0:PT \sim N(\mu,\sigma^2) \qquad H_a: PT\not\sim N(\mu,\sigma^2)$$
+
+
+```r
+Licores$PT <- Licores$CE*Licores$PI
+hist(Licores$PT,col="lightblue",las=1)
+```
+
+<img src="Clase11_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" />
+
+```r
+# pruebas de hipótesis
+shapiro.test(Licores$PT)
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  Licores$PT
+## W = 0.99485, p-value = 0.4134
+```
+
+```r
+ad.test(Licores$PT)
+```
+
+```
+## 
+## 	Anderson-Darling normality test
+## 
+## data:  Licores$PT
+## A = 0.25534, p-value = 0.7249
+```
+
+```r
+lillie.test(Licores$PT)
+```
+
+```
+## 
+## 	Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  Licores$PT
+## D = 0.032027, p-value = 0.6393
+```
+
+Entonces, siguiendo el árbol de decisión tenemos que los datos se distribuyen normal y no conocemos los parámetros poblacionales, por lo tanto el estadístico de prueba está basado en la *t-student*.
+
+
+```r
+t.test(Licores$PT,mu = 7500000,alternative = "greater",conf.level = 0.95)
+```
+
+```
+## 
+## 	One Sample t-test
+## 
+## data:  Licores$PT
+## t = -0.42571, df = 299, p-value = 0.6647
+## alternative hypothesis: true mean is greater than 7500000
+## 95 percent confidence interval:
+##  7348999     Inf
+## sample estimates:
+## mean of x 
+##   7469031
+```
+
+Como $\text{valor-p} \, > \, \alpha$ entonces no se rechaza $H_0$, existe evidencia muestral suficiente de que el promedio del precio de incautaciones mesual es de $7'500.000, esto implica anualmente se esperaría que alrededor de 90 millones de pesos deje de circular ilegalmente gracias a lo no pago de impuestos o adulteración de licores.
+
+En la siguiente pregunta se pide calcular el *ipoconsumo* de acuerdo a una formulación, y luego comparar si el impuesto de los licores de tipo *Ron* son menores a los de *Whisky* basado en los promedios. Entonces tenemos la siguiente hipótesis:
+
+$$H_0: \mu_{Ir} = \mu_{Iw} \qquad H_a:\mu_{Ir} < \mu_{Iw}$$
+
+De acuerdo al árbol de decisión tenemos que hacer los siguientes pasos:
+
+- Calcular el ipoconsumo
+- Separar la base de datos en Ron y Whisky
+- Probar la normalidad de ambos grupos
+- Comprobar la igualdad de varianzas de los grupos
+- Escoger el mejor estadístico de prueba y realizar el análisis.
+- Concluir
+
+Los primeros dos pasos son sencillos:
+
+
+```r
+Licores <- Licores %>%
+   mutate(IPO = GAQ*CE*400)
+hist(Licores$IPO,col="lightblue",las=1)
+```
+
+<img src="Clase11_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" />
+
+```r
+SoloRW <- Licores %>% 
+   filter(TL %in% c("Ron","Whisky")) %>%
+   droplevels
+SoloRW %>% group_by(TL) %>% 
+   summarise(n=length(IPO),
+             media=mean(IPO),
+             desv=sd(IPO))
+```
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["TL"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]},{"label":["media"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["desv"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Ron","2":"52","3":"3185673","4":"270971.2"},{"1":"Whisky","2":"27","3":"3591694","4":"317110.5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+```r
+SoloRW %>% ggplot(aes(x=IPO,fill=TL))+
+   geom_density()+xlim(c(2e06,5e06))+theme_bw()
+```
+
+<img src="Clase11_files/figure-html/unnamed-chunk-34-2.png" style="display: block; margin: auto;" />
+
+Luego debemos probar la normalidad de los datos, esto lo podemos hacer de dos formas. La primera es separar la base de datos y construir dos nuevas con los grupos de interés, la otra es evaluar al mismo tiempo los valores-p de las pruebas usando `dplyr`.
+
+
+```r
+# Primer método - Ron
+SoloRW %>% filter(TL=="Ron") %>%
+   dplyr::select(IPO) %>% unlist %>% shapiro.test()
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.96894, p-value = 0.1904
+```
+
+```r
+SoloRW %>% filter(TL=="Ron") %>%
+   dplyr::select(IPO) %>% unlist %>% ad.test()
+```
+
+```
+## 
+## 	Anderson-Darling normality test
+## 
+## data:  .
+## A = 0.50493, p-value = 0.1943
+```
+
+```r
+SoloRW %>% filter(TL=="Ron") %>%
+   dplyr::select(IPO) %>% unlist %>% lillie.test()
+```
+
+```
+## 
+## 	Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  .
+## D = 0.095664, p-value = 0.2758
+```
+
+```r
+# Primer método - Whisky
+SoloRW %>% filter(TL=="Whisky") %>%
+   dplyr::select(IPO) %>% unlist %>% shapiro.test()
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.96678, p-value = 0.5193
+```
+
+```r
+SoloRW %>% filter(TL=="Whisky") %>%
+   dplyr::select(IPO) %>% unlist %>% ad.test()
+```
+
+```
+## 
+## 	Anderson-Darling normality test
+## 
+## data:  .
+## A = 0.26387, p-value = 0.671
+```
+
+```r
+SoloRW %>% filter(TL=="Whisky") %>%
+   dplyr::select(IPO) %>% unlist %>% lillie.test()
+```
+
+```
+## 
+## 	Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  .
+## D = 0.087079, p-value = 0.8639
+```
+
+```r
+# Segundo método
+SoloRW %>% group_by(TL) %>%
+   summarise(valor_p=shapiro.test(IPO)$p.val)
+```
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["TL"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["valor_p"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Ron","2":"0.1904000"},{"1":"Whisky","2":"0.5192824"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+```r
+SoloRW %>% group_by(TL) %>%
+   summarise(valor_p=ad.test(IPO)$p.val)
+```
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["TL"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["valor_p"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Ron","2":"0.1942686"},{"1":"Whisky","2":"0.6710196"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+```r
+SoloRW %>% group_by(TL) %>%
+   summarise(valor_p=lillie.test(IPO)$p.val)
+```
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source type="application/json">
+{"columns":[{"label":["TL"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["valor_p"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Ron","2":"0.2758015"},{"1":"Whisky","2":"0.8639118"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+
+```r
+par(mfrow=c(1,2))
+with(SoloRW %>% filter(TL=="Ron"),
+     qqPlot(IPO,pch=19,main = "QQ-Plot Ron",id=F,col.lines = 2))
+with(SoloRW %>% filter(TL=="Whisky"),
+     qqPlot(IPO,pch=19,main = "QQ-Plot Whisky",id=F,col.lines = 4))
+```
+
+<img src="Clase11_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" />
+
+Como ambas muestras distribuyen normal, es necesario verificar si existe igualdad en sus varianzas, esto se comprueba con la función `var.test`.
+
+
+```r
+with(SoloRW,var.test(IPO~TL))
+```
+
+```
+## 
+## 	F test to compare two variances
+## 
+## data:  IPO by TL
+## F = 0.73017, num df = 51, denom df = 26, p-value = 0.3333
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.3562148 1.3878542
+## sample estimates:
+## ratio of variances 
+##           0.730172
+```
+
+Entonces, como los datos son normales y tienen varianzas iguales, de acuerdo con el árbol de decisión el mejor estadístico de prueba está basado en la *t-student* y es necesario estimar la varianza conjunta, no obstante, el software lo hace:
+
+
+```r
+with(SoloRW,
+     t.test(IPO[TL=="Ron"],
+            IPO[TL=="Whisky"],
+            var.equal = T,alternative = "less"))
+```
+
+```
+## 
+## 	Two Sample t-test
+## 
+## data:  IPO[TL == "Ron"] and IPO[TL == "Whisky"]
+## t = -5.9561, df = 77, p-value = 3.629e-08
+## alternative hypothesis: true difference in means is less than 0
+## 95 percent confidence interval:
+##       -Inf -292527.9
+## sample estimates:
+## mean of x mean of y 
+##   3185673   3591694
+```
+
+En conclusión, el ipoconsumo del ron es menor al del whisky con un nivel de significancia del 5%. Entonces la cantidad de impuestos que deja de percibir el departamento tiene mayor aporte en el Whisky, sin embargo, las cantidades de Ron son casi el doble que las de Whisky lo que sugiere que este licor es preferido para la adulteración. Los controles se deben aumentar para incautar más Ron y establecer una estrategia para que no aumente la adulteración del Whisky que es la que más afecta los recursos para salud.
+
+El tercer punto nos piden calcular una nueva variable, si $GAQ=GAE$ el licor se clasifica como **contrabando** en caso contrario se llamará **fraudulento**.
+
+
+```r
+Licores <- Licores %>%
+   mutate(TipoLicor = factor(ifelse(GAQ==GAE,"Contrabando","Fraudulento")))
+```
+
+Luego preguntan si la proporción de licores Fraudulentos es superior al 65%. Entonces las hipótesis son:
+
+$$H_0: p_F = 0.65 \qquad H_a: p_F >0.65$$
+
+
+```r
+with(Licores,table(TipoLicor))
+```
+
+```
+## TipoLicor
+## Contrabando Fraudulento 
+##          83         217
+```
+
+Como en `R` los factores se organizan alfabéticamente, entonces debemos cambiar la hipótesis hacia los licores de **contrabando**, así:
+
+$$H_0: p_C = 0.35 \qquad H_a: p_C < 0.35$$
+
+
+```r
+with(Licores,
+     prop.test(table(TipoLicor),
+               p = 0.35,
+               alternative = "less",
+               conf.level = 0.95,
+               correct = F))
+```
+
+```
+## 
+## 	1-sample proportions test without continuity correction
+## 
+## data:  table(TipoLicor), null probability 0.35
+## X-squared = 7.0916, df = 1, p-value = 0.003872
+## alternative hypothesis: true p is less than 0.35
+## 95 percent confidence interval:
+##  0.0000000 0.3210025
+## sample estimates:
+##         p 
+## 0.2766667
+```
+
+Como el valor-p es mucho menor al nivel de significancia, entonces se rechaza $H_0$ por lo tanto existe evidencia muestral para afirmar que la proporción de licores Fraudulentos es mayor del 65%. Por lo tanto, las rentas ilegales de licores están basadas en mayor medida de la adulteración, el impacto para la salud pública es muy grave, pues los efectos nocivos de los licores que no son correctamente destilados aumenta los riesgos clínicos como la ceguera, el cáncer de órganos digestivos o la muerte.
+
+## <a href="../EAFIT/EAFIT.html" class="btn" role="button">Regresar</a>
