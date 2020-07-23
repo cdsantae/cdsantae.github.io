@@ -42,7 +42,7 @@ Introducir al estudiante al manejo del software estadístico más usado en inves
 |  <a href="./Clase09/Clase09.html">C_09</a>  | Manejo de datos temporales y operaciones con tiempos.                          |
 |  <a href="./Clase10/Clase10.html">C_10</a>  | Trabajo práctico.                                                              |
 |  <a href="./Clase11/Clase11.html">C_11</a>  | Introducción al análisis estadístico con R.                                    |
-|  <a href="./Clase12/Clase12a.html">C_12</a>  | Análisis estadístico con R (II).                                               |
+|  <a href="./Clase12/Clase12.html">C_12</a>  | Análisis estadístico con R (II).                                               |
 
 ## Docente
 
@@ -50,7 +50,7 @@ Introducir al estudiante al manejo del software estadístico más usado en inves
 
 ### Contacto
 
-**e-mail:** cdsantae@gmail.com <br>
+**e-mail:** cdsantae@eafit.edu.co <br>
 Para enviar correos se solicita anteponer en el asunto **[EAFIT]**.
 
 
