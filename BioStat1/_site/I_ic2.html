@@ -13,7 +13,7 @@
 
 <title>Intervalos de Confianza para dos grupos</title>
 
-<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -24,6 +24,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -468,9 +469,6 @@ div.tocify {
       <a href="I_ph1.html">PH para un parámetro</a>
     </li>
     <li>
-      <a href="I_phv.html">PH para varianza</a>
-    </li>
-    <li>
       <a href="I_ph2.html">PH para diferencias</a>
     </li>
     <li>
@@ -661,11 +659,16 @@ F_{(\alpha/2,n_1-1,n_2-1)}&lt;\cfrac{S^2_1}{S^2_2}\times\cfrac{\sigma^2_2}{\sigm
 <span id="cb5-2"><a href="#cb5-2"></a>Licores &lt;-<span class="st"> </span>Licores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_if</span>(is.character,as.factor)</span></code></pre></div>
 <p>El primer punto nos piden calcular <strong>el precio total</strong> de incautación, y se pregunta si el promedio de esa nueva variable es superior a 7.5 millones. Para seleccionar el estadístico de prueba más indicado, debemos probar si la distribución del precio total de incautación es Normal.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>Licores<span class="op">$</span>PT &lt;-<span class="st"> </span>Licores<span class="op">$</span>CE<span class="op">*</span>Licores<span class="op">$</span>PI</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">hist</span>(Licores<span class="op">$</span>PT,<span class="dt">freq=</span>F,<span class="dt">col=</span><span class="st">&quot;lightblue&quot;</span>)</span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="kw">lines</span>(<span class="kw">density</span>(Licores<span class="op">$</span>PT),<span class="dt">main=</span><span class="st">&quot;Density Plot&quot;</span>,<span class="dt">col=</span><span class="dv">2</span>)</span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">plot</span>(<span class="kw">ecdf</span>(Licores<span class="op">$</span>PT),<span class="dt">main=</span><span class="st">&quot;Cumulative Plot&quot;</span>,<span class="dt">cex=</span><span class="dv">1</span>)</span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="kw">qqPlot</span>(Licores<span class="op">$</span>PT,<span class="dt">main =</span> <span class="st">&quot;QQ - Plot&quot;</span>,<span class="dt">pch=</span><span class="dv">20</span>,<span class="dt">id=</span>F,<span class="dt">cex=</span><span class="dv">1</span>)</span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># Gráfico en 3 partes</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co"># histograma + Densidad</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">hist</span>(Licores<span class="op">$</span>PT,<span class="dt">freq=</span>F,<span class="dt">col=</span><span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="kw">lines</span>(<span class="kw">density</span>(Licores<span class="op">$</span>PT),<span class="dt">main=</span><span class="st">&quot;Density Plot&quot;</span>,<span class="dt">col=</span><span class="dv">2</span>)</span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co"># Acumulada vs Teórica</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="kw">plot</span>(<span class="kw">ecdf</span>(Licores<span class="op">$</span>PT),<span class="dt">main=</span><span class="st">&quot;Cumulative Plot&quot;</span>,<span class="dt">cex=</span><span class="dv">1</span>)</span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="kw">curve</span>(<span class="kw">pnorm</span>(x,<span class="kw">mean</span>(Licores<span class="op">$</span>PT),<span class="kw">sd</span>(Licores<span class="op">$</span>PT)),<span class="dt">add=</span>T,<span class="dt">col=</span><span class="dv">5</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="co"># QQ-Plot</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="kw">qqPlot</span>(Licores<span class="op">$</span>PT,<span class="dt">main =</span> <span class="st">&quot;QQ - Plot&quot;</span>,<span class="dt">pch=</span><span class="dv">20</span>,<span class="dt">id=</span>F,<span class="dt">cex=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="I_ic2_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Entonces, siguiendo el árbol de decisión tenemos que los datos se distribuyen normal y no conocemos los parámetros poblacionales, por lo tanto el estadístico de prueba está basado en la <em>t-student</em>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">t.test</span>(Licores<span class="op">$</span>PT,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
@@ -829,7 +832,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
