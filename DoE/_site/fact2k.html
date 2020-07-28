@@ -1219,6 +1219,115 @@ H_0: \text{Efecto }AB = 0 \quad vs \quad H_a: \text{Efecto }AB \neq 0\]</span></
 </div>
 <div id="ejemplo" class="section level2">
 <h2>Ejemplo</h2>
+<p>Datos</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">T1</th>
+<th align="center">T2</th>
+<th align="center">T3</th>
+<th align="center">resp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">-1</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">-1</td>
+<td align="center">1</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="odd">
+<td align="center">-1</td>
+<td align="center">-1</td>
+<td align="center">1</td>
+<td align="center">0.020</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">-1</td>
+<td align="center">-1</td>
+<td align="center">0.012</td>
+</tr>
+<tr class="odd">
+<td align="center">-1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0.016</td>
+</tr>
+<tr class="even">
+<td align="center">-1</td>
+<td align="center">-1</td>
+<td align="center">1</td>
+<td align="center">0.020</td>
+</tr>
+<tr class="odd">
+<td align="center">-1</td>
+<td align="center">1</td>
+<td align="center">-1</td>
+<td align="center">0.036</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">-1</td>
+<td align="center">0.000</td>
+</tr>
+<tr class="odd">
+<td align="center">-1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0.008</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="odd">
+<td align="center">-1</td>
+<td align="center">-1</td>
+<td align="center">-1</td>
+<td align="center">0.040</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="odd">
+<td align="center">-1</td>
+<td align="center">1</td>
+<td align="center">-1</td>
+<td align="center">0.028</td>
+</tr>
+<tr class="even">
+<td align="center">-1</td>
+<td align="center">-1</td>
+<td align="center">-1</td>
+<td align="center">0.032</td>
+</tr>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">-1</td>
+<td align="center">1</td>
+<td align="center">0.016</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">-1</td>
+<td align="center">-1</td>
+<td align="center">0.008</td>
+</tr>
+</tbody>
+</table>
 <p>Para realizar el análisis estadístico de este diseño factorial (<span class="math inline">\(2^3\)</span>), los pasos a seguir son los siguientes:</p>
 <ol style="list-style-type: decimal">
 <li>Cargar/Construir la base de datos con la información de interés.</li>
@@ -1402,7 +1511,7 @@ H_0: \text{Efecto }AB = 0 \quad vs \quad H_a: \text{Efecto }AB \neq 0\]</span></
 <p><img src="fact2k_files/figure-html/unnamed-chunk-9-2.png" width="630" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">durbinWatsonTest</span>(fit)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      0.01761583      1.952703   0.944
+##    1      0.01761583      1.952703   0.984
 ##  Alternative hypothesis: rho != 0</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># Homocedasticidad</span></span>
 <span id="cb33-2"><a href="#cb33-2"></a><span class="kw">plot</span>(<span class="kw">predict</span>(fit),fit<span class="op">$</span>residuals,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">las=</span><span class="dv">1</span>,</span>
