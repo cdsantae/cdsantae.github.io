@@ -28,9 +28,10 @@
 <script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="site_libs/datatables-binding-0.14/datatables.js"></script>
-<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/dt-core-bootstrap-1.10.20/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-bootstrap-1.10.20/css/dataTables.bootstrap.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-bootstrap-1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/dt-core-bootstrap-1.10.20/js/dataTables.bootstrap.min.js"></script>
 <link href="site_libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
 <script src="site_libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -951,120 +952,14 @@ H_0: \text{Efecto }AB = 0 \quad vs \quad H_a: \text{Efecto }AB \neq 0\]</span></
 \vdots\\\\
 {k \choose k} &amp;=1,\,\text{Interacciones de los k factores}\\\\
 \end{align*}\]</span></p>
-<div id="htmlwidget-aa1a4155be8b136e08b8" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-aa1a4155be8b136e08b8">{"x":{"filter":"none","data":[["(1)","A","B","AB","C","AC","BC","ABC","D","AD","BD","ABD","CD","ACD","BCD","ABCD","E","AE","BE","ABE","CE","ACE","BCE","ABCE","DE","ADE","BDE","ABDE","CDE","ACDE","BCDE","ABCDE"],["-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1"],["-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1"],["-1","-1","-1","-1","1","1","1","1","-1","-1","-1","-1","1","1","1","1","-1","-1","-1","-1","1","1","1","1","-1","-1","-1","-1","1","1","1","1"],["-1","-1","-1","-1","-1","-1","-1","-1","1","1","1","1","1","1","1","1","-1","-1","-1","-1","-1","-1","-1","-1","1","1","1","1","1","1","1","1"],["-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>A<\/th>\n      <th>B<\/th>\n      <th>C<\/th>\n      <th>D<\/th>\n      <th>E<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-center","targets":"_all"},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e6452c541513156025c5" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e6452c541513156025c5">{"x":{"style":"bootstrap","filter":"none","data":[["(1)","A","B","AB","C","AC","BC","ABC","D","AD","BD","ABD","CD","ACD","BCD","ABCD","E","AE","BE","ABE","CE","ACE","BCE","ABCE","DE","ADE","BDE","ABDE","CDE","ACDE","BCDE","ABCDE"],["-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1"],["-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1"],["-1","-1","-1","-1","1","1","1","1","-1","-1","-1","-1","1","1","1","1","-1","-1","-1","-1","1","1","1","1","-1","-1","-1","-1","1","1","1","1"],["-1","-1","-1","-1","-1","-1","-1","-1","1","1","1","1","1","1","1","1","-1","-1","-1","-1","-1","-1","-1","-1","1","1","1","1","1","1","1","1"],["-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1"]],"container":"<table class=\"table table-striped\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>A<\/th>\n      <th>B<\/th>\n      <th>C<\/th>\n      <th>D<\/th>\n      <th>E<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-center","targets":"_all"},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <hr>
 </div>
 <div id="ejemplo" class="section level2">
 <h2>Ejemplo</h2>
-<table>
-<thead>
-<tr class="header">
-<th align="left">T1</th>
-<th align="left">T2</th>
-<th align="left">T3</th>
-<th align="right">resp</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">-1</td>
-<td align="right">0.000</td>
-</tr>
-<tr class="even">
-<td align="left">1</td>
-<td align="left">-1</td>
-<td align="left">1</td>
-<td align="right">0.000</td>
-</tr>
-<tr class="odd">
-<td align="left">-1</td>
-<td align="left">-1</td>
-<td align="left">1</td>
-<td align="right">0.020</td>
-</tr>
-<tr class="even">
-<td align="left">1</td>
-<td align="left">-1</td>
-<td align="left">-1</td>
-<td align="right">0.012</td>
-</tr>
-<tr class="odd">
-<td align="left">-1</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="right">0.016</td>
-</tr>
-<tr class="even">
-<td align="left">-1</td>
-<td align="left">-1</td>
-<td align="left">1</td>
-<td align="right">0.020</td>
-</tr>
-<tr class="odd">
-<td align="left">-1</td>
-<td align="left">1</td>
-<td align="left">-1</td>
-<td align="right">0.036</td>
-</tr>
-<tr class="even">
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">-1</td>
-<td align="right">0.000</td>
-</tr>
-<tr class="odd">
-<td align="left">-1</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="right">0.008</td>
-</tr>
-<tr class="even">
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="right">0.004</td>
-</tr>
-<tr class="odd">
-<td align="left">-1</td>
-<td align="left">-1</td>
-<td align="left">-1</td>
-<td align="right">0.040</td>
-</tr>
-<tr class="even">
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="left">1</td>
-<td align="right">0.004</td>
-</tr>
-<tr class="odd">
-<td align="left">-1</td>
-<td align="left">1</td>
-<td align="left">-1</td>
-<td align="right">0.028</td>
-</tr>
-<tr class="even">
-<td align="left">-1</td>
-<td align="left">-1</td>
-<td align="left">-1</td>
-<td align="right">0.032</td>
-</tr>
-<tr class="odd">
-<td align="left">1</td>
-<td align="left">-1</td>
-<td align="left">1</td>
-<td align="right">0.016</td>
-</tr>
-<tr class="even">
-<td align="left">1</td>
-<td align="left">-1</td>
-<td align="left">-1</td>
-<td align="right">0.008</td>
-</tr>
-</tbody>
-</table>
+<div id="htmlwidget-a6d6a2db490eb32ba18e" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a6d6a2db490eb32ba18e">{"x":{"style":"bootstrap","filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],["1","1","-1","1","-1","-1","-1","1","-1","1","-1","1","-1","-1","1","1"],["1","-1","-1","-1","1","-1","1","1","1","1","-1","1","1","-1","-1","-1"],["-1","1","1","-1","1","1","-1","-1","1","1","-1","1","-1","-1","1","-1"],[0,0,0.02,0.012,0.016,0.02,0.036,0,0.008,0.004,0.04,0.004,0.028,0.032,0.016,0.008]],"container":"<table class=\"table table-striped\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>T1<\/th>\n      <th>T2<\/th>\n      <th>T3<\/th>\n      <th>resp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":4},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p>Para realizar el análisis estadístico de este diseño factorial (<span class="math inline">\(2^3\)</span>), los pasos a seguir son los siguientes:</p>
 <ol style="list-style-type: decimal">
 <li>Cargar/Construir la base de datos con la información de interés.</li>
@@ -1248,7 +1143,7 @@ H_0: \text{Efecto }AB = 0 \quad vs \quad H_a: \text{Efecto }AB \neq 0\]</span></
 <p><img src="fact2k_files/figure-html/unnamed-chunk-9-2.png" width="630" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">durbinWatsonTest</span>(fit)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      0.01761583      1.952703   0.972
+##    1      0.01761583      1.952703   0.994
 ##  Alternative hypothesis: rho != 0</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># Homocedasticidad</span></span>
 <span id="cb33-2"><a href="#cb33-2"></a><span class="kw">plot</span>(<span class="kw">predict</span>(fit),fit<span class="op">$</span>residuals,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">las=</span><span class="dv">1</span>,</span>
@@ -1277,7 +1172,7 @@ H_0: \text{Efecto }AB = 0 \quad vs \quad H_a: \text{Efecto }AB \neq 0\]</span></
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
 <span id="cb40-2"><a href="#cb40-2"></a><span class="kw">plot</span>(fit,<span class="dt">pch=</span><span class="dv">19</span>)</span></code></pre></div>
 <p><img src="fact2k_files/figure-html/unnamed-chunk-9-4.png" width="630" style="display: block; margin: auto;" /></p>
-<p>Finalmente, como los supuestos del modelo se cumplen, entonces podemos buscar cuáles son los tratamientos más significativos sobre los acabados del metal mediante las pruebas post-hoc.</p>
+<p>Finalmente, como los supuestos del modelo se cumplen, entonces podemos buscar cuáles son los tratamientos más significativos mediante las pruebas post-hoc.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>lsd1 &lt;-<span class="st"> </span><span class="kw">LSD.test</span>(<span class="dt">y =</span> fit,<span class="dt">trt =</span> <span class="st">&quot;T1&quot;</span>)</span>
 <span id="cb41-2"><a href="#cb41-2"></a><span class="kw">plot</span>(lsd1,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">variation =</span> <span class="st">&quot;SE&quot;</span>);<span class="kw">grid</span>()</span></code></pre></div>
 <p><img src="fact2k_files/figure-html/unnamed-chunk-10-1.png" width="630" style="display: block; margin: auto;" /></p>
