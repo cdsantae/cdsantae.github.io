@@ -952,14 +952,10 @@ H_0: \text{Efecto }AB = 0 \quad vs \quad H_a: \text{Efecto }AB \neq 0\]</span></
 \vdots\\\\
 {k \choose k} &amp;=1,\,\text{Interacciones de los k factores}\\\\
 \end{align*}\]</span></p>
-<div id="htmlwidget-e6452c541513156025c5" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e6452c541513156025c5">{"x":{"style":"bootstrap","filter":"none","data":[["(1)","A","B","AB","C","AC","BC","ABC","D","AD","BD","ABD","CD","ACD","BCD","ABCD","E","AE","BE","ABE","CE","ACE","BCE","ABCE","DE","ADE","BDE","ABDE","CDE","ACDE","BCDE","ABCDE"],["-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1","-1","1"],["-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1","-1","-1","1","1"],["-1","-1","-1","-1","1","1","1","1","-1","-1","-1","-1","1","1","1","1","-1","-1","-1","-1","1","1","1","1","-1","-1","-1","-1","1","1","1","1"],["-1","-1","-1","-1","-1","-1","-1","-1","1","1","1","1","1","1","1","1","-1","-1","-1","-1","-1","-1","-1","-1","1","1","1","1","1","1","1","1"],["-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","-1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1"]],"container":"<table class=\"table table-striped\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>A<\/th>\n      <th>B<\/th>\n      <th>C<\/th>\n      <th>D<\/th>\n      <th>E<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-center","targets":"_all"},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <hr>
 </div>
 <div id="ejemplo" class="section level2">
 <h2>Ejemplo</h2>
-<div id="htmlwidget-a6d6a2db490eb32ba18e" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a6d6a2db490eb32ba18e">{"x":{"style":"bootstrap","filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],["1","1","-1","1","-1","-1","-1","1","-1","1","-1","1","-1","-1","1","1"],["1","-1","-1","-1","1","-1","1","1","1","1","-1","1","1","-1","-1","-1"],["-1","1","1","-1","1","1","-1","-1","1","1","-1","1","-1","-1","1","-1"],[0,0,0.02,0.012,0.016,0.02,0.036,0,0.008,0.004,0.04,0.004,0.028,0.032,0.016,0.008]],"container":"<table class=\"table table-striped\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>T1<\/th>\n      <th>T2<\/th>\n      <th>T3<\/th>\n      <th>resp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":4},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p>Para realizar el análisis estadístico de este diseño factorial (<span class="math inline">\(2^3\)</span>), los pasos a seguir son los siguientes:</p>
 <ol style="list-style-type: decimal">
 <li>Cargar/Construir la base de datos con la información de interés.</li>
@@ -1143,7 +1139,7 @@ H_0: \text{Efecto }AB = 0 \quad vs \quad H_a: \text{Efecto }AB \neq 0\]</span></
 <p><img src="fact2k_files/figure-html/unnamed-chunk-9-2.png" width="630" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">durbinWatsonTest</span>(fit)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      0.01761583      1.952703   0.994
+##    1      0.01761583      1.952703   0.958
 ##  Alternative hypothesis: rho != 0</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># Homocedasticidad</span></span>
 <span id="cb33-2"><a href="#cb33-2"></a><span class="kw">plot</span>(<span class="kw">predict</span>(fit),fit<span class="op">$</span>residuals,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">las=</span><span class="dv">1</span>,</span>
