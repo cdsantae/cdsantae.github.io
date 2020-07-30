@@ -1511,7 +1511,7 @@ H_0: \text{Efecto }AB = 0 \quad vs \quad H_a: \text{Efecto }AB \neq 0\]</span></
 <p><img src="fact2k_files/figure-html/unnamed-chunk-9-2.png" width="630" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="kw">durbinWatsonTest</span>(fit)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      0.01761583      1.952703   0.984
+##    1      0.01761583      1.952703   0.966
 ##  Alternative hypothesis: rho != 0</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="co"># Homocedasticidad</span></span>
 <span id="cb33-2"><a href="#cb33-2"></a><span class="kw">plot</span>(<span class="kw">predict</span>(fit),fit<span class="op">$</span>residuals,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">las=</span><span class="dv">1</span>,</span>
@@ -1752,6 +1752,9 @@ H_0: \text{Efecto }AB = 0 \quad vs \quad H_a: \text{Efecto }AB \neq 0\]</span></
 ## Residuals 11 0.000259 2.355e-05                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
 </div>
 
 
