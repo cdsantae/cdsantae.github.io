@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Muestreo Aleatorio Estratificado (MAE)</title>
+
+<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Investigación II</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="I_et2.html">Potencia</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-equalizer"></span>
+     
+    Muestreo
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="M_effect.html">Sobre el efecto</a>
+    </li>
+    <li>
+      <a href="M_MAS.html">MAS</a>
+    </li>
+    <li>
+      <a href="M_MAE.html">MAE</a>
+    </li>
+    <li>
+      <a href="M_Cluster.html">Cluster</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    R-Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Rinstall.html">Instalación</a>
+    </li>
+    <li>
+      <a href="IntroR.html">Introducción</a>
+    </li>
+    <li>
+      <a href="FunsR.html">Funciones y Paquetes</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Muestreo Aleatorio Estratificado (MAE)</h1>
+
+</div>
+
+
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p>Esta técnica de muestreo se aplica en poblaciones cuyas unidades tienen características de <em>gran variabilidad</em>. La intención de este muestro es clasificar las unidades en estratos de forma que las unidades en los subconjuntos sean homogéneos, pero si se observa la totalidad conserva la heterogeneidad.</p>
+<p>Este tipo de muestreo es muy útil porque garantiza precisión en las mediciones por cada estrato y reduce los costos del muestreo ya que los tamaños muestrales tienden a ser menores. Lo más importante para utilizar esta técnica es determinar la variable que homogeniza las subpoblaciones, pues es el punto de partida para estratificar la población, sin embargo hay situaciones en que la estratificación dependerá del criterio del investigador.</p>
+<p><span class="math display">\[\begin{align*}
+L \rightarrow &amp; \text{número de estratos}\\
+N_h \rightarrow &amp; \text{número de unidades muestrales en el estrato }h\\
+N \rightarrow &amp; \text{Tamaño de la población } N=N_1+N_2+\dots+N_L
+\end{align*}\]</span></p>
+<p>Este muestreo presenta dificultades ya que se necesita contar con un marco teórico que tenga información auxiliar, no es fácil crear los estratos y tampoco existe un número óptimo de estratos. Los estimadores no son tan simples de calcular como en el MAS, en general se utiliza estimaciones ponderadas.</p>
+<p>Existen tres métodos fundamentales para calcular los tamaños muestrales por estratos, por <em>asignación proporcional</em>, por <em>asignación de Neyman</em> y por <em>asignación óptima</em>.</p>
+<hr>
+<div id="asignación-proporcional" class="section level3">
+<h3>Asignación proporcional</h3>
+<p>La muestra se reparte entre los estratos proporcionalmente a los tamaños de éste. Este método se utiliza cuando los costos y la variabilidad no difieren mucho entre sí.</p>
+<ul>
+<li><strong>Para estimar proporciones</strong></li>
+</ul>
+<p><span class="math display">\[n=\cfrac{\sum_{h=1}^LN_hp_hq_h}{N\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\frac{1}{N}\sum_{h=1}^LN_hp_hq_h}\]</span></p>
+<ul>
+<li><strong>Para estimar promedios</strong></li>
+</ul>
+<p><span class="math display">\[n=\cfrac{\sum_{h=1}^LN_h\sigma_h^2}{N\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\frac{1}{N}\sum_{h=1}^LN_h\sigma_h^2}\]</span></p>
+<p>Una vez determinado el tamaño de muestra, hay que repartirla proporcionalmente a cada estrato seleccionado.</p>
+<p><span class="math display">\[n_h=n \frac{N_h}{N}\]</span></p>
+<p>La estimación de proporciones apunta a estudios con datos cualitativos, similares a los ejemplos desarrollados a lo largo del módulo. La estimación de promedios o medias se realiza cuando se quiere estimar las medidas poblacionales.</p>
+<p>Observe que para cada uno de los casos es necesario conocer la varianza poblacional de cada estrato y el tamaño sub-poblacional. En caso de que no se conozca la varianza sub-poblacional, puede usarse la varianza muestral de cada estrato, por otra parte si no se tiene información sobre estos estimadores, se recomienda realizar pruebas piloto para estimar las varianzas muestrales de los estratos.</p>
+<blockquote>
+Un Hospital está interesado en estimar los salarios promedios de sus empleados para planificar las inversiones futuras, los investigadores identificaron que existen grandes diferencias entre los salarios de los empleados y decidieron estratificar la población en tres partes: enfermeras, médicos y especialistas. El balance del año anterior contiene la siguiente información en miles de pesos
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+Total
+</th>
+<th style="text-align:center;">
+Desv
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Enfermeras
+</td>
+<td style="text-align:center;">
+2985
+</td>
+<td style="text-align:center;">
+$8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Médicos
+</td>
+<td style="text-align:center;">
+678
+</td>
+<td style="text-align:center;">
+$53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Especialistas
+</td>
+<td style="text-align:center;">
+137
+</td>
+<td style="text-align:center;">
+$112
+</td>
+</tr>
+</tbody>
+</table>
+<p>Calcular un tamaño de muestra considerando un error de 50 mil pesos y una confianza del 95% <br><br> De acuerdo con el enunciado tenemos <span class="math display">\[L=3 \quad N=3800 \quad N_1=2985 \quad N_2=678 \quad N_3=137\\
+E=5 \quad \alpha=0.05 \quad \sigma_1=8 \quad \sigma_2=53 \quad \sigma_3=112\]</span> Con estos valores podemos calcular el tamaño de muestra total <span class="math display">\[\begin{align*}
+n=&amp;\cfrac{\sum_{h=1}^LN_h\sigma_h^2}{N\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\frac{1}{N}\sum_{h=1}^LN_h\sigma_h^2}\\
+=&amp;\cfrac{2985(8^2)+678(53^2)+137(112^2)}{3800\left(\frac{5}{1.96}\right)^2+\frac{1}{3800}[2985(8^2)+678(53^2)+137(112^2)]}\\
+=&amp;\cfrac{3814070}{24730.19+\frac{3814070}{3800}}\\
+=&amp;\cfrac{3814070}{25733.89}\\
+=&amp;148.2119 \approx 149\\
+\end{align*}\]</span> En total se necesitan un tamaño muestral de 149 empleados para estimar el promedio de los salarios, si se realiza una asignación proporcional, entonces el tamaño muestral para cada estrato es: <span class="math display">\[n_1=149 \frac{2985}{3800} \approx 117 \quad n_2=149 \frac{678}{3800} \approx 27 \quad n_3=149 \frac{137}{3800} \approx 5\]</span> Se necesita analizar los salarios de por lo menos 117 enfermeras, 27 médicos y 5 especialistas para determinar el salario promedio con una confiabilidad del 95% y un margen de error de 5 mil pesos.</p>
+</blockquote>
+<hr>
+</div>
+<div id="asignación-neyman" class="section level3">
+<h3>Asignación Neyman</h3>
+<p>Es útil cuando existen marcadas diferencias de variabilidad o dispersión dentro de los estratos, ya que además de tener en cuenta el tamaño de los estratos se tiene en cuenta la dispersión de los datos dentro de cada estrato. De esta manera se obtendrán tamaños de muestra más grandes de aquellos estratos que sean más homogéneos.</p>
+<ul>
+<li><strong>Para estimar la proporción</strong></li>
+</ul>
+<p><span class="math display">\[n=\cfrac{\left(\sum_{h=1}^LN_h\sqrt{p_hq_h}\right)^2}{N^2\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\sum_{h=1}^LN_hp_hq_h}\]</span></p>
+<ul>
+<li><strong>Para estimar promedios</strong></li>
+</ul>
+<p><span class="math display">\[n=\cfrac{\left(\sum_{h=1}^LN_h\sigma_h\right)^2}{N^2\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\sum_{h=1}^LN_h\sigma_h^2}\]</span></p>
+<p>Para repartir la muestra entre los estratos se utiliza las siguientes fórmulas.</p>
+<span class="math display">\[n_i=n\left(\cfrac{N_i\sqrt{p_iq_i}}{\sum_{h=1}^LN_h\sqrt{p_hq_h}}\right)\qquad n_i=n\left(\cfrac{N_i\sigma_i}{\sum_{h=1}^LN_h\sigma_h}\right)\]</span>
+<hr>
+</div>
+<div id="asignación-óptima" class="section level3">
+<h3>Asignación Óptima</h3>
+<p>Es útil en los casos en que se tienen marcadas diferencias en la dispersión de los datos en los estratos y los costos para obtener información varían de un estrato a otro. Con esta asignación se tiene en cuenta el tamaño de los estratos, las dispersiones dentro de ellos y los costos para recopilar la información.</p>
+<ul>
+<li><strong>Para estimar la proporción</strong></li>
+</ul>
+<p><span class="math display">\[n=\cfrac{\left(\sum_{h=1}^L\frac{N_h\sqrt{p_hq_h}}{\sqrt{c_h}}\right)(\sum_{h=1}^LN_h\sqrt{p_hq_hc_h})}{N^2\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\sum_{h=1}^LN_hp_hq_h}\]</span></p>
+<ul>
+<li><strong>Para estimar promedios</strong></li>
+</ul>
+<p><span class="math display">\[n=\cfrac{\left(\sum_{h=1}^L\frac{N_h\sigma_h}{\sqrt{c_h}}\right)(\sum_{h=1}^LN_h\sigma_h\sqrt{c_h})}{N^2\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\sum_{h=1}^LN_h\sigma_h^2}\]</span></p>
+<p>Donde <span class="math inline">\(C_h\)</span> es el costo de hacer una observación en el estrato <span class="math inline">\(h\)</span>.</p>
+<p>Una vez obtenido el tamaño de muestra, se reparte entre los estratos utilizando las siguientes fórmulas.</p>
+<p><span class="math display">\[n_i=n\left(\cfrac{N_i\cfrac{\sqrt{p_iq_i}}{\sqrt{c_i}}}{\sum_{h=1}^LN_h\cfrac{\sqrt{p_hq_h}}{\sqrt{c_h}}}\right)\qquad n_i=n\left(\cfrac{N_i\cfrac{\sigma_i}{\sqrt{c_i}}}{\sum_{h=1}^LN_h\cfrac{\sigma_h}{\sqrt{c_h}}}\right)\]</span></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
