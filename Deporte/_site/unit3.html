@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Inferencia Estadística</title>
+
+<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"><center>Estadística - Investigación<br> <sub>Educación Física y Deporte</sub></center></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="about.html">
+    <span class="fa fa-book-open"></span>
+     
+    Acerca de
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-chalkboard-teacher"></span>
+     
+    Contenido
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="unit1.html">Unidad 1</a>
+    </li>
+    <li>
+      <a href="unit2.html">Unidad 2</a>
+    </li>
+    <li>
+      <a href="plan.html">Plan de Análisis</a>
+    </li>
+    <li>
+      <a href="unit3.html">Unidad 3</a>
+    </li>
+    <li>
+      <a href="unit4.html">Unidad 4</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    Programación con R
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="installR.html">Instalación</a>
+    </li>
+    <li>
+      <a href="RIntro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="RFuns.html">Funciones y Paquetes</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdsantae@gmail.com">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Inferencia Estadística</h1>
+
+</div>
+
+
+<hr>
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p>¿Qué información proporciona, a un clínico de Barcelona, los resultados obtenidos en un estudio previo realizado en Boston? La evolución de estos casos de Boston se puede conocer perfectamente, sin error. Pero esos casos ya han <em>evolucionado</em>, no tiene interés predecir una evolución que ya ha sucedido. En cambio, sería muy interesante poder aplicar estos resultados pasados a unos nuevos casos. ¿Cómo hacerlo?</p>
+<p>La <strong>inferencia estadística</strong>, para incorporar al conocimiento teórico la información empírica, define los conceptos de <strong>muestra</strong> y <strong>población</strong>. Los valores obtenidos en las muestras permitirán estimar, con un cierto error cuantificable, los parámetros que caracterizan al conjunto de la población. En resumen, la estadística permite cuantificar, tanto la información aportada por los datos, como el error aleatorio que implica el proceso de generalización.</p>
+<hr>
+</div>
+<div id="distribuciones-de-muestreo" class="section level2">
+<h2>Distribuciones de Muestreo</h2>
+<p>En el proceso de identificar y explicar las características esenciales que permiten describir el comportamiento de un fenómeno, nuestro objetivo es el de establecer de manera aproximada dicho comportamiento usando parte de toda la información relevante acerca del fenómeno.</p>
+<center>
+<img src="Diagram.png" title="fig:" alt="Diagrama" />
+</center>
+<p>Cuando se desea estimar un parámetro poblacional se puede presentar cualquiera de los próximos 3 casos:</p>
+<p><strong>Estimar una proporción</strong></p>
+<p><span class="math display">\[\hat{p}=\frac{X}{n}\]</span> <strong>Estimar un promedio</strong></p>
+<p><span class="math display">\[\bar{X}=\sum_i^n\frac{x_i}{n}\]</span> <strong>Estimar una varianza</strong></p>
+<p><span class="math display">\[S^2=\frac{\sum_i^n (x_i-\bar{X})^2}{n-1}\]</span></p>
+<p>Estas características son únicas en cada caso. La idea es estimar o aproximar estos parámetros usando la información recolectada a partir de una muestra. Cada objeto o individuo seleccionado aporta información acerca de la característica que se quiere medir, la cual varía de individuo a individuo. Así, una muestra no es más que una colección de variables aleatorias. Si además, las mediciones son independientes, las variables involucradas también lo serán.</p>
+<p>Una <strong>muestra aleatoria</strong> (m.a) de tamaño <span class="math inline">\(n\)</span>, es un conjunto de <span class="math inline">\(n\)</span> variables aleatorias <em>independientes e idénticamente distribuidas</em>. Si <span class="math inline">\(X_1,\dots,X_n\)</span> es una m.a, entonces</p>
+<p><span class="math display">\[f(X_1,\dots,X_n)=\prod_i^n f_{X_i} (x_i)\]</span> <span class="math display">\[f_{X_i}(x_i)=f(x_i)\quad \forall_i=1,\dots,n\]</span></p>
+<p>Un estadístico es entonces una función de una m.a. No todos los estadísticos que se definen a partir de una m.a. son de interés. La idea está en encontrar aquellos que permiten obtener mejores aproximaciones a los parámetros de interés. (Por ejemplo la media <span class="math inline">\(\mu\)</span>, la varianza <span class="math inline">\(\sigma^2\)</span> o una proporción <span class="math inline">\(p\)</span>).</p>
+<ul>
+<li>Una aproximación para <span class="math inline">\(\mu\)</span> es: <span class="math inline">\(\bar{X}=\sum_1^n \frac{X_i}{n}\)</span></li>
+<li>Una aproximación para <span class="math inline">\(\sigma^2\)</span> es: <span class="math inline">\(S^2=\sum_1^n \frac{(X_i-\bar{X})^2}{n-1}\)</span></li>
+<li>Una aproximación para <span class="math inline">\(p\)</span> es: <span class="math inline">\(\frac{X}{n}\)</span>, donde <span class="math inline">\(X\sim bin(n,p)\)</span></li>
+</ul>
+<p>Entonces se plantean las siguientes preguntas.</p>
+<ul>
+<li>¿Cuál es la distribución de <span class="math inline">\(\bar{X}\)</span>?</li>
+<li>¿Cuál es la distribución de <span class="math inline">\(S^2\)</span>?</li>
+<li>¿Cuál es la distribución de <span class="math inline">\(\frac{X}{n}\)</span>?</li>
+</ul>
+<blockquote>
+<p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria de una distribución con media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^2\)</span><br><br> Sea <span class="math inline">\(\bar{X}=\sum_1^n \frac{X_i}{n}\)</span>, entonces <span class="math display">\[\begin{align*}
+E[\bar{X}]&amp;=E\left[\sum_1^n \frac{X_i}{n}\right]=\frac{1}{n}\sum_1^n E[X_i]=\frac{1}{n}\sum_1^n \mu=\frac{n\mu}{n}=\mu\\
+Var[\bar{X}]&amp;=Var\left[\sum_1^n \frac{X_i}{n}\right]=\frac{1}{n^2}\sum_1^n Var[X_i]=\frac{1}{n^2}\sum_1^n \sigma^2=\frac{n\sigma^2}{n^2}=\frac{\sigma^2}{n}
+\end{align*}\]</span> Así, la distribución muestral de <span class="math inline">\(\bar{X}\)</span> tiene media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^2/n\)</span></p>
+</blockquote>
+<ul>
+<li><p>Aplicando la misma metodología se puede mostrar que la distribución muestral de la proporción tiene media <span class="math inline">\(p\)</span> y varianza <span class="math inline">\(pq/n\)</span>.</p></li>
+<li><p>Por otra parte, la distribución muestral de la varianza está dado por otra distribución llamada <strong>chi-cuadrado</strong> <span class="math inline">\((\chi^2)\)</span>.</p></li>
+</ul>
+<p>La distribución de <em>Pearson</em>, llamada también <em>ji cuadrada(o)</em> o <em>chi cuadrado(a)</em> (<span class="math inline">\(\chi^2\)</span>), es una distribución de probabilidad continua con un parámetro <span class="math inline">\(r\)</span> que representa los grados de libertad de la variable aleatoria.</p>
+<p><span class="math display">\[
+f(x)=
+\begin{cases}\displaystyle
+\frac{1}{2^{r/2}\Gamma(r/2)}\,x^{(r/2) - 1} e^{-x/2}&amp;\text{para }x&gt;0,\\
+0&amp;\text{en otro caso}
+\end{cases}
+\]</span></p>
+<p><img src="unit3_files/figure-html/chi-1.png" width="630" style="display: block; margin: auto;" /></p>
+<hr>
+</div>
+<div id="teorema-central-del-límite" class="section level2">
+<h2>Teorema central del límite</h2>
+<p>Suponga que <span class="math inline">\(X_1,\dots,X_n\)</span> es una muestra aleatoria de una población con media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^2\)</span>. Sea <span class="math inline">\(\bar{X}\)</span> la media muestral que depende de <span class="math inline">\(n\)</span> entonces cuando <span class="math inline">\(n \rightarrow \infty\)</span> se cumple que:</p>
+<p><span class="math display">\[\Large \cfrac{\bar{X}-\mu}{\frac{\sigma}{\sqrt{n}}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
+<p>Entre mayor sea <span class="math inline">\(n\)</span> mejor es la aproximación. Si la distribución de la muestra es simétrica y continua, los tamaños muestrales relativamente pequeños, permiten obtener buenas aproximaciones. Si la distribución es discreta, se requiere de tamaños muestrales grandes.</p>
+<p><span class="math display">\[P(\bar{X}&lt;a)=P\left(\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}&lt;\frac{\bar{X}-a}{\sigma/\sqrt{n}}\right) \approx P\left(Z&lt;\frac{\bar{X}-a}{\sigma/\sqrt{n}}\right)\]</span></p>
+<p>Si se desconoce el valor de <span class="math inline">\(\sigma^2\)</span> y <span class="math inline">\(n\)</span> es grande, se puede reemplazar <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(S^2\)</span>.</p>
+<p><span class="math display">\[\Large \cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
+<blockquote>
+<p>El nivel total de colesterol en cierta población tiene una distribución aproximadamente normal, con una media de 200 mg/100ml y una desviación estándar de 20 mg/100ml. Si se realizan 49 exámenes de manera aleatoria de esta población ¿Cuál es la probabilidad de que el nivel de colesterol promedio de esta muestra esté entre 198 y 203 mg/100ml? <span class="math display">\[E[X_i]=200 \quad \text{y} \quad Var[X_i]=400\]</span> Ahora, <span class="math display">\[\begin{align*}
+P(198&lt;\bar{X}&lt;203)&amp;=P\left(\frac{198-\mu}{\sigma/\sqrt{n}}&lt;\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}&lt;\frac{203-\mu}{\sigma/\sqrt{n}}\right)\\\\
+&amp;=P\left(\frac{198-200}{20/\sqrt{49}}&lt;\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}&lt;\frac{203-200}{20/\sqrt{49}}\right)\\\\
+&amp;\approx P(-0.7&lt;Z&lt;1.05)\\
+&amp;=\Phi(1.05)-\Phi(-0.7)\\
+&amp;=0.8531409 - 0.2419637\\
+&amp;=0.6111773
+\end{align*}\]</span></p>
+</blockquote>
+<p>Suponga que se realiza un estudio sobre el salario de los egresados del Instituto Universitario de Educación Física y Deporte una vez finalizan su pregrado y se insertan en el mercado laboral. Para ello, se le pregunta a 15 egresados seleccionados de forma aleatoria y se les pregunta cuál es el salario que devengan actualmente, obteniendo los siguientes resultados en millones de pesos:</p>
+<p><span class="math display">\[1.78\quad2.93\quad1.22\quad1.27\quad1.17\\1.03\quad1.24\quad2.07\quad2.04\quad1.28\\1.53\quad0.98\quad1.73\quad1.38\quad3.24\]</span></p>
+<blockquote>
+Basados en la información anterior, calcule la probabilidad de que la proporción de egresados que tienen un salario superior a 2 millones de pesos sea mayor al 40%.<br><br> Como no nos hablan de los salarios sino de la proporción de aquellos que ganaran más de 2 millones de pesos, entonces tenemos que contar cuántos ganan más de esa cantidad.<br> <br>
+<center>
+<div class="container">
+<div class="col-sm-1">
+
+</div>
+<div class="col-sm-7">
+<table class="table">
+<thead>
+<tr class="info">
+<th style="text-align:center">
+Menos de 2M
+</th>
+<th style="text-align:center">
+2M o más
+</th>
+<th style="text-align:center">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="active">
+<td style="text-align:center">
+11
+</td>
+<td style="text-align:center">
+4
+</td>
+<td style="text-align:center">
+15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</center>
+<p>Entonces la proporción de egresados que ganan más de dos millones es <span class="math inline">\(\hat{p}=4/15 = 0.26667\)</span>, entonces es posible calcular la probabilidad <span class="math inline">\(P(p&gt;0.4)\)</span> aplicando el teorema central del límite: <span class="math display">\[\begin{align*}
+P(p&gt;0.4) &amp;= P(\hat{p}-p &lt; 4/15-0.4)\\
+&amp;=P \left(\cfrac{\hat{p}-p}{\sqrt{\frac{p(1-p)}{n}}} &lt; \cfrac{4/15-0.4}{\sqrt{\frac{(0.4)(0.6)}{15}}} \right)\\\\
+&amp;=P(Z &lt; -1.054093)\\
+&amp;=P(Z &gt; 1.054093)\\
+&amp;=0.1459203
+\end{align*}\]</span> Y por tanto, la probabilidad de la proporción de egresados del Instituto que tienen un salario superior a 2 millones es del 14.59%.</p>
+</blockquote>
+<blockquote>
+<p>Basados en la información de los salarios, calcule la probabilidad de que el salario promedio de todos los egresados sea a lo más de 1.8 millones de pesos, si se sabe, que los salarios se distribuyen normalmente con desviación estándar de 500 mil de pesos.<br><br> En este caso, estamos interesados en calcular la probabilidad de que la media poblacional del salario de los egresados, sea como máximo de 1.8 millones de pesos, esto es <span class="math display">\[P(\mu \leq 1.8)\]</span> Ahora, como sabemos que la distribución de los salarios de los egresados sigue una distribución normal, entonces el cálculo de probabilidad basado en la muestra aleatoria se calcula aplicando el teorema central del límite. De los datos tenemos que <span class="math inline">\(\bar{X}=1.659333\)</span> y <span class="math inline">\(\sigma=0.5\)</span>, así la probabilidad está dada por: <span class="math display">\[\begin{align*}
+P(\mu \leq 1.8)&amp;=P(−\mu \geq - 1.8)\\
+&amp;=P(\bar{X}−\mu \geq 1.659333−1.8)\\
+&amp;=P \left(\cfrac{\bar{X}-\mu}{\frac{\sigma}{\sqrt{n}}} \geq \cfrac{1.659333−1.8}{\frac{0.5}{\sqrt{15}}} \right)\\
+&amp;=P(Z \geq -1.089602)\\
+&amp;=P(Z \leq 1.089602)\\
+&amp;=0.8620557
+\end{align*}\]</span> Por lo tanto la probabilidad de que el salario promedio los egresados del Instituto sea como máximo de 2 millones de pesos, es del 86.21%</p>
+</blockquote>
+<hr>
+</div>
+<div id="inferencia-sobre-un-parámetro" class="section level2">
+<h2>Inferencia sobre un parámetro</h2>
+<p>Hasta ahora los estimadores estudiados son puntuales, es decir, exhiben un solo valor como estimación del parámetro de interés. Pero en muchos casos esto no es suficiente. A veces se requiere de un rango de posibles valores para el parámetro de interés, es decir, un intervalo real donde se cree estará el valor del parámetro con una alta confianza.</p>
+<p>Sea <span class="math inline">\(\theta\)</span> un parámetro de interés y <span class="math inline">\(\hat{\theta}\)</span> un estimador puntual de <span class="math inline">\(\theta\)</span> en un intervalo real de la forma <span class="math inline">\((L_\hat\theta , U_\hat\theta)\)</span> talque <span class="math inline">\((L_\hat\theta &lt; \theta &lt; U_\hat\theta)\)</span>, donde <span class="math inline">\(L\)</span> y <span class="math inline">\(U\)</span> dependen de y de la distribución de <span class="math inline">\(\hat\theta\)</span>.</p>
+<p>Cada muestra aleatoria proporcionará un valor diferente para <span class="math inline">\(\hat\theta\)</span> y por lo tanto valores diferentes para <span class="math inline">\(L\)</span> y <span class="math inline">\(U\)</span>. Así, los extremos del intervalo en cuestión se convierten en variables aleatorias. El intervalo <span class="math inline">\((L , U)\)</span> es llamado Intervalo Aleatorio. Usando <span class="math inline">\(\hat\theta\)</span> y su distribución es posible determinar <span class="math inline">\(L\)</span> y <span class="math inline">\(U\)</span> tales que:</p>
+<p><span class="math display">\[P(L_\hat\theta &lt; θ &lt; U_\hat\theta) = 1 − \alpha,\quad \alpha \in (0,1)\]</span></p>
+<p>Para una muestra particular se obtiene el intervalo <span class="math inline">\((l , u)\)</span> donde se espera esté el verdadero valor de <span class="math inline">\(\theta\)</span>, Este intervalo será llamado un <strong>Intervalo de Confianza al <span class="math inline">\(100(1 − \alpha)\%\)</span></strong> para <span class="math inline">\(\alpha\)</span>, además <span class="math inline">\(l\)</span> y <span class="math inline">\(u\)</span> son llamados <em>Límites de Confianza</em>.</p>
+<hr>
+<div id="intervalos-de-confianza-para-la-proporción" class="section level3">
+<h3>Intervalos de confianza para la proporción</h3>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria tal que <span class="math inline">\(X\sim bin(n,p)\)</span>. El Teorema Central del Límite garantiza que:</p>
+<p><span class="math display">\[\cfrac{X-np}{\sqrt{np(1-p)}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
+<p>Un estimador insesgado para <span class="math inline">\(p\)</span> es <span class="math inline">\(\bar{p}=X/n\)</span>, entonces:</p>
+<p><span class="math display">\[\frac{X-np}{\sqrt{np(1-p)}}=\frac{n[X/n-p]}{\sqrt{np(1-p)}}=\frac{X/n-p}{\sqrt{p(1-p)/n}}\stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
+<p>Entonces un intervalo de confianza para <span class="math inline">\(\hat{p}\)</span> es de la forma:</p>
+<p><span class="math display">\[\hat{p}\, \pm\, Z_{\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\]</span></p>
+<blockquote>
+<p>En una muestra de 85 recién nacidos, 10 presentaron riesgo de desnutrición. ¿Cuál es la proporción real de recién nacidos con riesgo de desnutrición con una confianza del 95%?<br><br> Sea <span class="math inline">\(X\)</span> el número de recién nacidos con riesgo de desnutrición, entonces <span class="math inline">\(X\sim bin(85,p)\)</span>. Del enunciado se tiene que: <span class="math inline">\(\hat{p}=x/85=10/85=0.1176471\)</span><br> Un Intervalo de Confianza (IC) aproximado al 95% para <span class="math inline">\(p\)</span> es de la forma: <span class="math display">\[\frac{10}{85}\,\pm\,1.96\sqrt{\frac{(10/85)(75/85)}{85}}\,\Rightarrow\,0.1176\,\pm\,0.0685\,\Rightarrow(0.0492;0.1861)\]</span> En conclusión, con una confianza del 95% la proporción de recién nacidos que presentan riesgos de desnutrición se estiman entre (0.0492;0.1861), o (4.92%;18.61%).</p>
+</blockquote>
+<p>El siguiente ejercicio de simulación muestra el concepto de la probabilidad de los intervalos de confianza y la influencia de los tamaños de muestra</p>
+<p><img src="unit3_files/figure-html/unnamed-chunk-1-1.png" width="700" style="display: block; margin: auto;" /></p>
+<p>Cuando aumenta el tamaño de muestra los intervalos tienen menor amplitud, lo cual es lo deseado, ya que la amplitud es una medida de precisión.</p>
+<p><img src="unit3_files/figure-html/unnamed-chunk-2-1.png" width="700" style="display: block; margin: auto;" /></p>
+<p>En términos de la cobertura del intervalo, se espera que para cualquier valor estimado de <span class="math inline">\(p\)</span> la probabilidad de cobertura sea cercana al nivel de confianza <span class="math inline">\(100(1-\alpha)\%\)</span>.</p>
+<p><img src="unit3_files/figure-html/unnamed-chunk-3-1.png" width="600" style="display: block; margin: auto;" /></p>
+<p>Este es el inconveniente que presenta esta propuesta de intervalo para la proporción llamada <em>método Wald</em>. En la literatura existe muchas propuestas para intervalos de confianza para la proporción, de hecho, sigue siendo un caso de estudio por varios estadísticos.</p>
+<p>En 1934 Clopper y Pearson presentaron una propuesta para los intervalos de confianza basados en la <em>Distribución Beta</em> que, a su vez, está relacionada con la <em>Distribución F</em>, sin embargo, lo complejo de sus cálculos no le dio el protagonismo para la época. Ahora este intervalo se ha puesto a prueba gracias a los avances computacionales haciendo fácil el cálculo y entregando mejores resultados en términos de probabilidad de cobertura.</p>
+<p><span class="math display">\[B(\alpha/2;\,x,\,n-x+1)&lt;\hat{p}&lt;B(1-\alpha/2;\,x+1,\,n-x)\]</span></p>
+<p>O parametrizada con la Distribución F</p>
+<p><span class="math display">\[{\displaystyle \left(1+{\frac {n-x+1}{x\,F\!\left[{\frac {\alpha }{2}};2x,2(n-x+1)\right]}}\right)^{-1}&lt;\hat{p} &lt;\left(1+{\frac {n-x}{(x+1)\,\,F\!\left[1-{\frac {\alpha }{2}};2(x+1),2(n-x)\right]}}\right)^{-1}}\]</span></p>
+<p>En <code>R</code> es fácil hacer este cálculo, el primer método es hacer la fórmula con <code>qbeta</code> y otra forma es con el paquete <code>PropCIs</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;PropCIs&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Para el ejercicio del riesgo de desnutrición</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">qbeta</span>(<span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>,<span class="dt">shape1 =</span> <span class="dv">10</span>,<span class="dt">shape2 =</span> <span class="dv">85-10</span><span class="op">+</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 0.05788185</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">qbeta</span>(<span class="dv">1</span><span class="fl">-0.05</span><span class="op">/</span><span class="dv">2</span>,<span class="dt">shape1 =</span> <span class="dv">10</span><span class="op">+</span><span class="dv">1</span>,<span class="dt">shape2 =</span> <span class="dv">85-10</span>)</span></code></pre></div>
+<pre><code>## [1] 0.2057331</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">require</span>(PropCIs)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">exactci</span>(<span class="dt">x =</span> <span class="dv">10</span>,<span class="dt">n =</span> <span class="dv">85</span>,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)<span class="op">$</span>conf.int</span></code></pre></div>
+<pre><code>## [1] 0.05788185 0.20573312
+## attr(,&quot;conf.level&quot;)
+## [1] 0.95</code></pre>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#e1">Ejercicios Propuestos</a>
+</h5>
+</div>
+<div id="e1" class="panel-collapse collapse">
+<div class="panel-body">
+<ul>
+<li><p>La RedPaPAz realizó una encuesta a los hogares más vulnerables y que no entienden el etiquetado regular de alimentos en la ciudad de Medellín. Esta encuesta servirá como guía para plantear la política pública para el cambio de las etiquetas de información nutricional, se encontró que 472 hogares de 595 encuestados adquieren productos ultraporcesados. Con un nivel de confianza del 95% ¿Cuál es la verdadera proporción de hogares que adquieren productos ultraporcesados? ¿Qué significa este resultado?</p></li>
+<li><p>Metro Salud en conjunto con la Universidad de Antioquia realizaron un estudio relacionado con el incremento de peso en los niños y niñas menores de 12 años en los colegios de Medellín. Se recolectó una muestra de 800 niños de los cuales el 57% fueron niñas, los resultados arrojaron que 63 niñas se clasifican en obesidad. Con un nivel de confianza del 97% ¿Cuál es la verdadera proporción de niñas en obesidad?</p></li>
+<li><p>Gracias al impacto de las redes sociales y la desinformación de <em>influencers</em> que se declaran expertos en nutrición, calidad de vida y salud, se piensa que la cantidad de bebés que no reciben leche materna ha disminuido significativamente, principalmente en los estratos Altos. Se sabe que la prevalencia de lactancia materna en esta población hace 5 años es del 75%. Neonatólogos del San Vicente realizaron una investigación en 254 bebés, de los cuales 171 reciben lactancia materna. Con un nivel de confianza del 95% ¿Cuál es la verdadera proporción de bebes que reciben leche materna? ¿Este valor disminuyó con respecto al quinquenio pasado?</p></li>
+<li><p>La medidas estatales tomadas durante la pandemia del COVID-19 se han perdido empleos en el país. El DANE realizó un estudio en todo el país para determinar el nuevo porcentaje de desempleo, se realizó una encuesta 1876 personas de las cuales 259 manifestaron estar desempleadas. Con un nivel de confianza del 90% ¿Cuál es la verdadera proporción de desempleados en Colombia? Si se sabe que antes de la pandemia, el índice de desempleo era del 10.2% ¿Aumentó significativamente la cifra de desempleo?</p></li>
+<li><p>Realice los ejercicios del apartado 6.5 de la lectura sugerida.</p>
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+<hr>
+</div>
+<div id="intervalos-de-confianza-para-la-media" class="section level3">
+<h3>Intervalos de confianza para la media</h3>
+<p>La estimación del parámetro <span class="math inline">\(\mu\)</span> a través de intervalos de confianza, dependerá de dos situaciones.</p>
+<ol style="list-style-type: decimal">
+<li>Si la muestra aleatoria es de tamaño relativamente grande y no necesariamente provenga de una distribución normal.</li>
+<li>Si la muestra aleatoria proviene de una distribución normal.</li>
+</ol>
+<hr>
+</div>
+<div id="ic-para-poblaciones-no-normales" class="section level3">
+<h3>IC para poblaciones no normales</h3>
+<p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria de una población con media desconocida y <strong>varianza conocida</strong> <span class="math inline">\(\mu\)</span>. Un intervalo de confianza para <span class="math inline">\(\mu\)</span> con muestras grandes al <span class="math inline">\(100(1-\alpha)\%\)</span> está dado por:</p>
+<p><span class="math display">\[\bar{X}\,\pm\,Z_{1-\alpha/2}\frac{\sigma}{\sqrt{n}}\]</span></p>
+<blockquote>
+<p>Una Nutricionista de una clínica es la encargada de los planes de ganancia de peso en embarazadas. De acuerdo a los parámetros se sabe que la variación de la ganancia de peso al final de la gestación es de 4 kilos. Se escogen al azar 45 embarazadas adultas con IMC normal y se registra sus ganancias de peso al final de la gestación y la ganancia promedio resultó en 14.5 kg. Calcule el I.C. al 95% para la ganancia de peso media real de estas embarazadas.<br><br> Se tiene que <span class="math inline">\(X_1,\dots,X_{45}\)</span> es una muestra aleatoria que representa las ganancias de peso de las embarazadas de 45 mujeres, además de la muestra se obtiene que <span class="math inline">\(\bar{X}=14.5\,\text{kg}\)</span><br> Un IC al 95% para <span class="math inline">\(\mu\)</span> está dado por: <span class="math display">\[14.5\,\pm\,Z_{0.975}\frac{4}{\sqrt{45}} \,\Rightarrow\, (13.3313;\,15.6687) \]</span></p>
+</blockquote>
+<p>En el caso de que en la muestra aleatoria no se tenga información de <span class="math inline">\(\sigma\)</span>, es decir, que tiene <strong>varianza desconocida</strong> entonces se puede reemplazar <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(S^2\)</span> siempre y cuando se tenga tamaños de muestra grandes tal que:</p>
+<p><span class="math display">\[\bar{X}\,\pm\,Z_{\alpha/2}\frac{S}{\sqrt{n}}\]</span></p>
+<p>El siguiente ejercicio de simulación muestra el concepto de la probabilidad de los intervalos de confianza y la influencia de los tamaños de muestra</p>
+<p><img src="unit3_files/figure-html/unnamed-chunk-6-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p>En términos de la cobertura del intervalo, se espera que para cualquier valor estimado de <span class="math inline">\(\mu\)</span> la probabilidad de cobertura sea cercana al nivel de confianza <span class="math inline">\(100(1-\alpha)\%\)</span>.</p>
+<p><img src="unit3_files/figure-html/unnamed-chunk-7-1.png" width="810" style="display: block; margin: auto;" /></p>
+<p>En <code>R</code> no existe una función como tal para calcular intervalos de confianza para la distribución normal, sin embargo, no es difícil realizar su programación</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>ICNorm &lt;-<span class="st"> </span><span class="cf">function</span>(Xbar,sigma,n,<span class="dt">alpha=</span><span class="fl">0.05</span>){</span>
+<span id="cb8-2"><a href="#cb8-2"></a>  ic &lt;-<span class="st"> </span>Xbar<span class="op">+</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="op">*</span><span class="kw">qnorm</span>(<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>)<span class="op">*</span>sigma<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="kw">return</span>(ic)</span>
+<span id="cb8-4"><a href="#cb8-4"></a>}</span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co"># Para el ejemplo de la ganancia de peso</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="kw">ICNorm</span>(<span class="dt">Xbar =</span> <span class="fl">14.5</span>,<span class="dt">sigma =</span> <span class="dv">4</span>,<span class="dt">n =</span> <span class="dv">45</span>,<span class="dt">alpha=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 13.3313 15.6687</code></pre>
+<hr>
+</div>
+<div id="ic-para-poblaciones-normales" class="section level3">
+<h3>IC para poblaciones normales</h3>
+<p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria de una población normal <span class="math inline">\(N(\mu,\sigma^2)\)</span> con media desconocida y <strong>varianza conocida</strong>. Un intervalo de confianza para <span class="math inline">\(\mu\)</span> al <span class="math inline">\(100(1-\alpha)\%\)</span> está dado por:</p>
+<p><span class="math display">\[\bar{X}\,\pm\,Z_{\alpha/2}\frac{\sigma}{\sqrt{n}}\]</span></p>
+<blockquote>
+<p>Una planta de procesamiento de alimentos preparan una nueva línea de pechugas de pollo. Se sabe que la energía aportada por las pechugas de pollo tiene una distribución aproximadamente normal. De acuerdo a la investigación de los nutricionistas de la planta se ha encontrado que la dispersión en la energía es aproximadamente de 0.05 kcal. Se escogen al azar 15 pechucgas y se estima su aporte energético. La energía promedio resultó en 74.04 kcal.<br><br> - Calcule el I.C. al 95% para la energía media real de las pechugas.<br> - Si se desea que la precisión del intervalo sea inferior a 0.01, con una confianza del 95%. ¿Cuál debe ser el mínimo tamaño de muestra para cumplir éste objetivo?<br><br> Para la primera parte se tiene que <span class="math inline">\(X_1,\dots,X_{15}\)</span> es una muestra aleatoria que representa la energía de las 15 pechugas de pollo, cada <span class="math inline">\(X_i\sim N(\mu,0.05^2)\)</span>, además de la muestra se obtiene que <span class="math inline">\(\bar{X}=74.04\,\text{kcal}\)</span><br> Un IC al 95% para <span class="math inline">\(\mu\)</span> está dado por: <span class="math display">\[74.04\,\pm\,Z_{0.025}\frac{0.05}{\sqrt{15}} \,\Rightarrow\, (74.0147;\,74.0653) \]</span> La precisión de un intervalo está dado por <span class="math inline">\(max\{\theta-L,U-\theta\}\)</span>, en este caso tenemos un intervalo simétrico entonces la magnitud está dada por el término del error <span class="math inline">\(Z_{0.025}(0.05/\sqrt{n})\)</span>$, entonces: <span class="math display">\[\begin{align*}
+\frac{1.96\times 0.05}{\sqrt{n}}&amp;&lt;0.01\\\\
+\frac{1.96\times0.05}{0.01}&amp;&lt;\sqrt{n}\\\\
+n&amp;&gt;96.03647 \approx 97
+\end{align*}\]</span></p>
+</blockquote>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Para el ejemplo de las pechugas de pollo</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">ICNorm</span>(<span class="dt">Xbar =</span> <span class="fl">74.04</span>,<span class="dt">sigma =</span> <span class="fl">0.05</span>,<span class="dt">n =</span> <span class="dv">15</span>,<span class="dt">alpha=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 74.0147 74.0653</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">ICNorm</span>(<span class="dt">Xbar =</span> <span class="fl">74.04</span>,<span class="dt">sigma =</span> <span class="fl">0.05</span>,<span class="dt">n =</span> <span class="dv">97</span>)</span></code></pre></div>
+<pre><code>## [1] 74.03005 74.04995</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">diff</span>(<span class="kw">ICNorm</span>(<span class="dt">Xbar =</span> <span class="fl">74.04</span>,<span class="dt">sigma =</span> <span class="fl">0.05</span>,<span class="dt">n =</span> <span class="dv">97</span>))<span class="op">/</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 0.00995021</code></pre>
+<p>Suponga que <span class="math inline">\(X_1,\dots,X_n\)</span> es una muestra aleatoria de una <span class="math inline">\(N(\mu,\sigma^2)\)</span>, si la <strong>varianza es desconocida</strong> la distribución de <span class="math inline">\(\bar{X}\)</span> estandarizada <strong>NO</strong> es normal. Si reemplazamos <span class="math inline">\(\sigma\)</span> por <span class="math inline">\(S\)</span>, el estadístico resultante es:</p>
+<p><span class="math display">\[T=\cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \sim t_{(n-1)}\]</span></p>
+<p>La distribución <em>t-de Student</em> es una distribución de probabilidad que surge del problema de estimar la media de una población normalmente distribuida cuando el tamaño de la muestra es pequeño. Su <em>f.d.p</em> está dada por:</p>
+<p><span class="math display">\[f(x) = \frac{\Gamma\left(\dfrac{\nu + 1}{2}\right)}{\Gamma\left(\dfrac{\nu}{2}\right)\sqrt{\pi\nu}\sigma} \left[1+\frac{1}{\nu}\left(\frac{x-\mu}{\sigma}\right)^2\right]^{-\tfrac{\nu+1}{2}}\]</span></p>
+<p><img src="unit3_files/figure-html/t-1.png" width="480" style="display: block; margin: auto;" /><img src="unit3_files/figure-html/t-2.png" width="480" style="display: block; margin: auto;" /></p>
+<p>En esta gráfica podemos apreciar la realción que existe entre las distribuciones <em>Cauchy</em>, <em>t-de Student</em> y la <em>Normal Estandarizada</em>. Se observa que la distribución <em>t-de Student</em> con <span class="math inline">\(v = 1\)</span> grado de libertad es una <em>distribución Cauchy</em> la cual es la más achatada y presenta las colas mas pesadas en comparación las demás distribuciones presentes en la gráfica. Además se puede evidenciar que a medida que aumentan los grados de libertad en la <em>distribución t</em>, ésta tiende a la <em>Normal</em>.</p>
+<p>Realizando un proceso similar al caso de muestras aleatorias con media desconocida, se puede encontrar que un IC al <span class="math inline">\(100(1 − \alpha)\%\)</span> para <span class="math inline">\(\mu\)</span> es de la forma:</p>
+<p><span class="math display">\[\bar{X} \pm t_{(\alpha/2,\,n-1)}\frac{S}{\sqrt{n}}\]</span></p>
+<p><img src="unit3_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;" /></p>
+<br>
+<center>
+<a href="./R/Tabla_t.pdf" class="btn btn-info"  target="_blank">Tabla Distribución <i>t-student</i></a>
+</center>
+<p><br></p>
+<blockquote>
+<p>De acuerdo a estudios sobre la fuerza prensil manual en adultos mayores que la fuerza de prensión se distribuye normalmente. Se toma una muestra aleatoria de 16 adultos mayores y se obtiene un fuerza de prensión promedio para la mano débil de 15.63 kgf con una desviación estándar de 5.18 kgf. Estime la fuerza prensil manual débil de los adultos mayores usando un IC al 97%.<br><br> Sea <span class="math inline">\(X_1,\dots,X_{16}\)</span> una muestra aleatoria que representa la fuerza prensil de la mano débil de los adultos mayores. Suponga que <span class="math inline">\(E[X_i]=\mu\)</span> y <span class="math inline">\(Var[X_i]=\sigma^2\)</span> ambas desconocidas, además del enunciado se tiene que <span class="math inline">\(\bar{x}=15.63\)</span>, <span class="math inline">\(S=5.18\)</span> y <span class="math inline">\(n=16\)</span> entonces un IC al 97% para <span class="math inline">\(\mu\)</span> está dado por: <span class="math display">\[\begin{align*}
+\bar{X}\,&amp;\pm\,t_{0.985,n-1}\frac{S}{\sqrt{n}}\\\\
+15.63\,&amp;\pm\,t_{0.985,15}\frac{5.18}{\sqrt{16}}\\\\
+15.63\,&amp;\pm\,2.397005\frac{5.18}{\sqrt{16}}\\
+15.63\,&amp;\pm\,3.104122
+\end{align*}\]</span> Se espera que la fuerza prensil media real de la mano débil de los adultos mayores esté entre 12.53 kgf y 18.73 kgf con una confianza del 97%.</p>
+</blockquote>
+<p>En <code>R</code> no hay forma de hacer estimaciones de por intervalo con estadísticos calculados, la única forma es con un vector de datos o una base de datos. No obstante, no es difícil programar una función para calcular intervalos de confianza para la <em>t-student</em> cuando se tienen los estadísticos calculados.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>ICt &lt;-<span class="st"> </span><span class="cf">function</span>(Xbar,sigma,n,<span class="dt">alpha=</span><span class="fl">0.05</span>){</span>
+<span id="cb16-2"><a href="#cb16-2"></a>  ic &lt;-<span class="st"> </span>Xbar<span class="op">+</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="op">*</span><span class="kw">qt</span>(<span class="dt">p =</span> <span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> n<span class="dv">-1</span>)<span class="op">*</span>sigma<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="kw">return</span>(ic)</span>
+<span id="cb16-4"><a href="#cb16-4"></a>}</span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="co"># Para el ejemplo de la resistencia</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="kw">ICt</span>(<span class="dt">Xbar =</span> <span class="fl">15.63</span>,<span class="dt">sigma =</span> <span class="fl">5.18</span>,<span class="dt">n =</span> <span class="dv">16</span>,<span class="dt">alpha =</span> <span class="fl">0.03</span>)</span></code></pre></div>
+<pre><code>## [1] 12.52588 18.73412</code></pre>
+<hr>
+</div>
+<div id="resumen" class="section level3">
+<h3>Resumen</h3>
+<center>
+<img src="IC_mu.png" title="fig:" alt="Resumen IC" />
+</center>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#e2">Ejercicios Propuestos</a>
+</h5>
+</div>
+<div id="e2" class="panel-collapse collapse">
+<div class="panel-body">
+<ul>
+<li><p>La asociación de usuarios (ASU) sospecha que las gasolineras no sirven la cantidad pactada. Por ley, se acepta que el dispensador tenga un error <span class="math inline">\(\sigma = 10\text{ ml}\)</span> por cada litro que expende. Se realizó una muestra al azar de 100 pedidos de 1 litro, la media observada ha sido 995 ml. Con un nivel de confianza del 95% ¿Cuál es el verdadero promedio de gasolina expendido?</p></li>
+<li><p>El tiempo utilizado en la atención al paciente sigue una distribución normal. Para conocer el tiempo medio empleado en este servicio, se han recogido 20 observaciones que han tardado, en minutos un pormedio de 34 y una desviación estándar de 2.3. Calcule un intervalo de confianza al 97% para el tiempo medio de atención.</p></li>
+<li><p>Una empresa turística se prepara para las vacaciones de verano, para poder ajustar el presupuesto de inversión toma de referencia la evaluación de ganancias del años pasado, en el cual atendieron 154 turistas con un gasto promedio de <span class="math inline">\(\$678\)</span> y una desviación de <span class="math inline">\(\$45\)</span>. Calcule un intervalo de confianza al 95% de los gastos promedios de los turistas.</p></li>
+<li><p>En un equipo de fútbol desea establecer un parámetro de cumplimiento para los fichajes, entre el cuerpo médico y técnico decidieron que el VO2max podría ser el indicador para mantener el alto rendimiento del equipo. Se realizaron pruebas a los 15 jugadores principales del equipo, y el promedio de VO2max fue de 57.92 mml/min/kg con una desviación de 2.8 mml/min/kg. Asumiendo los datos distribuyen normal, ¿Cuáles son los parámetros de aceptación para los próximos fichajes con una confianza del 90%?</p></li>
+<li><p>El equipo olimpico de Taekwondo quiere estimar la velocidad de reacción de sus deportistas para compararlo con los del equipo Coreano. Se realizan pruebas a los 12 miembros del equipo, donde el promedio de velocidad de reacción es de 0.38 segundos con una desviación de 0.03 segundos. Con un nivel de confianza del 95%, ¿cuál es la velocidad de reacción media? Asuma que los datos distribuyen normalmente.</p></li>
+<li><p>Realice los ejercicios del apartado 6.2 y 6.3 de la lectura sugerida.</p>
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+<div id="técnicas-de-muestreo" class="section level2">
+<h2>Técnicas de Muestreo</h2>
+<p>El muestreo consiste en la selección de un conjunto representativo de una población, con el fin de observar y analizar su comportamiento. El muestreo en esencia se divide en dos, <em>muestreo probabilístico</em> y <em>muestreo no probabilístico</em>, los cuales hacen referencia a la aleatorización y homogeneidad de la muestra o simplemente no se considera.</p>
+<hr>
+<div id="muestreo-no-probabilistico" class="section level3">
+<h3>Muestreo no probabilistico</h3>
+<p>Una <em>muestra no es aleatoria</em> en la medida que los elementos de la población son seleccionados por medio de métodos que están sujetos al juicio subjetivo de los investigadores, este procedimiento está sujeto a errores considerables cuando se emplea a poblaciones grandes en las que no se garantiza la homogeneidad. También se considera una muestra no probabilística si no se tiene información alguna de la población.</p>
+<p>Un caso específico de este tipo de muestreo es cuando la muestra es <em>dirigida</em>, es decir, el investigador es quién considera representativa una muestra y selecciona a su gusto las unidades para el estudio, por ejemplo en una encuesta de vivienda en una zona afectada por un desastre natural, el investigador decidió elegir a 10 familias –de 10000 que hay en el lugar– para evaluar las necesidades más urgentes de la zona. También pudo haber hecho un llamado a las familias para que dieran sus opiniones voluntariamente.</p>
+<p>En muchos casos no es posible contar con muestras aleatorias y homogéneas, como es el caso de algunas enfermedades de baja prevalencia, en este tipo de casos se considera utilizar todas unidades posibles para realizar estudios. En el caso del muestreo de voluntarios, muy común en ensayos clínicos, cuando se calcula un tamaño de muestra en muchos casos no es posible cumplir con el número objetivo y en cambio se considera a todos los voluntarios como la muestra.</p>
+<p>Algunas técnicas bayesianas también utilizan este tipo de muestreo, pero con el fundamento de que los encuestados sean expertos en la materia a estudiar, por ejemplo si se quiere determinar el comportamiento de la construcción de edificaciones en una ciudad, los bayesianos consideran a los expertos en la materia para obtener la información, expertos que trabajen directamente en el campo, tengan suficiente experiencia y reconocimiento.</p>
+<hr>
+</div>
+<div id="muestreo-probabilistico" class="section level3">
+<h3>Muestreo probabilistico</h3>
+<p>Cuando se habla de una muestra probabilística se refiere a una muestra aleatoria. Una muestra es aleatoria cuando los elementos que constituyen la población tienen la misma posibilidad de ser seleccionados. Existen numerosos procedimientos en la aplicación de este tipo de muestreo, pero en este módulo se presentarán los más utilizados limitándose a una descripción básica y a la determinación de tamaños de muestra.</p>
+<p>En un muestreo probabilistico se debe estructurar un <strong>plan de muestreo</strong>, el cual debe contener:</p>
+<ul>
+<li><p><strong>Universo o población:</strong> el conjunto de todos los elementos definidos antes de la selección de la muestra. Una población adecuadamente designada debe definirse en términos de: elementos, unidades de muestreo, alcance y tiempo.</p></li>
+<li><p><strong>Elemento:</strong> es la unidad a cerca de la cual se solicita información. Este suministra la base del análisis que se llevará a cabo. Los elementos más comunes en investigación de mercados son los individuos. En otros casos los elementos podrían ser productos, almacenes, empresas, familias, hogares etc.</p></li>
+<li><p><strong>Unidad de muestreo:</strong> elemento (os) disponibles para su selección en alguna etapa del proceso de muestreo. En el tipo de muestreo más simple el de una sola etapa, las unidades y los elementos de muestreo son lo mismo, esto se le llama muestreo directo y de una sola etapa. Cuando se quiere llegar a un subconjunto de elementos se plantean etapas de muestreo.</p></li>
+<li><p><strong>Marco muestral:</strong> lista de todas las unidades de muestreo disponibles para su selección en una etapa del proceso de muestreo. Puede ser una lista de alumnos, una lista de votantes inscritos, lista de empleados, direcciones de hogares o incluso un mapa. Una vez especificada la población después se busca un buen marco muestral.</p></li>
+<li><p><strong>Población del estudio:</strong> es el conjunto de elementos del cual se saca la muestra. Anteriormente se definió población como el conjunto de los elementos definidos antes de seleccionar la muestra. Infortunadamente surgen dificultades prácticas que hacen que una muestra real se tome de una población un tanto diferente de la que se definió <em>a priori</em>. A veces por que el marco muestral no incluye a toda la población.</p></li>
+</ul>
+<hr>
+</div>
+<div id="muestreo-aleatorio-simple-mas" class="section level3">
+<h3>Muestreo Aleatorio Simple (MAS)</h3>
+<p>Se utiliza principalmente cuando las poblaciones son relativamente pequeñas, o cuando la población se caracteriza por su <em>homogeneidad</em> (poca variabilidad), en este caso las probabilidades de selección de los elementos son casi iguales y constantes durante el proceso, la homogeneidad garantiza que las muestras calculadas sean pequeñas, traduciéndose en ahorros en términos de costos, tiempo y recursos humanos.</p>
+<p>En este muestreo se presentan dos formas de recolectar la información, en el primer caso se selecciona la unidad, se toman las mediciones necesarias y se devuelve a la población antes de extraer la siguiente, en este caso se dice que el muestreo es <strong>con reemplazo</strong>. Si se selecciona la unidad, se toman las mediciones necesarias y se deshecha de la población, se dice que el muestreo es <strong>sin reemplazo</strong>.</p>
+<p>La dificultad con el proceso con reemplazo es que existe la probabilidad de volver a seleccionar la misma unidad muestral que se estudió, por ejemplo si es una encuesta telefónica, existe una probabilidad de seleccionar el mismo número; por otra parte, si son elementos incontables como la sal, el agua o el cemento, no hay inconveniente de devolver la unidad muestral, pues ésta nuevamente homogeneizará con la población.</p>
+<p>Para calcular un tamaño muestral basado en el <strong>MAS</strong>, se debe tener en cuenta el margen de error, el nivel de confianza y los estimadores puntuales que han sido analizados en el desarrollo de éste texto. Al ser un muestreo probabilístico, el requerimiento principal es conocer en lo posible los parámetros de la población o en su defecto los estadísticos estimados.</p>
+<hr>
+<div id="tamaño-de-muestra-para-la-proporción" class="section level4">
+<h4>Tamaño de muestra para la proporción</h4>
+<p>Para una proporción el tamaño muestral, cuando se conoce el valor estimado, se calcula con la siguiente fórmula.</p>
+<p><span class="math display">\[n=\cfrac{(Z_{1-\alpha/2})^2\hat p \hat q}{E^2}\]</span></p>
+<p>Cuando se tiene el tamaño poblacional, se puede hacer el cálculo del tamaño muestral para poblaciones finitas.</p>
+<p><span class="math display">\[n=\cfrac{N(Z_{1-\alpha/2})^2\hat p \hat q}{NE^2+(Z_{1-\alpha/2})^2 \hat p \hat q}\]</span></p>
+<p>El margen de error debe ser determinado por el investigador, dado que no puede ser calculado, además nótese que si el margen de error es muy grande el tamaño muestral será muy pequeño. En caso de que no se conozca los valores estimados, se considera que la proporción de éxitos y fracasos es 0.5.</p>
+<p><span class="math display">\[n=\cfrac{(Z_{1-\alpha/2})^20.25}{E^2} \qquad n=\cfrac{N(Z_{1-\alpha/2})^20.25}{NE^2+(Z_{1-\alpha/2})^20.25}\]</span></p>
+<blockquote>
+<p>En una cadena de gimnasios se desea realizar un estudio de los usuarios que presentan lesiones por el mal uso de los equipos, con el fin de establecer cambios administrativos en las sedes. Un sondeo previo estableció que la proporción de usuarios que presentaron lesiones dentro del gimnasio es del 28%, establecer un tamaño muestral para realizar el estudio con un margen de error del 4% y un nivel de significancia del 5%.<br><br> Como no se conoce el tamaño de la población, entonces el tamaño de muestra adecuado es: <span class="math display">\[\begin{align*}
+n=&amp;\cfrac{(Z_{1-\alpha/2})^2\hat p \hat q}{E^2}\\
+=&amp;\cfrac{(Z_{0.975})^2 (0.28)(0.72)}{0.04^2}\\
+=&amp;\cfrac{(1.96)^2 (0.2016)}{0.0016}\\
+=&amp;\cfrac{(3.8416)(0.20168)}{0.0016}\\
+=&amp;\cfrac{0.7745}{0.0016}\\
+=&amp;484.0416 \approx 485
+\end{align*}\]</span> Si no tuvieramos información acerca de la proporción de usuarios lesionados, entonces se puede calcular el tamaño de muestra basado en el <strong>peor de los casos</strong>. <span class="math display">\[\begin{align*}
+n=&amp;\cfrac{(Z_{1-\alpha/2})^2 0.25}{E^2}\\
+=&amp;\cfrac{(3.8416)(0.25)}{0.0016}\\
+=&amp;\cfrac{0.9604}{0.0016}\\
+=&amp;600.25 \approx 601
+\end{align*}\]</span> Supongamos que el número de afiliados es de 2143, entonces el tamaño de muestra es: <span class="math display">\[\begin{align*}
+n=&amp;\cfrac{N(Z_{1-\alpha/2})^2\hat p \hat q}{NE^2+(Z_{1-\alpha/2})^2 \hat p \hat q}\\
+=&amp;\cfrac{(2143)(3.8416)(0.2016)}{(2143)(0.0016)+(3.8416)(0.2016)}\\
+=&amp;\cfrac{1659.682}{3.8239}\\
+=&amp;434.0245 \approx 435
+\end{align*}\]</span></p>
+</blockquote>
+<p>En el ejemplo anterior se nota la diferencia de tamaños de muestra entre las posibles situaciones que puede tener un investigador:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Si se tiene sólo la información de la proporción de usuarios con lesiones, un tamaño muestral adecuado para realizar el estudio es de 485 con una confianza del 95%.</p></li>
+<li><p>Si no se conoce la proporción de usuarios con lesiones, un tamaño muestral adecuado para realizar el estudio es de 601 con una confianza del 95%.</p></li>
+<li><p>Si la población de afiliados es de 2143 y se conoce la proporción de usuarios lesionados, un tamaño muestral para realizar el estudio es de 435 con una confianza del 95%.</p></li>
+</ol>
+<p>Cuando se calcula el tamaño de muestra, ese valor indica que es el mínimamente adecuado para estimar los parámetros de la población; el nivel de confianza escogido está asociado al intervalo de confianza que se calculará después de la recolección de los datos; y el error muestral está asociado a la dispersión de los datos.</p>
+<p>Tenga en cuenta estos errores comunes a la hora de calcular tamaños de muestra:</p>
+<ul>
+<li><p>No utilice <span class="math inline">\(E=4\)</span>, si se refiere a un margen de error del 4%, siendo el caso el margen es <span class="math inline">\(E=0.04\)</span>.</p></li>
+<li><p>Asegúrese de sustituir bien el valor crítico <span class="math inline">\(Z_{1-\alpha/2}\)</span> con la tabla de la distribución normal estándar, si la confianza es del 95%, hay que sustituirlo por 1.96 y no por 0.95.</p></li>
+<li><p>Muchas personas creen de forma errónea que el tamaño muestral es un porcentaje de la población, observe que no es necesario conocer el tamaño de la población para calcular un tamaño de muestra.</p></li>
+<li><p>En algunos casos los estudios previos pierden vigencia, por ejemplo si se quiere observar la proporción de personas con celular, no podemos remitirnos a un estudio de 1994 debido a que el acceso a esa tecnología era limitado en comparación a nuestros tiempos, en estos casos trate de utilizar el tamaño muestral más grande.</p></li>
+</ul>
+<hr>
+</div>
+<div id="tamaño-de-muestra-para-la-media" class="section level4">
+<h4>Tamaño de muestra para la media</h4>
+<p>Cuando no se conoce el tamaño de la población, el cálculo del tamaño de muestra es el siguiente:</p>
+<p><span class="math display">\[n=\cfrac{(Z_{1-\alpha/2})^2\sigma^2}{E^2}\]</span></p>
+<p>Cuando se tiene el tamaño poblacional, se puede hacer el cálculo del tamaño muestral para poblaciones finitas.</p>
+<p><span class="math display">\[n=\cfrac{N(Z_{1-\alpha/2})^2\sigma^2}{NE^2+(Z_{1-\alpha/2})^2\sigma^2}\]</span></p>
+<p>En las ecuaciones anteriores cabe notar que el requerimiento para calcular el tamaño de muestra es el conocimiento de la <strong>varianza poblacional</strong>, por otra parte el cálculo del tamaño muestral hace alusión a que la población pertenece a una <em>distribución normal</em>.</p>
+<p>Por lo general no se conoce la dispersión de los datos, así que calcular un tamaño de muestra es más difícil, para este tipo de casos se consideran las siguientes opciones.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Revisar estudios previos y utilizar la varianza muestral <span class="math inline">\(S^2\)</span>.</li>
+<li>Realizar un sondeo o una prueba piloto y calcular la varianza muestral.</li>
+<li>Si el estudio es pionero, utilizar la precisión y el margen de error de los instrumentos de medición.</li>
+<li>Si se conoce el valor mínimo y el valor máximo de la población, se puede estimar la desviación estándar: <span class="math inline">\(\sigma=rango/4\)</span>.</li>
+</ol>
+<blockquote>
+<p>El perímetro de cintura es un indicador para detectar riesgo cardiovascular. En una ciudad interesa conocer el estado nutricional de la población basándose, como variable trazadora, en el perímetro de cintura. Se sabe por estudios previos que la desviación estándar de este indicador es de 12.5 cm, con un margen de error del 0.8 cm y un nivel de confianza del 95% ¿Cuál es el tamaño de muestra adecuado para estimar el promedio del perímetro de cintura?<br><br> De acuerdo con el enunciado, no tenemos la población de la ciudad, entonces el tamaño de muestra adecuado es: <span class="math display">\[\begin{align*}
+n=&amp;\cfrac{(Z_{1-\alpha/2})^2\sigma^2}{E^2}\\
+=&amp;\cfrac{(1.96)^2(12.5)^2}{0.8^2}\\
+=&amp;\cfrac{(3.8415)(156.25)}{0.64}\\
+=&amp;\cfrac{(600.2279)}{0.6}\\
+=&amp;937.8562 \approx 938
+\end{align*}\]</span> Supongamos que la ciudad cuenta con 525.430 habitantes, entonces el tamaño de muestra por población finita es: <span class="math display">\[\begin{align*}
+n=&amp;\cfrac{N(Z_{1-\alpha/2})^2\sigma^2}{NE^2+(Z_{1-\alpha/2})^2\sigma^2}\\
+=&amp;\cfrac{(525430)(3.8415)(156.25)}{(525430)(0.64)+(3.8415)(156.25)}\\
+=&amp;\cfrac{315377767}{336875.4}\\
+=&amp;936.1851 \approx 937
+\end{align*}\]</span></p>
+</blockquote>
+<hr>
+</div>
+</div>
+<div id="muestreo-aleatorio-estratificado-mae" class="section level3">
+<h3>Muestreo Aleatorio Estratificado (MAE)</h3>
+<p>Esta técnica de muestreo se aplica en poblaciones cuyas unidades tienen características de <em>gran variabilidad</em>. La intención de este muestro es clasificar las unidades en estratos de forma que las unidades en los subconjuntos sean homogéneos, pero si se observa la totalidad conserva la heterogeneidad.</p>
+<p>Este tipo de muestreo es muy útil porque garantiza precisión en las mediciones por cada estrato y reduce los costos del muestreo ya que los tamaños muestrales tienden a ser menores. Lo más importante para utilizar esta técnica es determinar la variable que homogeniza las subpoblaciones, pues es el punto de partida para estratificar la población, sin embargo hay situaciones en que la estratificación dependerá del criterio del investigador.</p>
+<p><span class="math display">\[\begin{align*}
+L \rightarrow &amp; \text{número de estratos}\\
+N_h \rightarrow &amp; \text{número de unidades muestrales en el estrato }h\\
+N \rightarrow &amp; \text{Tamaño de la población } N=N_1+N_2+\dots+N_L
+\end{align*}\]</span></p>
+<p>Este muestreo presenta dificultades ya que se necesita contar con un marco teórico que tenga información auxiliar, no es fácil crear los estratos y tampoco existe un número óptimo de estratos. Los estimadores no son tan simples de calcular como en el MAS, en general se utiliza estimaciones ponderadas.</p>
+<p>Existen tres métodos fundamentales para calcular los tamaños muestrales por estratos, por <em>asignación proporcional</em>, por <em>asignación de Neyman</em> y por <em>asignación óptima</em>.</p>
+<hr>
+<div id="asignación-proporcional" class="section level4">
+<h4>Asignación proporcional</h4>
+<p>La muestra se reparte entre los estratos proporcionalmente a los tamaños de éste. Este método se utiliza cuando los costos y la variabilidad no difieren mucho entre sí.</p>
+<ul>
+<li><strong>Para estimar proporciones</strong></li>
+</ul>
+<p><span class="math display">\[n=\cfrac{\sum_{h=1}^LN_hp_hq_h}{N\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\frac{1}{N}\sum_{h=1}^LN_hp_hq_h}\]</span></p>
+<ul>
+<li><strong>Para estimar promedios</strong></li>
+</ul>
+<p><span class="math display">\[n=\cfrac{\sum_{h=1}^LN_h\sigma_h^2}{N\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\frac{1}{N}\sum_{h=1}^LN_h\sigma_h^2}\]</span></p>
+<p>Una vez determinado el tamaño de muestra, hay que repartirla proporcionalmente a cada estrato seleccionado.</p>
+<p><span class="math display">\[n_h=n \frac{N_h}{N}\]</span></p>
+<p>La estimación de proporciones apunta a estudios con datos cualitativos, similares a los ejemplos desarrollados a lo largo del módulo. La estimación de promedios o medias se realiza cuando se quiere estimar las medidas poblacionales.</p>
+<p>Observe que para cada uno de los casos es necesario conocer la varianza poblacional de cada estrato y el tamaño sub-poblacional. En caso de que no se conozca la varianza sub-poblacional, puede usarse la varianza muestral de cada estrato, por otra parte si no se tiene información sobre estos estimadores, se recomienda realizar pruebas piloto para estimar las varianzas muestrales de los estratos.</p>
+<blockquote>
+Una Universidad está interesada en estimar los salarios promedios de sus empleados para planificar las inversiones futuras, los investigadores identificaron que existen grandes diferencias entre los salarios de los empleados y decidieron estratificar la población en tres partes: administrativos, docentes ocasionales y docentes vinculados. El balance del año anterior contiene la siguiente información en miles de pesos
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+Total
+</th>
+<th style="text-align:center;">
+Desv
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+administrativos
+</td>
+<td style="text-align:center;">
+2985
+</td>
+<td style="text-align:center;">
+$8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ocasionales
+</td>
+<td style="text-align:center;">
+678
+</td>
+<td style="text-align:center;">
+$53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vinculados
+</td>
+<td style="text-align:center;">
+137
+</td>
+<td style="text-align:center;">
+$112
+</td>
+</tr>
+</tbody>
+</table>
+<p>Calcular un tamaño de muestra considerando un error de 50 mil pesos y una confianza del 95% <br><br> De acuerdo con el enunciado tenemos <span class="math display">\[L=3 \quad N=3800 \quad N_1=2985 \quad N_2=678 \quad N_3=137\\
+E=5 \quad \alpha=0.05 \quad \sigma_1=8 \quad \sigma_2=53 \quad \sigma_3=112\]</span> Con estos valores podemos calcular el tamaño de muestra total <span class="math display">\[\begin{align*}
+n=&amp;\cfrac{\sum_{h=1}^LN_h\sigma_h^2}{N\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\frac{1}{N}\sum_{h=1}^LN_h\sigma_h^2}\\
+=&amp;\cfrac{2985(8^2)+678(53^2)+137(112^2)}{3800\left(\frac{5}{1.96}\right)^2+\frac{1}{3800}[2985(8^2)+678(53^2)+137(112^2)]}\\
+=&amp;\cfrac{3814070}{24730.19+\frac{3814070}{3800}}\\
+=&amp;\cfrac{3814070}{25733.89}\\
+=&amp;148.2119 \approx 149\\
+\end{align*}\]</span> En total se necesitan un tamaño muestral de 149 empleados para estimar el promedio de los salarios, si se realiza una asignación proporcional, entonces el tamaño muestral para cada estrato es: <span class="math display">\[n_1=149 \frac{2985}{3800} \approx 117 \quad n_2=149 \frac{678}{3800} \approx 27 \quad n_3=149 \frac{137}{3800} \approx 5\]</span> Se necesita analizar los salarios de por lo menos 117 administrativos, 27 docentes ocasionales y 5 docentes vinculados para determinar el salario promedio con una confiabilidad del 95% y un margen de error de 5 mil pesos.</p>
+</blockquote>
+<hr>
+</div>
+<div id="asignación-neyman" class="section level4">
+<h4>Asignación Neyman</h4>
+<p>Es útil cuando existen marcadas diferencias de variabilidad o dispersión dentro de los estratos, ya que además de tener en cuenta el tamaño de los estratos se tiene en cuenta la dispersión de los datos dentro de cada estrato. De esta manera se obtendrán tamaños de muestra más grandes de aquellos estratos que sean más homogéneos.</p>
+<ul>
+<li><strong>Para estimar la proporción</strong></li>
+</ul>
+<p><span class="math display">\[n=\cfrac{\left(\sum_{h=1}^LN_h\sqrt{p_hq_h}\right)^2}{N^2\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\sum_{h=1}^LN_hp_hq_h}\]</span></p>
+<ul>
+<li><strong>Para estimar promedios</strong></li>
+</ul>
+<p><span class="math display">\[n=\cfrac{\left(\sum_{h=1}^LN_h\sigma_h\right)^2}{N^2\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\sum_{h=1}^LN_h\sigma_h^2}\]</span></p>
+<p>Para repartir la muestra entre los estratos se utiliza las siguientes fórmulas.</p>
+<span class="math display">\[n_i=n\left(\cfrac{N_i\sqrt{p_iq_i}}{\sum_{h=1}^LN_h\sqrt{p_hq_h}}\right)\qquad n_i=n\left(\cfrac{N_i\sigma_i}{\sum_{h=1}^LN_h\sigma_h}\right)\]</span>
+<hr>
+</div>
+<div id="asignación-óptima" class="section level4">
+<h4>Asignación Óptima</h4>
+<p>Es útil en los casos en que se tienen marcadas diferencias en la dispersión de los datos en los estratos y los costos para obtener información varían de un estrato a otro. Con esta asignación se tiene en cuenta el tamaño de los estratos, las dispersiones dentro de ellos y los costos para recopilar la información.</p>
+<ul>
+<li><strong>Para estimar la proporción</strong></li>
+</ul>
+<p><span class="math display">\[n=\cfrac{\left(\sum_{h=1}^L\frac{N_h\sqrt{p_hq_h}}{\sqrt{c_h}}\right)(\sum_{h=1}^LN_h\sqrt{p_hq_hc_h})}{N^2\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\sum_{h=1}^LN_hp_hq_h}\]</span></p>
+<ul>
+<li><strong>Para estimar promedios</strong></li>
+</ul>
+<p><span class="math display">\[n=\cfrac{\left(\sum_{h=1}^L\frac{N_h\sigma_h}{\sqrt{c_h}}\right)(\sum_{h=1}^LN_h\sigma_h\sqrt{c_h})}{N^2\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\sum_{h=1}^LN_h\sigma_h^2}\]</span></p>
+<p>Donde <span class="math inline">\(C_h\)</span> es el costo de hacer una observación en el estrato <span class="math inline">\(h\)</span>.</p>
+<p>Una vez obtenido el tamaño de muestra, se reparte entre los estratos utilizando las siguientes fórmulas.</p>
+<p><span class="math display">\[n_i=n\left(\cfrac{N_i\cfrac{\sqrt{p_iq_i}}{\sqrt{c_i}}}{\sum_{h=1}^LN_h\cfrac{\sqrt{p_hq_h}}{\sqrt{c_h}}}\right)\qquad n_i=n\left(\cfrac{N_i\cfrac{\sigma_i}{\sqrt{c_i}}}{\sum_{h=1}^LN_h\cfrac{\sigma_h}{\sqrt{c_h}}}\right)\]</span></p>
+<hr>
+</div>
+</div>
+</div>
+<div id="inferencia-comparación-de-grupos" class="section level2">
+<h2>Inferencia comparación de grupos</h2>
+<p>Hasta ahora se ha realizado estimaciónes y verificaciones de hipótesis para un parámetros. Ahora, el interés es comparar dos grupos, es decir, comparar una característica común pero que se diferencian en dos estados distinos y que no existen otras condiciones adicionales que diferencien las dos muestras.</p>
+<p>Para estos casos se presentan dos situaciones, que las muestras sean <strong>independientes</strong> o que las muestras sean <strong>pareadas</strong>, es decir, que es el seguimiento de un solo individuo en el cambio de estado (tiempo, área, condición).</p>
+<p><img src="unit3_files/figure-html/unnamed-chunk-12-1.png" width="900" style="display: block; margin: auto;" /></p>
+<p>Dada estas situaciones entonces surge la pregunta ¿Existe diferencia significativa entre los dos grupos? Para responder esta peregunta tenemos dos procedimientos para llegar a la respuesta:</p>
+<ul>
+<li><strong>Intervalos de confianza</strong></li>
+<li><strong>Pruebas de hipótesis</strong></li>
+</ul>
+<hr>
+<div id="ic-para-la-diferencia-de-proporciones" class="section level3">
+<h3>IC para la diferencia de proporciones</h3>
+<p>A menudo se tiene interés en conocer la magnitud de la diferencia entre las proporciones de dos poblaciones. Es posible que se quiera comparar, por ejemplo, entre hombres y mujeres, dos grupos de edades, dos grupos socioeconómicos o dos grupos de diagnóstico con respecto a la proporción que posee alguna caractenstica de interés.</p>
+<p>Se tienen <span class="math inline">\(X_1,\dots,X_n\)</span> y <span class="math inline">\(Y_1,\dots,Y_n\)</span> dos muestras aleatorias cada una pertenecientes a una distribución binomial <span class="math inline">\(X\sim bin(n_1,p_1)\)</span> y <span class="math inline">\(Y\sim bin(n_2,p_2)\)</span>. Un estimador puntual insesgado de la diferencia entre dos proporciones de las poblaciones se obtiene al calcular la diferencia de las proporciones de las muestras <span class="math inline">\(\hat{p_1}-\hat{p_2}\)</span>. Tal como se ha visto, cuando <span class="math inline">\(n_1\)</span> <span class="math inline">\(n_2\)</span> son de <strong>gran tamano</strong> y las proporciones de la población no estan muy cerca de <span class="math inline">\(0\)</span> o de <span class="math inline">\(1\)</span>, es posible aplicar el <strong>teorema central del limite</strong> y utilizar la teoría de la distribución normal para obtener los intervalos de confianza.</p>
+<p>El error estándar de la estimación se calcula mediante la siguiente formula:</p>
+<p><span class="math display">\[\Large\hat{\sigma}_{\hat{p_1}-\hat{p_2}}=\sqrt{\frac{\hat{p_1}(1-\hat{p_1})}{n_1}+\frac{\hat{p_2}(1-\hat{p_2})}{n_2}}\]</span></p>
+<p>Entonces un intervalo de confianza al <span class="math inline">\(100(1-\alpha)\%\)</span> para <span class="math inline">\(p_1-p_2\)</span> se obtiene de:</p>
+<p><span class="math display">\[(\hat{p_1}-\hat{p_2})\,\pm\,Z_{1-\alpha/2}\sqrt{\frac{\hat{p_1}(1-\hat{p_1})}{n_1}+\frac{\hat{p_2}(1-\hat{p_2})}{n_2}}\]</span></p>
+<blockquote>
+<p>Entonces cuando el intervalo contenga el valor <span class="math inline">\(0\)</span> significa que los grupos son <strong>estadísticamente iguales</strong>, eso se debe a: <span class="math display">\[p_1 - p_2 = 0 \quad \rightarrow \quad p_1=p_2\]</span></p>
+</blockquote>
+<hr>
+</div>
+<div id="ic-para-muestras-pareadas" class="section level3">
+<h3>IC para muestras pareadas</h3>
+<p>Un método que se utiliza con frecuencia para averiguar la eficacia de un tratamiento o procedimiento experimental es aquel que hace uso de observaciones relacionadas que resultan de muestras no independientes.</p>
+<p>El objetivo en comparación por parejas es eliminar un máximo numero de fuentes de variación extraña haciendo parejas similares con respecto a tantas variables como sea posible. Las observaciones relacionadas o por pares se pueden obtener de muchas formas. Los mismos individuos pueden ser examinados antes y después de recibir algún tratamiento. Se pueden formar parejas de animales del mismo sexo de una misma camada para asignarles aleatoriamente un tratamiento o un placebo. A los pares de gemelos o hermanos se les puede asignar aleatoriamente que reciban dos tratamientos, de tal forma que los miembros de una sola pareja reciban diferentes tratamientos.</p>
+<p>Al comparar dos métodos de análisis, el material que se va a analizar se divide en partes iguales, de modo que una de las partes sea analizada mediante un método y la otra mediante otro.</p>
+<p>Un intervalo al <span class="math inline">\((1-\alpha)\times100\%\)</span> para la diferencia de medias, se calcula con los siguientes procedimentos.</p>
+<ul>
+<li>Ambas poblaciones deben estar normalmente distribuídas.</li>
+<li>Calcule la diferencia entre los dos grupos <span class="math inline">\(X_d=X_1-X_2\)</span>.</li>
+<li>Calcule el promedio de la diferencia <span class="math inline">\(\bar X_d\)</span>.</li>
+<li>Si no tiene el parámetro de variación del grupo <span class="math inline">\(\sigma^2_d\)</span>, puede calcular la varianza muestral de la diferencia entre los grupos <span class="math inline">\(S_d^2\)</span>.</li>
+</ul>
+<p>Con estos cálculos el intervalo de confianza para la diferencia cuando la varianza es conocida es:</p>
+<p><span class="math display">\[\bar X_d \,\pm\, Z_{1-\alpha/2}\frac{\sigma_d}{\sqrt{n}}\]</span></p>
+<p>Si no se conoce <span class="math inline">\(\sigma_d\)</span> se puede reemplazar por <span class="math inline">\(S_d\)</span>:</p>
+<p><span class="math display">\[\bar X_d \,\pm\, t_{(1-\alpha/2,\,n-1)}\frac{S_d}{\sqrt{n}}\]</span></p>
+<hr>
+</div>
+<div id="ic-para-la-diferencia-de-medias" class="section level3">
+<h3>IC para la diferencia de medias</h3>
+<p>El procedimiento de comparar grupos a través de los medias estimadas, similar a estimar un solo parámetro, requiere de una serie de evaluaciones para seleccionar el método correcto de acuerdo al comportamiento de los datos.</p>
+<ol style="list-style-type: decimal">
+<li>Verificar que los datos distribuyen normal o no.</li>
+<li>Verificar si los tamaños de cada muestra son suficientemente grandes.</li>
+<li>Verificar si las varianzas de cada muestra son iguales o no.</li>
+<li>Seleccionar el método de estimación.</li>
+</ol>
+<hr>
+</div>
+<div id="ic-de-diferencia-de-varianza" class="section level3">
+<h3>IC de diferencia de Varianza</h3>
+<p>Otro paso importante es verificar si las varianzas de ambos grupos son iguales o no, esto es importante porque la intención de la comparación de grupos a partir de la diferencia de promedios solamente debe comparar un factor o grupo que diferencia las muestras. La presencia de variabilidad excesiva en una de las muestras indicaría que existe otra condición no analizada que puede afectar la comparación, sin embargo, es posible controlar este problema estimando una variación conjunta entre los dos grupos.</p>
+<p>La comparación de dos varianzas se realiza a través de su razón, <span class="math inline">\(\sigma_1/\sigma_2\)</span> si las varianzas son iguales entonces la razón será <span class="math inline">\(1\)</span>. Por lo general, las varianzas de las poblaciones son desconocidas y, en consecuencia, toda comparación que haga deberá basarse en las varianzas de las muestras. Basado en el Teorema Central del Límite se puede demostrar que la razón de dos varianzas tiene una distribución <strong>F de Snedecor</strong>. Entonces un intervalo de confianza para la razón de varianzas está dado por:</p>
+<p><span class="math display">\[F_{(\alpha/2,n_1-1,n_2-1)}&lt;\cfrac{S^2_1/\sigma^2_2}{S^2_2/\sigma^2_2}&lt;F_{(1-\alpha/2,n_1-1,n_2-1)}\\\\
+F_{(\alpha/2,n_1-1,n_2-1)}&lt;\cfrac{S^2_1}{S^2_2}\times\cfrac{\sigma^2_2}{\sigma^2_1}&lt;F_{(1-\alpha/2,n_1-1,n_2-1)}\\\\
+\cfrac{F_{(\alpha/2,n_1-1,n_2-1)}}{S^2_1/S^2_2}&lt;\cfrac{\sigma^2_2}{\sigma^2_1}&lt;\cfrac{F_{(1-\alpha/2,n_1-1,n_2-1)}}{S^2_1/S^2_2}\\\\
+\cfrac{S^2_1/S^2_2}{F_{(\alpha/2,n_1-1,n_2-1)}}&gt;\cfrac{\sigma^2_1}{\sigma^2_2}&gt;\cfrac{S^2_1/S^2_2}{F_{(1-\alpha/2,n_1-1,n_2-1)}}\]</span></p>
+<p>Un intervalo al <span class="math inline">\(100(1-\alpha)\%\)</span> para <span class="math inline">\(\sigma^2_1/\sigma^2_2\)</span> está dado por:</p>
+<p><span class="math display">\[\cfrac{S^2_1/S^2_2}{F_{(1-\alpha/2,n_1-1,n_2-1)}}&lt;\cfrac{\sigma^2_1}{\sigma^2_2}&lt;\cfrac{S^2_1/S^2_2}{F_{(\alpha/2,n_1-1,n_2-1)}}\]</span></p>
+<p><img src="unit3_files/figure-html/unnamed-chunk-13-1.png" width="700" style="display: block; margin: auto;" /></p>
+<p>En el primer gráfico se evidencia cómo el parámetro <span class="math inline">\(d_2\)</span> determina la altura de la densidad cuando el parámetro <span class="math inline">\(d_1\)</span> está fijo, mientras que en el segundo se ve cómo el parámetro <span class="math inline">\(d_1\)</span> mueve la distribución en el eje <span class="math inline">\(x\)</span> de forma positiva cuando el parámetro <span class="math inline">\(d_2\)</span> está fijo.</p>
+<p><img src="unit3_files/figure-html/unnamed-chunk-14-1.png" width="700" style="display: block; margin: auto;" /></p>
+<p>Cuando los parámetros de la distribución son iguales se nota que para valores <span class="math inline">\(&lt;3\)</span> la distribución tiene tendencia exponencial, y aparece de forma notable la varianza con parámetros <span class="math inline">\(d1=d2\geq4\)</span>. Por otra parte, si ambos parámetros son muy grandes, en el límite la distribución se transforma en una distribución degenerada en <span class="math inline">\(x=1\)</span>.</p>
+<hr>
+</div>
+<div id="resumen-1" class="section level3">
+<h3>Resumen</h3>
+<center>
+<img src="IC_mu-mu.png" title="fig:" alt="Resumen IC" />
+</center>
+<p>Con:</p>
+<p><span class="math display">\[SP=\sqrt{\cfrac{(n_1-1)S^2_1+(n_2-1)S^2_2}{n_1+n_2-2}}\]</span></p>
+<p>y</p>
+<p><span class="math display">\[\large v= \cfrac{\left(\frac{S^2_1}{n_1}+\frac{S^2_2}{n_2}\right)^2}{\frac{\left(\frac{S^2_1}{n_1}\right)^2}{n_1-1}+\frac{\left(\frac{S^2_2}{n_2}\right)^2}{n_2-1}}\]</span></p>
+<hr>
+<blockquote>
+<p><strong>Ejercicios Propuesto</strong><br><br> Realizar los ejercicios de la sección 6.4 de la lectura recomendada</p>
+</blockquote>
+<hr>
+</div>
+<div id="ejemplo-práctico" class="section level3">
+<h3>Ejemplo práctico</h3>
+<p>La siguiente base de datos contiene información acerca de incautaciones de bebidas alcohólicas fraudulentas y de contrabando en la ciudad de Medellín en un mes, que afectan los recursos para Salud y Educación en el Departamento de Antioquia y de acuerdo a los resultados se toma decisiones para aumentar o disminuir los controles.</p>
+<center>
+<a href="./R/Licores.xlsx" class="btn btn-default" target="_blank">Licores</a>
+</center>
+<p><br></p>
+<p>La base de datos contiene las variables - <strong>TL</strong> (Tipo de Licor) - <strong>PI</strong> (Precio de incautación: se refiere al precio de venta en el establecimiento por unidad) - <strong>GAE</strong> (Grados de Alcohol en etiqueta) - <strong>GAQ</strong> (grados de alcohol en prueba química) - <strong>CE</strong> (Cantidades estandarizadas: número de unidades estandarizadas a 750 ml).</p>
+<p>Usando la información de su base de datos responda a las siguientes preguntas.</p>
+<ol style="list-style-type: decimal">
+<li><p>El <strong>precio total</strong> de la incautación se calcula como la cantidad estandarizada por el precio de incautación. ¿Se puede afirmar que el precio total promedio de la incautación es superior a $7’500.000?</p></li>
+<li><p>El <strong>ipoconsumo</strong>, es el impuesto que deja de percibir el Estado para salud y educación, el cual se calcula como: <span class="math inline">\(GAQ \times CE \times 400\)</span> (pesos). ¿Se puede afirmar que el ipoconsumo promedio del ron es inferior al ipoconsumo medio del Whisky? ¿Qué decisión se puede tomar frente al control?</p></li>
+<li><p>El licor incautado se clasifica como “Fraudulento” si los GAE son distintos a los GAQ y como “contrabando” si son iguales. ¿La proporción de licores fraudulentos es superior al 65%? ¿Qué significa éste resultado?</p></li>
+</ol>
+<blockquote>
+<p>Asumamos normalidad en los datos</p>
+</blockquote>
+<div id="solución-usando-r" class="section level4">
+<h4>Solución usando R</h4>
+<p>Lo primero es descargar la base de datos en la carpeta que se considere, luego debemos cargar la base de datos en <code>RStudio</code> para realizar los análisis. Antes de comenzar con el análisis necesitamos instalar o cargar las librerías necesarias para el análisis</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># Para manipular datos</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(dplyr)) <span class="kw">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="co"># Gráficos con estilo</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(ggplot2)) <span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="co"># Importar/Exportar datos de Excel</span></span>
+<span id="cb18-6"><a href="#cb18-6"></a><span class="cf">if</span>(<span class="op">!</span><span class="kw">require</span>(openxlsx)) <span class="kw">install.packages</span>(<span class="st">&quot;openxlsx&quot;</span>)</span></code></pre></div>
+<p>El siguiente paso es cargar la base de datos, esto lo podemos realizar directamente de <code>RStudio</code> con el siguiente comando:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>Licores &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>(<span class="kw">file.choose</span>(),<span class="dt">sheet =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Revisemos la estructura de los datos, para verificar si fueron cargados correctamente.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">str</span>(Licores)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    300 obs. of  5 variables:
+##  $ TL : chr  &quot;Ron&quot; &quot;Aguardiente&quot; &quot;Ron&quot; &quot;Aguardiente&quot; ...
+##  $ PI : num  34719 26900 27062 29317 32471 ...
+##  $ GAE: num  35 29 35 29 38 29 29 38 35 40 ...
+##  $ GAQ: num  30.2 29 32.2 29 32.6 ...
+##  $ CE : num  221 253 249 254 267 ...</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># cambiando caracter por factor</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>Licores &lt;-<span class="st"> </span>Licores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_if</span>(is.character,as.factor)</span></code></pre></div>
+<p>El primer punto nos piden calcular <strong>el precio total</strong> de incautación, y se pregunta si el promedio de esa nueva variable es superior a 7.5 millones. También hay que seleccionar el estadístico de prueba más indicado.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>Licores<span class="op">$</span>PT &lt;-<span class="st"> </span>Licores<span class="op">$</span>CE<span class="op">*</span>Licores<span class="op">$</span>PI</span></code></pre></div>
+<p>Entonces, siguiendo el árbol de decisión tenemos que los datos se distribuyen normal y no conocemos los parámetros poblacionales, por lo tanto el estadístico de prueba está basado en la <em>t-student</em>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">t.test</span>(Licores<span class="op">$</span>PT,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  Licores$PT
+## t = 102.67, df = 299, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  7325868 7612193
+## sample estimates:
+## mean of x 
+##   7469031</code></pre>
+<p>Como el intervalo de confianza está compuesto por <span class="math inline">\((7&#39;325.868;\,7&#39;612.193)\)</span> y contiene el valor teórico de los 7.5 millones, existe evidencia muestral suficiente de que el promedio del precio de incautaciones mesual es de $7’500.000, esto implica anualmente se esperaría que alrededor de 90 millones de pesos deje de circular ilegalmente gracias a lo no pago de impuestos o adulteración de licores.</p>
+<hr>
+<p>En la siguiente pregunta se pide calcular el <em>ipoconsumo</em> de acuerdo a una formulación, y luego comparar si el impuesto de los licores de tipo <em>Ron</em> son menores a los de <em>Whisky</em> basado en los promedios.</p>
+<p>De acuerdo al árbol de decisión tenemos que hacer los siguientes pasos:</p>
+<ul>
+<li>Calcular el ipoconsumo</li>
+<li>Separar la base de datos en Ron y Whisky</li>
+<li>Comprobar la igualdad de varianzas de los grupos</li>
+<li>Escoger el mejor estadístico de prueba y realizar el análisis.</li>
+<li>Concluir</li>
+</ul>
+<p>Los primeros dos pasos son sencillos:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>Licores &lt;-<span class="st"> </span>Licores <span class="op">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">IPO =</span> GAQ<span class="op">*</span>CE<span class="op">*</span><span class="dv">400</span>)</span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="kw">hist</span>(Licores<span class="op">$</span>IPO,<span class="dt">col=</span><span class="st">&quot;lightblue&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="unit3_files/figure-html/unnamed-chunk-21-1.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>SoloRW &lt;-<span class="st"> </span>Licores <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="st">   </span><span class="kw">filter</span>(TL <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ron&quot;</span>,<span class="st">&quot;Whisky&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="st">   </span>droplevels</span>
+<span id="cb27-4"><a href="#cb27-4"></a>SoloRW <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(TL) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="st">   </span><span class="kw">summarise</span>(<span class="dt">n=</span><span class="kw">length</span>(IPO),</span>
+<span id="cb27-6"><a href="#cb27-6"></a>             <span class="dt">media=</span><span class="kw">mean</span>(IPO),</span>
+<span id="cb27-7"><a href="#cb27-7"></a>             <span class="dt">desv=</span><span class="kw">sd</span>(IPO))</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   TL         n    media    desv
+##   &lt;fct&gt;  &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Ron       52 3185673. 270971.
+## 2 Whisky    27 3591694. 317110.</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>SoloRW <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>IPO,<span class="dt">fill=</span>TL))<span class="op">+</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="st">   </span><span class="kw">geom_density</span>(<span class="dt">alpha=</span><span class="fl">0.5</span>)<span class="op">+</span><span class="kw">xlim</span>(<span class="kw">c</span>(<span class="fl">2e06</span>,<span class="fl">5e06</span>))<span class="op">+</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="unit3_files/figure-html/unnamed-chunk-21-2.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Como ambas muestras distribuyen normal, es necesario verificar si existe igualdad en sus varianzas, esto se comprueba con la función <code>var.test</code>.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="kw">with</span>(SoloRW,<span class="kw">var.test</span>(IPO<span class="op">~</span>TL))</span></code></pre></div>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  IPO by TL
+## F = 0.73017, num df = 51, denom df = 26, p-value = 0.3333
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.3562148 1.3878542
+## sample estimates:
+## ratio of variances 
+##           0.730172</code></pre>
+<p>Entonces, como los datos son normales y tienen varianzas iguales, de acuerdo con el árbol de decisión el mejor estadístico de prueba está basado en la <em>t-student</em> y es necesario estimar la varianza conjunta, no obstante, el software lo hace:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="kw">with</span>(SoloRW,</span>
+<span id="cb32-2"><a href="#cb32-2"></a>     <span class="kw">t.test</span>(IPO[TL<span class="op">==</span><span class="st">&quot;Ron&quot;</span>],</span>
+<span id="cb32-3"><a href="#cb32-3"></a>            IPO[TL<span class="op">==</span><span class="st">&quot;Whisky&quot;</span>],</span>
+<span id="cb32-4"><a href="#cb32-4"></a>            <span class="dt">var.equal =</span> T))</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  IPO[TL == &quot;Ron&quot;] and IPO[TL == &quot;Whisky&quot;]
+## t = -5.9561, df = 77, p-value = 7.258e-08
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -541763.2 -270279.6
+## sample estimates:
+## mean of x mean of y 
+##   3185673   3591694</code></pre>
+<p>En conclusión, el ipoconsumo del ron es menor al del whisky ya que el IC al 95% no contiene el cero. Entonces la cantidad de impuestos que deja de percibir el departamento tiene mayor aporte en el Whisky, sin embargo, las cantidades de Ron son casi el doble que las de Whisky lo que sugiere que este licor es preferido para la adulteración. Los controles se deben aumentar para incautar más Ron y establecer una estrategia para que no aumente la adulteración del Whisky que es la que más afecta los recursos para salud.</p>
+<hr>
+<p>El tercer punto nos piden calcular una nueva variable, si <span class="math inline">\(GAQ=GAE\)</span> el licor se clasifica como <strong>contrabando</strong> en caso contrario se llamará <strong>fraudulento</strong>.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>Licores &lt;-<span class="st"> </span>Licores <span class="op">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="st">   </span><span class="kw">mutate</span>(<span class="dt">TipoLicor =</span> <span class="kw">factor</span>(<span class="kw">ifelse</span>(GAQ<span class="op">==</span>GAE,<span class="st">&quot;Contrabando&quot;</span>,<span class="st">&quot;Fraudulento&quot;</span>)))</span></code></pre></div>
+<p>Luego preguntan si la proporción de licores Fraudulentos es superior al 65%.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">with</span>(Licores,<span class="kw">table</span>(TipoLicor))</span></code></pre></div>
+<pre><code>## TipoLicor
+## Contrabando Fraudulento 
+##          83         217</code></pre>
+<p>Como en <code>R</code> los factores se organizan alfabéticamente, entonces debemos cambiar la hipótesis hacia los licores de <strong>contrabando</strong>, entoces se evaluará si la proporción de licores de contrabando es del 35%.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">with</span>(Licores,</span>
+<span id="cb37-2"><a href="#cb37-2"></a>     <span class="kw">prop.test</span>(<span class="kw">table</span>(TipoLicor),</span>
+<span id="cb37-3"><a href="#cb37-3"></a>               <span class="dt">conf.level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb37-4"><a href="#cb37-4"></a>               <span class="dt">correct =</span> F))</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test without continuity correction
+## 
+## data:  table(TipoLicor), null probability 0.5
+## X-squared = 59.853, df = 1, p-value = 1.022e-14
+## alternative hypothesis: true p is not equal to 0.5
+## 95 percent confidence interval:
+##  0.2291106 0.3298699
+## sample estimates:
+##         p 
+## 0.2766667</code></pre>
+<p>Como el intervalo está dado por <span class="math inline">\((22.91\%;\,32.99\%)\)</span> y el valor teórico está por fuera del rango, por lo tanto existe evidencia muestral para afirmar que la proporción de licores Fraudulentos es mayor del 65%. Por lo tanto, las rentas ilegales de licores están basadas en mayor medida de la adulteración, el impacto para la salud pública es muy grave, pues los efectos nocivos de los licores que no son correctamente destilados aumenta los riesgos clínicos como la ceguera, el cáncer de órganos digestivos o la muerte.</p>
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

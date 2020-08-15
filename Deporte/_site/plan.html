@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Plan estadístico de análisis</title>
+
+<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"><center>Estadística - Investigación<br> <sub>Educación Física y Deporte</sub></center></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="about.html">
+    <span class="fa fa-book-open"></span>
+     
+    Acerca de
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-chalkboard-teacher"></span>
+     
+    Contenido
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="unit1.html">Unidad 1</a>
+    </li>
+    <li>
+      <a href="unit2.html">Unidad 2</a>
+    </li>
+    <li>
+      <a href="plan.html">Plan de Análisis</a>
+    </li>
+    <li>
+      <a href="unit3.html">Unidad 3</a>
+    </li>
+    <li>
+      <a href="unit4.html">Unidad 4</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    Programación con R
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="installR.html">Instalación</a>
+    </li>
+    <li>
+      <a href="RIntro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="RFuns.html">Funciones y Paquetes</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdsantae@gmail.com">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Plan estadístico de análisis</h1>
+
+</div>
+
+
+<blockquote>
+<p>Las siguientes recomendaciones son extraídas del artículo de <em>Rodríguez del Águila, M. D.</em>, <em>Pérez Vicente, S.</em>, <em>Sordo del Castillo, L.</em>, &amp; <em>Sierra, F.</em> (2007). <strong>Cómo elaborar un protocolo de investigación en salud. Medicina Clínica</strong>, 129(8), 299-302.</p>
+</blockquote>
+<p>En investigación es bien conocida la relevancia de elaborar un buen protocolo de estudio, unido cada vez más a la exigencia de una buena redacción de todos sus apartados. La claridad con la que el investigador enuncia los objetivos del estudio y el método empleado en éste redunda tanto en la calidad de los resultados obtenidos como en la evaluación de su pertinencia.</p>
+<p>El protocolo de un proyecto de investigación es un documento que refleja una descripción ordenada y sistemática de un estudio propuesto. Permite tener una visión general de los aspectos del estudio antes de comenzar éste y debe estar descrito con suficiente claridad para permitir que otro investigador pueda realizar el estudio o que éste se lleve a cabo en otro instante. Además, el protocolo debe estar redactado con bastante precisión en todos sus apartados, de tal forma que un investigador que no sea de la misma área de trabajo comprenda totalmente lo que se quiere investigar, de qué forma, en qué tiempo y en qué circunstancias.</p>
+<hr>
+<div id="partes-de-un-protocolo-de-investigación-basado-en-elementos-de-estadística" class="section level2">
+<h2>Partes de un protocolo de investigación<br>(basado en elementos de estadística)</h2>
+<hr>
+<div id="título" class="section level3">
+<h3>Título</h3>
+<p>Debe especificar la acción que se va a realizar (evaluación, comparación, determinación, variabilidad, etc.), sobre qué tipo de [unidades] se va a llevar a cabo y, si es posible, el ámbito (centro de salud, hospital de tercer nivel, distrito, etc.). Asimismo, en el título debe figurar la mayor cantidad de palabras descriptoras del tema del estudio. Se intentará que el título no exceda de 15 palabras y se recomienda que no figuren acrónimos en él.</p>
+<hr>
+</div>
+<div id="resumen" class="section level3">
+<h3>Resumen</h3>
+<p>Es un esquema estructurado que da una visión general del proyecto. Debería reflejar el objetivo general de éste y, esquemáticamente, el diseño, ámbito del estudio, sujetos de estudio, instrumentos que se utilizarán y determinaciones o variables más importantes.</p>
+<hr>
+</div>
+<div id="objetivo-general-y-objetivos-específicos" class="section level3">
+<h3>Objetivo general y objetivos específicos</h3>
+<p>El objetivo general debe ser muy parecido al título del proyecto, pero redactado en infinitivo. En su redacción es conveniente recurrir a verbos [derivados de la taxonomía de Bloom], evitando otros como “investigar” o “estudiar”, que son más imprecisos. Lo habitual es especificar un único objetivo general. Los objetivos específicos son un desarrollo pormenorizado del objetivo general y comprenden acciones que no están descritas en éste, procurando no duplicar en los objetivos específicos lo ya expuesto en el general. Un objetivo tiene que ser medible, observable, realizable, concreto, lógico y pertinente.</p>
+<hr>
+</div>
+<div id="metodología" class="section level3">
+<h3>Metodología</h3>
+<p>El apartado de metodología queda estructurado en varias secciones, que van desde la definición de la población de referencia hasta las dificultades y limitaciones.</p>
+<hr>
+</div>
+<div id="población-de-referencia-o-ámbito-del-estudio." class="section level3">
+<h3>Población de referencia o ámbito del estudio.</h3>
+<p>Es la población total a la que se espera extrapolar los resultados y donde se enmarca el estudio. Población de estudio o diana. Es un subgrupo de la población de referencia y tiene que cumplir una serie de criterios de selección. Está formada por los casos candidatos a participar en el estudio. Criterios de inclusión y exclusión. En ellos se especificarán las características que deben cumplir las [unidades de observación] que formen parte del estudio para que la selección se haga de la forma más homogénea posible y se eviten sesgos de selección.</p>
+<hr>
+</div>
+<div id="tamaño-muestral-y-procedimiento-de-muestreo." class="section level3">
+<h3>Tamaño muestral y procedimiento de muestreo.</h3>
+<p>En el tamaño muestral se detalla el número de [unidades] necesari[as] para alcanzar los objetivos del estudio. Sería conveniente describir las premisas aplicadas para su cálculo, incluyendo valores de prevalencia, incidencia o medias, desviaciones típicas y tipos de errores. Si no hubiera posibilidad de calcularlo, puede describirse sobre la base del número de [unidades] que se puede incluir en el período que dure el estudio. El procedimiento de muestreo se describirá indicando si la selección de casos que formarán parte de la muestra se llevará a cabo mediante un muestreo aleatorio, sistemático, consecutivo o de otra clase.</p>
+<hr>
+</div>
+<div id="diseño." class="section level3">
+<h3>Diseño.</h3>
+<p>El diseño del estudio debe adecuarse a la pregunta de investigación y debe describirse de forma clara y concisa, empleando la terminología [extricta] al uso. Preferiblemente no se deben mezclar diseños en un mismo estudio: transversal, de prevalencia, de incidencia, de cohortes, de casos y controles o ensayo clínico.</p>
+<hr>
+</div>
+<div id="variables." class="section level3">
+<h3>Variables.</h3>
+<p>En la descripción de las variables debe haber varias independientes (factores de exposición, factores de confusión, etc.) y una o pocas dependientes (variables de respuesta, resultado o desenlace). Las variables, tanto dependientes como independientes, que sean categóricas irán acompañadas de todas las categorías de medida posible, y para las variables numéricas se especificarán las escalas y unidades de medida utilizadas, sin dar cabida a la ambigüedad. Se debería describir los criterios por los que esas variables son importantes para responder a la pregunta de investigación. <em>Remitirse al apartado de <a href="https://cdsantae.github.io/Deporte/_site/unit1.html#_identificaci%C3%B3n_de_variables_">Identificación de variables</a></em></p>
+<hr>
+</div>
+<div id="recogida-de-datos." class="section level3">
+<h3>Recogida de datos.</h3>
+<p>En la recogida de datos se especificarán los instrumentos de medida o fuentes de información que se utilizarán, cómo se van a llevar a cabo las mediciones sobre los pacientes y quién las va a realizar, dónde y cuándo, así como la hoja de recogida de datos (ésta debe incluirse en los anexos del protocolo).</p>
+<hr>
+</div>
+<div id="análisis-de-datos." class="section level3">
+<h3>Análisis de datos.</h3>
+<p>Deberá estar claramente descrito, ya que se conoce de antemano las variables contenidas en el estudio y su escala de medición; en este apartado es aconsejable incluir una parte descriptiva, análisis básico de los datos y otros análisis más complejos [<strong>que se verán en el segundo curso</strong>].</p>
+<hr>
+</div>
+<div id="dificultades-y-limitaciones-de-estudio." class="section level3">
+<h3>Dificultades y limitaciones de estudio.</h3>
+<p>Son una autocrítica a la realización del proyecto, donde se especifican los problemas que podemos encontrarnos al llevarlo a cabo, las clases de sesgos (de selección, de información, etc.), las variables de confusión, las interacciones, las pérdidas, etc. Tras describir los problemas, aún más importante es justificar que éstos no tienen por qué modificar lo que se quiere medir o resaltar que es inevitable que ocurran; o sea, convertir las limitaciones en fortalezas.</p>
+<hr>
+</div>
+<div id="plan-de-trabajo" class="section level3">
+<h3>Plan de trabajo</h3>
+<p>Es un cronograma donde se especificarán las tareas que se realizarán en el proyecto, algunas de las cuales pueden solaparse en el tiempo, indicando las fechas de inicio y finalización (trimestres, semanas, años, etc.), así como las personas que las realizarán.</p>
+<hr>
+</div>
+<div id="aplicabilidad-y-utilidad-práctica-de-los-resultados" class="section level3">
+<h3>Aplicabilidad y utilidad práctica de los resultados</h3>
+<p>En esta sección se explica el interés que tendrán los resultados del proyecto y para qué servirán, con una indicación de la aplicación futura. Se debe redactar en términos prácticos y realistas. Es un apartado muy importante en la redacción del proyecto, ya que en él se especifican la relevancia de la investigación y la magnitud de su aplicabilidad.</p>
+<hr>
+</div>
+<div id="medios-disponibles-para-la-realización-del-proyecto" class="section level3">
+<h3>Medios disponibles para la realización del proyecto</h3>
+<p>En este apartado se detallan tanto los recursos humanos como los materiales de que se dispone (ordenadores, tensiómetros, personal auxiliar, etc.), para los que no se necesitará solicitar financiación.</p>
+<hr>
+</div>
+<div id="justificación-de-la-ayuda-solicitada" class="section level3">
+<h3>Justificación de la ayuda solicitada</h3>
+<p>Se explica por qué se necesita la ayuda que se va a solicitar para el estudio. La ayuda solicitada para becarios tiene que estar totalmente justificada por el tipo de investigación que se va a realizar, pues es la parte que más presupuesto requiere; se debe justificar en el sentido de que servirá para complemento de su formación o realización de tesis [de maestría].</p>
+<hr>
+</div>
+<div id="presupuesto-solicitado" class="section level3">
+<h3>Presupuesto solicitado</h3>
+<p>El presupuesto destinado a cada proyecto de investigación está regulado por las diferentes convocatorias variando entre unas y otras, por lo que la ayuda solicitada habrá que ajustarla a la cuantía máxima establecida para cada una, caso de que exista. En general, habrá que desglosarlo en gastos de personal (becarios, contratos por obras y servicios, etc.), material inventariable (infraestructura, ordenadores, etc.) y material fungible (fotocopias, CD-ROM, etc.). En cada apartado hay que indicar el precio en [la moneda local] de la cantidad solicitada.</p>
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
