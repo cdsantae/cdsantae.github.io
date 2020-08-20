@@ -820,36 +820,21 @@ MSR = &amp; \frac{SSR}{p-1}
 <span id="cb32-2"><a href="#cb32-2"></a>     <span class="dt">main=</span><span class="st">&#39;Residuals vs Fitted&#39;</span>,<span class="dt">xlab=</span><span class="st">&#39;Fitted&#39;</span>,<span class="dt">ylab=</span><span class="st">&#39;Residuals&#39;</span>)</span>
 <span id="cb32-3"><a href="#cb32-3"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>,<span class="dt">col=</span><span class="st">&#39;red&#39;</span>)</span></code></pre></div>
 <p><img src="mlm_files/figure-html/unnamed-chunk-1-3.png" width="630" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">influencePlot</span>(FinalFit,<span class="dt">id.method=</span><span class="st">&quot;identify&quot;</span>,</span>
-<span id="cb33-2"><a href="#cb33-2"></a>              <span class="dt">main=</span><span class="st">&quot;Gráfico de Influencia&quot;</span>,</span>
-<span id="cb33-3"><a href="#cb33-3"></a>              <span class="dt">sub=</span><span class="st">&quot;El tamaño del círcuo es la proporción de la distancia Cook&#39;s&quot;</span>)</span></code></pre></div>
-<pre><code>##                      StudRes       Hat       CookD
-## Datsun 710        -2.1071339 0.1051448 0.092548290
-## Merc 240D          2.0927745 0.1174661 0.103618218
-## Merc 230          -0.1546226 0.3855036 0.003112262
-## Chrysler Imperial  1.8573066 0.2720706 0.236414551
-## Fiat 128           2.0154507 0.1519358 0.130722718
-## Maserati Bora      1.0247253 0.3817516 0.129436940</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">outlierTest</span>(FinalFit)</span></code></pre></div>
-<pre><code>## No Studentized residuals with Bonferroni p &lt; 0.05
-## Largest |rstudent|:
-##             rstudent unadjusted p-value Bonferroni p
-## Datsun 710 -2.107134           0.044906           NA</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">shapiro.test</span>(<span class="kw">resid</span>(FinalFit))</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">shapiro.test</span>(<span class="kw">resid</span>(FinalFit))</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  resid(FinalFit)
 ## W = 0.96823, p-value = 0.4521</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">ncvTest</span>(FinalFit)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="kw">ncvTest</span>(FinalFit)</span></code></pre></div>
 <pre><code>## Non-constant Variance Score Test 
 ## Variance formula: ~ fitted.values 
 ## Chisquare = 0.6460701, Df = 1, p = 0.42152</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">durbinWatsonTest</span>(FinalFit)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">durbinWatsonTest</span>(FinalFit)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      -0.1114435      2.164208   0.966
+##    1      -0.1114435      2.164208   0.982
 ##  Alternative hypothesis: rho != 0</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="kw">summary</span>(<span class="kw">gvlma</span>(FinalFit))</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="kw">summary</span>(<span class="kw">gvlma</span>(FinalFit))</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = mpg ~ am:wt + am:qsec, data = mtcars)
@@ -886,7 +871,7 @@ MSR = &amp; \frac{SSR}{p-1}
 ## Kurtosis           0.48168  0.4877 Assumptions acceptable.
 ## Link Function      2.07096  0.1501 Assumptions acceptable.
 ## Heteroscedasticity 0.06506  0.7987 Assumptions acceptable.</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="kw">Anova</span>(FinalFit)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="kw">Anova</span>(FinalFit)</span></code></pre></div>
 <pre><code>## Anova Table (Type II tests)
 ## 
 ## Response: mpg
@@ -896,24 +881,24 @@ MSR = &amp; \frac{SSR}{p-1}
 ## Residuals 118.70 27                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars,<span class="kw">aes</span>(<span class="dt">x=</span>wt,<span class="dt">y=</span>mpg,<span class="dt">colour=</span>am))<span class="op">+</span></span>
-<span id="cb47-2"><a href="#cb47-2"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> F)<span class="op">+</span></span>
-<span id="cb47-3"><a href="#cb47-3"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
-<span id="cb47-4"><a href="#cb47-4"></a>p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars,<span class="kw">aes</span>(<span class="dt">x=</span>qsec,<span class="dt">y=</span>mpg,<span class="dt">colour=</span>am))<span class="op">+</span></span>
-<span id="cb47-5"><a href="#cb47-5"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> F)</span>
-<span id="cb47-6"><a href="#cb47-6"></a></span>
-<span id="cb47-7"><a href="#cb47-7"></a>g_legend&lt;-<span class="cf">function</span>(a.gplot){</span>
-<span id="cb47-8"><a href="#cb47-8"></a>  tmp &lt;-<span class="st"> </span><span class="kw">ggplot_gtable</span>(<span class="kw">ggplot_build</span>(a.gplot))</span>
-<span id="cb47-9"><a href="#cb47-9"></a>  leg &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">sapply</span>(tmp<span class="op">$</span>grobs, <span class="cf">function</span>(x) x<span class="op">$</span>name) <span class="op">==</span><span class="st"> &quot;guide-box&quot;</span>)</span>
-<span id="cb47-10"><a href="#cb47-10"></a>  legend &lt;-<span class="st"> </span>tmp<span class="op">$</span>grobs[[leg]]</span>
-<span id="cb47-11"><a href="#cb47-11"></a>  <span class="kw">return</span>(legend)}</span>
-<span id="cb47-12"><a href="#cb47-12"></a></span>
-<span id="cb47-13"><a href="#cb47-13"></a>mylegend&lt;-<span class="kw">g_legend</span>(p1)</span>
-<span id="cb47-14"><a href="#cb47-14"></a></span>
-<span id="cb47-15"><a href="#cb47-15"></a><span class="kw">grid.arrange</span>(<span class="kw">arrangeGrob</span>(p1 <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>),</span>
-<span id="cb47-16"><a href="#cb47-16"></a>                         p2 <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>),</span>
-<span id="cb47-17"><a href="#cb47-17"></a>                         <span class="dt">nrow=</span><span class="dv">1</span>),</span>
-<span id="cb47-18"><a href="#cb47-18"></a>             mylegend, <span class="dt">nrow=</span><span class="dv">2</span>,<span class="dt">heights=</span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars,<span class="kw">aes</span>(<span class="dt">x=</span>wt,<span class="dt">y=</span>mpg,<span class="dt">colour=</span>am))<span class="op">+</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> F)<span class="op">+</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb43-4"><a href="#cb43-4"></a>p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars,<span class="kw">aes</span>(<span class="dt">x=</span>qsec,<span class="dt">y=</span>mpg,<span class="dt">colour=</span>am))<span class="op">+</span></span>
+<span id="cb43-5"><a href="#cb43-5"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> F)</span>
+<span id="cb43-6"><a href="#cb43-6"></a></span>
+<span id="cb43-7"><a href="#cb43-7"></a>g_legend&lt;-<span class="cf">function</span>(a.gplot){</span>
+<span id="cb43-8"><a href="#cb43-8"></a>  tmp &lt;-<span class="st"> </span><span class="kw">ggplot_gtable</span>(<span class="kw">ggplot_build</span>(a.gplot))</span>
+<span id="cb43-9"><a href="#cb43-9"></a>  leg &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">sapply</span>(tmp<span class="op">$</span>grobs, <span class="cf">function</span>(x) x<span class="op">$</span>name) <span class="op">==</span><span class="st"> &quot;guide-box&quot;</span>)</span>
+<span id="cb43-10"><a href="#cb43-10"></a>  legend &lt;-<span class="st"> </span>tmp<span class="op">$</span>grobs[[leg]]</span>
+<span id="cb43-11"><a href="#cb43-11"></a>  <span class="kw">return</span>(legend)}</span>
+<span id="cb43-12"><a href="#cb43-12"></a></span>
+<span id="cb43-13"><a href="#cb43-13"></a>mylegend&lt;-<span class="kw">g_legend</span>(p1)</span>
+<span id="cb43-14"><a href="#cb43-14"></a></span>
+<span id="cb43-15"><a href="#cb43-15"></a><span class="kw">grid.arrange</span>(<span class="kw">arrangeGrob</span>(p1 <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>),</span>
+<span id="cb43-16"><a href="#cb43-16"></a>                         p2 <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>),</span>
+<span id="cb43-17"><a href="#cb43-17"></a>                         <span class="dt">nrow=</span><span class="dv">1</span>),</span>
+<span id="cb43-18"><a href="#cb43-18"></a>             mylegend, <span class="dt">nrow=</span><span class="dv">2</span>,<span class="dt">heights=</span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="mlm_files/figure-html/unnamed-chunk-1-4.png" width="630" style="display: block; margin: auto;" /></p>
 </div>
 </div>
