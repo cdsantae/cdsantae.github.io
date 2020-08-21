@@ -1347,16 +1347,20 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 <ol style="list-style-type: decimal">
 <li>Para las mamás que tuvieron bebés con bajo peso al nacer, ¿existen diferencias en su condición de fumadoras?</li>
 </ol>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(smoke,low) <span class="op">%&gt;%</span><span class="st"> </span>table</span></code></pre></div>
 <pre><code>##        low
 ## smoke   FALSE TRUE
 ##   FALSE    86   29
 ##   TRUE     44   30</code></pre>
 <p>Como la pregunta está dirigida a las mamás que tuvieron bebés con bajo peso al nacer, entonces hay que mover las columnas de la tabla para conservar la hipótesis.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(smoke,low) <span class="op">%&gt;%</span><span class="st"> </span>table <span class="op">%&gt;%</span><span class="st"> </span>.[,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)]</span></code></pre></div>
 <pre><code>##        low
 ## smoke   TRUE FALSE
 ##   FALSE   29    86
 ##   TRUE    30    44</code></pre>
 <p>Esta es la tabla con la cual se hará la prueba de diferencia de proporciones, donde se comparará la condición de fumador dado que se tienen bebés en bajo peso.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(smoke,low) <span class="op">%&gt;%</span><span class="st"> </span>table <span class="op">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2"></a><span class="st">  </span>.[,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">prop.test</span>(<span class="dt">conf.level =</span> <span class="fl">0.95</span>,<span class="dt">correct =</span> F)</span></code></pre></div>
 <pre><code>## 
 ##  2-sample test for equality of proportions without continuity
 ##  correction
@@ -1373,12 +1377,26 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 <ol start="2" style="list-style-type: decimal">
 <li>Se cree que las mamás que tuvieron más de un parto previo, la edad es menor a 27 años ¿Es cierta esta hipótesis?</li>
 </ol>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>datos <span class="op">%&gt;%</span></span>
+<span id="cb56-2"><a href="#cb56-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>age,<span class="dt">fill=</span>ptd))<span class="op">+</span><span class="kw">geom_density</span>(<span class="dt">alpha=</span><span class="fl">0.5</span>)<span class="op">+</span></span>
+<span id="cb56-3"><a href="#cb56-3"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Comportamiento de la Edad de las mamás dado los partos previos&quot;</span>)<span class="op">+</span></span>
+<span id="cb56-4"><a href="#cb56-4"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
 <p><img src="I_ph2_files/figure-html/unnamed-chunk-23-1.png" width="630" style="display: block; margin: auto;" /></p>
 <p>Para poder resolver la hipótesis es necesario tener encuenta el filtro de las mamás que tuvieron más de un parto previo, que se indica con la variable <code>ptd</code>. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a><span class="co"># Ojo: Se necesita el filtro</span></span>
+<span id="cb57-2"><a href="#cb57-2"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(ptd<span class="op">==</span>T) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb57-3"><a href="#cb57-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n=</span><span class="kw">length</span>(age),<span class="dt">prom=</span><span class="kw">mean</span>(age),</span>
+<span id="cb57-4"><a href="#cb57-4"></a>            <span class="dt">desv=</span><span class="kw">sd</span>(age),</span>
+<span id="cb57-5"><a href="#cb57-5"></a>            <span class="dt">shapiro=</span><span class="kw">shapiro.test</span>(age)<span class="op">$</span>p.val,</span>
+<span id="cb57-6"><a href="#cb57-6"></a>            <span class="dt">Ander_Darl=</span><span class="kw">ad.test</span>(age)<span class="op">$</span>p.val,</span>
+<span id="cb57-7"><a href="#cb57-7"></a>            <span class="dt">lilliefords=</span><span class="kw">lillie.test</span>(age)<span class="op">$</span>p.val)</span></code></pre></div>
 <pre><code>##    n     prom     desv   shapiro Ander_Darl lilliefords
 ## 1 30 24.43333 5.028768 0.5879124  0.4028222   0.1139127</code></pre>
 <p>En los resultados vemos que tenemos una muestra de tamaño 30, con una media de 24.43 años y una desviación de 5.03 años. Además los test de normalidad utilizados nos ayudan a conculir que la distribución de los datos es normal, comparando los valores-p con el nivel de significancia.</p>
 <p>De acuerdo con el árbol de decisión podemos utilizar un estadístico de prueba basado en la <em>t-student</em>, ya que los datos distribuyen normal y NO conocemos la varianza poblacional, para tomar una decisión sobre la hipótesis planteada.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(ptd<span class="op">==</span>T) <span class="op">%&gt;%</span></span>
+<span id="cb59-2"><a href="#cb59-2"></a><span class="st">  </span><span class="kw">select</span>(age) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb59-3"><a href="#cb59-3"></a><span class="st">  </span><span class="kw">t.test</span>(<span class="dt">mu=</span><span class="dv">27</span>,<span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -1394,14 +1412,22 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 <ol start="3" style="list-style-type: decimal">
 <li>La hipertensión es un indicador asociado al peso, para las mamás hipertensas ¿existe diferencias significativas entre el peso de las blancas y otros grupos étnicos?</li>
 </ol>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(ht<span class="op">==</span>T,race <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;other&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y=</span>lwt,<span class="dt">x=</span>race,<span class="dt">fill=</span>race))<span class="op">+</span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="I_ph2_files/figure-html/unnamed-chunk-26-1.png" width="630" style="display: block; margin: auto;" /></p>
 <p>Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro de las mamás con hipertensión previa y considerar de la variable <code>race</code> solo las mujeres blancas y de otras étnias. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(ht<span class="op">==</span>T,race <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;other&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb62-2"><a href="#cb62-2"></a><span class="st">  </span><span class="kw">group_by</span>(race) <span class="op">%&gt;%</span></span>
+<span id="cb62-3"><a href="#cb62-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n=</span><span class="kw">length</span>(lwt),<span class="dt">prom=</span><span class="kw">mean</span>(lwt),<span class="dt">desv=</span><span class="kw">sd</span>(lwt),</span>
+<span id="cb62-4"><a href="#cb62-4"></a>            <span class="dt">shapiro=</span><span class="kw">shapiro.test</span>(age)<span class="op">$</span>p.val)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 5
 ##   race      n  prom  desv shapiro
 ##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 white     5  167.  46.1   0.201
 ## 2 other     4  122.  26.7   0.850</code></pre>
 <p>Los resultados nos indican que para ambos grupos los pesos distribuyen normal, de acuerdo con el árbol de decisión hay que decidir si las varianzas so iguales o no.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(ht<span class="op">==</span>T,race <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;other&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb64-2"><a href="#cb64-2"></a><span class="st">  </span><span class="kw">with</span>(.,<span class="kw">var.test</span>(lwt<span class="op">~</span>race))</span></code></pre></div>
 <pre><code>## 
 ##  F test to compare two variances
 ## 
@@ -1414,6 +1440,11 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 ## ratio of variances 
 ##           2.975759</code></pre>
 <p>Como el valor-p es mucho mayor que el nivel de significancia, entonces no se reachaza la hipótesis nula, por lo tanto se considera que las varianzas de ambos grupos son iguales. Siguiendo con el árbol de decisión usamos el estadístico de prueba de la <em>t-student</em> para igualdad de varianzas.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(ht<span class="op">==</span>T,race <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;other&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb66-2"><a href="#cb66-2"></a><span class="st">  </span><span class="kw">with</span>(.,</span>
+<span id="cb66-3"><a href="#cb66-3"></a>       <span class="kw">t.test</span>(lwt[race<span class="op">==</span><span class="st">&quot;white&quot;</span>],</span>
+<span id="cb66-4"><a href="#cb66-4"></a>              lwt[race<span class="op">==</span><span class="st">&quot;other&quot;</span>],</span>
+<span id="cb66-5"><a href="#cb66-5"></a>              <span class="dt">var.equal =</span> T,<span class="dt">conf.level =</span> <span class="fl">0.95</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
@@ -1429,17 +1460,32 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 <ol start="4" style="list-style-type: decimal">
 <li>Se piensa que las mujeres blancas tienen bebés con pesos más altos que las de otros grupos étnicos ¿Es cierta esta hipótesis?</li>
 </ol>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>datos <span class="op">%&gt;%</span></span>
+<span id="cb68-2"><a href="#cb68-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>bwt,<span class="dt">fill=</span>race))<span class="op">+</span><span class="kw">geom_density</span>()<span class="op">+</span></span>
+<span id="cb68-3"><a href="#cb68-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>race)</span></code></pre></div>
 <p><img src="I_ph2_files/figure-html/unnamed-chunk-30-1.png" width="630" style="display: block; margin: auto;" /></p>
 <p>Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro de la étnia de las mamás blancas y de otras étnias, con la variable <code>race</code>. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(race <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;other&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(race) <span class="op">%&gt;%</span></span>
+<span id="cb69-2"><a href="#cb69-2"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n=</span><span class="kw">length</span>(bwt),<span class="dt">prom=</span><span class="kw">mean</span>(bwt),<span class="dt">desv=</span><span class="kw">sd</span>(bwt),</span>
+<span id="cb69-3"><a href="#cb69-3"></a>            <span class="dt">shapiro=</span><span class="kw">shapiro.test</span>(bwt)<span class="op">$</span>p.val,</span>
+<span id="cb69-4"><a href="#cb69-4"></a>            <span class="dt">Ander_Darl=</span><span class="kw">ad.test</span>(bwt)<span class="op">$</span>p.val,</span>
+<span id="cb69-5"><a href="#cb69-5"></a>            <span class="dt">lilliefords=</span><span class="kw">lillie.test</span>(bwt)<span class="op">$</span>p.val)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 7
 ##   race      n  prom  desv shapiro Ander_Darl lilliefords
 ##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
 ## 1 white    96 3103.  728.   0.486      0.227      0.0511
 ## 2 other    67 2805.  722.   0.205      0.241      0.0258</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb71-2"><a href="#cb71-2"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(race<span class="op">==</span><span class="st">&quot;white&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb71-3"><a href="#cb71-3"></a><span class="st">  </span><span class="kw">with</span>(.,<span class="kw">qqPlot</span>(bwt,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">main =</span> <span class="st">&quot;White&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] 74 73</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(race<span class="op">==</span><span class="st">&quot;other&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb73-2"><a href="#cb73-2"></a><span class="st">  </span><span class="kw">with</span>(.,<span class="kw">qqPlot</span>(bwt,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">col.lines =</span> <span class="dv">2</span>,<span class="dt">main=</span><span class="st">&quot;Other&quot;</span>))</span></code></pre></div>
 <p><img src="I_ph2_files/figure-html/unnamed-chunk-31-1.png" width="810" style="display: block; margin: auto;" /></p>
 <pre><code>## [1] 43 44</code></pre>
 <p>De acuerdo con los test de normalidad, el peso al nacer en ambos grupos distribuyen normal, solo el test de Lilliefords presenta problemas, no obstante los QQ-Plots nos muestran que el ajuste es bueno y los test de normalidad más robustos nos apoyan en la decisión. De acuerdo con el árbol de decisión no conocemos las varianzas poblaciones, entonces con las varianzas muestrales es necesario decidir si las varianzas son iguales o no.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(race <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;other&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb75-2"><a href="#cb75-2"></a><span class="st">  </span><span class="kw">with</span>(.,<span class="kw">var.test</span>(bwt<span class="op">~</span>race))</span></code></pre></div>
 <pre><code>## 
 ##  F test to compare two variances
 ## 
@@ -1452,6 +1498,11 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 ## ratio of variances 
 ##           1.015825</code></pre>
 <p>En los resultados del test de varianza vemos que el valor-p es mayor que el nivel de significancia, por lo tanto la varianza del peso al nacer en ambos grupos étnicos es igual. Continuando con el árbol de decisión podemos utilizas el estadístico de prueba basado en la <em>t-student</em> para varianzas iguales, además la hipótesis alternativa considera que los pesos al nacer de las mamás blancas son mayores que los pesos al nacer de los otros grupos étnicos.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1"></a><span class="kw">with</span>(datos,</span>
+<span id="cb77-2"><a href="#cb77-2"></a>     <span class="kw">t.test</span>(<span class="dt">x =</span> bwt[race<span class="op">==</span><span class="st">&quot;white&quot;</span>],</span>
+<span id="cb77-3"><a href="#cb77-3"></a>            <span class="dt">y =</span> bwt[race<span class="op">==</span><span class="st">&quot;other&quot;</span>],</span>
+<span id="cb77-4"><a href="#cb77-4"></a>            <span class="dt">var.equal =</span> T,<span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>,</span>
+<span id="cb77-5"><a href="#cb77-5"></a>            <span class="dt">conf.level =</span> <span class="fl">0.95</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
@@ -1467,17 +1518,30 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 <ol start="5" style="list-style-type: decimal">
 <li>El hábito de fumar afecta el desarrollo del feto en las mujeres gestantes, ¿existen diferencias en los pesos al nacer dado este hábito?</li>
 </ol>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1"></a>datos <span class="op">%&gt;%</span></span>
+<span id="cb79-2"><a href="#cb79-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>bwt,<span class="dt">fill=</span>smoke))<span class="op">+</span><span class="kw">geom_density</span>(<span class="dt">alpha=</span><span class="fl">0.5</span>)</span></code></pre></div>
 <p><img src="I_ph2_files/figure-html/unnamed-chunk-34-1.png" width="630" style="display: block; margin: auto;" /></p>
 <p>Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro de la condición de fumador con la variable <code>smoke</code>. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(smoke) <span class="op">%&gt;%</span></span>
+<span id="cb80-2"><a href="#cb80-2"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n=</span><span class="kw">length</span>(bwt),<span class="dt">prom=</span><span class="kw">mean</span>(bwt),<span class="dt">desv=</span><span class="kw">sd</span>(bwt),</span>
+<span id="cb80-3"><a href="#cb80-3"></a>            <span class="dt">shapiro=</span><span class="kw">shapiro.test</span>(bwt)<span class="op">$</span>p.val,</span>
+<span id="cb80-4"><a href="#cb80-4"></a>            <span class="dt">Ander_Darl=</span><span class="kw">ad.test</span>(bwt)<span class="op">$</span>p.val,</span>
+<span id="cb80-5"><a href="#cb80-5"></a>            <span class="dt">lilliefords=</span><span class="kw">lillie.test</span>(bwt)<span class="op">$</span>p.val)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 7
 ##   smoke     n  prom  desv shapiro Ander_Darl lilliefords
 ##   &lt;lgl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
 ## 1 FALSE   115 3056.  753.   0.334      0.202       0.397
 ## 2 TRUE     74 2772.  660.   0.419      0.567       0.540</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb82-2"><a href="#cb82-2"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(smoke<span class="op">==</span>F) <span class="op">%&gt;%</span></span>
+<span id="cb82-3"><a href="#cb82-3"></a><span class="st">  </span><span class="kw">with</span>(.,<span class="kw">qqPlot</span>(bwt,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">main =</span> <span class="st">&quot;No Fumadora&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] 87 86</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(smoke<span class="op">==</span>T) <span class="op">%&gt;%</span></span>
+<span id="cb84-2"><a href="#cb84-2"></a><span class="st">  </span><span class="kw">with</span>(.,<span class="kw">qqPlot</span>(bwt,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">col.lines =</span> <span class="dv">2</span>,<span class="dt">main=</span><span class="st">&quot;Fumadora&quot;</span>))</span></code></pre></div>
 <p><img src="I_ph2_files/figure-html/unnamed-chunk-35-1.png" width="810" style="display: block; margin: auto;" /></p>
 <pre><code>## [1] 45 46</code></pre>
 <p>De acuerdo con los test de normalidad, el peso al nacer en ambos grupos distribuyen normal. De acuerdo con el árbol de decisión no conocemos las varianzas poblaciones, entonces con las varianzas muestrales es necesario decidir si las varianzas son iguales o no.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a><span class="kw">with</span>(datos,<span class="kw">var.test</span>(bwt<span class="op">~</span>smoke))</span></code></pre></div>
 <pre><code>## 
 ##  F test to compare two variances
 ## 
@@ -1490,6 +1554,10 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 ## ratio of variances 
 ##           1.301927</code></pre>
 <p>En los resultados del test de varianza vemos que el valor-p es mayor que el nivel de significancia, por lo tanto la varianza del peso al nacer en ambos grupos étnicos es igual. Continuando con el árbol de decisión podemos utilizas el estadístico de prueba basado en la <em>t-student</em> para varianzas iguales, además la hipótesis alternativa considera que los pesos al nacer de las mamás fumadoras son diferentes de los pesos al nacer de las no fumadoras.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a><span class="kw">with</span>(datos,</span>
+<span id="cb88-2"><a href="#cb88-2"></a>     <span class="kw">t.test</span>(<span class="dt">x =</span> bwt[smoke<span class="op">==</span>T],</span>
+<span id="cb88-3"><a href="#cb88-3"></a>            <span class="dt">y =</span> bwt[smoke<span class="op">==</span>F],</span>
+<span id="cb88-4"><a href="#cb88-4"></a>            <span class="dt">var.equal =</span> T,<span class="dt">conf.level =</span> <span class="fl">0.95</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
@@ -1505,17 +1573,32 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 <ol start="6" style="list-style-type: decimal">
 <li>Para las mamás que tuvieron bebés con bajo peso al nacer, ¿son más jóvenes las mamás de otros grupos étnicos en comparación a las mamás blancas?</li>
 </ol>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(low<span class="op">==</span>T,race <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;other&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb90-2"><a href="#cb90-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>race,<span class="dt">y=</span>age,<span class="dt">fill=</span>race))<span class="op">+</span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="I_ph2_files/figure-html/unnamed-chunk-38-1.png" width="630" style="display: block; margin: auto;" /></p>
 <p>Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro del bajo peso al nacer y la étnia de las mamás. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(low<span class="op">==</span>T,race <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;other&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb91-2"><a href="#cb91-2"></a><span class="st">  </span><span class="kw">group_by</span>(race) <span class="op">%&gt;%</span></span>
+<span id="cb91-3"><a href="#cb91-3"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n=</span><span class="kw">length</span>(age),<span class="dt">prom=</span><span class="kw">mean</span>(age),<span class="dt">desv=</span><span class="kw">sd</span>(age),</span>
+<span id="cb91-4"><a href="#cb91-4"></a>            <span class="dt">shapiro=</span><span class="kw">shapiro.test</span>(age)<span class="op">$</span>p.val,</span>
+<span id="cb91-5"><a href="#cb91-5"></a>            <span class="dt">Ander_Darl=</span><span class="kw">ad.test</span>(age)<span class="op">$</span>p.val,</span>
+<span id="cb91-6"><a href="#cb91-6"></a>            <span class="dt">lilliefords=</span><span class="kw">lillie.test</span>(age)<span class="op">$</span>p.val)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 7
 ##   race      n  prom  desv shapiro Ander_Darl lilliefords
 ##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
 ## 1 white    23  23.0  4.72   0.583      0.592       0.679
 ## 2 other    25  21.6  4.15   0.109      0.112       0.150</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb93-2"><a href="#cb93-2"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(low<span class="op">==</span>T,race<span class="op">==</span><span class="st">&quot;white&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb93-3"><a href="#cb93-3"></a><span class="st">  </span><span class="kw">with</span>(.,<span class="kw">qqPlot</span>(age,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">main =</span> <span class="st">&quot;White&quot;</span>))</span></code></pre></div>
 <pre><code>## [1]  3 16</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(low<span class="op">==</span>T,race<span class="op">==</span><span class="st">&quot;other&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb95-2"><a href="#cb95-2"></a><span class="st">  </span><span class="kw">with</span>(.,<span class="kw">qqPlot</span>(age,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">col.lines =</span> <span class="dv">2</span>,<span class="dt">main=</span><span class="st">&quot;Other&quot;</span>))</span></code></pre></div>
 <p><img src="I_ph2_files/figure-html/unnamed-chunk-39-1.png" width="810" style="display: block; margin: auto;" /></p>
 <pre><code>## [1] 23 24</code></pre>
 <p>De acuerdo con los test de normalidad, las edades en ambos grupos distribuyen normal. De acuerdo con el árbol de decisión no conocemos las varianzas poblaciones, entonces con las varianzas muestrales es necesario decidir si las varianzas son iguales o no.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(low<span class="op">==</span>T,race <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;other&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb97-2"><a href="#cb97-2"></a><span class="st">  </span><span class="kw">with</span>(.,<span class="kw">var.test</span>(age<span class="op">~</span>race))</span></code></pre></div>
 <pre><code>## 
 ##  F test to compare two variances
 ## 
@@ -1528,6 +1611,10 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 ## ratio of variances 
 ##           1.294443</code></pre>
 <p>En los resultados del test de varianza vemos que el valor-p es mayor que el nivel de significancia, por lo tanto la varianza de las edades de las mamás en ambos grupos étnicos es igual. Continuando con el árbol de decisión podemos utilizas el estadístico de prueba basado en la <em>t-student</em> para varianzas iguales, además la hipótesis alternativa considera que son más jóvenes las mamás de otros grupos étnicos en comparación a las mamás blancas.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(low<span class="op">==</span>T,race <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;white&quot;</span>,<span class="st">&quot;other&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb99-2"><a href="#cb99-2"></a><span class="st">  </span><span class="kw">with</span>(.,<span class="kw">t.test</span>(age[race<span class="op">==</span><span class="st">&quot;other&quot;</span>],</span>
+<span id="cb99-3"><a href="#cb99-3"></a>                age[race<span class="op">==</span><span class="st">&quot;white&quot;</span>],<span class="dt">alternative =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb99-4"><a href="#cb99-4"></a>                <span class="dt">var.equal =</span> T,<span class="dt">conf.level =</span> <span class="fl">0.95</span>))</span></code></pre></div>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
