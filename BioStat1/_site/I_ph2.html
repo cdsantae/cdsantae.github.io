@@ -1135,17 +1135,16 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 </table>
 <p>La descripción de las variables de esta base de datos están <a href="https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/birthwt.html" target="_blank">aquí</a>.</p>
 <p>De acuerdo con la descripción se organiza el conjunto de datos de mejor forma como sigue.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="kw">require</span>(MASS)</span>
-<span id="cb49-2"><a href="#cb49-2"></a>datos &lt;-<span class="st"> </span><span class="kw">with</span>(birthwt, {</span>
-<span id="cb49-3"><a href="#cb49-3"></a>  race &lt;-<span class="st"> </span><span class="kw">factor</span>(race, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;other&quot;</span>))</span>
-<span id="cb49-4"><a href="#cb49-4"></a>  ptd &lt;-<span class="st"> </span><span class="kw">factor</span>(ptl <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
-<span id="cb49-5"><a href="#cb49-5"></a>  ftv &lt;-<span class="st"> </span><span class="kw">factor</span>(ftv)</span>
-<span id="cb49-6"><a href="#cb49-6"></a>  <span class="kw">levels</span>(ftv)[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)] &lt;-<span class="st"> &quot;2+&quot;</span></span>
-<span id="cb49-7"><a href="#cb49-7"></a>  <span class="kw">data.frame</span>(<span class="dt">low =</span> <span class="kw">factor</span>(low<span class="op">&gt;</span><span class="dv">0</span>),</span>
-<span id="cb49-8"><a href="#cb49-8"></a>             age, lwt, race, <span class="dt">smoke =</span> (smoke <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>),</span>
-<span id="cb49-9"><a href="#cb49-9"></a>             ptd, <span class="dt">ht =</span> (ht <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>), <span class="dt">ui =</span> (ui <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>),</span>
-<span id="cb49-10"><a href="#cb49-10"></a>             ftv,bwt)</span>
-<span id="cb49-11"><a href="#cb49-11"></a>})</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>datos &lt;-<span class="st"> </span><span class="kw">with</span>(birthwt, {</span>
+<span id="cb49-2"><a href="#cb49-2"></a>  race &lt;-<span class="st"> </span><span class="kw">factor</span>(race, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;other&quot;</span>))</span>
+<span id="cb49-3"><a href="#cb49-3"></a>  ptd &lt;-<span class="st"> </span><span class="kw">factor</span>(ptl <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
+<span id="cb49-4"><a href="#cb49-4"></a>  ftv &lt;-<span class="st"> </span><span class="kw">factor</span>(ftv)</span>
+<span id="cb49-5"><a href="#cb49-5"></a>  <span class="kw">levels</span>(ftv)[<span class="op">-</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)] &lt;-<span class="st"> &quot;2+&quot;</span></span>
+<span id="cb49-6"><a href="#cb49-6"></a>  <span class="kw">data.frame</span>(<span class="dt">low =</span> <span class="kw">factor</span>(low<span class="op">&gt;</span><span class="dv">0</span>),</span>
+<span id="cb49-7"><a href="#cb49-7"></a>             age, lwt, race, <span class="dt">smoke =</span> (smoke <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>),</span>
+<span id="cb49-8"><a href="#cb49-8"></a>             ptd, <span class="dt">ht =</span> (ht <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>), <span class="dt">ui =</span> (ui <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>),</span>
+<span id="cb49-9"><a href="#cb49-9"></a>             ftv,bwt)</span>
+<span id="cb49-10"><a href="#cb49-10"></a>})</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1344,15 +1343,206 @@ H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &
 </tr>
 </tbody>
 </table>
-<p>Con esta base de datos responda las siguientes preguntas utilizando <code>R</code>.</p>
+<p>Con esta base de datos responda las siguientes preguntas utilizando <code>R</code> con un nivel de significancia del 5%.</p>
 <ol style="list-style-type: decimal">
-<li><p>Para las mamás que tuvieron bebés con bajo peso al nacer, ¿existen diferencias en su condición de fumadoras?</p></li>
-<li><p>Se cree que las mamás que tuvieron más de un parto previo, la edad es menor a 27 años ¿Es cierta esta hipótesis?</p></li>
-<li><p>La hipertensión es un indicador asociado al peso, para las mamás hipertensas ¿existe diferencias significativas entre el peso de las blancas y las afrodescendientes?</p></li>
-<li><p>Se piensa que las mujeres blancas tienen bebés con pesos más altos que las de otros grupos étnicos ¿Es cierta esta hipótesis?</p></li>
-<li><p>El hábito de fumar afecta el desarrollo del feto en las mujeres gestantes, ¿existen diferencias en los pesos al nacer dado este hábito?</p></li>
-<li><p>Para las mamás que tuvieron bebés con bajo peso al nacer, ¿son más jóvenes las mamás de otros grupos étnicos en comparación a las mamás blancas?</p></li>
+<li>Para las mamás que tuvieron bebés con bajo peso al nacer, ¿existen diferencias en su condición de fumadoras?</li>
 </ol>
+<pre><code>##        low
+## smoke   FALSE TRUE
+##   FALSE    86   29
+##   TRUE     44   30</code></pre>
+<p>Como la pregunta está dirigida a las mamás que tuvieron bebés con bajo peso al nacer, entonces hay que mover las columnas de la tabla para conservar la hipótesis.</p>
+<pre><code>##        low
+## smoke   TRUE FALSE
+##   FALSE   29    86
+##   TRUE    30    44</code></pre>
+<p>Esta es la tabla con la cual se hará la prueba de diferencia de proporciones, donde se comparará la condición de fumador dado que se tienen bebés en bajo peso.</p>
+<pre><code>## 
+##  2-sample test for equality of proportions without continuity
+##  correction
+## 
+## data:  .
+## X-squared = 4.9237, df = 1, p-value = 0.02649
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.29039121 -0.01607177
+## sample estimates:
+##    prop 1    prop 2 
+## 0.2521739 0.4054054</code></pre>
+<p>Como el valor-p es menor a 0.05, entonces se rechaza la hipótesis nula, por lo tanto si existen diferencias significativas entre la proporción de mamás que fuman y las que no, dado que tuvieron bebés con bajo peso al nacer.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Se cree que las mamás que tuvieron más de un parto previo, la edad es menor a 27 años ¿Es cierta esta hipótesis?</li>
+</ol>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-23-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Para poder resolver la hipótesis es necesario tener encuenta el filtro de las mamás que tuvieron más de un parto previo, que se indica con la variable <code>ptd</code>. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.</p>
+<pre><code>##    n     prom     desv   shapiro Ander_Darl lilliefords
+## 1 30 24.43333 5.028768 0.5879124  0.4028222   0.1139127</code></pre>
+<p>En los resultados vemos que tenemos una muestra de tamaño 30, con una media de 24.43 años y una desviación de 5.03 años. Además los test de normalidad utilizados nos ayudan a conculir que la distribución de los datos es normal, comparando los valores-p con el nivel de significancia.</p>
+<p>De acuerdo con el árbol de decisión podemos utilizar un estadístico de prueba basado en la <em>t-student</em>, ya que los datos distribuyen normal y NO conocemos la varianza poblacional, para tomar una decisión sobre la hipótesis planteada.</p>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  .
+## t = -2.7956, df = 29, p-value = 0.004548
+## alternative hypothesis: true mean is less than 27
+## 95 percent confidence interval:
+##      -Inf 25.99334
+## sample estimates:
+## mean of x 
+##  24.43333</code></pre>
+<p>Como el valor-p es menor al nivel de significancia del 5%, entonces se rechaza la hipótesis nula, por lo tanto el promedio de la edad de las mamás con más de un parto previo es menor de 27 años.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>La hipertensión es un indicador asociado al peso, para las mamás hipertensas ¿existe diferencias significativas entre el peso de las blancas y otros grupos étnicos?</li>
+</ol>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-26-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro de las mamás con hipertensión previa y considerar de la variable <code>race</code> solo las mujeres blancas y de otras étnias. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.</p>
+<pre><code>## # A tibble: 2 x 5
+##   race      n  prom  desv shapiro
+##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+## 1 white     5  167.  46.1   0.201
+## 2 other     4  122.  26.7   0.850</code></pre>
+<p>Los resultados nos indican que para ambos grupos los pesos distribuyen normal, de acuerdo con el árbol de decisión hay que decidir si las varianzas so iguales o no.</p>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  lwt by race
+## F = 2.9758, num df = 4, denom df = 3, p-value = 0.397
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##   0.1970574 29.6956898
+## sample estimates:
+## ratio of variances 
+##           2.975759</code></pre>
+<p>Como el valor-p es mucho mayor que el nivel de significancia, entonces no se reachaza la hipótesis nula, por lo tanto se considera que las varianzas de ambos grupos son iguales. Siguiendo con el árbol de decisión usamos el estadístico de prueba de la <em>t-student</em> para igualdad de varianzas.</p>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  lwt[race == &quot;white&quot;] and lwt[race == &quot;other&quot;]
+## t = 1.7324, df = 7, p-value = 0.1268
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -16.53074 107.13074
+## sample estimates:
+## mean of x mean of y 
+##     166.8     121.5</code></pre>
+<p>Como el valor-p es mayor que el nivel de significancia, entonces no se rechaza la hipótesis nula, por lo tanto no existen diferencias estadísticamente significativas de los pesos entre los dosgrupos étnicos en presencia de hipertensión. Este resultado se explica por al alta variabilidad que existe en ambos grupos y los pocos tamaños de muestra, lo que impacta en los errores estándar.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Se piensa que las mujeres blancas tienen bebés con pesos más altos que las de otros grupos étnicos ¿Es cierta esta hipótesis?</li>
+</ol>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-30-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro de la étnia de las mamás blancas y de otras étnias, con la variable <code>race</code>. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.</p>
+<pre><code>## # A tibble: 2 x 7
+##   race      n  prom  desv shapiro Ander_Darl lilliefords
+##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
+## 1 white    96 3103.  728.   0.486      0.227      0.0511
+## 2 other    67 2805.  722.   0.205      0.241      0.0258</code></pre>
+<pre><code>## [1] 74 73</code></pre>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-31-1.png" width="810" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] 43 44</code></pre>
+<p>De acuerdo con los test de normalidad, el peso al nacer en ambos grupos distribuyen normal, solo el test de Lilliefords presenta problemas, no obstante los QQ-Plots nos muestran que el ajuste es bueno y los test de normalidad más robustos nos apoyan en la decisión. De acuerdo con el árbol de decisión no conocemos las varianzas poblaciones, entonces con las varianzas muestrales es necesario decidir si las varianzas son iguales o no.</p>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  bwt by race
+## F = 1.0158, num df = 95, denom df = 66, p-value = 0.9558
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.643440 1.574738
+## sample estimates:
+## ratio of variances 
+##           1.015825</code></pre>
+<p>En los resultados del test de varianza vemos que el valor-p es mayor que el nivel de significancia, por lo tanto la varianza del peso al nacer en ambos grupos étnicos es igual. Continuando con el árbol de decisión podemos utilizas el estadístico de prueba basado en la <em>t-student</em> para varianzas iguales, además la hipótesis alternativa considera que los pesos al nacer de las mamás blancas son mayores que los pesos al nacer de los otros grupos étnicos.</p>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  bwt[race == &quot;white&quot;] and bwt[race == &quot;other&quot;]
+## t = 2.5751, df = 161, p-value = 0.00546
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  106.3502      Inf
+## sample estimates:
+## mean of x mean of y 
+##  3102.719  2805.284</code></pre>
+<p>Como el valor-p es menor que el nivel de significancia, entonces se rechaza la hipótesis nula, por lo tanto existe evidencia muestral suficiente para decir que el peso al nacer de las mamás blancas es mayor que el peso al nacer de las mamás de otras grupos étnicos con una confianza del 95%.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>El hábito de fumar afecta el desarrollo del feto en las mujeres gestantes, ¿existen diferencias en los pesos al nacer dado este hábito?</li>
+</ol>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-34-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro de la condición de fumador con la variable <code>smoke</code>. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.</p>
+<pre><code>## # A tibble: 2 x 7
+##   smoke     n  prom  desv shapiro Ander_Darl lilliefords
+##   &lt;lgl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
+## 1 FALSE   115 3056.  753.   0.334      0.202       0.397
+## 2 TRUE     74 2772.  660.   0.419      0.567       0.540</code></pre>
+<pre><code>## [1] 87 86</code></pre>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-35-1.png" width="810" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] 45 46</code></pre>
+<p>De acuerdo con los test de normalidad, el peso al nacer en ambos grupos distribuyen normal. De acuerdo con el árbol de decisión no conocemos las varianzas poblaciones, entonces con las varianzas muestrales es necesario decidir si las varianzas son iguales o no.</p>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  bwt by smoke
+## F = 1.3019, num df = 114, denom df = 73, p-value = 0.2254
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.8486407 1.9589574
+## sample estimates:
+## ratio of variances 
+##           1.301927</code></pre>
+<p>En los resultados del test de varianza vemos que el valor-p es mayor que el nivel de significancia, por lo tanto la varianza del peso al nacer en ambos grupos étnicos es igual. Continuando con el árbol de decisión podemos utilizas el estadístico de prueba basado en la <em>t-student</em> para varianzas iguales, además la hipótesis alternativa considera que los pesos al nacer de las mamás fumadoras son diferentes de los pesos al nacer de las no fumadoras.</p>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  bwt[smoke == T] and bwt[smoke == F]
+## t = -2.6529, df = 187, p-value = 0.008667
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -494.79735  -72.75612
+## sample estimates:
+## mean of x mean of y 
+##  2771.919  3055.696</code></pre>
+<p>Como el valor-p es menor que el nivel de significancia, entonces se rechaza la hipótesis nula, por lo tanto existe evidencia muestral suficiente para decir que el peso al nacer de los bebés de las mamás fumadoras es diferente del el peso al nacer de los bebés de las mamás sin este hábito.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>Para las mamás que tuvieron bebés con bajo peso al nacer, ¿son más jóvenes las mamás de otros grupos étnicos en comparación a las mamás blancas?</li>
+</ol>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-38-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro del bajo peso al nacer y la étnia de las mamás. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.</p>
+<pre><code>## # A tibble: 2 x 7
+##   race      n  prom  desv shapiro Ander_Darl lilliefords
+##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
+## 1 white    23  23.0  4.72   0.583      0.592       0.679
+## 2 other    25  21.6  4.15   0.109      0.112       0.150</code></pre>
+<pre><code>## [1]  3 16</code></pre>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-39-1.png" width="810" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] 23 24</code></pre>
+<p>De acuerdo con los test de normalidad, las edades en ambos grupos distribuyen normal. De acuerdo con el árbol de decisión no conocemos las varianzas poblaciones, entonces con las varianzas muestrales es necesario decidir si las varianzas son iguales o no.</p>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  age by race
+## F = 1.2944, num df = 22, denom df = 24, p-value = 0.5366
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.5638052 3.0179943
+## sample estimates:
+## ratio of variances 
+##           1.294443</code></pre>
+<p>En los resultados del test de varianza vemos que el valor-p es mayor que el nivel de significancia, por lo tanto la varianza de las edades de las mamás en ambos grupos étnicos es igual. Continuando con el árbol de decisión podemos utilizas el estadístico de prueba basado en la <em>t-student</em> para varianzas iguales, además la hipótesis alternativa considera que son más jóvenes las mamás de otros grupos étnicos en comparación a las mamás blancas.</p>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  age[race == &quot;other&quot;] and age[race == &quot;white&quot;]
+## t = -1.0953, df = 46, p-value = 0.1395
+## alternative hypothesis: true difference in means is less than 0
+## 95 percent confidence interval:
+##       -Inf 0.7474548
+## sample estimates:
+## mean of x mean of y 
+##  21.64000  23.04348</code></pre>
+<p>Como el valor-p es mayor que el nivel de significancia, entonces no se rechaza la hipótesis nula, por lo tanto no existe evidencia muestral suficiente para decir que son más jóvenes las mamás de otros grupos étnicos en comparación a las mamás blancas, que tuvieron hijos bajo peso al nacer.</p>
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
 </div>
 
 
