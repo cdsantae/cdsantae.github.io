@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Métodos gráficos para resumir información</title>
+
+<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Investigación II</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="I_et2.html">Potencia</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-equalizer"></span>
+     
+    Muestreo
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="M_effect.html">Sobre el efecto</a>
+    </li>
+    <li>
+      <a href="M_MAS.html">MAS</a>
+    </li>
+    <li>
+      <a href="M_MAE.html">MAE</a>
+    </li>
+    <li>
+      <a href="M_Cluster.html">Cluster</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-code"></span>
+     
+    R-Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Rinstall.html">Instalación</a>
+    </li>
+    <li>
+      <a href="IntroR.html">Introducción</a>
+    </li>
+    <li>
+      <a href="FunsR.html">Funciones y Paquetes</a>
+    </li>
+    <li>
+      <a href="RData.html">Manejo de Datos</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Métodos gráficos para resumir información</h1>
+
+</div>
+
+
+<hr>
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p>En la etapa de diseño de la investigación se establece la identificación de variables, la estrategia de recolección de datos de acuerdo al diseño de estudio, el plan de captura y estructuración de la información y finalmente se establece el plan de análisis estadístico.</p>
+<p>La primera parte de plan de análisis siempre necesita de la organización y presentación de los resultados, es decir, todo lo correspondiente al análisis descriptivo de los datos. Para esto, se cuenta con una colección de métodos de presentación de información: gráficos, tablas y medidas de resumen. Dado el tipo de variable y sus divisiones corresponde un conjunto de gráficos, tablas y medidas de resumen</p>
+<div id="elementos-de-un-gráfico" class="section level3">
+<h3>Elementos de un gráfico</h3>
+<p>Para la presentación de la información a través de gráficos, tenga en cuenta que las recomendaciones mínimas para la construcción de un buen gráfico:</p>
+<ul>
+<li><p>Facilidad para comparar e identificar comportamiento de los datos</p></li>
+<li><p>Lenguaje preciso y claro de tal manera que se eviten confusiones sobre las características de los datos mostrados</p></li>
+<li><p>Evitar gráficas donde el gran número de categorías, indicadores o variables dificulten su interpretación</p></li>
+<li><p>Distinción clara de las categorías o rótulos del gráfico</p></li>
+<li><p>Notación de cifras y de decimales claras</p></li>
+<li><p>Evitar el uso de abreviaturas</p></li>
+<li><p>Las siglas/acrónimos deben de ir en mayúsculas y sin puntos intermedios</p></li>
+<li><p>Aclarar la escala de los ejes</p></li>
+</ul>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-1-1.png" width="500" style="display: block; margin: auto;" /></p>
+<p>Los errores comunes que se presentan en los gráficos técnicos son:</p>
+<ul>
+<li><p>Falta de títulos, convenciones y etiquetas</p></li>
+<li><p>Falta de escala en los ejes</p></li>
+<li><p>Congestionamiento o exceso de información</p></li>
+<li><p>Escasez de datos</p></li>
+<li><p>Mala calidad de la impresión</p></li>
+<li><p>Incluir un eje adicional sin sentido para dar efectos 3D</p></li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="gráficos-para-variables-cualitativas" class="section level2">
+<h2>Gráficos para Variables Cualitativas</h2>
+<p>En la sección anterior se explicó las clasificaciones de las variables, para el caso de las variables cualitativas se agrupan en <strong>Nominales</strong> y <strong>Ordinales</strong>. La construcción de gráficos adecuados para este tipo de variable se basan en la representación de los conteos, si se tiene más de una variable es posible mostrar su relación.</p>
+<hr>
+<div id="gráfico-de-barras" class="section level3">
+<h3>Gráfico de barras</h3>
+<p>Este gráfico se caracteriza por identificar las categorías o niveles de una variable cualitativa a relacionando la frecuencia de ocurrencia (<strong>frecuencia absoluta</strong>) a través de barras <em>separadas</em>. Para que el gráfico cobre sentido e interpretación rápida se recomienda que cada barra tenga un color distinto.</p>
+<div class="row-fluid">
+<div class="col-xs-6 col-md-6">
+<p><img src="D_graph_files/figure-html/unnamed-chunk-2-1.png" width="720" style="display: block; margin: auto;" /></p>
+</div>
+<div class="col-xs-6 col-md-6">
+<p><img src="D_graph_files/figure-html/unnamed-chunk-3-1.png" width="720" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<p>Este gráfico también puede usarse para representar la <strong>frecuencia relativa</strong> o los porcentajes que que representa la ocurrencia de cada categoría.</p>
+<p>En <code>R</code> es fácil construir este gráfico con el siguiente código:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Construya el vector de datos</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># la función &quot;c&quot; concatena los elementos</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># la función &quot;rep&quot; repite n veces los elementos</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>viviendas &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;Estrato 1&quot;</span>,<span class="dv">10</span>),<span class="kw">rep</span>(<span class="st">&quot;Estrato 2&quot;</span>,<span class="dv">25</span>),<span class="kw">rep</span>(<span class="st">&quot;Estrato 3&quot;</span>,<span class="dv">8</span>),</span>
+<span id="cb1-5"><a href="#cb1-5"></a>              <span class="kw">rep</span>(<span class="st">&quot;Estrato 4&quot;</span>,<span class="dv">15</span>),<span class="kw">rep</span>(<span class="st">&quot;Estrato 5&quot;</span>,<span class="dv">5</span>),<span class="kw">rep</span>(<span class="st">&quot;Estrato 6&quot;</span>,<span class="dv">5</span>))</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Construya la tabla de frecuencias con la función &quot;table&quot;</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>tabviv &lt;-<span class="st"> </span><span class="kw">table</span>(viviendas)</span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co"># La función &quot;barplot&quot; construye el gráfico de barras de una tabla</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># en la función se ingresan los argumentos para dar el toque estético</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>b1 &lt;-<span class="st"> </span><span class="kw">barplot</span>(tabviv,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">main =</span> <span class="st">&quot;Estrato socioeconómico del área de estudio&quot;</span>,</span>
+<span id="cb1-13"><a href="#cb1-13"></a>             <span class="dt">ylab=</span><span class="st">&quot;Viviendas&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;Estrato Socioeconómic&quot;</span>,<span class="dt">col=</span><span class="kw">rainbow</span>(<span class="dv">6</span>),</span>
+<span id="cb1-14"><a href="#cb1-14"></a>             <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">30</span>),<span class="dt">cex.names =</span> <span class="fl">0.8</span>,<span class="dt">cex.axis =</span> <span class="fl">0.8</span>)</span>
+<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-16"><a href="#cb1-16"></a><span class="co"># Para añadir las frecuencias a las barras está este truco</span></span>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="kw">text</span>(b1,tabviv<span class="op">+</span><span class="dv">1</span>,<span class="dt">labels =</span> tabviv)</span>
+<span id="cb1-18"><a href="#cb1-18"></a></span>
+<span id="cb1-19"><a href="#cb1-19"></a><span class="co"># Consulta la ayuda de las funciones</span></span>
+<span id="cb1-20"><a href="#cb1-20"></a>?barplot</span>
+<span id="cb1-21"><a href="#cb1-21"></a>?table</span>
+<span id="cb1-22"><a href="#cb1-22"></a>?c</span>
+<span id="cb1-23"><a href="#cb1-23"></a>?rep</span>
+<span id="cb1-24"><a href="#cb1-24"></a>?rainbow</span>
+<span id="cb1-25"><a href="#cb1-25"></a>?text</span></code></pre></div>
+<p>Este gráfico también es útil cuando se tiene dos variables categóricas, siempre y cuando los niveles de dicha variable sean pocas para no saturar el gráfico.</p>
+<hr>
+<div id="ejemplo" class="section level4 tabset tabset-fade tabset-pills">
+<h4 class="tabset tabset-fade tabset-pills">Ejemplo</h4>
+<div id="apilado" class="section level5">
+<h5>Apilado</h5>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-5-1.png" width="600" style="display: block; margin: auto;" /></p>
+</div>
+<div id="separado" class="section level5">
+<h5>Separado</h5>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-6-1.png" width="600" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="section" class="section level4 toc-ignore">
+<h4 class="toc-ignore"></h4>
+<hr>
+</div>
+</div>
+<div id="gráfico-de-torta" class="section level3">
+<h3>Gráfico de torta</h3>
+<p>El gráfico de torta muestra por secciones de un círculo las proporciones o frecuencias de las categorías de una variable cualitativa</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-7-1.png" width="500" style="display: block; margin: auto;" /></p>
+<blockquote>
+<p>Este gráfico tiene la dificultad en términos de interpretación, ya que la disposición circular no permite hacer distinciones sencillas sobre la proporcionalidad a menos que la categorías sean claramente dispares</p>
+</blockquote>
+<div id="ejemplo-1" class="section level4 tabset tabset-fade tabset-pills">
+<h4 class="tabset tabset-fade tabset-pills">Ejemplo</h4>
+<div id="torta" class="section level5">
+<h5>Torta</h5>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-8-1.png" width="500" style="display: block; margin: auto;" /></p>
+</div>
+<div id="barras" class="section level5">
+<h5>Barras</h5>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-9-1.png" width="500" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="section-1" class="section level4 toc-ignore">
+<h4 class="toc-ignore"></h4>
+<p>Una opción para reducir la limitación de proporcionalidad en este gráfico es utilizar etiquetas para indicar las proporciones o frecuencias de cada categoría, o bien usar un <em>gráfico de dona</em>.</p>
+</div>
+<div id="ejemplo-2" class="section level4 tabset tabset-fade tabset-pills">
+<h4 class="tabset tabset-fade tabset-pills">Ejemplo</h4>
+<div id="torta-1" class="section level5">
+<h5>Torta</h5>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-10-1.png" width="500" style="display: block; margin: auto;" /></p>
+</div>
+<div id="dona" class="section level5">
+<h5>Dona</h5>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-11-1.png" width="500" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="section-2" class="section level4 toc-ignore">
+<h4 class="toc-ignore"></h4>
+<p>En <code>R</code> es fácil construir este gráfico con el siguiente código:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Construya el vector de datos</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># La función &quot;c&quot; concatena los elementos</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># La función &quot;rep&quot; repite n veces los elementos</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>viviendas &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;Estrato 1&quot;</span>,<span class="dv">10</span>),<span class="kw">rep</span>(<span class="st">&quot;Estrato 2&quot;</span>,<span class="dv">25</span>),<span class="kw">rep</span>(<span class="st">&quot;Estrato 3&quot;</span>,<span class="dv">8</span>),</span>
+<span id="cb2-5"><a href="#cb2-5"></a>              <span class="kw">rep</span>(<span class="st">&quot;Estrato 4&quot;</span>,<span class="dv">15</span>),<span class="kw">rep</span>(<span class="st">&quot;Estrato 5&quot;</span>,<span class="dv">5</span>),<span class="kw">rep</span>(<span class="st">&quot;Estrato 6&quot;</span>,<span class="dv">5</span>))</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># Construya la tabla de frecuencias con la función &quot;table&quot;</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>tabviv &lt;-<span class="st"> </span><span class="kw">table</span>(viviendas)</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># La función &quot;pie&quot; construye el gráfico de tortas de una tabla</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># En la función se ingresan los argumentos para dar el toque estético</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co"># En el argumento labels, se puede usar la función &quot;paste&quot; para pegar</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co"># la categoría (&quot;names&quot;) con la frecuencia (&quot;tabdep&quot;)</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="kw">pie</span>(tabviv,<span class="dt">col =</span> <span class="kw">rainbow</span>(<span class="dv">6</span>),</span>
+<span id="cb2-15"><a href="#cb2-15"></a>    <span class="dt">labels =</span> <span class="kw">paste</span>(<span class="kw">names</span>(tabviv),tabviv,<span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>))</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co"># Consulta la ayuda de las funciones</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a>?pie</span>
+<span id="cb2-19"><a href="#cb2-19"></a>?paste</span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="diagrama-de-puntos" class="section level3">
+<h3>Diagrama de puntos</h3>
+<p>Este gráfico también es similar al gráfico de barras, sirve para presentar las frecuencias absolutas o relativas de una variable cualitativa, y muestra un punto que representa el conteo del total de observaciones que hay para cada variable.</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-13-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p>En <code>R</code> es fácil construir este gráfico con el siguiente código:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># La función &quot;dotchart&quot; construye el diagrama de puntos de una tabla</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># En la función se ingresan los argumentos para dar el toque estético</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># En el argumento pch, se pone el número que representa el símbolo a usar</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">dotchart</span>(tabviv,<span class="dt">pch =</span> <span class="dv">19</span>,<span class="dt">xlab =</span> <span class="st">&quot;Frecuencia&quot;</span>,</span>
+<span id="cb3-5"><a href="#cb3-5"></a>         <span class="dt">main =</span> <span class="st">&quot;Estrato socioeconómico del área de estudio&quot;</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># Consulta la ayuda de las funciones</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>?dotchart</span></code></pre></div>
+<hr>
+</div>
+<div id="gráfico-de-mosaico" class="section level3">
+<h3>Gráfico de mosaico</h3>
+<p>En muchas ocasiones se tiene más de una variable categórica y un gráfico de barras compuesto no es suficiente para exponer con precisión la información. Para este caso, el gráfico de mosaico permite relacionar más de dos variables para analizar las frecuencias entre los cruces de niveles de las variables categóricas.</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-15-1.png" width="720" style="display: block; margin: auto;" /><img src="D_graph_files/figure-html/unnamed-chunk-15-2.png" width="720" style="display: block; margin: auto;" /></p>
+<p>En <code>R</code> es fácil construir este gráfico con el siguiente código:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Construya el vector de datos</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># La función &quot;sample&quot; extrae número aleatorios</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># La función &quot;set.seed&quot; establece semillas de números aleatorios</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co"># La función &quot;factor&quot; convierte el texto a factor</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb4-6"><a href="#cb4-6"></a>habit &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">68</span>,<span class="dt">replace =</span> T)</span>
+<span id="cb4-7"><a href="#cb4-7"></a>habit &lt;-<span class="st"> </span><span class="kw">factor</span>(habit)</span>
+<span id="cb4-8"><a href="#cb4-8"></a>hacin &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="dv">68</span>,<span class="dt">replace =</span> T)</span>
+<span id="cb4-9"><a href="#cb4-9"></a>hacin &lt;-<span class="st"> </span><span class="kw">ifelse</span>(hacin<span class="op">==</span><span class="dv">1</span>,<span class="st">&quot;Con</span><span class="ch">\n</span><span class="st">Hacinamiento&quot;</span>,<span class="st">&quot;Sin</span><span class="ch">\n</span><span class="st">Hacinamiento&quot;</span>)</span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co"># Construya la tabla de frecuencias con la función &quot;table&quot;</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>EstHab &lt;-<span class="st"> </span><span class="kw">table</span>(viviendas,habit)</span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co"># La función &quot;mosaicplot&quot; construye el gráfico de mosaico de una tabla</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co"># En la función se ingresan los argumentos para dar el toque estético</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="kw">mosaicplot</span>(EstHab,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">col=</span><span class="kw">terrain.colors</span>(<span class="dv">4</span>),</span>
+<span id="cb4-17"><a href="#cb4-17"></a>           <span class="dt">main =</span> <span class="st">&quot;Relación entre el estrato y el número de habitaciones&quot;</span>,</span>
+<span id="cb4-18"><a href="#cb4-18"></a>           <span class="dt">cex=</span><span class="fl">0.8</span>)</span>
+<span id="cb4-19"><a href="#cb4-19"></a></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co"># Consulta la ayuda de las funciones</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>?mosaicplot</span>
+<span id="cb4-22"><a href="#cb4-22"></a>?sample</span>
+<span id="cb4-23"><a href="#cb4-23"></a>?factor</span>
+<span id="cb4-24"><a href="#cb4-24"></a>?ifelse</span>
+<span id="cb4-25"><a href="#cb4-25"></a>?set.seed</span></code></pre></div>
+<hr>
+</div>
+<div id="diagrama-de-sankey" class="section level3">
+<h3>Diagrama de <em>Sankey</em></h3>
+<p>Este gráfico relaciona las transferencia de frecuencias entre los niveles de varias variables categóricas, también se conoce como <strong>Alluvial plot</strong>. Lleva el nombre de <em>Sankey</em> por el capitán irlandés Matthew Henry Phineas Riall Sankey quién utilizó este diagrama en 1898 en una publicación sobre la eficiencia energética de la máquina de vapor. El gráfico más famoso de este tipo, y catalogado como el mejor gráfico de la historia, es el diagrama de la invasión napoleónica a Rusia.</p>
+<br>
+<center>
+<img src="Minard.png" title="fig:" alt="Invasión Napoleónica a Ruisa" />
+</center>
+<p><br></p>
+<p>Para utilizar este gráfico necesitamos de un paquete especial de <code>R</code> llamado <code>alluvial</code> el cual se instala de la siguiente forma:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># código para instalar</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">install.packages</span>(<span class="st">&quot;alluvial&quot;</span>,<span class="dt">dependencies =</span> T)</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co"># Una vez instalado, no es necesario repetir el proceso !!!</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co"># para cargarlo en el entorno de trabajo usamos</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="kw">require</span>(alluvial)</span></code></pre></div>
+<p>Siguiendo el ejemplo de las encuestas de las viviendas, es necesario hacer un cambio en cómo se entran los argumentos a la función, ya no necesitamos una tabla sino un marco de datos o <code>data.frame</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">table</span>(hacin,viviendas,habit)</span></code></pre></div>
+<pre><code>## , , habit = 2
+## 
+##                    viviendas
+## hacin               Estrato 1 Estrato 2 Estrato 3 Estrato 4 Estrato 5 Estrato 6
+##   Con\nHacinamiento         1         2         1         1         0         1
+##   Sin\nHacinamiento         2         0         0         1         1         2
+## 
+## , , habit = 3
+## 
+##                    viviendas
+## hacin               Estrato 1 Estrato 2 Estrato 3 Estrato 4 Estrato 5 Estrato 6
+##   Con\nHacinamiento         2         6         2         2         0         1
+##   Sin\nHacinamiento         1         2         1         1         2         0
+## 
+## , , habit = 4
+## 
+##                    viviendas
+## hacin               Estrato 1 Estrato 2 Estrato 3 Estrato 4 Estrato 5 Estrato 6
+##   Con\nHacinamiento         0         1         1         1         1         0
+##   Sin\nHacinamiento         1         4         1         4         0         0
+## 
+## , , habit = 5
+## 
+##                    viviendas
+## hacin               Estrato 1 Estrato 2 Estrato 3 Estrato 4 Estrato 5 Estrato 6
+##   Con\nHacinamiento         2         4         2         2         0         1
+##   Sin\nHacinamiento         1         6         0         3         1         0</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Con la función &quot;as.data.frame.table&quot; se convierte</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co"># las tablas en marcos de datos o data.frame</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>(datos &lt;-<span class="st"> </span><span class="kw">as.data.frame.table</span>(<span class="kw">table</span>(hacin,viviendas,habit)))</span></code></pre></div>
+<pre><code>##                hacin viviendas habit Freq
+## 1  Con\nHacinamiento Estrato 1     2    1
+## 2  Sin\nHacinamiento Estrato 1     2    2
+## 3  Con\nHacinamiento Estrato 2     2    2
+## 4  Sin\nHacinamiento Estrato 2     2    0
+## 5  Con\nHacinamiento Estrato 3     2    1
+## 6  Sin\nHacinamiento Estrato 3     2    0
+## 7  Con\nHacinamiento Estrato 4     2    1
+## 8  Sin\nHacinamiento Estrato 4     2    1
+## 9  Con\nHacinamiento Estrato 5     2    0
+## 10 Sin\nHacinamiento Estrato 5     2    1
+## 11 Con\nHacinamiento Estrato 6     2    1
+## 12 Sin\nHacinamiento Estrato 6     2    2
+## 13 Con\nHacinamiento Estrato 1     3    2
+## 14 Sin\nHacinamiento Estrato 1     3    1
+## 15 Con\nHacinamiento Estrato 2     3    6
+## 16 Sin\nHacinamiento Estrato 2     3    2
+## 17 Con\nHacinamiento Estrato 3     3    2
+## 18 Sin\nHacinamiento Estrato 3     3    1
+## 19 Con\nHacinamiento Estrato 4     3    2
+## 20 Sin\nHacinamiento Estrato 4     3    1
+## 21 Con\nHacinamiento Estrato 5     3    0
+## 22 Sin\nHacinamiento Estrato 5     3    2
+## 23 Con\nHacinamiento Estrato 6     3    1
+## 24 Sin\nHacinamiento Estrato 6     3    0
+## 25 Con\nHacinamiento Estrato 1     4    0
+## 26 Sin\nHacinamiento Estrato 1     4    1
+## 27 Con\nHacinamiento Estrato 2     4    1
+## 28 Sin\nHacinamiento Estrato 2     4    4
+## 29 Con\nHacinamiento Estrato 3     4    1
+## 30 Sin\nHacinamiento Estrato 3     4    1
+## 31 Con\nHacinamiento Estrato 4     4    1
+## 32 Sin\nHacinamiento Estrato 4     4    4
+## 33 Con\nHacinamiento Estrato 5     4    1
+## 34 Sin\nHacinamiento Estrato 5     4    0
+## 35 Con\nHacinamiento Estrato 6     4    0
+## 36 Sin\nHacinamiento Estrato 6     4    0
+## 37 Con\nHacinamiento Estrato 1     5    2
+## 38 Sin\nHacinamiento Estrato 1     5    1
+## 39 Con\nHacinamiento Estrato 2     5    4
+## 40 Sin\nHacinamiento Estrato 2     5    6
+## 41 Con\nHacinamiento Estrato 3     5    2
+## 42 Sin\nHacinamiento Estrato 3     5    0
+## 43 Con\nHacinamiento Estrato 4     5    2
+## 44 Sin\nHacinamiento Estrato 4     5    3
+## 45 Con\nHacinamiento Estrato 5     5    0
+## 46 Sin\nHacinamiento Estrato 5     5    1
+## 47 Con\nHacinamiento Estrato 6     5    1
+## 48 Sin\nHacinamiento Estrato 6     5    0</code></pre>
+<p>Observe que se creó una nueva columna que indica la frecuencia de ocurrencia entre los cruces de las tres variables. El gráfico, para este caso, se vería así:</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-19-1.png" width="800" style="display: block; margin: auto;" /></p>
+<p>En <code>R</code> es fácil construir este gráfico con el siguiente código:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>datos &lt;-<span class="st"> </span><span class="kw">as.data.frame.table</span>(<span class="kw">table</span>(hacin,viviendas,habit))</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="kw">require</span>(alluvial)</span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co"># La función &quot;alluvial&quot; construye el diagrama de Sankey</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co"># En la función se ingresan los argumentos para dar el toque estético</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="kw">alluvial</span>(datos[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>],<span class="dt">freq =</span> datos<span class="op">$</span>Freq,</span>
+<span id="cb10-7"><a href="#cb10-7"></a>         <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;forestgreen&quot;</span>,<span class="st">&quot;tomato&quot;</span>),</span>
+<span id="cb10-8"><a href="#cb10-8"></a>         <span class="dt">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb10-9"><a href="#cb10-9"></a></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="co"># Consulta la ayuda de las funciones</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a>?as.data.frame.table</span>
+<span id="cb10-12"><a href="#cb10-12"></a>?alluvial</span></code></pre></div>
+<hr>
+</div>
+</div>
+<div id="gráficos-para-variables-cuantitativas" class="section level2">
+<h2>Gráficos para Variables Cuantitativas</h2>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
