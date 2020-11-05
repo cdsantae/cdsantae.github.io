@@ -883,6 +883,436 @@ div.tocify {
 </div>
 <div id="gráficos-para-variables-cuantitativas" class="section level2">
 <h2>Gráficos para Variables Cuantitativas</h2>
+<p>La construcción de gráficos adecuados para este tipo de variable se basan en la representación de las frecuencias por intervalo, la densidad de probabilidad o las ubicaciones en un plano cartesiano, si se tiene más de una variable es posible mostrar su relación.</p>
+<p>Para los siguientes ejemplos utilizaremos las bases de datos de <em>Diabetes en los Indígenas Pima</em> publicado por el Instituto Nacional de Diabetes y Enfermedades Digestivas y Renales. Esta bases de datos las encontraremos en el paquete <code>mlbench</code>, la cual instalaremos así:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;mlbench&quot;</span>,<span class="dt">dependencies =</span> T)</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co"># Para cargar el paquete</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="kw">require</span>(mlbench)</span>
+<span id="cb11-5"><a href="#cb11-5"></a>datos &lt;-<span class="st"> </span><span class="kw">get</span>(<span class="kw">data</span>(PimaIndiansDiabetes2))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="center">pregnant</th>
+<th align="center">glucose</th>
+<th align="center">pressure</th>
+<th align="center">triceps</th>
+<th align="center">insulin</th>
+<th align="center">mass</th>
+<th align="center">pedigree</th>
+<th align="center">age</th>
+<th align="center">diabetes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">6</td>
+<td align="center">148</td>
+<td align="center">72</td>
+<td align="center">35</td>
+<td align="center">NA</td>
+<td align="center">33.6</td>
+<td align="center">0.627</td>
+<td align="center">50</td>
+<td align="center">pos</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">85</td>
+<td align="center">66</td>
+<td align="center">29</td>
+<td align="center">NA</td>
+<td align="center">26.6</td>
+<td align="center">0.351</td>
+<td align="center">31</td>
+<td align="center">neg</td>
+</tr>
+<tr class="odd">
+<td align="center">8</td>
+<td align="center">183</td>
+<td align="center">64</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">23.3</td>
+<td align="center">0.672</td>
+<td align="center">32</td>
+<td align="center">pos</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">89</td>
+<td align="center">66</td>
+<td align="center">23</td>
+<td align="center">94</td>
+<td align="center">28.1</td>
+<td align="center">0.167</td>
+<td align="center">21</td>
+<td align="center">neg</td>
+</tr>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center">137</td>
+<td align="center">40</td>
+<td align="center">35</td>
+<td align="center">168</td>
+<td align="center">43.1</td>
+<td align="center">2.288</td>
+<td align="center">33</td>
+<td align="center">pos</td>
+</tr>
+<tr class="even">
+<td align="center">5</td>
+<td align="center">116</td>
+<td align="center">74</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">25.6</td>
+<td align="center">0.201</td>
+<td align="center">30</td>
+<td align="center">neg</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">78</td>
+<td align="center">50</td>
+<td align="center">32</td>
+<td align="center">88</td>
+<td align="center">31.0</td>
+<td align="center">0.248</td>
+<td align="center">26</td>
+<td align="center">pos</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">115</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">35.3</td>
+<td align="center">0.134</td>
+<td align="center">29</td>
+<td align="center">neg</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">197</td>
+<td align="center">70</td>
+<td align="center">45</td>
+<td align="center">543</td>
+<td align="center">30.5</td>
+<td align="center">0.158</td>
+<td align="center">53</td>
+<td align="center">pos</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">125</td>
+<td align="center">96</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">0.232</td>
+<td align="center">54</td>
+<td align="center">pos</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">110</td>
+<td align="center">92</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">37.6</td>
+<td align="center">0.191</td>
+<td align="center">30</td>
+<td align="center">neg</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">168</td>
+<td align="center">74</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">38.0</td>
+<td align="center">0.537</td>
+<td align="center">34</td>
+<td align="center">pos</td>
+</tr>
+<tr class="odd">
+<td align="center">10</td>
+<td align="center">139</td>
+<td align="center">80</td>
+<td align="center">NA</td>
+<td align="center">NA</td>
+<td align="center">27.1</td>
+<td align="center">1.441</td>
+<td align="center">57</td>
+<td align="center">neg</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">189</td>
+<td align="center">60</td>
+<td align="center">23</td>
+<td align="center">846</td>
+<td align="center">30.1</td>
+<td align="center">0.398</td>
+<td align="center">59</td>
+<td align="center">pos</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">166</td>
+<td align="center">72</td>
+<td align="center">19</td>
+<td align="center">175</td>
+<td align="center">25.8</td>
+<td align="center">0.587</td>
+<td align="center">51</td>
+<td align="center">pos</td>
+</tr>
+</tbody>
+</table>
+<p>En la tabla anterior se muestran la base de datos de diabetes, la cual contiene las siguientes variables:</p>
+<div class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#Con">Concrete Dataset</a>
+</h5>
+</div>
+<div id="Con" class="panel-collapse collapse">
+<div class="panel-body" style="font-size:13px">
+<p><strong>Pima Indians Diabetes Database</strong></p>
+<p><strong>Description</strong></p>
+<p>A data frame with 768 observations on 9 variables.</p>
+<p><strong>Format</strong></p>
+<p><code>pregnant</code> – Number of times pregnant</p>
+<p><code>glucose</code> - Plasma glucose concentration (glucose tolerance test)</p>
+<p><code>pressure</code> - Diastolic blood pressure (mm Hg)</p>
+<p><code>triceps</code> - Triceps skin fold thickness (mm)</p>
+<p><code>insulin</code> - 2-Hour serum insulin (mu U/ml)</p>
+<p><code>mass</code> - Body mass index (weight in kg/(height in <span class="math inline">\(m^2\)</span>))</p>
+<p><code>pedigree</code> - Diabetes pedigree function (a function which scores likelihood of diabetes based on family history)</p>
+<p><code>age</code> – Age (years)</p>
+<p><code>diabetes</code> – Class variable (test for diabetes)</p>
+<p><strong>Details</strong></p>
+<p>The data set <code>PimaIndiansDiabetes2</code> contains a corrected version of the original data set. While the UCI repository index claims that there are no missing values, closer inspection of the data shows several physical impossibilities, e.g., blood pressure or body mass index of 0. In <code>PimaIndiansDiabetes2</code>, all zero values of glucose, pressure, triceps, insulin and mass have been set to NA, see also Wahba et al (1995) and Ripley (1996).</p>
+<p><strong>Source</strong></p>
+<ul>
+<li><p>Original owners: National Institute of Diabetes and Digestive and Kidney Diseases</p></li>
+<li><p>Donor of database: Vincent Sigillito (<a href="mailto:vgs@aplcen.apl.jhu.edu" class="email">vgs@aplcen.apl.jhu.edu</a>)</p></li>
+</ul>
+<p>These data have been taken from the UCI Repository Of Machine Learning Databases at</p>
+<ul>
+<li><p><a href="ftp://ftp.ics.uci.edu/pub/machine-learning-databases" class="uri">ftp://ftp.ics.uci.edu/pub/machine-learning-databases</a></p></li>
+<li><p><a href="http://www.ics.uci.edu/~mlearn/MLRepository.html" class="uri">http://www.ics.uci.edu/~mlearn/MLRepository.html</a></p></li>
+</ul>
+<p>and were converted to R format by Friedrich Leisch.</p>
+<p><strong>References</strong></p>
+<ul>
+<li><p>Newman, D.J. &amp; Hettich, S. &amp; Blake, C.L. &amp; Merz, C.J. (1998). UCI Repository of machine learning databases [<a href="http://www.ics.uci.edu/~mlearn/MLRepository.html" class="uri">http://www.ics.uci.edu/~mlearn/MLRepository.html</a>]. Irvine, CA: University of California, Department of Information and Computer Science.</p></li>
+<li><p>Brian D. Ripley (1996), Pattern Recognition and Neural Networks, Cambridge University Press, Cambridge.</p></li>
+<li><p>Grace Whaba, Chong Gu, Yuedong Wang, and Richard Chappell (1995), Soft Classification a.k.a. Risk Estimation via Penalized Log Likelihood and Smoothing Spline Analysis of Variance, in D. H. Wolpert (1995), The Mathematics of Generalization, 331-359, Addison-Wesley, Reading, MA.</p>
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+<hr>
+<div id="histograma" class="section level3">
+<h3>Histograma</h3>
+<p>Este gráfico permite visualizar el comportamiento o distribución de una variable cuantitativa, divide la continuidad de la variable en intervalos equidistantes para visualizar las frecuencias por cada intervalo. La diferencia con el gráfico de barras, es que en el histograma las barras se encuentran pegadas unas de otras y se deben poner con el mismo color.</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-23-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Observe que en el eje opuesto se muestra la frecuencia de ocurrencia del IMC, con este gráfico también podemos ver las frecuencias relativas o <strong>densidades</strong> que denotan las probabilidades de la variable aleatoria.</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-24-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>En <code>R</code> es fácil construir este gráfico con el siguiente código:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># La finción &quot;hist&quot; construye el histograma</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="co"># En los argumentos de la función se hacen los toque estéticos</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="co"># El operador &quot;$&quot; sirve para seleccionar una variable de un</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="co"># data.frame</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="kw">hist</span>(datos<span class="op">$</span>mass,<span class="dt">col=</span><span class="st">&quot;darkcyan&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">cex.axis=</span><span class="fl">0.7</span>,</span>
+<span id="cb12-6"><a href="#cb12-6"></a>     <span class="dt">main=</span><span class="st">&quot;Índice de Masa Corporal</span><span class="ch">\n</span><span class="st">de los Indigenas Pima&quot;</span>,</span>
+<span id="cb12-7"><a href="#cb12-7"></a>     <span class="dt">ylab=</span><span class="st">&quot;Frecuencia&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;IMC (kg/m^2)&quot;</span>)</span>
+<span id="cb12-8"><a href="#cb12-8"></a></span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="co"># Consulta la ayuda</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a>?hist</span></code></pre></div>
+<hr>
+</div>
+<div id="diagrama-de-ojiva" class="section level3">
+<h3>Diagrama de ojiva</h3>
+<p>Este gráfico muestra la frecuencia acumulada, sea absoluta o relativa, de una variable cuantitativa según los intervalos de clases creados en el histograma. Es muy útil para observar la tasa de crecimiento en términos de probabilidad de una variable. Para construir el gráfico de ojiva necesitamos el paquete de <code>agricolae</code> el cual se puede instalar así:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;agricolae&quot;</span>,<span class="dt">dependencies =</span> T)</span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="co"># para cargar el paquete</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="kw">require</span>(agricolae)</span></code></pre></div>
+<p>La función de interés es <code>ogive.freq</code> y requiere de un histograma ya construido.</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-27-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>En <code>R</code> es fácil construir este gráfico con el siguiente código:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># La finción &quot;hist&quot; construye el histograma</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="co"># La función &quot;ogive.freq&quot; contruye la ojiva</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="co"># En los argumentos de la función se hacen los toque estéticos</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="kw">ogive.freq</span>(<span class="kw">hist</span>(datos<span class="op">$</span>mass,<span class="dt">plot =</span> F),<span class="dt">ylab=</span><span class="st">&quot;Densidad Acumulada&quot;</span>,</span>
+<span id="cb14-5"><a href="#cb14-5"></a>           <span class="dt">xlab=</span><span class="st">&quot;IMC (kg/m^2)&quot;</span>,<span class="dt">pch=</span><span class="dv">19</span>,</span>
+<span id="cb14-6"><a href="#cb14-6"></a>           <span class="dt">main=</span><span class="st">&quot;Comportamiento Acumulado del IMC</span><span class="ch">\n</span><span class="st">de los Indígenas Pima&quot;</span>)</span>
+<span id="cb14-7"><a href="#cb14-7"></a></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="co"># Consulta la ayuda</span></span>
+<span id="cb14-9"><a href="#cb14-9"></a>?ogive.freq</span></code></pre></div>
+<hr>
+</div>
+<div id="gráfico-densidad-acumulada-empírica" class="section level3">
+<h3>Gráfico densidad acumulada empírica</h3>
+<p>Este gráfico es similar a la ojiva, pero se diferencia en que hace la evaluación de la distribución cumulada de todos los datos cuantitativos.</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-29-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>En <code>R</code> es fácil construir este gráfico con el siguiente código:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># La finción &quot;ecdf&quot; se calcula la densidad acumulada</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co"># La función &quot;plot&quot; contruye el gráfico</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="co"># En los argumentos de la función se hacen los toque estéticos</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="kw">plot</span>(<span class="kw">ecdf</span>(datos<span class="op">$</span>mass),<span class="dt">ylab=</span><span class="st">&quot;Densidad Acumulada&quot;</span>,</span>
+<span id="cb15-5"><a href="#cb15-5"></a>           <span class="dt">xlab=</span><span class="st">&quot;IMC (kg/m^2)&quot;</span>,<span class="dt">pch=</span><span class="dv">19</span>,<span class="dt">las=</span><span class="dv">1</span>,</span>
+<span id="cb15-6"><a href="#cb15-6"></a>           <span class="dt">main=</span><span class="st">&quot;Comportamiento Acumulado del IMC</span><span class="ch">\n</span><span class="st">de los Indígenas Pima&quot;</span>)</span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="co"># Qué hace este código?</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="kw">ecdf</span>(datos<span class="op">$</span>mass)(<span class="dv">30</span>)</span>
+<span id="cb15-10"><a href="#cb15-10"></a></span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="co"># Consulta la ayuda</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a>?ecdf</span></code></pre></div>
+<hr>
+</div>
+<div id="gráfico-de-densidad" class="section level3">
+<h3>Gráfico de densidad</h3>
+<p>Este gráfico es una estimación de la curva característica de una variable continua, la estimación se realiza vía métodos numéricos, así que es una aproximación empírica de la distribución de probabilidad.</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-31-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>El modelamiento de la curva comparte el mismo comportamiento del histograma, en este sentido ambos gráficos están relacionados.</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-32-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>En <code>R</code> es fácil construir este gráfico con el siguiente código:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># La finción &quot;density&quot; estima la curva de densidad</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="co"># La función &quot;lines&quot; agrega la línea al histograma</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="co"># En los argumentos de la función se hacen los toque estéticos</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="kw">hist</span>(datos<span class="op">$</span>mass,<span class="dt">col=</span><span class="st">&quot;darkcyan&quot;</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">cex.axis=</span><span class="fl">0.8</span>,</span>
+<span id="cb16-5"><a href="#cb16-5"></a>     <span class="dt">main=</span><span class="st">&quot;Distribución empírica del IMC</span><span class="ch">\n</span><span class="st">de los Indígenas Pima&quot;</span>,</span>
+<span id="cb16-6"><a href="#cb16-6"></a>     <span class="dt">ylab=</span><span class="st">&quot;Densidad&quot;</span>,<span class="dt">xlab=</span><span class="st">&quot;IMC (kg/m^2)&quot;</span>,<span class="dt">freq =</span> F,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.06</span>))</span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="kw">lines</span>(<span class="kw">density</span>(datos<span class="op">$</span>mass,<span class="dt">na.rm =</span> T),<span class="dt">col=</span><span class="dv">2</span>,<span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb16-8"><a href="#cb16-8"></a></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="co"># Consulta la ayuda</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a>?density</span>
+<span id="cb16-11"><a href="#cb16-11"></a>?lines</span></code></pre></div>
+<hr>
+</div>
+<div id="box-plot" class="section level3">
+<h3>Box-Plot</h3>
+<p>El gráfico de cajas y bigotes (<em>boxplot</em>) es un diagrama que divide una variable continua en cuartiles, es muy útil para detectar posibles <em>valores atípicos</em>.</p>
+<center>
+<img src="BoxPlot.jpg" title="fig:" alt="boxplot" />
+</center>
+<p><br></p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-34-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>En <code>R</code> es fácil construir este gráfico con el siguiente código:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># La finción &quot;boxplot&quot; construye el gráfico</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="co"># El argumento &quot;horizontal&quot; gira el boxplot</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="co"># En los argumentos de la función se hacen los toque estéticos</span></span>
+<span id="cb17-4"><a href="#cb17-4"></a><span class="kw">boxplot</span>(datos<span class="op">$</span>mass,<span class="dt">pch=</span><span class="dv">20</span>,<span class="dt">col=</span><span class="st">&quot;gold2&quot;</span>,<span class="dt">horizontal =</span> T,</span>
+<span id="cb17-5"><a href="#cb17-5"></a>        <span class="dt">main=</span><span class="st">&quot;Distribución empírica del IMC</span><span class="ch">\n</span><span class="st">de los Indígenas Pima&quot;</span>,</span>
+<span id="cb17-6"><a href="#cb17-6"></a>        <span class="dt">xlab=</span><span class="st">&quot;IMC (kg/m^2)&quot;</span>)</span>
+<span id="cb17-7"><a href="#cb17-7"></a></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="co"># Consulta la ayuda</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>?boxplot</span></code></pre></div>
+<p>Este gráfico muestra por cuartiles la distribución de la variable aleatoria, en este sentido está relacionado con otros gráficos que muestran el comportamiento de los datos, como el histograma o la curva de densidad.</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-36-1.png" width="540" style="display: block; margin: auto;" /></p>
+<hr>
+</div>
+<div id="gráficos-compuestos" class="section level3">
+<h3>Gráficos compuestos</h3>
+<p>Hasta ahora se han vistos casos para realizar gráficos univariados, y unos cuantos que relacionan <em>tablas de contingencias</em>. Existen varios gráficos compuestos para relacionar más de una variable, ya sean cuantitativas o cualitativas, a continuación se presentan los gráficos más usados para literatura científica con sus respectivos códigos en <code>R</code>.</p>
+<p>Para los siguientes ejemplos se utilizará el paquete <code>ggplot2</code> para realizar gráficos más complejos, , pero fáciles de programar y el paquete <code>dplyr</code> para realizar filtros y agrupaciones de las bases de datos.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;ggplot2&quot;</span>,<span class="st">&quot;dplyr&quot;</span>),<span class="dt">dependencies =</span> T)</span></code></pre></div>
+<p>El <strong>gráfico de dispersión</strong> o <em>scatterplot</em> relaciona dos variables continuas, es útil para evaluar de manera visual la relación entre dos variables en términos de dependencia, sea creciente o decreciente.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># para cargar la librería</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="kw">require</span>(ggplot2)</span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="kw">require</span>(dplyr)</span>
+<span id="cb19-4"><a href="#cb19-4"></a></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="kw">with</span>(datos,<span class="kw">plot</span>(mass<span class="op">~</span>triceps,<span class="dt">pch=</span><span class="dv">20</span>,<span class="dt">las=</span><span class="dv">1</span>,</span>
+<span id="cb19-6"><a href="#cb19-6"></a>    <span class="dt">cex.axis=</span><span class="fl">0.8</span>,<span class="dt">xlab=</span><span class="st">&quot;Espesor del pliegue cutáneo del tríceps (mm)&quot;</span>,</span>
+<span id="cb19-7"><a href="#cb19-7"></a>    <span class="dt">ylab=</span><span class="st">&quot;IMC (kg/m^2)&quot;</span>,</span>
+<span id="cb19-8"><a href="#cb19-8"></a>  <span class="dt">main=</span><span class="st">&quot;Relación del IMC de los indígenas</span><span class="ch">\n</span><span class="st">con el espesor del tríceps&quot;</span>))</span></code></pre></div>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-38-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>triceps,<span class="dt">y=</span>mass))<span class="op">+</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Relación del IMC de los indígenas</span><span class="ch">\n</span><span class="st">con el espesor del tríceps&quot;</span>)<span class="op">+</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;IMC (kg/m^2)&quot;</span>)<span class="op">+</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Espesor del pliegue cutáneo del tríceps (mm)&quot;</span>)</span></code></pre></div>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-38-2.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Este gráfico se puede mezclar con una variable cualitativa, ya sea para colorear los puntos e identificar los niveles o separar los gráficos, así mismo se puede filtrar la base de datos para mostrar secciones específicas de las mismas.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>triceps,<span class="dt">y=</span>mass,</span>
+<span id="cb21-2"><a href="#cb21-2"></a>                        <span class="dt">colour=</span>diabetes))<span class="op">+</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="st">    </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Relación del IMC de los indígenas</span><span class="ch">\n</span><span class="st">con el espesor del tríceps según la condición de diabetes&quot;</span>)<span class="op">+</span></span>
+<span id="cb21-5"><a href="#cb21-5"></a><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;IMC (kg/m^2)&quot;</span>)<span class="op">+</span></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Espesor del pliegue cutáneo del tríceps (mm)&quot;</span>)</span></code></pre></div>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-39-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">presion=</span><span class="kw">ifelse</span>(pressure<span class="op">&gt;</span><span class="dv">80</span>,<span class="st">&quot;Normal&quot;</span>,<span class="st">&quot;Alta&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>triceps,<span class="dt">y=</span>mass,</span>
+<span id="cb22-3"><a href="#cb22-3"></a>               <span class="dt">colour=</span>presion))<span class="op">+</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="st">    </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb22-5"><a href="#cb22-5"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Relación del IMC de los indígenas</span><span class="ch">\n</span><span class="st">con el espesor del tríceps según la condición de diabetes</span><span class="ch">\n</span><span class="st">y presión diastólica&quot;</span>)<span class="op">+</span></span>
+<span id="cb22-6"><a href="#cb22-6"></a><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;IMC (kg/m^2)&quot;</span>)<span class="op">+</span></span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Espesor del pliegue cutáneo del tríceps (mm)&quot;</span>)<span class="op">+</span></span>
+<span id="cb22-8"><a href="#cb22-8"></a><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>diabetes)</span></code></pre></div>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-39-2.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(age<span class="op">&gt;=</span><span class="dv">28</span> <span class="op">&amp;</span><span class="st"> </span>age<span class="op">&lt;=</span><span class="dv">64</span>) <span class="op">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">presion=</span><span class="kw">ifelse</span>(pressure<span class="op">&gt;</span><span class="dv">80</span>,<span class="st">&quot;Normal&quot;</span>,<span class="st">&quot;Alta&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">CIMC=</span><span class="kw">cut</span>(mass,<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">15</span>,<span class="fl">18.5</span>,<span class="dv">25</span>,<span class="dv">30</span>,<span class="dv">35</span>,<span class="dv">50</span>),</span>
+<span id="cb23-4"><a href="#cb23-4"></a>                    <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Delgadez&quot;</span>,<span class="st">&quot;Normalidad&quot;</span>,</span>
+<span id="cb23-5"><a href="#cb23-5"></a>                               <span class="st">&quot;Sobrepeso&quot;</span>,<span class="st">&quot;Obesidad&quot;</span>,<span class="st">&quot;O Extrema&quot;</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="st">    </span>na.omit <span class="op">%&gt;%</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>glucose,<span class="dt">y=</span>insulin,<span class="dt">colour=</span>CIMC))<span class="op">+</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a><span class="st">    </span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">labs</span>(<span class="dt">colour=</span><span class="st">&quot;IMC&quot;</span>)<span class="op">+</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Relación entre la glucosa y la insulina</span><span class="ch">\n</span><span class="st">Indígenas adultos segun IMC, presion y diabetes&quot;</span>)<span class="op">+</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Insulina (mu U/ml)&quot;</span>)<span class="op">+</span></span>
+<span id="cb23-11"><a href="#cb23-11"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Concentración de glucosa en plasma&quot;</span>)<span class="op">+</span></span>
+<span id="cb23-12"><a href="#cb23-12"></a><span class="st">    </span><span class="kw">facet_grid</span>(presion<span class="op">~</span>diabetes)</span></code></pre></div>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-39-3.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Los BoxPlot también pueden mezclar variables cualitativas y cuantitativas, ya que se puede separar por los niveles de las categorías y condicionarlas por las mediciones de la variable continua.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">with</span>(datos,<span class="kw">boxplot</span>(mass<span class="op">~</span>diabetes,</span>
+<span id="cb24-2"><a href="#cb24-2"></a>                      <span class="dt">horizontal =</span> T,<span class="dt">pch=</span><span class="dv">20</span>,<span class="dt">las=</span><span class="dv">1</span>,<span class="dt">col=</span><span class="kw">hcl.colors</span>(<span class="dv">2</span>),</span>
+<span id="cb24-3"><a href="#cb24-3"></a>        <span class="dt">main=</span><span class="st">&quot;IMC según la condición de diabetes&quot;</span>,</span>
+<span id="cb24-4"><a href="#cb24-4"></a>        <span class="dt">xlab=</span><span class="st">&quot;IMC (kg/m^2)&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Diabetes&quot;</span>,<span class="dt">cex.axis=</span><span class="fl">0.8</span>))</span></code></pre></div>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-40-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y=</span>mass,<span class="dt">x=</span>diabetes,<span class="dt">fill=</span>diabetes))<span class="op">+</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;IMC según la condición de diabetes&quot;</span>)<span class="op">+</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;IMC (kg/m^2)&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;Diabetes&quot;</span>)</span></code></pre></div>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-40-2.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>datos <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y=</span>mass,<span class="dt">x=</span>diabetes,<span class="dt">fill=</span>diabetes))<span class="op">+</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()<span class="op">+</span><span class="kw">coord_flip</span>()<span class="op">+</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;IMC según la condición de diabetes&quot;</span>)<span class="op">+</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;IMC (kg/m^2)&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;Diabetes&quot;</span>)</span></code></pre></div>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-40-3.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>datos <span class="op">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">CIMC=</span><span class="kw">cut</span>(mass,<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">15</span>,<span class="fl">18.5</span>,<span class="dv">25</span>,<span class="dv">30</span>,<span class="dv">35</span>,<span class="dv">50</span>),</span>
+<span id="cb27-3"><a href="#cb27-3"></a>                <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Delgadez&quot;</span>,<span class="st">&quot;Normalidad&quot;</span>,</span>
+<span id="cb27-4"><a href="#cb27-4"></a>                           <span class="st">&quot;Sobrepeso&quot;</span>,<span class="st">&quot;Obesidad&quot;</span>,<span class="st">&quot;O Extrema&quot;</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y=</span>insulin,<span class="dt">x=</span>CIMC,<span class="dt">fill=</span>CIMC))<span class="op">+</span></span>
+<span id="cb27-6"><a href="#cb27-6"></a><span class="st">    </span><span class="kw">geom_boxplot</span>()<span class="op">+</span><span class="kw">coord_flip</span>()<span class="op">+</span></span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Insulina sérica y condición de diabetes según IMC&quot;</span>)<span class="op">+</span></span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Insulina (mu U/ml)&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;IMC&quot;</span>)<span class="op">+</span></span>
+<span id="cb27-9"><a href="#cb27-9"></a><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>diabetes)<span class="op">+</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-40-4.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>datos <span class="op">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">CIMC=</span><span class="kw">cut</span>(mass,<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">15</span>,<span class="fl">18.5</span>,<span class="dv">25</span>,<span class="dv">30</span>,<span class="dv">35</span>,<span class="dv">50</span>),</span>
+<span id="cb28-3"><a href="#cb28-3"></a>                <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Delgadez&quot;</span>,<span class="st">&quot;Normalidad&quot;</span>,</span>
+<span id="cb28-4"><a href="#cb28-4"></a>                           <span class="st">&quot;Sobrepeso&quot;</span>,<span class="st">&quot;Obesidad&quot;</span>,<span class="st">&quot;O Extrema&quot;</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a><span class="st">    </span>na.omit <span class="op">%&gt;%</span></span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">y=</span>insulin,<span class="dt">x=</span>diabetes,<span class="dt">fill=</span>diabetes))<span class="op">+</span></span>
+<span id="cb28-7"><a href="#cb28-7"></a><span class="st">    </span><span class="kw">geom_boxplot</span>()<span class="op">+</span></span>
+<span id="cb28-8"><a href="#cb28-8"></a><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Insulina sérica y condición de diabetes según IMC&quot;</span>)<span class="op">+</span></span>
+<span id="cb28-9"><a href="#cb28-9"></a><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Insulina (mu U/ml)&quot;</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;Diabetes&quot;</span>)<span class="op">+</span></span>
+<span id="cb28-10"><a href="#cb28-10"></a><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>CIMC)<span class="op">+</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-40-5.png" width="540" style="display: block; margin: auto;" /></p>
+<hr>
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
+</div>
 </div>
 
 
