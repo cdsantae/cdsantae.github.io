@@ -429,6 +429,26 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-dice"></span>
      
     Probabilidad
@@ -517,6 +537,9 @@ div.tocify {
     <li>
       <a href="FunsR.html">Funciones y Paquetes</a>
     </li>
+    <li>
+      <a href="RData.html">Manejo de Datos</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -553,6 +576,7 @@ div.tocify {
 <p>En la mayoría de problemas a los que comúnmente nos enfrentamos, la descripción del conjunto de posibles resultados de un experimento aleatorio puede ser complicado y por lo tanto el cálculo de probabilidades también se dificulta.</p>
 <p>Por ejemplo, si una persona es seleccionada de una población, diversas características pueden ser de interés y cada una aporta al entendimiento de un fenómeno en especial, como son, el tiempo que emplea en transportarse de su casa al lugar de trabajo, que tan lejos está de su casa el sitio donde trabaja, cuantos hijos tiene, cuantas horas duerme, cuantas personas conforman su grupo familiar, cuanto gana, cuanto gasta, cuanto paga por servicios, cuantas llamadas hace diariamente, etc.</p>
 <p>Una Variable Aleatoria es una función definida en un Espacio Muestral que asigna a cada resultado de un experimento aleatorio un valor real. Usualmente son denotadas con letras mayúsculas como (<span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span>, <span class="math inline">\(Z\)</span>, <span class="math inline">\(T\)</span>, etc). Al conjunto de todos los posibles resultados de una variable aleatoria se le llamará Rango de la variable (<span class="math inline">\(A_X\)</span>)</p>
+<hr>
 <div id="variables-aleatorias-discretas" class="section level3">
 <h3>Variables Aleatorias Discretas</h3>
 <blockquote>
@@ -588,7 +612,9 @@ div.tocify {
 <blockquote>
 <p>Es usual que en ejercicios de estadística o en preguntas de investigación se manifieste en palabras los símbolos de comparación o relación para el cálculo de probabilidades<br> <span class="math inline">\(\quad = \qquad\)</span> Igual; Exactamente<br> <span class="math inline">\(\quad &lt; \qquad\)</span> Menor que; Inferior a<br> <span class="math inline">\(\quad &gt; \qquad\)</span> Mayor que; Superior a<br> <span class="math inline">\(\quad \leq \qquad\)</span> A lo más; No mas de; A lo sumo, Máximo; Menor o igual que<br> <span class="math inline">\(\quad \geq \qquad\)</span> Al menos; No menos de; Mínimo; Menor igual que</p>
 </blockquote>
+<hr>
 <p>Por muchos años los matemáticos y estadísticos han establecido funciones de probabilidad a diversos fenómenos de la naturaleza y la sociedad. No obstante, en algunos casos se observa que se cumplen ciertos patrones, por lo tanto, el comportamiento de un fenómeno se puede modelar con la misma función de probabilidad de otro fenómeno. En este sentido, se establecen las distribuciones de probabilidad como funciones definidas para entender el comportamiento de fenómenos que tienen un patrón identificable.</p>
+<hr>
 </div>
 </div>
 <div id="distribución-binomial" class="section level2">
@@ -599,6 +625,7 @@ div.tocify {
 <p>La distribución binomial es una distribución de probabilidad discreta que cuenta el número de éxitos en una secuencia de <em>n</em> ensayos de Bernoulli independientes entre sí, con una probabilidad fija <em>p</em> de ocurrencia del éxito entre los ensayos. Para <span class="math inline">\(n = 1\)</span>, la binomial se convierte, de hecho, en una distribución de <em>Bernoulli</em>.</p>
 <p><span class="math display">\[p(x)={n \choose x}p^x(1-p)^{n-x}\quad x = \{0, 1, 2, \dots , n\}\]</span></p>
 <p>Por notación <span class="math inline">\(X \sim Bin(n,p)\)</span>, además <span class="math inline">\(E[X]=np\)</span> y <span class="math inline">\(VAR[X]=np(1-p)\)</span>.</p>
+<hr>
 <div id="ejemplo" class="section level4">
 <h4>Ejemplo</h4>
 <p>Suponga que en un estudio se encontró que 2 de cada 5 estudiantes no desea tomar clases virtuales. Si se selecciona aleatoriamente 20 estudiantes, ¿Cuál es la probabilidad de que no menos de 6 pero menos de 12 deseen tomar clases virtuales?</p>
@@ -627,16 +654,19 @@ P(6 \leq x &lt; 12) &amp;= \sum_{x=6}^{11} \left(\begin{array}{c}20\\ x\end{arra
 <span id="cb3-2"><a href="#cb3-2"></a><span class="kw">pbinom</span>(<span class="dt">q =</span> <span class="dv">11</span>,<span class="dt">size =</span> <span class="dv">20</span>,<span class="dt">prob =</span> <span class="fl">0.6</span>)<span class="op">-</span><span class="kw">pbinom</span>(<span class="dt">q =</span> <span class="dv">5</span>,<span class="dt">size =</span> <span class="dv">20</span>,<span class="dt">prob =</span> <span class="fl">0.6</span>)</span></code></pre></div>
 <pre><code>## [1] 0.4027898</code></pre>
 <p><img src="P_dist_files/figure-html/unnamed-chunk-2-1.png" width="480" style="display: block; margin: auto;" /></p>
+<hr>
 </div>
 <div id="distribución-binomial-con-n10-p0.1" class="section level4">
 <h4>Distribución binomial con n=10, p=0.1</h4>
 <p><img src="P_dist_files/figure-html/b1-1.png" width="540" style="display: block; margin: auto;" /></p>
 <p>Se puede observar que para una distribución binomial con parámetro <span class="math inline">\(p &lt; 0.5\)</span> la distribución presenta asimetría hacia la izquierda. Por otra parte la distribución empírica se ajusta a la distribución teórica para tamaños de muestra grandes; para el caso de la distribución con parámetro <span class="math inline">\(p=0.1\)</span>, se observa que hay un buen ajuste para tamaños de muestra <span class="math inline">\(N \geq 50\)</span>.</p>
+<hr>
 </div>
 <div id="distribución-binomial-con-n10-p0.5" class="section level4">
 <h4>Distribución Binomial con n=10, p=0.5</h4>
 <p><img src="P_dist_files/figure-html/b2-1.png" width="540" style="display: block; margin: auto;" /></p>
 <p>Se puede observar que para una distribución binomial con parámetro <span class="math inline">\(p = 0.5\)</span> la distribución teórica es simétrica. Por otra parte la distribución empírica se ajusta a la distribución teórica para tamaños de muestra muy grandes; contrario al caso anterior, el ajuste es más lento y se require tamaños de muestra <span class="math inline">\(N \geq 1000\)</span>.</p>
+<hr>
 </div>
 <div id="distribución-binomial-con-n10-p0.9" class="section level4">
 <h4>Distribución Binomial con n=10, p=0.9</h4>
@@ -700,13 +730,16 @@ P(6 \leq x &lt; 12) &amp;= \sum_{x=6}^{11} \left(\begin{array}{c}20\\ x\end{arra
 </ul>
 <p><img src="P_dist_files/figure-html/unnamed-chunk-3-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p><img src="P_dist_files/figure-html/unnamed-chunk-4-1.png" width="900" style="display: block; margin: auto;" /></p>
+<hr>
 <div id="normal-estándar" class="section level3">
 <h3>Normal Estándar</h3>
 <p>Cuando <span class="math inline">\(\mu=0\)</span> y <span class="math inline">\(\sigma^2=1\)</span>, se obtiene una distribución normal especial, conocida como <em>Normal Estándar</em> y usualmente es denotada cola letra <span class="math inline">\(Z\)</span> y se escribe <span class="math inline">\(Z \sim N(0,1)\)</span>.</p>
 <p><span class="math display">\[P(x_1 &lt; X &lt; x_2)= \int\limits_{x_1}^{x_2} \cfrac{1}{\sqrt{2 \pi} \sigma} \large e^{- \frac{1}{2} \frac{(x-\mu)^2}{\sigma^2}} \small dx\]</span></p>
 <p>Esta probabilidad no puede ser resuelta de manera explícita, además cada vez que se modifique <span class="math inline">\(\mu\)</span> o <span class="math inline">\(\sigma^2\)</span>, se debe calcular de nuevo la integral.</p>
-<div id="normalización" class="section level4">
-<h4>Normalización</h4>
+<hr>
+</div>
+<div id="normalización" class="section level3">
+<h3>Normalización</h3>
 <p>Para evitar este problema, se utiliza el cambio de variable <span class="math inline">\(Z=\frac{X-\mu}{\sigma}\)</span>, del cual se obtiene que <span class="math inline">\(dz=\frac{1}{\sigma}dx\)</span>.</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -726,7 +759,7 @@ P(x_1 &lt; X &lt; x_2) &amp;= \int\limits_{z_1}^{z_2} \cfrac{1}{\sqrt{2 \pi}} \m
 <center>
 <a href="./R/Tabla_Normal.pdf" class="btn btn-info"  target="_blank">Tabla Distribución Normal</a>
 </center>
-</div>
+<hr>
 </div>
 <div id="cálculo-de-probabilidades" class="section level3">
 <h3>Cálculo de probabilidades</h3>
@@ -739,10 +772,12 @@ P(x_1 &lt; X &lt; x_2) &amp;= \int\limits_{z_1}^{z_2} \cfrac{1}{\sqrt{2 \pi}} \m
 <li><p><span class="math inline">\(P(Z &lt; 0) = P(Z &gt; 0) = \cfrac{1}{2}\)</span></p></li>
 <li><p><span class="math inline">\(P(-z_1 &lt; Z &lt; -z_2)=P(z_2 &lt; Z &lt; z_1)\)</span></p></li>
 </ul>
+<hr>
 </div>
 <div id="características-distribución-normal" class="section level3">
 <h3>Características Distribución Normal</h3>
 <p><img src="P_dist_files/figure-html/unnamed-chunk-5-1.png" width="900" style="display: block; margin: auto;" /></p>
+<hr>
 </div>
 <div id="percentiles-en-una-normal-estándar" class="section level3">
 <h3>Percentiles en una Normal Estándar</h3>
@@ -750,6 +785,7 @@ P(x_1 &lt; X &lt; x_2) &amp;= \int\limits_{z_1}^{z_2} \cfrac{1}{\sqrt{2 \pi}} \m
 <p><span class="math display">\[P(Z&gt;z_{\alpha})=\alpha\]</span></p>
 <p><span class="math inline">\(z_{\alpha}\)</span> es llamado percentil <span class="math inline">\(100(1-\alpha)\%\)</span> de la distribución de <span class="math inline">\(Z\)</span>.</p>
 <p><img src="P_dist_files/figure-html/unnamed-chunk-6-1.png" width="450" style="display: block; margin: auto;" /></p>
+<hr>
 </div>
 <div id="ejemplo-manejo-de-la-tabla" class="section level3">
 <h3>Ejemplo Manejo de la tabla</h3>
@@ -812,10 +848,12 @@ P(X&lt;K)=0.05 \quad \Rightarrow \quad &amp;P\left(\frac{X-3.3}{0.4}&lt;\frac{K-
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">qnorm</span>(<span class="fl">0.05</span>,<span class="dt">mean =</span> <span class="dv">0</span>,<span class="dt">sd =</span> <span class="dv">1</span>)<span class="op">*</span><span class="fl">0.4+3.3</span></span></code></pre></div>
 <pre><code>## [1] 2.642059</code></pre>
 <p><img src="P_dist_files/figure-html/unnamed-chunk-8-1.png" width="480" style="display: block; margin: auto;" /></p>
+<hr>
 <div id="distribución-normal-con-mu0-y-sigma1" class="section level4">
 <h4>Distribución normal con <span class="math inline">\(\mu=0\)</span> y <span class="math inline">\(\sigma=1\)</span></h4>
 <p><img src="P_dist_files/figure-html/norm1-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>En el gráfico se evidencia que la distribución <em>Normal</em> es simétrica en <span class="math inline">\(\mu=0\)</span>, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra <span class="math inline">\(N \geq 100\)</span>.</p>
+<hr>
 </div>
 <div id="distribución-normal-con-mu0-y-sigma5" class="section level4">
 <h4>Distribución normal con <span class="math inline">\(\mu=0\)</span> y <span class="math inline">\(\sigma=5\)</span></h4>
