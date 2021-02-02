@@ -13,7 +13,7 @@
 
 <title>Intervalos de Confianza para un parámetro</title>
 
-<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -24,9 +24,17 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -34,6 +42,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -149,6 +158,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="bootstrap.css" type="text/css" />
 
@@ -429,7 +439,27 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-dice"></span>
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-dice"></span>
      
     Probabilidad
      
@@ -501,7 +531,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-code"></span>
+    <span class="fas fa-code"></span>
      
     R-Project
      
@@ -517,6 +547,9 @@ div.tocify {
     <li>
       <a href="FunsR.html">Funciones y Paquetes</a>
     </li>
+    <li>
+      <a href="RData.html">Manejo de Datos</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -529,7 +562,7 @@ div.tocify {
 </li>
 <li>
   <a href="https://cdsantae.github.io">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -547,9 +580,10 @@ div.tocify {
 </div>
 
 
+<hr>
 <div id="introducción" class="section level2">
 <h2>Introducción</h2>
-<p>Hasta ahora los estimadores estudiados son puntuales, es decir, exhiben un solo valor como estimación del parámetro de interés. Pero en muchos casos esto no es suficiente. A veces se requiere de un rango de posibles valores para el parámetro de interés, es decir, un intervalo real donde se cree estará el valor del parámetro con una alta confianza.</p>
+<p>Hasta ahora los estimadores estudiados son puntuales, es decir, exhiben un solo valor como estimación del parámetro de interés. Pero en muchos casos esto no es suficiente. A veces se requiere de un <em>rango de posibles valores</em> para el parámetro de interés, es decir, un intervalo real donde se cree estará el valor del parámetro con una alta confianza.</p>
 <p>Sea <span class="math inline">\(\theta\)</span> un parámetro de interés y <span class="math inline">\(\hat{\theta}\)</span> un estimador puntual de <span class="math inline">\(\theta\)</span> en un intervalo real de la forma <span class="math inline">\((L_\hat\theta , U_\hat\theta)\)</span> talque <span class="math inline">\((L_\hat\theta &lt; \theta &lt; U_\hat\theta)\)</span>, donde <span class="math inline">\(L\)</span> y <span class="math inline">\(U\)</span> dependen de y de la distribución de <span class="math inline">\(\hat\theta\)</span>.</p>
 <p>Cada muestra aleatoria proporcionará un valor diferente para <span class="math inline">\(\hat\theta\)</span> y por lo tanto valores diferentes para <span class="math inline">\(L\)</span> y <span class="math inline">\(U\)</span>. Así, los extremos del intervalo en cuestión se convierten en variables aleatorias. El intervalo <span class="math inline">\((L , U)\)</span> es llamado Intervalo Aleatorio. Usando <span class="math inline">\(\hat\theta\)</span> y su distribución es posible determinar <span class="math inline">\(L\)</span> y <span class="math inline">\(U\)</span> tales que:</p>
 <p><span class="math display">\[P(L_\hat\theta &lt; θ &lt; U_\hat\theta) = 1 − \alpha,\quad \alpha \in (0,1)\]</span></p>
@@ -579,17 +613,18 @@ div.tocify {
 <p>O parametrizada con la Distribución F</p>
 <p><span class="math display">\[{\displaystyle \left(1+{\frac {n-x+1}{x\,F\!\left[{\frac {\alpha }{2}};2x,2(n-x+1)\right]}}\right)^{-1}&lt;\hat{p} &lt;\left(1+{\frac {n-x}{(x+1)\,\,F\!\left[1-{\frac {\alpha }{2}};2(x+1),2(n-x)\right]}}\right)^{-1}}\]</span></p>
 <p>En <code>R</code> es fácil hacer este cálculo, el primer método es hacer la fórmula con <code>qbeta</code> y otra forma es con el paquete <code>PropCIs</code></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;PropCIs&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Para el ejercicio del riesgo de desnutrición</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">qbeta</span>(<span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>,<span class="dt">shape1 =</span> <span class="dv">10</span>,<span class="dt">shape2 =</span> <span class="dv">85-10</span><span class="op">+</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;PropCIs&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para el ejercicio del riesgo de desnutrición</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qbeta</span>(<span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>,<span class="at">shape1 =</span> <span class="dv">10</span>,<span class="at">shape2 =</span> <span class="dv">85-10</span><span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.05788185</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">qbeta</span>(<span class="dv">1</span><span class="fl">-0.05</span><span class="op">/</span><span class="dv">2</span>,<span class="dt">shape1 =</span> <span class="dv">10</span><span class="op">+</span><span class="dv">1</span>,<span class="dt">shape2 =</span> <span class="dv">85-10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qbeta</span>(<span class="dv">1</span><span class="fl">-0.05</span><span class="sc">/</span><span class="dv">2</span>,<span class="at">shape1 =</span> <span class="dv">10</span><span class="sc">+</span><span class="dv">1</span>,<span class="at">shape2 =</span> <span class="dv">85-10</span>)</span></code></pre></div>
 <pre><code>## [1] 0.2057331</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">require</span>(PropCIs)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">exactci</span>(<span class="dt">x =</span> <span class="dv">10</span>,<span class="dt">n =</span> <span class="dv">85</span>,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)<span class="op">$</span>conf.int</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(PropCIs)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exactci</span>(<span class="at">x =</span> <span class="dv">10</span>,<span class="at">n =</span> <span class="dv">85</span>,<span class="at">conf.level =</span> <span class="fl">0.95</span>)<span class="sc">$</span>conf.int</span></code></pre></div>
 <pre><code>## [1] 0.05788185 0.20573312
 ## attr(,&quot;conf.level&quot;)
 ## [1] 0.95</code></pre>
+<img src="I_ic1_files/figure-html/unnamed-chunk-6-1.png" width="2100" style="display: block; margin: auto;" /> <br>
 <div class="panel-group">
 <div class="panel panel-primary">
 <div class="panel-heading">
@@ -626,19 +661,19 @@ div.tocify {
 <blockquote>
 <p>Una Nutricionista de una clínica es la encargada de los planes de ganancia de peso en embarazadas. De acuerdo a los parámetros se sabe que la variación de la ganancia de peso al final de la gestación es de 4 kilos. Se escogen al azar 45 embarazadas adultas con IMC normal y se registra sus ganancias de peso al final de la gestación y la ganancia promedio resultó en 14.5 kg. Calcule el I.C. al 95% para la ganancia de peso media real de estas embarazadas.<br><br> Se tiene que <span class="math inline">\(X_1,\dots,X_{45}\)</span> es una muestra aleatoria que representa las ganancias de peso de las embarazadas de 45 mujeres, además de la muestra se obtiene que <span class="math inline">\(\bar{X}=14.5\,\text{kg}\)</span><br> Un IC al 95% para <span class="math inline">\(\mu\)</span> está dado por: <span class="math display">\[14.5\,\pm\,Z_{0.975}\frac{4}{\sqrt{45}} \,\Rightarrow\, (13.3313;\,15.6687) \]</span></p>
 </blockquote>
-<p>En el caso de que en la muestra aleatoria no se tenga información de <span class="math inline">\(\sigma\)</span>, es decir, que tiene <strong>varianza desconocida</strong> entonces se puede reemplazar <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(S^2\)</span> siempre y cuando se tenga tamaños de muestra grandes tal que:</p>
+<p>En el caso de que en la muestra aleatoria no se tenga información de <span class="math inline">\(\sigma\)</span>, es decir, que tiene <strong>varianza desconocida</strong> entonces se puede reemplazar <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(S^2\)</span> siempre y cuando se tenga <em>tamaños de muestra grandes</em> tal que:</p>
 <p><span class="math display">\[\bar{X}\,\pm\,Z_{\alpha/2}\frac{S}{\sqrt{n}}\]</span></p>
 <p>El siguiente ejercicio de simulación muestra el concepto de la probabilidad de los intervalos de confianza y la influencia de los tamaños de muestra</p>
-<p><img src="I_ic1_files/figure-html/unnamed-chunk-6-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p><img src="I_ic1_files/figure-html/unnamed-chunk-7-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>En términos de la cobertura del intervalo, se espera que para cualquier valor estimado de <span class="math inline">\(\mu\)</span> la probabilidad de cobertura sea cercana al nivel de confianza <span class="math inline">\(100(1-\alpha)\%\)</span>.</p>
-<p><img src="I_ic1_files/figure-html/unnamed-chunk-7-1.png" width="810" style="display: block; margin: auto;" /></p>
+<p><img src="I_ic1_files/figure-html/unnamed-chunk-8-1.png" width="810" style="display: block; margin: auto;" /></p>
 <p>En <code>R</code> no existe una función como tal para calcular intervalos de confianza para la distribución normal, sin embargo, no es difícil realizar su programación</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>ICNorm &lt;-<span class="st"> </span><span class="cf">function</span>(Xbar,sigma,n,<span class="dt">alpha=</span><span class="fl">0.05</span>){</span>
-<span id="cb8-2"><a href="#cb8-2"></a>  ic &lt;-<span class="st"> </span>Xbar<span class="op">+</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="op">*</span><span class="kw">qnorm</span>(<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>)<span class="op">*</span>sigma<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="kw">return</span>(ic)</span>
-<span id="cb8-4"><a href="#cb8-4"></a>}</span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="co"># Para el ejemplo de la ganancia de peso</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="kw">ICNorm</span>(<span class="dt">Xbar =</span> <span class="fl">14.5</span>,<span class="dt">sigma =</span> <span class="dv">4</span>,<span class="dt">n =</span> <span class="dv">45</span>,<span class="dt">alpha=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ICNorm <span class="ot">&lt;-</span> <span class="cf">function</span>(Xbar,sigma,n,<span class="at">alpha=</span><span class="fl">0.05</span>){</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  ic <span class="ot">&lt;-</span> Xbar<span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fu">qnorm</span>(<span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>)<span class="sc">*</span>sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(ic)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Para el ejemplo de la ganancia de peso</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ICNorm</span>(<span class="at">Xbar =</span> <span class="fl">14.5</span>,<span class="at">sigma =</span> <span class="dv">4</span>,<span class="at">n =</span> <span class="dv">45</span>,<span class="at">alpha=</span><span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 13.3313 15.6687</code></pre>
 <hr>
 </div>
@@ -653,12 +688,12 @@ div.tocify {
 n&amp;&gt;96.03647 \approx 97
 \end{align*}\]</span></p>
 </blockquote>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Para el ejemplo de las pechugas de pollo</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="kw">ICNorm</span>(<span class="dt">Xbar =</span> <span class="fl">74.04</span>,<span class="dt">sigma =</span> <span class="fl">0.05</span>,<span class="dt">n =</span> <span class="dv">15</span>,<span class="dt">alpha=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para el ejemplo de las pechugas de pollo</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ICNorm</span>(<span class="at">Xbar =</span> <span class="fl">74.04</span>,<span class="at">sigma =</span> <span class="fl">0.05</span>,<span class="at">n =</span> <span class="dv">15</span>,<span class="at">alpha=</span><span class="fl">0.05</span>)</span></code></pre></div>
 <pre><code>## [1] 74.0147 74.0653</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">ICNorm</span>(<span class="dt">Xbar =</span> <span class="fl">74.04</span>,<span class="dt">sigma =</span> <span class="fl">0.05</span>,<span class="dt">n =</span> <span class="dv">97</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ICNorm</span>(<span class="at">Xbar =</span> <span class="fl">74.04</span>,<span class="at">sigma =</span> <span class="fl">0.05</span>,<span class="at">n =</span> <span class="dv">97</span>)</span></code></pre></div>
 <pre><code>## [1] 74.03005 74.04995</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">diff</span>(<span class="kw">ICNorm</span>(<span class="dt">Xbar =</span> <span class="fl">74.04</span>,<span class="dt">sigma =</span> <span class="fl">0.05</span>,<span class="dt">n =</span> <span class="dv">97</span>))<span class="op">/</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(<span class="fu">ICNorm</span>(<span class="at">Xbar =</span> <span class="fl">74.04</span>,<span class="at">sigma =</span> <span class="fl">0.05</span>,<span class="at">n =</span> <span class="dv">97</span>))<span class="sc">/</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 0.00995021</code></pre>
 <p>Suponga que <span class="math inline">\(X_1,\dots,X_n\)</span> es una muestra aleatoria de una <span class="math inline">\(N(\mu,\sigma^2)\)</span>, si la <strong>varianza es desconocida</strong> la distribución de <span class="math inline">\(\bar{X}\)</span> estandarizada <strong>NO</strong> es normal. Si reemplazamos <span class="math inline">\(\sigma\)</span> por <span class="math inline">\(S\)</span>, el estadístico resultante es:</p>
 <p><span class="math display">\[T=\cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \sim t_{(n-1)}\]</span></p>
@@ -668,7 +703,7 @@ n&amp;&gt;96.03647 \approx 97
 <p>En esta gráfica podemos apreciar la realción que existe entre las distribuciones <em>Cauchy</em>, <em>t-de Student</em> y la <em>Normal Estandarizada</em>. Se observa que la distribución <em>t-de Student</em> con <span class="math inline">\(v = 1\)</span> grado de libertad es una <em>distribución Cauchy</em> la cual es la más achatada y presenta las colas mas pesadas en comparación las demás distribuciones presentes en la gráfica. Además se puede evidenciar que a medida que aumentan los grados de libertad en la <em>distribución t</em>, ésta tiende a la <em>Normal</em>.</p>
 <p>Realizando un proceso similar al caso de muestras aleatorias con media desconocida, se puede encontrar que un IC al <span class="math inline">\(100(1 − \alpha)\%\)</span> para <span class="math inline">\(\mu\)</span> es de la forma:</p>
 <p><span class="math display">\[\bar{X} \pm t_{(\alpha/2,\,n-1)}\frac{S}{\sqrt{n}}\]</span></p>
-<p><img src="I_ic1_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="I_ic1_files/figure-html/unnamed-chunk-11-1.png" width="720" style="display: block; margin: auto;" /></p>
 <br>
 <center>
 <a href="./R/Tabla_t.pdf" class="btn btn-info"  target="_blank">Tabla Distribución <i>t-student</i></a>
@@ -683,12 +718,12 @@ n&amp;&gt;96.03647 \approx 97
 \end{align*}\]</span> Se espera que la fuerza prensil media real de la mano débil de los adultos mayores esté entre 12.53 kgf y 18.73 kgf con una confianza del 97%.</p>
 </blockquote>
 <p>En <code>R</code> no hay forma de hacer estimaciones de por intervalo con estadísticos calculados, la única forma es con un vector de datos o una base de datos. No obstante, no es difícil programar una función para calcular intervalos de confianza para la <em>t-student</em> cuando se tienen los estadísticos calculados.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>ICt &lt;-<span class="st"> </span><span class="cf">function</span>(Xbar,sigma,n,<span class="dt">alpha=</span><span class="fl">0.05</span>){</span>
-<span id="cb16-2"><a href="#cb16-2"></a>  ic &lt;-<span class="st"> </span>Xbar<span class="op">+</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="op">*</span><span class="kw">qt</span>(<span class="dt">p =</span> <span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>,<span class="dt">df =</span> n<span class="dv">-1</span>)<span class="op">*</span>sigma<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
-<span id="cb16-3"><a href="#cb16-3"></a>  <span class="kw">return</span>(ic)</span>
-<span id="cb16-4"><a href="#cb16-4"></a>}</span>
-<span id="cb16-5"><a href="#cb16-5"></a><span class="co"># Para el ejemplo de la resistencia</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a><span class="kw">ICt</span>(<span class="dt">Xbar =</span> <span class="fl">15.63</span>,<span class="dt">sigma =</span> <span class="fl">5.18</span>,<span class="dt">n =</span> <span class="dv">16</span>,<span class="dt">alpha =</span> <span class="fl">0.03</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ICt <span class="ot">&lt;-</span> <span class="cf">function</span>(Xbar,sigma,n,<span class="at">alpha=</span><span class="fl">0.05</span>){</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  ic <span class="ot">&lt;-</span> Xbar<span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>,<span class="at">df =</span> n<span class="dv">-1</span>)<span class="sc">*</span>sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(ic)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Para el ejemplo de la resistencia</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ICt</span>(<span class="at">Xbar =</span> <span class="fl">15.63</span>,<span class="at">sigma =</span> <span class="fl">5.18</span>,<span class="at">n =</span> <span class="dv">16</span>,<span class="at">alpha =</span> <span class="fl">0.03</span>)</span></code></pre></div>
 <pre><code>## [1] 12.52588 18.73412</code></pre>
 <hr>
 </div>
@@ -698,7 +733,30 @@ n&amp;&gt;96.03647 \approx 97
 <center>
 <img src="IC_mu.png" title="fig:" alt="Resumen IC" />
 </center>
-<hr>
+<br>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#e2">Ejercicios</a>
+</h5>
+</div>
+<div id="e2" class="panel-collapse collapse">
+<div class="panel-body">
+<ul>
+<li><p>Se desea estimar el contenido promedio (en gramos) de las cajas de cierto tipo de cereal. Se seleccionan aleatoriamente 64 de estas cajas y se miden sus contenidos. De esta muestra se obtiene un contenido promedio de 512 gr, con una desviación estándar de 8.1 gr. ¿Cuál es la longitud del intervalo de confianza simétrico del 98% para el contenido promedio de este tipo de cajas de cereal?</p></li>
+<li><p>La distribución del llenado de una máquina embotelladora es normal <span class="math inline">\(N(\mu,\sigma^2)\)</span>, ambas desconocidas. Se toman 20 botellas al azar y se obtiene un promedio de 377.6 ml, con una desviación estándar de 8.5 ml. La máquina está programada para llenar en promedio 375 ml por botella. Con una confianza del 95% ¿La máquina llena más de lo requerido?</p></li>
+<li><p>Las estaturas de las personas mayores de 12 años en cierta comunidad, tienen una distribución continua con media <span class="math inline">\(\mu\)</span> y varianza de 25 cm<sup>2</sup>. Si se desea un límite en el error de estimación inferior a 1.5 cm, con una probabilidad aproximada del 95%, ¿Cuál es el tamaño de muestra mínimo requerido?</p></li>
+<li><p>La cantidad de Histamina contenida en el veneno del aguijon de cierto tipo de abeja, es una variable aleatoria <span class="math inline">\(N(\mu,\sigma^2)\)</span>, ambas desconocidas. Se seleccionaron 16 abejas de este tipo y a cada una se le calculó el contenido de histamina (en nanogramos) en el veneno de su aguijon. De esta muestra se obtuvo un promedio de 753.21 ng y una desviacíón estándar de 189.65 ng. Calcule Un intervalo de confianza al 95% para el contenido promedio de Histamina en este tipo de abejas.</p></li>
+<li><p>Se tomó una muestra aleatoria de 100 colegios oficiales de una región y se calculó el promedio mensual de inasistencias de los profesores en los últimos años. Los datos se resumieron así: promedio mensual de faltas por colegio 25.31 días, error estándar estimado de dicha media muestral (<span class="math inline">\(\hat\sigma_\bar{X}\)</span>), 0.5 días. Calcule un intervalo de confianza aproximado del 98% para el promedio mensual de inasistencias.</p>
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
 </div>
 
 
@@ -712,7 +770,7 @@ n&amp;&gt;96.03647 \approx 97
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

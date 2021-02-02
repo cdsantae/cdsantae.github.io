@@ -13,7 +13,7 @@
 
 <title>Distribuciones Muestrales</title>
 
-<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -24,9 +24,17 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 
@@ -57,6 +65,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="bootstrap.css" type="text/css" />
 
@@ -337,7 +346,27 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-dice"></span>
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-dice"></span>
      
     Probabilidad
      
@@ -409,7 +438,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-code"></span>
+    <span class="fas fa-code"></span>
      
     R-Project
      
@@ -425,6 +454,9 @@ div.tocify {
     <li>
       <a href="FunsR.html">Funciones y Paquetes</a>
     </li>
+    <li>
+      <a href="RData.html">Manejo de Datos</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -437,7 +469,7 @@ div.tocify {
 </li>
 <li>
   <a href="https://cdsantae.github.io">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -455,6 +487,7 @@ div.tocify {
 </div>
 
 
+<hr>
 <div id="muestras-aleatorias" class="section level2">
 <h2>Muestras Aleatorias</h2>
 <p>En el proceso de identificar y explicar las características esenciales que permiten describir el comportamiento de un fenómeno, nuestro objetivo es el de establecer de manera aproximada dicho comportamiento usando parte de toda la información relevante acerca del fenómeno.</p>
@@ -497,6 +530,7 @@ f(x)=
 \end{cases}
 \]</span></p>
 <p><img src="I_dist_files/figure-html/chi-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<hr>
 </div>
 <div id="teorema-central-del-límite" class="section level2">
 <h2>Teorema central del límite</h2>
@@ -519,7 +553,7 @@ P(198&lt;\bar{X}&lt;203)&amp;=P\left(\frac{198-\mu}{\sigma/\sqrt{n}}&lt;\frac{\b
 <p>Suponga que se realiza un estudio sobre el salario de los estudiantes de Nutrición y Dietética una vez finalizan su pregrado y se insertan en el mercado laboral. Para ello, se le pregunta a 15 egresados seleccionados de forma aleatoria y se les pregunta cuál es el salario que devengan actualmente, obteniendo los siguientes resultados en millones de pesos:</p>
 <p><span class="math display">\[1.78\quad2.93\quad1.22\quad1.27\quad1.17\\1.03\quad1.24\quad2.07\quad2.04\quad1.28\\1.53\quad0.98\quad1.73\quad1.38\quad3.24\]</span></p>
 <blockquote>
-Basados en la información anterior, calcule la probabilidad de que la proporción de egresados que tienen un salario superior a 2 millones de pesos sea mayor al 40%.<br><br> Como no nos hablan de los salarios sino de la propocrión de aquellos que gananan más de 2 millones de pesos, entonces tenemos que contar cuántos ganan más de esa cantidad.<br> <br>
+Basados en la información anterior, calcule la probabilidad de que la proporción de egresados que tienen un salario superior a 2 millones de pesos sea mayor al 40%.<br><br> Como no nos hablan de los salarios sino de la proporción de aquellos que gananan más de 2 millones de pesos, entonces tenemos que contar cuántos ganan más de esa cantidad.<br> <br>
 <center>
 <div class="container">
 <div class="col-sm-2">
@@ -575,6 +609,9 @@ P(\mu \leq 1.8)&amp;=P(−\mu \geq - 1.8)\\
 &amp;=0.8620557
 \end{align*}\]</span> Por lo tanto la probabilidad de que el salario promedio los egresados del programa de Nutrición y Dietética sea como máximo de 2 millones de pesos, es del 86.21%</p>
 </blockquote>
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
 </div>
 
 
@@ -588,7 +625,7 @@ P(\mu \leq 1.8)&amp;=P(−\mu \geq - 1.8)\\
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
