@@ -13,7 +13,7 @@
 
 <title>Pruebas de Hipótesis I</title>
 
-<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -24,9 +24,17 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -34,6 +42,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -149,6 +158,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="bootstrap.css" type="text/css" />
 
@@ -429,7 +439,27 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-dice"></span>
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-dice"></span>
      
     Probabilidad
      
@@ -501,7 +531,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-code"></span>
+    <span class="fas fa-code"></span>
      
     R-Project
      
@@ -517,6 +547,9 @@ div.tocify {
     <li>
       <a href="FunsR.html">Funciones y Paquetes</a>
     </li>
+    <li>
+      <a href="RData.html">Manejo de Datos</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -529,7 +562,7 @@ div.tocify {
 </li>
 <li>
   <a href="https://cdsantae.github.io">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -547,6 +580,7 @@ div.tocify {
 </div>
 
 
+<hr>
 <div id="introducción" class="section level2">
 <h2>Introducción</h2>
 <p>Una hipótesis Estadística es una afirmación que se hace con respecto a una o algunas características desconocidas de una población de interés o acerca de la misma población.</p>
@@ -564,9 +598,9 @@ div.tocify {
 </ol>
 <p>En general, sea un parámetro de interés desconocido <span class="math inline">\(\theta\)</span> y un valor particular <span class="math inline">\(\theta_0\)</span>. Es posible plantear una de tres hipótesis alternativas:</p>
 <p><span class="math display">\[\begin{align*}
-H_0: \theta=\theta_0 \quad \text{vs} \quad H_a: \begin{cases} \theta &amp;&lt;\theta_0 \\
+H_0: \theta=\theta_0 \quad \text{vs} \quad H_a: \begin{cases} \theta &amp;\neq\theta_0 \\
+                     \theta &amp;&lt; \theta_0 \\
                      \theta &amp;&gt; \theta_0 \\
-                     \theta &amp;\neq \theta_0 \\
                      \end{cases}
 \end{align*}\]</span></p>
 <p>Existe un estadístico <span class="math inline">\(\hat\theta\)</span> estimado a partir de la muestra aleatoria, el cual sirve para contrastar la hipótesis construyendo las posibles regiones de rechazo (de acuerdo a <span class="math inline">\(H_a\)</span>) con un nivel de significancia <span class="math inline">\(\alpha\)</span> dado.</p>
@@ -659,7 +693,7 @@ V_p: \begin{cases} P(Z &lt; Z_c) \\
 <p>En una muestra de 85 recién nacidos, 10 presentaron riesgo de desnutrición. ¿Cuál es la proporción real de recién nacidos con riesgo de desnutrición con una confianza del 95%? Las secretaría de sañud sabe que si el porcentaje de recién nacidos en riesgo de desnutrición supera el 10% deberá generar una alerta al Ministerio de Saludo para hacer un plan de contingencia. Con un nivel de significancia del 5% ¿es necesario generar la alerta?<br><br> Tenemos las siguientes hipótesis <span class="math display">\[H_0: p=0.1 \quad\text{vs}\quad H_a: p&gt;0.1\]</span> Entonces con el estadístico de prueba se puede estimar la región crítica: <span class="math display">\[Z_c=\frac{10/85-0.1}{\sqrt{\frac{0.1 \times 0.9}{85}}}=0.542326\]</span> Si <span class="math inline">\(\alpha =0.05\)</span> entonces se tiene que <span class="math inline">\(Z_{0.95}=1.645\)</span> y así la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&gt;Z_{0.95}\}=\{Z_c\,|\,0.542326&gt;1.645\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&gt;0.542326)=1-P(Z&lt;0.542326)=0.2938\]</span> Como <span class="math inline">\(ZC\ngtr 1.645\)</span> o <span class="math inline">\(0.2938 &gt; 0.05\)</span>, entonces no existe suficiente evidencia muestral que soporte la creación de la alerta al Ministerio de Salud, por lo tanto no se rechaza <span class="math inline">\(H_0\)</span>.</p>
 </blockquote>
 <p>En <code>R</code> se puede hacer fácilmente las pruebas de hipótesis para la proporción, ya sea a partir de un conjunto de datos, una tabla/matriz o con la proporción directa. La función <code>prop.test</code> hace los cálculos necesarios para las pruebas de hipótesis incluyendo el intervalo de confianza, no obstante, el estadístico de prueba que utiliza está basado en la distribución <span class="math inline">\(\chi^2\)</span> y los intervalos de confianza son estimados a través del método Wilson, adicionalmente tiene la opción de hacer el cálculo a partir de la corrección de Yates para tamaños de muestra pequeños.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">prop.test</span>(<span class="dt">x =</span> <span class="dv">10</span>,<span class="dt">n =</span> <span class="dv">85</span>,<span class="dt">p =</span> <span class="fl">0.1</span>,<span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>,<span class="dt">correct =</span> F,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">10</span>,<span class="at">n =</span> <span class="dv">85</span>,<span class="at">p =</span> <span class="fl">0.1</span>,<span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>,<span class="at">correct =</span> F,<span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  1-sample proportions test without continuity correction
 ## 
@@ -671,7 +705,7 @@ V_p: \begin{cases} P(Z &lt; Z_c) \\
 ## sample estimates:
 ##         p 
 ## 0.1176471</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">prop.test</span>(<span class="dt">x =</span> <span class="dv">10</span>,<span class="dt">n =</span> <span class="dv">85</span>,<span class="dt">p =</span> <span class="fl">0.1</span>,<span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>,<span class="dt">correct =</span> T,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">10</span>,<span class="at">n =</span> <span class="dv">85</span>,<span class="at">p =</span> <span class="fl">0.1</span>,<span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>,<span class="at">correct =</span> T,<span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  1-sample proportions test with continuity correction
 ## 
@@ -686,7 +720,7 @@ V_p: \begin{cases} P(Z &lt; Z_c) \\
 <blockquote>
 <p>Gracias al impacto de las redes sociales y la desinformación de <em>influencers</em> que se declaran expertos en nutrición, calidad de vida y salud, se piensa que la cantidad de bebés que no reciben leche materna ha disminuído significativamente, principalmente en los estratos Altos. Se sabe que la prevalencia de lactancia materna en esta población hace 5 años es del 75%. Neonatólogos del San Vicente realizaron una investigación en 254 bebés, de los cuales 171 reciben lactancia materna. Con un nivel de confianza del 95% ¿La hipótesis de los neonatólogos es cierta?<br><br> Tenemos las siguientes hipótesis <span class="math display">\[H_0: p=0.75 \quad\text{vs}\quad H_a: p&lt;0.75\]</span> Entonces con el estadístico de prueba se puede estimar la región crítica: <span class="math display">\[Z_c=\frac{171/254-0.75}{\sqrt{\frac{0.75 \times 0.25}{254}}}=-2.825642\]</span> Si <span class="math inline">\(\alpha =0.05\)</span> entonces se tiene que <span class="math inline">\(Z_{0.05}=-1.645\)</span> y así la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&lt;Z_{0.05}\}=\{Z_c\,|\,-2.825642&lt;-1.645\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&lt;-2.825642)=1-P(Z&lt;2.825642)=0.002359299\]</span> Como <span class="math inline">\(ZC&lt; -1.645\)</span> o <span class="math inline">\(0.002359 &lt; 0.05\)</span>, entonces se reachaza la hipótesis nula <span class="math inline">\(H_0\)</span>, por lo tanto, existe suficiente evidencia muestral que soporta la disminución estadísticamente significativa de la lactancia materna.</p>
 </blockquote>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">prop.test</span>(<span class="dt">x =</span> <span class="dv">171</span>,<span class="dt">n =</span> <span class="dv">254</span>,<span class="dt">p =</span> <span class="fl">0.75</span>,<span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>,<span class="dt">correct =</span> F,<span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">171</span>,<span class="at">n =</span> <span class="dv">254</span>,<span class="at">p =</span> <span class="fl">0.75</span>,<span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>,<span class="at">correct =</span> F,<span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## 
 ##  1-sample proportions test without continuity correction
 ## 
@@ -784,7 +818,7 @@ V_p: \begin{cases} P(t_{n-1} &lt; T_c) \\
 <p>De acuerdo con estudios sobre la fuerza prensil manual en adultos mayores que la fuerza de prensión se distribuye normalmente. Se sabe que la fuerza prensil está asociada con riesgos cardiovasculares, y de la literatura se supone que los valores menores a 16 kgf en esta población infiere riesgos a la salud. Se toma una muestra aleatoria de 16 adultos mayores y se obtiene un fuerza de prensión promedio para la mano débil de 15.63 kgf con una desviación estándar de 2.18 kgf. Con un nivel de siginificancia del 3% ¿Esta población estaría en riesgo?<br><br> Las pruebas de hipótesis son: <span class="math display">\[H_0: \mu=16 \quad\text{vs}\quad H_a: \mu&lt;16\]</span> Del enunciado tenemos que <span class="math inline">\(E[X_i]=15.63\)</span> y <span class="math inline">\(S=2.18\)</span>, así el estadístico de prueba está dado por: <span class="math display">\[T_c=\cfrac{\bar{X}-16}{\frac{2.18}{\sqrt{16}}}=\cfrac{15.63-16}{\frac{2.18}{\sqrt{16}}}=-0.6788991\]</span> Como <span class="math inline">\(\alpha=0.03\)</span> se tiene que <span class="math inline">\(t_{(0.03,15)}=-2.034289\)</span>, entonces la región de rechazo es de la forma: <span class="math display">\[RC=\{T_c\,|\,T_c&lt;t_{(0.02,15)}\}=\{T_c\,|\,-0.6788991&lt;-2.034289\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(T&gt;T_c)=P(T&lt;-0.6788991)=1-P(T&lt;0.6788991)=0.7462289\]</span> Como <span class="math inline">\(T_c\nless-2.034\)</span> o <span class="math inline">\(0.7462\nless0.03\)</span> entonces no se rechaza <span class="math inline">\(H_0\)</span>, por lo tanto no existe evidencia muestral suficiente para suponer que la población tienen riegos cardiovasculares basados en la fuerza prensil con un nivel de significancia del 5%.</p>
 </blockquote>
 <p>n <code>R</code> los análisis se realizan directamente a las muestras, entonces no es posible replicar el ejmplo anterior con la información suministrada a no ser que se programe la función ingresando los estadísticos. La función <code>t.test</code> realizar la prueba de hipótesis basado en poblaciones normales, puede emplearse para comparar grupos o para contrastar una muestra aleatoria contra un valor teórico de <span class="math inline">\(\mu\)</span>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>?t.test</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>?t.test</span></code></pre></div>
 <hr>
 </div>
 <div id="resumen" class="section level2">
@@ -800,6 +834,9 @@ V_p: \begin{cases} P(t_{n-1} &lt; T_c) \\
 <center>
 <img src="PH1_3.png" />
 </center>
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
 </div>
 
 
@@ -813,7 +850,7 @@ V_p: \begin{cases} P(t_{n-1} &lt; T_c) \\
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
