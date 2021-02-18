@@ -731,6 +731,8 @@ F_{(\alpha/2,n_1-1,n_2-1)}&lt;\cfrac{S^2_1}{S^2_2}\times\cfrac{\sigma^2_2}{\sigm
 <li><p>El <strong>precio total</strong> de la incautación se calcula como la cantidad estandarizada por el precio de incautación. ¿Se puede afirmar que el precio total promedio de la incautación es superior a $7’500.000?</p></li>
 <li><p>El <strong>ipoconsumo</strong>, es el impuesto que deja de percibir el Estado para salud y educación, el cual se calcula como: <span class="math inline">\(GAQ \times CE \times 400\)</span> (pesos). ¿Se puede afirmar que el ipoconsumo promedio del ron es inferior al ipoconsumo medio del Whisky? ¿Qué decisión se puede tomar frente al control?</p></li>
 <li><p>El licor incautado se clasifica como “Fraudulento” si los GAE son distintos a los GAQ y como “contrabando” si son iguales. ¿La proporción de licores fraudulentos es superior al 65%? ¿Qué significa éste resultado?</p></li>
+<li><p>Se piensa que los ilegales mezclan el licor con otras sustancias para disminuir los grados de alcohol del licor. ¿Existe evidencia para este planteamiento?</p></li>
+<li><p>De acuerdo con los datos, se sabe que el Aguardiente y el Tequila son los licores con más incautaciones. Desde el equipo de Rentas se sostiene que el Aguardiente es el licor que más se adultera. ¿Es correcta esta afirmación?</p></li>
 </ol>
 <hr>
 <div id="solución-usando-r" class="section level3">
@@ -855,21 +857,21 @@ F_{(\alpha/2,n_1-1,n_2-1)}&lt;\cfrac{S^2_1}{S^2_2}\times\cfrac{\sigma^2_2}{\sigm
 <hr>
 <p>El tercer punto nos piden calcular una nueva variable, si <span class="math inline">\(GAQ=GAE\)</span> el licor se clasifica como <strong>contrabando</strong> en caso contrario se llamará <strong>fraudulento</strong>.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Licores <span class="ot">&lt;-</span> Licores <span class="sc">%&gt;%</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">TipoLicor =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(GAQ<span class="sc">==</span>GAE,<span class="st">&quot;Contrabando&quot;</span>,<span class="st">&quot;Fraudulento&quot;</span>)))</span></code></pre></div>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">Incautacion =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(GAQ<span class="sc">==</span>GAE,<span class="st">&quot;Contrabando&quot;</span>,<span class="st">&quot;Fraudulento&quot;</span>)))</span></code></pre></div>
 <p>Luego preguntan si la proporción de licores Fraudulentos es superior al 65%.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(Licores,<span class="fu">table</span>(TipoLicor))</span></code></pre></div>
-<pre><code>## TipoLicor
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(Licores,<span class="fu">table</span>(Incautacion))</span></code></pre></div>
+<pre><code>## Incautacion
 ## Contrabando Fraudulento 
 ##          83         217</code></pre>
 <p>Como en <code>R</code> los factores se organizan alfabéticamente, entonces debemos cambiar la hipótesis hacia los licores de <strong>contrabando</strong>, entoces se evaluará si la proporción de licores de contrabando es del 35%.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(Licores,</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">prop.test</span>(<span class="fu">table</span>(TipoLicor),</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">prop.test</span>(<span class="fu">table</span>(Incautacion),</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">correct =</span> F))</span></code></pre></div>
 <pre><code>## 
 ##  1-sample proportions test without continuity correction
 ## 
-## data:  table(TipoLicor), null probability 0.5
+## data:  table(Incautacion), null probability 0.5
 ## X-squared = 59.853, df = 1, p-value = 1.022e-14
 ## alternative hypothesis: true p is not equal to 0.5
 ## 95 percent confidence interval:
@@ -878,6 +880,118 @@ F_{(\alpha/2,n_1-1,n_2-1)}&lt;\cfrac{S^2_1}{S^2_2}\times\cfrac{\sigma^2_2}{\sigm
 ##         p 
 ## 0.2766667</code></pre>
 <p>Como el intervalo está dado por <span class="math inline">\((22.91\%;\,32.99\%)\)</span> y el valor teórico está por fuera del rango, por lo tanto existe evidencia muestral para afirmar que la proporción de licores Fraudulentos es mayor del 65%. Por lo tanto, las rentas ilegales de licores están basadas en mayor medida de la adulteración, el impacto para la salud pública es muy grave, pues los efectos nocivos de los licores que no son correctamente destilados aumenta los riesgos clínicos como la ceguera, el cáncer de órganos digestivos o la muerte.</p>
+<hr>
+<p>Para el cuarto punto nos piden determinar si los grados de alchol son menores en los licores fraudulentos en comparación con los de contrabando, debido a que si los grados de alcohol disminuyen se va ver reflejado en la variable <span class="math inline">\(GAQ\)</span> y si los licores son de contrabando no se notará el cambio en los grados de alcohol.</p>
+<p>Para responder esta pregunta debemos estimar un IC para la diferencia de medias, donde la variable cuantitativa es <code>GAQ</code> y la variable que agrupa es <code>Incautacion</code>. Entonces los pasos a seguir son:</p>
+<ul>
+<li>Verificar normalidad en ambos grupos.</li>
+<li>Verificar tamaños de muestra si al menos uno no distribuye normal.</li>
+<li>Verificar igualdad de varianzas si ambos distribuyen normal.</li>
+<li>Seleccionar el estadístico de prueba.</li>
+<li>Concluir.</li>
+</ul>
+<p>En <code>R</code> es sencillo realizar estos pasos. Primero, podemos realizar un resumen numérico de los datos.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Licores <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Incautacion) <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">length</span>(GAQ),</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">media=</span><span class="fu">mean</span>(GAQ),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">desv=</span><span class="fu">sd</span>(GAQ))</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   Incautacion     n media  desv
+## * &lt;fct&gt;       &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Contrabando    83  33.4  4.36
+## 2 Fraudulento   217  29.8  3.88</code></pre>
+<p>A primera vista se puede ver que las desvaciones estándar de ambos grupos son pequeñas con respecto al promedio, esto no es un indicio suficiente para analizar el comportamiento; lo podemos verificar con un gráfico.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Licores,<span class="fu">aes</span>(<span class="at">x=</span>GAQ,<span class="at">fill=</span>Incautacion))<span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="I_ic2_files/figure-html/unnamed-chunk-20-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p>El comportamiento de cada grupo es bimodal, obviamente esta característica se contradice con una distribución normal, no obstante, se puede hacer la verificación con el QQ-Plot.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluar - Normalidad</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(Licores <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Incautacion<span class="sc">==</span><span class="st">&quot;Contrabando&quot;</span>),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">qqPlot</span>(GAQ,<span class="at">pch=</span><span class="dv">20</span>,<span class="at">main =</span> <span class="st">&quot;QQ-Plot Contrabando&quot;</span>,<span class="at">id=</span>F,<span class="at">col.lines =</span> <span class="dv">2</span>))</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(Licores <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Incautacion<span class="sc">==</span><span class="st">&quot;Fraudulento&quot;</span>),</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>     <span class="fu">qqPlot</span>(GAQ,<span class="at">pch=</span><span class="dv">20</span>,<span class="at">main =</span> <span class="st">&quot;QQ-Plot Fraudulento&quot;</span>,<span class="at">id=</span>F,<span class="at">col.lines =</span> <span class="dv">4</span>))</span></code></pre></div>
+<p><img src="I_ic2_files/figure-html/unnamed-chunk-21-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Como ambas muestras no distribuyen normal y los tamaños de muestra de ambos grupos son superiores a 30, podemos realizar el intervalo de confianza para la media, aproximando el resultado a una normal. En <code>R</code> existe un paquete para realizar estos intervalos, y al mismo tiempo verificar hipótesis, es muy similar al <code>t.test</code> la diferencia es que hay que especificarle los valores de las desviaciones estadándar de cada grupo. El paquete se llama <code>BSDA</code> y la función de interés es <code>z.test</code>.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;BSDA&quot;</span>,<span class="at">dependencies =</span> T)</span></code></pre></div>
+<p>Para este ejercicio, sabemos que no contamos con información previa acerca de los datos, por lo tanto no conocemos las varianzas de los grados de alcohol por cada grupo, así que se debe utilizar las varianzas muestrales de cada uno.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(BSDA)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(Licores,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">z.test</span>(<span class="at">x =</span> GAQ[Incautacion<span class="sc">==</span><span class="st">&quot;Contrabando&quot;</span>],</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> GAQ[Incautacion<span class="sc">==</span><span class="st">&quot;Fraudulento&quot;</span>],</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">sigma.x =</span> <span class="fu">sd</span>(GAQ[Incautacion<span class="sc">==</span><span class="st">&quot;Contrabando&quot;</span>]),</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">sigma.y =</span> <span class="fu">sd</span>(GAQ[Incautacion<span class="sc">==</span><span class="st">&quot;Fraudulento&quot;</span>])))</span></code></pre></div>
+<pre><code>## 
+##  Two-sample z-Test
+## 
+## data:  GAQ[Incautacion == &quot;Contrabando&quot;] and GAQ[Incautacion == &quot;Fraudulento&quot;]
+## z = 6.5525, p-value = 5.658e-11
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  2.507594 4.647927
+## sample estimates:
+## mean of x mean of y 
+##  33.42169  29.84393</code></pre>
+<p>En conclusión, los grados de alcohol de los licores Fraudulentos son menores a los de Contrabando, ya que el intervalo al 95% no contiene el cero y los límites son positivos. Entonces los ilegales que adulteran los licores, disminuyen significativamente los grados de alcohol, esto se explica porque los licores destilados contienen etanol que es más fácil de procesar para el hígado en comparación con el metanol que en su mayoría es utilizado para adulterar los licores, el cual produce envenenamiento. Si bien los grados de alcohol en los licores fraudulentos son menores, no significan que sean menos letales, debido a su composición química.</p>
+<hr>
+<p>La última pregunta nos piden realizar un intervalo de confianza para la diferencia de proporciones, ya que las dos variables seleccionadas son cualitativas <code>Incautacion</code> y <code>TL</code>. En <code>R</code> es fácil realizar este cálculo mediante la función <code>prop.test</code>, pero antes debemos seleccionar adecuandamente los datos y el orden de entrada en la función.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Licores <span class="sc">%&gt;%</span> <span class="fu">select</span>(TL,Incautacion) <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  table</span></code></pre></div>
+<pre><code>##              Incautacion
+## TL            Contrabando Fraudulento
+##   Aguardiente          39          86
+##   Ron                  13          39
+##   Tequila              26          70
+##   Whisky                5          22</code></pre>
+<p>La tabla se organiza por orden alfabético, además la tabla es de varios niveles, es decir, no es <span class="math inline">\(2\times2\)</span>. Una opción es reducir la tabla filtrando los datos, o la otra opción es ingresar los datos de interés a la función <code>prop.test</code>.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordenando las filas y columnas</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>Licores <span class="sc">%&gt;%</span> <span class="fu">select</span>(TL,Incautacion) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  table <span class="sc">%&gt;%</span> .[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>),<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)]</span></code></pre></div>
+<pre><code>##              Incautacion
+## TL            Fraudulento Contrabando
+##   Aguardiente          86          39
+##   Tequila              70          26
+##   Ron                  39          13
+##   Whisky               22           5</code></pre>
+<p>También podemos poner los totales marginales a la tabla, que son útiles para el paso final.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>Licores <span class="sc">%&gt;%</span> <span class="fu">select</span>(TL,Incautacion) <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  table <span class="sc">%&gt;%</span> .[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>),<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)] <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  addmargins</span></code></pre></div>
+<pre><code>##              Incautacion
+## TL            Fraudulento Contrabando Sum
+##   Aguardiente          86          39 125
+##   Tequila              70          26  96
+##   Ron                  39          13  52
+##   Whisky               22           5  27
+##   Sum                 217          83 300</code></pre>
+<p>Finalmente, para construir el intervalo de confianza ingresamos los éxitos de cada grupo y los totales marginales de los mismos.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">86</span>,<span class="dv">70</span>),<span class="at">n =</span> <span class="fu">c</span>(<span class="dv">125</span>,<span class="dv">96</span>),<span class="at">correct =</span> T)</span></code></pre></div>
+<pre><code>## 
+##  2-sample test for equality of proportions with continuity correction
+## 
+## data:  c(86, 70) out of c(125, 96)
+## X-squared = 0.26712, df = 1, p-value = 0.6053
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.17078698  0.08845364
+## sample estimates:
+##    prop 1    prop 2 
+## 0.6880000 0.7291667</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">86</span>,<span class="dv">70</span>),<span class="at">n =</span> <span class="fu">c</span>(<span class="dv">125</span>,<span class="dv">96</span>),<span class="at">correct =</span> F)</span></code></pre></div>
+<pre><code>## 
+##  2-sample test for equality of proportions without continuity
+##  correction
+## 
+## data:  c(86, 70) out of c(125, 96)
+## X-squared = 0.44323, df = 1, p-value = 0.5056
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.16157864  0.07924531
+## sample estimates:
+##    prop 1    prop 2 
+## 0.6880000 0.7291667</code></pre>
+<p>En conclusión, como el intervalo de confianza al 95% contiene el cero, esto sugiere que no existe evidencia muestral suficiente para soportar el argumento de que el Aguardiente sea el licor que más se adultera en comparación con el Tequila. El equipo de Rentas no debe confiarse en los operativos de aprehensiones y realizar pruebas químicas a todos los licores incautados.</p>
 <div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
 
 </div>
