@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Pruebas de Hipótesis II</title>
+
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Investigación II</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="I_et2.html">Potencia</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-equalizer"></span>
+     
+    Muestreo
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="M_effect.html">Sobre el efecto</a>
+    </li>
+    <li>
+      <a href="M_MAS.html">MAS</a>
+    </li>
+    <li>
+      <a href="M_MAE.html">MAE</a>
+    </li>
+    <li>
+      <a href="M_Cluster.html">Cluster</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-code"></span>
+     
+    R-Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Rinstall.html">Instalación</a>
+    </li>
+    <li>
+      <a href="IntroR.html">Introducción</a>
+    </li>
+    <li>
+      <a href="FunsR.html">Funciones y Paquetes</a>
+    </li>
+    <li>
+      <a href="RData.html">Manejo de Datos</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fas fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Pruebas de Hipótesis II</h1>
+
+</div>
+
+
+<hr>
+<div id="inferencia-comparación-de-grupos" class="section level2">
+<h2>Inferencia comparación de grupos</h2>
+<p>Hasta ahora se ha realizado estimaciónes y verificaciones de hipótesis para un parámetro. Ahora, el interés es comparar dos grupos, es decir, comparar una característica común pero que se diferencian en dos estados distinos y que no existen otras condiciones adicionales que diferencien las dos muestras.</p>
+<p>Para estos casos se presentan dos situaciones, que las muestras sean <strong>independientes</strong> o que las muestras sean <strong>pareadas</strong>, es decir, que es el seguimiento de un solo individuo en el cambio de estado (tiempo, área, condición).</p>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-1-1.png" width="900" style="display: block; margin: auto;" /></p>
+<p>Dada estas situaciones entonces surge la pregunta <em>¿Existe diferencia significativa entre los dos grupos?</em> Para responder esta pregunta tenemos dos procedimientos para llegar a la respuesta:</p>
+<ul>
+<li><strong>Intervalos de confianza (IC)</strong></li>
+<li><strong>Pruebas de hipótesis (PH)</strong></li>
+</ul>
+<p>Como vimos en la primera parte existe una relación directa entre los dos procedimientos cuando se habla de inferencia sobre un parámetro, para el caso de la comparación de grupos también existe esta relación entre <strong>IC</strong> y <strong>PH</strong>, sin embargo, el procedimiento involucra unos pasos adicionales en el caso de la diferencia de promedios.</p>
+<hr>
+</div>
+<div id="ph-para-diferencia-de-proporciones" class="section level2">
+<h2>PH para diferencia de proporciones</h2>
+<p>La prueba que se utiliza con mas frecuencia con relación a la diferencia entre las proporciones de dos poblaciones es aquella en la que su diferencia es cero. Sin embargo, es posible probar que dicha diferencia es igual a algún otro valor. Es posible efectuar pruebas tanto unilaterales como bilaterales.</p>
+<p>Cuando la hipótesis nula que va a probarse es <span class="math inline">\(P_1 -P_2= 0\)</span>, se supone que las proporciones de las dos poblaciones son iguales. Esto se utiliza como justificación para combinar los resultados de las dos muestras y obtener una estimación ponderada de la proporción común supuesta. Las hipótesis están dadas por:</p>
+<p><span class="math display">\[\begin{align*}
+H_0: p_A-p_B = \delta \quad \text{vs} \quad H_a: \begin{cases} p_A-p_B &amp;&lt; \delta \\
+                                          p_A-p_B &amp;&gt; \delta \\
+                                          p_A-p_B &amp;\neq \delta \\
+                                          \end{cases}
+\end{align*}\]</span></p>
+<p>El estadístico de prueba está dado por:</p>
+<p><span class="math display">\[Z_c=\frac{(\hat p_1 - \hat p_2)-\delta}{\sqrt{\frac{\bar p(1-\bar p)}{n_1}+\frac{\bar p(1-\bar p)}{n_2}}} \sim N(0,1)\]</span></p>
+<p>donde <span class="math inline">\(\bar p\)</span> es la proporción muestral agrupada:</p>
+<p><span class="math display">\[\bar p = \cfrac{x_1 + x_2}{n_1+n_2}\]</span></p>
+<p>Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} Z_c &amp;\rightarrow\, Z_c &lt;z_\alpha \\
+                   Z_c &amp;\rightarrow\, Z_c &gt;z_{1-\alpha} \\
+                   Z_c &amp;\rightarrow\, |Z_c| &gt;z_{1-\alpha/2} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(Z &lt; Z_c) \\
+                   P(Z &gt; Z_c) \\
+                   P(|Z| &gt; |Z_c|) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<blockquote>
+<p>En un estudio de cuidados nutricionales en asilos para ancianos, Lan y Justice (1991) encontraron que entre 55 pacientes con hipertensión, 24 tenian una dieta con restricción de sodio. De 149 pacientes sin hipertensión, 36 tenían una dieta sin sodio. ¿Es posible concluir que, en las poblaciones muestreadas, la proporción de pacientes con dieta restringida en sodio es mayor entre pacientes con hipertensión que entre pacientes sin hipertension?<br><br> Tenemos las siguientes hipótesis: <span class="math display">\[H_0: p_H-p_{\bar H}=0 \quad\text{vs}\quad H_a: p_H-p_{\bar H}&gt;0\]</span> Del enunciado podemos calcular la proporción muestral agrupada: <span class="math display">\[\bar p=\frac{24+36}{55+149}=\frac{60}{204}=0.2941176\]</span> Entonces con el estadístico de prueba se puede estimar la región crítica: <span class="math display">\[Z_c=\frac{24/55-36/149}{\sqrt{\left(\frac{60}{204}\right)\left(\frac{144}{204}\right)\left(\frac{1}{55}+\frac{1}{149}\right)}}=2.709048\]</span> Si <span class="math inline">\(\alpha =0.05\)</span> entonces se tiene que <span class="math inline">\(Z_{0.95}=1.645\)</span> y así la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&gt;Z_{0.95}\}=\{Z_c\,|\,2.709048&gt;1.645\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&gt;0.542326)=1-P(Z&lt;2.709048)=0.003373829\]</span> Como <span class="math inline">\(ZC &gt; 1.645\)</span> o <span class="math inline">\(0.00337 &lt; 0.05\)</span>, entonces existe suficiente evidencia muestral que la proporción con dieta restringida en sodio es mayor entre los pacientes hipertensos que entre los pacientes sin hipertensión, por lo tanto se rechaza <span class="math inline">\(H_0\)</span>.</p>
+</blockquote>
+<p>En <code>R</code> se puede hacer fácilmente las pruebas de hipótesis para la diferencia de proporciones, ya sea a partir de un conjunto de datos, una tabla/matriz o con los datos directas. La función <code>prop.test</code> hace los cálculos necesarios para las pruebas de hipótesis incluyendo el intervalo de confianza, no obstante, el estadístico de prueba que utiliza está basado en la distribución <span class="math inline">\(\chi^2\)</span> y los intervalos de confianza son estimados a través del método Wilson, adicionalmente tiene la opción de hacer el cálculo a partir de la corrección de Yates para tamaños de muestra pequeños.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">24</span>,<span class="dv">36</span>),<span class="at">n =</span> <span class="fu">c</span>(<span class="dv">55</span>,<span class="dv">149</span>),</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">alternative =</span> <span class="st">&quot;great&quot;</span>,<span class="at">correct =</span> F,<span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>## 
+##  2-sample test for equality of proportions without continuity
+##  correction
+## 
+## data:  c(24, 36) out of c(55, 149)
+## X-squared = 7.3389, df = 1, p-value = 0.003374
+## alternative hypothesis: greater
+## 95 percent confidence interval:
+##  0.07055185 1.00000000
+## sample estimates:
+##    prop 1    prop 2 
+## 0.4363636 0.2416107</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">24</span>,<span class="dv">36</span>),<span class="at">n =</span> <span class="fu">c</span>(<span class="dv">55</span>,<span class="dv">149</span>),</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">alternative =</span> <span class="st">&quot;great&quot;</span>,<span class="at">correct =</span> T,<span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>## 
+##  2-sample test for equality of proportions with continuity correction
+## 
+## data:  c(24, 36) out of c(55, 149)
+## X-squared = 6.4309, df = 1, p-value = 0.005608
+## alternative hypothesis: greater
+## 95 percent confidence interval:
+##  0.05810523 1.00000000
+## sample estimates:
+##    prop 1    prop 2 
+## 0.4363636 0.2416107</code></pre>
+<hr>
+</div>
+<div id="pruebas-de-igualdad-de-varianza" class="section level2">
+<h2>Pruebas de igualdad de Varianza</h2>
+<p>Otro paso importante es verificar si las varianzas de ambos grupos son iguales o no, esto es importante porque la intención de la comparación de grupos a partir de la diferencia de promedios solamente debe comparar un factor o grupo que diferencia las muestras. La presencia de variabilidad excesiva en una de las muestras indicaría que existe otra condición no analizada que puede afectar la comparación, sin embargo, es posible controlar este problema estimando una variación conjunta entre los dos grupos.</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \frac{\sigma_A^2}{\sigma_A^2}=1 \quad \text{vs} \quad H_a: \begin{cases}
+\sigma_A^2/\sigma_A^2 &amp;&lt;1 \\
+\sigma_A^2/\sigma_A^2 &amp;&gt;1 \\
+\sigma_A^2/\sigma_A^2 &amp;\neq 1 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>El estadístico de prueba está dado por:</p>
+<p><span class="math display">\[F_c=\frac{S_A^2}{S_B^2} \sim F_{(n_A-1,n_B-1)}\]</span></p>
+<p>Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} F_c &amp;\rightarrow\, F_c &lt;\frac{1}{F_{1-\alpha,\,(n_B-1,n_A-1)}} \\
+                   F_c &amp;\rightarrow\, F_c &gt;F_{1-\alpha,\,(n_A-1,n_B-1)} \\
+                   F_c &amp;\rightarrow\, F_c &lt; F_{1-\alpha/2,\,(n_A-1,n_B-1)} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(F_{(n_B-1,n_A-1)} &lt; F_c) \\
+                   P(F_{(n_A-1,n_B-1)} &gt; F_c) \\
+                   P(F_{(n_A-1,n_B-1)} &lt; F_c) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<blockquote>
+<p><strong>Nota</strong><br> Estos pasos de verificación son necesarios para seleccionar el método estadístico adecuado para realizar la comparación de grupos, ya sea por Intervalos de Confianza o por Purebas de Hipótesis.</p>
+</blockquote>
+<hr>
+</div>
+<div id="comparación-de-medias" class="section level2">
+<h2>Comparación de medias</h2>
+<p>El objetivo de la comparación es resolver una de las siguientes hipótesis antagónicas:</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &amp;&lt; \delta \\
+                                          \mu_A-\mu_B &amp;&gt; \delta \\
+                                          \mu_A-\mu_B &amp;\neq \delta \\
+                                          \end{cases}
+\end{align*}\]</span></p>
+<p>Entonces el estadístico de prueba está condicionado al comportamiento de las muestras aleatorias de cada grupo, entonces es necesario verificar si los datos son normales o no y si las varianzas son iguales o no, cada paso o decisión condiciona a seleccionar el mejor estadístico de prueba. Entonces, para seleccionar la mejor opción para compar grupos basados en la promedio tenemos los siguientes árboles de decisión para <strong>IC</strong> o para <strong>PH</strong>.</p>
+<div id="resumen" class="section level3">
+<h3>Resumen</h3>
+<center>
+<img src="PH2_1.png" />
+</center>
+<p><br></p>
+<center>
+<img src="PH2_2.png" />
+</center>
+<p><br></p>
+<center>
+<img src="PH2_3.png" />
+</center>
+<p><br></p>
+<center>
+<a href="./R/Resumen_IC.pdf" class="btn btn-success" target="_blank">Intervalos de Confianza</a> <a href="./R/Resumen_PH.pdf" class="btn btn-info" target="_blank">Pruebas de Hipótesis</a>
+</center>
+<hr>
+</div>
+<div id="ejemplo" class="section level3">
+<h3>Ejemplo</h3>
+<p>La siguiente base de datos contiene información acerca de incautaciones de bebidas alcohólicas fraudulentas y de contrabando en la ciudad de Medellín en un mes, que afectan los recursos para Salud y Educación en el Departamento de Antioquia y de acuerdo a los resultados se toma decisiones para aumentar o disminuir los controles.</p>
+<center>
+<a href="./R/Licores.xlsx" class="btn btn-default" target="_blank">Licores</a>
+</center>
+<p>La base de datos contiene las variables - <strong>TL</strong> (Tipo de Licor) - <strong>PI</strong> (Precio de incautación: se refiere al precio de venta en el establecimiento por unidad) - <strong>GAE</strong> (Grados de Alcohol en etiqueta) - <strong>GAQ</strong> (grados de alcohol en prueba química) - <strong>CE</strong> (Cantidades estandarizadas: número de unidades estandarizadas a 750 ml).</p>
+<p>Usando la información de su base de datos responda a las siguientes preguntas.</p>
+<ol style="list-style-type: decimal">
+<li><p>El <strong>precio total</strong> de la incautación se calcula como la cantidad estandarizada por el precio de incautación. ¿Se puede afirmar que el precio total promedio de la incautación es superior a $7’500.000?</p></li>
+<li><p>El <strong>ipoconsumo</strong>, es el impuesto que deja de percibir el Estado para salud y educación, el cual se calcula como: <span class="math inline">\(GAQ \times CE \times 400\)</span> (pesos). ¿Se puede afirmar que el ipoconsumo promedio del ron es inferior al ipoconsumo medio del Whisky? ¿Qué decisión se puede tomar frente al control?</p></li>
+<li><p>El licor incautado se clasifica como “Fraudulento” si los GAE son distintos a los GAQ y como “contrabando” si son iguales. ¿La proporción de licores fraudulentos es superior al 65%? ¿Qué significa éste resultado?</p></li>
+<li><p>Se piensa que los ilegales mezclan el licor con otras sustancias para disminuir los grados de alcohol del licor. ¿Existe evidencia para este planteamiento?</p></li>
+<li><p>De acuerdo con los datos, se sabe que el Aguardiente y el Tequila son los licores con más incautaciones. Desde el equipo de Rentas se sostiene que el Aguardiente es el licor que más se adultera. ¿Es correcta esta afirmación?</p></li>
+</ol>
+<hr>
+</div>
+<div id="solución-usando-r" class="section level3">
+<h3>Solución usando R</h3>
+<p>Lo primero es descargar la base de datos en la carpeta que se considere, luego debemos cargar la base de datos en <code>RStudio</code> para realizar los análisis. Antes de comenzar con el análisis necesitamos instalar o cargar las librerías necesarias para el análisis</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para manipular datos</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(dplyr)) <span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos con estilo</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(ggplot2)) <span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Pruebas de bondad de ajuste</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(nortest)) <span class="fu">install.packages</span>(<span class="st">&quot;nortest&quot;</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos QQ-plot con IC</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(car)) <span class="fu">install.packages</span>(<span class="st">&quot;car&quot;</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Importar/Exportar datos de Excel</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(openxlsx)) <span class="fu">install.packages</span>(<span class="st">&quot;openxlsx&quot;</span>)</span></code></pre></div>
+<p>El siguiente paso es cargar la base de datos, esto lo podemos realizar directamente de <code>RStudio</code> con el siguiente comando:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Licores <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="fu">file.choose</span>(),<span class="at">sheet =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Revisemos la estructura de los datos, para verificar si fueron cargados correctamente.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Licores)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    300 obs. of  5 variables:
+##  $ TL : chr  &quot;Ron&quot; &quot;Aguardiente&quot; &quot;Ron&quot; &quot;Aguardiente&quot; ...
+##  $ PI : num  34719 26900 27062 29317 32471 ...
+##  $ GAE: num  35 29 35 29 38 29 29 38 35 40 ...
+##  $ GAQ: num  30.2 29 32.2 29 32.6 ...
+##  $ CE : num  221 253 249 254 267 ...</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cambiando caracter por factor</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Licores <span class="ot">&lt;-</span> Licores <span class="sc">%&gt;%</span> <span class="fu">mutate_if</span>(is.character,as.factor)</span></code></pre></div>
+<p>El primer punto nos piden calcular <strong>el precio total</strong> de incautación, y se pregunta si el promedio de esa nueva variable es superior a 7.5 millones. Entonces tenemos las hipótesis:</p>
+<p><span class="math display">\[H_o: \mu_{pt} = 7&#39;500.000 \qquad H_a:\mu_{pt} &gt; 7&#39;500.000\]</span></p>
+<p>Para seleccionar el estadístico de prueba más indicado, debemos probar si la distribución del precio total de incautación es Normal.</p>
+<p><span class="math display">\[H_0:PT \sim N(\mu,\sigma^2) \qquad H_a: PT\not\sim N(\mu,\sigma^2)\]</span></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Licores<span class="sc">$</span>PT <span class="ot">&lt;-</span> Licores<span class="sc">$</span>CE<span class="sc">*</span>Licores<span class="sc">$</span>PI</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Licores<span class="sc">$</span>PT,<span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>,<span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-7-1.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pruebas de hipótesis</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(Licores<span class="sc">$</span>PT)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  Licores$PT
+## W = 0.99485, p-value = 0.4134</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ad.test</span>(Licores<span class="sc">$</span>PT)</span></code></pre></div>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  Licores$PT
+## A = 0.25534, p-value = 0.7249</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lillie.test</span>(Licores<span class="sc">$</span>PT)</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  Licores$PT
+## D = 0.032027, p-value = 0.6393</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(Licores<span class="sc">$</span>PT,<span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-7-2.png" width="630" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] 68 65</code></pre>
+<p>Entonces, siguiendo el árbol de decisión tenemos que los datos se distribuyen normal y no conocemos los parámetros poblacionales, por lo tanto el estadístico de prueba está basado en la <em>t-student</em>.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(Licores<span class="sc">$</span>PT,<span class="at">mu =</span> <span class="dv">7500000</span>,<span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>,<span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  Licores$PT
+## t = -0.42571, df = 299, p-value = 0.6647
+## alternative hypothesis: true mean is greater than 7500000
+## 95 percent confidence interval:
+##  7348999     Inf
+## sample estimates:
+## mean of x 
+##   7469031</code></pre>
+<p>Como <span class="math inline">\(\text{valor-p} \, &gt; \, \alpha\)</span> entonces no se rechaza <span class="math inline">\(H_0\)</span>, existe evidencia muestral suficiente de que el promedio del precio de incautaciones mesual es de $7’500.000, esto implica anualmente se esperaría que alrededor de 90 millones de pesos deje de circular ilegalmente gracias a lo no pago de impuestos o adulteración de licores.</p>
+<hr>
+<p>En la siguiente pregunta se pide calcular el <em>ipoconsumo</em> de acuerdo a una formulación, y luego comparar si el impuesto de los licores de tipo <em>Ron</em> son menores a los de <em>Whisky</em> basado en los promedios. Entonces tenemos la siguiente hipótesis:</p>
+<p><span class="math display">\[H_0: \mu_{Ir} = \mu_{Iw} \qquad H_a:\mu_{Ir} &lt; \mu_{Iw}\]</span></p>
+<p>De acuerdo al árbol de decisión tenemos que hacer los siguientes pasos:</p>
+<ul>
+<li>Calcular el ipoconsumo</li>
+<li>Separar la base de datos en Ron y Whisky</li>
+<li>Probar la normalidad de ambos grupos</li>
+<li>Comprobar la igualdad de varianzas de los grupos</li>
+<li>Escoger el mejor estadístico de prueba y realizar el análisis.</li>
+<li>Concluir</li>
+</ul>
+<p>Los primeros dos pasos son sencillos:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Licores <span class="ot">&lt;-</span> Licores <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">IPO =</span> GAQ<span class="sc">*</span>CE<span class="sc">*</span><span class="dv">400</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="ot">&lt;-</span> Licores <span class="sc">%&gt;%</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(TL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Ron&quot;</span>,<span class="st">&quot;Whisky&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>   droplevels</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(TL) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">length</span>(IPO),</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">media=</span><span class="fu">mean</span>(IPO),</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">desv=</span><span class="fu">sd</span>(IPO))</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   TL         n    media    desv
+## * &lt;fct&gt;  &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Ron       52 3185673. 270971.
+## 2 Whisky    27 3591694. 317110.</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>IPO,<span class="at">fill=</span>TL))<span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_density</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span><span class="fu">xlim</span>(<span class="fu">c</span>(<span class="fl">2e06</span>,<span class="fl">5e06</span>))<span class="sc">+</span><span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-9-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Luego debemos probar la normalidad de los datos, esto lo podemos hacer de dos formas. La primera es separar la base de datos y construir dos nuevas con los grupos de interés, la otra es evaluar al mismo tiempo los valores-p de las pruebas usando <code>dplyr</code>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Primer método - Ron</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Ron&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(IPO) <span class="sc">%&gt;%</span> unlist <span class="sc">%&gt;%</span> <span class="fu">shapiro.test</span>()</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.96894, p-value = 0.1904</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Ron&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(IPO) <span class="sc">%&gt;%</span> unlist <span class="sc">%&gt;%</span> <span class="fu">ad.test</span>()</span></code></pre></div>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  .
+## A = 0.50493, p-value = 0.1943</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Ron&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(IPO) <span class="sc">%&gt;%</span> unlist <span class="sc">%&gt;%</span> <span class="fu">lillie.test</span>()</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  .
+## D = 0.095664, p-value = 0.2758</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Primer método - Whisky</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Whisky&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(IPO) <span class="sc">%&gt;%</span> unlist <span class="sc">%&gt;%</span> <span class="fu">shapiro.test</span>()</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.96678, p-value = 0.5193</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Whisky&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(IPO) <span class="sc">%&gt;%</span> unlist <span class="sc">%&gt;%</span> <span class="fu">ad.test</span>()</span></code></pre></div>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  .
+## A = 0.26387, p-value = 0.671</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Whisky&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(IPO) <span class="sc">%&gt;%</span> unlist <span class="sc">%&gt;%</span> <span class="fu">lillie.test</span>()</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  .
+## D = 0.087079, p-value = 0.8639</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Segundo método</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(TL) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">shapiro=</span><span class="fu">shapiro.test</span>(IPO)<span class="sc">$</span>p.val,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">Ander_Darl=</span><span class="fu">ad.test</span>(IPO)<span class="sc">$</span>p.val,</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">lilliefords=</span><span class="fu">lillie.test</span>(IPO)<span class="sc">$</span>p.val)</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   TL     shapiro Ander_Darl lilliefords
+## * &lt;fct&gt;    &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;
+## 1 Ron      0.190      0.194       0.276
+## 2 Whisky   0.519      0.671       0.864</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Ron&quot;</span>),</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">qqPlot</span>(IPO,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">main =</span> <span class="st">&quot;QQ-Plot Ron&quot;</span>,<span class="at">id=</span>F,<span class="at">col.lines =</span> <span class="dv">2</span>))</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Whisky&quot;</span>),</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>     <span class="fu">qqPlot</span>(IPO,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">main =</span> <span class="st">&quot;QQ-Plot Whisky&quot;</span>,<span class="at">id=</span>F,<span class="at">col.lines =</span> <span class="dv">4</span>))</span></code></pre></div>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-10-1.png" width="810" style="display: block; margin: auto;" /></p>
+<p>Como ambas muestras distribuyen normal, es necesario verificar si existe igualdad en sus varianzas, esto se comprueba con la función <code>var.test</code>.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(SoloRA,<span class="fu">var.test</span>(IPO<span class="sc">~</span>TL))</span></code></pre></div>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  IPO by TL
+## F = 0.73017, num df = 51, denom df = 26, p-value = 0.3333
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.3562148 1.3878542
+## sample estimates:
+## ratio of variances 
+##           0.730172</code></pre>
+<p>Entonces, como los datos son normales y tienen varianzas iguales, de acuerdo con el árbol de decisión el mejor estadístico de prueba está basado en la <em>t-student</em> y es necesario estimar la varianza conjunta, no obstante, el software lo hace:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(SoloRA,</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">t.test</span>(IPO[TL<span class="sc">==</span><span class="st">&quot;Ron&quot;</span>],</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>            IPO[TL<span class="sc">==</span><span class="st">&quot;Whisky&quot;</span>],</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">var.equal =</span> T,<span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>))</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  IPO[TL == &quot;Ron&quot;] and IPO[TL == &quot;Whisky&quot;]
+## t = -5.9561, df = 77, p-value = 3.629e-08
+## alternative hypothesis: true difference in means is less than 0
+## 95 percent confidence interval:
+##       -Inf -292527.9
+## sample estimates:
+## mean of x mean of y 
+##   3185673   3591694</code></pre>
+<p>En conclusión, el ipoconsumo del ron es menor al del whisky con un nivel de significancia del 5%. Entonces la cantidad de impuestos que deja de percibir el departamento tiene mayor aporte en el Whisky, sin embargo, las cantidades de Ron son casi el doble que las de Whisky lo que sugiere que este licor es preferido para la adulteración. Los controles se deben aumentar para incautar más Ron y establecer una estrategia para que no aumente la adulteración del Whisky que es la que más afecta los recursos para salud.</p>
+<hr>
+<p>El tercer punto nos piden calcular una nueva variable, si <span class="math inline">\(GAQ=GAE\)</span> el licor se clasifica como <strong>contrabando</strong> en caso contrario se llamará <strong>fraudulento</strong>.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>Licores <span class="ot">&lt;-</span> Licores <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">Incautacion =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(GAQ<span class="sc">==</span>GAE,<span class="st">&quot;Contrabando&quot;</span>,<span class="st">&quot;Fraudulento&quot;</span>)))</span></code></pre></div>
+<p>Luego preguntan si la proporción de licores Fraudulentos es superior al 65%. Entonces las hipótesis son:</p>
+<p><span class="math display">\[H_0: p_F = 0.65 \qquad H_a: p_F &gt;0.65\]</span></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(Licores,<span class="fu">table</span>(Incautacion))</span></code></pre></div>
+<pre><code>## Incautacion
+## Contrabando Fraudulento 
+##          83         217</code></pre>
+<p>Como en <code>R</code> los factores se organizan alfabéticamente, entonces debemos cambiar la hipótesis hacia los licores de <strong>contrabando</strong>, así:</p>
+<p><span class="math display">\[H_0: p_C = 0.35 \qquad H_a: p_C &lt; 0.35\]</span></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(Licores,</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">prop.test</span>(<span class="fu">table</span>(Incautacion),</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">p =</span> <span class="fl">0.35</span>,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>,</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">correct =</span> F))</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test without continuity correction
+## 
+## data:  table(Incautacion), null probability 0.35
+## X-squared = 7.0916, df = 1, p-value = 0.003872
+## alternative hypothesis: true p is less than 0.35
+## 95 percent confidence interval:
+##  0.0000000 0.3210025
+## sample estimates:
+##         p 
+## 0.2766667</code></pre>
+<p>Como el valor-p es mucho menor al nivel de significancia, entonces se rechaza <span class="math inline">\(H_0\)</span> por lo tanto existe evidencia muestral para afirmar que la proporción de licores Fraudulentos es mayor del 65%. Por lo tanto, las rentas ilegales de licores están basadas en mayor medida de la adulteración, el impacto para la salud pública es muy grave, pues los efectos nocivos de los licores que no son correctamente destilados aumenta los riesgos clínicos como la ceguera, el cáncer de órganos digestivos o la muerte.</p>
+<hr>
+<p>Para el cuarto punto nos piden determinar si los grados de alcohol son menores en los licores fraudulentos en comparación con los de contrabando, debido a que si los grados de alcohol disminuyen se va ver reflejado en la variable <span class="math inline">\(GAQ\)</span> y si los licores son de contrabando no se notará el cambio en los grados de alcohol.</p>
+<p><span class="math display">\[H_0: \mu_{GAQf}=\mu_{GAQc} \qquad H_a: \mu_{GAQf}&lt;\mu_{GAQc}\]</span></p>
+<p>Para responder esta pregunta debemos estimar un IC para la diferencia de medias, donde la variable cuantitativa es <code>GAQ</code> y la variable que agrupa es <code>Incautacion</code>. Entonces los pasos a seguir son:</p>
+<ul>
+<li>Verificar normalidad en ambos grupos.</li>
+<li>Verificar tamaños de muestra si al menos uno no distribuye normal.</li>
+<li>Verificar igualdad de varianzas si ambos distribuyen normal.</li>
+<li>Seleccionar el estadístico de prueba.</li>
+<li>Concluir.</li>
+</ul>
+<p>En <code>R</code> es sencillo realizar estos pasos. Primero, podemos realizar un resumen numérico de los datos y evaluar la normalidad de los mismos.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>Licores <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Incautacion) <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">length</span>(GAQ),</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">media=</span><span class="fu">mean</span>(GAQ),</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">desv=</span><span class="fu">sd</span>(GAQ),</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">SW=</span><span class="fu">shapiro.test</span>(GAQ)<span class="sc">$</span>p,</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">AD=</span><span class="fu">ad.test</span>(GAQ)<span class="sc">$</span>p,</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">LF=</span><span class="fu">lillie.test</span>(GAQ)<span class="sc">$</span>p)</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 7
+##   Incautacion     n media  desv       SW       AD       LF
+## * &lt;fct&gt;       &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Contrabando    83  33.4  4.36 1.86e-10 1.97e-22 8.00e-23
+## 2 Fraudulento   217  29.8  3.88 4.86e-13 3.70e-24 4.83e-23</code></pre>
+<p>Como ambas muestras no distribuyen normal y los tamaños de muestra de ambos grupos son superiores a 30, podemos realizar el intervalo de confianza para la media, aproximando el resultado a una normal. En <code>R</code> existe un paquete para realizar estos intervalos, y al mismo tiempo verificar hipótesis, es muy similar al <code>t.test</code> la diferencia es que hay que especificarle los valores de las desviaciones estadándar de cada grupo. El paquete se llama <code>BSDA</code> y la función de interés es <code>z.test</code>.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;BSDA&quot;</span>,<span class="at">dependencies =</span> T)</span></code></pre></div>
+<p>Para este ejercicio, sabemos que no contamos con información previa acerca de los datos, por lo tanto no conocemos las varianzas de los grados de alcohol por cada grupo, así que se debe utilizar las varianzas muestrales de cada uno.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(BSDA)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(Licores,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">z.test</span>(<span class="at">x =</span> GAQ[Incautacion<span class="sc">==</span><span class="st">&quot;Fraudulento&quot;</span>],</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> GAQ[Incautacion<span class="sc">==</span><span class="st">&quot;Contrabando&quot;</span>],</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">sigma.x =</span> <span class="fu">sd</span>(GAQ[Incautacion<span class="sc">==</span><span class="st">&quot;Fraudulento&quot;</span>]),</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">sigma.y =</span> <span class="fu">sd</span>(GAQ[Incautacion<span class="sc">==</span><span class="st">&quot;Contrabando&quot;</span>]),</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>))</span></code></pre></div>
+<pre><code>## 
+##  Two-sample z-Test
+## 
+## data:  GAQ[Incautacion == &quot;Fraudulento&quot;] and GAQ[Incautacion == &quot;Contrabando&quot;]
+## z = -6.5525, p-value = 2.829e-11
+## alternative hypothesis: true difference in means is less than 0
+## 95 percent confidence interval:
+##         NA -2.679648
+## sample estimates:
+## mean of x mean of y 
+##  29.84393  33.42169</code></pre>
+<p>En conclusión, los grados de alcohol de los licores Fraudulentos son menores a los de Contrabando, ya que el valor-p es menor que el nivel de significancia del 5%, por lo tanto se rechaza la hipótesis nula. Entonces los ilegales que adulteran los licores, disminuyen significativamente los grados de alcohol, esto se explica porque los licores destilados contienen etanol que es más fácil de procesar para el hígado en comparación con el metanol que en su mayoría es utilizado para adulterar los licores, el cual produce envenenamiento. Si bien los grados de alcohol en los licores fraudulentos son menores, no significan que sean menos letales, debido a su composición química.</p>
+<hr>
+</div>
+</div>
+<div id="ejercicio" class="section level2">
+<h2>Ejercicio</h2>
+<p><em>DATOS DE BAJO PESO DE NACIMIENTO</em></p>
+<p>Estos datos provienen de Hosmer y Lemeshow (2000) Regresión logística aplicada.</p>
+<p>El objetivo de este estudio fue identificar los factores de riesgo asociados con el nacimiento de un bebé con bajo peso al nacer (que pesa menos de 2500 gramos). Se recopilaron datos sobre 189 mujeres, 59 de las cuales tenían bebés con bajo peso al nacer y 130 de los cuales tenían bebés con peso normal al nacer. Cuatro variables que se consideraron importantes fueron la edad, el peso del sujeto en su último período menstrual, la raza y el número de visitas al médico durante el primer trimestre del embarazo.</p>
+<p>Los datos fueron recolectados en el Baystate Medical Center, Springfield, Massachusetts, durante 1986.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(MASS)) <span class="fu">install.packages</span>(<span class="st">&quot;MASS&quot;</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>birthwt</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">low</th>
+<th align="center">age</th>
+<th align="center">lwt</th>
+<th align="center">race</th>
+<th align="center">smoke</th>
+<th align="center">ptl</th>
+<th align="center">ht</th>
+<th align="center">ui</th>
+<th align="center">ftv</th>
+<th align="center">bwt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">85</td>
+<td align="center">0</td>
+<td align="center">19</td>
+<td align="center">182</td>
+<td align="center">2</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">2523</td>
+</tr>
+<tr class="even">
+<td align="left">86</td>
+<td align="center">0</td>
+<td align="center">33</td>
+<td align="center">155</td>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">3</td>
+<td align="center">2551</td>
+</tr>
+<tr class="odd">
+<td align="left">87</td>
+<td align="center">0</td>
+<td align="center">20</td>
+<td align="center">105</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2557</td>
+</tr>
+<tr class="even">
+<td align="left">88</td>
+<td align="center">0</td>
+<td align="center">21</td>
+<td align="center">108</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">2594</td>
+</tr>
+<tr class="odd">
+<td align="left">89</td>
+<td align="center">0</td>
+<td align="center">18</td>
+<td align="center">107</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">2600</td>
+</tr>
+<tr class="even">
+<td align="left">91</td>
+<td align="center">0</td>
+<td align="center">21</td>
+<td align="center">124</td>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">2622</td>
+</tr>
+<tr class="odd">
+<td align="left">92</td>
+<td align="center">0</td>
+<td align="center">22</td>
+<td align="center">118</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2637</td>
+</tr>
+<tr class="even">
+<td align="left">93</td>
+<td align="center">0</td>
+<td align="center">17</td>
+<td align="center">103</td>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2637</td>
+</tr>
+<tr class="odd">
+<td align="left">94</td>
+<td align="center">0</td>
+<td align="center">29</td>
+<td align="center">123</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2663</td>
+</tr>
+<tr class="even">
+<td align="left">95</td>
+<td align="center">0</td>
+<td align="center">26</td>
+<td align="center">113</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">2665</td>
+</tr>
+<tr class="odd">
+<td align="left">96</td>
+<td align="center">0</td>
+<td align="center">19</td>
+<td align="center">95</td>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">2722</td>
+</tr>
+<tr class="even">
+<td align="left">97</td>
+<td align="center">0</td>
+<td align="center">19</td>
+<td align="center">150</td>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2733</td>
+</tr>
+<tr class="odd">
+<td align="left">98</td>
+<td align="center">0</td>
+<td align="center">22</td>
+<td align="center">95</td>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">2751</td>
+</tr>
+<tr class="even">
+<td align="left">99</td>
+<td align="center">0</td>
+<td align="center">30</td>
+<td align="center">107</td>
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">2750</td>
+</tr>
+<tr class="odd">
+<td align="left">100</td>
+<td align="center">0</td>
+<td align="center">18</td>
+<td align="center">100</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">2769</td>
+</tr>
+</tbody>
+</table>
+<p>La descripción de las variables de esta base de datos están <a href="https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/birthwt.html" target="_blank">aquí</a>.</p>
+<p>De acuerdo con la descripción se organiza el conjunto de datos de mejor forma como sigue.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">with</span>(birthwt, {</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  race <span class="ot">&lt;-</span> <span class="fu">factor</span>(race, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;white&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;other&quot;</span>))</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  ptd <span class="ot">&lt;-</span> <span class="fu">factor</span>(ptl <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  ftv <span class="ot">&lt;-</span> <span class="fu">factor</span>(ftv)</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">levels</span>(ftv)[<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)] <span class="ot">&lt;-</span> <span class="st">&quot;2+&quot;</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">low =</span> <span class="fu">factor</span>(low<span class="sc">&gt;</span><span class="dv">0</span>),</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>             age, lwt, race, <span class="at">smoke =</span> (smoke <span class="sc">&gt;</span> <span class="dv">0</span>),</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>             ptd, <span class="at">ht =</span> (ht <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="at">ui =</span> (ui <span class="sc">&gt;</span> <span class="dv">0</span>),</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>             ftv,bwt)</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="center">low</th>
+<th align="center">age</th>
+<th align="center">lwt</th>
+<th align="center">race</th>
+<th align="center">smoke</th>
+<th align="center">ptd</th>
+<th align="center">ht</th>
+<th align="center">ui</th>
+<th align="center">ftv</th>
+<th align="center">bwt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">FALSE</td>
+<td align="center">19</td>
+<td align="center">182</td>
+<td align="center">black</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">TRUE</td>
+<td align="center">0</td>
+<td align="center">2523</td>
+</tr>
+<tr class="even">
+<td align="center">FALSE</td>
+<td align="center">33</td>
+<td align="center">155</td>
+<td align="center">other</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">2+</td>
+<td align="center">2551</td>
+</tr>
+<tr class="odd">
+<td align="center">FALSE</td>
+<td align="center">20</td>
+<td align="center">105</td>
+<td align="center">white</td>
+<td align="center">TRUE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">1</td>
+<td align="center">2557</td>
+</tr>
+<tr class="even">
+<td align="center">FALSE</td>
+<td align="center">21</td>
+<td align="center">108</td>
+<td align="center">white</td>
+<td align="center">TRUE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">TRUE</td>
+<td align="center">2+</td>
+<td align="center">2594</td>
+</tr>
+<tr class="odd">
+<td align="center">FALSE</td>
+<td align="center">18</td>
+<td align="center">107</td>
+<td align="center">white</td>
+<td align="center">TRUE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">TRUE</td>
+<td align="center">0</td>
+<td align="center">2600</td>
+</tr>
+<tr class="even">
+<td align="center">FALSE</td>
+<td align="center">21</td>
+<td align="center">124</td>
+<td align="center">other</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">0</td>
+<td align="center">2622</td>
+</tr>
+<tr class="odd">
+<td align="center">FALSE</td>
+<td align="center">22</td>
+<td align="center">118</td>
+<td align="center">white</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">1</td>
+<td align="center">2637</td>
+</tr>
+<tr class="even">
+<td align="center">FALSE</td>
+<td align="center">17</td>
+<td align="center">103</td>
+<td align="center">other</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">1</td>
+<td align="center">2637</td>
+</tr>
+<tr class="odd">
+<td align="center">FALSE</td>
+<td align="center">29</td>
+<td align="center">123</td>
+<td align="center">white</td>
+<td align="center">TRUE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">1</td>
+<td align="center">2663</td>
+</tr>
+<tr class="even">
+<td align="center">FALSE</td>
+<td align="center">26</td>
+<td align="center">113</td>
+<td align="center">white</td>
+<td align="center">TRUE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">0</td>
+<td align="center">2665</td>
+</tr>
+<tr class="odd">
+<td align="center">FALSE</td>
+<td align="center">19</td>
+<td align="center">95</td>
+<td align="center">other</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">0</td>
+<td align="center">2722</td>
+</tr>
+<tr class="even">
+<td align="center">FALSE</td>
+<td align="center">19</td>
+<td align="center">150</td>
+<td align="center">other</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">1</td>
+<td align="center">2733</td>
+</tr>
+<tr class="odd">
+<td align="center">FALSE</td>
+<td align="center">22</td>
+<td align="center">95</td>
+<td align="center">other</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">TRUE</td>
+<td align="center">FALSE</td>
+<td align="center">0</td>
+<td align="center">2751</td>
+</tr>
+<tr class="even">
+<td align="center">FALSE</td>
+<td align="center">30</td>
+<td align="center">107</td>
+<td align="center">other</td>
+<td align="center">FALSE</td>
+<td align="center">TRUE</td>
+<td align="center">FALSE</td>
+<td align="center">TRUE</td>
+<td align="center">2+</td>
+<td align="center">2750</td>
+</tr>
+<tr class="odd">
+<td align="center">FALSE</td>
+<td align="center">18</td>
+<td align="center">100</td>
+<td align="center">white</td>
+<td align="center">TRUE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">FALSE</td>
+<td align="center">0</td>
+<td align="center">2769</td>
+</tr>
+</tbody>
+</table>
+<p>Con esta base de datos responda las siguientes preguntas utilizando <code>R</code> con un nivel de significancia del 5%.</p>
+<hr>
+<ol style="list-style-type: decimal">
+<li>Para las mamás que tuvieron bebés con bajo peso al nacer, ¿existen diferencias en su condición de fumadoras?</li>
+</ol>
+<!--
+
+```r
+datos %>% select(smoke,low) %>% table
+```
+
+```
+##        low
+## smoke   FALSE TRUE
+##   FALSE    86   29
+##   TRUE     44   30
+```
+
+Como la pregunta está dirigida a las mamás que tuvieron bebés con bajo peso al nacer, entonces hay que mover las columnas de la tabla para conservar la hipótesis.
+
+
+```r
+datos %>% select(smoke,low) %>% table %>% .[,c(2,1)]
+```
+
+```
+##        low
+## smoke   TRUE FALSE
+##   FALSE   29    86
+##   TRUE    30    44
+```
+
+Esta es la tabla con la cual se hará la prueba de diferencia de proporciones, donde se comparará la condición de fumador dado que se tienen bebés en bajo peso.
+
+
+```r
+datos %>% select(smoke,low) %>% table %>%
+  .[,c(2,1)] %>% prop.test(conf.level = 0.95,correct = F)
+```
+
+```
+## 
+##  2-sample test for equality of proportions without continuity
+##  correction
+## 
+## data:  .
+## X-squared = 4.9237, df = 1, p-value = 0.02649
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.29039121 -0.01607177
+## sample estimates:
+##    prop 1    prop 2 
+## 0.2521739 0.4054054
+```
+
+Como el valor-p es menor a 0.05, entonces se rechaza la hipótesis nula, por lo tanto si existen diferencias significativas entre la proporción de mamás que fuman y las que no, dado que tuvieron bebés con bajo peso al nacer.-->
+<ol start="2" style="list-style-type: decimal">
+<li>Se cree que las mamás que tuvieron más de un parto previo, la edad es menor a 27 años ¿Es cierta esta hipótesis?</li>
+</ol>
+<!--
+
+```r
+datos %>%
+  ggplot(aes(x=age,fill=ptd))+geom_density(alpha=0.5)+
+  ggtitle("Comportamiento de la Edad de las mamás dado los partos previos")+
+  theme_bw()
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-26-1.png" width="630" style="display: block; margin: auto;" />
+
+Para poder resolver la hipótesis es necesario tener encuenta el filtro de las mamás que tuvieron más de un parto previo, que se indica con la variable `ptd`. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.
+
+
+```r
+# Ojo: Se necesita el filtro
+datos %>% filter(ptd==T) %>% 
+  summarise(n=length(age),prom=mean(age),
+            desv=sd(age),
+            shapiro=shapiro.test(age)$p.val,
+            Ander_Darl=ad.test(age)$p.val,
+            lilliefords=lillie.test(age)$p.val)
+```
+
+```
+##    n     prom     desv   shapiro Ander_Darl lilliefords
+## 1 30 24.43333 5.028768 0.5879124  0.4028222   0.1139127
+```
+
+En los resultados vemos que tenemos una muestra de tamaño 30, con una media de 24.43 años y una desviación de 5.03 años. Además los test de normalidad utilizados nos ayudan a conculir que la distribución de los datos es normal, comparando los valores-p con el nivel de significancia.
+
+De acuerdo con el árbol de decisión podemos utilizar un estadístico de prueba basado en la *t-student*, ya que los datos distribuyen normal y NO conocemos la varianza poblacional, para tomar una decisión sobre la hipótesis planteada.
+
+
+```r
+datos %>% filter(ptd==T) %>%
+  select(age) %>% 
+  t.test(mu=27,alternative = "less",conf.level = 0.95)
+```
+
+```
+## 
+##  One Sample t-test
+## 
+## data:  .
+## t = -2.7956, df = 29, p-value = 0.004548
+## alternative hypothesis: true mean is less than 27
+## 95 percent confidence interval:
+##      -Inf 25.99334
+## sample estimates:
+## mean of x 
+##  24.43333
+```
+
+Como el valor-p es menor al nivel de significancia del 5%, entonces se rechaza la hipótesis nula, por lo tanto el promedio de la edad de las mamás con más de un parto previo es menor de 27 años.
+-->
+<ol start="3" style="list-style-type: decimal">
+<li>La hipertensión es un indicador asociado al peso, para las mamás hipertensas ¿existe diferencias significativas entre el peso de las blancas y otros grupos étnicos? <!--
+
+```r
+datos %>% filter(ht==T,race %in% c("white","other")) %>%
+  ggplot(aes(y=lwt,x=race,fill=race))+geom_boxplot()
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-29-1.png" width="630" style="display: block; margin: auto;" />
+
+Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro de las mamás con hipertensión previa y considerar de la variable `race` solo las mujeres blancas y de otras étnias. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.
+
+
+```r
+datos %>% filter(ht==T,race %in% c("white","other")) %>%
+  group_by(race) %>%
+  summarise(n=length(lwt),prom=mean(lwt),desv=sd(lwt),
+            shapiro=shapiro.test(age)$p.val)
+```
+
+```
+## # A tibble: 2 x 5
+##   race      n  prom  desv shapiro
+## * <fct> <int> <dbl> <dbl>   <dbl>
+## 1 white     5  167.  46.1   0.201
+## 2 other     4  122.  26.7   0.850
+```
+
+Los resultados nos indican que para ambos grupos los pesos distribuyen normal, de acuerdo con el árbol de decisión hay que decidir si las varianzas so iguales o no.
+
+
+```r
+datos %>% filter(ht==T,race %in% c("white","other")) %>% 
+  with(.,var.test(lwt~race))
+```
+
+```
+## 
+##  F test to compare two variances
+## 
+## data:  lwt by race
+## F = 2.9758, num df = 4, denom df = 3, p-value = 0.397
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##   0.1970574 29.6956898
+## sample estimates:
+## ratio of variances 
+##           2.975759
+```
+
+Como el valor-p es mucho mayor que el nivel de significancia, entonces no se reachaza la hipótesis nula, por lo tanto se considera que las varianzas de ambos grupos son iguales. Siguiendo con el árbol de decisión usamos el estadístico de prueba de la *t-student* para igualdad de varianzas.
+
+
+```r
+datos %>% filter(ht==T,race %in% c("white","other")) %>% 
+  with(.,
+       t.test(lwt[race=="white"],
+              lwt[race=="other"],
+              var.equal = T,conf.level = 0.95))
+```
+
+```
+## 
+##  Two Sample t-test
+## 
+## data:  lwt[race == "white"] and lwt[race == "other"]
+## t = 1.7324, df = 7, p-value = 0.1268
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -16.53074 107.13074
+## sample estimates:
+## mean of x mean of y 
+##     166.8     121.5
+```
+
+Como el valor-p es mayor que el nivel de significancia, entonces no se rechaza la hipótesis nula, por lo tanto no existen diferencias estadísticamente significativas de los pesos entre los dosgrupos étnicos en presencia de hipertensión. Este resultado se explica por al alta variabilidad que existe en ambos grupos y los pocos tamaños de muestra, lo que impacta en los errores estándar.
+--></li>
+<li>Se piensa que las mujeres blancas tienen bebés con pesos más altos que las de otros grupos étnicos ¿Es cierta esta hipótesis? <!--
+
+```r
+datos %>%
+  ggplot(aes(x=bwt,fill=race))+geom_density()+
+  facet_wrap(~race)
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-33-1.png" width="630" style="display: block; margin: auto;" />
+
+Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro de la étnia de las mamás blancas y de otras étnias, con la variable `race`. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.
+
+
+```r
+datos %>% filter(race %in% c("white","other")) %>% group_by(race) %>%
+  summarise(n=length(bwt),prom=mean(bwt),desv=sd(bwt),
+            shapiro=shapiro.test(bwt)$p.val,
+            Ander_Darl=ad.test(bwt)$p.val,
+            lilliefords=lillie.test(bwt)$p.val)
+```
+
+```
+## # A tibble: 2 x 7
+##   race      n  prom  desv shapiro Ander_Darl lilliefords
+## * <fct> <int> <dbl> <dbl>   <dbl>      <dbl>       <dbl>
+## 1 white    96 3103.  728.   0.486      0.227      0.0511
+## 2 other    67 2805.  722.   0.205      0.241      0.0258
+```
+
+```r
+par(mfrow=c(1,2))
+datos %>% filter(race=="white") %>%
+  with(.,qqPlot(bwt,pch=19,main = "White"))
+```
+
+```
+## [1] 74 73
+```
+
+```r
+datos %>% filter(race=="other") %>%
+  with(.,qqPlot(bwt,pch=19,col.lines = 2,main="Other"))
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-34-1.png" width="810" style="display: block; margin: auto;" />
+
+```
+## [1] 43 44
+```
+
+De acuerdo con los test de normalidad, el peso al nacer en ambos grupos distribuyen normal, solo el test de Lilliefords presenta problemas, no obstante los QQ-Plots nos muestran que el ajuste es bueno y los test de normalidad más robustos nos apoyan en la decisión. De acuerdo con el árbol de decisión no conocemos las varianzas poblaciones, entonces con las varianzas muestrales es necesario decidir si las varianzas son iguales o no.
+
+
+```r
+datos %>% filter(race %in% c("white","other")) %>% 
+  with(.,var.test(bwt~race))
+```
+
+```
+## 
+##  F test to compare two variances
+## 
+## data:  bwt by race
+## F = 1.0158, num df = 95, denom df = 66, p-value = 0.9558
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.643440 1.574738
+## sample estimates:
+## ratio of variances 
+##           1.015825
+```
+
+En los resultados del test de varianza vemos que el valor-p es mayor que el nivel de significancia, por lo tanto la varianza del peso al nacer en ambos grupos étnicos es igual. Continuando con el árbol de decisión podemos utilizas el estadístico de prueba basado en la *t-student* para varianzas iguales, además la hipótesis alternativa considera que los pesos al nacer de las mamás blancas son mayores que los pesos al nacer de los otros grupos étnicos.
+
+
+```r
+with(datos,
+     t.test(x = bwt[race=="white"],
+            y = bwt[race=="other"],
+            var.equal = T,alternative = "greater",
+            conf.level = 0.95))
+```
+
+```
+## 
+##  Two Sample t-test
+## 
+## data:  bwt[race == "white"] and bwt[race == "other"]
+## t = 2.5751, df = 161, p-value = 0.00546
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  106.3502      Inf
+## sample estimates:
+## mean of x mean of y 
+##  3102.719  2805.284
+```
+
+Como el valor-p es menor que el nivel de significancia, entonces se rechaza la hipótesis nula, por lo tanto existe evidencia muestral suficiente para decir que el peso al nacer de las mamás blancas es mayor que el peso al nacer de las mamás de otras grupos étnicos con una confianza del 95%.
+--></li>
+<li>El hábito de fumar afecta el desarrollo del feto en las mujeres gestantes, ¿existen diferencias en los pesos al nacer dado este hábito? <!--
+
+```r
+datos %>%
+  ggplot(aes(x=bwt,fill=smoke))+geom_density(alpha=0.5)
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-37-1.png" width="630" style="display: block; margin: auto;" />
+
+Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro de la condición de fumador con la variable `smoke`. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.
+
+
+```r
+datos %>% group_by(smoke) %>%
+  summarise(n=length(bwt),prom=mean(bwt),desv=sd(bwt),
+            shapiro=shapiro.test(bwt)$p.val,
+            Ander_Darl=ad.test(bwt)$p.val,
+            lilliefords=lillie.test(bwt)$p.val)
+```
+
+```
+## # A tibble: 2 x 7
+##   smoke     n  prom  desv shapiro Ander_Darl lilliefords
+## * <lgl> <int> <dbl> <dbl>   <dbl>      <dbl>       <dbl>
+## 1 FALSE   115 3056.  753.   0.334      0.202       0.397
+## 2 TRUE     74 2772.  660.   0.419      0.567       0.540
+```
+
+```r
+par(mfrow=c(1,2))
+datos %>% filter(smoke==F) %>%
+  with(.,qqPlot(bwt,pch=19,main = "No Fumadora"))
+```
+
+```
+## [1] 87 86
+```
+
+```r
+datos %>% filter(smoke==T) %>%
+  with(.,qqPlot(bwt,pch=19,col.lines = 2,main="Fumadora"))
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-38-1.png" width="810" style="display: block; margin: auto;" />
+
+```
+## [1] 45 46
+```
+
+De acuerdo con los test de normalidad, el peso al nacer en ambos grupos distribuyen normal. De acuerdo con el árbol de decisión no conocemos las varianzas poblaciones, entonces con las varianzas muestrales es necesario decidir si las varianzas son iguales o no.
+
+
+```r
+with(datos,var.test(bwt~smoke))
+```
+
+```
+## 
+##  F test to compare two variances
+## 
+## data:  bwt by smoke
+## F = 1.3019, num df = 114, denom df = 73, p-value = 0.2254
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.8486407 1.9589574
+## sample estimates:
+## ratio of variances 
+##           1.301927
+```
+
+En los resultados del test de varianza vemos que el valor-p es mayor que el nivel de significancia, por lo tanto la varianza del peso al nacer en ambos grupos étnicos es igual. Continuando con el árbol de decisión podemos utilizas el estadístico de prueba basado en la *t-student* para varianzas iguales, además la hipótesis alternativa considera que los pesos al nacer de las mamás fumadoras son diferentes de los pesos al nacer de las no fumadoras.
+
+
+```r
+with(datos,
+     t.test(x = bwt[smoke==T],
+            y = bwt[smoke==F],
+            var.equal = T,conf.level = 0.95))
+```
+
+```
+## 
+##  Two Sample t-test
+## 
+## data:  bwt[smoke == T] and bwt[smoke == F]
+## t = -2.6529, df = 187, p-value = 0.008667
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -494.79735  -72.75612
+## sample estimates:
+## mean of x mean of y 
+##  2771.919  3055.696
+```
+
+Como el valor-p es menor que el nivel de significancia, entonces se rechaza la hipótesis nula, por lo tanto existe evidencia muestral suficiente para decir que el peso al nacer de los bebés de las mamás fumadoras es diferente del el peso al nacer de los bebés de las mamás sin este hábito.
+--></li>
+<li>Para las mamás que tuvieron bebés con bajo peso al nacer, ¿son más jóvenes las mamás de otros grupos étnicos en comparación a las mamás blancas? <!--
+
+```r
+datos %>% filter(low==T,race %in% c("white","other")) %>%
+  ggplot(aes(x=race,y=age,fill=race))+geom_boxplot()
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-41-1.png" width="630" style="display: block; margin: auto;" />
+
+Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro del bajo peso al nacer y la étnia de las mamás. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.
+
+
+```r
+datos %>% filter(low==T,race %in% c("white","other")) %>%
+  group_by(race) %>%
+  summarise(n=length(age),prom=mean(age),desv=sd(age),
+            shapiro=shapiro.test(age)$p.val,
+            Ander_Darl=ad.test(age)$p.val,
+            lilliefords=lillie.test(age)$p.val)
+```
+
+```
+## # A tibble: 2 x 7
+##   race      n  prom  desv shapiro Ander_Darl lilliefords
+## * <fct> <int> <dbl> <dbl>   <dbl>      <dbl>       <dbl>
+## 1 white    23  23.0  4.72   0.583      0.592       0.679
+## 2 other    25  21.6  4.15   0.109      0.112       0.150
+```
+
+```r
+par(mfrow=c(1,2))
+datos %>% filter(low==T,race=="white") %>%
+  with(.,qqPlot(age,pch=19,main = "White"))
+```
+
+```
+## [1]  3 16
+```
+
+```r
+datos %>% filter(low==T,race=="other") %>%
+  with(.,qqPlot(age,pch=19,col.lines = 2,main="Other"))
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-42-1.png" width="810" style="display: block; margin: auto;" />
+
+```
+## [1] 23 24
+```
+
+De acuerdo con los test de normalidad, las edades en ambos grupos distribuyen normal. De acuerdo con el árbol de decisión no conocemos las varianzas poblaciones, entonces con las varianzas muestrales es necesario decidir si las varianzas son iguales o no.
+
+
+```r
+datos %>% filter(low==T,race %in% c("white","other")) %>% 
+  with(.,var.test(age~race))
+```
+
+```
+## 
+##  F test to compare two variances
+## 
+## data:  age by race
+## F = 1.2944, num df = 22, denom df = 24, p-value = 0.5366
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.5638052 3.0179943
+## sample estimates:
+## ratio of variances 
+##           1.294443
+```
+
+En los resultados del test de varianza vemos que el valor-p es mayor que el nivel de significancia, por lo tanto la varianza de las edades de las mamás en ambos grupos étnicos es igual. Continuando con el árbol de decisión podemos utilizas el estadístico de prueba basado en la *t-student* para varianzas iguales, además la hipótesis alternativa considera que son más jóvenes las mamás de otros grupos étnicos en comparación a las mamás blancas.
+
+
+```r
+datos %>% filter(low==T,race %in% c("white","other")) %>% 
+  with(.,t.test(age[race=="other"],
+                age[race=="white"],alternative = "l",
+                var.equal = T,conf.level = 0.95))
+```
+
+```
+## 
+##  Two Sample t-test
+## 
+## data:  age[race == "other"] and age[race == "white"]
+## t = -1.0953, df = 46, p-value = 0.1395
+## alternative hypothesis: true difference in means is less than 0
+## 95 percent confidence interval:
+##       -Inf 0.7474548
+## sample estimates:
+## mean of x mean of y 
+##  21.64000  23.04348
+```
+
+Como el valor-p es mayor que el nivel de significancia, entonces no se rechaza la hipótesis nula, por lo tanto no existe evidencia muestral suficiente para decir que son más jóvenes las mamás de otros grupos étnicos en comparación a las mamás blancas, que tuvieron hijos bajo peso al nacer.
+-->
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
