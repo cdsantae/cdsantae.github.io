@@ -13,7 +13,7 @@
 
 <title>Métodos Estadísticos Para la Investigación en Construcción</title>
 
-<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -23,6 +23,15 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 
@@ -53,6 +62,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="bootstrap.css" type="text/css" />
 
@@ -260,14 +270,14 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="aboutDoE.html">
-    <span class="fa fa-book-open"></span>
+    <span class="fas fa-book-open"></span>
      
     Acerca de
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-chalkboard-teacher"></span>
+    <span class="fas fa-chalkboard-teacher"></span>
      
     Introducción
      
@@ -287,7 +297,7 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-chalkboard-teacher"></span>
+    <span class="fas fa-chalkboard-teacher"></span>
      
     Diseños
      
@@ -322,7 +332,7 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-chalkboard-teacher"></span>
+    <span class="fas fa-chalkboard-teacher"></span>
      
     Regresión
      
@@ -339,7 +349,7 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-code"></span>
+    <span class="fas fa-code"></span>
      
     R-Project
      
@@ -367,7 +377,7 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="https://cdsantae.github.io">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -385,19 +395,22 @@ $(document).ready(function () {
 </div>
 
 
+<hr>
 <div id="descripción-de-la-asignatura" class="section level2">
 <h2>Descripción de la asignatura</h2>
 <p>Un experimento no es más que una prueba o una serie de pruebas. Se realizan en todas las disciplinas científicas y de la ingeniería siendo una parte fundamental del proceso de descubrimiento y aprendizaje. Conducir un experimento o investigación requiere tres etapas, planificación, ejecución y análisis de resultados. En la primera el investigador se plantea: ¿Por qué hacer el estudio?, ¿Qué material quiero usar? y ¿Qué quiero aprender? En esta etapa es donde un diseño de experimentos causa el mayor impacto en la calidad de un trabajo de investigación. La segunda consiste en la parte de ejecución en donde se han determinado las variables de estudio y la última en el análisis de resultados mediante métodos estadísticos.</p>
 <p>El objetivo de un diseño de experimentos es de proveer herramientas que aseguren que una investigación sea capaz de proveer respuestas a nuestras preguntas de manera eficiente y con los recursos disponibles. Las conclusiones que se pueden extraer dependerán de cómo se condujo y por ellos su diseño desempeña un papel principal en la solución del problema.</p>
+<hr>
 </div>
 <div id="metodología" class="section level2">
 <h2>Metodología</h2>
 <p>Clases magistrales que ayuden a entender los diferentes temas que se pretende abordar; conceptos y ejemplos de aplicación.</p>
 <p>Exposición por parte de los alumnos en donde presenten sus trabajos de investigación y como aplicarían un diseño experimental estadístico para dar respuesta a su pregunta de investigación. Además de artículos científicos con ejemplos de aplicación en la construcción.</p>
+<hr>
 </div>
 <div id="software" class="section level2">
 <h2>Software</h2>
-<p>Durante todo el curso se realizarán prácticas con <code>Excel</code> y los software estadísticos <code>R-project</code> y <code>MiniTab</code>. No obstante, se darán herramientas necesarias para que el estudiante aprenda a programar y usar <code>R-project</code> con si IDE <code>RStudio</code>.</p>
+<p>Durante todo el curso se realizarán prácticas con el software estadístico <code>R-project</code>. No obstante, se darán herramientas necesarias para que el estudiante aprenda a programar y usar <code>R-project</code> con si IDE <code>RStudio</code>.</p>
 <div id="r-project" class="section level3">
 <h3>R project</h3>
 <p><code>R</code> es un lenguaje y ambiente de alto nivel para el análisis de datos y gráficos. Está altamente relacionado con los lenguajes <code>S</code> y <code>Scheme</code>. Es un lenguaje de programación interpretado, de <strong>distribución libre</strong>, bajo licencia GNU, que puede correr en distintas plataformas Linux, Windows, MacOS e incluso PlayStation 3.</p>
@@ -415,30 +428,39 @@ $(document).ready(function () {
 <li><p>Descargar <a href="https://cloud.r-project.org/">R-Project</a></p></li>
 <li><p>Descargar <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a></p></li>
 </ol>
+<!--
+### MiniTab
+
+Es un software estadístico diseñado para ingenieros, con el fin de proveer soluciones y análisis estadísticos con un entorno amigable sin la necesidad de conocimiento experto. El software hacer parte de la empresa *Minitab&#174;* y cuenta con planes de licencias de acuerdo al entorno de uso.
+
+Tiene una versión gratuita de 30 días que pueden consultar [Aquí](https://www.minitab.com/es-mx/products/minitab/free-trial/)
+
+-->
+<hr>
 </div>
-<div id="minitab" class="section level3">
-<h3>MiniTab</h3>
-<p>Es un software estadístico diseñado para ingenieros, con el fin de proveer soluciones y análisis estadísticos con un entorno amigable sin la necesidad de conocimiento experto. El software hacer parte de la empresa <em>Minitab®</em> y cuenta con planes de licencias de acuerdo al entorno de uso.</p>
-<p>Tiene una versión gratuita de 30 días que pueden consultar <a href="https://www.minitab.com/es-mx/products/minitab/free-trial/">Aquí</a></p>
 </div>
-</div>
-<div id="docentes" class="section level2">
-<h2>Docentes</h2>
-<p>El curso contará con dos docentes con experiencia en diseños de experimentos y análisis estadísticos enfocados a la investigación en construcción.</p>
+<div id="docente" class="section level2">
+<h2>Docente</h2>
+<!--
+El curso contará con dos docentes con experiencia en diseños de experimentos y análisis estadísticos enfocados a la investigación en construcción.
+-->
 <div id="cristian-santa" class="section level3">
 <h3>Cristian Santa</h3>
 <p>Estadístico con diez años de experiencia en análisis y clasificación de datos, planificación de diseños experimentales, muestreo de poblaciones, modelación estadística, Data Science, Big Data, Machine Learning, Deep Learning y programación avanzada en R-project.</p>
-<p>Magíster en Ciencias Estadísticas de la Universidad Nacional sede Medellín y director de ingeniería y diseño de la empresa Ingedata Consulting S.A.S. Mis años de experiencia como consultor y docente en estadística me ha permitido avanzar en conocimientos de otras áreas para construir equipos de investigación multidisciplinarios, a la vez que mantengo actualizado con los avances de la Ciencia, Tecnología, e Innovación asociadas a la estadística.</p>
+<p>Magíster en Ciencias Estadísticas de la Universidad Nacional sede Medellín y director de ingeniería y diseño de la empresa Ingedata Consulting S.A.S. Mis años de experiencia como consultor y docente en estadística me ha permitido avanzar en conocimientos de otras áreas para construir equipos de investigación multidisciplinarios, a la vez que mantengo actualizado con los avances de la Ciencia, Tecnología, e Innovación asociadas a la estadística. <!--
+### Yhan Paul Arias
+
+Ingeniero de Materiales y MsC en Ingieniería de Materiales y Procesos, con experiencia en desarrollo de tecnologías asociadas al cemento. Profesor asistente de la Escuela de Construcción,  Facultad de Arquitectura y Coordinador del Laboratorio de Construcción de la Universidad Nacional de Colombia sede Medellín.
+
+Mis años de experiencia me han permitido evaluar y desarrollar proyectos de investigación aplicando metodología estadística para el diseño experimental en el sector de la construcción, desde procesos para la estabilización de suelos para vías terciarias en el Cesar, la Guajira y Antioquia hasta empresas de fabricación de materiales como Argos, Corona, Conconcreto y otras de la cadena de suministros de la construcción. 
+
+[CvLAC](http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001263986)
+--></p>
+<hr>
 </div>
-<div id="yhan-paul-arias" class="section level3">
-<h3>Yhan Paul Arias</h3>
-<p>Ingeniero de Materiales y MsC en Ingieniería de Materiales y Procesos, con experiencia en desarrollo de tecnologías asociadas al cemento. Profesor asistente de la Escuela de Construcción, Facultad de Arquitectura y Coordinador del Laboratorio de Construcción de la Universidad Nacional de Colombia sede Medellín.</p>
-<p>Mis años de experiencia me han permitido evaluar y desarrollar proyectos de investigación aplicando metodología estadística para el diseño experimental en el sector de la construcción, desde procesos para la estabilización de suelos para vías terciarias en el Cesar, la Guajira y Antioquia hasta empresas de fabricación de materiales como Argos, Corona, Conconcreto y otras de la cadena de suministros de la construcción.</p>
-<p><a href="http://scienti.colciencias.gov.co:8081/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001263986">CvLAC</a></p>
-</div>
-<div id="contactos" class="section level3">
-<h3>Contactos</h3>
-<p><strong>e-mail:</strong> <a href="mailto:cdsanta@unal.edu.co" class="email">cdsanta@unal.edu.co</a><br> <strong>e-mail:</strong> <a href="mailto:ypariasj@unal.edu.co" class="email">ypariasj@unal.edu.co</a><br> Para enviar correos se solicita anteponer en el asunto <strong>[DoE]</strong>.</p>
+<div id="contacto" class="section level3">
+<h3>Contacto</h3>
+<p><strong>e-mail:</strong> <a href="mailto:cdsanta@unal.edu.co" class="email">cdsanta@unal.edu.co</a><br> <!--**e-mail:** ypariasj@unal.edu.co<br>--> Para enviar correos se solicita anteponer en el asunto <strong>[DoE]</strong>.</p>
 </div>
 </div>
 
@@ -451,7 +473,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();

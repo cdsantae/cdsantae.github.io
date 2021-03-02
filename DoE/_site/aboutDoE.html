@@ -13,7 +13,7 @@
 
 <title>Acerca del Curso</title>
 
-<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -23,6 +23,15 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 
@@ -53,6 +62,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 <link rel="stylesheet" href="bootstrap.css" type="text/css" />
 
@@ -260,14 +270,14 @@ $(document).ready(function () {
       <ul class="nav navbar-nav">
         <li>
   <a href="aboutDoE.html">
-    <span class="fa fa-book-open"></span>
+    <span class="fas fa-book-open"></span>
      
     Acerca de
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-chalkboard-teacher"></span>
+    <span class="fas fa-chalkboard-teacher"></span>
      
     Introducción
      
@@ -287,7 +297,7 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-chalkboard-teacher"></span>
+    <span class="fas fa-chalkboard-teacher"></span>
      
     Diseños
      
@@ -322,7 +332,7 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-chalkboard-teacher"></span>
+    <span class="fas fa-chalkboard-teacher"></span>
      
     Regresión
      
@@ -339,7 +349,7 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-code"></span>
+    <span class="fas fa-code"></span>
      
     R-Project
      
@@ -367,7 +377,7 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="https://cdsantae.github.io">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -385,13 +395,16 @@ $(document).ready(function () {
 </div>
 
 
+<hr>
 <div id="objetivo" class="section level2">
 <h2>Objetivo</h2>
 <p>Capacitar al estudiante con las habilidades y herramientas necesarias para desarrollar trabajos experimentales aplicados en las áreas de la construcción tales como: la optimización de procesos y desarrollo de materiales.</p>
+<hr>
 </div>
 <div id="conceptos-previos-necesarios" class="section level2">
 <h2>Conceptos previos necesarios</h2>
 <p>El estudiante debe tener nociones básicas de estadística, cálculo diferencial, cálculo integral y manejo de herramientas de MS Office</p>
+<hr>
 </div>
 <div id="contenido" class="section level2">
 <h2>Contenido</h2>
@@ -467,6 +480,7 @@ $(document).ready(function () {
 </div></li>
 </ul>
 </div>
+<hr>
 </div>
 <div id="bibliografía-recomendada" class="section level2">
 <h2>Bibliografía recomendada</h2>
@@ -488,7 +502,7 @@ $(document).ready(function () {
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
