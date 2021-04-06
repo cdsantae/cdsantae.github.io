@@ -13,13 +13,22 @@
 
 <title>Probabilidad</title>
 
-<script src="site_libs/header-attrs-2.1/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -27,12 +36,29 @@
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -115,39 +141,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 <link rel="stylesheet" href="bootstrap.css" type="text/css" />
 
@@ -158,10 +154,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -178,40 +170,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -239,7 +204,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -251,7 +216,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -262,10 +227,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -277,7 +255,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -403,13 +380,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -428,14 +405,14 @@ div.tocify {
       <ul class="nav navbar-nav">
         <li>
   <a href="aboutDoE.html">
-    <span class="fa fa-book-open"></span>
+    <span class="fas fa-book-open"></span>
      
     Acerca de
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-chalkboard-teacher"></span>
+    <span class="fas fa-chalkboard-teacher"></span>
      
     Introducción
      
@@ -455,7 +432,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-chalkboard-teacher"></span>
+    <span class="fas fa-chalkboard-teacher"></span>
      
     Diseños
      
@@ -490,7 +467,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-chalkboard-teacher"></span>
+    <span class="fas fa-chalkboard-teacher"></span>
      
     Regresión
      
@@ -507,7 +484,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-code"></span>
+    <span class="fas fa-code"></span>
      
     R-Project
      
@@ -535,7 +512,7 @@ div.tocify {
 </li>
 <li>
   <a href="https://cdsantae.github.io">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -544,7 +521,7 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -557,6 +534,7 @@ div.tocify {
 <div id="técnicas-de-conteo" class="section level2">
 <h2>Técnicas de Conteo</h2>
 <p>Para calcular las probabilidades de varios eventos es necesario contar el número de resultados posibles de un experimento, o contar el número de resultados favorables en un evento dado. el proceso de conteo puede simplificarse mediante el empleo de dos técnicas de conteo denominadas Permutaciones y combinaciones.</p>
+<hr>
 <div id="regla-de-la-adición" class="section level3">
 <h3>Regla de la Adición</h3>
 <p>Si un suceso <span class="math inline">\(A\)</span> puede ocurrir de <span class="math inline">\(n\)</span> maneras y otro suceso <span class="math inline">\(B\)</span> puede ocurrir de <span class="math inline">\(m\)</span> maneras, entonces el suceso <span class="math inline">\(A\)</span> <strong>o el</strong> <span class="math inline">\(B\)</span> (sucede el evento <span class="math inline">\(A\)</span> o sucede el evento <span class="math inline">\(B\)</span>) pueden ocurrir de <span class="math inline">\(n + m\)</span> formas, siempre y cuando los eventos no puedan suceder <em>simultáneamente</em>. En los problemas de conteo, el conector “o” se traduce en suma.</p>
@@ -567,6 +545,7 @@ div.tocify {
 <blockquote>
 <p><strong>Ejemplo</strong><br> En el lanzamiento de un dado, ¿de cuántas maneras se puede obtener un número inferior a 2 o mayor que 4?<br> A: número inferior a 2, sucede solo de una manera.<br> B: número superior a 4, sucede de dos maneras.<br> A o B: número inferior a 2 o superior a 4, sucede de 1 + 2 = 3 maneras.</p>
 </blockquote>
+<hr>
 </div>
 <div id="regla-de-la-multiplicación" class="section level3">
 <h3>Regla de la Multiplicación</h3>
@@ -581,6 +560,7 @@ div.tocify {
 <hr>
 <p><strong>Muestreo con reemplazo</strong>: es el procedimiento de observar una unidad dentro de una población y retornarla al mismo conjunto. Entonces para <span class="math inline">\(m\)</span> muestras de <span class="math inline">\(n\)</span> objetos existen <span class="math inline">\(n^m\)</span> opciones de seleccionar una muestra.</p>
 <p><strong>Muestreo sin reemplazo</strong>: es el procedimiento de observar una unidad dentro de una población y extraerla del conjunto. Para seleccionar una muestra, es preciso preguntar ¿importa el orden?</p>
+<hr>
 </div>
 <div id="permutaciones" class="section level3">
 <h3>Permutaciones</h3>
@@ -729,6 +709,7 @@ México
 <blockquote>
 <p><strong>Ejemplo</strong><br> ¿Cuántas palabras diferentes, aun sin significado, se pueden formar con las letras de la palabra <strong>AMOROSOS</strong>? <span class="math display">\[P_8^{1,1,3,1,2}=\frac{8!}{1!1!3!1!2!}=\frac{8!}{3!2!}=3360\]</span></p>
 </blockquote>
+<hr>
 </div>
 <div id="combinatorias" class="section level3">
 <h3>Combinatorias</h3>
@@ -758,6 +739,7 @@ México
 &amp;=x^4+4x^3y+6x^2y^2+4xy^3+y^4
 \end{align*}\]</span></p>
 </blockquote>
+<hr>
 </div>
 <div id="factoriales-generalizados" class="section level3">
 <h3>Factoriales Generalizados</h3>
@@ -775,6 +757,7 @@ México
 <div id="introducción-a-la-probabilidad" class="section level2">
 <h2>Introducción a la Probabilidad</h2>
 <p>La probabilidad es una medida de la certidumbre asociada a un suceso o <strong>evento futuro</strong> y suele expresarse como un número entre 0 y 1 (o entre 0% y 100%). Antes de establecer una definición formal de probabilidad, es necesario comprender qué son los eventos y los espacios muestrales.</p>
+<hr>
 <div id="aleatoriedad" class="section level3">
 <h3>Aleatoriedad</h3>
 <p>La aleatoriedad está asociada a todo proceso cuyo resultado <strong>no puede ser determinado antes de que éste se produzca</strong>, debido a que los resultados de dicho proceso no contiene patrones reconocibles o regulares, que permitan pronosticar un resultado futuro.</p>
@@ -785,6 +768,7 @@ México
 <li>Es posible conocer todos los posibles resultados del experimento, previo a las realizaciones del mismo.</li>
 <li>Es posible repetir el experimento bajo condiciones idénticas o similares.</li>
 </ul>
+<hr>
 </div>
 <div id="espacio-muestral" class="section level3">
 <h3>Espacio Muestral</h3>
@@ -804,6 +788,7 @@ México
 <blockquote>
 <p><strong>Ejemplo</strong> <br> Considere el experimento del tiempo de espera en minutos que pasa hasta que un estudiante termine el parcial en el horario de clase, si la clase dura 2 horas. Escriba el espacio muestral asociado a este experimento. <span class="math display">\[\Omega=[0,120)\]</span></p>
 </blockquote>
+<hr>
 </div>
 <div id="eventos" class="section level3">
 <h3>Eventos</h3>
@@ -828,6 +813,7 @@ México
 <blockquote>
 <p><strong>Ejemplo</strong><br> Considere el experimento de lanzar un dado convencional de 6 caras. <span class="math inline">\(C\)</span> es el evento en el cual se saca un 8 en el dado. <span class="math display">\[A=\{\emptyset\}\]</span></p>
 </blockquote>
+<hr>
 </div>
 <div id="teoría-de-conjuntos" class="section level3">
 <h3>Teoría de conjuntos</h3>
@@ -857,6 +843,7 @@ México
 <li><strong>Diferencia de Conjuntos</strong>: Sean dos eventos <span class="math inline">\((A, B) \in \Omega\)</span>, todos los elementos de <span class="math inline">\(A\)</span> que no se encuentran en <span class="math inline">\(B\)</span> determina la diferencia de conjuntos <span class="math inline">\(A-B\)</span>.</li>
 </ul>
 <p><img src="prob_files/figure-html/unnamed-chunk-7-1.png" width="280" style="display: block; margin: auto;" /></p>
+<hr>
 </div>
 <div id="teoremas-de-eventos" class="section level3">
 <h3>Teoremas de eventos</h3>
@@ -877,7 +864,7 @@ México
 <li>Si <span class="math inline">\((A, B) \in \Omega\)</span> entonces <span class="math inline">\(\{A=AB \cup A\bar B\}\)</span> y <span class="math inline">\(\{AB \cap A\bar B=\emptyset\}\)</span>.</li>
 <li>Si <span class="math inline">\(A \subset B\)</span> entonces <span class="math inline">\(AB=A\)</span> y <span class="math inline">\(A\cup B=B\)</span>.</li>
 </ol>
-<p><br></p>
+<hr>
 <div id="disyunción-o-eventos-mutuamente-excluyentes" class="section level4">
 <h4>Disyunción o Eventos Mutuamente Excluyentes</h4>
 <p>Sean <span class="math inline">\((A, B) \in \Omega\)</span>, los eventos son disjuntos si <span class="math inline">\(A \cap B=\emptyset\)</span>. En general una colección de eventos <span class="math inline">\(A_1, A_2,...\)</span> son mutuamente excluyentes si <span class="math inline">\(A_i \cap A_j = \emptyset, \: \forall i \neq j\)</span>.</p>
@@ -914,6 +901,7 @@ México
 </div></li>
 </ol>
 </div>
+<hr>
 <div id="axiomas-de-probabilidad" class="section level3">
 <h3>Axiomas de probabilidad</h3>
 <ol style="list-style-type: decimal">
@@ -943,6 +931,7 @@ México
 <blockquote>
 <p>Una mano de cartas consiste en 5 cartas elegidas al azar y sin reemplazo de una baraja de 52 cartas. ¿Cuál es la probabilidad de que en la mano resulten 3 corazones y 2 picas?<br> A: Evento de obtener 3 corazones y 2 picas <span class="math display">\[P(A)=\cfrac{{13\choose 3} {13\choose 2}}{52 \choose 5}=0.0086\]</span></p>
 </blockquote>
+<hr>
 </div>
 <div id="probabilidad-condicional" class="section level3">
 <h3>Probabilidad Condicional</h3>
@@ -1030,6 +1019,7 @@ México
 </div></li>
 </ol>
 </div>
+<hr>
 </div>
 <div id="regla-multiplicativa" class="section level3">
 <h3>Regla Multiplicativa</h3>
@@ -1049,6 +1039,7 @@ México
 <p><span class="math display">\[P(R_2|R_1)=\frac{8}{10}\]</span></p>
 <p>Y por tanto, al aplicar la regla multiplicativa, tenemos que la probabilidad de sacar una bola roja de la primera bolsa, introducirla en la segunda bolsa, y posteriormente sacar una bola roja de la segunda bolsa, es de</p>
 <p><span class="math display">\[P(R_1 \cap R_2)=P(R_1)P(R_2|R_1)=\frac{6}{10}\times\frac{8}{10}=\frac{48}{100}=0.48\]</span></p>
+<hr>
 </div>
 <div id="independencia-entre-eventos" class="section level3">
 <h3>Independencia entre eventos</h3>
@@ -1077,6 +1068,7 @@ P(N_1) P(A_2) &amp;=P(N_1)P(A_2|N_1)\\\\
               0.14 &amp;=0.14
 \end{align*}\]</span></p>
 <p>Y por tanto, al verificar que la igualdad se cumple, se concluye que los eventos son independientes.</p>
+<hr>
 </div>
 <div id="teorema-probabilidad-total" class="section level3">
 <h3>Teorema Probabilidad Total</h3>
@@ -1099,6 +1091,7 @@ P(A) &amp;=P(M_1)P(A|M_1)+P(M_2)P(A|M_2)+P(M_3)P(A|M_3)\\
  &amp;=0.0395
 \end{align*}\]</span></p>
 <p>Por tanto, la probabilidad de que una losa mezclada por cualquier máquina presente fisuras después del periódo de secado es del 3.95%.</p>
+<hr>
 </div>
 <div id="teorema-de-bayes" class="section level3">
 <h3>Teorema de Bayes</h3>
@@ -1122,6 +1115,7 @@ P(I|R) &amp;=\frac{P(I)P(R|I)}{P(I)P(R|I)+P(II)P(R|II)}\\\\
 <p>En la mayoría de problemas a los que comúnmente nos enfrentamos, la descripción del conjunto de posibles resultados de un experimento aleatorio puede ser complicado y por lo tanto el cálculo de probabilidades también se dificulta.</p>
 <p>Por ejemplo, si una persona es seleccionada de una población, diversas características pueden ser de interés y cada una aporta al entendimiento de un fenómeno en especial, como son, el tiempo que emplea en transportarse de su casa al lugar de trabajo, que tan lejos está de su casa el sitio donde trabaja, cuantos hijos tiene, cuantas horas duerme, cuantas personas conforman su grupo familiar, cuanto gana, cuanto gasta, cuanto paga por servicios, cuantas llamadas hace diariamente, etc.</p>
 <p>Una <strong>Variable Aleatoria</strong> es una función definida en un <strong>Espacio Muestral</strong> que asigna a cada resultado de un experimento aleatorio un valor real. Usualmente son denotadas con letras mayúsculas como (<span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span>, <span class="math inline">\(Z\)</span>, <span class="math inline">\(T\)</span>, etc). Al conjunto de todos los posibles resultados de una variable aleatoria se le llamará <strong>Rango de la variable</strong> (<span class="math inline">\(A_X\)</span>).</p>
+<hr>
 <div id="variables-aleatorias-discretas" class="section level3">
 <h3>Variables Aleatorias Discretas</h3>
 <blockquote>
@@ -1176,6 +1170,7 @@ Suponga un experimento aleatorio que consta en consultar una familia conformada 
 </table>
 <p>Para calcular la probabilidad de que en una familia que posee tres hijos, hayan 2 o más niñas entonces se aplica la suma de probabilidades. <span class="math display">\[P(X \geq 2)=\sum_{x=2}^{3} p(x)=p(2)+p(3)=\frac{3}{8}+\frac{1}{8}=\frac{1}{2}\]</span></p>
 </blockquote>
+<hr>
 </div>
 <div id="función-de-distribución-acumulada-caso-discreto" class="section level3">
 <h3>Función de distribución acumulada caso discreto</h3>
@@ -1215,6 +1210,7 @@ P(X \geq 2) &amp; = 1 - F(2-1) \\
 </blockquote>
 <p>Es usual que en ejercicios de estadística o en preguntas de investigación se manifieste en palabras los símbolos de comparación o relación para el cálculo de probabilidades</p>
 <p><span class="math inline">\(\quad = \qquad\)</span> Igual; Exactamente<br> <span class="math inline">\(\quad &lt; \qquad\)</span> Menor que; Inferior a<br> <span class="math inline">\(\quad &gt; \qquad\)</span> Mayor que; Superior a<br> <span class="math inline">\(\quad \leq \qquad\)</span> A lo más; No mas de; A lo sumo, Máximo; Menor o igual que<br> <span class="math inline">\(\quad \geq \qquad\)</span> Al menos; No menos de; Mínimo; Menor igual que</p>
+<hr>
 </div>
 <div id="variables-aleatorias-continuas" class="section level3">
 <h3>Variables Aleatorias Continuas</h3>
@@ -1234,6 +1230,7 @@ P(X \geq 2) &amp; = 1 - F(2-1) \\
 <p>Sea <span class="math inline">\(X\)</span> una variable aleatoria continua. Entonces una función de probabilidad de <span class="math inline">\(X\)</span> es una función <span class="math inline">\(f(x)\)</span> tal que para dos números cualesquiera <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> con <span class="math inline">\(a\leq b\)</span>.</p>
 <p><span class="math display">\[P(a \leq X \leq b)=\int_a^b f(x)\,dx\]</span></p>
 <p>Es decir, la probabilidad de que <span class="math inline">\(X\)</span> asuma un valor en el intervalo <span class="math inline">\([a; b]\)</span> es el área bajo la curva de la densidad de probabilidad. La gráfica de <span class="math inline">\(f(x)\)</span> se conoce como <strong>curva de densidad</strong>.</p>
+<hr>
 </div>
 <div id="función-de-distribución-acumulada-caso-continuo" class="section level3">
 <h3>Función de distribución acumulada caso continuo</h3>
@@ -1250,6 +1247,7 @@ P(X \geq 2) &amp; = 1 - F(2-1) \\
 <blockquote>
 <p><strong>Nota:</strong> Recordar que en el caso continuo, las probabilidad con o sin la igualdad son equivalentes, y por tanto, solo se escriben las tres reglas anteriores para generalizar todos los casos.</p>
 </blockquote>
+<hr>
 </div>
 <div id="valor-esperado" class="section level3">
 <h3>Valor Esperado</h3>
@@ -1271,6 +1269,7 @@ E[X]&amp;=\sum_{0}^3x\,p(x) \\\\
 &amp;=1.5
 \end{align*}\]</span> es decir, se tedrá que en una familia que posea <span class="math inline">\(3\)</span> hijos, se espera encontrar que el número promedio de niñas será de <span class="math inline">\(1.5\)</span> niñas.</p>
 </blockquote>
+<hr>
 <div id="propiedades" class="section level4">
 <h4>Propiedades</h4>
 <p>Sea <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> dos números constantes (reales) y <span class="math inline">\(X\)</span> una variable aleatoria, entonces se tiene que</p>
@@ -1286,6 +1285,7 @@ E[X]&amp;=\sum_{0}^3x\,p(x) \\\\
     \\
     \int\limits_{-\infty}^{+\infty} g(x)f(x) &amp;; \quad \text{Si X es Continua}\\
   \end{cases}\]</span></p>
+<hr>
 </div>
 </div>
 <div id="varianza" class="section level3">
@@ -1309,6 +1309,7 @@ Var[X]&amp;=E[X^2] - E[X]^2 \\
 &amp;=0.75
 \end{align*}\]</span> Por lo tanto la desviación estándar es <span class="math inline">\(SD[X]=\sqrt{0.75}=0.8660\)</span>. Es decir, se tendrá que el número promedio de niñas que tiene una familia que posee <span class="math inline">\(3\)</span> hijos es de <span class="math inline">\(1.5\)</span> niñas, con una desviación estándar de <span class="math inline">\(0.8660\)</span> niñas.</p>
 </blockquote>
+<hr>
 <div id="propiedades-1" class="section level4">
 <h4>Propiedades</h4>
 <ul>
@@ -1323,6 +1324,7 @@ Var[X]&amp;=E[X^2] - E[X]^2 \\
 <div id="distribuciones-de-probabilidad" class="section level2">
 <h2>Distribuciones de probabilidad</h2>
 <p>Por muchos años los matemáticos y estadísticos han establecido funciones de probabilidad a diversos fenómenos de la naturaleza y la sociedad. No obstante, en algunos casos se observa que se cumplen ciertos patrones, por lo tanto, el comportamiento de un fenómeno se puede modelar con la misma función de probabilidad de otro fenómeno. En este sentido, se establecen las distribuciones de probabilidad como funciones definidas para entender el comportamiento de fenómenos que tienen un patrón identificable.</p>
+<hr>
 <div id="distribuciones-de-probabilidad-discretas" class="section level3">
 <h3>Distribuciones de Probabilidad Discretas</h3>
 </div>
@@ -1334,6 +1336,7 @@ Var[X]&amp;=E[X^2] - E[X]^2 \\
 <p>La distribución binomial es una distribución de probabilidad discreta que cuenta el número de éxitos en una secuencia de <em>n</em> ensayos de Bernoulli independientes entre sí, con una probabilidad fija <em>p</em> de ocurrencia del éxito entre los ensayos. Para <span class="math inline">\(n = 1\)</span>, la binomial se convierte, de hecho, en una distribución de <em>Bernoulli</em>.</p>
 <p><span class="math display">\[p(x)={n \choose x}p^x(1-p)^{n-x}\quad x = \{0, 1, 2, \dots , n\}\]</span></p>
 <p>Por notación <span class="math inline">\(X \sim Bin(n,p)\)</span>, además <span class="math inline">\(E[X]=np\)</span> y <span class="math inline">\(VAR[X]=np(1-p)\)</span>.</p>
+<hr>
 <div id="ejemplo" class="section level4">
 <h4>Ejemplo</h4>
 <p>Suponga que en un estudio se encontró que 2 de cada 5 estudiantes no desea tomar clases virtuales. Si se selecciona aleatoriamente 20 estudiantes, ¿Cuál es la probabilidad de que no menos de 6 pero a lo sumo de 12 deseen tomar clases virtuales?</p>
@@ -1354,24 +1357,27 @@ P(6 \leq x &lt; 12) &amp;= \sum_{x=6}^{11} \left(\begin{array}{c}20\\ x\end{arra
 <li><code>pbinom</code>: calcula la probabilidad acumulada binomial de <code>q</code> con tamaño <code>size</code> y probabilidad <code>prob</code>.</li>
 <li><code>qbinom</code>: calcula el valor de <span class="math inline">\(x\)</span> basado en la probabilidad <code>p</code> de una binomial con tamaño <code>size</code> y probabilidad <code>prob</code>.</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Solución 1</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>estudiantes &lt;-<span class="st"> </span><span class="dv">6</span><span class="op">:</span><span class="dv">11</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">sum</span>(<span class="kw">dbinom</span>(estudiantes,<span class="dt">size =</span> <span class="dv">20</span>, <span class="dt">prob =</span> <span class="fl">0.6</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solución 1</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>estudiantes <span class="ot">&lt;-</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">11</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">dbinom</span>(estudiantes,<span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.6</span>))</span></code></pre></div>
 <pre><code>## [1] 0.4027898</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># solución 2</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">pbinom</span>(<span class="dt">q =</span> <span class="dv">11</span>,<span class="dt">size =</span> <span class="dv">20</span>,<span class="dt">prob =</span> <span class="fl">0.6</span>)<span class="op">-</span><span class="kw">pbinom</span>(<span class="dt">q =</span> <span class="dv">5</span>,<span class="dt">size =</span> <span class="dv">20</span>,<span class="dt">prob =</span> <span class="fl">0.6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solución 2</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">11</span>,<span class="at">size =</span> <span class="dv">20</span>,<span class="at">prob =</span> <span class="fl">0.6</span>)<span class="sc">-</span><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">5</span>,<span class="at">size =</span> <span class="dv">20</span>,<span class="at">prob =</span> <span class="fl">0.6</span>)</span></code></pre></div>
 <pre><code>## [1] 0.4027898</code></pre>
 <p><img src="prob_files/figure-html/unnamed-chunk-10-1.png" width="480" style="display: block; margin: auto;" /></p>
+<hr>
 </div>
 <div id="distribución-binomial-con-n10-p0.1" class="section level4">
 <h4>Distribución binomial con n=10, p=0.1</h4>
 <p><img src="prob_files/figure-html/b1-1.png" width="540" style="display: block; margin: auto;" /></p>
 <p>Se puede observar que para una distribución binomial con parámetro <span class="math inline">\(p &lt; 0.5\)</span> la distribución presenta asimetría hacia la izquierda. Por otra parte la distribución empírica se ajusta a la distribución teórica para tamaños de muestra grandes; para el caso de la distribución con parámetro <span class="math inline">\(p=0.1\)</span>, se observa que hay un buen ajuste para tamaños de muestra <span class="math inline">\(N \geq 50\)</span>.</p>
+<hr>
 </div>
 <div id="distribución-binomial-con-n10-p0.5" class="section level4">
 <h4>Distribución Binomial con n=10, p=0.5</h4>
 <p><img src="prob_files/figure-html/b2-1.png" width="540" style="display: block; margin: auto;" /></p>
 <p>Se puede observar que para una distribución binomial con parámetro <span class="math inline">\(p = 0.5\)</span> la distribución teórica es simétrica. Por otra parte la distribución empírica se ajusta a la distribución teórica para tamaños de muestra muy grandes; contrario al caso anterior, el ajuste es más lento y se require tamaños de muestra <span class="math inline">\(N \geq 1000\)</span>.</p>
+<hr>
 </div>
 <div id="distribución-binomial-con-n10-p0.9" class="section level4">
 <h4>Distribución Binomial con n=10, p=0.9</h4>
@@ -1414,6 +1420,7 @@ En un estudio del Instituto Social de Vivienda y Hábitat de Medellín (ISVIMED)
 </blockquote>
 <p>La distribución de <em>Poisson</em> es una distribución de probabilidad discreta que expresa, a partir de una frecuencia de ocurrencia media, la probabilidad de que ocurra un determinado número de eventos durante cierto período de tiempo. Concretamente, se especializa en la probabilidad de ocurrencia de sucesos con probabilidades muy pequeñas, o sucesos “raros”.</p>
 <p><span class="math display">\[p(x;\lambda)=\frac{e^{-\lambda} \lambda^x}{x!}\qquad x=0,1,2,... \quad \lambda&gt;0\]</span> Por notación <span class="math inline">\(X \sim Pois(\lambda)\)</span>, además <span class="math inline">\(E[X]=\lambda\)</span> y <span class="math inline">\(Var[X]=\lambda\)</span>.</p>
+<hr>
 <div id="ejemplo-1" class="section level4">
 <h4>Ejemplo</h4>
 <p>De acuerdo con <span class="citation">@pedritonumeros</span> el promedio de goles en la Bundes Liga es 3.06 goles por encuentro, cuando se reanude la liga ¿Cuál es la probabilidad de que en el primer partido se marquen 7 goles?. Si en el segundo partido se anotaron más de dos goles, ¿Cuál es la probabilidad que en el tercero marquen menos de 5?</p>
@@ -1439,16 +1446,17 @@ P(X&lt;5|X&gt;2)=&amp;\frac{P(2 &lt; X &lt; 5)}{P(X&gt;2)}\\\\
 <li><code>ppois</code>: calcula la probabilidad acumulada Poisson de <code>q</code> con parámetro <code>lambda</code>.</li>
 <li><code>qpois</code>: calcula el valor de <span class="math inline">\(x\)</span> basado en la probabilidad <code>p</code> de una Poisson con parámetro <code>lambda</code>.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Solución 1</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>goles &lt;-<span class="st"> </span><span class="dv">7</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">dpois</span>(goles,<span class="dt">lambda =</span> <span class="fl">3.06</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solución 1</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>goles <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(goles,<span class="at">lambda =</span> <span class="fl">3.06</span>)</span></code></pre></div>
 <pre><code>## [1] 0.02337106</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># solución 2</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>numerador &lt;-<span class="st"> </span><span class="kw">dpois</span>(<span class="dv">3</span>,<span class="fl">3.06</span>)<span class="op">+</span><span class="kw">dpois</span>(<span class="dv">4</span>,<span class="fl">3.06</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>denominador &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">ppois</span>(<span class="dv">2</span>,<span class="fl">3.06</span>)</span>
-<span id="cb7-4"><a href="#cb7-4"></a>numerador<span class="op">/</span>denominador</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solución 2</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>numerador <span class="ot">&lt;-</span> <span class="fu">dpois</span>(<span class="dv">3</span>,<span class="fl">3.06</span>)<span class="sc">+</span><span class="fu">dpois</span>(<span class="dv">4</span>,<span class="fl">3.06</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>denominador <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">ppois</span>(<span class="dv">2</span>,<span class="fl">3.06</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>numerador<span class="sc">/</span>denominador</span></code></pre></div>
 <pre><code>## [1] 0.6696971</code></pre>
 <p><img src="prob_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;" /></p>
+<hr>
 </div>
 <div id="distribución-poission-lambda2" class="section level4">
 <h4>Distribución Poission <span class="math inline">\(\lambda=2\)</span></h4>
@@ -1459,6 +1467,7 @@ P(X&lt;5|X&gt;2)=&amp;\frac{P(2 &lt; X &lt; 5)}{P(X&gt;2)}\\\\
 <h4>Distribución Poission <span class="math inline">\(\lambda=5\)</span></h4>
 <p><img src="prob_files/figure-html/pois2-1.png" width="540" style="display: block; margin: auto;" /></p>
 <p>En el gráfico se evidencia que la distribución <em>Poisson</em> es asimétrica hacia la izquierda para valores del parámetro <span class="math inline">\(\lambda\)</span> pequeños, sin embargo, a medida que aumenta el valor del parámetro, la distribución presenta cola hacia la izquierda, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra <span class="math inline">\(N \geq 300\)</span>.</p>
+<hr>
 </div>
 <div id="distribución-poission-lambda10" class="section level4">
 <h4>Distribución Poission <span class="math inline">\(\lambda=10\)</span></h4>
@@ -1471,15 +1480,18 @@ P(X&lt;5|X&gt;2)=&amp;\frac{P(2 &lt; X &lt; 5)}{P(X&gt;2)}\\\\
 <h3>Distribución Geométrica</h3>
 <p>La variable aleatoria geométrica representa el número de fallas que ocurren antes de que se presente el primer éxito. La función de masa de probabilidad está dada por:</p>
 <p><span class="math display">\[p(x) = (1 - p)^{x-1}p\]</span></p>
+<hr>
 <div id="distribución-geometrica-con-p0.3" class="section level4">
 <h4>Distribución Geometrica con p=0.3</h4>
 <p><img src="prob_files/figure-html/g1-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>Se observa que la distribución teórica es asimétrica hacia la izquierda, pues cuenta el número de ensayos antes de obtener el primer éxito, por otra parte el número de ensayos aumenta cuando el parámetro <em>p</em> es pequeño, además la distribución empírica se ajusta a la teórica para tamaños de muestra grandes; en este caso la distribución con <span class="math inline">\(p=0.3\)</span>, el ajuste de la distribución se alcanza para tamaños de muestra <span class="math inline">\(N \geq 1000\)</span></p>
+<hr>
 </div>
 <div id="distribución-geometrica-con-p0.5" class="section level4">
 <h4>Distribución Geometrica con p=0.5</h4>
 <p><img src="prob_files/figure-html/g2-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>Se observa que la distribución teórica es asimétrica hacia la izquierda, pues cuenta el número de ensayos antes de obtener el primer éxito, por otra parte el número de ensayos aumenta cuando el parámetro <em>p</em> es pequeño, además la distribución empírica se ajusta a la teórica para tamaños de muestra grandes; en este caso la distribución con <span class="math inline">\(p=0.5\)</span>, el ajuste de la distribución se alcanza para tamaños de muestra <span class="math inline">\(N \geq 100\)</span></p>
+<hr>
 </div>
 <div id="distribución-geometrica-con-p0.7" class="section level4">
 <h4>Distribución Geometrica con p=0.7</h4>
@@ -1492,20 +1504,24 @@ P(X&lt;5|X&gt;2)=&amp;\frac{P(2 &lt; X &lt; 5)}{P(X&gt;2)}\\\\
 <h3>Distribución Binomial Negativa</h3>
 <p>Esta distribución puede considerarse como una extensión o ampliación de la distribución <em>geométrica</em>. La distribución binomial negativa es un modelo adecuado para tratar aquellos procesos en los que se repite un determinado ensayo o prueba hasta conseguir un número determinado de resultados favorables (por vez primera) .Es por tanto de gran utilidad para aquellos muestreos que procedan de esta manera. Si el número de resultados favorables buscados fuera 1 estaríamos en el caso de la distribución geométrica.</p>
 <p><span class="math display">\[p(x)= {x-1 \choose x-k}p^k(1-p)^{x-k} = {x-1 \choose k-1}p^k(1-p)^{x-k}\]</span></p>
+<hr>
 <div id="distribución-binomial-negativa-con-k3-y-p0.3" class="section level4">
 <h4>Distribución Binomial Negativa con k=3 y p=0.3</h4>
 <p><img src="prob_files/figure-html/nb1-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>Se observa que la distribución empírica se ajusta a la teórica con tamaños de muestra grandes. En particular para un número de éxitos fijo <span class="math inline">\(k=3\)</span>, se observa que la distribución es asimétrica hacia la izquierda y con <span class="math inline">\(p=0.3\)</span> la distribución empírica se ajusta con tamaños de muestra <span class="math inline">\(N \geq 1000\)</span>. Por otra parte, a medida que aumenta el parámetro <em>p</em> el número de ensayos disminuyen y la densidad de probabilidad aumenta.</p>
+<hr>
 </div>
 <div id="distribución-binomial-negativa-con-k3-y-p0.5" class="section level4">
 <h4>Distribución Binomial Negativa con k=3 y p=0.5</h4>
 <p><img src="prob_files/figure-html/nb2-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>Se observa que la distribución empírica se ajusta a la teórica con tamaños de muestra grandes. En particular para un número de éxitos fijo <span class="math inline">\(k=3\)</span>, se observa que la distribución es asimétrica hacia la izquierda y con <span class="math inline">\(p=0.5\)</span> la distribución empírica se ajusta con tamaños de muestra <span class="math inline">\(N \geq 1000\)</span>. Por otra parte, a medida que aumenta el parámetro <em>p</em> el número de ensayos disminuyen y la densidad de probabilidad aumenta.</p>
+<hr>
 </div>
 <div id="distribución-binomial-negativa-con-k3-y-p0.7" class="section level4">
 <h4>Distribución Binomial Negativa con k=3 y p=0.7</h4>
 <p><img src="prob_files/figure-html/nb3-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>Se observa que la distribución empírica se ajusta a la teórica con tamaños de muestra grandes. En particular para un número de éxitos fijo <span class="math inline">\(k=3\)</span>, se observa que la distribución es asimétrica hacia la izquierda y con <span class="math inline">\(p=0.7\)</span> la distribución empírica se ajusta con tamaños de muestra <span class="math inline">\(N \geq 1000\)</span>. Por otra parte, a medida que aumenta el parámetro <em>p</em> el número de ensayos disminuyen y la densidad de probabilidad aumenta.</p>
+<hr>
 </div>
 <div id="distribución-binomial-negativa-con-k30-y-p0.30.50.7" class="section level4">
 <h4>Distribución Binomial Negativa con k=30 y p=[0.3,0.5,0.7]</h4>
@@ -1519,15 +1535,18 @@ P(X&lt;5|X&gt;2)=&amp;\frac{P(2 &lt; X &lt; 5)}{P(X&gt;2)}\\\\
 <p>La distribución hipergeométrica es una distribución discreta que modela el número de eventos en una muestra de tamaño fijo cuando se conoce el número total de elementos en la población de la cual proviene la muestra. Las muestras no tienen reemplazo, por lo que cada elemento de la muestra es diferente. Cuando se elige un elemento de la población, no se puede volver a elegir. Por lo tanto, la probabilidad de que un elemento en particular sea seleccionado aumenta con cada ensayo, suponiendo que aún no ha sido seleccionado.</p>
 <p><span class="math display">\[P(X=x)=\frac{{k \choose x}{{N-k \choose n-x}}}{{N \choose n}} \quad x=0,1,...,k\]</span></p>
 <p>Donde <span class="math inline">\(N\)</span> es el tamaño de población, <span class="math inline">\(n\)</span> es el tamaño de la muestra extraída, <span class="math inline">\(k\)</span> es el número de elementos en la población original que pertenecen a la categoría deseada y <span class="math inline">\(x\)</span> es el número de elementos en la muestra que pertenecen a dicha categoría.</p>
+<hr>
 <div id="distribución-hipergeométrica-n80-k10-n10" class="section level4">
 <h4>Distribución hipergeométrica <span class="math inline">\(N=80\)</span> <span class="math inline">\(k=10\)</span> <span class="math inline">\(n=10\)</span></h4>
 <p><img src="prob_files/figure-html/hyp1-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>En el gráfico se ve que cuando el parámetro que denota el número de elementos de interés en la población original (<span class="math inline">\(k\)</span>) es pequeño e igual a la muestra extraída (<span class="math inline">\(n\)</span>), la distribución es asimétrica hacia la derecha, además a medida que el tamaño de muestra aumenta la distribución muestral se ajusta a la función de densidad con tamaños superiores a <span class="math inline">\(100\)</span>.</p>
+<hr>
 </div>
 <div id="distribución-hipergeométrica-n60-k10-n25" class="section level4">
 <h4>Distribución hipergeométrica <span class="math inline">\(N=60\)</span> <span class="math inline">\(k=10\)</span> <span class="math inline">\(n=25\)</span></h4>
 <p><img src="prob_files/figure-html/hyp2-1.png" width="2100" style="display: block; margin: auto;" /></p>
 <p>En el gráfico se ve que cuando el parámetro que denota el número de elementos de interés en la población original (<span class="math inline">\(k\)</span>) es menor a la muestra extraída (<span class="math inline">\(n\)</span>), la distribución tiende a ser simétrica, además a medida que el tamaño de muestra aumenta la distribución muestral se ajusta a la función de densidad con tamaños superiores a <span class="math inline">\(300\)</span>.</p>
+<hr>
 </div>
 <div id="distribución-hipergeométrica-n60-k35-n25" class="section level4">
 <h4>Distribución hipergeométrica <span class="math inline">\(N=60\)</span> <span class="math inline">\(k=35\)</span> <span class="math inline">\(n=25\)</span></h4>
@@ -1544,15 +1563,18 @@ P(X&lt;5|X&gt;2)=&amp;\frac{P(2 &lt; X &lt; 5)}{P(X&gt;2)}\\\\
 <p><span class="math display">\[
 p(x,y) = { \displaystyle {n! \over x!y!(n-x-y)!}p_1^{x}p_2^{y}(1-p_1-p_2)^{n-x-y}}, \quad \mbox{cuando } x+y \leq n
 \]</span></p>
+<hr>
 <div id="distribución-trinomial-p_10.1-p_20.8-n10" class="section level4">
 <h4>Distribución Trinomial <span class="math inline">\(p_1=0.1\)</span> <span class="math inline">\(p_2=0.8\)</span> <span class="math inline">\(n=10\)</span></h4>
 <p><img src="prob_files/figure-html/mult1-1.png" width="1500" style="display: block; margin: auto;" /></p>
 <p>Por la ley de los grandes números se sabe que a medida que el tamaño de muestra aumenta la distribución empírica se ajusta a la distribución teórica. Para la distribución trinomial se evidencia que a medida que la probabilidad <span class="math inline">\(p_2\)</span> aumenta, la densidad se recarga en valores altos para el eje <span class="math inline">\(y\)</span> y en valores bajos para el eje <span class="math inline">\(x\)</span>.</p>
+<hr>
 </div>
 <div id="distribución-trinomial-p_10.45-p_20.45-n10" class="section level4">
 <h4>Distribución Trinomial <span class="math inline">\(p_1=0.45\)</span> <span class="math inline">\(p_2=0.45\)</span> <span class="math inline">\(n=10\)</span></h4>
 <p><img src="prob_files/figure-html/mult2-1.png" width="1500" style="display: block; margin: auto;" /></p>
 <p>Por la ley de los grandes números se sabe que a medida que el tamaño de muestra aumenta la distribución empírica se ajusta a la distribución teórica. Para la distribución trinomial se evidencia que a medida que cuando la probabilidad <span class="math inline">\(p_2=p_1\)</span>, la densidad se recarga en el centro del plano <span class="math inline">\((x,y)\)</span>.</p>
+<hr>
 </div>
 <div id="distribución-trinomial-p_10.8-p_20.1-n10" class="section level4">
 <h4>Distribución Trinomial <span class="math inline">\(p_1=0.8\)</span> <span class="math inline">\(p_2=0.1\)</span> <span class="math inline">\(n=10\)</span></h4>
@@ -1594,6 +1616,7 @@ p(x,y) = { \displaystyle {n! \over x!y!(n-x-y)!}p_1^{x}p_2^{y}(1-p_1-p_2)^{n-x-y
 </ul>
 <p><img src="prob_files/figure-html/unnamed-chunk-14-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p><img src="prob_files/figure-html/unnamed-chunk-15-1.png" width="900" style="display: block; margin: auto;" /></p>
+<hr>
 <div id="normal-estándar" class="section level4">
 <h4>Normal Estándar</h4>
 <p>Cuando <span class="math inline">\(\mu=0\)</span> y <span class="math inline">\(\sigma^2=1\)</span>, se obtiene una distribución normal especial, conocida como <em>Normal Estándar</em> y usualmente es denotada cola letra <span class="math inline">\(Z\)</span> y se escribe <span class="math inline">\(Z \sim N(0,1)\)</span>.</p>
@@ -1621,6 +1644,7 @@ P(x_1 &lt; X &lt; x_2) &amp;= \int\limits_{z_1}^{z_2} \cfrac{1}{\sqrt{2 \pi}} \m
 <center>
 <a href="./R/Tabla_Normal.pdf" class="btn btn-info"  target="_blank">Tabla Distribución Normal</a>
 </center>
+<hr>
 </div>
 <div id="cálculo-de-probabilidades" class="section level4">
 <h4>Cálculo de probabilidades</h4>
@@ -1637,6 +1661,7 @@ P(x_1 &lt; X &lt; x_2) &amp;= \int\limits_{z_1}^{z_2} \cfrac{1}{\sqrt{2 \pi}} \m
 <div id="características-distribución-normal" class="section level4">
 <h4>Características Distribución Normal</h4>
 <p><img src="prob_files/figure-html/unnamed-chunk-16-1.png" width="900" style="display: block; margin: auto;" /></p>
+<hr>
 </div>
 <div id="percentiles-en-una-normal-estándar" class="section level4">
 <h4>Percentiles en una Normal Estándar</h4>
@@ -1644,6 +1669,7 @@ P(x_1 &lt; X &lt; x_2) &amp;= \int\limits_{z_1}^{z_2} \cfrac{1}{\sqrt{2 \pi}} \m
 <p><span class="math display">\[P(Z&gt;z_{\alpha})=\alpha\]</span></p>
 <p><span class="math inline">\(z_{\alpha}\)</span> es llamado percentil <span class="math inline">\(100(1-\alpha)\%\)</span> de la distribución de <span class="math inline">\(Z\)</span>.</p>
 <p><img src="prob_files/figure-html/unnamed-chunk-17-1.png" width="450" style="display: block; margin: auto;" /></p>
+<hr>
 </div>
 <div id="ejemplo-manejo-de-la-tabla" class="section level4">
 <h4>Ejemplo Manejo de la tabla</h4>
@@ -1677,6 +1703,7 @@ P(−2.42&lt;Z\leq0.24)=&amp;P(Z\leq0.24)−P(Z\leq−2.42)\\
 =&amp;0.5948−0.0078\\
 =&amp;0.587
 \end{align*}\]</span></p>
+<hr>
 </div>
 <div id="ejemplo-2" class="section level4">
 <h4>Ejemplo</h4>
@@ -1701,22 +1728,24 @@ P(X&lt;K)=0.05 \quad \Rightarrow \quad &amp;P\left(\frac{X-31.5}{2}&lt;\frac{K-3
 <li><code>pnorm</code>: calcula la probabilidad acumulada Normal de <code>q</code> con media <code>mu</code> y desviación <code>sigma</code>.</li>
 <li><code>qnorm</code>: calcula el valor de <span class="math inline">\(x\)</span> basado en la probabilidad <code>p</code> de una Normal con media <code>mu</code> y desviación <code>sigma</code>.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Solución 1</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">pnorm</span>(<span class="dv">30</span>,<span class="dt">mean =</span> <span class="fl">31.5</span>,<span class="dt">sd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solución 1</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">30</span>,<span class="at">mean =</span> <span class="fl">31.5</span>,<span class="at">sd =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.2266274</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">pnorm</span>((<span class="dv">30</span><span class="fl">-31.5</span>)<span class="op">/</span><span class="dv">2</span>,<span class="dt">mean =</span> <span class="dv">0</span>,<span class="dt">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>((<span class="dv">30</span><span class="fl">-31.5</span>)<span class="sc">/</span><span class="dv">2</span>,<span class="at">mean =</span> <span class="dv">0</span>,<span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.2266274</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># solución 2</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="kw">qnorm</span>(<span class="fl">0.05</span>,<span class="dt">mean =</span> <span class="fl">31.5</span>,<span class="dt">sd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># solución 2</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.05</span>,<span class="at">mean =</span> <span class="fl">31.5</span>,<span class="at">sd =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 28.21029</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">qnorm</span>(<span class="fl">0.05</span>,<span class="dt">mean =</span> <span class="dv">0</span>,<span class="dt">sd =</span> <span class="dv">1</span>)<span class="op">*</span><span class="dv">2</span><span class="fl">+31.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.05</span>,<span class="at">mean =</span> <span class="dv">0</span>,<span class="at">sd =</span> <span class="dv">1</span>)<span class="sc">*</span><span class="dv">2</span><span class="fl">+31.5</span></span></code></pre></div>
 <pre><code>## [1] 28.21029</code></pre>
 <p><img src="prob_files/figure-html/unnamed-chunk-19-1.png" width="480" style="display: block; margin: auto;" /></p>
+<hr>
 </div>
 <div id="distribución-normal-con-mu0-y-sigma1" class="section level4">
 <h4>Distribución normal con <span class="math inline">\(\mu=0\)</span> y <span class="math inline">\(\sigma=1\)</span></h4>
 <p><img src="prob_files/figure-html/norm1-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>En el gráfico se evidencia que la distribución <em>Normal</em> es simétrica en <span class="math inline">\(\mu=0\)</span>, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra <span class="math inline">\(N \geq 100\)</span>.</p>
+<hr>
 </div>
 <div id="distribución-normal-con-mu0-y-sigma5" class="section level4">
 <h4>Distribución normal con <span class="math inline">\(\mu=0\)</span> y <span class="math inline">\(\sigma=5\)</span></h4>
@@ -1784,6 +1813,7 @@ F(x) =
   \end{cases}\]</span></p>
 <p>Por lo general en la distribución exponencial se da el tiempo promedio hasta la ocurrencia de un evento Poisson, es útil igualar el promedio a <span class="math inline">\(E[X]\)</span> para hallar el parámetro <span class="math inline">\(\lambda\)</span> despejando de la ecuación.</p>
 <p><img src="prob_files/figure-html/unnamed-chunk-21-1.png" width="3000" style="display: block; margin: auto;" /></p>
+<hr>
 <div id="ejemplo-3" class="section level4">
 <h4>Ejemplo</h4>
 <p>Suponga que en horas pico el tiempo entre llegadas sucesiva de personas al ascensor de un conjunto residencial (edificio), posee una distribución Exponencial con un tiempo promedio de <span class="math inline">\(0.8\)</span> minutos. Entonces, basados en ésto</p>
@@ -1813,6 +1843,7 @@ P(X&gt;4|X&gt;2) &amp;= \frac{P(X&gt;4 \cap X&gt;2)}{P(X&gt;2)}\\\\
 &amp;=0.082085
 \end{align*}\]</span></p>
 <p>Y por tanto se tendrá una probabilidad de 8.21% de que la próxima persona que llega al ascensor tarde más de 4 minutos, dado que ya han pasado 2 minutos y aún no ha llegado ninguna persona.</p>
+<hr>
 </div>
 <div id="propiedad-de-carencia-de-memoria" class="section level4">
 <h4>Propiedad de carencia de memoria</h4>
@@ -1832,6 +1863,7 @@ P(X \leq 2 | X &gt; 0.8) &amp;= P(X\leq2-0.8+0.8|X&gt;0.8)\\
 &amp;=0.7768698
 \end{align*}\]</span></p>
 <p>Lo cual significa, que exite una probablidad de 77.69% de que una persona tarde como maximo 2 minutos en llegar al ascensor, si ya han pasado a lo más 0.8 minutos y aún no ha llegado ninguna persona.</p>
+<hr>
 </div>
 <div id="relación-exponencialpoisson" class="section level4">
 <h4>Relación Exponencial–Poisson</h4>
@@ -1916,7 +1948,9 @@ f(x)=
 <p><span class="math display">\[f(x) = \frac{\Gamma\left(\dfrac{\nu + 1}{2}\right)}{\Gamma\left(\dfrac{\nu}{2}\right)\sqrt{\pi\nu}\sigma} \left[1+\frac{1}{\nu}\left(\frac{x-\mu}{\sigma}\right)^2\right]^{-\tfrac{\nu+1}{2}}\]</span></p>
 <p><img src="prob_files/figure-html/t-1.png" width="1800" style="display: block; margin: auto;" /></p>
 <p>En esta gráfica podemos apreciar la realción que existe entre las distribuciones <em>Cauchy</em>, <em>t-de Student</em> y la <em>Normal Estandarizada</em>. Se observa que la distribución <em>t-de Student</em> con <span class="math inline">\(v = 1\)</span> grado de libertad es una <em>distribución Cauchy</em> la cual es la más achatada y presenta las colas mas pesadas en comparación las demás distribuciones presentes en la gráfica. Además se puede evidenciar que a medida que aumentan los grados de libertad en la <em>distribución t</em>, ésta tiende a la <em>Normal</em>.</p>
-<hr>
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
 </div>
 </div>
 
@@ -1931,7 +1965,7 @@ f(x)=
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -1949,7 +1983,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
@@ -1970,7 +2004,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
