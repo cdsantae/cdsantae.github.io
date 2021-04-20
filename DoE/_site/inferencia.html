@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Inferencia Estadística</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Estadística para la Construcción</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="aboutDoE.html">
+    <span class="fas fa-book-open"></span>
+     
+    Acerca de
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-chalkboard-teacher"></span>
+     
+    Introducción
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="descrip.html">Descriptiva</a>
+    </li>
+    <li>
+      <a href="prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="inferencia.html">inferencia</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-chalkboard-teacher"></span>
+     
+    Diseños
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="anova.html">ANOVA y DCA</a>
+    </li>
+    <li>
+      <a href="blocks.html">Bloques Aleatorios</a>
+    </li>
+    <li>
+      <a href="fact1.html">Factoriales</a>
+    </li>
+    <li>
+      <a href="fact2k.html">2 a la k</a>
+    </li>
+    <li>
+      <a href="fact3k.html">3 a la k</a>
+    </li>
+    <li>
+      <a href="fractional.html">Fraccionados</a>
+    </li>
+    <li>
+      <a href="SurfResp.html">Superficies</a>
+    </li>
+    <li>
+      <a href="sample.html">Muestras</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-chalkboard-teacher"></span>
+     
+    Regresión
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="slm.html">Simple</a>
+    </li>
+    <li>
+      <a href="mlm.html">Múltiple</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-code"></span>
+     
+    R-Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Rinstall.html">Instalación</a>
+    </li>
+    <li>
+      <a href="IntroR.html">Introducción</a>
+    </li>
+    <li>
+      <a href="FunsR.html">Funciones y Paquetes</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdsanta@unal.edu.co.com">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fas fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Inferencia Estadística</h1>
+
+</div>
+
+
+<hr>
+<div id="muestras-aleatorias" class="section level2">
+<h2>Muestras Aleatorias</h2>
+<p>En el proceso de identificar y explicar las características esenciales que permiten describir el comportamiento de un fenómeno, nuestro objetivo es el de establecer de manera aproximada dicho comportamiento usando parte de toda la información relevante acerca del fenómeno.</p>
+<center>
+<img src="Diagram.png" title="fig:" alt="Diagrama" />
+</center>
+<p>Cuando se desea estimar un parámetro poblacional se puede presentar cualquiera de los próximos 3 casos:</p>
+<ul>
+<li>Estimar una proporción</li>
+<li>Estimar un promedio</li>
+<li>Estimar una varianza</li>
+</ul>
+<p>Estas características son únicas en cada caso. La idea es estimar o aproximar estos parámetros usando la información recolectada a partir de una muestra. Cada objeto o individuo seleccionado aporta información acerca de la característica que se quiere medir, la cual varía de individuo a individuo. Así, una muestra no es más que una colección de variables aleatorias. Si además, las mediciones son independientes, las variables involucradas también lo serán.</p>
+<p>Una <strong>muestra aleatoria</strong> (m.a) de tamaño <span class="math inline">\(n\)</span>, es un conjunto de <span class="math inline">\(n\)</span> variables aleatorias <em>independientes e idénticamente distribuidas</em>. Si <span class="math inline">\(X_1,\dots,X_n\)</span> es una m.a, entonces</p>
+<p><span class="math display">\[f(X_1,\dots,X_n)=\prod_i^n f_{X_i} (x_i)\]</span> <span class="math display">\[f_{X_i}(x_i)=f(x_i)\quad \forall_i=1,\dots,n\]</span></p>
+<p>Un estadístico es entonces una función de una m.a. No todos los estadísticos que se definen a partir de una m.a. son de interés. La idea está en encontrar aquellos que permiten obtener mejores aproximaciones a los parámetros de interés. (Por ejemplo la media <span class="math inline">\(\mu\)</span>, la varianza <span class="math inline">\(\sigma^2\)</span> o una proporción <span class="math inline">\(p\)</span>).</p>
+<ul>
+<li>Una aproximación para <span class="math inline">\(\mu\)</span> es: <span class="math inline">\(\bar{X}=\sum_1^n \frac{X_i}{n}\)</span></li>
+<li>Una aproximación para <span class="math inline">\(\sigma^2\)</span> es: <span class="math inline">\(S^2=\sum_1^n \frac{(X_i-\bar{X})^2}{n-1}\)</span></li>
+<li>Una aproximación para <span class="math inline">\(p\)</span> es: <span class="math inline">\(\frac{X}{n}\)</span>, donde <span class="math inline">\(X\sim bin(n,p)\)</span></li>
+</ul>
+<p>Entonces se plantean las siguientes preguntas.</p>
+<ul>
+<li>¿Cuál es la distribución de <span class="math inline">\(\bar{X}\)</span>?</li>
+<li>¿Cuál es la distribución de <span class="math inline">\(S^2\)</span>?</li>
+<li>¿Cuál es la distribución de <span class="math inline">\(\frac{X}{n}\)</span>?</li>
+</ul>
+<blockquote>
+<p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria de una distribución con media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^2\)</span><br><br> Sea <span class="math inline">\(\bar{X}=\sum_1^n \frac{X_i}{n}\)</span>, entonces <span class="math display">\[\begin{align*}
+E[\bar{X}]&amp;=E\left[\sum_1^n \frac{X_i}{n}\right]=\frac{1}{n}\sum_1^n E[X_i]=\frac{1}{n}\sum_1^n \mu=\frac{n\mu}{n}=\mu\\
+Var[\bar{X}]&amp;=Var\left[\sum_1^n \frac{X_i}{n}\right]=\frac{1}{n^2}\sum_1^n Var[X_i]=\frac{1}{n^2}\sum_1^n \sigma^2=\frac{n\sigma^2}{n^2}=\frac{\sigma^2}{n}
+\end{align*}\]</span> Así, la distribución muestral de <span class="math inline">\(\bar{X}\)</span> tiene media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^2/n\)</span></p>
+</blockquote>
+<hr>
+<div id="teorema-central-del-límite" class="section level3">
+<h3>Teorema central del límite</h3>
+<p>Suponga que <span class="math inline">\(X_1,\dots,X_n\)</span> es una muestra aleatoria de una población con media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^2\)</span>. Sea <span class="math inline">\(\bar{X}\)</span> la media muestral que depende de <span class="math inline">\(n\)</span> entonces cuando <span class="math inline">\(n \rightarrow \infty\)</span> se cumple que:</p>
+<p><span class="math display">\[\Large \cfrac{\bar{X}-\mu}{\frac{\sigma}{\sqrt{n}}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
+<p>Entre mayor sea <span class="math inline">\(n\)</span> mejor es la aproximación. Si la distribución de la muestra es simétrica y continua, los tamaños muestrales relativamente pequeños, permiten obtener buenas aproximaciones. Si la distribución es discreta, se requiere de tamaños muestrales grandes.</p>
+<p><span class="math display">\[P(\bar{X}&lt;a)=P\left(\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}&lt;\frac{\bar{X}-a}{\sigma/\sqrt{n}}\right) \approx P\left(Z&lt;\frac{\bar{X}-a}{\sigma/\sqrt{n}}\right)\]</span></p>
+<p>Si se desconoce el valor de <span class="math inline">\(\sigma^2\)</span> y <span class="math inline">\(n\)</span> es grande, se puede reemplazar <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(S^2\)</span>.</p>
+<p><span class="math display">\[\Large \cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
+<blockquote>
+<p>La resistencia a la compresión del concreto es una v.a con una resistencia media de 2500 psi y una desviación estándar de 50 psi. Si se examinan 36 especímenes de concreto, ¿Cuál es la probabilidad de que la resistencia promedio en esta muestra esté entre 2497 y 2505?<br> <span class="math display">\[E[X_i]=2500 \quad \text{y} \quad Var[X_i]=2500\]</span> Ahora, <span class="math display">\[\begin{align*}
+P(2497&lt;\bar{X}&lt;2505)&amp;=P\left(\frac{2497-2500}{50/\sqrt{36}}&lt;\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}&lt;\frac{2505-2500}{50/\sqrt{36}}\right)\\\\
+&amp;\approx P(-0.36&lt;Z&lt;0.6)\\
+&amp;=\Phi(0.6)-\Phi(-0.36)\\
+&amp;=0.7257469 - 0.3594236\\
+&amp;=0.3663233
+\end{align*}\]</span></p>
+</blockquote>
+<hr>
+</div>
+</div>
+<div id="inferencia-sobre-un-parámetro" class="section level2">
+<h2>Inferencia sobre un parámetro</h2>
+<p>Hasta ahora los estimadores estudiados son puntuales, es decir, exhiben un solo valor como estimación del parámetro de interés. Pero en muchos casos esto no es suficiente. A veces se requiere de un rango de posibles valores para el parámetro de interés, es decir, un intervalo real donde se cree estará el valor del parámetro con una alta confianza.</p>
+<p>Sea <span class="math inline">\(\theta\)</span> un parámetro de interés y <span class="math inline">\(\hat{\theta}\)</span> un estimador puntual de <span class="math inline">\(\theta\)</span> en un intervalo real de la forma <span class="math inline">\((L_\hat\theta , U_\hat\theta)\)</span> talque <span class="math inline">\((L_\hat\theta &lt; \theta &lt; U_\hat\theta)\)</span>, donde <span class="math inline">\(L\)</span> y <span class="math inline">\(U\)</span> dependen de y de la distribución de <span class="math inline">\(\hat\theta\)</span>.</p>
+<p>Cada muestra aleatoria proporcionará un valor diferente para <span class="math inline">\(\hat\theta\)</span> y por lo tanto valores diferentes para <span class="math inline">\(L\)</span> y <span class="math inline">\(U\)</span>. Así, los extremos del intervalo en cuestión se convierten en variables aleatorias. El intervalo <span class="math inline">\((L , U)\)</span> es llamado Intervalo Aleatorio. Usando <span class="math inline">\(\hat\theta\)</span> y su distribución es posible determinar <span class="math inline">\(L\)</span> y <span class="math inline">\(U\)</span> tales que:</p>
+<p><span class="math display">\[P(L_\hat\theta &lt; θ &lt; U_\hat\theta) = 1 − \alpha,\quad \alpha \in (0,1)\]</span></p>
+<p>Para una muestra particular se obtiene el intervalo <span class="math inline">\((l , u)\)</span> donde se espera esté el verdadero valor de <span class="math inline">\(\theta\)</span>, Este intervalo será llamado un <strong>Intervalo de Confianza al <span class="math inline">\(100(1 − \alpha)\%\)</span></strong> para <span class="math inline">\(\alpha\)</span>, además <span class="math inline">\(l\)</span> y <span class="math inline">\(u\)</span> son llamados <em>Límites de Confianza</em>.</p>
+<hr>
+<div id="intervalos-de-confianza-para-la-proporción" class="section level3">
+<h3>Intervalos de confianza para la proporción</h3>
+<p>Sea <span class="math inline">\(X\)</span> una variable aleatoria tal que <span class="math inline">\(X\sim bin(n,p)\)</span>. El Teorema Central del Límite garantiza que:</p>
+<p><span class="math display">\[\cfrac{X-np}{\sqrt{np(1-p)}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
+<p>Un estimador insesgado para <span class="math inline">\(p\)</span> es <span class="math inline">\(\bar{p}=X/n\)</span>, entonces:</p>
+<p><span class="math display">\[\frac{X-np}{\sqrt{np(1-p)}}=\frac{n[X/n-p]}{\sqrt{np(1-p)}}=\frac{X/n-p}{\sqrt{p(1-p)/n}}\stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
+<p>Entonces un intervalo de confianza para <span class="math inline">\(\hat{p}\)</span> es de la forma:</p>
+<p><span class="math display">\[\hat{p}\, \pm\, Z_{\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\]</span></p>
+<blockquote>
+<p>En una muestra de 85 juntas de dilatación de losas, 10 presentan fisuras perpendiculares. ¿Cuál es la proporción real de fisuras en las juntas de dilatación con una confianza del 95%?<br><br> Sea <span class="math inline">\(X\)</span> el número de fisuras en las juntas de dilatación de las losas, entonces <span class="math inline">\(X\sim bin(85,p)\)</span>. Del enunciado se tiene que: <span class="math inline">\(\hat{p}=x/85=10/85=0.1176471\)</span><br> Un Intervalo de Confianza (IC) aproximado al 95% para <span class="math inline">\(p\)</span> es de la forma: <span class="math display">\[\frac{10}{85}\,\pm\,1.96\sqrt{\frac{(10/85)(75/85)}{85}}\,\Rightarrow\,0.1176\,\pm\,0.0685\,\Rightarrow(0.0492;0.1861)\]</span> En conclusión, con una confianza deñ 95% la proporción de fisuras perpendiculares en las juntas de dilatación de las losas se estiman entre (0.0492;0.1861)</p>
+</blockquote>
+<p>El siguiente ejercicio de simulación muestra el concepto de la probabilidad de los intervalos de confianza y la influencia de los tamaños de muestra</p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-1-1.png" width="700" style="display: block; margin: auto;" /></p>
+<p>Cuando aumenta el tamaño de muestra los intervalos tienen menor amplitud, lo cual es lo deseado, ya que la amplitud es una medida de precisión.</p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-2-1.png" width="700" style="display: block; margin: auto;" /></p>
+<p>En términos de la cobertura del intervalo, se espera que para cualquier valor estimado de <span class="math inline">\(p\)</span> la probabilidad de cobertura sea cercana al nivel de confianza <span class="math inline">\(100(1-\alpha)\%\)</span>.</p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-3-1.png" width="600" style="display: block; margin: auto;" /></p>
+<p>Este es el inconveniente que presenta esta propuesta de intervalo para la proporción llamada <em>método Wald</em>. En la literatura existe muchas propuestas para intervalos de confianza para la proporción, de hecho, sigue siendo un caso de estudio por varios estadísticos.</p>
+<p>En 1934 Clopper y Pearson presentaron una propuesta para los intervalos de confianza basados en la <em>Distribución Beta</em> que, a su vez, está relacionada con la <em>Distribución F</em>, sin embargo, lo complejo de sus cálculos no le dio el protagonismo para la época. Ahora este intervalo se ha puesto a prueba gracias a los avances computacionales haciendo fácil el cálculo y entregando mejores resultados en términos de probabilidad de cobertura.</p>
+<p><span class="math display">\[B(\alpha/2;\,x,\,n-x+1)&lt;\hat{p}&lt;B(1-\alpha/2;\,x+1,\,n-x)\]</span></p>
+<p>O parametrizada con la Distribución F</p>
+<p><span class="math display">\[{\displaystyle \left(1+{\frac {n-x+1}{x\,F\!\left[{\frac {\alpha }{2}};2x,2(n-x+1)\right]}}\right)^{-1}&lt;\hat{p} &lt;\left(1+{\frac {n-x}{(x+1)\,\,F\!\left[1-{\frac {\alpha }{2}};2(x+1),2(n-x)\right]}}\right)^{-1}}\]</span></p>
+<p>En <code>R</code> es fácil hacer este cálculo, el primer método es hacer la fórmula con <code>qbeta</code> y otra forma es con el paquete <code>PropCIs</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;PropCIs&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para el ejercicio de los puntos de dilatación</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qbeta</span>(<span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>,<span class="at">shape1 =</span> <span class="dv">10</span>,<span class="at">shape2 =</span> <span class="dv">85-10</span><span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 0.05788185</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qbeta</span>(<span class="dv">1</span><span class="fl">-0.05</span><span class="sc">/</span><span class="dv">2</span>,<span class="at">shape1 =</span> <span class="dv">10</span><span class="sc">+</span><span class="dv">1</span>,<span class="at">shape2 =</span> <span class="dv">85-10</span>)</span></code></pre></div>
+<pre><code>## [1] 0.2057331</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(PropCIs)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exactci</span>(<span class="at">x =</span> <span class="dv">10</span>,<span class="at">n =</span> <span class="dv">85</span>,<span class="at">conf.level =</span> <span class="fl">0.95</span>)<span class="sc">$</span>conf.int</span></code></pre></div>
+<pre><code>## [1] 0.05788185 0.20573312
+## attr(,&quot;conf.level&quot;)
+## [1] 0.95</code></pre>
+<p>En términos de la cobertura del intervalo, se espera que para cualquier valor estimado de <span class="math inline">\(p\)</span> la probabilidad de cobertura sea cercana al nivel de confianza <span class="math inline">\(100(1-\alpha)\%\)</span>.</p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-6-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<hr>
+</div>
+<div id="intervalos-de-confianza-para-la-media" class="section level3">
+<h3>Intervalos de confianza para la media</h3>
+<p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria de una población normal <span class="math inline">\(N(\mu,\sigma^2)\)</span> con media desconocida y <strong>varianza conocida</strong>. Un intervalo de confianza para <span class="math inline">\(\mu\)</span> al <span class="math inline">\(100(1-\alpha)\%\)</span> está dado por:</p>
+<p><span class="math display">\[\bar{X}\,\pm\,Z_{\alpha/2}\frac{\sigma}{\sqrt{n}}\]</span></p>
+<blockquote>
+<p>Un fabricante produce anillos para los pistones de un motor de automóvil. Se sabe que el diámetro del anillo tiene una distribución aproximadamente normal. De la experiencia se ha encontrado que la dispersión en los diámetros es aproximadamente de 0.05 mm. Se escogen al azar 15 anillos y se miden sus diámetros. El diámetro promedio resultó en 74.04 mm.<br><br> - Calcule el I.C. al 95% para el diámetro medio real de estos anillos.<br> - Si se desea que la precisión del intervalo sea inferior a 0.01, con una confianza del 95%. ¿Cuál debe ser el mínimo tamaño de muestra para cumplir éste objetivo?<br><br> Para la primera parte se tiene que <span class="math inline">\(X_1,\dots,X_{15}\)</span> es una muestra aleatoria que representa los diámetros de 15 anillos, cada <span class="math inline">\(X_i\sim N(\mu,0.05^2)\)</span>, además de la muestra se obtiene que <span class="math inline">\(\bar{X}=74.04\,\text{mm}\)</span><br> Un IC al 95% para <span class="math inline">\(\mu\)</span> está dado por: <span class="math display">\[74.04\,\pm\,Z_{0.025}\frac{0.05}{\sqrt{15}} \,\Rightarrow\, (74.0147;\,74.0653) \]</span> La precisión de un intervalo está dado por <span class="math inline">\(max\{\theta-L,U-\theta\}\)</span>, en este caso tenemos un intervalo simétrico entonces la magnitud está dada por el término del error <span class="math inline">\(Z_{0.025}(0.05/\sqrt{n})\)</span>$, entonces: <span class="math display">\[\begin{align*}
+\frac{1.96\times 0.05}{\sqrt{n}}&amp;&lt;0.01\\\\
+\frac{1.96\times0.05}{0.01}&amp;&lt;\sqrt{n}\\\\
+n&amp;&gt;96.03647 \approx 97
+\end{align*}\]</span></p>
+</blockquote>
+<p>El siguiente ejercicio de simulación muestra el concepto de la probabilidad de los intervalos de confianza y la influencia de los tamaños de muestra</p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-7-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>En términos de la cobertura del intervalo, se espera que para cualquier valor estimado de <span class="math inline">\(p\)</span> la probabilidad de cobertura sea cercana al nivel de confianza <span class="math inline">\(100(1-\alpha)\%\)</span>.</p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-8-1.png" width="810" style="display: block; margin: auto;" /></p>
+<p>En el caso de que las muestra aleatoria que proviene de una distribución normal <span class="math inline">\(N(\mu,\sigma^2)\)</span> no se tenga información de <span class="math inline">\(\sigma\)</span>, es decir, que tiene <strong>varianza desconocida</strong> entonces se puede reemplazar <span class="math inline">\(\sigma^2\)</span> por <span class="math inline">\(S^2\)</span> siempre y cuando se tenga tamaños de muestra grandes tal que:</p>
+<p><span class="math display">\[\bar{X}\,\pm\,Z_{\alpha/2}\frac{S}{\sqrt{n}}\]</span></p>
+<p>En <code>R</code> no existe una función como tal para calcular intervalos de confianza para la distribución normal, sin embargo, no es difícil realizar su programación</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ICNorm <span class="ot">&lt;-</span> <span class="cf">function</span>(Xbar,sigma,n,<span class="at">alpha=</span><span class="fl">0.05</span>){</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  ic <span class="ot">&lt;-</span> Xbar<span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fu">qnorm</span>(<span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>)<span class="sc">*</span>sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(ic)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Para el ejemplo del diámetro de los anillos</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ICNorm</span>(<span class="at">Xbar =</span> <span class="fl">74.04</span>,<span class="at">sigma =</span> <span class="fl">0.05</span>,<span class="at">n =</span> <span class="dv">15</span>,<span class="at">alpha=</span><span class="fl">0.05</span>)</span></code></pre></div>
+<pre><code>## [1] 74.0147 74.0653</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ICNorm</span>(<span class="at">Xbar =</span> <span class="fl">74.04</span>,<span class="at">sigma =</span> <span class="fl">0.05</span>,<span class="at">n =</span> <span class="dv">97</span>)</span></code></pre></div>
+<pre><code>## [1] 74.03005 74.04995</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(<span class="fu">ICNorm</span>(<span class="at">Xbar =</span> <span class="fl">74.04</span>,<span class="at">sigma =</span> <span class="fl">0.05</span>,<span class="at">n =</span> <span class="dv">97</span>))<span class="sc">/</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 0.00995021</code></pre>
+<p>Suponga que <span class="math inline">\(X_1,\dots,X_n\)</span> es una muestra aleatoria de una <span class="math inline">\(N(\mu,\sigma^2)\)</span>, si la <strong>varianza es desconocida</strong> la distribución de <span class="math inline">\(\bar{X}\)</span> estandarizada <strong>NO</strong> es normal. Si reemplazamos <span class="math inline">\(\sigma\)</span> por <span class="math inline">\(S\)</span>, el estadístico resultante es:</p>
+<p><span class="math display">\[T=\cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \sim t_{(n-1)}\]</span></p>
+<p>Realizando un proceso similar al caso de muestras aleatorias con media desconocida, se puede encontrar que un IC al <span class="math inline">\(100(1 − \alpha)\%\)</span> para <span class="math inline">\(\mu\)</span> es de la forma:</p>
+<p><span class="math display">\[\bar{X} \pm t_{(\alpha/2,\,n-1)}\frac{S}{\sqrt{n}}\]</span></p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;" /></p>
+<blockquote>
+<p>De acuerdo a estudios sobre el concreto se encontró que el porcentaje de resistencia a los 28 días de curado se distribuye normalmente. Se toma una muestra aleatoria de 15 cilindros de concreto con 28 días de curado y se obtiene un porcentaje promedio de resistencia de 83.5% con una desviación estándar de 2.8%. Estime el porcentaje promedio de resistencia real del concreto usando un IC al 97%.<br><br> Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria que representa el porcentaje de resistencia del concreto. Suponga que <span class="math inline">\(E[X_i]=\mu\)</span> y <span class="math inline">\(Var[X_i]=\sigma^2\)</span> ambas desconocidas, además del enunciado se tiene que <span class="math inline">\(\bar{x}=83.5\)</span>, <span class="math inline">\(S=2.8\)</span> y <span class="math inline">\(n=15\)</span> entonces un IC al 97% para <span class="math inline">\(\mu\)</span> está dado por: <span class="math display">\[\begin{align*}
+\bar{X}\,&amp;\pm\,t_{0.015,n-1}\frac{S}{\sqrt{n}}\\\\
+83.5\,&amp;\pm\,t_{0.015,14}\frac{2.8}{\sqrt{15}}\\\\
+83.5\,&amp;\pm\,2.4149\frac{2.8}{\sqrt{15}}\\
+83.5\,&amp;\pm\,1.7459
+\end{align*}\]</span> Se espera que el porcentaje de resistencia media real del concreto a los 28 días de curado esté entre 81.75% y 85.25% con una confianza del 97%.</p>
+</blockquote>
+<p>En <code>R</code> no hay forma de hacer estimaciones de por intervalo con estadísticos calculados, la única forma es con un vector de datos o una base de datos. No obstante, no es difícil programar una función para calcular intervalos de confianza para la <em>t-student</em> cuando se tienen los estadísticos calculados.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ICt <span class="ot">&lt;-</span> <span class="cf">function</span>(Xbar,sigma,n,<span class="at">alpha=</span><span class="fl">0.05</span>){</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  ic <span class="ot">&lt;-</span> Xbar<span class="sc">+</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fu">qt</span>(<span class="at">p =</span> <span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>,<span class="at">df =</span> n<span class="dv">-1</span>)<span class="sc">*</span>sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(ic)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Para el ejemplo de la resistencia</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ICt</span>(<span class="at">Xbar =</span> <span class="fl">83.5</span>,<span class="at">sigma =</span> <span class="fl">2.8</span>,<span class="at">n =</span> <span class="dv">15</span>,<span class="at">alpha =</span> <span class="fl">0.03</span>)</span></code></pre></div>
+<pre><code>## [1] 81.75413 85.24587</code></pre>
+<hr>
+</div>
+<div id="introducción-pruebas-de-hipótesis" class="section level3">
+<h3>Introducción Pruebas de Hipótesis</h3>
+<p>Una hipótesis Estadística es una afirmación que se hace con respecto a una o algunas características desconocidas de una población de interés o acerca de la misma población.</p>
+<p>Una afirmación hecha acerca de una población o de una de sus características de interés, tiene sentido solo si es evaluada con base en la información obtenida a partir de una muestra aleatoria de dicha población.</p>
+<p>Como dicha afirmación puede ser o no cierta, dos hipótesis (antagónicas) pueden ser planteadas:</p>
+<p><span class="math display">\[H_0:\text{La hipótesis es cierta    vs}\quad H_a:\text{La hipótesis es falsa}\]</span> <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_a\)</span> se conocen como hipótesis nula y alternativa respectivamente. <span class="math inline">\(H_0\)</span> se rechaza, solo si la evidencia muestral apoya fuertemente esa decisión. En otro caso diremos que la evidencia muestral no es suficiente para rechazar <span class="math inline">\(H_0\)</span> y se asume <span class="math inline">\(H_a\)</span> como cierta. El proceso por medio del cual escogemos una de las dos hipótesis es llamado <strong>Prueba de Hipótesis</strong>.</p>
+<p>Para rechazar o aceptar una hipótesis necesitamos a parir de la muestra aleatoria construir un <strong>estadístico de prueba</strong> tal que, comparado con valor crítico calcula con un nivel de significancia, otorgue la suficiente evidencia para sacar una conclusión. El contraste de la hipótesis nula determina las posibles <strong>regiones de rechazo</strong> donde será comparado el estadístico de prueba.</p>
+<p><span class="math display">\[1:\,\{x\,|\,x &gt; |k|\}\\2:\,\{x\,|\,x &lt; -k\}\\3:\,\{x\,|\,x &gt; k\}\]</span></p>
+<p>Así toda prueba de hipótesis consta de:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Hipótesis nula <span class="math inline">\(H_0\)</span>.</li>
+<li>Hipótesis alternativa <span class="math inline">\(H_a\)</span>.</li>
+<li>Estadístico de prueba.</li>
+<li>Región de rechazo.</li>
+</ol>
+<p>En general, sea un parámetro de interés desconocido <span class="math inline">\(\theta\)</span> y un valor particular <span class="math inline">\(\theta_0\)</span>. Es posible plantear una de tres hipótesis alternativas:</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \theta=\theta_0 \quad \text{vs} \quad H_a: \begin{cases} \theta &amp;&lt;\theta_0 \\
+                     \theta &amp;&gt; \theta_0 \\
+                     \theta &amp;\neq \theta_0 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>Existe un estadístico <span class="math inline">\(\hat\theta\)</span> estimado a partir de la muestra aleatoria, el cual sirve para contrastar la hipótesis construyendo las posibles regiones de rechazo (de acuerdo a <span class="math inline">\(H_a\)</span>) con un nivel de significancia <span class="math inline">\(\alpha\)</span> dado.</p>
+<p><span class="math display">\[\{\hat\theta\,|\,\hat\theta &gt; |k|\}\quad \{\hat\theta\,|\,\hat\theta &lt; k\}\quad \{\hat\theta\,|\,\hat\theta &gt; k\}\]</span></p>
+<p>Otra forma de contrastar la hipótesis es calcular el valor mínimo de <span class="math inline">\(\alpha\)</span>, es decir la probabilidad de rechazar la hipótesis nula. A este cálculo se le conoce como el <strong>valor-p</strong> de la prueba:</p>
+<p><span class="math display">\[P(|\hat\theta| &gt; |k|)\quad P(\hat\theta &lt; k)\quad P(\hat\theta &gt; k)\]</span></p>
+<p>La decisión de aceptar o rechazar una hipótesis se basa en una muestra aleatoria <span class="math inline">\(X_1,X_2,...,X_n\)</span> de la distribución de <span class="math inline">\(X\)</span>, por tanto la decisión podría ser equivocada. Los errores que se pueden cometer son:</p>
+<ul>
+<li><p>Aceptar <span class="math inline">\(H_0\)</span> siendo falsa.</p></li>
+<li><p>Rechazar <span class="math inline">\(H_0\)</span> siendo verdadera.</p></li>
+</ul>
+<center>
+<div class="container">
+<div class="col-sm-2">
+
+</div>
+<div class="col-sm-6">
+<table class="table">
+<thead>
+<tr class="active">
+<th style="text-align:center">
+Decisión
+</th>
+<th style="text-align:center">
+<span class="math inline">\(H_0\)</span> es Verdadera
+</th>
+<th style="text-align:center">
+<span class="math inline">\(H_0\)</span> es Falsa
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">
+<b>Rechazar <span class="math inline">\(H_0\)</span></b>
+</td>
+<td style="text-align:center">
+Error Tipo I
+</td>
+<td style="text-align:center">
+Decisión Correcta
+</td>
+</tr>
+<tr>
+<td style="text-align:center">
+<b>Aceptar <span class="math inline">\(H_0\)</span></b>
+</td>
+<td style="text-align:center">
+Decisión Correcta
+</td>
+<td style="text-align:center">
+Error Tipo II
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</center>
+<p>Es lógico que se desea minimizar las probabilidades de cometer los errores en la decisión (tipo 1 ó 2), pero esto depende de la m.a <span class="math inline">\(X_1,X_2,...,X_n\)</span>. Sin embargo, si P(cometer error tipo 1)=0, entonces P(cometer error tipo 2)=1.</p>
+<p><span class="math display">\[\alpha = P(\text{Error Tipo I})\]</span> <span class="math display">\[\beta = P(\text{Error Tipo II})\]</span> <span class="math inline">\(\alpha\)</span> es llamado nivel de significancia de la prueba o tamaño de la región crítica y <span class="math inline">\(1-\beta\)</span> es la potencia de la prueba.</p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-12-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<hr>
+</div>
+<div id="pruebas-de-hipótesis-para-la-proporción" class="section level3">
+<h3>Pruebas de hipótesis para la proporción</h3>
+<p>Suponga que <span class="math inline">\(X\)</span> es una v.a tal que <span class="math inline">\(X \sim bin(n , p)\)</span>, con <span class="math inline">\(p\)</span> desconocida. Sea <span class="math inline">\(p_0\)</span> un valor de interés para <span class="math inline">\(p\)</span>. Tres hipótesis pueden ser planteadas acerca de <span class="math inline">\(p\)</span>.</p>
+<p><span class="math display">\[\begin{align*}
+H_0: p=p_0 \quad \text{vs} \quad H_a: \begin{cases} p &amp;&lt;p_0 \\
+                     p &amp;&gt; p_0 \\
+                     p &amp;\neq p_0 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>Por el TCL sabemos que si <span class="math inline">\(n\)</span> es grande entonces:</p>
+<p><span class="math display">\[\cfrac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
+<p>Entonces el <strong>estadístico de prueba</strong> a ser usado es:</p>
+<p><span class="math display">\[Z_c=\cfrac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}\]</span></p>
+<p>Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} Z_c &amp;\rightarrow\, Z_c &lt;z_\alpha \\
+                   Z_c &amp;\rightarrow\, Z_c &gt;z_{1-\alpha} \\
+                   Z_c &amp;\rightarrow\, |Z_c| &gt;z_{1-\alpha/2} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(Z &lt; Z_c) \\
+                   P(Z &gt; Z_c) \\
+                   P(|Z| &gt; |Z_c|) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<blockquote>
+<p>En una muestra de 85 juntas de dilatación de losas, 10 presentan fisuras perpendiculares. La constructora sabe que si el porcentaje de fisuras supera el 10% deberá detener la obra para realizar los refuerzos necesarios. Con un nivel de significancia del 5% ¿es necesario suspender las obras?<br><br> Tenemos las siguientes hipótesis <span class="math display">\[H_0: p=0.1 \quad\text{vs}\quad H_a: p&gt;0.1\]</span> Entonces con el estadístico de prueba se puede estimar la región crítica: <span class="math display">\[Z_c=\frac{10/85-0.1}{\sqrt{\frac{0.1 \times 0.9}{85}}}=0.542326\]</span> Si <span class="math inline">\(\alpha =0.05\)</span> entonces se tiene que <span class="math inline">\(Z_{0.95}=1.645\)</span> y así la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&gt;Z_{0.95}\}=\{Z_c\,|\,0.542326&gt;1.645\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&gt;0.542326)=1-P(Z&lt;0.542326)=0.2938\]</span> Como <span class="math inline">\(ZC\ngtr 1.645\)</span> o <span class="math inline">\(0.2938 &gt; 0.05\)</span>, entonces no existe suficiente evidencia muestral que soporte la suspensión de las obras, por lo tanto no se rechaza <span class="math inline">\(H_0\)</span>.</p>
+</blockquote>
+<p>En <code>R</code> se puede hacer fácilmente las pruebas de hipótesis para la proporción, ya sea a partir de un conjunto de datos, una tabla/matriz o con la proporción directa. La función <code>prop.test</code> hace los cálculos necesarios para las pruebas de hipótesis incluyendo el intervalo de confianza, no obstante, el estadístico de prueba que utiliza está basado en la distribución <span class="math inline">\(\chi^2\)</span> y los intervalos de confianza son estimados a través del método Wilson, adicionalmente tiene la opción de hacer el cálculo a partir de la corrección de Yates para tamaños de muestra pequeños.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">10</span>,<span class="at">n =</span> <span class="dv">85</span>,<span class="at">p =</span> <span class="fl">0.1</span>,<span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>,<span class="at">correct =</span> F,<span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test without continuity correction
+## 
+## data:  10 out of 85, null probability 0.1
+## X-squared = 0.29412, df = 1, p-value = 0.2938
+## alternative hypothesis: true p is greater than 0.1
+## 95 percent confidence interval:
+##  0.0716376 1.0000000
+## sample estimates:
+##         p 
+## 0.1176471</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">10</span>,<span class="at">n =</span> <span class="dv">85</span>,<span class="at">p =</span> <span class="fl">0.1</span>,<span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>,<span class="at">correct =</span> T,<span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test with continuity correction
+## 
+## data:  10 out of 85, null probability 0.1
+## X-squared = 0.13072, df = 1, p-value = 0.3588
+## alternative hypothesis: true p is greater than 0.1
+## 95 percent confidence interval:
+##  0.06712105 1.00000000
+## sample estimates:
+##         p 
+## 0.1176471</code></pre>
+<hr>
+</div>
+<div id="pruebas-de-hipótesis-para-la-media" class="section level3">
+<h3>Pruebas de hipótesis para la media</h3>
+<p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra aleatoria de una población con media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^2\)</span> si se tienen una muestra grande, entonces para un valor <span class="math inline">\(\mu_0\)</span> de interés para <span class="math inline">\(\mu\)</span> se pueden plantear uno de los siguientes contrastes de hipótesis.</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \mu=\mu_0 \quad \text{vs} \quad H_a: \begin{cases} \mu &amp;&lt;\mu_0 \\
+                     \mu &amp;&gt; \mu \\
+                     \mu &amp;\neq \mu_0 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>El <strong>Estadístico de Prueba</strong> está dado por:</p>
+<p><span class="math display">\[Zc=\cfrac{\bar{X}-\mu_0}{\frac{\sigma}{\sqrt{n}}}\]</span></p>
+<p>Si <span class="math inline">\(\sigma^2\)</span> es desconocida se puede reemplazar por <span class="math inline">\(S^2\)</span>. Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} Z_c &amp;\rightarrow\, Z_c &lt;z_\alpha \\
+                   Z_c &amp;\rightarrow\, Z_c &gt;z_{1-\alpha} \\
+                   Z_c &amp;\rightarrow\, |Z_c| &gt;z_{1-\alpha/2} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(Z &lt; Z_c) \\
+                   P(Z &gt; Z_c) \\
+                   P(|Z| &gt; |Z_c|) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<blockquote>
+<p>Se estudia el rendimiento de un proceso químico. Con base en la observación de 50 días. Se obtuvo un rendimiento promedio del 90.48% con una desviación estándar de 1.1514 %. ¿Se puede afirmar que el rendimiento real del proceso es superior al 90%, con un nivel de significancia del 1%?. Las pruebas de hipótesis son: <span class="math display">\[H_0: \mu=90 \quad\text{vs}\quad H_a: \mu&gt;90\]</span> Del enunciado tenemos que <span class="math inline">\(E[X_i]=90.48\)</span> y como <span class="math inline">\(\sigma\)</span> es desconocido, entonces se usa <span class="math inline">\(S=1.1514\)</span>, así el estadístico de prueba está dado por: <span class="math display">\[Z_c=\cfrac{\bar{X}-90}{\frac{1.1514}{\sqrt{50}}}=\cfrac{90.48-90}{\frac{1.1514}{\sqrt{50}}}=2.947814\]</span> Como <span class="math inline">\(\alpha=0.01\)</span> se tiene que <span class="math inline">\(Z_{0.99}=2.3264\)</span>, entonces la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&gt;Z_{0.99}\}=\{Z_c\,|\,2.947814&gt;2.3264\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&gt;2.947814)=1-P(Z&lt;2.947814)=0.0016\]</span> Como <span class="math inline">\(Z_c&gt;2.33\)</span> o <span class="math inline">\(0.0016&lt;0.01\)</span> entonces se rechaza <span class="math inline">\(H_0\)</span>, por lo tanto existe evidencia muestral suficiente que el rendimiento del proceso químico es mayor del 90% con un nivel de significancia del 1%.</p>
+</blockquote>
+<p>En procesos de investigación no es común hacer procesos de muestreo o experimentación, que involucren una gran cantidad de datos, y para realizar pruebas de hipótesis en estas circunstancias es necesario comprobar si los datos provienen de una distribución normal o no.</p>
+<p>Las pruebas de hipótesis para la media basadas en <strong>poblaciones normales</strong> asume que la muestra aleatoria <span class="math inline">\(X_1,\dots,X_n\)</span> proviene de una <span class="math inline">\(N(\mu,\sigma^2)\)</span> con ambos parámetros desconocidos, sabemos por el teorema central del límite que:</p>
+<p><span class="math display">\[\cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \sim t_{n-1}\]</span></p>
+<p>Así, si <span class="math inline">\(\mu_0\)</span> es un valor particular de <span class="math inline">\(\mu\)</span>, se pueden plantear una de las siguientes tres hipótesis:</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \mu=\mu_0 \quad \text{vs} \quad H_a: \begin{cases} \mu &amp;&lt;\mu_0 \\
+                     \mu &amp;&gt; \mu \\
+                     \mu &amp;\neq \mu_0 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>El <strong>Estadístico de Prueba</strong> está dado por:</p>
+<p><span class="math display">\[Tc=\cfrac{\bar{X}-\mu_0}{\frac{S}{\sqrt{n}}}\]</span></p>
+<p>Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} T_c &amp;\rightarrow\, T_c &lt;t_{(\alpha,\,n-1)} \\
+                   T_c &amp;\rightarrow\, T_c &gt;t_{(1-\alpha,\,n-1)} \\
+                   T_c &amp;\rightarrow\, |T_c| &gt;t_{(1-\alpha/2,\,n-1)} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(t_{n-1} &lt; T_c) \\
+                   P(t_{n-1} &gt; T_c) \\
+                   P(|t_{n-1}| &gt; |T_c|) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<br>
+<center>
+<a href="./R/Tabla_t.pdf" class="btn btn-info"  target="_blank">Tabla Distribución <i>t-student</i></a>
+</center>
+<p><br></p>
+<blockquote>
+<p>El tiempo de secado de un cierto tipo de pintura es una variable aleatoria aproximadamente Normal con media <span class="math inline">\(\mu=75\)</span>. Un grupo de investigadores proponen incorporar un aditivo a la pintura que permitirá reducir el tiempo de secado al que actualmente se tiene. Se cree que los tiempos de secado para esta pintura con el aditivo se seguirán comportando de manera normal, se consideran 25 pruebas donde se aplica la pintura con el aditivo y se registran los tiempos de secado. Del experimento se estimó que el tiempo medio de secado es de 71.8 min con una desviación estándar de 8.7 min. Con un nivel de confianza del 95% ¿se optimiza el tiempo de sacado con el aditivo experimental? Las pruebas de hipótesis son: <span class="math display">\[H_0: \mu=75 \quad\text{vs}\quad H_a: \mu&lt;75\]</span> Del enunciado tenemos que <span class="math inline">\(E[X_i]=71.8\)</span> y <span class="math inline">\(S=8.7\)</span>, así el estadístico de prueba está dado por: <span class="math display">\[T_c=\cfrac{\bar{X}-75}{\frac{8.7}{\sqrt{25}}}=\cfrac{71.8-75}{\frac{8.7}{\sqrt{25}}}=-1.83908\]</span> Como <span class="math inline">\(\alpha=0.05\)</span> se tiene que <span class="math inline">\(t_{(0.05,24)}=-1.710882\)</span>, entonces la región de rechazo es de la forma: <span class="math display">\[RC=\{T_c\,|\,T_c&lt;t_{(0.05,24)}\}=\{T_c\,|\,-1.83908&lt;-1.710882\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(T&gt;T_c)=P(T&lt;-1.83908)=1-P(T&lt;1.83908)=0.0391\]</span> Como <span class="math inline">\(T_c&lt;-1.711\)</span> o <span class="math inline">\(0.0391&lt;0.05\)</span> entonces se rechaza <span class="math inline">\(H_0\)</span>, por lo tanto existe evidencia muestral suficiente que agregar el aditivo experimental a la pintura optimiza el tiempo de secado con un nivel de significancia del 5%.</p>
+</blockquote>
+<p>En <code>R</code> los análisis se realizan directamente a las muestras, entonces no es posible replicar el ejmplo anterior con la información suministrada a no ser que se programe la función ingresando los estadísticos. La función <code>t.test</code> realizar la prueba de hipótesis basado en poblaciones normales, puede emplearse para comparar grupos o para contrastar una muestra aleatoria contra un valor teórico de <span class="math inline">\(\mu\)</span>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>?t.test</span></code></pre></div>
+<hr>
+<p>En el siguiente ejemplo retomaremos la base de datos <code>Concrete</code> del paquete <code>MAVE</code>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MAVE)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(janitor)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>Concrete <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(Concrete)</span></code></pre></div>
+<blockquote>
+<p>Nos interesa conocer el comportamiento de la resistencia a la compresión del concreto a los 180 días de curado sin adiciones de ceniza, los requisitos del diseñador estructural exigen que la resistencia a la compresión en estas condiciones debe superar los 40 MPa, ¿con un nivel de significancia del 5% esta información cumple con la norma?</p>
+</blockquote>
+<p>Para resolver esta inquietud primero debemos preparar los datos, es necesario filtrar la base de datos con las variables de <strong>edad</strong> a 180 días y <strong>ceniza</strong> si tiene o no, esto lo podemos hacer fácilmente con el paquete <code>dplyr</code>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Llamaremos a la nueva base de datos FiltConc</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>FiltConc <span class="ot">&lt;-</span> Concrete <span class="sc">%&gt;%</span> <span class="fu">filter</span>(fly_ash<span class="sc">==</span><span class="dv">0</span>,age<span class="sc">==</span><span class="dv">180</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Resumen estadístico de la resistencia</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>FiltConc <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">length</span>(concrete_compressive_strength),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">media=</span><span class="fu">mean</span>(concrete_compressive_strength),</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">desv=</span><span class="fu">sd</span>(concrete_compressive_strength))</span></code></pre></div>
+<pre><code>##    n    media    desv
+## 1 26 41.73038 10.9291</code></pre>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-17-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>Si asumimos que el comportamiento de la resistencia a la compresión proviene de una distribución <span class="math inline">\(N(\mu,\sigma^2)\)</span> entonces la hipótesis a probar es:</p>
+<p><span class="math display">\[H_0: \mu=40 \quad\text{vs}\quad H_a: \mu&gt;40\]</span></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluemos la prueba de hipótesis</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">x =</span> FiltConc<span class="sc">$</span>concrete_compressive_strength,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">mu=</span><span class="dv">40</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  FiltConc$concrete_compressive_strength
+## t = 0.80732, df = 25, p-value = 0.2135
+## alternative hypothesis: true mean is greater than 40
+## 95 percent confidence interval:
+##  38.0692     Inf
+## sample estimates:
+## mean of x 
+##  41.73038</code></pre>
+<p>Los resultados nos muestran el valor del estadístico de prueba, los grados de libertad de la distribución <em>t-student</em> y el valor-p de la prueba. Adicionalmente, presenta el intervalo de confianza unilateral al 95% de confianza y el valor estimado de la media.</p>
+<blockquote>
+<p>Como el <span class="math inline">\(valor-p &gt; \alpha\)</span> entonces no se puede rechazar <span class="math inline">\(H_0\)</span>, por lo tanto no hay evidencia muestral suficiente para concluir que los requisitos del diseñador estructural para la resistencia a la compresión del concreto se cumplan, con un nivel de significancia del 5%.</p>
+</blockquote>
+<hr>
+</div>
+</div>
+<div id="inferencia-comparación-de-grupos" class="section level2">
+<h2>Inferencia comparación de grupos</h2>
+<p>Hasta ahora se ha realizado estimaciones y verificaciones de hipótesis para un parámetros. Ahora, el interés es comparar dos grupos, es decir, comparar una característica común pero que se diferencian en dos estados distintos y que no existen otras condiciones adicionales que diferencien las dos muestras.</p>
+<p>Para estos casos se presentan dos situaciones, que las muestras sean <strong>independientes</strong> o que las muestras sean <strong>pareadas</strong>, es decir, que es el seguimiento de un solo individuo en el cambio de estado (tiempo, área, condición).</p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-19-1.png" width="3000" style="display: block; margin: auto;" /></p>
+<p>Dada estas situaciones entonces surge la pregunta ¿Existe diferencia significativa entre los dos grupos? Para responder esta pregunta tenemos dos procedimientos para llegar a la respuesta:</p>
+<ul>
+<li><strong>Intervalos de confianza</strong></li>
+<li><strong>Pruebas de hipótesis</strong></li>
+</ul>
+<p>Como vimos en el anterior apartado existe una relación directa entre los dos procedimientos cuando se habla de inferencia sobre un parámetro, para el caso de la comparación de grupos también existe esta relación entre <strong>IC</strong> y <strong>PH</strong>, sin embargo, el procedimiento involucra unos pasos adicionales.</p>
+<hr>
+<div id="pruebas-de-normalidad" class="section level3">
+<h3>Pruebas de Normalidad</h3>
+<p>Si el interés es realizar inferencias sobre la diferencia promedio de dos grupos entonces es necesario verificar que las muestras aleatorias de ambos grupos distribuyan aproximadamente normal. Este procedimiento se realiza con una prueba de hipótesis llamada <strong>prueba de bondad de ajuste</strong> en este caso para la normal.</p>
+<p><span class="math display">\[H_0:\text{los datos SI destribuyen }N(\mu,\sigma^2)\\
+\text{vs}\\
+H_0:\text{los datos NO destribuyen }N(\mu,\sigma^2)\\\]</span></p>
+<p>Para determinar si un conjunto de datos tiene una distribución conocida, se pueden realizar análisis exploratorios con algunos gráficos que ayudan a apreciar de manera aproximada cómo podrían distribuir los datos.</p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-20-1.png" width="2400" style="display: block; margin: auto;" /></p>
+<p>Estos tres gráficos nos ayudarán para explorar el comportamiento de los datos y se pueden combinar con los gráficos de las distribuciones teóricas para evaluar qué tanto se parecen.</p>
+<p>El primer gráfico se llama <strong>Gráfico de Densidad</strong>, muestra cómo es la distribución empírica de probabilidad, a diferencia del <em>Histograma</em> es una buena aproximación de las distribuciones continuas.</p>
+<p>El segundo gráfico se llama <strong>Gráfico Densidad Acumulada Empírica</strong>, este gráfico es muy útil cuando se compara con <em>La densidad acumulada</em> de las distribuciones teóricas. Además, el gráfico muestra el salto de cada muestra en la función de densidad acumulada empírica.</p>
+<p>El tercer gráfico se llama <strong>Gráfico de Comparación de Cuantiles</strong>, contrasta las muestras con los cuantiles de la distribución teórica. La ventaja de este gráfico es que dibuja una recta en la cual se <em>espera</em> que el conjunto de datos se ajuste, además dibuja bandas de confianza para mostrar hasta dónde se puede considerar que los puntos se ajustan a la recta.</p>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-21-1.png" width="2400" style="display: block; margin: auto;" /></p>
+<p>La idea de este gráfico es que los puntos estén muy cercanos a la recta y entre los límites de confianza. Hay que tener cuidado en los extremos de las muestras, ya que algunos puntos pueden salir de las bandas pero esto no significa que no tengan la distribución que se está evaluando; si la mayoría de los puntos están ajustados a la recta y son muy pocos datos <strong>en los extremos</strong> que salen de las bandas, se puede considerar un buen ajuste.</p>
+<p>Existen <strong>muchas</strong> pruebas de bondad de ajuste para la normalidad que incluso están disponibles en <code>R</code> y otros paquetes, no obstante, las más utilizadas y referenciadas en la literatua son:</p>
+<ul>
+<li>Test Kolmogorov-Smirnoff</li>
+<li>Test Lilliefors</li>
+<li>Test Anderson Darling</li>
+<li>Test Shapiro-Wilks</li>
+</ul>
+<hr>
+</div>
+<div id="pruebas-de-igualdad-de-varianza" class="section level3">
+<h3>Pruebas de igualdad de Varianza</h3>
+<p>Otro paso importante es verificar si las varianzas de ambos grupos son iguales o no, esto es importante porque la intención de la comparación de grupos a partir de la diferencia de promedios solamente debe comparar un factor o grupo que diferencia las muestras. La presencia de variabilidad excesiva en una de las muestras indicaría que existe otra condición no analizada que puede afectar la comparación, sin embargo, es posible controlar este problema estimando una variación conjunta entre los dos grupos.</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \frac{\sigma_A^2}{\sigma_A^2}=1 \quad \text{vs} \quad H_a: \begin{cases}
+\sigma_A^2/\sigma_A^2 &amp;&lt;1 \\
+\sigma_A^2/\sigma_A^2 &amp;&gt;1 \\
+\sigma_A^2/\sigma_A^2 &amp;\neq 1 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>El estadístico de prueba está dado por:</p>
+<p><span class="math display">\[F_c=\frac{S_A^2}{S_B^2} \sim F_{(n_A-1,n_B-1)}\]</span></p>
+<p>Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} F_c &amp;\rightarrow\, F_c &lt;\frac{1}{F_{1-\alpha,\,(n_B-1,n_A-1)}} \\
+                   F_c &amp;\rightarrow\, F_c &gt;F_{1-\alpha,\,(n_A-1,n_B-1)} \\
+                   F_c &amp;\rightarrow\, F_c &lt; F_{1-\alpha/2,\,(n_A-1,n_B-1)} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(F_{(n_B-1,n_A-1)} &lt; F_c) \\
+                   P(F_{(n_A-1,n_B-1)} &gt; F_c) \\
+                   P(F_{(n_A-1,n_B-1)} &lt; F_c) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<blockquote>
+<p><strong>Nota</strong><br> Estos pasos de verificación son necesarios para seleccionar el método estadístico adecuado para realizar la comparación de grupos, ya sea por Intervalos de Confianza o por Purebas de Hipótesis.</p>
+</blockquote>
+<hr>
+</div>
+<div id="comparación-de-medias" class="section level3">
+<h3>Comparación de medias</h3>
+<p>El objetivo de la comparación es resolver una de las siguientes hipótesis antagónicas:</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &amp;&lt; \delta \\
+                                          \mu_A-\mu_B &amp;&gt; \delta \\
+                                          \mu_A-\mu_B &amp;\neq \delta \\
+                                          \end{cases}
+\end{align*}\]</span></p>
+<p>Entonces el estadístico de prueba está condicionado al comportamiento de las muestras aleatorias de cada grupo, entonces es necesario verificar si los datos son normales o no y si las varianzas son iguales o no, cada paso o decisión condiciona a seleccionar el mejor estadístico de prueba. Entonces, para seleccionar la mejor opción para compar grupos basados en la promedio tenemos los siguientes árboles de decisión para <strong>IC</strong> o para <strong>PH</strong>.</p>
+<center>
+<a href="./R/Resumen_IC.pdf" class="btn btn-success" target="_blank">Intervalos de Confianza</a><a href="./R/Resumen_PH.pdf" class="btn btn-default" target="_blank">Pruebas de Hipótesis</a>
+</center>
+<hr>
+</div>
+<div id="ejemplo" class="section level3">
+<h3>Ejemplo</h3>
+<p>La siguiente base de datos contiene información acerca de incautaciones de bebidas alcohólicas fraudulentas y de contrabando en la ciudad de Medellín en un mes, que afectan los recursos para Salud y Educación en el Departamento de Antioquia y de acuerdo a los resultados se toma decisiones para aumentar o disminuir los controles.</p>
+<center>
+<a href="./R/Licores.xlsx" class="btn btn-default" target="_blank">Licores</a>
+</center>
+<p>La base de datos contiene las variables - <strong>TL</strong> (Tipo de Licor) - <strong>PI</strong> (Precio de incautación: se refiere al precio de venta en el establecimiento por unidad) - <strong>GAE</strong> (Grados de Alcohol en etiqueta) - <strong>GAQ</strong> (grados de alcohol en prueba química) - <strong>CE</strong> (Cantidades estandarizadas: número de unidades estandarizadas a 750 ml).</p>
+<p>Usando la información de su base de datos responda a las siguientes preguntas.</p>
+<ol style="list-style-type: decimal">
+<li><p>El <strong>precio total</strong> de la incautación se calcula como la cantidad estandarizada por el precio de incautación. ¿Se puede afirmar que el precio total promedio de la incautación es superior a $7’500.000?</p></li>
+<li><p>El <strong>ipoconsumo</strong>, es el impuesto que deja de percibir el Estado para salud y educación, el cual se calcula como: <span class="math inline">\(GAQ \times CE \times 400\)</span> (pesos). ¿Se puede afirmar que el ipoconsumo promedio del ron es inferior al ipoconsumo medio del Whisky? ¿Qué decisión se puede tomar frente al control?</p></li>
+<li><p>El licor incautado se clasifica como “Fraudulento” si los GAE son distintos a los GAQ y como “contrabando” si son iguales. ¿La proporción de licores fraudulentos es superior al 65%? ¿Qué significa éste resultado?</p></li>
+</ol>
+<div id="solución-usando-r" class="section level4">
+<h4>Solución usando R</h4>
+<p>Lo primero es descargar la base de datos en la carpeta que se considere, luego debemos cargar la base de datos en <code>RStudio</code> para realizar los análisis. Antes de comenzar con el análisis necesitamos instalar o cargar las librerías necesarias para el análisis</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para manipular datos</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(dplyr)) <span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos con estilo</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(ggplot2)) <span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Pruebas de bondad de ajuste</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(nortest)) <span class="fu">install.packages</span>(<span class="st">&quot;nortest&quot;</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos QQ-plot con IC</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(car)) <span class="fu">install.packages</span>(<span class="st">&quot;car&quot;</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Importar/Exportar datos de Excel</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(openxlsx)) <span class="fu">install.packages</span>(<span class="st">&quot;openxlsx&quot;</span>)</span></code></pre></div>
+<p>El siguiente paso es cargar la base de datos, esto lo podemos realizar directamente de <code>RStudio</code> con el siguiente comando:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>Licores <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="fu">file.choose</span>(),<span class="at">sheet =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Revisemos la estructura de los datos, para verificar si fueron cargados correctamente.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Licores)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    300 obs. of  5 variables:
+##  $ TL : chr  &quot;Ron&quot; &quot;Aguardiente&quot; &quot;Ron&quot; &quot;Aguardiente&quot; ...
+##  $ PI : num  34719 26900 27062 29317 32471 ...
+##  $ GAE: num  35 29 35 29 38 29 29 38 35 40 ...
+##  $ GAQ: num  30.2 29 32.2 29 32.6 ...
+##  $ CE : num  221 253 249 254 267 ...</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cambiando caracter por factor</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>Licores <span class="ot">&lt;-</span> Licores <span class="sc">%&gt;%</span> <span class="fu">mutate_if</span>(is.character,as.factor)</span></code></pre></div>
+<p>El primer punto nos piden calcular <strong>el precio total</strong> de incautación, y se pregunta si el promedio de esa nueva variable es superior a 7.5 millones. Entonces tenemos las hipótesis:</p>
+<p><span class="math display">\[H_o: \mu_{pt} = 7&#39;500.000 \qquad H_a:\mu_{pt} &gt; 7&#39;500.000\]</span></p>
+<p>Para seleccionar el estadístico de prueba más indicado, debemos probar si la distribución del precio total de incautación es Normal.</p>
+<p><span class="math display">\[H_0:PT \sim N(\mu,\sigma^2) \qquad H_a: PT\not\sim N(\mu,\sigma^2)\]</span></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>Licores<span class="sc">$</span>PT <span class="ot">&lt;-</span> Licores<span class="sc">$</span>CE<span class="sc">*</span>Licores<span class="sc">$</span>PI</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Licores<span class="sc">$</span>PT,<span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>,<span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-26-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pruebas de hipótesis</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(Licores<span class="sc">$</span>PT)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  Licores$PT
+## W = 0.99485, p-value = 0.4134</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ad.test</span>(Licores<span class="sc">$</span>PT)</span></code></pre></div>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  Licores$PT
+## A = 0.25534, p-value = 0.7249</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lillie.test</span>(Licores<span class="sc">$</span>PT)</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  Licores$PT
+## D = 0.032027, p-value = 0.6393</code></pre>
+<p>Entonces, siguiendo el árbol de decisión tenemos que los datos se distribuyen normal y no conocemos los parámetros poblacionales, por lo tanto el estadístico de prueba está basado en la <em>t-student</em>.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(Licores<span class="sc">$</span>PT,<span class="at">mu =</span> <span class="dv">7500000</span>,<span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>,<span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  Licores$PT
+## t = -0.42571, df = 299, p-value = 0.6647
+## alternative hypothesis: true mean is greater than 7500000
+## 95 percent confidence interval:
+##  7348999     Inf
+## sample estimates:
+## mean of x 
+##   7469031</code></pre>
+<p>Como <span class="math inline">\(\text{valor-p} \, &gt; \, \alpha\)</span> entonces no se rechaza <span class="math inline">\(H_0\)</span>, existe evidencia muestral suficiente de que el promedio del precio de incautaciones mesual es de $7’500.000, esto implica anualmente se esperaría que alrededor de 90 millones de pesos deje de circular ilegalmente gracias a lo no pago de impuestos o adulteración de licores.</p>
+<hr>
+<p>En la siguiente pregunta se pide calcular el <em>ipoconsumo</em> de acuerdo a una formulación, y luego comparar si el impuesto de los licores de tipo <em>Ron</em> son menores a los de <em>Whisky</em> basado en los promedios. Entonces tenemos la siguiente hipótesis:</p>
+<p><span class="math display">\[H_0: \mu_{Ir} = \mu_{Iw} \qquad H_a:\mu_{Ir} &lt; \mu_{Iw}\]</span></p>
+<p>De acuerdo al árbol de decisión tenemos que hacer los siguientes pasos:</p>
+<ul>
+<li>Calcular el ipoconsumo</li>
+<li>Separar la base de datos en Ron y Whisky</li>
+<li>Probar la normalidad de ambos grupos</li>
+<li>Comprobar la igualdad de varianzas de los grupos</li>
+<li>Escoger el mejor estadístico de prueba y realizar el análisis.</li>
+<li>Concluir</li>
+</ul>
+<p>Los primeros dos pasos son sencillos:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>Licores <span class="ot">&lt;-</span> Licores <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">IPO =</span> GAQ<span class="sc">*</span>CE<span class="sc">*</span><span class="dv">400</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Licores<span class="sc">$</span>IPO,<span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>,<span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-28-1.png" width="2100" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="ot">&lt;-</span> Licores <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(TL <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Ron&quot;</span>,<span class="st">&quot;Whisky&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>   droplevels</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(TL) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">length</span>(IPO),</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">media=</span><span class="fu">mean</span>(IPO),</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">desv=</span><span class="fu">sd</span>(IPO))</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   TL         n    media    desv
+##   &lt;fct&gt;  &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Ron       52 3185673. 270971.
+## 2 Whisky    27 3591694. 317110.</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>IPO,<span class="at">fill=</span>TL))<span class="sc">+</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_density</span>()<span class="sc">+</span><span class="fu">xlim</span>(<span class="fu">c</span>(<span class="fl">2e06</span>,<span class="fl">5e06</span>))<span class="sc">+</span><span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-28-2.png" width="2100" style="display: block; margin: auto;" /></p>
+<p>Luego debemos probar la normalidad de los datos, esto lo podemos hacer de dos formas. La primera es separar la base de datos y construir dos nuevas con los grupos de interés, la otra es evaluar al mismo tiempo los valores-p de las pruebas usando <code>dplyr</code>.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Primer método - Ron</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Ron&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(IPO) <span class="sc">%&gt;%</span> unlist <span class="sc">%&gt;%</span> <span class="fu">shapiro.test</span>()</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.96894, p-value = 0.1904</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Ron&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(IPO) <span class="sc">%&gt;%</span> unlist <span class="sc">%&gt;%</span> <span class="fu">ad.test</span>()</span></code></pre></div>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  .
+## A = 0.50493, p-value = 0.1943</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Ron&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(IPO) <span class="sc">%&gt;%</span> unlist <span class="sc">%&gt;%</span> <span class="fu">lillie.test</span>()</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  .
+## D = 0.095664, p-value = 0.2758</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Primer método - Whisky</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Whisky&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(IPO) <span class="sc">%&gt;%</span> unlist <span class="sc">%&gt;%</span> <span class="fu">shapiro.test</span>()</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.96678, p-value = 0.5193</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Whisky&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(IPO) <span class="sc">%&gt;%</span> unlist <span class="sc">%&gt;%</span> <span class="fu">ad.test</span>()</span></code></pre></div>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  .
+## A = 0.26387, p-value = 0.671</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Whisky&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(IPO) <span class="sc">%&gt;%</span> unlist <span class="sc">%&gt;%</span> <span class="fu">lillie.test</span>()</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  .
+## D = 0.087079, p-value = 0.8639</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Segundo método</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(TL) <span class="sc">%&gt;%</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">valor_p=</span><span class="fu">shapiro.test</span>(IPO)<span class="sc">$</span>p.val)</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 2
+##   TL     valor_p
+##   &lt;fct&gt;    &lt;dbl&gt;
+## 1 Ron      0.190
+## 2 Whisky   0.519</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(TL) <span class="sc">%&gt;%</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">valor_p=</span><span class="fu">ad.test</span>(IPO)<span class="sc">$</span>p.val)</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 2
+##   TL     valor_p
+##   &lt;fct&gt;    &lt;dbl&gt;
+## 1 Ron      0.194
+## 2 Whisky   0.671</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>SoloRA <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(TL) <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">valor_p=</span><span class="fu">lillie.test</span>(IPO)<span class="sc">$</span>p.val)</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 2
+##   TL     valor_p
+##   &lt;fct&gt;    &lt;dbl&gt;
+## 1 Ron      0.276
+## 2 Whisky   0.864</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Ron&quot;</span>),</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">qqPlot</span>(IPO,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">main =</span> <span class="st">&quot;QQ-Plot Ron&quot;</span>,<span class="at">id=</span>F,<span class="at">col.lines =</span> <span class="dv">2</span>))</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(SoloRA <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TL<span class="sc">==</span><span class="st">&quot;Whisky&quot;</span>),</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>     <span class="fu">qqPlot</span>(IPO,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">main =</span> <span class="st">&quot;QQ-Plot Whisky&quot;</span>,<span class="at">id=</span>F,<span class="at">col.lines =</span> <span class="dv">4</span>))</span></code></pre></div>
+<p><img src="inferencia_files/figure-html/unnamed-chunk-29-1.png" width="2700" style="display: block; margin: auto;" /></p>
+<p>Como ambas muestras distribuyen normal, es necesario verificar si existe igualdad en sus varianzas, esto se comprueba con la función <code>var.test</code>.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(SoloRA,<span class="fu">var.test</span>(IPO<span class="sc">~</span>TL))</span></code></pre></div>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  IPO by TL
+## F = 0.73017, num df = 51, denom df = 26, p-value = 0.3333
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.3562148 1.3878542
+## sample estimates:
+## ratio of variances 
+##           0.730172</code></pre>
+<p>Entonces, como los datos son normales y tienen varianzas iguales, de acuerdo con el árbol de decisión el mejor estadístico de prueba está basado en la <em>t-student</em> y es necesario estimar la varianza conjunta, no obstante, el software lo hace:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(SoloRA,</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">t.test</span>(IPO[TL<span class="sc">==</span><span class="st">&quot;Ron&quot;</span>],</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>            IPO[TL<span class="sc">==</span><span class="st">&quot;Whisky&quot;</span>],</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">var.equal =</span> T,<span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>))</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  IPO[TL == &quot;Ron&quot;] and IPO[TL == &quot;Whisky&quot;]
+## t = -5.9561, df = 77, p-value = 3.629e-08
+## alternative hypothesis: true difference in means is less than 0
+## 95 percent confidence interval:
+##       -Inf -292527.9
+## sample estimates:
+## mean of x mean of y 
+##   3185673   3591694</code></pre>
+<p>En conclusión, el ipoconsumo del ron es menor al del whisky con un nivel de significancia del 5%. Entonces la cantidad de impuestos que deja de percibir el departamento tiene mayor aporte en el Whisky, sin embargo, las cantidades de Ron son casi el doble que las de Whisky lo que sugiere que este licor es preferido para la adulteración. Los controles se deben aumentar para incautar más Ron y establecer una estrategia para que no aumente la adulteración del Whisky que es la que más afecta los recursos para salud.</p>
+<hr>
+<p>El tercer punto nos piden calcular una nueva variable, si <span class="math inline">\(GAQ=GAE\)</span> el licor se clasifica como <strong>contrabando</strong> en caso contrario se llamará <strong>fraudulento</strong>.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>Licores <span class="ot">&lt;-</span> Licores <span class="sc">%&gt;%</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">TipoLicor =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(GAQ<span class="sc">==</span>GAE,<span class="st">&quot;Contrabando&quot;</span>,<span class="st">&quot;Fraudulento&quot;</span>)))</span></code></pre></div>
+<p>Luego preguntan si la proporción de licores Fraudulentos es superior al 65%. Entonces las hipótesis son:</p>
+<p><span class="math display">\[H_0: p_F = 0.65 \qquad H_a: p_F &gt;0.65\]</span></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(Licores,<span class="fu">table</span>(TipoLicor))</span></code></pre></div>
+<pre><code>## TipoLicor
+## Contrabando Fraudulento 
+##          83         217</code></pre>
+<p>Como en <code>R</code> los factores se organizan alfabéticamente, entonces debemos cambiar la hipótesis hacia los licores de <strong>contrabando</strong>, así:</p>
+<p><span class="math display">\[H_0: p_C = 0.35 \qquad H_a: p_C &lt; 0.35\]</span></p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(Licores,</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">prop.test</span>(<span class="fu">table</span>(TipoLicor),</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">p =</span> <span class="fl">0.35</span>,</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">alternative =</span> <span class="st">&quot;less&quot;</span>,</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">correct =</span> F))</span></code></pre></div>
+<pre><code>## 
+##  1-sample proportions test without continuity correction
+## 
+## data:  table(TipoLicor), null probability 0.35
+## X-squared = 7.0916, df = 1, p-value = 0.003872
+## alternative hypothesis: true p is less than 0.35
+## 95 percent confidence interval:
+##  0.0000000 0.3210025
+## sample estimates:
+##         p 
+## 0.2766667</code></pre>
+<p>Como el valor-p es mucho menor al nivel de significancia, entonces se rechaza <span class="math inline">\(H_0\)</span> por lo tanto existe evidencia muestral para afirmar que la proporción de licores Fraudulentos es mayor del 65%. Por lo tanto, las rentas ilegales de licores están basadas en mayor medida de la adulteración, el impacto para la salud pública es muy grave, pues los efectos nocivos de los licores que no son correctamente destilados aumenta los riesgos clínicos como la ceguera, el cáncer de órganos digestivos o la muerte.</p>
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
