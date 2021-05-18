@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Diseños por Bloques</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Estadística para la Construcción</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="aboutDoE.html">
+    <span class="fas fa-book-open"></span>
+     
+    Acerca de
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-chalkboard-teacher"></span>
+     
+    Introducción
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="descrip.html">Descriptiva</a>
+    </li>
+    <li>
+      <a href="prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="inferencia.html">inferencia</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-chalkboard-teacher"></span>
+     
+    Diseños
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="anova.html">ANOVA y DCA</a>
+    </li>
+    <li>
+      <a href="blocks.html">Bloques Aleatorios</a>
+    </li>
+    <li>
+      <a href="fact1.html">Factoriales</a>
+    </li>
+    <li>
+      <a href="fact2k.html">2 a la k</a>
+    </li>
+    <li>
+      <a href="fact3k.html">3 a la k</a>
+    </li>
+    <li>
+      <a href="fractional.html">Fraccionados</a>
+    </li>
+    <li>
+      <a href="SurfResp.html">Superficies</a>
+    </li>
+    <li>
+      <a href="sample.html">Muestras</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-chalkboard-teacher"></span>
+     
+    Regresión
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="slm.html">Simple</a>
+    </li>
+    <li>
+      <a href="mlm.html">Múltiple</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-code"></span>
+     
+    R-Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Rinstall.html">Instalación</a>
+    </li>
+    <li>
+      <a href="IntroR.html">Introducción</a>
+    </li>
+    <li>
+      <a href="FunsR.html">Funciones y Paquetes</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdsanta@unal.edu.co.com">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fas fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Diseños por Bloques</h1>
+
+</div>
+
+
+<hr>
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p>En cualquier experimento, la variabilidad que surge de un factor puede afectar los resultados, pero cuando este factor no es de interés o no hace parte del tratamiento a evaluar se le considera como <strong>factor perturbador</strong>. Por lo general este tipo de factores son desconocidos y no controlables, a través de la aleatorización se puede controlar en gran medida los efectos de estos factores sobre la variable respuesta.</p>
+<p>Existen casos en que estos factores son conocidos y se pueden controlar, no obstante, no son de interés para el comportamiento de la variable respuesta. Por ejemplo, si se quiere probar un tratamiento para un producto que es fabricado por cuatro máquinas, cada una de estas es operada por una persona distinta.</p>
+<center>
+<img src="Bloque1.png" title="fig:" alt="Operadores" />
+</center>
+<p><br></p>
+<p>El interés aquí es ver cómo el <strong>tratamiento</strong> influye sobre la <strong>respuesta</strong> de las máquinas, no obstante, el efecto que puede hacer el operador puede influir en la variabilidad del resultado. Para controlar esta variabilidad se trata al efecto del operador como un <strong>bloque</strong>, es decir, un <strong>factor adicional</strong> que no es de interés pero que afecta los resultados. Para controlar la variabilidad del bloque lo que generalmente se hace es aleatorizar el diseño incluyendo el nuevo factor, así cada operador manipula cada máquina.</p>
+<center>
+<img src="Bloque2.png" title="fig:" alt="Blques" />
+</center>
+<p><br></p>
+<p>De esta manera se elimina sistemáticamente el efecto del bloque sobre las comparaciones estadísticas entre los tratamientos. Este nuevo “factor” se incluye en el ANOVA, si resulta significativa implica que el factor de bloques tiene influencia sobre la variable de respuesta, y debe ser tomado en cuenta para mejorar la calidad de ésta. Pero, si no se rechaza y se acepta que los bloques son iguales en respuesta media, entonces se tiene el argumento a favor de no controlar este factor en futuros experimentos sobre esta misma respuesta, además de que su influencia en la calidad de la respuesta no es significativa.</p>
+<hr>
+</div>
+<div id="modelo-estadístico" class="section level2">
+<h2>Modelo Estadístico</h2>
+<p>Para aplicar los bloques en un diseño factorial, se recomienda utilizar los <strong>diseños por bloques completamente aleatorizados</strong> (DBCA). Cuando se utiliza este diseño, el experimentador piensa que cada medición será el resultado del <em>efecto del tratamiento</em> donde se encuentre, del <em>efecto del bloque</em> al que pertenece y de cierto <em>error que se espera sea aleatorio</em>. El modelo estadístico para este diseño está dado por:</p>
+<p><span class="math display">\[Y_{ij}=\mu+\tau_i+\gamma_j+\varepsilon_{ij}\\i=1,2,\dots,k \quad j=1,2,\dots,b\]</span></p>
+<p>Donde <span class="math inline">\(Y_{ij}\)</span> es la medición que corresponde al tratamiento <span class="math inline">\(i\)</span> y al bloque <span class="math inline">\(j\)</span>, <span class="math inline">\(\mu\)</span> es la media global poblacional, <span class="math inline">\(\tau_i\)</span> es el efecto del tratamiento <span class="math inline">\(i\)</span>, <span class="math inline">\(\gamma_j\)</span> es el efecto del bloque <span class="math inline">\(j\)</span> y <span class="math inline">\(\varepsilon_{ij}\)</span> es el error aleatorio atribuible a la medición <span class="math inline">\(Y_{ij}\)</span>, donde</p>
+<p><span class="math display">\[\varepsilon_{ij}\sim NID(0,\sigma^2)\]</span></p>
+<p>Para este diseño las hipótesis a probar son:</p>
+<p><span class="math display">\[H_0: \mu_1=\mu_2=\dots=\mu_k=\mu\\
+H_a: \mu_i \neq \mu_j \quad \text{para algun} i\neq j\]</span></p>
+<p>O en términos de de los tratamientos:</p>
+<p><span class="math display">\[H_0: \tau_1=\tau_2=\dots=\tau_k=0\\
+H_a: \tau_i \neq 0 \quad \text{para algun}\,\, i\]</span></p>
+<p>En cuanto a las hipótesis de para los bloques se plantea:</p>
+<p><span class="math display">\[H_0: \gamma_1=\gamma_2=\dots=\gamma_b = 0\\
+H_a: \gamma_j \neq 0 \quad \text{para algun bloque} \,\, j\]</span></p>
+<p>Las hipótesis se prueban a través del Análisis de Varianza (ANOVA) <em>con dos criterios de clasificación</em> ya que se controlan dos fuentes de variación: <strong>los tratamientos</strong> y <strong>los bloques</strong>.</p>
+<center>
+<table style="width:100%;">
+<colgroup>
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fuente de Variación</th>
+<th>SS</th>
+<th>gl</th>
+<th>MS</th>
+<th>F</th>
+<th>valor-p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tratamientos</td>
+<td><span class="math inline">\(SSB=\sum_{i=1}^{k}\frac{Y^2_i.}{b}-\frac{Y^2_{..}}{N}\)</span></td>
+<td><span class="math inline">\(k-1\)</span></td>
+<td><span class="math inline">\(MSB=\frac{SSB}{k-1}\)</span></td>
+<td><span class="math inline">\(F_0=\frac{MSB}{MSE}\)</span></td>
+<td><span class="math inline">\(P(F&gt;F_0)\)</span></td>
+</tr>
+<tr class="even">
+<td>Bloques</td>
+<td><span class="math inline">\(SS\gamma=\sum_{j=1}^b \frac{Y^2_{.j}}{k}-\frac{Y^2..}{N}\)</span></td>
+<td><span class="math inline">\(b-1\)</span></td>
+<td><span class="math inline">\(MS\gamma=\frac{SS\gamma}{b-1}\)</span></td>
+<td><span class="math inline">\(F_0=\frac{MS\gamma}{MSE}\)</span></td>
+<td><span class="math inline">\(P(F&gt;F_0)\)</span></td>
+</tr>
+<tr class="odd">
+<td>Error</td>
+<td><span class="math inline">\(SSE=SST-SSB-SS\gamma\)</span></td>
+<td><span class="math inline">\((k-1)(b-1)\)</span></td>
+<td><span class="math inline">\(MSE=\frac{SSE}{(k-1)(b-1)}\)</span></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Total</td>
+<td><span class="math inline">\(SST=\sum_{j=1}^b\sum_{i=i}^{k} Y^2_{ij}-\frac{Y^2_{..}}{N}\)</span></td>
+<td><span class="math inline">\(N-1\)</span></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>Una vez se construye la tabla de ANOVA se verifican los supuestos del modelos a través de los residuales o errores aleatorios, similar a los diseños de un solo factor, entonces hay que comprobar:</p>
+<ol style="list-style-type: decimal">
+<li>Normalidad</li>
+<li>Independencia</li>
+<li>Homocesdasticidad</li>
+</ol>
+<p>Con los supuestos del modelos validados, se procede a realizar las pruebas post-hoc si se desea inferir sobre los niveles de los tratamientos del modelo. Se pueden utilizar los métodos:</p>
+<ul>
+<li>Comparaciones de diferencia mínima significativa (LSD)</li>
+<li>Método Tukey HSD</li>
+<li>Método Duncan</li>
+<li>Método Dunnet para fijar un nivel como un control</li>
+</ul>
+<hr>
+</div>
+<div id="ejemplo" class="section level2">
+<h2>Ejemplo</h2>
+<p>Un equipo de mejora investiga el efecto de cuatro métodos de ensamble A, B, C y D, sobre el tiempo de ensamble en minutos. En primera instancia, la estrategia experimental es aplicar cuatro veces los cuatro métodos de ensamble en orden completamente aleatorio (las 16 pruebas en orden aleatorio). Cada método de ensamble es llevado a cabo por cuatro operadores, y se pretende controlar este factor mediante un bloque, entonces se plantea un diseño por bloque completemanete al azar (DBCA), donde cada operario aplicará cada método de ensamble, se supone que, además del método de ensamble y el bloque, no existe ningún otro factor que influya de manera significativa sobre la variable de respuesta (tiempo de ensamble). Los tiempos de ensamble obtenidos son:</p>
+<center>
+<table class="table table-striped">
+<caption style="text-align:center">
+Método de Ensamble
+</caption>
+<thead>
+<tr>
+<th rowspan="2" style="text-align:center;">
+Método
+</th>
+<th colspan="4" style="text-align:center;" class="col-md-12">
+Operador
+</th>
+</tr>
+<tr>
+<td style="text-align:center;" class="col-md-3">
+<b>1</b>
+</td>
+<td style="text-align:center;" class="col-md-3">
+<b>2</b>
+</td>
+<td style="text-align:center;" class="col-md-3">
+<b>3</b>
+</td>
+<td style="text-align:center;" class="col-md-3">
+<b>4</b>
+</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<b>A</b>
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+9
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<b>B</b>
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<b>C</b>
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+16
+</td>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<b>D</b>
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+13
+</td>
+<td style="text-align:center;">
+11
+</td>
+<td style="text-align:center;">
+9
+</td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>El modelo a evaluar es:</p>
+<p><span class="math display">\[y_{ij}=\mu+\tau_i+\gamma_j+\varepsilon_{ij}\qquad \varepsilon_{ij}\sim N(0,\sigma^2)\]</span></p>
+<p>Utilizando <code>R</code> el análisis estadístico de este diseño experimental es sencillo. Los pasos a seguir son los siguientes:</p>
+<ol style="list-style-type: decimal">
+<li>Cargar/Construir la base de datos con la información de interés.</li>
+<li>Realizar un análisis descriptivo de la información.</li>
+<li>Ajustar el modelo a través del ANOVA.</li>
+<li>Validar los supuestos del modelo.</li>
+<li>Realizar las pruebas post-hoc.</li>
+</ol>
+<p>Necesitamos las siguientes librerías.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para gráficos con estilo</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Para manejar bases de datos</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Para construir los qq-plots</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(car)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Para las pruebas de normalidad</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(nortest)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Para las pruebas post-hoc</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(agricolae)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(multcomp)</span></code></pre></div>
+<p>El primer paso es cargar o construir la base de datos, esto puede hacerse en excel y luego importarlas a <code>R</code> o se puede construir la base de datos de la siguiente forma:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">respuesta=</span><span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">7</span>,<span class="dv">8</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                                <span class="dv">7</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">8</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                                <span class="dv">10</span>,<span class="dv">16</span>,<span class="dv">11</span>,<span class="dv">14</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                                <span class="dv">10</span>,<span class="dv">13</span>,<span class="dv">11</span>,<span class="dv">9</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">tratamientos=</span><span class="fu">rep</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>],<span class="at">each=</span><span class="dv">4</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">bloques=</span><span class="fu">factor</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,<span class="dv">4</span>)),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">stringsAsFactors =</span> T)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># verificar la tabla de datos</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>(respuesta<span class="sc">~</span>tratamientos<span class="sc">+</span>bloques,<span class="at">data=</span>datos)</span></code></pre></div>
+<pre><code>##             bloques
+## tratamientos  1  2  3  4
+##            A  6  9  7  8
+##            B  7 10 11  8
+##            C 10 16 11 14
+##            D 10 13 11  9</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    16 obs. of  3 variables:
+##  $ respuesta   : num  6 9 7 8 7 10 11 8 10 16 ...
+##  $ tratamientos: Factor w/ 4 levels &quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;: 1 1 1 1 2 2 2 2 3 3 ...
+##  $ bloques     : Factor w/ 4 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;: 1 2 3 4 1 2 3 4 1 2 ...</code></pre>
+<p>Los análisis descriptivos sirven para evaluar visualmente si existe un posible efecto del tratamiento en la variable respuesta, como no tenemos réplicas entonces la mejor opción es graficar los puntos y lineas que corresponden a los tratamientos con cada bloque.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos,<span class="fu">aes</span>(<span class="at">y=</span>respuesta,<span class="at">x=</span>bloques,<span class="at">colour=</span>tratamientos))<span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group=</span>tratamientos),<span class="at">lwd=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">group=</span>tratamientos),<span class="at">size=</span><span class="dv">2</span>,<span class="at">pch=</span><span class="dv">16</span>)<span class="sc">+</span><span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="blocks_files/figure-html/unnamed-chunk-3-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos,<span class="fu">aes</span>(<span class="at">y=</span>respuesta,<span class="at">x=</span>tratamientos,<span class="at">colour=</span><span class="fu">factor</span>(bloques)))<span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group=</span>bloques),<span class="at">lwd=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">group=</span>bloques),<span class="at">size=</span><span class="dv">2</span>,<span class="at">pch=</span><span class="dv">16</span>)<span class="sc">+</span><span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="blocks_files/figure-html/unnamed-chunk-3-2.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos,<span class="fu">aes</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>,<span class="at">y=</span><span class="fu">sort</span>(bloques),<span class="at">colour=</span>tratamientos))<span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group=</span>tratamientos),<span class="at">lwd=</span><span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">group=</span>tratamientos),<span class="at">size=</span><span class="dv">2</span>,<span class="at">pch=</span><span class="dv">16</span>)<span class="sc">+</span><span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Bloques&quot;</span>)<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="blocks_files/figure-html/unnamed-chunk-3-3.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Luego se construye el modelo con el comando <code>aov</code> dando como argumentos la fórmula, después se ejecuta el comando <code>anova</code> para construir la tabla e interpretar.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Anova</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">aov</span>(respuesta<span class="sc">~</span>tratamientos<span class="sc">+</span>bloques,<span class="at">data=</span>datos)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: respuesta
+##              Df Sum Sq Mean Sq F value   Pr(&gt;F)   
+## tratamientos  3   61.5    20.5   10.25 0.002919 **
+## bloques       3   28.5     9.5    4.75 0.029846 * 
+## Residuals     9   18.0     2.0                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Como el modelo es significativo tanto para los tratamientos y los bloques, se sugiere que el efecto que ejerce el operario es significativo en el tiempo de ensambe. Es necesario validar los supuestos del modelo antes de realizar las pruebas post-hoc y concluir más allá.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># normalidad</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(fit<span class="sc">$</span>residuals,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">main=</span><span class="st">&quot;Normal Q-Q Plot&quot;</span>,<span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="blocks_files/figure-html/unnamed-chunk-5-1.png" width="540" style="display: block; margin: auto;" /></p>
+<pre><code>## [1]  7 11</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(fit<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  fit$residuals
+## W = 0.97299, p-value = 0.8844</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ad.test</span>(fit<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  fit$residuals
+## A = 0.1884, p-value = 0.8859</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lillie.test</span>(fit<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  fit$residuals
+## D = 0.11346, p-value = 0.8412</code></pre>
+<p>Se cumple el supuesto de normalidad dado que no se rechaza la hipótesis nula.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># independecia</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit<span class="sc">$</span>residuals,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">las=</span><span class="dv">1</span>,<span class="at">type=</span><span class="st">&quot;b&quot;</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Independencia&quot;</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="blocks_files/figure-html/unnamed-chunk-6-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">durbinWatsonTest</span>(fit)</span></code></pre></div>
+<pre><code>##  lag Autocorrelation D-W Statistic p-value
+##    1      -0.4201389      2.711806   0.454
+##  Alternative hypothesis: rho != 0</code></pre>
+<p>Se cumple el supuesto de independencia ya que no se halla autocorrelación en los errores del modelo.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Homocedasticidad</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(fit),fit<span class="sc">$</span>residuals,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">las=</span><span class="dv">1</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Homogeneidad de Varianza&quot;</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;Valores Predictivos&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Residuales&quot;</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="blocks_files/figure-html/unnamed-chunk-7-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bartlett.test</span>(fit<span class="sc">$</span>residuals,datos<span class="sc">$</span>tratamientos)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  fit$residuals and datos$tratamientos
+## Bartlett&#39;s K-squared = 2.3476, df = 3, p-value = 0.5035</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bartlett.test</span>(fit<span class="sc">$</span>residuals,datos<span class="sc">$</span>bloques)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  fit$residuals and datos$bloques
+## Bartlett&#39;s K-squared = 1.2675, df = 3, p-value = 0.7369</code></pre>
+<p>De acuerdo a los resultados no existe diferencias de varianza entre los tratamientos y entre los bloques, es decir, hay <strong>homocedasticidad</strong> u homogeneidad de varianzas.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Supuestos globales</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="blocks_files/figure-html/unnamed-chunk-8-1.png" width="540" style="display: block; margin: auto;" /><img src="blocks_files/figure-html/unnamed-chunk-8-2.png" width="540" style="display: block; margin: auto;" /><img src="blocks_files/figure-html/unnamed-chunk-8-3.png" width="540" style="display: block; margin: auto;" /><img src="blocks_files/figure-html/unnamed-chunk-8-4.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Finalmente, como los supuestos del modelo se cumplen, entonces podemos buscar cuáles son los tratamientos más significativos sobre los tiempos de ensamble mediante las pruebas post-hoc.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### Pruebas post-hoc ####</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>lsd <span class="ot">&lt;-</span> <span class="fu">LSD.test</span>(<span class="at">y =</span> fit,<span class="at">trt =</span> <span class="st">&quot;tratamientos&quot;</span>,<span class="at">console =</span> T)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;tratamientos&quot;
+## 
+## LSD t Test for respuesta 
+## 
+## Mean Square Error:  2 
+## 
+## tratamientos,  means and individual ( 95 %) CI
+## 
+##   respuesta      std r       LCL       UCL Min Max
+## A      7.50 1.290994 4  5.900413  9.099587   6   9
+## B      9.00 1.825742 4  7.400413 10.599587   7  11
+## C     12.75 2.753785 4 11.150413 14.349587  10  16
+## D     10.75 1.707825 4  9.150413 12.349587   9  13
+## 
+## Alpha: 0.05 ; DF Error: 9
+## Critical Value of t: 2.262157 
+## 
+## least Significant Difference: 2.262157 
+## 
+## Treatments with the same letter are not significantly different.
+## 
+##   respuesta groups
+## C     12.75      a
+## D     10.75     ab
+## B      9.00     bc
+## A      7.50      c</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lsd,<span class="at">las=</span><span class="dv">1</span>);<span class="fu">grid</span>()</span></code></pre></div>
+<p><img src="blocks_files/figure-html/unnamed-chunk-9-1.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tukey HSD</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>(hsd <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(fit))</span></code></pre></div>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = respuesta ~ tratamientos + bloques, data = datos)
+## 
+## $tratamientos
+##      diff        lwr      upr     p adj
+## B-A  1.50 -1.6217987 4.621799 0.4758801
+## C-A  5.25  2.1282013 8.371799 0.0024211
+## D-A  3.25  0.1282013 6.371799 0.0412298
+## C-B  3.75  0.6282013 6.871799 0.0195634
+## D-B  1.75 -1.3717987 4.871799 0.3548246
+## D-C -2.00 -5.1217987 1.121799 0.2566550
+## 
+## $bloques
+##      diff        lwr       upr     p adj
+## 2-1  3.75  0.6282013 6.8717987 0.0195634
+## 3-1  1.75 -1.3717987 4.8717987 0.3548246
+## 4-1  1.50 -1.6217987 4.6217987 0.4758801
+## 3-2 -2.00 -5.1217987 1.1217987 0.2566550
+## 4-2 -2.25 -5.3717987 0.8717987 0.1815907
+## 4-3 -0.25 -3.3717987 2.8717987 0.9941202</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd,<span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="blocks_files/figure-html/unnamed-chunk-9-2.png" width="540" style="display: block; margin: auto;" /><img src="blocks_files/figure-html/unnamed-chunk-9-3.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Duncan</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">duncan.test</span>(<span class="at">y =</span> fit,<span class="at">trt =</span> <span class="st">&quot;tratamientos&quot;</span>,<span class="at">console =</span> T,<span class="at">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;tratamientos&quot;
+## 
+## Duncan&#39;s new multiple range test
+## for respuesta 
+## 
+## Mean Square Error:  2 
+## 
+## tratamientos,  means
+## 
+##   respuesta      std r Min Max
+## A      7.50 1.290994 4   6   9
+## B      9.00 1.825742 4   7  11
+## C     12.75 2.753785 4  10  16
+## D     10.75 1.707825 4   9  13
+## 
+## Comparison between treatments means
+## 
+##       difference pvalue signif.        LCL        UCL
+## A - B      -1.50 0.1679         -3.7621572  0.7621572
+## A - C      -5.25 0.0008     *** -7.6681389 -2.8318611
+## A - D      -3.25 0.0123       * -5.6111269 -0.8888731
+## B - C      -3.75 0.0057      ** -6.1111269 -1.3888731
+## B - D      -1.75 0.1140         -4.0121572  0.5121572
+## C - D       2.00 0.0766       . -0.2621572  4.2621572</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">duncan.test</span>(<span class="at">y =</span> fit,<span class="at">trt =</span> <span class="st">&quot;bloques&quot;</span>,<span class="at">console =</span> T,<span class="at">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;bloques&quot;
+## 
+## Duncan&#39;s new multiple range test
+## for respuesta 
+## 
+## Mean Square Error:  2 
+## 
+## bloques,  means
+## 
+##   respuesta      std r Min Max
+## 1      8.25 2.061553 4   6  10
+## 2     12.00 3.162278 4   9  16
+## 3     10.00 2.000000 4   7  11
+## 4      9.75 2.872281 4   8  14
+## 
+## Comparison between treatments means
+## 
+##       difference pvalue signif.        LCL        UCL
+## 1 - 2      -3.75 0.0066      ** -6.1681389 -1.3318611
+## 1 - 3      -1.75 0.1282         -4.1111269  0.6111269
+## 1 - 4      -1.50 0.1679         -3.7621572  0.7621572
+## 2 - 3       2.00 0.0766       . -0.2621572  4.2621572
+## 2 - 4       2.25 0.0595       . -0.1111269  4.6111269
+## 3 - 4       0.25 0.8082         -2.0121572  2.5121572</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dunnet</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>Dunnett.tr <span class="ot">&lt;-</span> <span class="fu">glht</span>(fit,<span class="at">linfct=</span><span class="fu">mcp</span>(<span class="at">tratamientos =</span> <span class="st">&quot;Dunnett&quot;</span>))</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Dunnett.tr)</span></code></pre></div>
+<pre><code>## 
+##   Simultaneous Tests for General Linear Hypotheses
+## 
+## Multiple Comparisons of Means: Dunnett Contrasts
+## 
+## 
+## Fit: aov(formula = respuesta ~ tratamientos + bloques, data = datos)
+## 
+## Linear Hypotheses:
+##            Estimate Std. Error t value Pr(&gt;|t|)   
+## B - A == 0     1.50       1.00    1.50  0.35707   
+## C - A == 0     5.25       1.00    5.25  0.00143 **
+## D - A == 0     3.25       1.00    3.25  0.02503 * 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## (Adjusted p values reported -- single-step method)</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Dunnett.tr)</span></code></pre></div>
+<p><img src="blocks_files/figure-html/unnamed-chunk-9-4.png" width="540" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>Dunnett.bk <span class="ot">&lt;-</span> <span class="fu">glht</span>(fit,<span class="at">linfct=</span><span class="fu">mcp</span>(<span class="st">&#39;bloques&#39;</span> <span class="ot">=</span> <span class="st">&quot;Dunnett&quot;</span>))</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Dunnett.bk)</span></code></pre></div>
+<pre><code>## 
+##   Simultaneous Tests for General Linear Hypotheses
+## 
+## Multiple Comparisons of Means: Dunnett Contrasts
+## 
+## 
+## Fit: aov(formula = respuesta ~ tratamientos + bloques, data = datos)
+## 
+## Linear Hypotheses:
+##            Estimate Std. Error t value Pr(&gt;|t|)  
+## 2 - 1 == 0     3.75       1.00    3.75   0.0117 *
+## 3 - 1 == 0     1.75       1.00    1.75   0.2533  
+## 4 - 1 == 0     1.50       1.00    1.50   0.3572  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## (Adjusted p values reported -- single-step method)</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Dunnett.bk)</span></code></pre></div>
+<p><img src="blocks_files/figure-html/unnamed-chunk-9-5.png" width="540" style="display: block; margin: auto;" /></p>
+<p>De acuerdo a estos resultados es posible que exista interacción entre el bloque y los tratamientos, como no se tienen réplicas no podemos evaluar la interacción directa, no obstante podemos analizar este fenómeno en el término del error usando la función <code>Error</code> como argumento del ajuste realizado con <code>aov</code>.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>fit_int <span class="ot">&lt;-</span> <span class="fu">aov</span>(respuesta<span class="sc">~</span>tratamientos<span class="sc">+</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">Error</span>(bloques<span class="sc">/</span>tratamientos),</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>datos)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_int)</span></code></pre></div>
+<pre><code>## 
+## Error: bloques
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)
+## Residuals  3   28.5     9.5               
+## 
+## Error: bloques:tratamientos
+##              Df Sum Sq Mean Sq F value  Pr(&gt;F)   
+## tratamientos  3   61.5    20.5   10.25 0.00292 **
+## Residuals     9   18.0     2.0                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
