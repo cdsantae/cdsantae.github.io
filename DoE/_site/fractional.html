@@ -1,0 +1,2213 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Diseños Factoriales Fraccionados 2^{k-p}</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Estadística para la Construcción</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="aboutDoE.html">
+    <span class="fas fa-book-open"></span>
+     
+    Acerca de
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-chalkboard-teacher"></span>
+     
+    Introducción
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="descrip.html">Descriptiva</a>
+    </li>
+    <li>
+      <a href="prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="inferencia.html">inferencia</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-chalkboard-teacher"></span>
+     
+    Diseños
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="anova.html">ANOVA y DCA</a>
+    </li>
+    <li>
+      <a href="blocks.html">Bloques Aleatorios</a>
+    </li>
+    <li>
+      <a href="fact1.html">Factoriales</a>
+    </li>
+    <li>
+      <a href="fact2k.html">2 a la k</a>
+    </li>
+    <li>
+      <a href="fact3k.html">3 a la k</a>
+    </li>
+    <li>
+      <a href="fractional.html">Fraccionados</a>
+    </li>
+    <li>
+      <a href="SurfResp.html">Superficies</a>
+    </li>
+    <li>
+      <a href="sample.html">Muestras</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-chalkboard-teacher"></span>
+     
+    Regresión
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="slm.html">Simple</a>
+    </li>
+    <li>
+      <a href="mlm.html">Múltiple</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fas fa-code"></span>
+     
+    R-Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Rinstall.html">Instalación</a>
+    </li>
+    <li>
+      <a href="IntroR.html">Introducción</a>
+    </li>
+    <li>
+      <a href="FunsR.html">Funciones y Paquetes</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdsanta@unal.edu.co.com">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://cdsantae.github.io">
+    <span class="fas fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Diseños Factoriales Fraccionados <span class="math inline">\(2^{k-p}\)</span></h1>
+
+</div>
+
+
+<hr>
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p>Son los diseños en los que se elige adecuadamente una parte o fracción de los tratamientos de un factorial completo, con la intención de estudiar el efecto de los factores utilizando menos corridas experimentales.</p>
+<p>Cuando crece el número de factores también aumenta rápidamente el número de tratamientos en los diseños factoriales completos <span class="math inline">\(2^k\)</span>. Por ejemplo, para <span class="math inline">\(k = 6\)</span> factores, una sola réplica del diseño factorial completo <span class="math inline">\(2^6\)</span> implica correr 64 pruebas, que corresponden al número de tratamientos del diseño; para <span class="math inline">\(k = 7\)</span> son <span class="math inline">\(2^7\)</span> = 128 puntos de diseño.</p>
+<p>Gracias al exceso de información que acumulan los diseños factoriales completos cuando se estudian muchos factores, los <strong>diseños factoriales fraccionados</strong> permiten sacrificar información poco importante en aras de un diseño manejable en cuanto al número de corridas experimentales.</p>
+<p>Los diseños factoriales fraccionarios usan sólo la mitad, la cuarta parte o incluso una fracción menor de las <span class="math inline">\(2^k\)</span> combinaciones de tratamientos y se usan por una o varias de las siguientes razones:</p>
+<ul>
+<li><p>El número de tratamientos necesario excede a los recursos</p></li>
+<li><p>Sólo se requiere información sobre los efectos principales y las interacciones de bajo orden</p></li>
+<li><p>Se necesitan estudios exploratorios para muchos factores</p></li>
+<li><p>Se hace la suposición de que sólo unos cuantos efectos son importantes</p></li>
+</ul>
+<p>La notación del diseño factorial fraccionado es <span class="math inline">\(2^{k-p}\)</span> donde <span class="math inline">\(p\)</span> es la fracción que se desprecia en el diseño el cual depende del número de factores tenidos en cuenta:</p>
+<p><span class="math display">\[2^{3-1}=\frac{1}{2^1}2^3=4\]</span> <span class="math display">\[2^{5-2}=\frac{1}{2^2}2^5=8\]</span> <span class="math display">\[2^{15-8}=\frac{1}{2^8}2^{15}=128\]</span></p>
+<p>Entre más grande sea <span class="math inline">\(k\)</span> el diseño permitirá un grado mayor de fraccionamiento, además aplicar este método significa que habrán efectos que son ignorables en la estimación.</p>
+<table class="table table-striped">
+<caption style="text-align:center">
+Efectos en los factoriales <span class="math inline">\(2^k\)</span>
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;">
+<b>Diseño</b>
+</th>
+<th style="text-align:center;">
+<b>Efectos totales</b>
+</th>
+<th style="text-align:center;">
+<b>Efectos no ignorables</b>
+</th>
+<th style="text-align:center;">
+<b>Efectos ignorables</b>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(2^2\)</span>
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(2^3\)</span>
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(2^4\)</span>
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+10
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(2^5\)</span>
+</td>
+<td style="text-align:center;">
+31
+</td>
+<td style="text-align:center;">
+15
+</td>
+<td style="text-align:center;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(2^6\)</span>
+</td>
+<td style="text-align:center;">
+63
+</td>
+<td style="text-align:center;">
+21
+</td>
+<td style="text-align:center;">
+42
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<span class="math inline">\(2^7\)</span>
+</td>
+<td style="text-align:center;">
+127
+</td>
+<td style="text-align:center;">
+28
+</td>
+<td style="text-align:center;">
+99
+</td>
+</tr>
+</tbody>
+</table>
+<p>Por otra parte, al correr una fracción del diseño ocurrirán las siguientes situaciones:</p>
+<ol style="list-style-type: decimal">
+<li><p>Se pierde información, ya que habrá efectos que no podrán estimarse y se tienen menos grados de libertad disponibles para el error. Los efectos que se pierden se espera que sean, en la medida de lo posible, interacciones de alto orden, las cuales se pueden ignorar de antemano con bajo riesgo.</p></li>
+<li><p>Los efectos que sí se pueden estimar tienen al menos un <strong>alias</strong>. El que un efecto sea <strong>alias</strong> de otro significa que en realidad son el mismo efecto con <em>nombres distintos</em>, y al estimar a uno de ellos al mismo tiempo se estima el otro, de manera que no se pueden separar. Cuando el experimentador elige una fracción en la que dos efectos potencialmente importantes son alias, debe contar de antemano con una estrategia de interpretación del efecto estimado.</p></li>
+</ol>
+<hr>
+</div>
+<div id="diseño-2k-1" class="section level2">
+<h2>Diseño <span class="math inline">\(2^{k-1}\)</span></h2>
+<p>La notación <span class="math inline">\(2^{k–1}\)</span> significa una fracción a la mitad del diseño factorial completo <span class="math inline">\(2^k\)</span>, <span class="math inline">\(k &gt; 2\)</span> con <span class="math inline">\(\frac{1}{2} 2^k = 2^{k – 1}\)</span>. No tiene sentido fraccionar el diseño factorial <span class="math inline">\(2^2\)</span> porque prácticamente desaparece: al tener sólo cuatro tratamientos, fraccionarlo a la mitad implicaría correr dos tratamientos y con ellos no se podrían estimar ni siquiera los dos efectos principales.</p>
+<hr>
+<div id="diseño-23-1" class="section level3">
+<h3>Diseño <span class="math inline">\(2^{3-1}\)</span></h3>
+<p>En este diseño se pasa de evaluar 8 corridas a 4, es decir, se fracciona a la mitad. Es claro que en el diseño factorial <span class="math inline">\(2^3\)</span> completo se pueden estimar los efectos <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, <span class="math inline">\(C\)</span>, <span class="math inline">\(AB\)</span>, <span class="math inline">\(AC\)</span>, <span class="math inline">\(BC\)</span>, <span class="math inline">\(ABC\)</span>. La idea de fraccionar un diseño es sacrificar el efecto más despreciable de acuerdo con la jerarquía, en este caso el efecto <span class="math inline">\(ABC\)</span> es el mejor candidato.</p>
+<table class="table table-striped">
+<caption style="text-align:center">
+Diseño <span class="math inline">\(2^3\)</span> Completo
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;">
+A
+</th>
+<th style="text-align:center;">
+B
+</th>
+<th style="text-align:center;">
+C
+</th>
+<th style="text-align:center;">
+AB
+</th>
+<th style="text-align:center;">
+AC
+</th>
+<th style="text-align:center;">
+BC
+</th>
+<th style="text-align:center;">
+ABC
+</th>
+<th style="text-align:center;">
+Yates
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\((1)\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(a\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(b\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(ab\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(c\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(ac\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(bc\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(abc\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Entonces la fracción depende de los signos del contraste <span class="math inline">\(ABC\)</span>, la <strong>fracción principal</strong> es aquella que se conforman con los signos <span class="math inline">\(+\)</span>, y la <strong>fracción complementaria</strong> es la que se conforma con los signos <span class="math inline">\(-\)</span>.</p>
+<table class="table table-striped">
+<caption style="text-align:center">
+Dos posibles diseños fraccionados <span class="math inline">\(2^{3-1}\)</span>
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;" colspan="4">
+<b>Fracción Principal<br>(<span class="math inline">\(I=+ABC\)</span>)</b>
+</th>
+<th style="text-align:center;" colspan="4">
+<b>Fracción complementaria<br>(<span class="math inline">\(I=-ABC\)</span>)</b>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<b> A </b>
+</td>
+<td style="text-align:center;">
+<b> B </b>
+</td>
+<td style="text-align:center;">
+<b> C </b>
+</td>
+<td style="text-align:center;">
+<b> Yates </b>
+</td>
+<td style="text-align:center;">
+<b> A </b>
+</td>
+<td style="text-align:center;">
+<b> B </b>
+</td>
+<td style="text-align:center;">
+<b> C </b>
+</td>
+<td style="text-align:center;">
+<b> Yates</b>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(a\)</span>
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\((1)\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(b\)</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(ab\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(c\)</span>
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(ac\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(abc\)</span>
+</td>
+<td style="text-align:center;">
+-1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(bc\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>La relación definidora <span class="math inline">\(I=+ABC\)</span> es la que define la estructura del <strong>alias</strong>, el cual enmascara los contraste de los efectos, por ejemplo el contraste del efecto <span class="math inline">\(A\)</span> está dado por:</p>
+<p><span class="math display">\[\text{Contraste }A=(a+abc-b-c)\]</span></p>
+<p>Cuando se multiplican las columnas <span class="math inline">\(B\times C\)</span> se obtiene:</p>
+<p><span class="math display">\[\text{Contraste }BC=(a+abc-b-c)\]</span></p>
+<p>Obeserve que <span class="math inline">\(A=BC\)</span> lo que significa que los efectos <span class="math inline">\(A\)</span> y <span class="math inline">\(BC\)</span> son <strong>alias</strong>. Al estimar el efecto <span class="math inline">\(A\)</span> también se estima el efecto <span class="math inline">\(BC\)</span>. Así, en realidad se estima la suma <span class="math inline">\(A + BC\)</span> de ambos efectos y no se sabe con certeza cuál es el que predomina o si ambos afectan.</p>
+<p><span class="math display">\[\text{Contraste }B=\text{Contraste }AC=(b+abc-a-c)\]</span> <span class="math display">\[\text{Contraste }C=\text{Contraste }AB=(c+abc-b-a)\]</span></p>
+<p>En resumen, la estructura del alias del diseño factorial fraccionado <span class="math inline">\(2^{3–1}\)</span> está dada por <span class="math inline">\(A + BC\)</span>, <span class="math inline">\(B + AC\)</span>, <span class="math inline">\(C + AB\)</span>. Otra forma de obtener la estructura alias de un diseño factorial fraccionado es con la relación definidora del diseño.</p>
+<p><span class="math display">\[A \times I = A\times ABC=A^2BC=BC\]</span> <span class="math display">\[B \times I = B\times ABC=AB^2C=AC\]</span> <span class="math display">\[C \times I = C\times ABC=ABC^2=AB\]</span></p>
+<p>Para interpretar los efectos alias o aliados es necesario suponer que sólo uno de ellos es responsable del efecto observado y que los demás efectos son nulos. Por ejemplo, si se utilizara el diseño <span class="math inline">\(2^{3–1}\)</span> con la estructura de alias, los efectos alias se interpretan atribuyendo (por jerarquía) el efecto observado al efecto principal de cada grupo y considerando nulas las interacciones dobles.</p>
+<p>Comúnmente resulta bastante riesgoso suponer <em>a priori</em> que las interacciones dobles no afectan, de aquí que no se recomienda utilizar este diseño, a menos que el costo experimental no permita correr el factorial completo.</p>
+<blockquote>
+<p>En general no es buena estrategia utilizar diseños fraccionados donde se alían dos efectos que son potencialmente importantes, como son los efectos principales y las interacciones dobles</p>
+</blockquote>
+<hr>
+</div>
+</div>
+<div id="el-concepto-de-resolución" class="section level2">
+<h2>El concepto de Resolución</h2>
+<p>Los diseños factoriales fraccionados se agrupan en clases de acuerdo con las relaciones de aleatorización que existen en el diseño, estos grupos se identifican por su <strong>resolución</strong>. Los diseños más comunes son aquellos con resolución <span class="math inline">\(III\)</span>, <span class="math inline">\(IV\)</span> y <span class="math inline">\(V\)</span>.</p>
+<ul>
+<li><p><strong>Resolución <span class="math inline">\(III\)</span></strong>: diseño en el que ningún efecto principal se confunde con otro efecto principal, pero los <strong>efectos principales se confunden con interacciones de dos factores</strong> y éstas con otras <strong>interacciones de dos factores</strong>. Por ejemplo el diseño <span class="math inline">\(2^{3-1}\)</span> con indicadora <span class="math inline">\(I=+ABC\)</span> es de resolución <span class="math inline">\(III\)</span>.</p></li>
+<li><p><strong>Resolución <span class="math inline">\(IV\)</span></strong>: diseño en el que ningún efecto principal se confunde con otro efecto principal o con una interacción de dos factores, pero <strong>éstos se confunden entre si</strong>. Por ejemplo el diseño <span class="math inline">\(2^{4-1}\)</span> con indicadora <span class="math inline">\(I=+ABCD\)</span> es de resolución <span class="math inline">\(IV\)</span>.</p></li>
+<li><p><strong>Resolución <span class="math inline">\(V\)</span></strong>: diseño en el que ningún efecto principal ni interacción de dos factores se confunde con otro efecto principal o interacción de dos factores, pero <strong>estas últimas se confunden con las interacciones de tres factores</strong>. Por ejemplo el diseño <span class="math inline">\(2^{5-1}\)</span> con indicadora <span class="math inline">\(I=+ABCDE\)</span> es de resolución <span class="math inline">\(IV\)</span>.</p></li>
+</ul>
+<p>En general, un diseño factorial fraccionado <span class="math inline">\(2^{k–p}\)</span> es una fracción <span class="math inline">\(1/2^p\)</span> del diseño factorial completo <span class="math inline">\(2^k\)</span>. Para construir un diseño <span class="math inline">\(2^{k–p}\)</span> se eligen p generadores iniciales, <strong>todos interacciones del más alto orden posible</strong>, de manera que todos sus productos también sean interacciones de alto orden. Una vez elegidos los <span class="math inline">\(p\)</span> generadores el diseño se puede construir en dos pasos.</p>
+<ol style="list-style-type: decimal">
+<li><p>Se escribe el diseño <span class="math inline">\(2^{k–p}\)</span> como si fuera el factorial completo para <span class="math inline">\(k–p\)</span> factores, i.e <span class="math inline">\(2^{7-2}=2^5\)</span>.</p></li>
+<li><p>Para los últimos <span class="math inline">\(p\)</span> factores las columnas de signos se obtienen multiplicando las columnas que indican los generadores.</p></li>
+</ol>
+<hr>
+</div>
+<div id="diseño-2k-p" class="section level2">
+<h2>Diseño <span class="math inline">\(2^{k-p}\)</span></h2>
+<p>La relación definidora tiene tantos términos como productos se puedan hacer con los <span class="math inline">\(p\)</span> generadores. De la relación definidora se obtiene la estructura de <strong>alias</strong> y la resolución de la fracción resultante. En todo el procedimiento descrito quizá lo más difícil es <em>encontrar los mejores generadores de la fracción</em> que se desea utilizar. Por fortuna, existen tablas de diseños factoriales fraccionados que incluyen su es tructura de alias, lo que permite al investigador elegir el diseño, y saber con anticipación cuáles serían los alias de los efectos potencialmente importantes.</p>
+<center>
+<img src="Resolution.png" />
+</center>
+<p>En <code>R</code> con el paquete <code>FrF2</code> se pueden contruir los diseños fraccionados de cualquier orden de forma sencilla, además tiene 3099 diseños fraccionados posibles, desde 3 factores hasta 65.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(FrF2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Primeros 10 diseños fraccionados</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(FrF2<span class="sc">::</span>catlg[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>],<span class="at">gen.letters =</span> T,<span class="at">show.alias =</span> T)</span></code></pre></div>
+<pre><code>## Design:  3-1.1 
+##    4  runs,  3  factors,  
+##    Resolution  III 
+##    Generating columns:  AB 
+##    WLP (3plus):  1 0 0 0 0 ,  0  clear 2fis
+##  Alias structure: 
+##    Main effects aliasing: 
+##  [1] A=BC B=AC C=AB
+##    2fi aliasing: 
+##  character(0)
+## 
+## Design:  4-1.1 
+##    8  runs,  4  factors,  
+##    Resolution  IV 
+##    Generating columns:  ABC 
+##    WLP (3plus):  0 1 0 0 0 ,  0  clear 2fis
+##  Alias structure: 
+##    2fi aliasing: 
+##  [1] AB=CD AC=BD AD=BC
+## 
+## Design:  4-1.2 
+##    8  runs,  4  factors,  
+##    Resolution  III 
+##    Generating columns:  AB 
+##    WLP (3plus):  1 0 0 0 0 ,  3  clear 2fis
+##  Factors with all 2fis clear:  C
+##  Alias structure: 
+##    Main effects aliasing: 
+##  [1] A=BD B=AD D=AB
+##    2fi aliasing: 
+##  character(0)
+## 
+## Design:  5-2.1 
+##    8  runs,  5  factors,  
+##    Resolution  III 
+##    Generating columns:  AB AC 
+##    WLP (3plus):  2 1 0 0 0 ,  0  clear 2fis
+##  Alias structure: 
+##    Main effects aliasing: 
+##  [1] A=BD=CE B=AD    C=AE    D=AB    E=AC   
+##    2fi aliasing: 
+##  [1] BC=DE BE=CD
+## 
+## Design:  6-3.1 
+##    8  runs,  6  factors,  
+##    Resolution  III 
+##    Generating columns:  AB AC BC 
+##    WLP (3plus):  4 3 0 0 0 ,  0  clear 2fis
+##  Alias structure: 
+##    Main effects aliasing: 
+##  [1] A=BD=CE B=AD=CF C=AE=BF D=AB=EF E=AC=DF F=BC=DE
+##    2fi aliasing: 
+##  [1] AF=BE=CD
+## 
+## Design:  7-4.1 
+##    8  runs,  7  factors,  
+##    Resolution  III 
+##    Generating columns:  AB AC BC ABC 
+##    WLP (3plus):  7 7 0 0 1 ,  0  clear 2fis
+##  Alias structure: 
+##    Main effects aliasing: 
+##  [1] A=BD=CE=FG B=AD=CF=EG C=AE=BF=DG D=AB=CG=EF E=AC=BG=DF F=AG=BC=DE G=AF=BE=CD
+##    2fi aliasing: 
+##  character(0)
+## 
+## Design:  5-1.1 
+##    16  runs,  5  factors,  
+##    Resolution  V 
+##    Generating columns:  ABCD 
+##    WLP (3plus):  0 0 1 0 0 ,  10  clear 2fis
+## Design:  5-1.2 
+##    16  runs,  5  factors,  
+##    Resolution  IV 
+##    Generating columns:  ABC 
+##    WLP (3plus):  0 1 0 0 0 ,  4  clear 2fis
+##  Factors with all 2fis clear:  D
+##  Alias structure: 
+##    2fi aliasing: 
+##  [1] AB=CE AC=BE AE=BC
+## 
+## Design:  5-1.3 
+##    16  runs,  5  factors,  
+##    Resolution  III 
+##    Generating columns:  AB 
+##    WLP (3plus):  1 0 0 0 0 ,  7  clear 2fis
+##  Factors with all 2fis clear:  C D
+##  Alias structure: 
+##    Main effects aliasing: 
+##  [1] A=BE B=AE E=AB
+##    2fi aliasing: 
+##  character(0)
+## 
+## Design:  6-2.1 
+##    16  runs,  6  factors,  
+##    Resolution  IV 
+##    Generating columns:  ABC ABD 
+##    WLP (3plus):  0 3 0 0 0 ,  0  clear 2fis
+##  Alias structure: 
+##    2fi aliasing: 
+##  [1] AB=CE=DF AC=BE    AD=BF    AE=BC    AF=BD    CD=EF    CF=DE</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construyendo un diseño 2^(5-1) resolución V</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">args</span>(FrF2)</span></code></pre></div>
+<pre><code>## function (nruns = NULL, nfactors = NULL, factor.names = if (!is.null(nfactors)) {
+##     if (nfactors &lt;= 50) 
+##         Letters[1:nfactors]
+##     else paste(&quot;F&quot;, 1:nfactors, sep = &quot;&quot;)
+## } else NULL, default.levels = c(-1, 1), ncenter = 0, center.distribute = NULL, 
+##     generators = NULL, design = NULL, resolution = NULL, select.catlg = catlg, 
+##     estimable = NULL, clear = TRUE, method = &quot;VF2&quot;, sort = &quot;natural&quot;, 
+##     ignore.dom = !isTRUE(all.equal(blocks, 1)), useV = TRUE, 
+##     firsthit = FALSE, res3 = FALSE, max.time = 60, perm.start = NULL, 
+##     perms = NULL, MaxC2 = FALSE, replications = 1, repeat.only = FALSE, 
+##     randomize = TRUE, seed = NULL, alias.info = 2, blocks = 1, 
+##     block.name = &quot;Blocks&quot;, block.old = FALSE, force.godolphin = FALSE, 
+##     bbreps = replications, wbreps = 1, alias.block.2fis = FALSE, 
+##     hard = NULL, check.hard = 10, WPs = 1, nfac.WP = 0, WPfacs = NULL, 
+##     check.WPs = 10, ...) 
+## NULL</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">FrF2</span>(<span class="at">nruns =</span> <span class="dv">2</span><span class="sc">^</span><span class="dv">4</span>,<span class="at">nfactors =</span> <span class="dv">5</span>,<span class="at">randomize =</span> F,<span class="at">replications =</span> <span class="dv">1</span>,<span class="at">generators =</span> <span class="st">&quot;ABCD&quot;</span>)</span></code></pre></div>
+<pre><code>##     A  B  C  D  E
+## 1  -1 -1 -1 -1  1
+## 2   1 -1 -1 -1 -1
+## 3  -1  1 -1 -1 -1
+## 4   1  1 -1 -1  1
+## 5  -1 -1  1 -1 -1
+## 6   1 -1  1 -1  1
+## 7  -1  1  1 -1  1
+## 8   1  1  1 -1 -1
+## 9  -1 -1 -1  1 -1
+## 10  1 -1 -1  1  1
+## 11 -1  1 -1  1  1
+## 12  1  1 -1  1 -1
+## 13 -1 -1  1  1  1
+## 14  1 -1  1  1 -1
+## 15 -1  1  1  1 -1
+## 16  1  1  1  1  1
+## class=design, type= FrF2.generators</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">FrF2</span>(<span class="at">nruns =</span> <span class="dv">2</span><span class="sc">^</span><span class="dv">4</span>,<span class="at">nfactors =</span> <span class="dv">5</span>,<span class="at">randomize =</span> F,<span class="at">replications =</span> <span class="dv">1</span>,<span class="at">design =</span> <span class="st">&quot;5-1.1&quot;</span>)</span></code></pre></div>
+<pre><code>##     A  B  C  D  E
+## 1  -1 -1 -1 -1  1
+## 2   1 -1 -1 -1 -1
+## 3  -1  1 -1 -1 -1
+## 4   1  1 -1 -1  1
+## 5  -1 -1  1 -1 -1
+## 6   1 -1  1 -1  1
+## 7  -1  1  1 -1  1
+## 8   1  1  1 -1 -1
+## 9  -1 -1 -1  1 -1
+## 10  1 -1 -1  1  1
+## 11 -1  1 -1  1  1
+## 12  1  1 -1  1 -1
+## 13 -1 -1  1  1  1
+## 14  1 -1  1  1 -1
+## 15 -1  1  1  1 -1
+## 16  1  1  1  1  1
+## class=design, type= FrF2</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">FrF2</span>(<span class="at">nfactors =</span> <span class="dv">5</span>,<span class="at">randomize =</span> F,<span class="at">replications =</span> <span class="dv">1</span>,<span class="at">resolution =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##     A  B  C  D  E
+## 1  -1 -1 -1 -1  1
+## 2   1 -1 -1 -1 -1
+## 3  -1  1 -1 -1 -1
+## 4   1  1 -1 -1  1
+## 5  -1 -1  1 -1 -1
+## 6   1 -1  1 -1  1
+## 7  -1  1  1 -1  1
+## 8   1  1  1 -1 -1
+## 9  -1 -1 -1  1 -1
+## 10  1 -1 -1  1  1
+## 11 -1  1 -1  1  1
+## 12  1  1 -1  1 -1
+## 13 -1 -1  1  1  1
+## 14  1 -1  1  1 -1
+## 15 -1  1  1  1 -1
+## 16  1  1  1  1  1
+## class=design, type= FrF2</code></pre>
+<hr>
+</div>
+<div id="ejemplo" class="section level2">
+<h2>Ejemplo</h2>
+<p>En una planta donde se fabrican semiconductores se quiere mejorar el rendimiento del proceso vía diseño de experimentos. De acuerdo con la experiencia del grupo de mejora, los factores que podrían tener mayor influencia sobre la variable de respuesta (rendimiento), así como los niveles de prueba utilizados son los siguientes:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Factor</th>
+<th>Niveles</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>Nivel de la abertura (pequeña, grande)</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>Tiempo de exposición (20% abajo, 20% arriba)</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>Tiempo de revelado (30 seg, 45 seg)</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>Dimensión de la máscara (pequeña, grande)</td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td>Tiempo de grabado (14.5 min, 15.5 min)</td>
+</tr>
+</tbody>
+</table>
+<p>Se decide correr un experimento <span class="math inline">\(2^5\)</span> con una sola corrida o réplica para estudiar esto cinco factores. Estos son los resultados</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">A</th>
+<th align="left">B</th>
+<th align="left">C</th>
+<th align="left">D</th>
+<th align="left">E</th>
+<th align="left">y</th>
+<th align="left">Yates</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">7</td>
+<td align="left">(1)</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">9</td>
+<td align="left">a</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">34</td>
+<td align="left">b</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">55</td>
+<td align="left">ab</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">16</td>
+<td align="left">c</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">20</td>
+<td align="left">ac</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">40</td>
+<td align="left">bc</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">60</td>
+<td align="left">abc</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">8</td>
+<td align="left">d</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">10</td>
+<td align="left">ad</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">32</td>
+<td align="left">bd</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">50</td>
+<td align="left">abd</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">18</td>
+<td align="left">cd</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">21</td>
+<td align="left">acd</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">44</td>
+<td align="left">bcd</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">61</td>
+<td align="left">abcd</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">18</td>
+<td align="left">e</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">12</td>
+<td align="left">ae</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">35</td>
+<td align="left">be</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">52</td>
+<td align="left">abe</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">15</td>
+<td align="left">ce</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">22</td>
+<td align="left">ace</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">45</td>
+<td align="left">bce</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">65</td>
+<td align="left">abce</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">6</td>
+<td align="left">de</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">10</td>
+<td align="left">ade</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">30</td>
+<td align="left">bde</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">53</td>
+<td align="left">abde</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">15</td>
+<td align="left">cde</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">20</td>
+<td align="left">acde</td>
+</tr>
+<tr class="odd">
+<td align="left">-1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">41</td>
+<td align="left">bcde</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">63</td>
+<td align="left">abcde</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div id="modelo-completo" class="section level3">
+<h3>Modelo completo</h3>
+<p>Para realizar el análisis estadístico de este diseño factorial (<span class="math inline">\(2^5\)</span>), los pasos a seguir son los siguientes:</p>
+<ol style="list-style-type: decimal">
+<li>Cargar/Construir la base de datos con la información de interés.</li>
+<li>Realizar un análisis descriptivo de la información.</li>
+<li>Ajustar el modelo a través del ANOVA.</li>
+<li>Validar los supuestos del modelo.</li>
+<li>Realizar las pruebas post-hoc.</li>
+</ol>
+<p>Necesitamos las siguientes librerías.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para establecer el diseño</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(FrF2)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(DoE.base)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Para gráficos con estilo</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Para manejar bases de datos</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Para construir los qq-plots</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(car)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Para las pruebas de normalidad</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(nortest)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Para evaluar las interacciones</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(phia)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Para los gráficos Pareto</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(pid)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Para las pruebas post-hoc</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(agricolae)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(multcomp)</span></code></pre></div>
+<p>El primer paso es cargar o construir la base de datos, esto puede hacerse en excel y luego importarlas a <code>R</code> o se puede construir la base de datos de la siguiente forma:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>desig <span class="ot">&lt;-</span> <span class="fu">FrF2</span>(<span class="dv">32</span>,<span class="dv">5</span>,<span class="at">randomize =</span> F)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">34</span>,<span class="dv">55</span>,<span class="dv">16</span>,<span class="dv">20</span>,<span class="dv">40</span>,<span class="dv">60</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>       <span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">32</span>,<span class="dv">50</span>,<span class="dv">18</span>,<span class="dv">21</span>,<span class="dv">44</span>,<span class="dv">61</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>       <span class="dv">18</span>,<span class="dv">12</span>,<span class="dv">35</span>,<span class="dv">52</span>,<span class="dv">15</span>,<span class="dv">22</span>,<span class="dv">45</span>,<span class="dv">65</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>       <span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">30</span>,<span class="dv">53</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">41</span>,<span class="dv">63</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>desig <span class="ot">&lt;-</span> <span class="fu">add.response</span>(desig,y)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>desig</span></code></pre></div>
+<pre><code>##     A  B  C  D  E  y
+## 1  -1 -1 -1 -1 -1  7
+## 2   1 -1 -1 -1 -1  9
+## 3  -1  1 -1 -1 -1 34
+## 4   1  1 -1 -1 -1 55
+## 5  -1 -1  1 -1 -1 16
+## 6   1 -1  1 -1 -1 20
+## 7  -1  1  1 -1 -1 40
+## 8   1  1  1 -1 -1 60
+## 9  -1 -1 -1  1 -1  8
+## 10  1 -1 -1  1 -1 10
+## 11 -1  1 -1  1 -1 32
+## 12  1  1 -1  1 -1 50
+## 13 -1 -1  1  1 -1 18
+## 14  1 -1  1  1 -1 21
+## 15 -1  1  1  1 -1 44
+## 16  1  1  1  1 -1 61
+## 17 -1 -1 -1 -1  1 18
+## 18  1 -1 -1 -1  1 12
+## 19 -1  1 -1 -1  1 35
+## 20  1  1 -1 -1  1 52
+## 21 -1 -1  1 -1  1 15
+## 22  1 -1  1 -1  1 22
+## 23 -1  1  1 -1  1 45
+## 24  1  1  1 -1  1 65
+## 25 -1 -1 -1  1  1  6
+## 26  1 -1 -1  1  1 10
+## 27 -1  1 -1  1  1 30
+## 28  1  1 -1  1  1 53
+## 29 -1 -1  1  1  1 15
+## 30  1 -1  1  1  1 20
+## 31 -1  1  1  1  1 41
+## 32  1  1  1  1  1 63
+## class=design, type= full factorial</code></pre>
+<p>Efectos del diseño</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(desig)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-5-1.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">MEPlot</span>(desig)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-5-2.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;unrepx&quot;)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(unrepx)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">yates</span>(desig<span class="sc">$</span>y,letters)</span></code></pre></div>
+<pre><code>##       a       b      ab       c      ac      bc     abc       d      ad      bd 
+## 11.1875 33.3125  8.5625  9.0625  1.0625  0.6875 -1.0625 -1.4375  0.5625 -0.0625 
+##     abd      cd     acd     bcd    abcd       e      ae      be     abe      ce 
+## -0.3125  1.4375 -1.0625 -0.1875  0.5625  1.0625  0.3125 -0.0625  0.4375 -0.3125 
+##     ace     bce    abce      de     ade     bde    abde     cde    acde    bcde 
+##  0.9375  1.5625 -0.4375 -1.8125  1.4375  0.8125  0.3125 -0.1875 -0.9375 -1.5625 
+##   abcde 
+##  0.4375 
+## attr(,&quot;mean&quot;)
+##          
+## 30.84375</code></pre>
+<p>Análisis de varianza</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(pid)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">aov</span>(y<span class="sc">~</span>.<span class="sc">^</span><span class="dv">5</span>,<span class="at">data =</span> desig)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">paretoPlot</span>(fit)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-6-1.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DanielPlot</span>(fit,<span class="at">code =</span> T,<span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-6-2.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">aov</span>(y<span class="sc">~</span>.<span class="sc">^</span><span class="dv">2</span>,<span class="at">data =</span> desig)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">paretoPlot</span>(fit)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-6-3.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DanielPlot</span>(fit,<span class="at">code =</span> T,<span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-6-4.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: y
+##           Df Sum Sq Mean Sq   F value    Pr(&gt;F)    
+## A          1 1001.3  1001.3  156.6797 1.114e-09 ***
+## B          1 8877.8  8877.8 1389.1883 &lt; 2.2e-16 ***
+## C          1  657.0   657.0  102.8117 2.264e-08 ***
+## D          1   16.5    16.5    2.5868   0.12731    
+## E          1    9.0     9.0    1.4132   0.25187    
+## A:B        1  586.5   586.5   91.7800 4.972e-08 ***
+## A:C        1    9.0     9.0    1.4132   0.25187    
+## A:D        1    2.5     2.5    0.3961   0.53800    
+## A:E        1    0.8     0.8    0.1222   0.73117    
+## B:C        1    3.8     3.8    0.5917   0.45297    
+## B:D        1    0.0     0.0    0.0049   0.94512    
+## B:E        1    0.0     0.0    0.0049   0.94512    
+## C:D        1   16.5    16.5    2.5868   0.12731    
+## C:E        1    0.8     0.8    0.1222   0.73117    
+## D:E        1   26.3    26.3    4.1125   0.05956 .  
+## Residuals 16  102.3     6.4                        
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Mejor ajuste</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">aov</span>(y<span class="sc">~</span>A<span class="sc">+</span>B<span class="sc">+</span>C<span class="sc">+</span>A<span class="sc">:</span>B,<span class="at">data =</span> desig)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: y
+##           Df Sum Sq Mean Sq  F value    Pr(&gt;F)    
+## A          1 1001.3  1001.3  144.112 2.460e-12 ***
+## B          1 8877.8  8877.8 1277.762 &lt; 2.2e-16 ***
+## C          1  657.0   657.0   94.565 2.577e-10 ***
+## A:B        1  586.5   586.5   84.418 8.459e-10 ***
+## Residuals 27  187.6     6.9                       
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Supuestos del modelo</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(fit<span class="sc">$</span>residuals,<span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-8-1.png" width="630" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] 17 27</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(fit<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  fit$residuals
+## W = 0.84076, p-value = 0.0002633</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ad.test</span>(fit<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Anderson-Darling normality test
+## 
+## data:  fit$residuals
+## A = 0.95696, p-value = 0.01368</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lillie.test</span>(fit<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  fit$residuals
+## D = 0.1342, p-value = 0.1507</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(fit<span class="sc">$</span>residuals,<span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>,<span class="at">las=</span><span class="dv">1</span>,<span class="at">freq=</span>F,</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Histograma de los Residuales&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Residuales&quot;</span>)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-8-2.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">predict</span>(fit),fit<span class="sc">$</span>residuals,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">las=</span><span class="dv">1</span>,</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Homogeneidad de Varianza&quot;</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-8-3.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bartlett.test</span>(fit<span class="sc">$</span>residuals,desig<span class="sc">$</span>A)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  fit$residuals and desig$A
+## Bartlett&#39;s K-squared = 5.7045, df = 1, p-value = 0.01692</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bartlett.test</span>(fit<span class="sc">$</span>residuals,desig<span class="sc">$</span>B)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  fit$residuals and desig$B
+## Bartlett&#39;s K-squared = 1.8452, df = 1, p-value = 0.1743</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bartlett.test</span>(fit<span class="sc">$</span>residuals,desig<span class="sc">$</span>C)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  fit$residuals and desig$C
+## Bartlett&#39;s K-squared = 3.3138, df = 1, p-value = 0.0687</code></pre>
+<p>Supuestos globales</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit,<span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-9-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Interacción</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>(IM <span class="ot">&lt;-</span> <span class="fu">interactionMeans</span>(fit))</span></code></pre></div>
+<pre><code>##    A  B  C adjusted mean std. error
+## 1 -1 -1 -1       8.34375   1.041927
+## 2  1 -1 -1      10.96875   1.041927
+## 3 -1  1 -1      33.09375   1.041927
+## 4  1  1 -1      52.84375   1.041927
+## 5 -1 -1  1      17.40625   1.041927
+## 6  1 -1  1      20.03125   1.041927
+## 7 -1  1  1      42.15625   1.041927
+## 8  1  1  1      61.90625   1.041927</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(IM,<span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-10-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Pruebas post-hoc</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>lsd1 <span class="ot">&lt;-</span> <span class="fu">LSD.test</span>(<span class="at">y =</span> fit,<span class="at">trt =</span> <span class="st">&quot;A&quot;</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lsd1,<span class="at">las=</span><span class="dv">1</span>,<span class="at">variation =</span> <span class="st">&quot;SE&quot;</span>);<span class="fu">grid</span>()</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-11-1.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">LSD.test</span>(<span class="at">y =</span> fit,<span class="at">trt =</span> <span class="st">&quot;A&quot;</span>,<span class="at">console =</span> T,<span class="at">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;A&quot;
+## 
+## LSD t Test for y 
+## 
+## Mean Square Error:  6.947917 
+## 
+## A,  means and individual ( 95 %) CI
+## 
+##          y      std  r     LCL     UCL Min Max
+## -1 25.2500 13.78163 16 23.8979 26.6021   6  45
+## 1  36.4375 22.30088 16 35.0854 37.7896   9  65
+## 
+## Alpha: 0.05 ; DF Error: 27
+## Critical Value of t: 2.051831 
+## 
+## Comparison between treatments means
+## 
+##        difference pvalue signif.       LCL       UCL
+## -1 - 1   -11.1875      0     *** -13.09966 -9.275342</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>lsd2 <span class="ot">&lt;-</span> <span class="fu">LSD.test</span>(<span class="at">y =</span> fit,<span class="at">trt =</span> <span class="st">&quot;B&quot;</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lsd2,<span class="at">las=</span><span class="dv">1</span>,<span class="at">variation =</span> <span class="st">&quot;SE&quot;</span>);<span class="fu">grid</span>()</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-11-2.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">LSD.test</span>(<span class="at">y =</span> fit,<span class="at">trt =</span> <span class="st">&quot;B&quot;</span>,<span class="at">console =</span> T,<span class="at">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;B&quot;
+## 
+## LSD t Test for y 
+## 
+## Mean Square Error:  6.947917 
+## 
+## B,  means and individual ( 95 %) CI
+## 
+##          y      std  r     LCL     UCL Min Max
+## -1 14.1875  5.36928 16 12.8354 15.5396   6  22
+## 1  47.5000 11.54701 16 46.1479 48.8521  30  65
+## 
+## Alpha: 0.05 ; DF Error: 27
+## Critical Value of t: 2.051831 
+## 
+## Comparison between treatments means
+## 
+##        difference pvalue signif.       LCL       UCL
+## -1 - 1   -33.3125      0     *** -35.22466 -31.40034</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>lsd3 <span class="ot">&lt;-</span> <span class="fu">LSD.test</span>(<span class="at">y =</span> fit,<span class="at">trt =</span> <span class="st">&quot;C&quot;</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lsd3,<span class="at">las=</span><span class="dv">1</span>,<span class="at">variation =</span> <span class="st">&quot;SE&quot;</span>);<span class="fu">grid</span>()</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-11-3.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">LSD.test</span>(<span class="at">y =</span> fit,<span class="at">trt =</span> <span class="st">&quot;C&quot;</span>,<span class="at">console =</span> T,<span class="at">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;C&quot;
+## 
+## LSD t Test for y 
+## 
+## Mean Square Error:  6.947917 
+## 
+## C,  means and individual ( 95 %) CI
+## 
+##          y      std  r     LCL     UCL Min Max
+## -1 26.3125 18.55341 16 24.9604 27.6646   6  55
+## 1  35.3750 19.13069 16 34.0229 36.7271  15  65
+## 
+## Alpha: 0.05 ; DF Error: 27
+## Critical Value of t: 2.051831 
+## 
+## Comparison between treatments means
+## 
+##        difference pvalue signif.       LCL       UCL
+## -1 - 1    -9.0625      0     *** -10.97466 -7.150342</code></pre>
+<p>Tukey HSD</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>(hsd <span class="ot">&lt;-</span> <span class="fu">TukeyHSD</span>(fit))</span></code></pre></div>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov.default(formula = y ~ A + B + C + A:B, data = desig)
+## 
+## $A
+##         diff      lwr      upr p adj
+## 1--1 11.1875 9.275342 13.09966     0
+## 
+## $B
+##         diff      lwr      upr p adj
+## 1--1 33.3125 31.40034 35.22466     0
+## 
+## $C
+##        diff      lwr      upr p adj
+## 1--1 9.0625 7.150342 10.97466     0
+## 
+## $`A:B`
+##              diff        lwr       upr     p adj
+## 1:-1--1:-1  2.625 -0.9816406  6.231641 0.2159772
+## -1:1--1:-1 24.750 21.1433594 28.356641 0.0000000
+## 1:1--1:-1  44.500 40.8933594 48.106641 0.0000000
+## -1:1-1:-1  22.125 18.5183594 25.731641 0.0000000
+## 1:1-1:-1   41.875 38.2683594 45.481641 0.0000000
+## 1:1--1:1   19.750 16.1433594 23.356641 0.0000000</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>,<span class="dv">8</span>,<span class="fl">4.1</span>,<span class="fl">2.1</span>))</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hsd,<span class="at">las=</span><span class="dv">1</span>,<span class="at">cex.axis=</span><span class="fl">0.6</span>)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-12-1.png" width="630" style="display: block; margin: auto;" /><img src="fractional_files/figure-html/unnamed-chunk-12-2.png" width="630" style="display: block; margin: auto;" /><img src="fractional_files/figure-html/unnamed-chunk-12-3.png" width="630" style="display: block; margin: auto;" /><img src="fractional_files/figure-html/unnamed-chunk-12-4.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Duncan</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">duncan.test</span>(<span class="at">y =</span> fit,<span class="at">trt =</span> <span class="st">&quot;A&quot;</span>,<span class="at">console =</span> T,<span class="at">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;A&quot;
+## 
+## Duncan&#39;s new multiple range test
+## for y 
+## 
+## Mean Square Error:  6.947917 
+## 
+## A,  means
+## 
+##          y      std  r Min Max
+## -1 25.2500 13.78163 16   6  45
+## 1  36.4375 22.30088 16   9  65
+## 
+## Comparison between treatments means
+## 
+##        difference pvalue signif.       LCL       UCL
+## -1 - 1   -11.1875      0     *** -13.09966 -9.275342</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">duncan.test</span>(<span class="at">y =</span> fit,<span class="at">trt =</span> <span class="st">&quot;B&quot;</span>,<span class="at">console =</span> T,<span class="at">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;B&quot;
+## 
+## Duncan&#39;s new multiple range test
+## for y 
+## 
+## Mean Square Error:  6.947917 
+## 
+## B,  means
+## 
+##          y      std  r Min Max
+## -1 14.1875  5.36928 16   6  22
+## 1  47.5000 11.54701 16  30  65
+## 
+## Comparison between treatments means
+## 
+##        difference pvalue signif.       LCL       UCL
+## -1 - 1   -33.3125      0     *** -35.22466 -31.40034</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">duncan.test</span>(<span class="at">y =</span> fit,<span class="at">trt =</span> <span class="st">&quot;C&quot;</span>,<span class="at">console =</span> T,<span class="at">group =</span> F)</span></code></pre></div>
+<pre><code>## 
+## Study: fit ~ &quot;C&quot;
+## 
+## Duncan&#39;s new multiple range test
+## for y 
+## 
+## Mean Square Error:  6.947917 
+## 
+## C,  means
+## 
+##          y      std  r Min Max
+## -1 26.3125 18.55341 16   6  55
+## 1  35.3750 19.13069 16  15  65
+## 
+## Comparison between treatments means
+## 
+##        difference pvalue signif.       LCL       UCL
+## -1 - 1    -9.0625      0     *** -10.97466 -7.150342</code></pre>
+<hr>
+</div>
+<div id="modelos-fraccionados" class="section level3">
+<h3>Modelos Fraccionados</h3>
+<p>Ahora mostraremos que si se hubiera corrido sólo una fracción a la mitad (<span class="math inline">\(2^{5–1}\)</span>), las conclusiones hubieran sido las mismas que se obtuvieron con el factorial completo, con la diferencia de que el costo experimental hubiera sido la mitad. El objetivo de este ejemplo es mostrar que al correr una fracción a la mitad de un diseño factorial completo, con cinco factores, no se pierde (necesariamente) información valiosa y se obtienen las mismas conclusiones.</p>
+<p>Consideremos las fracciones a la mitad para este diseño <span class="math inline">\(2^5\)</span>. La construcción de las fracciones se hace en dos pasos:</p>
+<ol style="list-style-type: decimal">
+<li><p>Se escribe el diseño <span class="math inline">\(2^{5–1}\)</span> como si fuera un factorial completo <span class="math inline">\(2^4\)</span>.</p></li>
+<li><p>La columna faltante es el producto de las cuatro primeras.</p></li>
+</ol>
+<p>Esta fracción corresponde a la fracción principal (generador <span class="math inline">\(I = ABCDE\)</span>). Si se toma el producto negativo de las cuatro columnas se obtiene la fracción complementaria (generador <span class="math inline">\(I = –ABCDE\)</span>). Ambas fracciones juntas conforman el diseño factorial completo <span class="math inline">\(2^5\)</span>.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Función para fraccionar modelos $2^k$</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>fractional <span class="ot">&lt;-</span> <span class="cf">function</span>(desig,<span class="at">response=</span>F,<span class="at">positive=</span>T){</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(unrepx)</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Seleccionar la fracción positiva/negativa</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>  pos <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(positive,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Establecer el diseño según la respuesta</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(response){</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>    who <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">names</span>(desig) <span class="sc">==</span> <span class="fu">response.names</span>(desig))</span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>    desigF <span class="ot">&lt;-</span> desig[,<span class="sc">-</span>who]</span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>    Yat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="fu">names</span>(<span class="fu">yates</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(desig),letters)))</span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>    desigF <span class="ot">&lt;-</span> desig</span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>    Yat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="fu">names</span>(<span class="fu">yates</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(desig),letters)))</span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># validar si el modelo es fraccionable</span></span>
+<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a>  ncols <span class="ot">&lt;-</span> <span class="fu">ncol</span>(desigF)</span>
+<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(ncols<span class="sc">&lt;</span><span class="dv">3</span>) <span class="fu">stop</span>(<span class="st">&quot;El modelo no es fraccionable&quot;</span>)</span>
+<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a>  nrows <span class="ot">&lt;-</span> <span class="fu">nrow</span>(desigF)</span>
+<span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="dv">2</span><span class="sc">^</span>ncols <span class="sc">!=</span> nrows) <span class="fu">stop</span>(<span class="st">&quot;El modelo está fraccionado&quot;</span>)</span>
+<span id="cb64-24"><a href="#cb64-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-25"><a href="#cb64-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Operaciones para fraccionar el modelo</span></span>
+<span id="cb64-26"><a href="#cb64-26" aria-hidden="true" tabindex="-1"></a>  <span class="do">## converir factores a números con signos</span></span>
+<span id="cb64-27"><a href="#cb64-27" aria-hidden="true" tabindex="-1"></a>  desigF <span class="ot">&lt;-</span> <span class="fu">apply</span>(desigF,<span class="dv">2</span>,<span class="cf">function</span>(x) <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(x)))</span>
+<span id="cb64-28"><a href="#cb64-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-29"><a href="#cb64-29" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Multiplicar los signos de los factores</span></span>
+<span id="cb64-30"><a href="#cb64-30" aria-hidden="true" tabindex="-1"></a>  desigF <span class="ot">&lt;-</span> <span class="fu">cbind</span>(desigF,<span class="fu">apply</span>(desigF, <span class="dv">1</span>, prod))</span>
+<span id="cb64-31"><a href="#cb64-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-32"><a href="#cb64-32" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Fraccionar el modelo según la selección +/-</span></span>
+<span id="cb64-33"><a href="#cb64-33" aria-hidden="true" tabindex="-1"></a>  aux <span class="ot">&lt;-</span> <span class="fu">which</span>(desigF[,ncols<span class="sc">+</span><span class="dv">1</span>]<span class="sc">==</span>pos)</span>
+<span id="cb64-34"><a href="#cb64-34" aria-hidden="true" tabindex="-1"></a>  desigF <span class="ot">&lt;-</span> desigF[aux,<span class="dv">1</span><span class="sc">:</span>ncols]</span>
+<span id="cb64-35"><a href="#cb64-35" aria-hidden="true" tabindex="-1"></a>  desigF <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">apply</span>(desigF,<span class="dv">2</span>,factor),<span class="at">stringsAsFactors =</span> T)</span>
+<span id="cb64-36"><a href="#cb64-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-37"><a href="#cb64-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Añadir la respuesta, si la tiene</span></span>
+<span id="cb64-38"><a href="#cb64-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(response){</span>
+<span id="cb64-39"><a href="#cb64-39" aria-hidden="true" tabindex="-1"></a>    desigF<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">unlist</span>(desig[aux,who]))</span>
+<span id="cb64-40"><a href="#cb64-40" aria-hidden="true" tabindex="-1"></a>    desigF<span class="sc">$</span>Yates <span class="ot">&lt;-</span> Yat[aux]</span>
+<span id="cb64-41"><a href="#cb64-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(desigF)</span>
+<span id="cb64-42"><a href="#cb64-42" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
+<span id="cb64-43"><a href="#cb64-43" aria-hidden="true" tabindex="-1"></a>    desigF<span class="sc">$</span>Yates <span class="ot">&lt;-</span> Yat[aux]</span>
+<span id="cb64-44"><a href="#cb64-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(desigF)</span>
+<span id="cb64-45"><a href="#cb64-45" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb64-46"><a href="#cb64-46" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Modelo fraccionado</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>desF <span class="ot">&lt;-</span> <span class="fu">fractional</span>(<span class="at">desig =</span> desig,<span class="at">response =</span> T,<span class="at">positive =</span> F)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>desF</span></code></pre></div>
+<pre><code>##     A  B  C  D  E  y Yates
+## 1  -1 -1 -1 -1 -1  7     1
+## 2   1  1 -1 -1 -1 55    ab
+## 3   1 -1  1 -1 -1 20    ac
+## 4  -1  1  1 -1 -1 40    bc
+## 5   1 -1 -1  1 -1 10    ad
+## 6  -1  1 -1  1 -1 32    bd
+## 7  -1 -1  1  1 -1 18    cd
+## 8   1  1  1  1 -1 61  abcd
+## 9   1 -1 -1 -1  1 12    ae
+## 10 -1  1 -1 -1  1 35    be
+## 11 -1 -1  1 -1  1 15    ce
+## 12  1  1  1 -1  1 65  abce
+## 13 -1 -1 -1  1  1  6    de
+## 14  1  1 -1  1  1 53  abde
+## 15  1 -1  1  1  1 20  acde
+## 16 -1  1  1  1  1 41  bcde</code></pre>
+<p>Análisis de varianza</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">aov</span>(y<span class="sc">~</span>A<span class="sc">*</span>B<span class="sc">*</span>C<span class="sc">*</span>D,<span class="at">data =</span> desF)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">paretoPlot</span>(fit)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-16-1.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">DanielPlot</span>(fit,<span class="at">code =</span> T,<span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-16-2.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">aov</span>(y<span class="sc">~</span>A<span class="sc">+</span>B<span class="sc">+</span>C<span class="sc">+</span>A<span class="sc">:</span>B,<span class="at">data =</span> desF)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: y
+##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## A          1  650.2   650.2  267.39 4.580e-09 ***
+## B          1 4692.2  4692.2 1929.52 1.039e-13 ***
+## C          1  306.3   306.3  125.93 2.310e-07 ***
+## A:B        1  306.2   306.2  125.93 2.310e-07 ***
+## Residuals 11   26.8     2.4                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit,<span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-16-3.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">interactionMeans</span>(fit))</span></code></pre></div>
+<p><img src="fractional_files/figure-html/unnamed-chunk-16-4.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Otra forma</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>DesFrac <span class="ot">&lt;-</span> <span class="fu">FrF2</span>(<span class="dv">16</span>,<span class="dv">5</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>DesFrac[<span class="fu">order</span>(DesFrac<span class="sc">$</span>E),]</span></code></pre></div>
+<pre><code>##     A  B  C  D  E
+## 3  -1  1 -1 -1 -1
+## 4   1  1 -1  1 -1
+## 6   1  1  1 -1 -1
+## 10 -1 -1 -1  1 -1
+## 11  1 -1 -1 -1 -1
+## 12  1 -1  1  1 -1
+## 13 -1  1  1  1 -1
+## 14 -1 -1  1 -1 -1
+## 1   1 -1 -1  1  1
+## 2   1 -1  1 -1  1
+## 5   1  1  1  1  1
+## 7   1  1 -1 -1  1
+## 8  -1 -1  1  1  1
+## 9  -1 -1 -1 -1  1
+## 15 -1  1 -1  1  1
+## 16 -1  1  1 -1  1
+## class=design, type= FrF2</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fractional</span>(<span class="at">desig =</span> desig,<span class="at">response =</span> T,<span class="at">positive =</span> T)</span></code></pre></div>
+<pre><code>##     A  B  C  D  E  y Yates
+## 1   1 -1 -1 -1 -1  9     a
+## 2  -1  1 -1 -1 -1 34     b
+## 3  -1 -1  1 -1 -1 16     c
+## 4   1  1  1 -1 -1 60   abc
+## 5  -1 -1 -1  1 -1  8     d
+## 6   1  1 -1  1 -1 50   abd
+## 7   1 -1  1  1 -1 21   acd
+## 8  -1  1  1  1 -1 44   bcd
+## 9  -1 -1 -1 -1  1 18     e
+## 10  1  1 -1 -1  1 52   abe
+## 11  1 -1  1 -1  1 22   ace
+## 12 -1  1  1 -1  1 45   bce
+## 13  1 -1 -1  1  1 10   ade
+## 14 -1  1 -1  1  1 30   bde
+## 15 -1 -1  1  1  1 15   cde
+## 16  1  1  1  1  1 63 abcde</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">generators</span>(DesFrac)</span></code></pre></div>
+<pre><code>## $generators
+## [1] &quot;E=ABCD&quot;</code></pre>
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
