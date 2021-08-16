@@ -1,31 +1,104 @@
-<!DOCTYPE html>
-<html lang="" xml:lang="">
-  <head>
-    <title>Conceptos Básicos de Estadística</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="Cristian Santa | Alejandro Estrada" />
-    <meta name="date" content="2021-08-15" />
-    <script src="libs/header-attrs/header-attrs.js"></script>
-    <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
-    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
-    <link href="libs/panelset/panelset.css" rel="stylesheet" />
-    <script src="libs/panelset/panelset.js"></script>
-  </head>
-  <body>
-    <textarea id="source">
-class: center, middle, inverse, title-slide
-
-# Conceptos Básicos de Estadística
-## Introducción a Bioestadística
-### Cristian Santa | Alejandro Estrada
-### Escuela de Nutrición y Dietética - UdeA
-### 2021-08-15
-
+---
+title: "Conceptos Básicos de Estadística"
+subtitle: "Introducción a Bioestadística"
+author: "Cristian Santa | Alejandro Estrada"
+institute: "Escuela de Nutrición y Dietética - UdeA"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts]
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: arta
+      highlightLines: true
+      countIncrementalSlides: false
 ---
 
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE,
+        htmltools.preserve.rw =FALSE)
+xaringanExtra::use_panelset()
+knitr::opts_chunk$set(echo = FALSE,fig.align = "center",warning = F,message = F,
+                      dpi=120,fig.width = 7,fig.height = 6)
 
+SelPlot <- function(sel=NULL,seed=NULL){
+  if(!is.null(seed)) {set.seed(seed)}
+  # x1 <- runif(1000,-1,1)
+  # x2 <- runif(1000,-1,1)
+  x1 <- sample(1000,1000)
+  x2 <- sample(1000,1000)
+  y <- runif(1000,5,12)
+  par(mar=c(1,1,1,1))
+  plot(x1,x2,axes = F,ylab="",xlab="",ylim = c(1,1100))
+  symbols(x1,x2,circles = y,inches = F, bg="grey50",add=T)
+  text(50,10800,labels = "N = 1000",cex=1.5)
+  if(!is.null(sel)){
+    aux <- sample(length(x1),sel)
+    symbols(x1[aux],x2[aux],circles = y[aux],inches = F,bg = 2,add=T)
+  }
+}
 
+Precision <- function(type="A"){
+  set.seed(1234)
+  if(type=="A"){
+    x <- runif(20,-0.2,0.2)
+    y <- runif(20,-0.2,0.2)
+  }else if(type=="B"){
+    x <- runif(20,-0.4,-0)
+    y <- runif(20,-0.4,-0)
+  }else if(type=="C"){
+    x <- runif(20,-0.4,0.4)
+    y <- runif(20,-0.4,0.4)
+  }else if(type=="D"){
+    x <- runif(20,-0.7,0.7)
+    y <- runif(20,-1,0.3)
+  }
+  par(mar=c(0,0,0,0))
+  plot(x,y,asp=1,xlim = c(-1,1),ylim = c(-1,1),ylab="",xlab="",axes = F,
+       pch=21,bg=4,cex=1.5)
+  plotrix::draw.circle(0,0,1,nv=1000,border = NULL,col=NA,lty=1,lwd=1)
+  segments(-1,0,1,0)
+  segments(0,-1,0,1)
+}
+
+varplot <- function(n,x,sd){
+  e1 <- rnorm(n,x,sd)
+  e2 <- rnorm(n,x,sd)
+  e3 <- rnorm(n,x,sd)
+  e4 <- rnorm(n,x,sd)
+  
+  s1 <- sd(e1);s2 <- sd(e2);
+  s3 <- sd(e3);s4 <- sd(e4);
+  m1 <- mean(e1);m2 <- mean(e2);
+  m3 <- mean(e3);m4 <- mean(e4);
+  
+  par(mar=c(3,5,3,2))
+  plot(x=x,y=3,axes = F,type="n",ylab="",xlab="",
+       ylim=c(0,4.5),xlim=c(x-4*sd,x+4*sd),
+       main=paste("Comportamiento de las",n,"muestras\nMedia =",x,"Desviación =",sd))
+  points(x=e1,y=rep(0.5,n),pch=20)
+  points(x=e2,y=rep(1.5,n),pch=20)
+  points(x=e3,y=rep(2.5,n),pch=20)
+  points(x=e4,y=rep(3.5,n),pch=20)
+  
+  points(x=m1,y=1,pch=19,col=2,cex=1.5)
+  points(x=m2,y=2,pch=19,col=2,cex=1.5)
+  points(x=m3,y=3,pch=19,col=2,cex=1.5)
+  points(x=m4,y=4,pch=19,col=2,cex=1.5)
+  
+  arrows(x0 = m1-s1,y0 = 1,x1 = m1+s1,y1 = 1,angle = 90,code=3,length = 0.1,col=2,lwd=2)
+  arrows(x0 = m2-s2,y0 = 2,x1 = m2+s2,y1 = 2,angle = 90,code=3,length = 0.1,col=2,lwd=2)
+  arrows(x0 = m3-s3,y0 = 3,x1 = m3+s3,y1 = 3,angle = 90,code=3,length = 0.1,col=2,lwd=2)
+  arrows(x0 = m4-s4,y0 = 4,x1 = m4+s4,y1 = 4,angle = 90,code=3,length = 0.1,col=2,lwd=2)
+  
+  box()
+  
+  axis(1,cex.axis=0.8)
+  axis(2,at=c(0.5,1.5,2.5,3.5),las=1,cex.axis=0.8,
+       labels = paste("Muestra",1:4))
+}
+```
 
 # Introducción
 
@@ -33,7 +106,7 @@ La Estadística es la ciencia que se encarga de observar, agrupar, clasificar y 
 
 Los métodos estadísticos están enfocados para tratar con la complejidad de la realidad, no obstante es importante que aquel que aplique la estadística comprenda profundamente, tanto los fenómenos a estudiar en su movimiento, como las herramientas propicias y su correcta interpretación.
 
-&gt;*En la actualidad, se ha tratado la estadística como conjunto de métodos complementarios a la disciplina original del investigador, llevando a que éstos menosprecien la seriedad que amerita la comprensión de todo su universo; a su vez la estadística ha sido empleada con fines pseudocientíficos para justificar comportamientos sociales, leyes jurídicas y económicas o publicación de fármacos ineficientes o peligrosos*. 
+>*En la actualidad, se ha tratado la estadística como conjunto de métodos complementarios a la disciplina original del investigador, llevando a que éstos menosprecien la seriedad que amerita la comprensión de todo su universo; a su vez la estadística ha sido empleada con fines pseudocientíficos para justificar comportamientos sociales, leyes jurídicas y económicas o publicación de fármacos ineficientes o peligrosos*. 
 
 ---
 
@@ -41,7 +114,7 @@ Los métodos estadísticos están enfocados para tratar con la complejidad de la
 
 Cuando se escucha la palabra Estadística, la primera asociación es con la **oficialidad**, con las estadísticas del Estado: índices de pobreza, desempleo, violencia, entre otras. Si bien dichas cifras en ocasiones no reflejan la realidad de un país, esto no quiere decir que los métodos estadísticos o la Estadística en general es equívoca, pues la ciencia no es neutral, es decir, son los seres humanos quienes desarrollan técnicas y hacen descubrimientos en medio de relaciones sociales que son reflejo de la dinámica económica actual, por tanto los intereses de grupos de personas se ven reflejados en el desarrollo de la ciencia, en su uso y sus objetivos.
 
-&gt;*Es menester de los investigadores, que realmente respetan la ciencia, hacer una valoración epistemológica de su qué hacer científico, es decir, la motivación del **para qué** de la investigación, pues el papel de la ciencia debe estar enfocada en buscar la verdad tal y como es, sin importar si conviene o no a un grupo en particular*.
+>*Es menester de los investigadores, que realmente respetan la ciencia, hacer una valoración epistemológica de su qué hacer científico, es decir, la motivación del **para qué** de la investigación, pues el papel de la ciencia debe estar enfocada en buscar la verdad tal y como es, sin importar si conviene o no a un grupo en particular*.
 
 ---
 class: inverse, center, middle
@@ -67,10 +140,10 @@ Una parte fundamental de la estadística es la que comprende el **muestreo**, qu
 ---
 # Tipos de Estadística
 
-&lt;hr&gt;
-&gt;Sin muestras no es posible hacer **estadística descriptiva**, sin los datos organizados y bien descritos no es posible hacer **inferencias** sobre los resultados y sin comprender las técnicas e interpretar bien la estadística inferencial no es posible utilizar correctamente las técnicas de **muestreo**
+<hr>
+>Sin muestras no es posible hacer **estadística descriptiva**, sin los datos organizados y bien descritos no es posible hacer **inferencias** sobre los resultados y sin comprender las técnicas e interpretar bien la estadística inferencial no es posible utilizar correctamente las técnicas de **muestreo**
 
-&lt;hr&gt;&lt;br&gt;
+<hr><br>
 
 La estadística no es un proceso lineal, más bien, como toda ciencia, tiene proceso en espiral, y la principal forma de hacer buena estadística es comprender profundamente sus conceptos, la correcta interpretación de los resultados.
 
@@ -85,7 +158,7 @@ Antes de realizar un estudio para utilizar herramientas estadísticas, es necesa
 
 --
 
-- **Muestra:** es un conjunto de elementos representativos extraídos de la población. Los resultados obtenidos en la muestra sirven para &lt;u&gt;estimar&lt;/u&gt; el comportamiento de la población. Para que los resultados de la muestra puedan generalizarse a la población, ésta debe ser seleccionada adecuadamente, de tal forma que todos los elementos de la población tengan la oportunidad de ser escogido, a este tipo de muestra se le llama *muestra aleatoria*.
+- **Muestra:** es un conjunto de elementos representativos extraídos de la población. Los resultados obtenidos en la muestra sirven para <u>estimar</u> el comportamiento de la población. Para que los resultados de la muestra puedan generalizarse a la población, ésta debe ser seleccionada adecuadamente, de tal forma que todos los elementos de la población tengan la oportunidad de ser escogido, a este tipo de muestra se le llama *muestra aleatoria*.
 
 --
 
@@ -107,12 +180,12 @@ Otras características de la población se determinan a partir de las **medidas 
 
 Cuando se trata de una *muestra extraída* de una población, el cálculo de las características *cambiará*, y ya no hablaremos de parámetro sino de **estadístico**.
 
-&lt;hr&gt;
-&gt;Se puede concluir que un **parámetro** es a una **población**, como un **estadístico** es a una **muestra**.
+<hr>
+>Se puede concluir que un **parámetro** es a una **población**, como un **estadístico** es a una **muestra**.
 
-&lt;hr&gt;&lt;br&gt;
+<hr><br>
 
-En general para describir los parámetros se utilizan letras del alfabeto griego `\((\mu,\,\sigma,\,\tau,\,\rho,\,\pi)\)` y para los estadísticos se utilizan letras del alfabeto latino `\((S,\,M_o,\,\bar{X},\,p)\)`.
+En general para describir los parámetros se utilizan letras del alfabeto griego $(\mu,\,\sigma,\,\tau,\,\rho,\,\pi)$ y para los estadísticos se utilizan letras del alfabeto latino $(S,\,M_o,\,\bar{X},\,p)$.
 
 El objetivo es medir, categorizar o cuantificar las características de cada unidad seleccionada, estas características se les conoce como **variables**. Si cada uno de los elementos seleccionados hacen parte de una *muestra aleatoria*, entonces las variables extraídas de cada unidad son **variables aleatorias**, ya que, al ser medida en diferentes unidades es susceptible de adoptar diferentes valores.
 
@@ -120,19 +193,29 @@ El objetivo es medir, categorizar o cuantificar las características de cada uni
 # Ejemplo
 .panelset[
 .panel[.panel-name[Población]
-&lt;img src="D_concept_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+```{r fig.width = 6,fig.height = 3.5,dpi=150}
+SelPlot(seed=1234)
+```
 ]
 .panel[.panel-name[10 muestras]
-&lt;img src="D_concept_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+```{r fig.width = 6,fig.height = 3.5,dpi=150}
+SelPlot(sel=10,seed=1234)
+```
 ]
 .panel[.panel-name[50 muestras]
-&lt;img src="D_concept_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+```{r fig.width = 6,fig.height = 3.5,dpi=150}
+SelPlot(sel=50,seed=1234)
+```
 ]
 .panel[.panel-name[200 muestras]
-&lt;img src="D_concept_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+```{r fig.width = 6,fig.height = 3.5,dpi=150}
+SelPlot(sel=200,seed=1234)
+```
 ]
 .panel[.panel-name[1000 muestras]
-&lt;img src="D_concept_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
+```{r fig.width = 6,fig.height = 3.5,dpi=150}
+SelPlot(sel=600,seed=1234)
+```
 ]
 ]
 ---
@@ -142,7 +225,7 @@ El objetivo es medir, categorizar o cuantificar las características de cada uni
 
 --
 
-&gt; Medición es el proceso de asignar numerales a los objetos de acuerdo con ciertas reglas. *(Stevens, 1951)*
+> Medición es el proceso de asignar numerales a los objetos de acuerdo con ciertas reglas. *(Stevens, 1951)*
 
 --
 
@@ -162,15 +245,15 @@ Todo proceso de medición implica
 ---
 # Definiciones
 
-&lt;h2&gt;&lt;center&gt;Medición&lt;/center&gt;&lt;/h2&gt;
-&lt;br&gt;
-&lt;hr&gt;
-&gt; "Los Instrumentos son aquellos objetos materiales que nos permiten adquirir y analizar datos mediante los cuales pueden ser comprobadas las hipótesis de la investigación" *(Best, 1973).*
+<h2><center>Medición</center></h2>
+<br>
+<hr>
+> "Los Instrumentos son aquellos objetos materiales que nos permiten adquirir y analizar datos mediante los cuales pueden ser comprobadas las hipótesis de la investigación" *(Best, 1973).*
 
-&lt;hr&gt;&lt;br&gt;&lt;hr&gt;
-&gt; "Los instrumentos son procedimientos sistemáticos y estandarizados que permiten observar la conducta humana, a fin de hacer inferencias sobre determinados constructos, rasgos, dimensiones o atributos." *(Ruiz, 2002)*
+<hr><br><hr>
+> "Los instrumentos son procedimientos sistemáticos y estandarizados que permiten observar la conducta humana, a fin de hacer inferencias sobre determinados constructos, rasgos, dimensiones o atributos." *(Ruiz, 2002)*
 
-&lt;hr&gt;
+<hr>
 ---
 # Conceptos
 
@@ -193,14 +276,14 @@ La **validez** es la capacidad de un instrumento de medición de cuantificar de 
 ---
 # Definiciones
 
-&lt;h2&gt;&lt;center&gt;Validez&lt;/center&gt;&lt;/h2&gt;
-&lt;br&gt;&lt;hr&gt;
-&gt; *Un instrumento para medir la &lt;b&gt;inteligencia&lt;/b&gt; válido debe medir la inteligencia y no la &lt;b&gt;memoria&lt;/b&gt;.*
+<h2><center>Validez</center></h2>
+<br><hr>
+> *Un instrumento para medir la <b>inteligencia</b> válido debe medir la inteligencia y no la <b>memoria</b>.*
 
-&lt;hr&gt;&lt;br&gt;&lt;hr&gt;
-&gt; *Una prueba sobre conocimientos de &lt;b&gt;Anatomía&lt;/b&gt; debe medir esto y no conocimientos de &lt;b&gt;Biología&lt;/b&gt;.*
+<hr><br><hr>
+> *Una prueba sobre conocimientos de <b>Anatomía</b> debe medir esto y no conocimientos de <b>Biología</b>.*
 
-&lt;hr&gt;
+<hr>
 
 ---
 # Definiciones
@@ -236,16 +319,24 @@ La **confiabilidad** está relacionada con el grado en el cual la aplicación re
 
 .panelset[
 .panel[.panel-name[Alta y Alta]
-&lt;img src="D_concept_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+```{r fig.width = 4,fig.height = 4,dpi=90}
+Precision(type = "A")
+```
 ]
 .panel[.panel-name[Alta y (?)]
-&lt;img src="D_concept_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+```{r fig.width = 4,fig.height = 4,dpi=90}
+Precision(type = "B")
+```
 ]
 .panel[.panel-name[Baja y Alta]
-&lt;img src="D_concept_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+```{r fig.width = 4,fig.height = 4,dpi=90}
+Precision(type = "C")
+```
 ]
 .panel[.panel-name[Baja y Baja]
-&lt;img src="D_concept_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+```{r fig.width = 4,fig.height = 4,dpi=90}
+Precision(type = "D")
+```
 ]
 ]
 
@@ -288,7 +379,7 @@ Esta escala diferencia entre ítems basándose únicamente en sus nombres o meta
 - Especie biológica
 ]
 
-Si los números se asignan como etiquetas en la medición nominal, no tienen un valor numérico específico o significado. No se puede realizar ninguna forma de cálculo aritmético (&amp;#43;, &amp;#8722;, &amp;#215;,&amp;#247;) en medidas nominales. El nivel nominal es el **nivel de medición más bajo** utilizado desde un punto de vista estadístico.
+Si los números se asignan como etiquetas en la medición nominal, no tienen un valor numérico específico o significado. No se puede realizar ninguna forma de cálculo aritmético (&#43;, &#8722;, &#215;,&#247;) en medidas nominales. El nivel nominal es el **nivel de medición más bajo** utilizado desde un punto de vista estadístico.
 ]
 .panel[.panel-name[Ordinal]
 
@@ -314,7 +405,7 @@ El tipo de intervalo permite el grado de diferencia entre los elementos, pero no
 - Metros sobre el nivel del mar
 - Coordenadas cartesianas (GPS)
 
-&gt;**Nota:** El cero puede tener muchas interpretaciones de acuerdo con la definición del problema.
+>**Nota:** El cero puede tener muchas interpretaciones de acuerdo con la definición del problema.
 
 ]
 .panel[.panel-name[Razón]
@@ -348,132 +439,8 @@ Las **variables cuantitativas** se dividen en:
 
 La relación entre escalas y variables es la siguiente:
 
-`$$\text{Escala Nominal} \Longrightarrow \text{Cualitativa Nominal}$$`
+$$\text{Escala Nominal} \Longrightarrow \text{Cualitativa Nominal}$$
 
-`$$\text{Escala Ordinal} \Longrightarrow \text{Cualitativa Ordinal}$$`
+$$\text{Escala Ordinal} \Longrightarrow \text{Cualitativa Ordinal}$$
 
-`$$\text{Escala de Intervalo y Razón} \Longrightarrow \begin{cases} \text{Cuantitativa Discreta} \\ \text{Cuantitativa Continua} \end{cases}$$`
-    </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create({
-"ratio": "16:9",
-"highlightStyle": "arta",
-"highlightLines": true,
-"countIncrementalSlides": false
-});
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
-  window.dispatchEvent(new Event('resize'));
-});
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
-  if (!r) return;
-  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
-  d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
-})();
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
-</script>
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-(function () {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
-  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
-    script.src  = script.src.replace(/^https?:/, '');
-  document.getElementsByTagName('head')[0].appendChild(script);
-})();
-</script>
-  </body>
-</html>
+$$\text{Escala de Intervalo y Razón} \Longrightarrow \begin{cases} \text{Cuantitativa Discreta} \\ \text{Cuantitativa Continua} \end{cases}$$

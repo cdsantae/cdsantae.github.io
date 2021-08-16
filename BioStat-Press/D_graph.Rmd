@@ -1,45 +1,43 @@
-<!DOCTYPE html>
-<html lang="" xml:lang="">
-  <head>
-    <title>Métodos gráficos para resumir la información</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="Cristian Santa | Alejandro Estrada" />
-    <meta name="date" content="2021-08-16" />
-    <script src="github/header-attrs/header-attrs.js"></script>
-    <link href="github/remark-css/default.css" rel="stylesheet" />
-    <link href="github/remark-css/metropolis.css" rel="stylesheet" />
-    <link href="github/remark-css/metropolis-fonts.css" rel="stylesheet" />
-    <link href="github/panelset/panelset.css" rel="stylesheet" />
-    <script src="github/panelset/panelset.js"></script>
-    <script src="github/htmlwidgets/htmlwidgets.js"></script>
-    <script src="github/pymjs/pym.v1.js"></script>
-    <script src="github/widgetframe-binding/widgetframe.js"></script>
-    <script src="github/plotly-binding/plotly.js"></script>
-    <script src="github/typedarray/typedarray.min.js"></script>
-    <script src="github/jquery/jquery.min.js"></script>
-    <link href="github/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
-    <script src="github/crosstalk/js/crosstalk.min.js"></script>
-    <link href="github/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
-    <script src="github/plotly-main/plotly-latest.min.js"></script>
-  </head>
-  <body>
-    <textarea id="source">
-class: center, middle, inverse, title-slide
-
-# Métodos gráficos para resumir la información
-## Estadística Descriptiva
-### Cristian Santa | Alejandro Estrada
-### Escuela de Nutrición y Dietética - UdeA
-### 2021-08-16
-
+---
+title: "Métodos gráficos para resumir la información"
+subtitle: "Estadística Descriptiva"
+author: "Cristian Santa | Alejandro Estrada"
+institute: "Escuela de Nutrición y Dietética - UdeA"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts]
+    lib_dir: github
+    nature:
+      ratio: '16:9'
+      highlightStyle: arta
+      highlightLines: true
+      countIncrementalSlides: false
 ---
 
-
-
+```{r setup, include=FALSE,warning=FALSE,message=FALSE}
+knitr::opts_chunk$set(echo = FALSE,fig.align = "center",warning = F,message = F,
+                      dpi=120,fig.width = 7,fig.height = 6)
+options(htmltools.dir.version = FALSE,
+        htmltools.preserve.rw =FALSE)
+xaringanExtra::use_panelset()
+require(ggalluvial)
+require(aplore3)
+require(ggplot2)
+require(plotly)
+require(widgetframe)
+require(dplyr)
+layout_ggplotly <- function(gg, x = -0.1, y = -0.08){
+  # The 1 and 2 goes into the list that contains the options for the x and y axis labels respectively
+  gg[['x']][['layout']][['annotations']][[1]][['y']] <- x
+  gg[['x']][['layout']][['annotations']][[2]][['x']] <- y
+  gg
+}
+```
 
 # Introducción
 
-&lt;br&gt;
+<br>
 En la etapa de diseño de la investigación se establece la identificación de variables, la estrategia de recolección de datos de acuerdo al diseño de estudio, el plan de captura y estructuración de la información y finalmente se establece el plan de análisis estadístico.
 
 La primera parte de plan de análisis siempre necesita de la organización y presentación de los resultados, es decir, todo lo correspondiente al análisis descriptivo de los datos. Para esto, se cuenta con una colección de métodos de presentación de información: gráficos, tablas y medidas de resumen. Dado el tipo de variable y sus divisiones corresponde un conjunto de gráficos, tablas y medidas de resumen.
@@ -113,7 +111,20 @@ Los errores comunes que se presentan en los gráficos técnicos son:
 - Incluir un eje adicional sin sentido para dar efectos 3D
 
 ---
-&lt;img src="D_graph_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+```{r,fig.height=5,fig.width=5,dpi=100}
+oldpar <- par()
+par(mar=c(6,6,5,5))
+plot(0,ylab="",xlab="",axes = F,col=0)
+box()
+title(main = "Título del Gráfico\n",cex.main=1.5,col.main="forestgreen")
+title(main = "\n(Qué, Dónde, Cuándo)",cex.main=1)
+title(ylab="Título del Eje\n",cex.lab=1,col.lab="forestgreen")
+title(ylab="\n(Descripción, Categorías)",cex.lab=0.8)
+title(xlab="Título del Eje\n",cex.lab=1,col.lab="forestgreen")
+title(xlab="\n(Descripción, Categorías)",cex.lab=0.8)
+title(sub="Notas al pie, Fuentes",col.sub=2)
+text(1,0,labels = "Contenido del\ngráfico",cex = 2.5,col="forestgreen")
+```
 ---
 class: inverse, center, middle
 
@@ -126,12 +137,11 @@ En la sección anterior se explicó las clasificaciones de las variables, para e
 
 La construcción de gráficos adecuados para este tipo de variable se basan en la representación de los conteos, si se tiene más de una variable es posible mostrar su relación.
 
-&gt;Para los siguientes ejemplos son resultados del software estadístico `R-project` y se utilizará la base de datos de NHANES del paquete de `aplore3`.
+>Para los siguientes ejemplos son resultados del software estadístico `R-project` y se utilizará la base de datos de NHANES del paquete de `aplore3`.
 
-
-```r
+```{r,eval=FALSE,echo=TRUE}
 # Se requieren de los siguientes paquetes (instalar una sola vez)
-pkg &lt;- c("ggplot2","dplyr","aplore3","agricolae","e1017")
+pkg <- c("ggplot2","dplyr","aplore3","agricolae","e1017")
 install.packages(pkg)
 
 # Una vez instalados se cargan los paquetes
@@ -149,12 +159,35 @@ Este gráfico se caracteriza por identificar las categorías o niveles de una va
 
 .panelset[
 .panel[.panel-name[Vertical]
-<div id="htmlwidget-43f0538ad01268f1898e" style="width:100%;height:300px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-43f0538ad01268f1898e">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-3.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r, echo=FALSE}
+p <- nhanes %>% 
+  ggplot(aes(x=marstat,fill=marstat))+
+  geom_bar()+
+  geom_text(stat = "count",aes(label=..count..),vjust=-1)+
+  theme_bw()+xlab("\nEstado Civil\n")+
+  ylab("Frecuencia")+
+  ylim(c(0,3500))+
+  ggtitle("Estado Civil de los norteamericanos encuestados")+
+  theme(legend.position = "none")
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F),height = 300)
+```
 ]
 .panel[.panel-name[Horizontal]
-<div id="htmlwidget-842344d4c6058060ccc3" style="width:100%;height:300px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-842344d4c6058060ccc3">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-4.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r, echo=FALSE}
+p <- nhanes %>% 
+  ggplot(aes(x=marstat,fill=marstat))+
+  geom_bar()+
+  geom_text(stat = "count",aes(label=..count..),hjust=-1)+
+  theme_bw()+xlab("\nEstado Civil\n")+
+  ylab("Frecuencia")+
+  ylim(c(0,3500))+
+  ggtitle("Estado Civil de los norteamericanos encuestados")+
+  theme(legend.position = "none")+
+  coord_flip()
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F),height = 300)
+```
 ]
 ]
 
@@ -164,14 +197,13 @@ En `R` es fácil construir este gráfico con el siguiente código:
 
 .panelset[
 .panel[.panel-name[Básico]
-
-```r
+```{r,eval=FALSE,echo=TRUE}
 # Construya la tabla de frecuencias con la función "table"
-tabla &lt;- table(nhanes$marstat, useNA = "ifany")
+tabla <- table(nhanes$marstat, useNA = "ifany")
 
 # La función "barplot" construye el gráfico de barras de una tabla
 # en la función se ingresan los argumentos para dar el toque estético
-b1 &lt;- barplot(tabviv,las=1,main = "Estado Civil de los norteamericanos encuestados",
+b1 <- barplot(tabviv,las=1,main = "Estado Civil de los norteamericanos encuestados",
              ylab="Frecuencia",xlab="Estado Civil",col=2:8,
              ylim=c(0,3500),cex.names = 0.8,cex.axis = 0.8)
 
@@ -185,10 +217,9 @@ text(b1,tabla+1,labels = tabla)
 ```
 ]
 .panel[.panel-name[ggplot2]
-
-```r
-# El operador '%&gt;%' sirve para encadenar funciones
-nhanes %&gt;% 
+```{r,eval=FALSE,echo=TRUE}
+# El operador '%>%' sirve para encadenar funciones
+nhanes %>% 
   # Activar el gráfico
   ggplot(aes(x=marstat,fill=marstat))+
   # Añadir las barras
@@ -216,14 +247,32 @@ Este gráfico también es útil cuando se tiene dos variables categóricas, siem
 .panelset[
 .panel[.panel-name[Apilado]
 
-<div id="htmlwidget-b350125ba7a4939eb4cd" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b350125ba7a4939eb4cd">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-7.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r,echo=FALSE}
+p <- nhanes %>% 
+  ggplot(aes(x=marstat,fill=gender))+
+  geom_bar()+
+  theme_bw()+xlab("\nEstado Civil\n")+
+  ylab("Frecuencia")+labs(fill="Sexo")+
+  ylim(c(0,3500))+
+  ggtitle("Estado Civil de los norteamericanos encuestados según su sexo")
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F),height = 400)
+```
 
 ]
 .panel[.panel-name[Separado]
 
-<div id="htmlwidget-f79c42d396ff6db754e8" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f79c42d396ff6db754e8">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-8.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r,echo=FALSE}
+p <- nhanes %>% 
+  ggplot(aes(x=marstat,fill=gender))+
+  geom_bar(position = "dodge")+
+  theme_bw()+xlab("\nEstado Civil\n")+
+  ylab("Frecuencia")+labs(fill="Sexo")+
+  ylim(c(0,2000))+
+  ggtitle("Estado Civil de los norteamericanos encuestados según su sexo")
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F),height = 400)
+```
 
 ]
 ]
@@ -235,12 +284,20 @@ Este gráfico también es útil cuando se tiene dos variables categóricas, siem
 El gráfico de torta muestra por secciones de un círculo las proporciones o frecuencias de las categorías de una variable cualitativa
 
 .pull-left[
-<div id="htmlwidget-a41f6e0a728e2df9fdeb" style="width:500px;height:500px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a41f6e0a728e2df9fdeb">{"x":{"visdat":{"52201c4c4d07":["function () ","plotlyVisDat"]},"cur_data":"52201c4c4d07","attrs":{"52201c4c4d07":{"labels":{},"values":{},"showlegend":false,"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"pie"}},"layout":{"width":600,"height":400,"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Estado Civil de los norteamericanos encuestados","autosize":false,"hovermode":"closest","showlegend":true},"source":"A","config":{"showSendToCloud":false,"displayModeBar":false},"data":[{"labels":["Married","Widowed","Divorced","Separated","Never Married","Living Together",null],"values":[3019,505,643,195,1034,457,629],"showlegend":false,"type":"pie","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(255,255,255,1)"}},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+```{r,fig.width=5,fig.height=5,dpi=100}
+nhanes %>% group_by(marstat) %>%
+    summarise(n=n()) %>%
+  plot_ly(labels=~marstat,
+          values=~n,type="pie",
+          showlegend = FALSE) %>%
+  layout(title = 'Estado Civil de los norteamericanos encuestados',
+         autosize = F, width = 600, height = 400) %>%
+  config(displayModeBar = F)
+```
 ]
 .pull-right[
 
-&gt; Este gráfico tiene la dificultad en términos de interpretación, ya que la disposición circular no permite hacer distinciones sencillas sobre la proporcionalidad a menos que la categorías sean claramente dispares
+> Este gráfico tiene la dificultad en términos de interpretación, ya que la disposición circular no permite hacer distinciones sencillas sobre la proporcionalidad a menos que la categorías sean claramente dispares
 
 ]
 ---
@@ -248,10 +305,17 @@ El gráfico de torta muestra por secciones de un círculo las proporciones o fre
 
 .panelset[
 .panel[.panel-name[Torta]
-&lt;img src="D_graph_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+```{r,fig.width=5,fig.height=5,dpi=100}
+pie(table(c(rep("A",28),rep("B",25),rep("C",23))),
+    main = "¿Las frecuencias de las\nCategorías son distintas?")
+```
 ]
 .panel[.panel-name[Barras]
-&lt;img src="D_graph_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+```{r,fig.width=5,fig.height=5,dpi=100}
+barplot(table(c(rep("A",28),rep("B",25),rep("C",23))),las=1,
+        col=c("white", "lightblue", "mistyrose"),ylim=c(0,30),
+        main = "En efecto, sí")
+```
 ]
 ]
 ---
@@ -259,20 +323,30 @@ El gráfico de torta muestra por secciones de un círculo las proporciones o fre
 
 Una opción para reducir la limitación de proporcionalidad en este gráfico es utilizar etiquetas para indicar las proporciones o frecuencias de cada categoría, o bien usar un *gráfico de dona*.
 
-&lt;center&gt;
-<div id="htmlwidget-be70177cb028483acf7d" style="width:840px;height:720px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-be70177cb028483acf7d">{"x":{"visdat":{"522012933a92":["function () ","plotlyVisDat"]},"cur_data":"522012933a92","attrs":{"522012933a92":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"values":{},"labels":{},"type":"pie","name":"Pie","domain":{"row":0,"column":0},"inherit":true},"522012933a92.1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"values":{},"labels":{},"type":"pie","hole":0.5,"name":"Donut","domain":{"row":0,"column":1},"inherit":true}},"layout":{"height":400,"margin":{"b":40,"l":60,"t":25,"r":10},"title":"","showlegend":false,"grid":{"rows":1,"columns":2},"autosize":false,"hovermode":"closest"},"source":"A","config":{"showSendToCloud":false,"displayModeBar":false},"data":[{"values":[3019,505,643,195,1034,457,629],"labels":["Married","Widowed","Divorced","Separated","Never Married","Living Together",null],"type":"pie","name":"Pie","domain":{"row":0,"column":0},"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(255,255,255,1)"}},"frame":null},{"values":[3019,505,643,195,1034,457,629],"labels":["Married","Widowed","Divorced","Separated","Never Married","Living Together",null],"type":"pie","hole":0.5,"name":"Donut","domain":{"row":0,"column":1},"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,255,255,1)"}},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-&lt;/center&gt;
+<center>
+```{r}
+nhanes %>% group_by(marstat) %>%
+    summarise(n=n()) %>%
+  plot_ly() %>%
+  add_pie(labels = ~marstat,values = ~n, name="Pie",
+          domain = list(row = 0, column = 0)) %>%
+  add_pie(labels = ~marstat,values = ~n,hole=0.5, name="Donut",
+          domain = list(row = 0, column = 1)) %>%
+  layout(title = "", showlegend = F,
+         grid=list(rows=1, columns=2),
+         autosize = F, height = 400) %>%
+  config(displayModeBar = F)
+```
+</center>
 ---
 # Gráfico de Torta
 En `R` es fácil construir este gráfico con el siguiente código:
 
 .panelset[
 .panel[.panel-name[Básico]
-
-```r
+```{r,eval=FALSE,echo=TRUE}
 # Construya la tabla de frecuencias con la función "table"
-tabla &lt;- table(nhanes$marstat, useNA = "ifany")
+tabla <- table(nhanes$marstat, useNA = "ifany")
 
 # La función "pie" construye el gráfico de tortas de una tabla
 # En la función se ingresan los argumentos para dar el toque estético
@@ -287,14 +361,13 @@ pie(tabla,col = rainbow(7),
 ```
 ]
 .panel[.panel-name[ggplot2]
-
-```r
-# El operador '%&gt;%' sirve para encadenar funciones
-nhanes %&gt;% 
+```{r,eval=FALSE,echo=TRUE}
+# El operador '%>%' sirve para encadenar funciones
+nhanes %>% 
   # Agrupar la base de datos por la variable de interés
-  group_by(marstat) %&gt;%
+  group_by(marstat) %>%
   # Calcular las frecuencias
-  summarise(n = n()) %&gt;%
+  summarise(n = n()) %>%
   # Activar el gráfico
   ggplot(aes(x="",y=n,fill=marstat))+
   # Añadir las barras
@@ -318,20 +391,31 @@ Este gráfico también es similar al gráfico de barras, sirve para presentar la
 
 .panelset[
 .panel[.panel-name[Una variable]
-&lt;img src="D_graph_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+```{r,warning=FALSE,fig.align='center',fig.height=3}
+nhanes %>%
+  select(marstat) %>%
+  table %>% 
+  dotchart(pch=19,xlab = "Frecuencia",cex = 0.8,
+         main = "Estado Civil de los norteamericanos encuestados")
+```
 ]
 .panel[.panel-name[Dos variables]
-&lt;img src="D_graph_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+```{r,warning=FALSE,fig.align='center',fig.height=3}
+nhanes %>%
+  select(marstat,gender) %>%
+  table %>% as.matrix %>%
+  dotchart(pch=19,xlab = "Frecuencia",gcolor = 2,cex=0.6,
+         main = "Estado Civil de los norteamericanos encuestados\nsegún el sexo")
+```
 ]
 ]
 ---
 # Diagrama de puntos
 En `R` es fácil construir este gráfico con el siguiente código:
 
-
-```r
+```{r,eval=FALSE,echo=TRUE}
 # Construya la tabla de frecuencias con la función "table"
-tabla &lt;- table(nhanes$marstat, useNA = "ifany")
+tabla <- table(nhanes$marstat, useNA = "ifany")
 
 # La función "dotchart" construye el diagrama de puntos de una tabla
 # En la función se ingresan los argumentos para dar el toque estético
@@ -349,24 +433,37 @@ dotchart(tabla,pch = 19,xlab = "Frecuencia",
 
 En muchas ocasiones se tiene más de una variable categórica y un gráfico de barras compuesto no es suficiente para exponer con precisión la información. Para este caso, el gráfico de mosaico permite relacionar más de dos variables para analizar las frecuencias entre los cruces de niveles de las variables categóricas.
 
-<div id="htmlwidget-d234c0e6f1ae3e37a562" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d234c0e6f1ae3e37a562">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-18.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+require(ggmosaic)
+p <- nhanes %>%
+  mutate(cbmi = cut(bmi,breaks = c(-Inf,18.5,25,30,Inf),
+                    right = F,
+                    labels = c("Delgadez","Normalidad",
+                               "Sobrepeso","Obesidad"))) %>%
+  ggplot()+
+  geom_mosaic(aes(x=product(marstat,cbmi),fill=marstat))+
+  ggtitle("Relación entre el estado civil y la clasificación IMC")+
+  labs(fill="Estado\nCivil")+
+  xlab("")+ylab("")+
+  theme_bw()+
+  theme(legend.position = "none")
+frameWidget(ggplotly(p),height = 400)
+```
 ---
 # Gráfico de mosaico
 En `R` es fácil construir este gráfico con el siguiente código:
 
 .panelset[
 .panel[.panel-name[Básico]
-
-```r
+```{r,eval=FALSE,echo=TRUE}
 # Construya la variable de clasificación IMC
-nhanes &lt;- nhanes %&gt;%
+nhanes <- nhanes %>%
   mutate(cbmi = cut(bmi,breaks = c(-Inf,18.5,25,30,Inf),right = F,
                     labels = c("Delgadez","Normalidad",
                                "Sobrepeso","Obesidad")))
 
 # Construya la tabla de frecuencias con la función "table"
-tabla2 &lt;- table(nhanes$marstat,nhanes$cbmi)
+tabla2 <- table(nhanes$marstat,nhanes$cbmi)
 
 # La función "mosaicplot" construye el gráfico de mosaico de una tabla
 # En la función se ingresan los argumentos para dar el toque estético
@@ -381,18 +478,17 @@ mosaicplot(tabla2,las=1,col=terrain.colors(6),
 ```
 ]
 .panel[.panel-name[ggplot2]
-
-```r
+```{r,eval=FALSE,echo=TRUE}
 # Se requiere del paquete `ggmosaic`
 install.packages("ggmosaic")
 require(ggmosaic)
 
-# El operador '%&gt;%' sirve para encadenar funciones
-nhanes %&gt;% 
+# El operador '%>%' sirve para encadenar funciones
+nhanes %>% 
   # Construya la variable de clasificación IMC
   mutate(cbmi = cut(bmi,breaks = c(-Inf,18.5,25,30,Inf),right = F,
                     labels = c("Delgadez","Normalidad",
-                               "Sobrepeso","Obesidad"))) %&gt;%
+                               "Sobrepeso","Obesidad"))) %>%
   # Activar el gráfico
   ggplot()+
   # Añadir el mosaico
@@ -410,28 +506,42 @@ nhanes %&gt;%
 
 Este gráfico relaciona las transferencia de frecuencias entre los niveles de varias variables categóricas, también se conoce como **Alluvial plot**. Lleva el nombre de *Sankey* por el capitán irlandés Matthew Henry Phineas Riall Sankey quién utilizó este diagrama en 1898 en una publicación sobre la eficiencia energética de la máquina de vapor. El gráfico más famoso de este tipo, y catalogado como el mejor gráfico de la historia, es el diagrama de la invasión napoleónica a Rusia.
 
-&lt;center&gt;
-&lt;img src="Minard.png" alt="Invasión Napoleónica a Ruisa" width="70%"/&gt;
-&lt;/center&gt;
+<center>
+<img src="Minard.png" alt="Invasión Napoleónica a Ruisa" width="70%"/>
+</center>
 
 ---
 # Diagrama de *Sankey* (gráfico alluvial)
 
-&lt;img src="D_graph_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+```{r,fig.align='center',fig.height=5,fig.width=9,dpi=120}
+nhanes %>%
+  mutate(cbmi = cut(bmi,breaks = c(-Inf,18.5,25,30,Inf),right = F,
+                    labels = c("Delgadez","Normalidad",
+                               "Sobrepeso","Obesidad"))) %>%
+  select(gender,cbmi,marstat) %>%
+  table %>% as.data.frame.table %>%
+  ggplot(aes(y=Freq,axis1=gender,axis2=cbmi,axis3=marstat))+
+  geom_alluvium(aes(fill=marstat),width=1/12)+
+  geom_stratum(width = 1/8,color="black",fill="gray")+
+  geom_label(stat = "stratum", aes(label = after_stat(stratum)),size=2)+
+  scale_x_discrete(limits = c("Género", "IMC", "Estado Civil"),
+                   expand = c(.05, .05)) +
+  theme_bw()+labs(fill="Estado Civil")+ylab("Frecuencia")+
+  ggtitle("Relación del Estado Civil según la Clasificación IMC y el género")
+```
 ---
 # Diagrama de *Sankey* (gráfico alluvial)
 En `R` es fácil construir este gráfico con el siguiente código:
 
 .panelset[
 .panel[.panel-name[Básico]
-
-```r
+```{r,eval=FALSE,echo=TRUE}
 # Se requiere del paquete `alluvial`
 install.packages("alluvial")
 require(alluvial)
 
 # Construya la tabla de frecuencias
-datos &lt;- as.data.frame.table(table(nhanes$gender,nhanes$cbmi,nhanes$marstat))
+datos <- as.data.frame.table(table(nhanes$gender,nhanes$cbmi,nhanes$marstat))
 
 # La función "alluvial" construye el diagrama de Sankey
 # En la función se ingresan los argumentos para dar el toque estético
@@ -444,13 +554,12 @@ alluvial(datos[,1:3],freq = datos$Freq,
 ```
 ]
 .panel[.panel-name[ggplot2]
-
-```r
-nhanes %&gt;% 
+```{r,eval=FALSE,echo=TRUE}
+nhanes %>% 
   # Seleccionar las variables de interés
-  select(gender,cbmi,marstat) %&gt;%
+  select(gender,cbmi,marstat) %>%
   # Construir la tabla de frecuencias
-  table %&gt;% as.data.frame.table %&gt;%
+  table %>% as.data.frame.table %>%
   # Activar el gráfico
   ggplot(aes(y=Freq,axis1=gender,axis2=cbmi,axis3=marstat))+
   # Añadir el alluvial
@@ -478,7 +587,7 @@ class: inverse, center, middle
 
 La construcción de gráficos adecuados para este tipo de variable se basan en la representación de las frecuencias por intervalo, la densidad de probabilidad o las ubicaciones en un plano cartesiano, si se tiene más de una variable es posible mostrar su relación.
 
-&gt;Para los siguientes ejemplos son resultados del software estadístico `R-project` y continuaremos con la base de datos de NHANES del paquete de `aplore3`.
+>Para los siguientes ejemplos son resultados del software estadístico `R-project` y continuaremos con la base de datos de NHANES del paquete de `aplore3`.
 
 ---
 # Gráficos para Variables Cuantitativas
@@ -486,23 +595,38 @@ La construcción de gráficos adecuados para este tipo de variable se basan en l
 
 Este gráfico permite visualizar el comportamiento o distribución de una variable cuantitativa, divide la continuidad de la variable en intervalos equidistantes para visualizar las frecuencias por cada intervalo. La diferencia con el gráfico de barras, es que en el histograma las barras se encuentran pegadas unas de otras y se deben poner con el mismo color.
 
-<div id="htmlwidget-1175d9f1ab52193553de" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1175d9f1ab52193553de">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-24.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r}
+p <- nhanes %>%
+  ggplot(aes(x=hdl))+
+  geom_histogram(col="black",fill="darkcyan")+
+  ylab("Frecuencia\n")+xlab("Colesterol HDL (mg/dL)")+
+  ggtitle("Colesterol HDL de los Encuestados en NHANES")+
+  theme_bw()
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F),height = 400)
+```
 
 ---
 # Histograma
 Observe que en el eje opuesto se muestra la frecuencia de ocurrencia del IMC, con este gráfico también podemos ver las frecuencias relativas o **densidades** que denotan las probabilidades de la variable aleatoria.
 
-<div id="htmlwidget-311c8260456f3213a09a" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-311c8260456f3213a09a">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-25.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r,fig.width=6,fig.height=5,dpi=120}
+p <- nhanes %>%
+  ggplot(aes(x=hdl))+
+  geom_histogram(aes(y=..density..),col="black",fill="gold3")+
+  ylab("Densidad\n")+xlab("Colesterol HDL (mg/dL)")+
+  ggtitle("Colesterol HDL de los Encuestados en NHANES")+
+  theme_bw()
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F),height = 400)
+```
 ---
 # Histograma
 En `R` es fácil construir este gráfico con el siguiente código:
 
 .panelset[
 .panel[.panel-name[Básico]
-
-```r
+```{r,eval=FALSE,echo=TRUE}
 # La finción "hist" construye el histograma
 # En los argumentos de la función se hacen los toque estéticos
 # El operador "$" sirve para seleccionar una variable de un
@@ -516,9 +640,8 @@ hist(datos$mass,col="darkcyan",las=1,cex.axis=0.7,
 ```
 ]
 .panel[.panel-name[ggplot2]
-
-```r
-nhanes %&gt;% 
+```{r,eval=FALSE,echo=TRUE}
+nhanes %>% 
   # Activar el gráfico
   ggplot(aes(x=hdl))+
   # Añadir el histograma
@@ -538,8 +661,7 @@ nhanes %&gt;%
 
 Este gráfico muestra la frecuencia acumulada, sea absoluta o relativa, de una variable cuantitativa según los intervalos de clases creados en el histograma. Es muy útil para observar la tasa de crecimiento en términos de probabilidad de una variable. Para construir el gráfico de ojiva necesitamos el paquete de `agricolae` el cual se puede instalar así:
 
-
-```r
+```{r,eval=F,echo=T}
 install.packages("agricolae",dependencies = T)
 
 # para cargar el paquete
@@ -550,16 +672,28 @@ La función de interés es `ogive.freq` y requiere de un histograma ya construid
 ---
 # Diagrama de ojiva
 
-<div id="htmlwidget-bfa00ebeabb72716a982" style="width:100%;height:600px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-bfa00ebeabb72716a982">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-29.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r,echo=FALSE}
+p <- nhanes %>%
+  ggplot(aes(x=hdl))+
+  geom_hline(yintercept = c(0,1),col="grey50",lty=2)+
+  stat_ecdf(n=15,geom = "line")+
+  geom_point(stat="ecdf",n=15,size=2)+
+  scale_x_continuous(n.breaks = 12)+
+  scale_y_continuous(n.breaks = 10)+
+  theme_bw()+
+  xlab("\nColesterol HDL (mg/dL)")+
+  ylab("Densidad Acumulada\n")+
+  ggtitle("Comportamiento Acumulado del Colesterol HDL de los Encuestados en NHANES")
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F),height = 600)
+```
 ---
 # Diagrama de ojiva
 En `R` es fácil construir este gráfico con el siguiente código:
 
 .panelset[
 .panel[.panel-name[Básico]
-
-```r
+```{r,eval=FALSE,echo=TRUE}
 # La finción "hist" construye el histograma
 # La función "ogive.freq" contruye la ojiva
 # En los argumentos de la función se hacen los toque estéticos
@@ -572,9 +706,8 @@ ogive.freq(hist(nhanes$hdl,plot = F),ylab="Densidad Acumulada",
 ```
 ]
 .panel[.panel-name[ggplot2]
-
-```r
-nhanes %&gt;% 
+```{r,eval=FALSE,echo=TRUE}
+nhanes %>% 
   # Activar el gráfico
   ggplot(aes(x=hdl))+
   # Añadir la ojiva
@@ -596,16 +729,28 @@ nhanes %&gt;%
 
 Este gráfico es similar a la ojiva, pero se diferencia en que hace la evaluación de la distribución cumulada de todos los datos cuantitativos.
 
-<div id="htmlwidget-ff69008436c6ad3c7e50" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ff69008436c6ad3c7e50">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-32.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r}
+p <- nhanes %>%
+  ggplot(aes(x=hdl))+
+  geom_hline(yintercept = c(0,1),col="grey50",lty=2)+
+  stat_ecdf(geom = "line")+
+  geom_point(stat="ecdf")+
+  scale_x_continuous(n.breaks = 12)+
+  scale_y_continuous(n.breaks = 10)+
+  theme_bw()+
+  xlab("Colesterol HDL (mg/dL)")+
+  ylab("Densidad Acumulada\n")+
+  ggtitle("Comportamiento Acumulado del Colesterol HDL de los Encuestados en NHANES")
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F),height = 400)
+```
 ---
 # Gráfico densidad acumulada empírica
 En `R` es fácil construir este gráfico con el siguiente código:
 
 .panelset[
 .panel[.panel-name[Básico]
-
-```r
+```{r,eval=FALSE,echo=TRUE}
 # La finción "ecdf" se calcula la densidad acumulada
 # La función "plot" contruye el gráfico
 # En los argumentos de la función se hacen los toque estéticos
@@ -621,9 +766,8 @@ ecdf(nhanes$hdl)(55)
 ```
 ]
 .panel[.panel-name[ggplot2]
-
-```r
-nhanes %&gt;% 
+```{r,eval=FALSE,echo=TRUE}
+nhanes %>% 
   # Activar el gráfico
   ggplot(aes(x=hdl))+
   # Añadir la ojiva
@@ -645,22 +789,44 @@ nhanes %&gt;%
 
 Este gráfico es una estimación de la curva característica de una variable continua, la estimación se realiza vía métodos numéricos, así que es una aproximación empírica de la distribución de probabilidad.
 
-<div id="htmlwidget-c3e245d6abaf080ae1fd" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c3e245d6abaf080ae1fd">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-35.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r}
+p <- nhanes %>%
+    ggplot(aes(x=hdl))+
+    geom_density(lwd=1,col=2)+
+    scale_x_continuous(n.breaks = 12)+
+    scale_y_continuous(n.breaks = 12)+
+    theme_bw()+
+    xlab("Colesterol HDL (mg/dL)")+
+    ylab("Densidad\n")+
+    ggtitle("Distribución empírica del Colesterol HDL de los Encuestados en NHANES")
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F),height = 400)
+```
 ---
 # Gráfico de densidad
 El modelamiento de la curva comparte el mismo comportamiento del histograma, en este sentido ambos gráficos están relacionados.
 
-<div id="htmlwidget-293b9a50cb418aac0236" style="width:100%;height:500px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-293b9a50cb418aac0236">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-36.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r,fig.width=6,fig.height=5,dpi=90}
+p <- nhanes %>%
+    ggplot(aes(x=hdl))+
+    geom_histogram(col="black",fill="darkcyan",aes(y=..density..))+
+    geom_density(lwd=1,col=2)+
+    scale_x_continuous(n.breaks = 12)+
+    scale_y_continuous(n.breaks = 10)+
+    theme_bw()+
+    xlab("Colesterol HDL (mg/dL)")+
+    ylab("Densidad\n")+
+    ggtitle("Distribución empírica del Colesterol HDL de los Encuestados en NHANES")
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F),height = 500)
+```
 ---
 # Gráfico de densidad
 En `R` es fácil construir este gráfico con el siguiente código:
 
 .panelset[
 .panel[.panel-name[Básico]
-
-```r
+```{r,eval=FALSE,echo=TRUE}
 # La finción "density" estima la curva de densidad
 # La función "lines" agrega la línea al histograma
 # En los argumentos de la función se hacen los toque estéticos
@@ -675,9 +841,8 @@ lines(density(nhanes$hdl,na.rm = T),col=2,lwd=2)
 ```
 ]
 .panel[.panel-name[ggplot2]
-
-```r
-nhanes %&gt;% 
+```{r,eval=FALSE,echo=TRUE}
+nhanes %>% 
   # Activar el gráfico
   ggplot(aes(x=hdl))+
   # Añadir el gráfico de densidad
@@ -697,26 +862,55 @@ nhanes %&gt;%
 
 El gráfico de cajas y bigotes (*boxplot*) es un diagrama que divide una variable continua en cuartiles, es muy útil para detectar posibles *valores atípicos*.
 
-&lt;center&gt;
-&lt;img src="BoxPlot.jpg" alt="boxplot" width="90%"/&gt;
-&lt;/center&gt;
+<center>
+<img src="BoxPlot.jpg" alt="boxplot" width="90%"/>
+</center>
 
 ---
 # Box-Plot
 
 .pull-left[
-<div id="htmlwidget-3dc42cb4a59c58a51516" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3dc42cb4a59c58a51516">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-39.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r}
+p <- nhanes %>%
+  ggplot(aes(x=hdl))+
+  geom_boxplot(fill="gold3")+
+  scale_x_continuous(n.breaks = 12)+
+  theme_bw()+ylim(c(-0.5,0.5))+
+  xlab("Colesterol HDL (mg/dL)")+
+  ggtitle("Comportamiento del Colesterol HDL de los Encuestados en NHANES")
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F),height = 400)
+```
 ]
 .pull-right[
-<div id="htmlwidget-6e3a1380546c14efe6f5" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6e3a1380546c14efe6f5">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-40.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r}
+p <- nhanes %>%
+  ggplot(aes(y=hdl))+
+  geom_boxplot(fill="gold3")+
+  scale_y_continuous(n.breaks = 12)+
+  theme_bw()+xlim(c(-0.5,0.5))+
+  xlab("Colesterol HDL (mg/dL)")+
+  ggtitle("Comportamiento del Colesterol HDL de los Encuestados en NHANES")
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F),height = 400)
+```
 ]
 ---
 # Box-Plot
 Este gráfico muestra por cuartiles la distribución de la variable aleatoria, en este sentido está relacionado con otros gráficos que muestran el comportamiento de los datos, como el histograma o la curva de densidad.
 
-&lt;img src="D_graph_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
+```{r,fig.width=6,fig.height=5,dpi=90}
+nf <- graphics::layout(mat = matrix(c(1,2),2,1, byrow=TRUE),  height = c(3,1))
+par(mar=c(2.1, 4.1, 2.1, 2.1))
+hist(nhanes$hdl,col="darkcyan",las=1,cex.axis=0.8,xlim = c(5,160),
+     main="Comportamiento del Colesterol HDL\nde los Encuestados en NHANES",
+     ylab="Densidad",xlab="Colesterol HDL (mg/dL)",freq = F,ylim=c(0,0.03))
+lines(density(nhanes$hdl,na.rm = T),col=2,lwd=2)
+rug(nhanes$hdl,col=2)
+boxplot(nhanes$hdl,horizontal=TRUE,
+        outline=TRUE,ylim=c(5,160),cex.axis=0.8,
+        frame=F,col="gold2",width=10,xaxs="n",pch=20)
+```
 ---
 # Box-Plot
 
@@ -724,8 +918,7 @@ En `R` es fácil construir este gráfico con el siguiente código:
 
 .panelset[
 .panel[.panel-name[Básico]
-
-```r
+```{r,eval=FALSE,echo=TRUE}
 # La finción "boxplot" construye el gráfico
 # El argumento "horizontal" gira el boxplot
 # En los argumentos de la función se hacen los toque estéticos
@@ -738,9 +931,8 @@ boxplot(nhanes$hdl,pch=20,col="gold2",horizontal = T,
 ```
 ]
 .panel[.panel-name[ggplot2]
-
-```r
-nhanes %&gt;% 
+```{r,eval=FALSE,echo=TRUE}
+nhanes %>% 
   # Activar el gráfico
   ggplot(aes(x=hdl))+
   # Añadir el box-plot
@@ -766,20 +958,18 @@ Hasta ahora se han vistos casos para realizar gráficos univariados, y unos cuan
 
 Para los siguientes ejemplos se utilizará el paquete `ggplot2` para realizar gráficos más complejos, , pero fáciles de programar y el paquete `dplyr` para realizar filtros y agrupaciones de las bases de datos.
 
-
-```r
+```{r,echo=T,eval=F}
 install.packages(c("ggplot2","dplyr"),dependencies = T)
 ```
 
 Para los siguientes ejemplos utilizaremos las bases de datos de *Diabetes en los Indígenas Pima* publicado por el Instituto Nacional de Diabetes y Enfermedades Digestivas y Renales. Esta bases de datos las encontraremos en el paquete `mlbench`, la cual instalaremos así:
 
-
-```r
+```{r,eval=F,echo=T}
 install.packages("mlbench",dependencies = T)
 
 # Para cargar el paquete
 require(mlbench)
-datos &lt;- get(data(PimaIndiansDiabetes2))
+datos <- get(data(PimaIndiansDiabetes2))
 ```
 
 ---
@@ -788,9 +978,8 @@ datos &lt;- get(data(PimaIndiansDiabetes2))
 El **gráfico de dispersión** o *scatterplot* relaciona dos variables continuas, es útil para evaluar de manera visual la relación entre dos variables en términos de dependencia, sea creciente o decreciente.
 
 .pull-left[
-
-```r
-datos %&gt;% ggplot(aes(x=triceps,y=mass))+
+```{r,echo=TRUE,eval=FALSE}
+datos %>% ggplot(aes(x=triceps,y=mass))+
   geom_point()+
   ggtitle("Relación del IMC de los indígenas\ncon el espesor del tríceps")+
   ylab("IMC (kg/m^2)")+
@@ -798,16 +987,28 @@ datos %&gt;% ggplot(aes(x=triceps,y=mass))+
 ```
 ]
 .pull-right[
-<div id="htmlwidget-48aa8831a7b0e5ea2874" style="width:100%;height:450px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-48aa8831a7b0e5ea2874">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-47.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r}
+require(mlbench)
+datos <- get(data(PimaIndiansDiabetes2))
+
+p <- datos %>%
+  ggplot(aes(x=triceps,y=mass))+
+  geom_point(size=1)+
+  ggtitle("Relación del IMC de los indígenas\ncon el espesor del tríceps")+
+  ylab("IMC (kg/m^2)")+
+  xlab("Espesor del pliegue cutáneo del tríceps (mm)")
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F) %>%
+              layout(margin=list(t=100)),
+            height = 450)
+```
 ]
 ---
 # Gráficos compuestos
 
 .pull-left[
-
-```r
-datos %&gt;%
+```{r,echo=TRUE,eval=FALSE}
+datos %>%
   ggplot(aes(x=triceps,y=mass,
              colour=diabetes))+
   geom_point()+
@@ -817,17 +1018,28 @@ datos %&gt;%
 ```
 ]
 .pull-right[
-<div id="htmlwidget-c780958306d780b738a8" style="width:100%;height:500px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c780958306d780b738a8">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-49.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r}
+p <- datos %>%
+  ggplot(aes(x=triceps,y=mass,
+             colour=diabetes))+
+  geom_point(size=1)+
+  ggtitle("Relación del IMC de los indígenas con el espesor del\ntríceps según la condición de diabetes")+
+  ylab("IMC (kg/m^2)")+labs(colour="")+
+  xlab("Espesor del pliegue cutáneo del tríceps (mm)")+
+  theme(legend.position = "bottom")
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F) %>%
+              layout(margin=list(t=100,r=80)),
+            height = 500)
+```
 ]
 ---
 # Gráficos compuestos
 
 .pull-left[
-
-```r
-datos %&gt;%
-  mutate(presion=ifelse(pressure&lt;80,"Normal","Alta")) %&gt;%
+```{r,echo=TRUE,eval=FALSE}
+datos %>%
+  mutate(presion=ifelse(pressure<80,"Normal","Alta")) %>%
   ggplot(aes(x=triceps,y=mass,
              colour=presion))+
   geom_point()+
@@ -838,22 +1050,36 @@ datos %&gt;%
 ```
 ]
 .pull-right[
-<div id="htmlwidget-77e553d2713df676d3f6" style="width:100%;height:500px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-77e553d2713df676d3f6">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-51.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r}
+p <- datos %>%
+  mutate(presion=ifelse(pressure<80,"Normal","Alta")) %>%
+  ggplot(aes(x=triceps,y=mass,
+             colour=presion))+
+  geom_point(size=1)+
+  ggtitle("Relación del IMC de los indígenas con el espesor del\ntríceps según la condición de diabetes\ny presión diastólica")+
+  ylab("IMC (kg/m^2)")+
+  xlab("Espesor del pliegue cutáneo del tríceps (mm)")+
+  theme(legend.position = "bottom")+labs(colour="")+
+  facet_wrap(~diabetes)
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F) %>%
+              layout(margin=list(t=150,l=60,b=90,r=40)) %>%
+              layout_ggplotly(y=-0.05,x=-0.15),
+            height = 500)
+```
 ]
 ---
 # Gráficos compuestos
 
 .pull-left[
-
-```r
-datos %&gt;%
-  filter(age&gt;=28 &amp; age&lt;=64) %&gt;%
-  mutate(presion=ifelse(pressure&lt;80,"Normal","Alta")) %&gt;%
+```{r,echo=TRUE,eval=FALSE}
+datos %>%
+  filter(age>=28 & age<=64) %>%
+  mutate(presion=ifelse(pressure<80,"Normal","Alta")) %>%
   mutate(CIMC=cut(mass,breaks = c(10,18.5,25,30,35,Inf),
                   labels = c("Delgadez","Normalidad",
-                             "Sobrepeso","Obesidad","O Extrema"))) %&gt;%
-  na.omit %&gt;%
+                             "Sobrepeso","Obesidad","O Extrema"))) %>%
+  na.omit %>%
   ggplot(aes(x=glucose,y=insulin,colour=CIMC))+
   geom_point()+labs(colour="IMC")+
   ggtitle("Relación entre la glucosa y la insulina\nIndígenas adultos segun IMC, presion y diabetes")+
@@ -863,8 +1089,30 @@ datos %&gt;%
 ```
 ]
 .pull-right[
-<div id="htmlwidget-410d546accf78f66680c" style="width:100%;height:500px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-410d546accf78f66680c">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-53.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r}
+p <- datos %>%
+  filter(age>=28 & age<=64) %>%
+  mutate(presion=ifelse(pressure<80,"Normal","Alta")) %>%
+  mutate(CIMC=cut(mass,breaks = c(10,18.5,25,30,35,Inf),
+                  labels = c("Delgadez","Normalidad",
+                             "Sobrepeso","Obesidad","O Extrema"))) %>%
+  na.omit %>%
+  ggplot(aes(x=glucose,y=insulin,colour=CIMC))+
+  geom_point(size=1)+labs(colour="")+
+  ggtitle("Relación entre la glucosa y la insulina\nIndígenas adultos segun IMC, presion y diabetes")+
+  ylab("Insulina (mu U/ml)")+
+  xlab("Concentración de glucosa en plasma")+
+  theme(legend.position = "bottom")+
+  facet_grid(presion~diabetes)
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F) %>%
+              layout(margin=list(t=130,l=80,b=90,r=40),
+                     legend = list(orientation = "h",
+                                   font=list(size=10),
+                                   y=-0.25,x=0.1)) %>%
+              layout_ggplotly(x=-0.15),
+            height = 500)
+```
 ]
 ---
 # Gráficos compuestos
@@ -872,9 +1120,8 @@ datos %&gt;%
 Los **BoxPlot** también pueden mezclar variables cualitativas y cuantitativas, ya que se puede separar por los niveles de las categorías y condicionarlas por las mediciones de la variable continua.
 
 .pull-left[
-
-```r
-datos %&gt;%
+```{r,echo=TRUE,eval=FALSE}
+datos %>%
   ggplot(aes(y=mass,x=diabetes,fill=diabetes))+
   geom_boxplot()+
   ggtitle("IMC según la condición de diabetes")+
@@ -883,19 +1130,28 @@ datos %&gt;%
 ```
 ]
 .pull-right[
-<div id="htmlwidget-d121ebaa21415f41f39f" style="width:100%;height:500px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d121ebaa21415f41f39f">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-55.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r}
+p <- datos %>%
+  ggplot(aes(y=mass,x=diabetes,fill=diabetes))+
+  geom_boxplot()+
+  ggtitle("IMC según la condición de diabetes")+
+  theme(legend.position = "bottom")+labs(fill="")+
+  ylab("IMC (kg/m^2)")+xlab("Diabetes")
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F) %>%
+              layout(margin=list(t=80,r=100)),
+            height = 500)
+```
 ]
 ---
 # Gráficos compuestos
 
 .pull-left[
-
-```r
-datos %&gt;%
+```{r,echo=TRUE,eval=FALSE}
+datos %>%
   mutate(CIMC=cut(mass,breaks = c(10,18.5,25,30,35,Inf),
                   labels = c("Delgadez","Normalidad",
-                             "Sobrepeso","Obesidad","O Extrema"))) %&gt;%
+                             "Sobrepeso","Obesidad","O Extrema"))) %>%
   ggplot(aes(y=insulin,x=CIMC,fill=CIMC))+
   geom_boxplot()+
   coord_flip()+
@@ -907,20 +1163,34 @@ datos %&gt;%
 ```
 ]
 .pull-right[
-<div id="htmlwidget-eefa11c0d9c97010e81b" style="width:100%;height:500px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-eefa11c0d9c97010e81b">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-57.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r}
+p <- datos %>%
+  mutate(CIMC=cut(mass,breaks = c(10,18.5,25,30,35,Inf),
+                  labels = c("Delgadez","Normalidad",
+                             "Sobrepeso","Obesidad","O Extrema"))) %>%
+  ggplot(aes(y=insulin,x=CIMC,fill=CIMC))+
+  geom_boxplot()+coord_flip()+
+  ggtitle("Insulina sérica y condición de\ndiabetes según IMC")+
+  ylab("Insulina (mu U/ml)")+xlab("")+labs(fill="")+
+  theme(legend.position = "bottom")+
+  facet_wrap(~diabetes)+theme_bw()
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F) %>%
+              layout(margin=list(t=110,b=80)) %>%
+              layout_ggplotly(y=0.25),
+            height = 500)
+```
 ]
 ---
 # Gráficos compuestos
 
 .pull-left[
-
-```r
-datos %&gt;%
+```{r,echo=TRUE,eval=FALSE}
+datos %>%
   mutate(CIMC=cut(mass,breaks = c(10,18.5,25,30,35,Inf),
                   labels = c("Delgadez","Normalidad",
-                             "Sobrepeso","Obesidad","O Extrema"))) %&gt;%
-  na.omit %&gt;%
+                             "Sobrepeso","Obesidad","O Extrema"))) %>%
+  na.omit %>%
   ggplot(aes(y=insulin,x=diabetes,fill=diabetes))+
   geom_boxplot()+
   ggtitle("Insulina sérica y condición de diabetes según IMC")+
@@ -929,130 +1199,24 @@ datos %&gt;%
 ```
 ]
 .pull-right[
-<div id="htmlwidget-03f508c0999e94ad6dd3" style="width:100%;height:500px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-03f508c0999e94ad6dd3">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-59.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+```{r}
+p <- datos %>%
+  mutate(CIMC=cut(mass,breaks = c(10,18.5,25,30,35,Inf),
+                  labels = c("Delgadez","Normalidad",
+                             "Sobrepeso","Obesidad","O Extrema"))) %>%
+  na.omit %>%
+  ggplot(aes(y=insulin,x=diabetes,fill=diabetes))+
+  geom_boxplot()+
+  ggtitle("Insulina sérica y condición de diabetes según IMC")+
+  ylab("Insulina (mu U/ml)")+xlab("Diabetes")+
+  theme(legend.position = "bottom")+labs(fill="")+
+  facet_wrap(~CIMC)+theme_bw()
+frameWidget(ggplotly(p) %>%
+              config(displayModeBar = F) %>%
+              layout(margin=list(t=100,l=80),
+                     legend = list(orientation = "h",
+                                   y=-0.2,x=0.35)) %>%
+              layout_ggplotly(),
+            height = 500)
+```
 ]
-    </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create({
-"ratio": "16:9",
-"highlightStyle": "arta",
-"highlightLines": true,
-"countIncrementalSlides": false
-});
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
-  window.dispatchEvent(new Event('resize'));
-});
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
-  if (!r) return;
-  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
-  d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
-})();
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
-</script>
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-(function () {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
-  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
-    script.src  = script.src.replace(/^https?:/, '');
-  document.getElementsByTagName('head')[0].appendChild(script);
-})();
-</script>
-  </body>
-</html>
