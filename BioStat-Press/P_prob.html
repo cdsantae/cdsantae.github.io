@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Cristian Santa | Alejandro Estrada" />
+    <script src="github/header-attrs-2.11/header-attrs.js"></script>
+    <link href="github/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link href="github/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="github/panelset-0.2.6/panelset.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Probabilidad
+## Probabilidad <i>apriori</i>
+### Cristian Santa | Alejandro Estrada
+### Escuela de Nutrición y Dietética - UdeA
+### Septiembre 2021
+
+---
+
+
+
+
+class: inverse, center, middle
+
+# La probabilidad es una medida de la certidumbre asociada a un suceso o &lt;em&gt;evento futuro&lt;/em&gt; y suele expresarse como un número entre 0 y 1&lt;br&gt;(o entre 0% y 100%)
+
+---
+# Probabilidad *a priori*
+
+Sea `\(A \in \Omega\)` la probabilidad de ocurrencia del evento `\(A\)` se define como:
+
+`$$\Large P(A)=\cfrac{\text{# Casos favorables}}{\text{# Casos posibles}}$$`
+--
+
+&lt;br&gt;
+&lt;hr&gt;
+&gt;Don Ramiro todos los días juega chance, apuesta los número 8845, 1254 y 6743. Como hoy es Martes, él sabe que la semana pasada el número ganador fue 9654.&lt;br&gt;¿Cuál es la probabilidad de ganar el chance con sus números?&lt;br&gt;Como "ya cayó" el 9654 ¿justifica no jugarlo?
+
+&lt;hr&gt;
+---
+# Probabilidad *a priori*
+
+## Ejercicio
+
+Suponga una bolsa que contiene 10 bolas, de las cuales 3 son negras, 5 son azules, y 2 son verdes. Si se saca una bola al azar de la bolsa. Cuál es la probabilidad de que sea:
+
+1. Negra
+2. Azul
+3. Roja
+4. Verde
+5. Negra o Azul
+6. No sea Negra y No sea Roja
+
+---
+# Probabilidad *a priori*
+
+## Axiomas de probabilidad
+
+1. Sea `\(A \in \Omega\)` entonces `\(P(A) \ge 0\)`
+2. `\(P(\Omega)=1\)`.
+3. Sean `\((A, B) \in \Omega\)` eventos mutuamente excluyentes, entonces `\(P(A \cup B)=P(A)+P(B)\)`.
+4. Si `\(\Omega\)` está compuesto de infinitos conjuntos o eventos.
+    * Si `\(A_1 \supset A_2 \supset A_3 \supset ...\)` y `\(\bigcap_{n=1}^{\infty} A_n =\emptyset\)` entonces `\(\text{lim}_{n \to \infty} P(A_n)=0\)`.&lt;br&gt;
+    * Sean `\(A_1, A_2, A_3,... \in \Omega\)` si `\(A_i \cap A_j = \emptyset, \: \forall i\neq j\)` entonces `\(P(\bigcup_{i=1}^{\infty}A_i)=\sum_{i=1}^{\infty}P(A_i)\)`.
+
+--
+
+## Propiedades
+
+1. `\(P(A^\prime)=1-P(A)\)`
+2. `\(P(\emptyset)=0\)`
+3. Si `\(A \subset B \Rightarrow P(A) \le P(B)\)`
+4. Para cualquier evento `\(A\)`, se cumple `\(0 \leq P(A)\leq 1\)`
+5. `\(P(A\cup B)=P(A)+P(B)-P(A \cap B)\)`
+
+---
+# Probabilidad *a priori*
+
+.panelset[
+.panel[.panel-name[Ejemplo 1]
+Se lanza un dado. ¿Cual es la probabilidad de el resultado sea `\(2\)` o `\(5\)`?
+
+`\(A\)`: Evento que el resultado es `\(2\)`
+
+`\(B\)`: Evento que el resultado es `\(5\)`
+
+`$$P(A \cup B)=P(A)+P(B)=\cfrac{1}{6}+\cfrac{1}{6}=\cfrac{1}{3}$$`
+]
+.panel[.panel-name[Ejemplo 2]
+En un lote de `\(50\)` bombillas hay `\(2\)` bombillas que presentan fallas. Un inspector examina `\(5\)` bombillas, las cuales fueron seleccionadas al azar y sin reemplazo. ¿Cuál es la probabilidad de que al menos 1 de las bombillas es defectuosa entre las 5 examinadas?
+
+`\(A\)`: Evento de tener todas las bombillas nuevas
+
+`$$P(A^\prime)=1-P(A)$$`
+`$$P(A)=\frac{{48\choose 5} {2\choose 0}}{50 \choose 5}=0.8082$$`
+`$$P(A^\prime)=1-P(A)=1-0.8082=0.1918$$`
+]
+.panel[.panel-name[Ejemplo 3]
+Una mano de cartas consiste en `\(5\)` cartas elegidas al azar y sin reemplazo de una baraja de `\(52\)` cartas. ¿Cuál es la probabilidad de que en la mano resulten `\(3\)` corazones y `\(2\)` picas?
+
+`\(A\)`: Evento de obtener `\(3\)` corazones y `\(2\)` picas
+
+`$$\Large P(A)=\frac{{13\choose 3} {13\choose 2}}{52 \choose 5}=0.0086$$`
+]
+]
+
+---
+# Probabilidad Condicional
+
+Algunas veces la ocurrencia de un envento `\(A\)` puede afectar la ocurrencia posterior de otro evento `\(B\)`. Suponga un grupo de 20 artículos que contiene 10 defectuosos y 10 que no lo son. Una persona selecciona un artículo al azar y lo instala en un equipo.
+
+**A**: evento en que la selección del artículo resulte defectuoso
+`$$P(A)=\cfrac{10}{20}=0.5$$`
+
+Ahora bien, suponga que se selecciona otro artículo de los 19 restantes.
+
+**B**: evento en que la selección del segundo artículo resulte defectuoso
+
+| Si el primero es defectuoso | Si el primero no es defectuoso |
+|:---------------------------:|:------------------------------:|
+| `$$P(B)=\cfrac{9}{19}$$`      | `$$P(B)=\cfrac{10}{19}$$`        |
+
+---
+# Probabilidad Condicional
+
+Sean `\((A, B) \in \Omega\)`, la probabilidad condicional `\(A\)` dado `\(B\)` denotado como `\(P(A|B)\)` se define como:
+
+`$$P(A|\color{blue}B)=\frac{P(A \cap B)}{\color{blue}{P(B)}} \:\:\:\text{donde}\:\:P(B)&gt;0\\$$`
+`$$P(B|\color{blue}A)=\frac{P(A \cap B)}{\color{blue}{P(A)}} \:\:\:\text{donde}\:\:P(A)&gt;0$$`
+--
+
+**Ejemplo**
+
+En un grupo de estudiantes, el 40% de los alumnos practica al fútbol, el 30% al baloncesto y el 10% practica ambos deportes: Si juega fútbol, ¿cuál es la probabilidad de que juegue baloncesto?
+
+`$$P(B|F)=\frac{P(B \cap F)}{P(F)}=\frac{0.1}{0.4}=0.25$$`
+
+---
+# Ejercicio
+
+Suponga que se realiza un estudio en la Facultad de Ingeniería, en donde se le pregunta a sus estudiantes, en cuál deporte preferirían practicar entre Fútbol, Baloncesto, Voleibol y Tenis. Dicha pregunta se le realiza a un total de 400 estudiantes, encontrando los siguientes resultados
+
+|             |Fútbol|Baloncesto|Voleibol|Tenis|
+|:------------|:---:|:---:|:---:|:---:|
+|**Industrial**    |48|27|22|23|
+|**Mecánica**      |34|41|25|10|
+|**Electrónica**   |66|51|13|40|
+
+
+A partir de la tabla anterior
+
+1. ¿Cuál es la probabilidad de que se seleccione un estudiante que prefiera el Fútbol sobre los otros deportes?
+2. ¿Cuál es la probabilidad de que se seleccione un estudiante que estudie Mecánica?
+3. ¿Cuál es la probabilidad de que se seleccione un estudiante que estudie Electrónica y prefiera el Tenis sobre los demás deportes?
+4. Si se selecciona un estudiante de Mecánica, ¿Cuál es la probabilidad de que prefiera el Voleibol sobre los otros deportes?
+5. ¿Cual es la probabilidad de que un estudiante sea de Electrónica, si se sabe que prefiere el Baloncesto sobre los otros deportes?
+
+---
+# Regla Multiplicativa
+
+`$$\Large P(A \cap B)=P(A)P(B|A)=P(B)P(A|B)$$`
+
+Una bolsa contiene seis pelotas rojas y cuatro azules, una segunda contiene siete rojas y dos azules. El experimento consiste en seleccionar una pelota al azar de la primera bolsa y colocarla dentro de la segunda bolsa. Seguidamente se selecciona una de la segunda bolsa y se coloca en la primera bolsa.
+
+&lt;img src="ReglaMultiplicativa.jpg" width="500px" style="display: block; margin: auto;" /&gt;
+
+Cuál es la probabilidad de que se seleccione una pelota roja de la primera bolsa y una roja de la segunda bolsa?
+
+---
+# Regla Multiplicativa
+
+Para resolver tal problema podemos emplear lo conocido como un Diagrama de Árbol el cual consta de gráficas todos los posibles resultados, de la siguiente forma
+
+.pull-left[
+&lt;img src="DiagramadeArbol.jpg" width="500px" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+Entonces, si observamos el diagrama de árbol, podemos apreciar que la probabilidad de que se saque una bola roja de la primera bolsa (primer paso) es de
+
+`$$P(R_1)=\frac{6}{10}$$`
+
+mientras que la probabilidad de sacar una bola roja de la segunda bolsa (segundo paso) es de
+
+`$$P(R_2|R_1)=\frac{8}{10}$$`
+]
+
+Y por tanto, al aplicar la regla multiplicativa, tenemos que la probabilidad de sacar una bola roja de la primera bolsa, introducirla en la segunda bolsa, y posteriormente sacar una bola roja de la segunda bolsa, es de
+
+`$$P(R_1 \cap R_2)=P(R_1)P(R_2|R_1)=\frac{6}{10}\times\frac{8}{10}=\frac{48}{100}=0.48$$`
+
+---
+
+# Independencia entre eventos
+
+Si en un experimento estadístico pueden ocurrir dos eventos A y B que son independientes entre si, entonces
+
+`$$P(A|B)=P(A)\quad\text{o}\quad P(B|A)=P(B)$$`
+
+lo cual es equivalente a
+
+`$$P(A\cap B)=P(A)P(B)$$`
+
+Una bolsa contiene 100 pelotas, de las cuales 25 son rojas, 40 son azules y 35 son negras. Si se seleccionan dos pelotas, ¿Cuál es la probabilidad de que la primera sea negra y la segunda sea azul, si la primera pelota se reemplaza antes de sacar la segunda? Las probabilidades son independientes?
+
+Dado que la selección de las pelotas se realiza con reemplazo, tendremos que la probabilidad de un paso a otro permanecerá constante entre todas las pelotas, por ejemplo, si se saca una bola negra en el primer paso, entonces se registrará su color, se volverá a introducir en la bolsa, y posteriormente se realizará el segundo paso, asegurando que la probabilidad que tendrán todas las bolas de ser seleccionadas permanezca invariable, respecto a las probabilidades iniciales. Dado lo anterior tendremos el siguiente escenario.
+
+---
+# Independencia entre eventos
+
+&lt;img src="DiagramadeArbol2.jpg" width="1062" style="display: block; margin: auto;" /&gt;
+
+
+Para realizar el cálculo de la probabilidad de sacar una bola negra en el primer paso y una bola azul en el segundo paso, con reemplazo, se tendrá que
+
+`$$\begin{align*}
+P(N_1 \cap A_2) &amp;=P(N_1)P(A_2|N_1)\\\\
+                &amp;=\frac{35}{100}\times \frac{40}{100}
+                =\frac{1400}{10000}\\\\
+                &amp;=0.14
+\end{align*}$$`
+---
+# Independencia entre eventos
+
+Encontrando entonces que la probabilidad de sacar una bola Negra en el primer paso y una bola azul en el segundo paso es del `\(14\%\)`. Ahora, para saber si los eventos planteados son o no independientes, podemos centrarnos en la primera linea, en donde tenemos que la probabilidad de sacar una bola negra es de `\(P(N_1)=35/100\)`, mientras que la probabilidad de sacar una bola azul es de `\(P(A_1)=40/100\)`, y en consecuencia, al verificar la formula asociada a independencia entre eventos, tendremos que
+
+`$$\begin{align*}
+P(N_1 \cap A_2) &amp;=P(N_1)P(A_2|N_1)\\\\
+\frac{1400}{10000} &amp;=\frac{35}{100}\times \frac{40}{100}\\\\
+\frac{1400}{10000} &amp;=\frac{1400}{10000}\\\\
+              0.14 &amp;=0.14
+\end{align*}$$`
+
+Y por tanto, al verificar que la igualdad se cumple, se concluye que los eventos son independientes.
+
+---
+# Teorema Probabilidad Total
+
+Sean `\(B_1, B_2,...,B_k\)` eventos **mutuamente excluyentes** `\((B_i \cap B_j =\emptyset, \forall i \neq j)\)` y **exhaustivos** `\(\left(\bigcup_{i=1}^k B_i = \Omega\right)\)`, entonces para cualquier evento `\(A\)` se cumple:
+
+`$$P(A)=P(A\cap B_1)+P(A\cap B_2)+\dots+P(A\cap B_k)$$`
+
+o alternativamente, al aplicar la formula de la **Regla multiplicativa**, tenemos que
+
+`$$P(A)=\sum_{j=1}^{n}P(A \cap B_j)=\sum_{j=1}^{n}P(B_j)P(A|B_j)$$`
+
+### Ejemplo
+
+Tres Nutricionistas de cierto equipo de baloncesto `\(N_1\)`, `\(N_2\)`, `\(N_3\)` realizan planes nutricionales al `\(30\%\)`, `\(45\%\)`, `\(25\%\)` de los jugadores respectivamente. Se sabe por experiencia que `\(4\%\)`, `\(5\%\)`, `\(2\%\)` de los jugadores atendidos no siguen las recomendaciones, respectivamente. Si se selecciona de forma aleatoria un jugador de baloncesto después de la cita con el Nutricionista. ¿Cuál es la probabilidad de que éste no se acoja al plan?
+
+---
+# Teorema Probabilidad Total
+
+Definamos los eventos:
+
+&amp;emsp; `\(A\)`: El jugador de baloncesto no se Acoje al Plan.&lt;br&gt;
+&amp;emsp; `\(N_1\)`: el jugador fue atendido por el Nutricionista 1.&lt;br&gt;
+&amp;emsp; `\(N_2\)`: el jugador fue atendido por el Nutricionista 2.&lt;br&gt;
+&amp;emsp; `\(N_3\)`: el jugador fue atendido por el Nutricionista 3.
+
+Dado que el interés radica en encontrar la probabilidad de que se seleccione un jugador y **no siga** el plan nutricional, entonces nos están pidiendo que se desea calcular la `\(P(A)\)`.
+
+&gt;Como entre la información dada en el enunciado no nos da la probabilidad de que un jugador no siga el plan, entonces podemos tratar de calcularla mediante el **teorema de probabilidad total**, aprovechando que los eventos `\(N_1\)`, `\(N_2\)`, `\(N_3\)` son **eventos mutuamente excluyentes** *(Un jugador que es atendido por un Nutricionista, no puede ser atendido simultáneamente por otro)*, **exhaustivos** *(El total de los jugadores del equipo, solo puede ser atendido por alguno de estos tres Nutricionistas)* y que nos están dando las probabilidades de los eventos `\(A|N_1\)`,  `\(A|N_2\)` y `\(A|N_3\)`.
+
+---
+# Teorema Probabilidad Total
+
+Partiendo de esto tenemos las siguientes probabilidades:
+
+`$$P(N_1)=0.30 \quad P(N_2)=0.45\quad P(N_3)=0.25\\
+P(A|N_1)=0.04 \quad P(A|N_2)=0.05\quad P(A|N_3)=0.02$$`
+
+Entonces, al aplicar el teorema de probabilidad total, tendremos que
+
+`$$\begin{align*}
+P(A) &amp;=P(N_1)P(A|N_1)+P(N_2)P(A|N_2)+P(N_3)P(A|N_3)\\
+ &amp;=0.30\times0.04 + 0.45\times0.05+ 0.25\times0.02\\
+ &amp;=0.0395
+\end{align*}$$`
+
+Por tanto, la probabilidad de que un jugador atendido por los Nutricionistas del equipo no se acoja al plan nutricional es del `\(3.95\%\)`.
+
+---
+# Teorema de Bayes
+
+Sea `\(\{A_i\}_{i=1}^{n}\)` un conjunto de `\(n\)` eventos cada uno con probabilidad positiva, además son mutuamente excluyentes. Para cualquier evento `\(B \in \Omega\)` con `\(P(B)&gt;0\)` se cumple:
+
+.pull-left[
+&lt;img src="P_prob_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+]
+.pull-right[
+`$$\begin{align*}
+P(A_j|B)=\frac{P(A_j \cap B)}{P(B) }=&amp;\frac{P(B|A_j)P(A_j)}{\sum_{i=1}^{n}P(A_j)P(B|A_j)}\\\\
+=&amp;\frac{\color{red}{\text{Regla Multiplicativa}}}{\color{blue}{\text{Probabilidad Total}}}
+\end{align*}$$`
+
+Esto nos permite hallar probabilidades de los diferentes sucesos que pueden causar la ocurrencia `\(B\)`. Por esta razón con frecuencia se hace referencia al Teorema de Bayes como el teorema sobre la **probabilidad de causas**.
+]
+
+---
+# Ejemplo
+
+Tres Nutricionistas de cierto equipo de baloncesto `\(N_1\)`, `\(N_2\)`, `\(N_3\)` realizan planes nutricionales al `\(30\%\)`, `\(45\%\)`, `\(25\%\)` de los jugadores respectivamente. Se sabe por experiencia que `\(4\%\)`, `\(5\%\)`, `\(2\%\)` de los jugadores atendidos no siguen las recomendaciones, respectivamente. Si se sabe que el jugador no se acogió al plan nutricional. ¿Cuál es la probabilidad de que fuese atendido por el Nutricionista 2?
+
+Definamos los eventos:
+
+&amp;emsp; `\(A\)`: El jugador de baloncesto no se Acoje al Plan.&lt;br&gt;
+&amp;emsp; `\(N_1\)`: el jugador fue atendido por el Nutricionista 1.&lt;br&gt;
+&amp;emsp; `\(N_2\)`: el jugador fue atendido por el Nutricionista 2.&lt;br&gt;
+&amp;emsp; `\(N_3\)`: el jugador fue atendido por el Nutricionista 3.
+
+Partiendo de esto tenemos las siguientes probabilidades:
+
+`$$P(N_1)=0.30 \quad P(N_2)=0.45\quad P(N_3)=0.25\\
+P(A|N_1)=0.04 \quad P(A|N_2)=0.05\quad P(A|N_3)=0.02$$`
+
+Además se tiene que la probabilidad total para `\(A\)` es: `$$P(A) = 0.0395$$`
+
+---
+# Ejemplo
+
+Nos piden calcular la probabilidad de que el Nutricionista 2 sea *"el culpable"* de que el jugador no se haya acogido al plan. Esto se traduce como la probabilidad de las causas, es decir, aplicar el Teorema de Bayes.
+
+&lt;br&gt;
+
+`$$\begin{align*}
+P(N_2 | A)=&amp; \frac{P(N_2 \cap A)}{P(A)}=\frac{P(A|N_2)P(N_2)}{P(A)}\\\\
+=&amp;\frac{(0.05)(0.45)}{0.0395}=\frac{0.0225}{0.0395}=0.5696
+\end{align*}$$`
+
+&lt;br&gt;
+
+En conclusión, la probabilidad de que un atleta no se acoja al plan siendo atendido por el Nutricionista 2 es del `\(56.96\%\)`
+
+---
+# Aplicaciones Teorema de Bayes
+
+En el campo de ciencias de la salud se utiliza ampliamente la aplicación de leyes de probabilidad y conceptos relacionados en la evaluación de pruebas de detección y criterios de diagnostico. A los médicos les interesa tener mayor capacidad para predecir correctamente la presencia o ausencia de una enfermedad en particular a partir del conocimiento de los resultados (positivos o negativos) de pruebas y el estado de los síntomas (presentes o ausentes) que se manifiestan. También, es de interés la información respecto a la probabilidad de resultados positivos o negativos de las pruebas y la probabilidad de presencia o ausencia de un síntoma específico en pacientes con o sin una enfermedad en particular.
+
+En pruebas de detección se debe considerar con cuidado que no siempre son pruebas infalibles. Es decir, el procedimiento puede dar un *falso positivo* o un *falso negativo*.
+
+&gt; **Falso Positivo:** resulta cuando una prueba indica que el estado es positivo, cuando en realidad es negativo.&lt;br&gt;&lt;br&gt;
+**Falso Negativo:** resulta cuando una prueba indica que un estado es negativo, cuando en realidad es positivo.
+
+---
+# Aplicaciones Teorema de Bayes
+
+En resumen, se debe responder a las siguientes preguntas para evaluar la utilidad de los resultados de la prueba y el estado de los síntomas para determinar si el individuo tiene o no alguna enfermedad:
+
+1. Dado que un individuo tiene la enfermedad, ¿Qué probabilidad existe de que la prueba resulte positiva (o la presencia de un síntoma)?
+
+2. Dado que un individuo no tiene la enfermedad, ¿Cuál es la probabilidad de que la prueba resulte negativa (o la ausencia de un síntoma)?
+
+3. Dada una prueba positiva de detección (o la presencia de un síntoma), ¿Qué probabilidad existe de que el individuo tenga la enfermedad?
+
+4. Dado el resultado negativo de una prueba de detección (o la ausencia de un síntoma), ¿Cuál es la probabilidad de que el individuo no tenga la enfermedad?
+
+---
+# Aplicaciones Teorema de Bayes
+
+&lt;table class="table table-striped table-hover"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th colspan="3" align="center"&gt;Enfermedad&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Resultado de la&lt;br&gt;prueba&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Presente&lt;br&gt; `\((D)\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Ausente&lt;br&gt; `\((\bar{D})\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Positivo `\((T)\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;a&lt;/td&gt;
+    &lt;td align="center"&gt;b&lt;/td&gt;
+    &lt;td align="center"&gt;a+b&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Negativo `\((\bar{T})\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;c&lt;/td&gt;
+    &lt;td align="center"&gt;d&lt;/td&gt;
+    &lt;td align="center"&gt;c+d&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;a+c&lt;/td&gt;
+    &lt;td align="center"&gt;b+d&lt;/td&gt;
+    &lt;td align="center"&gt;n&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+La tabla muestra para estos `\(n\)` individuos sus estados con respecto a la enfermedad, y es el resultado de una prueba de detección diseñada para identificar a los individuos enfermos. Las entradas de las casillas representan el número de individuos que caen en las categorías definidas por los encabezados de renglón y columna. Por ejemplo, `\(a\)` es el número de individuos que tienen la enfermedad y un resultado positivo en la prueba de detección.
+
+---
+# Aplicaciones Teorema de Bayes
+
+&lt;table class="table table-striped table-hover"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th colspan="3" align="center"&gt;Enfermedad&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Resultado de la&lt;br&gt;prueba&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Presente&lt;br&gt; `\((D)\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Ausente&lt;br&gt; `\((\bar{D})\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Positivo `\((T)\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;a&lt;/td&gt;
+    &lt;td align="center"&gt;b&lt;/td&gt;
+    &lt;td align="center"&gt;a+b&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Negativo `\((\bar{T})\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;c&lt;/td&gt;
+    &lt;td align="center"&gt;d&lt;/td&gt;
+    &lt;td align="center"&gt;c+d&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;a+c&lt;/td&gt;
+    &lt;td align="center"&gt;b+d&lt;/td&gt;
+    &lt;td align="center"&gt;n&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+### **Sensibilidad** para pruebas diagnósticas
+
+&gt;Dado que un individuo tiene la enfermedad, ¿Qué probabilidad existe de que la prueba resulte positiva (o la presencia de un síntoma)?
+
+La sensibilidad de una prueba (o síntoma) es la probabilidad de un resultado positivo de la prueba (presencia o ausencia del sintoma) dada la presencia de la enfermedad.
+
+`$$P(T|D)=\frac{P(T \cap D)}{P(D)}=\frac{a}{a+c}$$`
+
+---
+# Aplicaciones Teorema de Bayes
+
+&lt;table class="table table-striped table-hover"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th colspan="3" align="center"&gt;Enfermedad&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Resultado de la&lt;br&gt;prueba&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Presente&lt;br&gt; `\((D)\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Ausente&lt;br&gt; `\((\bar{D})\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Positivo `\((T)\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;a&lt;/td&gt;
+    &lt;td align="center"&gt;b&lt;/td&gt;
+    &lt;td align="center"&gt;a+b&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Negativo `\((\bar{T})\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;c&lt;/td&gt;
+    &lt;td align="center"&gt;d&lt;/td&gt;
+    &lt;td align="center"&gt;c+d&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;a+c&lt;/td&gt;
+    &lt;td align="center"&gt;b+d&lt;/td&gt;
+    &lt;td align="center"&gt;n&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+### **Especificidad** para pruebas diagnósticas
+
+&gt;Dado que un individuo no tiene la enfermedad, ¿Cuál es la probabilidad de que la prueba resulte negativa (o la ausencia de un síntoma)?
+
+La especificidad de una prueba (o síntoma) es la probabilidad de un resultado negativo de la prueba (o ausencia del síntoma) dada la ausencia de la enfermedad.
+
+`$$P(\bar{T}|\bar{D})=\frac{P(\bar{T} \cap \bar{D})}{P(\bar{D})}=\frac{d}{b+d}$$`
+
+---
+# Aplicaciones Teorema de Bayes
+
+&lt;table class="table table-striped table-hover"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th colspan="3" align="center"&gt;Enfermedad&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Resultado de la&lt;br&gt;prueba&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Presente&lt;br&gt; `\((D)\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Ausente&lt;br&gt; `\((\bar{D})\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Positivo `\((T)\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;a&lt;/td&gt;
+    &lt;td align="center"&gt;b&lt;/td&gt;
+    &lt;td align="center"&gt;a+b&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Negativo `\((\bar{T})\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;c&lt;/td&gt;
+    &lt;td align="center"&gt;d&lt;/td&gt;
+    &lt;td align="center"&gt;c+d&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;a+c&lt;/td&gt;
+    &lt;td align="center"&gt;b+d&lt;/td&gt;
+    &lt;td align="center"&gt;n&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+## Valor predictivo positivo de una prueba (VPP)
+
+&gt;Dada una prueba positiva de detección (o la presencia de un síntoma), ¿Qué probabilidad existe de que el individuo tenga la enfermedad?
+
+El valor que predice la positividad de una prueba de detección (o un síntoma) es la probabilidad de que un individuo tenga la enfermedad, dado que el individuo presenta un resultado positivo en la prueba de detección (o presenta el síntoma).
+
+`$$P(D|T)=\frac{P(D \cap T)}{P(T)}=\frac{P(T|D)P(D)}{P(T|D)P(D)+P(T|\bar{D})P(\bar{D})}=\frac{a}{a+b}$$`
+
+---
+# Aplicaciones Teorema de Bayes
+
+&lt;table class="table table-striped table-hover"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th colspan="3" align="center"&gt;Enfermedad&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Resultado de la&lt;br&gt;prueba&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Presente&lt;br&gt; `\((D)\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Ausente&lt;br&gt; `\((\bar{D})\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Positivo `\((T)\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;a&lt;/td&gt;
+    &lt;td align="center"&gt;b&lt;/td&gt;
+    &lt;td align="center"&gt;a+b&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Negativo `\((\bar{T})\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;c&lt;/td&gt;
+    &lt;td align="center"&gt;d&lt;/td&gt;
+    &lt;td align="center"&gt;c+d&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;a+c&lt;/td&gt;
+    &lt;td align="center"&gt;b+d&lt;/td&gt;
+    &lt;td align="center"&gt;n&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+## Valor predictivo negativo de una prueba (VPN)
+
+&gt;Dado el resultado negativo de una prueba de detección (o la ausencia de un síntoma), ¿Cuál es la probabilidad de que el individuo no tenga la enfermedad?
+
+El valor que predice la negatividad de la prueba de detección (o síntoma) es la probabilidad de que el individuo no tenga la enfermedad, dado que el resultado de la prueba de detección es negativo (es decir no presenta el síntoma).
+
+`$$P(\bar{D}|\bar{T})=\frac{P(\bar{D} \cap \bar{T})}{P(\bar{T})}=\frac{P(\bar{T}|\bar{D})P(\bar{D})}{P(\bar{T}|D)P(D)+P(\bar{T}|\bar{D})P(\bar{D})}=\frac{d}{c+d}$$`
+
+---
+class: inverse, center, middle
+
+## La estimación del valor que predice la positividad o negatividad de una prueba (o síntoma) puede obtenerse a partir del conocimiento de la sensibilidad y especificidad de la prueba (o del síntoma) y de la probabilidad de la enfermedad relevante en la población general. Para obtener la estimación de estos valores de predicción se utiliza el teorema de Bayes.
+
+---
+# Ejercicio
+
+Un equipo de investigación médica pretende evaluar una prueba de detección propuesta para la enfermedad de Cáncer Intestinal. La prueba se basa en una muestra aleatoria de 2030 personas a los cuales se les realizó una endoscopia para confirmar la enfermedad. Los resultados son los siguientes:
+
+&lt;table class="table table-striped table-hover"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th colspan="3" align="center"&gt;Pacientes con cáncer intestinal&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Resultado de la prueba&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Sí `\((D)\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;No `\((\bar{D})\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Positivo `\((T)\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;20&lt;/td&gt;
+    &lt;td align="center"&gt;180&lt;/td&gt;
+    &lt;td align="center"&gt;200&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Negativo `\((\bar{T})\)`&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;10&lt;/td&gt;
+    &lt;td align="center"&gt;1820&lt;/td&gt;
+    &lt;td align="center"&gt;1830&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td align="center"&gt;&lt;b&gt;Total&lt;/b&gt;&lt;/td&gt;
+    &lt;td align="center"&gt;30&lt;/td&gt;
+    &lt;td align="center"&gt;2000&lt;/td&gt;
+    &lt;td align="center"&gt;2030&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+Calcule:
+
+1. Prevalencia
+2. Sensibilidad de la prueba
+3. Especificidad de la prueba
+4. Valor predictivo positivo
+5. Valor predictivo negativo
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "arta",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Probabilidad</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Cristian Santa | Alejandro Estrada" />
+    <script src="github/header-attrs-2.11/header-attrs.js"></script>
+    <link href="github/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link href="github/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="github/panelset-0.2.6/panelset.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introducción a la Probabilidad
+## Técnicas de Conteo
+### Cristian Santa | Alejandro Estrada
+### Escuela de Nutrición y Dietética - UdeA
+### Septiembre 2021
+
+---
+
+
+
+
+
+class: inverse, center, middle
+
+# Técnicas de Conteo
+
+---
+
+# Técnicas de Conteo
+
+&lt;h3 style="text-align:center; padding:100px"&gt;Para calcular las probabilidades de varios eventos es necesario contar el número de resultados posibles de un experimento, o contar el número de resultados favorables en un evento dado. el proceso de conteo puede simplificarse mediante el empleo de dos técnicas de conteo denominadas Permutaciones y combinaciones.&lt;/h3&gt;
+
+---
+
+# Técnicas de Conteo
+
+## Regla de la Adición
+
+Si un suceso `\(A\)` puede ocurrir de `\(n\)` maneras y otro suceso `\(B\)` puede ocurrir de `\(m\)` maneras, entonces el suceso `\(A\)` **o el** `\(B\)` (sucede el evento `\(A\)` o sucede el evento `\(B\)`) pueden ocurrir de `\(n + m\)` formas, siempre y cuando los eventos no puedan suceder *simultáneamente*. En los problemas de conteo, el conector "o" se traduce en &lt;u&gt;suma&lt;/u&gt;.
+
+`$$\sum_{i=1}^k n_i$$`
+
+--
+
+**Ejemplo 1**&lt;br&gt;
+Cinco empresas de transporte terrestre tienen servicio diario entre Medellín y Bogotá. Tres empresas de aviación tienen vuelo diario entre Medellín y Bogotá. En consecuencia, hay `\(5 + 3 = 8\)` maneras de ir de Medellín a Bogotá por aire o por tierra.
+
+--
+
+**Ejemplo 2**&lt;br&gt;
+En el lanzamiento de un dado, ¿de cuántas maneras se puede obtener un número inferior a 2 o mayor que 4?&lt;br&gt;
+A: número inferior a 2, sucede solo de una manera.&lt;br&gt;
+B: número superior a 4, sucede de dos maneras.&lt;br&gt;
+A o B: número inferior a 2 o superior a 4, sucede de `\(1 + 2 = 3\)` maneras.
+
+---
+# Técnicas de Conteo
+
+## Regla de la Multiplicación
+
+Si un suceso `\(A\)` puede ocurrir de `\(n\)` maneras y un suceso `\(B\)` de `\(m\)` formas, entonces el suceso `\(A\)` **y** `\(B\)` (sucede el evento `\(A\)` y sucede el evento `\(B\)`) puede ocurrir de `\(n*m\)` modos. En los problemas de conteo, el conector "y" se traduce en &lt;u&gt;multiplicación&lt;/u&gt;.
+
+`$$\prod_{i=1}^k n_i$$`
+
+--
+
+**Ejemplo 1**&lt;br&gt;
+El menú de un restaurante ofrece 3 platos calientes y 4 postres. ¿De cuántas maneras se puede
+elegir un almuerzo de 1 plato caliente y 1 postre? Podríamos hacer una lista de todas las posibilidades, pero será mucho más cómodo aplicar el principio de la multiplicación: hay 3 maneras de elegir el plato caliente y para cada una de ellas hay 4 maneras de elegir el postre. Por lo tanto, hay `\(3 \times 4 = 12\)` comidas posibles.
+
+--
+
+**Ejemplo 2**&lt;br&gt;
+¿Cuántos códigos de una letra y un número de un dígito se pueden formar con las 27 letras del
+alfabeto y los números del 0 al 9? Uno de los métodos podría ser listar todas las posibilidades `\(A0\)`, `\(A1\)` ... `\(A9\)`; `\(B0\)`, `\(B1\)` ... `\(B9\)` ... `\(Z0\)`, `\(Z1\)` ... `\(Z9\)` hasta obtener 27 filas de 10 códigos en cada una. Es más simple utilizar el principio de la **multiplicación**: hay 27 maneras de elegir la letra y para cada una de ellas hay 10 maneras de elegir el número, de modo que son `\(27 \times 10 = 270\)` maneras en total.
+
+---
+# Ejercicios
+
+.panelset[
+  .panel[.panel-name[Parte uno]
+  
+1. Si una librería vende libros de literatura, biología, medicina, arquitectura y química, de los cuales posee 15 tipos diferentes de libros de literatura, 25 de biología, 12 de medicina, 8 de arquitectura y 10 de química, ¿Cuántas opciones tiene una persona para escoger un libro de arquitectura o un libro de biología?
+
+2. ¿Cuántos resultados se pueden obtener si se lanza un dado 2 veces?
+
+3. ¿De cuántas formas se puede cruzar un río, sabiendo que se dispone de 3 botes y 4 barcos?
+
+4. ¿Cuántos resultados distintos se puede obtener si se lanza una moneda 3 veces? ¿Y si se lanza 5 veces?
+
+5. Un repuesto de automóvil se vende en 3 tiendas de Medellín y en 8 tiendas de Bogotá. ¿De cuántas formas se puede adquirir el repuesto? 
+  
+  ]
+  .panel[.panel-name[Parte dos]
+  
+6. Una persona quiere comprar un par de zapatos. Cuando llega a la zapatería encuentra solamente dos modelos diferentes de su talla de calzado. De uno hay dos colores disponibles, y del otro cinco colores disponibles. ¿Cuántas maneras tiene esta persona de realizar esta compra?
+
+7. ¿De cuántas formas se puede ordenar una pizza, si hay 2 opciones de masa (tradicional y especial), y 4 sabores (hawaiana, carne, vegetariana y americana)? Solo se puede pedir una masa y un sabor.
+
+8. De la ciudad A a la ciudad B, se puede ir mediante 2 buses o 3 trenes. De la ciudad B a la ciudad C se puede ir mediante 2 barcos, 2 trenes o 3 aviones. ¿De cuántas formas se puede ir de la ciudad A a la ciudad C, pasando por B?
+
+9. ¿Cuántos números del 1 al 1000, no contienen la cifra 4?
+
+10. Los números telefónicos de la ciudad de Medellín son de ocho dígitos, de los cuales el primero tiene que ser 4 y el segundo no puede ser 0, 1 ni 7. ¿Cuántos números telefónicos diferentes se pueden formar?
+  
+  ]
+]
+
+---
+# Técnicas de Conteo
+
+
+--
+&lt;hr&gt;
+
+&gt;**Muestreo con reemplazo**: es el procedimiento de observar una unidad dentro de una población y retornarla al mismo conjunto. Entonces para `\(m\)` muestras de `\(n\)` objetos existen `\(n^m\)` opciones de seleccionar una muestra.
+
+&lt;hr&gt;
+--
+&lt;hr&gt;
+
+&gt;**Muestreo sin reemplazo**: es el procedimiento de observar una unidad dentro de una población y extraerla del conjunto. Para seleccionar una muestra, es preciso preguntar ¿importa el orden?
+
+&lt;hr&gt;
+---
+# Técnicas de Conteo
+
+## Permutaciones
+
+&gt;Se quiere seleccionar `\(r\)` elementos de un conjunto de `\(n\)` objetos, cuando &lt;u&gt;**importa el orden de selección**&lt;/u&gt;.
+
+Consideremos un conjunto de tres libros diferentes: física, química y matemáticas. El número de
+formas en que pueden ubicarse en una estantería es una permutación de tres elementos, tomados
+de a tres. Representemos cada uno por su letra inicial.
+
+`$$\{F,\,Q,\,M\}$$`
+
+--
+
+Las permutaciones posibles para el conjunto dado son:
+`$$\begin{align*}
+FQM &amp;\quad QMF \quad MFQ \\
+FMQ &amp;\quad QFM \quad MQF \end{align*}$$`
+
+--
+
+Es decir, que los libros se pueden ordenar de 6 maneras diferentes. Para calcular el número de permutaciones para estos tres elementos, sin hacer una representación de cada caso, podemos usar el principio multiplicativo. Hay `\(n_1 = 3\)` maneras de escoger el primer libro que se va a ubicar en el estante. Una vez escogido este, quedan `\(n_2 = 2\)` opciones para la segunda posición y de forma análoga `\(n_3 = 1\)` maneras de escoger el último elemento. La cantidad de permutaciones es:
+`$$n_1 \times n_2 \times n_3 = 3 \times 2 \times 1 = 6$$`
+
+---
+# Permutaciones
+
+&lt;br&gt;
+&lt;hr&gt;
+&lt;br&gt;&lt;br&gt;
+Si generalizamos el procedimiento para un conjunto de `\(n\)` elementos distintos, el número de formas
+diferentes en que puede ordenarse es:
+
+`$$_nP_n = P^n_n = n \times (n − 1) \times (n − 2) \times \dots \times 2 \times 1$$`
+Esto es
+
+`$$_nP_n = P^n_n = P_n = n!$$`
+
+&lt;br&gt;
+&lt;hr&gt;
+
+---
+# Permutaciones
+
+.left-column[
+&lt;center&gt;
+&lt;table class="table table-hover "&gt;
+&lt;thead&gt;
+  &lt;tr class="warning"&gt;
+    &lt;th style="text-align: center; font-size: 14px"&gt;Local&lt;/th&gt;
+    &lt;th style="text-align: center; font-size: 14px"&gt;Visitante&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+  &lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Colombia&lt;/td&gt;
+    &lt;td&gt;Argentina&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Argentina&lt;/td&gt;
+    &lt;td&gt;Colombia&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Colombia&lt;/td&gt;
+    &lt;td&gt;México&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;México&lt;/td&gt;
+    &lt;td&gt;Colombia&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Colombia&lt;/td&gt;
+    &lt;td&gt;Uruguay&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Uruguay&lt;/td&gt;
+    &lt;td&gt;Colombia&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Argentina&lt;/td&gt;
+    &lt;td&gt;México&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;México&lt;/td&gt;
+    &lt;td&gt;Argentina&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Argentina&lt;/td&gt;
+    &lt;td&gt;Uruguay&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Uruguay&lt;/td&gt;
+    &lt;td&gt;Argentina&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;México&lt;/td&gt;
+    &lt;td&gt;Uruguay&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Uruguay&lt;/td&gt;
+    &lt;td&gt;México&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/center&gt;
+]
+
+.right-column[
+
+Ahora supongamos que no se toma el total de elementos disponibles en el conjunto, sino que se toman de a dos, de a tres, etc. Por ejemplo, si se realiza un cuadrangular de fútbol entre las selecciones de Colombia, Argentina, México y Uruguay, en el que cada partido tiene un equipo que juega como local y el otro es visitante, los diferentes partidos que se jugarán son:
+
+{{content}}
+
+]
+
+--
+
+En cada pareja formada interesa el orden en que se disponen los elementos, es decir, cuál selección
+jugará como local. Queremos entonces calcular el número de permutaciones de 4 elementos tomados de a 2. Usando nuevamente el principio multiplicativo, tenemos 2 posiciones para llenar con `\(n_1 = 4\)` opciones para la primera y `\(n_2 = 3\)` para la segunda.
+
+`$$\underset{\text{Local}} 4 \times \underset{\text{Visitante}} 3  = 12$$`
+---
+
+# Permutaciones
+
+En general, para calcular el número de permutaciones de `\(n\)` elementos tomados de a `\(r\)` a la vez,
+comenzamos a hacer el factorial de `\(n\)`, pero solo tomando los primeros `\(r\)` factores:
+
+`$$n(n-1)(n-2)...(n-r+1)=\cfrac{n!}{(n-r)!}=P_{n}^{r}$$`
+
+--
+
+&gt; **Ejemplo**&lt;br&gt;
+Si se realiza un cuadrangular de fútbol entre las selecciones de Colombia, Argentina, México y Uruguay, en el que cada partido tiene un equipo que juega como **local** y el otro es **visitante**, ¿Cuántos partidos se jugarán?&lt;br&gt;
+En cada pareja formada interesa el orden en que se disponen los elementos, es decir, cuál selección jugará como local.
+`$$P_{4}^{2}=\frac{4!}{(4-2)!}=\frac{4\times 3\times 2 \times 1}{2 \times 1}=4\times 3=12$$`
+
+---
+
+# Permutaciones
+
+Si generalizamos el procedimiento para un conjunto de `\(n\)` elementos distintos, el número de formas diferentes en que puede ordenarse es:
+
+`$$P_{n}^{n}=\cfrac{n!}{(n-n)!}=n!$$`
+.panelset[
+.panel[.panel-name[Ejemplo 1]
+Un comité de cinco personas ha de repartir los cinco puestos directivos de presidente, vicepresidente, secretario, tesorero y vocal. ¿De cuántas maneras es posible hacerlo?
+
+Se trata de ordenar las cinco personas en los cinco lugares; por lo tanto el número de maneras es: `$$P_{5}^{5} = 5! = 5 \times 4 \times 3 \times 2 \times 1 = 120$$`
+]
+.panel[.panel-name[Ejemplo 2]
+¿Cuántas palabras diferentes se pueden formar con las letras `\(n\)`, `\(l\)`, `\(o\)`, `\(e\)`, así no tengan sentido?
+
+`$$P4 = 4! = 4 * 3 * 2 = 24$$`
+]
+.panel[.panel-name[Ejemplo 3]
+Con las letras de la palabra *libro*. ¿Cuántas ordenaciones distintas se pueden hacer que empiecen por vocal?
+
+`$$P_2 \times P_4 = (2 \times 1) \times (4 \times 3 \times 2 \times 1)=48$$`
+]
+]
+
+---
+# Permutaciones
+
+Cuando se quiere ordenar `\(n\)` elementos entre los cuales hay objetos idénticos entre sí, algunos resultados estarán repetidos un cierto número de veces. Por ejemplo si se quiere ordenar de maneras diferentes las letras de la palabra **COROZO**, se encontrarán 6 resultados repetidos para cada palabra distinta, debido a que la letra **O** se encuentra 3 veces en la palabra.
+
+--
+
+Para conocer el número de palabras diferentes que podemos formar, se calcula la permutación del total de elementos, en este caso 6, y se divide por la permutación de los elementos que se encuentran repetidos.
+
+`$$\frac{\text{COROZO}}{\text{O's repetidos}}=\frac{P_6^6}{P_3^3}=\frac{720}{6}=120$$`
+--
+
+En general, si se tiene `\(n\)` objetos, `\(n_1\)` de tipo 1, `\(n_2\)` de tipo 2, ..., `\(n_r\)` de tipo `\(r\)`, talque `\(\sum_{i=1}^r=n\)`, entonces las formas de seleccionar los objetos en grupos es:
+
+`$$P_{n}^{n_1 n_2 ... n_r}=\cfrac{n!}{n_1!n_2!...n_r!}$$`
+
+--
+
+ **Ejemplo:** ¿Cuántas palabras diferentes, aun sin significado, se pueden formar con las letras de la palabra **AMOROSOS**?
+`$$P_8^{1,1,3,1,2}=\frac{8!}{1!1!3!1!2!}=\frac{8!}{3!2!}=3360$$`
+
+---
+# Técnicas de Conteo
+
+## Combinatorias
+
+Son los grupos que se pueden formar con varios elementos tomándolos uno a uno, dos a dos, tres a tres, etc., de modo que dos grupos que tengan el mismo número de elementos se diferencien por lo menos en un elemento. Es decir, &lt;u&gt;**sin que importe el orden en que se disponen**&lt;/u&gt;.
+
+&lt;br&gt;
+&lt;hr&gt;
+
+&gt; **En una combinación se prescinde del orden, a diferencia de una permutación**. Por ejemplo las combinaciones de las tres letras `\(a\)`, `\(b\)`, `\(c\)` tomadas de dos en dos, son `\(ab\)`, `\(bc\)` y `\(ac\)`. Cualquiera de estas **es una combinación**.&lt;br&gt;&lt;br&gt;Observa que `\(ab\)` y `\(ba\)` son una misma combinación (se prescinde del orden), mientras que constituyen dos permutaciones distintas (importa el orden), de las letras `\(a\)` y `\(b\)`.
+
+&lt;hr&gt;
+
+---
+# Combinatorias
+
+Se quiere seleccionar `\(r\)` elementos de `\(n\)` objetos donde no importa el orden.
+
+`$$C_n^r={n\choose r}=\cfrac{n!}{r!(n-r)!}$$`
+
+.panelset[
+.panel[.panel-name[Ejemplo 1]
+¿Cuántos comités de cuatro personas se pueden formar de un grupo de 9 personas?&lt;br&gt;
+Cada comité (sin establecer puestos directivos) es una selección de cuatro objetos de un total
+de nueve. El número de comités es:
+`$${9\choose 4}=\frac{9!}{4!(9-4)!}=\frac{9 \times 8 \times 7 \times  6 \times 5!}{4!5!}=126$$`
+]
+.panel[.panel-name[Ejemplo 2]
+A una reunión asisten 10 personas y se intercambian saludos entre todos. ¿Cuántos saludos se han intercambiado?
+`$${10\choose2} = \frac{10 \times 9}{2} = 45$$`
+]
+.panel[.panel-name[Ejemplo 3]
+Un grupo, compuesto por cinco hombres y siete mujeres, forma un comité
+de 2 hombres y 3 mujeres. De cuántas formas puede formarse, si:&lt;br&gt;
+
+- Puede pertenecer a él cualquier hombre o mujer: `\(C^2_5\,C^3_7 = {5\choose2}{7\choose3}=10 \times 35 =350\)`
+
+- Una mujer determinada debe pertenecer al comité: `\(C^2_5\,C^2_6 = {5\choose2}{6\choose2}=10 \times 15 =150\)`
+
+- Dos hombres determinados no pueden estar en el comité: `\(C^2_3\,C^3_7 = {3\choose2}{7\choose3}=3 \times 35 =105\)`
+]
+]
+
+---
+# Combinatorias
+
+Son combinaciones con repetición todas las agrupaciones de `\(k\)` elementos, dispuestos linealmente, que se pueden formar a partir de n elementos distintos, donde cada uno de los elementos puede formar parte de la agrupación tantas veces como sea posible y sin importar el orden de ellos. Igual que las combinaciones, pero admitiendo elementos repetidos.
+
+`$$CR_n^r={n+r-1\choose r}=\cfrac{(n+r-1)!}{r!(n-1)!}$$`
+--
+
+**Ejemplo**&lt;br&gt;
+En una repostería hay cinco tipos diferentes de pasteles. ¿De cuántas formas se pueden elegir cuatro pasteles?&lt;br&gt;
+No importa el orden (son pasteles). Puede haber dos o más pasteles en un grupo, luego con repetición.
+`$$CR_5^4={5+4-1\choose 4}=\frac{8!}{4!(5-1)!}=\frac{8!}{4!4!}=70$$`
+
+--
+
+**Ejemplo**&lt;br&gt;En una bodega hay 5 tipos diferentes de botellas, ¿cuántas formas existen de elegir 4 botellas?
+`$$CR_5^4={5+4-1\choose 4}=\cfrac{(5+4-1)!}{4!(5-1)!}=\cfrac{8!}{4!4!}=70$$`
+
+---
+# Ejercicios Técnicas de conteo
+
+- En un juego de naipes una mano está compuesta por cinco cartas. ¿De cuántas formas se puede formar una mano con 3 picas y 2 corazones?
+
+- ¿Cuántas ensaladas pueden prepararse con lechuga, tomate, cebolla, aceitunas y rábanos?
+
+- De cuántas formas puede un grupo de 10 personas dividirse en:
+  - dos grupos de 7 y 3 personas.
+  - tres grupos de 5, 3 y 2 personas
+
+- Un restaurante ofrece a sus clientes la posibilidad de armar las ensaladas a su gusto. Cada ensalada puede llevar dos proteínas y dos aderezos. Si el restaurante dispone de 5 proteínas diferentes y 4 aderezos de los que se puede elegir, ¿Cuantas ensaladas diferentes se pueden preparar?
+
+- ¿De cuántas formas pueden sentarse ocho personas en una fila de butacas?
+
+- En el Baloto se eligen 5 números del 1 al 43 y una super-balota con números del 1 al 16. ¿Cuántas combinaciones existen?
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "arta",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

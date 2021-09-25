@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introducción a la Probabilidad</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Cristian Santa | Alejandro Estrada" />
+    <script src="github/header-attrs-2.11/header-attrs.js"></script>
+    <link href="github/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link href="github/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="github/panelset-0.2.6/panelset.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introducción a la Probabilidad
+## Espacios y Eventos
+### Cristian Santa | Alejandro Estrada
+### Escuela de Nutrición y Dietética - UdeA
+### Septiembre 2021
+
+---
+
+
+
+
+# Introducción
+
+## Aleatoriedad
+
+La aleatoriedad está asociada a todo proceso cuyo resultado **no puede ser determinado antes de que éste se produzca**, debido a que los resultados de dicho proceso no contiene patrones reconocibles o regulares, que permitan pronosticar un resultado futuro.
+
+--
+
+**Experimento aleatorio:** Es aquel experimento que, a pesar de controlar las condiciones iniciales bajo las cuales se realiza, lo resultados obtenidos no son esencialmente los mismos, es decir, *no es posible garantizar los mismos resultados* que se obtienen inicialmente, debido a que su resultado es determinado por el azar.
+
+--
+
+**Experimento estadístico:** Es cualquier acción o proceso que se puede llevar a cabo bajo ciertas condiciones, de modo que *en cada realización se presente un resultado*, ya sea numérico o no numérico. Éstos deben cumplir ciertas características:
+
+- No es posible predecir el resultado exacto del experimento, en cualquiera de sus ejecuciones.
+- Es posible conocer todos los posibles resultados del experimento, previo a las realizaciones del mismo.
+- Es posible repetir el experimento bajo condiciones idénticas o similares.
+
+---
+
+class: inverse, center, middle
+
+# Espacio Muestral
+
+---
+
+# Espacio Muestral
+
+Los posibles resultados de un experimento son llamados eventos simples. Un experimento se dice "*aleatorio*" si proporciona diferentes resultados, aún cuando se realiza en las mismas condiciones.
+
+El conjunto de todos los posibles resultados de un experimento estadístico es llamado **Espacio Muestral** y se denota como `\(\Omega\)`. Estos espacios pueden dividirse en espacios muestrales **discretos** y **continuos**.
+
+.panelset[
+.panel[.panel-name[Discreto]
+**Espacio muestral discreto:** Es aquel que posee un número finito de posibilidades o una serie interminable con tantos elementos como *números enteros* existentes.
+
+**Ejemplo:** Se lanza una moneada no cargada, e identifica los resultados como "cara" y "sello", entonces:
+`$$\Omega=\{s,c\}$$`
+
+**Ejemplo:** Considere el experimento de lanzar un dado convencional de 6 caras. Escriba el espacio muestral asociado a este experimento.
+`$$\Omega=\{1,2,3,4,5,6\}$$`
+]
+.panel[.panel-name[Continuo]
+**Espacio muestral continuo:** Es aquel que posee un número infinito de posibilidades igual al número de puntos en un segmento de linea.
+
+**Ejemplo:** Se selecciona una bombilla y se registra su duración en horas, entonces:
+`$$\Omega=(0,\infty)$$`
+
+**Ejemplo:** Considere el experimento del tiempo de espera en minutos que pasa hasta que un estudiante termine el parcial en el horario de clase, si la clase dura 2 horas. Escriba el espacio muestral asociado a este experimento.
+`$$\Omega=(0,120)$$`
+]
+]
+
+---
+# Eventos
+
+Un *evento* es un subconjunto del espacio muestral `\(\Omega\)`, se dice que un evento `\(A\)` ocurre si el resultado del experimento aleatorio pertenece a `\(A\)`
+
+&lt;img src="P_intro2_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Eventos
+
+Los eventos pueden ser clasificados en:
+
+--
+
+.pull-left[
+- **Simple:** se da cuando el evento tiene un solo resultado o punto muestral.
+
+**Ejemplo**&lt;br&gt;
+Considere el experimento de lanzar un dado convencional de 6 caras. `\(A\)` es el evento en el cual se saca un número 3 en el dado.
+`$$A=\{3\}$$`
+]
+
+.pull-right[
+- **Compuesto:** se da cuando el evento tiene más de un resultado o punto muestral. Estos resultados pueden ser dependientes o independientes.
+
+**Ejemplo**&lt;br&gt;
+Considere el experimento de lanzar un dado convencional de 6 caras. `\(B\)` es el evento en el cual se saca un número primo en el dado.
+`$$A=\{2,3,5\}$$`
+]
+
+&lt;hr&gt;
+
+--
+
+- **Imposible:** se da cuando el evento no puede ocurrir dentro del espacio muestral. El evento se denota entonces por el símbolo `\(\emptyset\)` que representa al conjunto vacío.
+
+**Ejemplo**&lt;br&gt;
+Considere el experimento de lanzar un dado convencional de 6 caras. `\(C\)` es el evento en el cual se saca un 8 en el dado.
+`$$A=\{\emptyset\}$$`
+
+---
+# Teoría de conjuntos
+
+Dado que un evento puede estar compuesto por un conjunto de datos, las relaciones y resultados de la teoría de conjuntos, pueden ser utilizados para solucionar problemas de probabilidad. Por ello definimos como:
+
+#### Subconjunto
+
+Sean dos eventos `\(A\)` y `\(B\)`. Si los elementos de un evento están contenidos en el otro, se llama subconjunto. `\(A \subset B\)`: `\(A\)` *está contenido en* `\(B\)`, o `\(B \subset A\)`: `\(B\)` *contiene* `\(A\)`.
+
+&lt;img src="P_intro2_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Teoría de conjuntos
+
+#### Conjuntos Equivalentes
+Si `\(A \subset B\)` y `\(B \subset A\)` entonces `\(A=B\)`.
+
+&lt;img src="P_intro2_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+
+#### Conjunto Vacío
+Si `\(A\)` no contienen elementos se llama vacío o nulo y se denota como `\(\emptyset\)`.
+
+---
+# Teoría de conjuntos
+
+#### Complemento
+
+El complemento de un evento `\(A\)` respecto al espacio `\(\Omega\)`, son los elementos que están en `\(\Omega\)` pero no en `\(A\)`, se denota como `\(\bar{A}\)`, `\(A^c\)`, `\(A^{\prime}\)` o `\(\Omega - A\)`.
+
+&lt;img src="P_intro2_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Teoría de conjuntos
+
+#### Intersección
+
+Sean dos eventos `\((A, B) \in \Omega\)`, cuando todos los elementos están contenidos en `\(A\)` y `\(B\)` se le llama intersección de eventos `\(A \cap B\)`.
+
+&lt;img src="P_intro2_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Teoría de conjuntos
+
+#### Unión
+Sean dos eventos `\((A, B) \in \Omega\)`, cuando todos los elementos están contenidos en `\(A\)` o `\(B\)` o en ambos, se le llama unión de eventos. `\(A \cup B=A+B-A\cap B\)`
+
+&lt;img src="P_intro2_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Teoría de conjuntos
+
+#### Diferencia de Conjuntos
+Sean dos eventos `\((A, B) \in \Omega\)`, todos los elementos de `\(A\)` que no se encuentran en `\(B\)` determina la diferencia de conjuntos `\(A-B\)`.
+
+&lt;img src="P_intro2_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Teoría de conjuntos
+
+## Teoremas de eventos
+
+1. Ley conmutativa: `\(\{A \cup B=B\cup A\}\)`, `\(\{A \cap B = B \cap A\}\)`
+2. Ley asociativa: `\(\{A \cup (B \cup C)=(A \cup B) \cup C\}\)`, `\(\{A \cap (B \cap C)=(A \cap B) \cap C\}\)`
+3. Ley distributiva: `\(\{A \cap (B \cup C)=(A \cap B) \cup (A \cap C)\}\)`, `\(\{A \cup (B \cap C)=(A \cup B) \cap (A \cup C)\}\)`
+4. `\(\overline{(\bar{A})}=(A^\prime)^\prime=A\)`
+5. `\(\{A \Omega= A\}\)`, `\(\{A \cup \Omega = \Omega\}\)`, `\(\{A\emptyset=\emptyset\}\)`, `\(\{A \cup \emptyset=A\}\)`
+6. `\(\{A\bar{A}=\emptyset\}\)`, `\(\{A \cup \bar A=\Omega\}\)`, `\(\{A \cap A=A\}\)`, `\(\{A \cup A=A\}\)`
+7. `\(\{\overline{A\cup B}=\bar A \cap \bar B\}\)`, `\(\{\overline{A\cap B}=\bar A \cup \bar B\}\)`
+8. `\(A-B=A\bar B\)`
+9. Ley de Morgan.
+    * `\(\overline{\bigcup_{\lambda \in \Lambda}A_\lambda}=\bigcap_{\lambda\in\Lambda}\bar{A_\lambda}\)`
+    * `\(\overline{\bigcap_{\lambda \in \Lambda}A_\lambda}=\bigcup_{\lambda\in\Lambda}\bar{A_\lambda}\)`
+10. Si `\((A, B) \in \Omega\)` entonces `\(\{A=AB \cup A\bar B\}\)` y `\(\{AB \cap A\bar B=\emptyset\}\)`.
+11. Si `\(A \subset B\)` entonces `\(AB=A\)` y `\(A\cup B=B\)`.
+
+---
+# Teoría de conjuntos
+
+## Disyunción o Eventos Mutuamente Excluyentes
+
+Sean `\((A, B) \in \Omega\)`, los eventos son disjuntos si `\(A \cap B=\emptyset\)`. En general una colección de eventos `\(A_1, A_2,...\)` son mutuamente excluyentes si `\(A_i \cap A_j = \emptyset, \: \forall i \neq j\)`.
+
+.panelset[
+.panel[.panel-name[Ejemplo 1]
+Si en cierta población el 65% son fumadores y el 70% son obesos, ¿Cuál es el mínimo porcentaje de obesos fumadores?
+
+Se tiene que `\(F=65\%\)`, `\(O=70\%\)` y `\((F \cup O)=100\%\)`, por definición se sabe que:
+`$$A \cup B=A+B-A\cap B$$`
+Entonces, el mínimo porcentaje de obesos fumadores es:
+`$$F \cap O \geq F+O-(F\cup O) \geq 65+10-100 \geq 35$$`
+]
+.panel[.panel-name[Ejemplo 2]
+En la escuela de nutrición, de los estudiantes del nivel 5 el 53% de los alumnos aprueban Planificación Alimentaria y Nutricional, el 52% Alimentación y Nutrición del Niño y el 20% ninguna de las dos asignaturas. Halle el porcentaje de alumnos que aprueban ambas materias.
+
+Se tiene que `\(PAN=53\%\)`, `\(ANN = 52\%\)` y `\((\overline{PAN} \cap \overline{ANN}) = 20\%\)`, por teorema se sabe que:
+`$$(\overline{A \cup B})=(\bar{A} \cap \bar{B})$$`
+Entonces `\((PAN \cup ANN) = 1-(\overline{A \cup B}) = 80\%\)`, de acuerdo a esto el porcentaje que aprueban ambas materias es:
+`$$(PAN \cap ANN)=PAN+ANN-(PAN \cup ANN)=53+52-80=25\%$$`
+]
+]
+
+---
+# Ejercicios
+
+1. En una pizzería, se hizo una encuesta sobre cuál era la pizza de preferencia entre ranchera y hawaiana. 20 personas respondieron "Ranchera", 23 dijeron que les gustaba la hawaiana, a 8 personas les gustaban las dos y a 3 personas no les gusta ninguna. ¿Cuál fue el total de los encuestados? ¿A cuántas personas solo les gusta la pizza ranchera? ¿Cuántas personas no les gusta la pizza hawaiana?
+
+2. En el último semestre de Ingeniería Electrónica, los estudiantes se pueden matricular en 3 cursos opcionales: Telecomunicaciones, Teoría de la Computabilidad y Automatización. Se sabe que 106 estudiantes en total se han matriculado, así:
+  * 60 en Automatización.
+  * 45 en Teoría de la Computabilidad.
+  * 28 en Automatización y Teoría de la Computabilidad.
+  * 27 en Automatización y Telecomunicaciones.
+  * 17 en Teoría de la Computabilidad y Telecomunicaciones.
+  * 15 en las 3 asignaturas.
+  * 8 no desean ver ninguno de estos cursos. &lt;br&gt;
+¿Cuál es el número de estudiantes matriculados en Telecomunicaciones? ¿Cuántos estudiantes solo están matriculados en Telecomunicaciones y Automatización? ¿Cuántos estudiantes solo están matriculados en Teoría de la Computabilidad?
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "arta",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
