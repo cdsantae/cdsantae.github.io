@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Cristian Santa | Alejandro Estrada" />
+    <script src="github/header-attrs-2.11/header-attrs.js"></script>
+    <link href="github/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link href="github/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="github/panelset-0.2.6/panelset.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Probabilidad
+## Distribuciones de Probabilidad
+### Cristian Santa | Alejandro Estrada
+### Escuela de Nutrición y Dietética - UdeA
+### Septiembre 2021
+
+---
+
+
+
+
+# Introducción
+
+## Variables Aleatorias
+
+En la mayoría de problemas a los que comúnmente nos enfrentamos, la descripción del conjunto de posibles resultados de un experimento aleatorio puede ser complicado y por lo tanto el cálculo de probabilidades también se dificulta.
+
+Por ejemplo, si una persona es seleccionada de una población, diversas características pueden ser de interés y cada una aporta al entendimiento de un fenómeno en especial, como son, el tiempo que emplea en transportarse de su casa al lugar de trabajo, que tan lejos está de su casa el sitio donde trabaja, cuantos hijos tiene, cuantas horas duerme, cuantas personas conforman su grupo familiar, cuanto gana, cuanto gasta, cuanto paga por servicios, cuantas llamadas hace diariamente, etc.
+
+Una Variable Aleatoria es una función definida en un Espacio Muestral que asigna a cada resultado de un experimento aleatorio un valor real. Usualmente son denotadas con letras mayúsculas como ($X$, `\(Y\)`, `\(Z\)`, `\(T\)`, etc). Al conjunto de todos los posibles resultados de una variable aleatoria se le llamará Rango de la variable ($A_X$)
+
+---
+
+# Variables Aleatorias
+
+## Variables Aleatorias Discretas
+
+**Ejemplo:**&lt;br&gt;
+&gt;Un grupo de `\(n\)` sujetos es sometido a cierto tratamiento y después de un tiempo se registra cuantos logran mejorar con dicho tratamiento. Sea `\(X\)` la variable aleatoria que cuenta cuántos sujetos mejoran con el tratamiento. Entonces el rango de `\(X\)` será `\(A_X=0,1,2,...,n\)`.
+
+**Ejemplo:**&lt;br&gt;
+&gt;En una gran población se encuestan de manera aleatoria sujetos hasta encontrar el primero que responde afirmativamente a una pregunta de interés. Si `\(X\)` es la variable aleatoria que cuenta el número de sujetos encuestados hasta encontrar el primero que responde afirmativamente, entonces el rango de `\(X\)` está dado por `\(A_X=1,2,3,...\)`
+
+---
+# Variables Aleatorias Discretas
+
+Este tipo de variables se traducen en funciones matemáticas o valores tabulados, y la probabilidad se calcula a través de *la función de masa de probabilidad __(f.m.p)__*. Sea la variable aleatoria discreta `\(X\)`, para cualquier resultado posible de `\(X\)` se cumple que:
+
+1. `\(p(x) \geq 0\)` para todo `\(x\)` en el rango de `\(X\)`.
+
+2. `\(\sum_x p(x)=1\)`
+
+3. `\(p(x)=P(X=x)\)`
+
+4. `\(P(X &lt; x) = \sum_{min}^{x-1} p(x)\)`
+
+5. `\(P(X \leq x) = \sum_{min}^{x} p(x)\)`
+
+6. `\(P(X &gt; x) = \sum_{x+1}^{max} p(x)\)`
+
+7. `\(P(X \geq x) = \sum_{x}^{max} p(x)\)`
+
+---
+# Variables Aleatorias Discretas
+
+En algunos casos es posible calcular una función que acumula las probabilidades puntuales de la variable en rangos definidos. **La función de distribución acumulada (f.d.a)** denotada por `\(F(x)\)`, para una variable aleatoria discreta `\(X\)` con distribución de probabilidad `\(p(x)\)` es de la forma
+
+`$$F(x)=P(X \leq x)=\sum_{t \leq x} p(t) \qquad -\infty&lt;x&lt;\infty$$`
+
+Para cualquier `\(x\)` dentro del rango de `\(X\)`, `\(F(x)\)` será la suma acumulada de todos los valores de rango de `\(X\)` menores a `\(x\)`.
+
+**Nota:** Si se quieren calcular probabilidades con la función de distribución acumulada en el caso discreto, entonces, si `\(a\)` y `\(b\)` son dos números constantes enteras, deberán tenerse en cuenta las siguientes reglas
+
+&gt; 
+- `\(P(a\leq X \leq b)=P(X\leq b)-P(X \leq a-1)=F(b)−F(a−1)\)`
+- `\(P(a&lt;X\leq b)=P(X\leq b)-P(X \leq a)=F(b)−F(a)\)`
+- `\(P(a \leq X&lt;b)=P(X\leq b-1)-P(X \leq a-1)=F(b−1)−F(a−1)\)`
+- `\(P(a&lt;X&lt;b)=P(X\leq b-1)-P(X \leq a)=F(b−1)−F(a)\)`
+- `\(P(X\geq a)=1−P(X&lt;a)=1−F(a−1)\)`
+- `\(P(X&gt;a)=1−P(X\leq a)=1−F(a)\)`
+- `\(P(X\leq b)=F(b)\)`
+- `\(P(X&lt;b)=F(b−1)\)`
+
+---
+class: inverse, middle
+# &lt;u&gt;Importante&lt;/u&gt;
+
+## Es usual que en ejercicios de estadística o en preguntas de investigación se manifieste en palabras los símbolos de comparación o relación para el cálculo de probabilidades&lt;br&gt;
+### `\(\quad = \qquad\)` Igual; Exactamente&lt;br&gt;
+### `\(\quad &lt; \qquad\)` Menor que; Inferior a&lt;br&gt;
+### `\(\quad &gt; \qquad\)` Mayor que; Superior a&lt;br&gt;
+### `\(\quad \leq \qquad\)` A lo más; No mas de; A lo sumo, Máximo; Menor o igual que&lt;br&gt;
+### `\(\quad \geq \qquad\)` Al menos; No menos de; Mínimo; Mayor igual que
+
+---
+# Esperanza y Varianza
+
+Si `\(X\)` es una variable aleatoria con **fmp** `\(p(x)\)`, entonces la **media** o *valor esperado* de la variable aleatoria se denota por `\(E[X]\)` o `\(\mu\)` está dada por
+
+`$$E[X]=\sum_x xp(x)$$`
+
+Sea `\(X\)` una variable aleatoria con **fmp** `\(p(x)\)`, se tendrá que **la varianza** de `\(X\)` que se denota `\(Var[X]\)` o `\(\sigma^2\)` estará dada por:
+
+`$$Var[X] = E[X^2]-E[X]^2$$`
+
+además, la raíz cuadrada de la varianza de `\(X\)` se llama **desviación estándar** de X, se denota por `\(SD[X]\)` o `\(\sigma\)` y se define como:
+
+`$$SD[X] = \sqrt{Var[X]}$$`
+
+---
+# Ejemplo
+
+.left-column[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt;&lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 2 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 3 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 4 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 5 &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; 6 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+  &lt;th style="text-align:center;"&gt; 1 &lt;/th&gt;
+   &lt;td style="text-align:center;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+  &lt;th style="text-align:center;"&gt; 2 &lt;/th&gt;
+   &lt;td style="text-align:center;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+  &lt;th style="text-align:center;"&gt; 3 &lt;/th&gt;
+   &lt;td style="text-align:center;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+  &lt;th style="text-align:center;"&gt; 4 &lt;/th&gt;
+   &lt;td style="text-align:center;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+  &lt;th style="text-align:center;"&gt; 5 &lt;/th&gt;
+   &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; 6 &lt;/th&gt;
+   &lt;td style="text-align:center;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 12 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+.right-column[
+Se lanza dos dados, sea `\(X\)` la variable que calcula la suma del lanzamiento de los dos dados.
+- Construya la **fmp**
+- Calcule `\(P(5 \leq X &lt; 9)\)`
+
+{{content}}
+
+]
+
+--
+**Solución**&lt;br&gt;
+El rango de la variable es `\(A_X=\{2,3,4,5,6,7,8,9,10,11,12\}\)`, entonces la **fmp** sería:
+
+|X|2|3|4|5|6|7|8|9|10|11|12|
+|:---:|:----:|
+|p(x)|1/36|2/36|3/36|4/36|5/36|6/36|5/36|4/36|3/36|2/36|1/36|
+
+{{content}}
+--
+`$$\begin{align*}
+P(5 \leq X &lt; 9) =&amp; P(X\leq8) - P(X\leq 4)\\
+=&amp; \left[\frac{1+2+3+4+5+6+5}{36}\right] - \left[\frac{1+2+3}{36}\right]\\
+=&amp; \frac{26}{36} - \frac{6}{36} = 20/36
+\end{align*}$$`
+{{content}}
+
+---
+class: inverse, middle
+
+# Distribuciones de Probabilidad
+
+### Por muchos años los matemáticos y estadísticos han establecido funciones de probabilidad a diversos fenómenos de la naturaleza y la sociedad. No obstante, en algunos casos se observa que se cumplen ciertos patrones, por lo tanto, el comportamiento de un fenómeno se puede modelar con la misma función de probabilidad de otro fenómeno. En este sentido, se establecen las distribuciones de probabilidad como funciones definidas para entender el comportamiento de fenómenos que tienen un patrón identificable.
+
+---
+# Distribuciones de Probabilidad - Discretas
+
+## Distribución Binomial
+
+&gt;**Proceso de Bernoulli**&lt;br&gt;&lt;br&gt;
+Una secuencia de ensayos de Bernoulli forma un *proceso de Bernoulli*, si se cumplen las siguientes condiciones:&lt;br&gt;&lt;br&gt;
+1. En cada ensayo ocurre uno de dos posibles resultados, mutuamente excluyentes. Uno de los posibles resultados se denota (arbitrariamente) como un exito y el otro, como fracaso.&lt;br&gt;&lt;br&gt;
+2. La probabilidad de un exito, denotado por `\(p\)`, permanece constante de un ensayo a otro, y la probabilidad de fracaso, `\(1-p\)`, se denota con `\(q\)`.&lt;br&gt;&lt;br&gt;
+3. Los ensayos son independientes, es decir, el resultado de algún ensayo en particular no es afectado por el resultado de cualquier otro ensayo.
+
+---
+# Distribución Binomial
+
+La distribución binomial es una distribución de probabilidad discreta que cuenta el número de éxitos en una secuencia de *n* ensayos de Bernoulli independientes entre sí, con una probabilidad fija *p* de ocurrencia del éxito entre los ensayos. Para `\(n = 1\)`, la binomial se convierte, de hecho, en una distribución de *Bernoulli*.
+
+`$$p(x)={n \choose x}p^x(1-p)^{n-x}\quad x = \{0, 1, 2, \dots , n\}$$`
+
+Por notación `\(X \sim Bin(n,p)\)`, además `\(E[X]=np\)` y `\(VAR[X]=np(1-p)\)`.
+
+---
+# Distribución Binomial
+## Ejemplo
+
+Suponga que en un estudio se encontró que 2 de cada 5 estudiantes no desea tomar clases virtuales. Si se selecciona aleatoriamente 20 estudiantes, ¿Cuál es la probabilidad de que no menos de 6 pero menos de 12 deseen tomar clases virtuales?
+
+--
+
+En este caso estamos interesados en la variable `\(X\)`, que representa el número de estudiantes que desean tomar clases virtuales, en donde sabemos que si, 2 de cada 5 no quieren tomar clases virtuales, entonces se tendrá que 3 de cada 5 si desean tomar clases virtuales. Por tanto al aplicar la definición de frecuencia relativa se tiene que
+
+`$$p=\frac{\text{Número de éxitos}}{\text{Número de ensayos (muestras)}}=\frac{3}{5}=0.6$$`
+
+--
+
+siendo `\(p\)` la probabilidad de que un estudiante desee tomar clases virtuales. Entonces la distribución de probabilidad es:
+
+`$$p(x)={20 \choose x}p^x(1-p)^{20-x}\quad x = \{0, 1, 2, \dots , 20\}$$`
+
+---
+# Distribución Binomial
+## Ejemplo
+
+Suponga que en un estudio se encontró que 2 de cada 5 estudiantes no desea tomar clases virtuales. Si se selecciona aleatoriamente 20 estudiantes, ¿Cuál es la probabilidad de que no menos de 6 pero menos de 12 deseen tomar clases virtuales?
+`$$p(x)={20 \choose x}p^x(1-p)^{20-x}\quad x = \{0, 1, 2, \dots , 20\}$$`
+
+--
+Ahora, se tiene interés en conocer la probabilidad de que no menos de 6 pero menos de 12 deseen tomar clases virtuales. En este caso, la probabilidad asociada puede calcularse de la siguiente manera.
+
+`$$\begin{align*}
+P(6 \leq x &lt; 12) &amp;= \sum_{x=6}^{11} \left(\begin{array}{c}20\\ x\end{array}\right)0.6^x(1-0.6)^{20-x} \\\\
+           &amp;= \left(\begin{array}{c}20\\ 6\end{array}\right)0.6^6(0.4)^{20-6} + \ldots + \left(\begin{array}{c}20\\ 11\end{array}\right)0.6^{11}(0.4)^{20-11} \\\\
+           &amp;= 0.4027898
+\end{align*}$$`
+
+Es decir que, la probabilidad de que como mínimo 6 pero menos de 12 estudiantes deseen tomar clases virtuales de los 20 seleccionados, es del 40.28%.
+
+---
+# Distribución Binomial
+
+En `R` también se pueden calcular estas probabilidades con las funciones basadas en `binom`
+
+- `rbinom`: genera `n` valores aleatorios binomiales con tamaño `size` y probabilidad `prob`
+- `dbinom`: calcula la probabilidad binomial exacta de `x` con tamaño `size` y probabilidad `prob`.
+- `pbinom`: calcula la probabilidad acumulada binomial de `q` con tamaño `size` y probabilidad `prob`.
+- `qbinom`: calcula el valor de `\(x\)` basado en la probabilidad `p` de una binomial con tamaño `size` y probabilidad `prob`.
+
+
+```r
+# Solución 1
+estudiantes &lt;- 6:11
+sum(dbinom(estudiantes,size = 20, prob = 0.6))
+```
+
+```
+## [1] 0.4027898
+```
+
+```r
+# solución 2
+pbinom(q = 11,size = 20,prob = 0.6) - pbinom(q = 5,size = 20,prob = 0.6)
+```
+
+```
+## [1] 0.4027898
+```
+
+---
+# Distribución Binomial
+&lt;img src="P_dist_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Distribución Binomial
+### Distribución binomial con n=10, p=0.1
+
+.right-column[
+&lt;img src="P_dist_files/figure-html/b1-1.png" style="display: block; margin: auto;" /&gt;
+]
+.left-column[
+Se puede observar que para una distribución binomial con parámetro `\(p &lt; 0.5\)` la distribución presenta asimetría hacia la izquierda. Por otra parte la distribución empírica se ajusta a la distribución teórica para tamaños de muestra grandes; para el caso de la distribución con parámetro `\(p=0.1\)`, se observa que hay un buen ajuste para tamaños de muestra `\(N \geq 50\)`.
+]
+---
+# Distribución Binomial
+### Distribución Binomial con n=10, p=0.5
+
+.right-column[
+&lt;img src="P_dist_files/figure-html/b2-1.png" style="display: block; margin: auto;" /&gt;
+]
+.left-column[
+Se puede observar que para una distribución binomial con parámetro `\(p = 0.5\)` la distribución teórica es simétrica. Por otra parte la distribución empírica se ajusta a la distribución teórica para tamaños de muestra muy grandes; contrario al caso anterior, el ajuste es más lento y se require tamaños de muestra `\(N \geq 1000\)`.
+]
+---
+# Distribución Binomial
+### Distribución Binomial con n=10, p=0.9
+
+.right-column[
+&lt;img src="P_dist_files/figure-html/b3-1.png" style="display: block; margin: auto;" /&gt;
+]
+.left-column[
+Se puede observar que para una distribución binomial con parámetro `\(p &gt; 0.5\)` la distribución presenta asimetría hacia la derecha. Por otra parte la distribución empírica se ajusta a la distribución teórica para tamaños de muestra grandes; para el caso de la distribución con parámetro `\(p=0.9\)`, se observa que hay un buen ajuste para tamaños de muestra `\(N \geq 50\)`.
+]
+---
+# Ejercicios
+
+.panelset[
+.panel[.panel-name[Ejercicio 1]
+Suponga que se sabe que 30 por ciento de cierta población es inmune a alguna enfermedad. Si se escoge una muestra aleatoria de 10 elementos de entre esta población, ¿Cuál es la probabilidad de que dicha muestra contenga exactamente cuatro personas inmunes?
+]
+.panel[.panel-name[Ejercicio 2]
+El *Hospital Pablo Tobón Uribe* sabe que cada 7 de 150 deportistas presentan desgarros musculares, si en un mes consultan 35 deportistas al hospital ¿Cuál es la probabilidad de que más de dos presenten desgarros musculares? ¿Cuántos deportistas se esperan que presenten desgarros musculares en el mes?
+]
+.panel[.panel-name[Ejercicio 3]
+En un estudio realizado en una comunidad determinó que el 4% de los hogares no adquieren productos ultraprocesados en su canasta familiar. El gobierno local desea formular una estrategia para que disminuya el consumo de este tipo de productos basado en una encuesta aleatoria a 18 hogares. ¿Cuál es la probabilidad que se encuentren la menos de 3 pero máximo 8 hogares que adquieran productos ultraprocesados?
+]
+.panel[.panel-name[Ejercicio 4]
+Suponga que se sabe que en cierta población 10 por ciento es daltónica. Si se extrae una muestra aleatoria de 25 personas de esa población, encuentre la probabilidad de que existan cinco o más daltónicos. Si se espera que hayan más de dos daltónicos, ¿Cuál es la probabilidad de que a lo sumo se encuentren cuatro?
+]
+.panel[.panel-name[Ejercicio 5]
+Sobre la base del análisis de datos recolectados por el *National Center for Health Statistics*, Najjar y Rowland informaron que 25.7 por ciento de las personas adultas de EUA tienen sobrepeso. Si se extrae una muestra aleatoria simple de 20 adultos, encuentre la probabilidad de que el numero de personas con sobrepeso, dentro de la muestra, sean:
+  * Exactamente tres personas
+  * Tres o mas personas
+  * Menos de tres
+  * Entre tres y siete, inclusive
+]
+]
+
+---
+class: inverse, center, middle
+
+# Distribuciones de Probabilidad Continuas
+
+---
+# Distribuciones de Probabilidad Continuas
+## Distribución Normal
+
+La **Distribución Normal** o **Gaussiana** es indudablemente la más importante y la de mayor uso de todas las distribuciones de probabilidad continua. Es la piedra angular en la aplicación de la &lt;u&gt;inferencia estadística&lt;/u&gt; en el analisis de datos, puesto que las distribuciones de muchas &lt;u&gt;estadísticas muestrales&lt;/u&gt; tienden hacia la distribución normal conforme crece el tamaño de muestra.
+
+* Precipitación pluvial
+* Temperaturas
+* Mediciones en organismos vivos
+* Calificaciones de pruebas de actitud
+* Mediciones físicas en manufactura
+* Antropometría
+* **Errores de instrumentación**
+
+Debe tenerse mucho cuidado al suponer para una situación dada un modelo de probabilidad normal sin previa comprobación. Si bien es cierto que esta distribución es la de mayor uso, también es de la que más se abusa. Quizás por la mala interpretación de la palabra "*normal*", especialmente si se aplica su significado literal de "*patrón o estándar aceptado*".
+
+---
+# Distribución Normal
+
+Es posible que una distribución normal proporcione de manera razonable una aproximación alrededor de una media de una variable aleatoria; sin embargo, puede resultar que para valores extremos se encuentren en cualquier dirección. La apariencia gráfica de la distribución normal es una curva simétrica con forma de campana, que se extiende sin límite tanto en dirección positiva como negativa.
+
+Sea `\(X\)` una variable aleatoria continua, se dice que `\(X\)` tiene una **distribución normal** si su función de densidad de probabilidad **(fdp)** es de la forma:
+
+`$$\Large f(x)=\cfrac{1}{\sqrt{2 \pi} \sigma} \mathit{e}^{- \frac{1}{2} \frac{(x-\mu)^2}{\sigma^2}};\qquad -\infty&lt; x &lt;\infty \quad \mu \in \mathit{R}\quad \sigma&gt;0$$`
+
+Por notación `\(X \sim N(\mu,\sigma^2)\)`. Los parámetros `\(\mu\)` y `\(\sigma^2\)` se les conoce de **localización** (*media*) y **escala** (*varianza*), respectivamente.
+
+---
+# Distribución Normal
+
+Las siguientes afirmaciones se cumplen para la variable aleatoria `\(X\)`.
+
+* El área abajo de curva normal comprendida entre `\((−\infty, \infty)\)` es igual a 1.
+
+* La normal es simétrica respecto a `\(\mu\)`. Como consecuencia de esto, el área bajo de la curva en el intervalo `\([\mu, \infty)\)` es igual a 0.5.
+
+* La distribución normal tiene forma de campana.
+
+* La normal queda completamente caracterizada con el conocimiento de sus parámetros de localización y de escala.
+
+* La **media** es igual a la **mediana** y a su vez igual a la **moda**.
+
+* **En la práctica la normalidad se alcanza de manera aproximada**.
+
+* `\(E[X]=\mu\)` y `\(Var[X]=\sigma^2\)`.
+
+* Cuanto más grande es el parámetro `\(\sigma^2\)` el gráfico de la función es mas *"achatada"* y de colas más largas.
+
+---
+# Distribución Normal
+
+&lt;img src="P_dist_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+---
+
+# Distribución Normal
+&lt;img src="P_dist_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Distribución Normal
+## Normal Estándar
+
+Cuando `\(\mu=0\)` y `\(\sigma^2=1\)`, se obtiene una distribución normal especial, conocida como _Normal Estándar_ y usualmente es denotada cola letra `\(Z\)` y se escribe `\(Z \sim N(0,1)\)`.
+
+`$$\Large P(x_1 &lt; X &lt; x_2)= \int\limits_{x_1}^{x_2} \cfrac{1}{\sqrt{2 \pi} \sigma} \large e^{- \frac{1}{2} \frac{(x-\mu)^2}{\sigma^2}} \small dx$$`
+
+Esta probabilidad no puede ser resuelta de manera explícita, además cada vez que se modifique `\(\mu\)` o `\(\sigma^2\)`, se debe calcular de nuevo la integral.
+
+---
+# Distribución Normal
+## Normalización
+
+Para evitar el problema anterior, se utiliza el cambio de variable `\(Z=\frac{X-\mu}{\sigma}\)`, del cual se obtiene que `\(dz=\frac{1}{\sigma}dx\)`.
+
+$$
+`\begin{aligned}
+P(x_1 &lt; X &lt; x_2) &amp;= \int\limits_{z_1}^{z_2} \cfrac{1}{\sqrt{2 \pi}} \mathit{e}^{- \cfrac{z^2}{2}} dz \\
+&amp;= P(z_1 &lt; Z &lt; z_2)\\
+\end{aligned}`
+$$
+
+donde `\(z_1=\frac{x_1-\mu}{\sigma}\)` y `\(z_2=\frac{x_2-\mu}{\sigma}\)`.
+
+Esto indica que cualquier cálculo de probabilidades para una variable aleatoria `\(N(\mu, \sigma^2)\)` puede reducirse al cálculo de probabilidades con una variable aleatoria `\(N(0,1)\)`.
+
+El proceso de transformar una v.a normal en una normal estándar se conoce como _Estandarización_ o _Normalización_.
+
+---
+# Normalización
+
+&lt;img src="Estandarizacion.jpg" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+# Normalización
+
+Para el cálculo de probabilidades con una variable `\(N(0, 1)\)`, la c.d.f. estará dada por:
+
+`$$\Phi(z)=P(Z \leq z)=\int\limits_{-\infty}^{z} \cfrac{1}{\sqrt{2 \pi}} \large e^{- \frac{z^2}{2}} \small dz$$`
+
+De esta manera se tiene que:
+
+`$$P(x_1 &lt; X &lt; x_2)=P(z_1 &lt; Z &lt; z_2)=\Phi(z_2)-\Phi(z_1)$$`
+
+Los valores de la función `\(\Phi(z)\)` están tabulados en casi todos los textos de estadística.
+
+Puedes descargar la tabla de la distribución Normal del siguiente link:
+
+&lt;h3 style="text-align:center"&gt;&lt;u&gt;&lt;a href="./R/Tabla_Normal.pdf" target="_blank"&gt;Tabla Distribución Normal&lt;/a&gt;&lt;/u&gt;&lt;/h3&gt;
+
+---
+# Distribución Normal
+
+## Cálculo de probabilidades
+
+Sea `\(Z\)` una variable aleatoria tal que `\(Z \sim N(0,1)\)`
+
+- `\(P(Z = z) = 0\)` [En una función continua no existen probabilidades en un punto exacto]
+
+- `\(P(Z&gt;z)=1-P(Z \leq z)\)` [Complemento]
+
+- `\(P(Z&lt;-z)=P(Z&gt;z)\)` [Propiedad Simetría]
+
+- `\(P(-z &lt; Z &lt; 0) = P(0 &lt; Z &lt; z)\)` [Propiedad Simetría]
+
+- `\(P(Z &lt; 0) = P(Z &gt; 0) = \cfrac{1}{2}\)` [Mediana]
+
+- `\(P(-z_1 &lt; Z &lt; -z_2)=P(z_2 &lt; Z &lt; z_1)\)` [Propiedad Simetría]
+
+
+---
+# Distribución Normal
+
+## Características Distribución Normal
+
+&lt;img src="P_dist_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Distribución Normal
+## Percentiles en una Normal Estándar
+
+Sea `\(0 &lt; \alpha &lt; 1\)` y suponga que `\(Z \sim N(0,1)\)`. El valor de `\(Z\)` que deja un área `\(\alpha\)` a la derecha se denota `\(z_{\alpha}\)`. Es decir,
+
+`$$P(Z&gt;z_{\alpha})=\alpha$$`
+
+`\(z_{\alpha}\)` es llamado percentil `\(100(1-\alpha)\%\)` de la distribución de `\(Z\)`.
+
+&lt;img src="P_dist_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+---
+# Distribución Normal
+
+## Ejemplo
+
+La nota promedio obtenida por un estudiante de cierto curso tienen una *distribución aproximadamente normal* con una nota promedio de `\(3.3\)` y una desviación estándar de `\(0.4\)`. Si se desea que solo el `\(5\%\)` de todos los estudiantes de dicho curso reprueben, ¿Cuál debe ser la nota mínima para que esto sea posible?
+
+--
+
+Tenemos que `\(X\)` es la nota promedio de un estudiante y que `\(X \sim N(3.3,0.4^2)\)`, para obtener la nota mínima para que solo el 5% reprueben, primero debemos estimar cuál es la probabilidad de que los estudiantes reprueben.
+
+--
+
+`$$\begin{align*}
+P(X&lt;3)=&amp;P\left(\frac{X-3.3}{0.4}&lt;\frac{3-3.3}{0.4}\right)\\\\
+=&amp;P(Z&lt;-0.75)\\
+=&amp;1-P(Z \leq 0.75) = 0.2266
+\end{align*}$$`
+
+Se espera que el `\(22.66\%\)` de los estudiantes pierdan el curso.
+
+---
+# Distribución Normal
+
+## Ejemplo
+
+La nota promedio obtenida por un estudiante de cierto curso tienen una *distribución aproximadamente normal* con una nota promedio de `\(3.3\)` y una desviación estándar de `\(0.4\)`. Si se desea que solo el `\(5\%\)` de todos los estudiantes de dicho curso reprueben, ¿Cuál debe ser la nota mínima para que esto sea posible?
+
+--
+
+Sea `\(K\)` la nota mínima aprobatoria que satisface `\(P(X&lt;K)=0.05\)`, es decir, el 5% de los estudiantes tienen notas inferiores a `\(K\)` y reprobarán el curso.
+
+`$$\begin{align*}
+P(X&lt;K)=0.05 \quad \Rightarrow \quad &amp;P\left(\frac{X-3.3}{0.4}&lt;\frac{K-3.3}{0.4}\right)=0.05\\\\
+&amp;P(Z&lt;z)=0.05, \quad \text{con}\quad z=\frac{K-3.3}{0.4}
+\end{align*}$$`
+
+---
+# Distribución Normal
+
+## Ejemplo
+
+La nota promedio obtenida por un estudiante de cierto curso tienen una *distribución aproximadamente normal* con una nota promedio de `\(3.3\)` y una desviación estándar de `\(0.4\)`. Si se desea que solo el `\(5\%\)` de todos los estudiantes de dicho curso reprueben, ¿Cuál debe ser la nota mínima para que esto sea posible?
+
+--
+
+Usando la tabla de la normal se encuentra que valor de `\(z\)` para una probabilidad de `\(0.05\)` es `\(-1.645\)` entonces:
+
+`$$-1.645=\frac{K-3.3}{0.4} \quad \Rightarrow K=2.64$$`
+
+Así, la nota mínima aprobatoria será `\(2.6\)`, para que solo el `\(5\%\)` pierda la materia. En otras palabras, se ajusta la nota de todos sumando `\(0.4\)` para que solo pierda el `\(5\%\)`.
+
+---
+# Distribución Normal
+
+En `R` también se pueden calcular estas probabilidades con las funciones basadas en `norm`.
+
+- `rnorm`: genera `n` valores aleatorios Normales con media `mu` y desviación `sigma`.
+- `dnorm`: calcula la densidad Normal exacta de `x` con media `mu` y desviación `sigma`.
+- `pnorm`: calcula la probabilidad acumulada Normal de `q` con media `mu` y desviación `sigma`.
+- `qnorm`: calcula el valor de `\(x\)` basado en la probabilidad `p` de una Normal con media `mu` y desviación `sigma`.
+
+.panelset[
+.panel[.panel-name[Solución 1]
+
+```r
+# Solución 1
+pnorm(3,mean = 3.3,sd = 0.4)
+```
+
+```
+## [1] 0.2266274
+```
+
+```r
+pnorm((3-3.3)/0.4,mean = 0,sd = 1)
+```
+
+```
+## [1] 0.2266274
+```
+]
+.panel[.panel-name[Solución 2]
+
+```r
+# solución 2
+qnorm(0.05,mean = 3.3,sd = 0.4)
+```
+
+```
+## [1] 2.642059
+```
+
+```r
+qnorm(0.05,mean = 0,sd = 1)*0.4 + 3.3
+```
+
+```
+## [1] 2.642059
+```
+]
+]
+
+---
+# Distribución Normal
+
+&lt;img src="P_dist_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+---
+# Distribución Normal
+
+## Distribución normal con `\(\mu=0\)` y `\(\sigma=1\)`
+
+.right-column[
+&lt;img src="P_dist_files/figure-html/norm1-1.png" style="display: block; margin: auto;" /&gt;
+]
+.left-column[
+En el gráfico se evidencia que la distribución *Normal* es simétrica en `\(\mu=0\)`, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra `\(N \geq 100\)`.
+]
+---
+# Distribución Normal
+
+## Distribución normal con `\(\mu=0\)` y `\(\sigma=5\)`
+
+.right-column[
+&lt;img src="P_dist_files/figure-html/norm2-1.png" style="display: block; margin: auto;" /&gt;
+]
+.left-column[
+En el gráfico se evidencia que la distribución *Normal* es simétrica en `\(\mu=0\)` y que debido a la varianza tan grande el rango de la variable aumenta considerablemente, además la distribución muestral se ajusta a la distribución teórica para tamaños de muestra `\(N \geq 100\)`.
+]
+---
+# Ejercicios
+
+.panelset[
+.panel[.panel-name[Ejercicio 1]
+Suponga que se sabe que la estatura de cierta población de individuos sigue una distribución aproximadamente normal con media de `\(177.8\)` centímetros y una desviación estándar de `\(7.62\)` centímetros.
+
+- ¿Cual es la probabilidad de que una persona seleccionada al azar de este grupo tenga una estatura entre `\(165.1\)` y `\(187.96\)` centímetros?
+
+- En una población de 10.000 personas ¿Cuántas personas se espera que tengan una estatura de `\(1.95\, m\)`?
+]
+.panel[.panel-name[Ejercicio 2]
+Suponga que las edades de inicio de cierta enfermedad tienen una distribución aproximadamente normal, con una media de `\(11.5\)` años y una desviación estándar de `\(3\)` años.
+
+Un niño contrae recientemente la enfermedad. Cuál es la probabilidad de que la edad del niño tenga:
+  * Entre `\(8.5\)` y `\(14.5\)` años
+  * Más de `\(10\)` años
+  * Menos de `\(12\)`
+]
+.panel[.panel-name[Ejercicio 3]
+Si la capacidad de la cavidad craneana de una población tiene una distribución aproximadamente normal, con una media de `\(1400\, cc\)` y una desviación estándar de `\(125\, cc\)`, calcule la probabilidad de que una persona, elegida al azar entre esa población, tenga una capacidad de cavidad craneana:
+  * Mayor que `\(1450\, cc\)`.
+  * Menor que `\(1350\, cc\)`.
+  * Entre `\(1300\,cc\)` y `\(1500\, cc\)`.
+]
+.panel[.panel-name[Ejercicio 4]
+Si el nivel total de colesterol en cierta población tiene una distribución aproximadamente normal, con una media de `\(200\, mg/100ml\)` y una desviación estándar de `\(20\, mg/100ml\)`, calcule la probabilidad de que un individuo, elegido al azar de entre esa población, tenga un nivel de colesterol:
+  * Entre `\(180\, mg/100ml\)` y `\(200\, mg/100ml\)`.
+  * Mayor que `\(225\, mg/100ml\)`.
+  * Menor que `\(150\, mg/100ml\)`.
+  * Si se seleccionan 100.000 personas de esta población, cuántas se esperarían que tengan colesterol entre `\(190\, mg/100ml\)` y `\(210\, mg/100ml\)`.
+]
+]
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "arta",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
