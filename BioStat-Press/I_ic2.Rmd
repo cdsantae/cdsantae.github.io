@@ -1,0 +1,218 @@
+---
+title: "Intervalos de Confianza"
+subtitle: "Comparación de grupos"
+author: "Cristian Santa | Alejandro Estrada"
+institute: "Escuela de Nutrición y Dietética - UdeA"
+date: "Octubre 2021"
+output:
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts]
+    lib_dir: github
+    nature:
+      ratio: '16:9'
+      highlightStyle: arta
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,fig.align = "center",warning = F,message = F,
+                      dpi=90,fig.width = 7,fig.height = 6)
+
+xaringanExtra::use_panelset()
+require(BSDA)
+```
+
+# Inferencia comparación de grupos
+
+Hasta ahora se ha realizado estimaciones para un parámetros. Ahora, el interés es comparar dos grupos, es decir, comparar una característica común pero que se diferencian en dos estados distintos y que no existen otras condiciones adicionales que diferencien las dos muestras.
+
+Para estos casos se presentan dos situaciones, que las muestras sean **independientes** o que las muestras sean **pareadas**, es decir, que es el seguimiento de un solo individuo en el cambio de estado (tiempo, área, condición).
+
+```{r,fig.width=12,fig.height=4}
+require(dplyr)
+require(ggplot2)
+set.seed(123)
+A <- rnorm(20,30,2)
+B <- rnorm(20,32,1.5)
+p1 <- stack(data.frame(A,B)) %>%
+  ggplot(aes(x=ind,y=values,fill=ind))+geom_boxplot()+
+  labs(fill="Grupo")+xlab("Grupos")+ylab("Kcal")+
+  ggtitle("Comparación de las calorías en dos grupos")+
+  theme_bw()
+
+set.seed(123)
+T1 <- rnorm(20,30,2)
+T2 <- T1-runif(20,1.5,3)
+b <- runif(20, -0.1, 0.1)
+p2 <- stack(data.frame(T1,T2)) %>% mutate(id=rep(1:20,2)) %>%
+  ggplot(aes(x=ind,y=values,fill=ind))+geom_boxplot()+
+  geom_point(aes(x=as.numeric(ind)+b,y=values))+
+  geom_line(aes(x=as.numeric(ind)+b,y=values,group=id),
+            arrow=arrow(length = unit(0.2,"cm"),
+                        ends = "both",type="closed"),col="grey50")+
+  labs(fill="Grupo")+xlab("Grupos")+ylab("Kcal")+
+  ggtitle("Comparación de las calorías en dos grupos pareados")+
+  theme_bw()
+gridExtra::grid.arrange(p1,p2,ncol=2)
+```
+
+---
+# IC para la diferencia de proporciones
+
+A menudo se tiene interés en conocer la magnitud de la diferencia entre las proporciones de dos poblaciones. Es posible que se quiera comparar, por ejemplo, entre hombres y mujeres, dos grupos de edades, dos grupos socioeconómicos o dos grupos de diagnóstico con respecto a la proporción que posee alguna característica de interés.
+
+Se tienen $X_1,\dots,X_n$ y $Y_1,\dots,Y_n$ dos muestras aleatorias cada una pertenecientes a una distribución binomial $X\sim bin(n_1,p_1)$ y $Y\sim bin(n_2,p_2)$. Un estimador puntual insesgado de la diferencia entre dos proporciones de las poblaciones se obtiene al calcular la diferencia de las proporciones de las muestras $\hat{p_1}-\hat{p_2}$.
+
+Tal como se ha visto, cuando $n_1$ $n_2$ son de **gran tamaño** y las proporciones de la población no están muy cerca de $0$ o de $1$, es posible aplicar el **Teorema Central del Limite** y utilizar la teoría de la distribución normal para obtener los intervalos de confianza.
+
+---
+# IC para la diferencia de proporciones
+El error estándar de la estimación se calcula mediante la siguiente formula:
+
+$$\Large\hat{\sigma}_{\hat{p_1}-\hat{p_2}}=\sqrt{\frac{\hat{p_1}(1-\hat{p_1})}{n_1}+\frac{\hat{p_2}(1-\hat{p_2})}{n_2}}$$
+
+Entonces un intervalo de confianza al $100(1-\alpha)\%$ para $p_1-p_2$ se obtiene de:
+
+$$(\hat{p_1}-\hat{p_2})\,\pm\,Z_{1-\alpha/2}\sqrt{\frac{\hat{p_1}(1-\hat{p_1})}{n_1}+\frac{\hat{p_2}(1-\hat{p_2})}{n_2}}$$
+
+><hr><br>
+Entonces cuando el intervalo contenga el valor $0$ significa que los grupos son **estadísticamente iguales**, eso se debe a: $$p_1 - p_2 = 0 \quad \rightarrow \quad p_1=p_2$$
+<hr>
+
+---
+# IC para la diferencia de proporciones
+## Ejemplo
+
+Aronow y Kronzon identificaron los factores de riesgo coronado entre hombres y mujeres en una clínica de cuidados de la salud a largo plazo. De los 215 individuos negros, 58 tienen *diabetes mellitus* al igual que 217 individuos blancos de 1140. Elabore un intervalo de confianza de 90 por ciento de confianza para la diferencia entre las proporciones de las dos poblaciones.
+
+Con la información suministrada podemos construir una tabla de contingencia de la siguiente manera:
+
+<table class="table table-striped table-hover">
+<thead>
+  <tr>
+    <th></th>
+    <th colspan="3">Diabetes</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td></td>
+    <td><b>Si</b></td>
+    <td><b>No</b></td>
+    <td><b>Total</b></td>
+  </tr>
+  <tr>
+    <td><b>Negros</b></td>
+    <td>58</td>
+    <td>157</td>
+    <td>215</td>
+  </tr>
+  <tr>
+    <td><b>Blancos</b></td>
+    <td>217</td>
+    <td>923</td>
+    <td>1140</td>
+  </tr>
+</tbody>
+</table>
+
+---
+# IC para la diferencia de proporciones
+## Ejemplo - *continuación*
+Como el interés es comparar entre negros y blancos por la presencia de diabetes, entonces se tiene que $p_1=58/215$ y $p_2=217/1140$. Así el intervalo de confianza al 90% está dado por:
+
+$$\begin{align*}
+(\hat{p_1}-\hat{p_2})\,\pm&\,Z_{1-\alpha/2}\sqrt{\frac{\hat{p_1}(1-\hat{p_1})}{n_1}+\frac{\hat{p_2}(1-\hat{p_2})}{n_2}}\\\\
+\left(\frac{58}{215}-\frac{217}{1140}\right)\,\pm&\,Z_{0.95}\sqrt{\frac{(58/157)({157/215})}{215}+\frac{(217/1140)(923/1140)}{1140}}\\\\
+\end{align*}$$
+$$(-0.02608\,;\,0.13275)$$
+
+El intervalo de confianza para la diferencia de proporciones contiene el $0\%$ por lo tanto, no existe diferencias para la diabetes entre negros y blancos con una confianza del $90\%$.
+
+---
+# IC para la diferencia de medias
+
+El procedimiento para comparar grupos a través de las medias estimadas, es similar a estimar un solo parámetro. Esto requiere de una serie de evaluaciones para seleccionar el método correcto de acuerdo al comportamiento de los datos.
+
+--
+
+**1. Verificar que los datos distribuyen normal o no.**
+
+--
+
+**2. Verificar si los tamaños de cada muestra son suficientemente grandes.**
+
+--
+
+**3. Verificar si las varianzas de cada muestra son iguales o no.**
+
+--
+
+**4. Seleccionar el método de estimación.**
+
+---
+# Resumen
+
+<center>
+<img src="IC_mu-mu.png" alt="Resumen IC" width="90%"/>
+</center>
+
+---
+# Resumen
+Donde
+
+$$\Large SP=\sqrt{\cfrac{(n_1-1)S^2_1+(n_2-1)S^2_2}{n_1+n_2-2}} \qquad \qquad \qquad \Large v= \cfrac{\left(\frac{S^2_1}{n_1}+\frac{S^2_2}{n_2}\right)^2}{\frac{\left(\frac{S^2_1}{n_1}\right)^2}{n_1-1}+\frac{\left(\frac{S^2_2}{n_2}\right)^2}{n_2-1}}$$
+
+---
+# Ejemplo
+
+Se realizó un experimento para comparar el tiempo promedio requerido por el cuerpo humano para absorber dos medicamentos, $A$ y $B$. Se cree que el fármaco $B$ se absorbe en promedio más rápido que el $A$.
+
+Para verificarlo se eligieron al azar $10$ personas para ensayar el fármaco $A$ y se registran los tiempos que tardan en alcanzar un nivel específico en la sangre. El tiempo promedio requerido fue $24.8\,min$, con una varianza $15.57\,min^2$. Al ensayar el fármaco $B$ en $15$ personas elegidas al azar, el tiempo promedio fue $22.6\,min$, con una varianza $17.64\,min^2$.
+
+La experiencia ha mostrado que los tiempos de absorción de ambos medicamentos se distribuyen normalmente, donde la variabilidad en los tiempos es similar para ambos fármacos. Usando un I.C al $95\%$ ¿Es cierta la creencia?
+
+### Solución
+Suponga que $X_1,\dots,X_{10}$ es una m.a que representa los tiempos de absorción de las $10$ personas a las cuales se les administra el fármaco $A$, asuma que $X_i\sim N(\mu_X, \sigma_X^2)$. Análogamente, sea $Y_1,\dots,Y_{15}$ otra m.a que representa los tiempos de absorción de las $15$ personas a las cuales se les administra el fármaco B, asuma que $Y_j \sim N(\mu_Y,\sigma_Y^2)$.
+
+---
+# Ejemplo
+
+De acuerdo con el diagrama de árbol, ambas muestras son normales, las varianzas poblacionales son desconocidas (tenemos información muestral) y el enunciado indica que $\sigma_X^2 = \sigma_Y^2$. Entonces el intervalo de confianza indicado es aquel basado en la *t-student* donde es necesario estimar la varianza conjunta $(SP)$. La información muestral revela que:
+
+$$\bar{x} = 24.8 \qquad S_X^2 = 15.57 \qquad n=10$$
+$$\bar{y} = 22.6 \qquad S_Y^2 = 17.64 \qquad n=15$$
+
+Así, un I.C al $95\%$ para $\mu_X − \mu_Y$ es:
+
+$$(24.8-22.6)\pm t_{(0.975,23)}\color{blue}{SP}\sqrt{\frac{1}{10}+\frac{1}{15}}$$
+$$(2.2)\pm 2.0687 \color{blue}{\left(\sqrt{\frac{9\times 15.57 + 14\times 17.64}{23}}\right)}\sqrt{\frac{5}{30}}$$
+
+$$(2.2)\pm 2.0687 \times \color{blue}{4.1024} \times \sqrt{\frac{1}{6}} \quad\Rightarrow\quad (-1.27\,;\,5.67)$$
+
+Este intervalo permite concluir, que no hay diferencias significativas en los tiempos de absorción de ambos fármacos, con una confianza del $95\%$.
+
+---
+# Ejemplo
+
+En `R` la forma habitual para comparar grupos es a través de los vectores de las bases de datos. No obstante, para datos estimados el paquete `BSDA` ofrece solución con las funciones `tsum.test` para el estadístico basado en la *t-student* y `zsum.test` para el estadístico basado en la normal.
+
+
+.pull-left[
+```{r,echo=TRUE}
+# Para el ejemplo de los medicamentos
+tsum.test(mean.x = 24.8,s.x = sqrt(15.57),n.x = 10,
+          mean.y = 22.6,s.y = sqrt(17.64),n.y = 15,
+          var.equal = T,conf.level = 0.95)
+```
+
+]
+.pull-right[
+```{r,echo=TRUE}
+# Sólo el intervalo
+tsum.test(mean.x = 24.8,s.x = sqrt(15.57),n.x = 10,
+          mean.y = 22.6,s.y = sqrt(17.64),n.y = 15,
+          var.equal = T,conf.level = 0.95)$conf.int
+```
+]

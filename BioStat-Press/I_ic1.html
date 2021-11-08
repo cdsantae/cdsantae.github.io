@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Intervalos de Confianza</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Cristian Santa | Alejandro Estrada" />
+    <script src="github/header-attrs-2.11/header-attrs.js"></script>
+    <link href="github/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link href="github/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="github/panelset-0.2.6/panelset.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Intervalos de Confianza
+## IC para un parámetro
+### Cristian Santa | Alejandro Estrada
+### Escuela de Nutrición y Dietética - UdeA
+### Octubre 2021
+
+---
+
+
+
+
+# Introducción
+
+Hasta ahora los estimadores estudiados son puntuales, es decir, exhiben un solo valor como estimación del parámetro de interés. Pero en muchos casos esto no es suficiente. A veces se requiere de un *rango de posibles valores* para el parámetro de interés, es decir, un intervalo real donde se cree estará el valor del parámetro con una alta confianza.
+
+--
+
+Sea `\(\theta\)` un parámetro de interés y `\(\hat{\theta}\)` un estimador puntual de `\(\theta\)` en un intervalo real de la forma `\((L_\hat\theta , U_\hat\theta)\)` talque `\((L_\hat\theta &lt; \theta &lt; U_\hat\theta)\)`, donde `\(L\)` y `\(U\)` dependen de y de la distribución de `\(\hat\theta\)`.
+
+--
+
+Cada muestra aleatoria proporcionará un valor diferente para `\(\hat\theta\)` y por lo tanto valores diferentes para `\(L\)` y `\(U\)`. Así, los extremos del intervalo en cuestión se convierten en variables aleatorias. El intervalo `\((L , U)\)` es llamado Intervalo Aleatorio. Usando `\(\hat\theta\)` y su distribución es posible determinar `\(L\)` y `\(U\)` tales que:
+
+`$$P(L_\hat\theta &lt; θ &lt; U_\hat\theta) = 1 − \alpha,\quad \alpha \in (0,1)$$`
+
+--
+
+Para una muestra particular se obtiene el intervalo `\((l , u)\)` donde se espera esté el verdadero
+valor de `\(\theta\)`, Este intervalo será llamado un **Intervalo de Confianza al `\(100(1 − \alpha)\%\)`** para `\(\alpha\)`, además `\(l\)` y `\(u\)` son llamados *Límites de Confianza*.
+
+---
+# Intervalos de confianza para la proporción
+
+Sea `\(X\)` una variable aleatoria tal que `\(X\sim bin(n,p)\)`. El Teorema Central del Límite garantiza que:
+
+`$$\cfrac{X-np}{\sqrt{np(1-p)}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)$$`
+
+--
+
+Un estimador insesgado para `\(p\)` es `\(\bar{p}=X/n\)`, entonces:
+
+`$$\frac{X-np}{\sqrt{np(1-p)}}=\frac{n[X/n-p]}{\sqrt{np(1-p)}}=\frac{X/n-p}{\sqrt{p(1-p)/n}}\stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)$$`
+
+--
+
+Entonces un intervalo de confianza para `\(\hat{p}\)` es de la forma:
+
+`$$\hat{p}\, \pm\, Z_{1-\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$`
+
+Lo que representa:
+
+`$$\left(\hat{p}-Z_{1-\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\,\,;\,\, \hat{p}+Z_{1-\alpha/2}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} \right)$$`
+
+---
+# Intervalos de confianza para la proporción
+## Ejemplo
+
+En una muestra de 85 recién nacidos, 10 presentaron riesgo de desnutrición. ¿Cuál es la proporción real de recién nacidos con riesgo de desnutrición con una confianza del 95%?
+
+Sea `\(X\)` el número de recién nacidos con riesgo de desnutrición, entonces `\(X\sim bin(85,p)\)`. Del enunciado se tiene que: `\(\hat{p}=x/85=10/85=0.1176471\)`
+
+Un Intervalo de Confianza (IC) aproximado al 95% para `\(p\)` es de la forma:
+
+`$$\frac{10}{85}\,\pm\,1.96\sqrt{\frac{(10/85)(75/85)}{85}}\,\Rightarrow\,0.1176\,\pm\,0.0685\,\Rightarrow(0.0492;0.1861)$$`
+
+En conclusión, con una confianza del 95% la proporción de recién nacidos que presentan riesgos de desnutrición se estiman entre (0.0492;0.1861), o (4.92%;18.61%).
+
+---
+# Intervalos de confianza para la proporción
+
+El siguiente ejercicio de simulación muestra el concepto de la probabilidad de los intervalos de confianza y la influencia de los tamaños de muestra
+
+&lt;img src="I_ic1_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Intervalos de confianza para la proporción
+Cuando aumenta el tamaño de muestra los intervalos tienen menor amplitud, lo cual es lo deseado, ya que la amplitud es una medida de precisión.
+
+&lt;img src="I_ic1_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Intervalos de confianza para la proporción
+
+En términos de la cobertura del intervalo, se espera que para cualquier valor estimado de `\(p\)` la probabilidad de cobertura sea cercana al nivel de confianza `\(100(1-\alpha)\%\)`.
+
+&lt;img src="I_ic1_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Intervalos de confianza para la proporción
+
+Este es el inconveniente que presenta esta propuesta de intervalo para la proporción llamada *método Wald*. En la literatura existe muchas propuestas para intervalos de confianza para la proporción, de hecho, sigue siendo un caso de estudio por varios estadísticos.
+
+En 1934 Clopper y Pearson presentaron una propuesta para los intervalos de confianza basados en la *Distribución Beta* que, a su vez, está relacionada con la *Distribución F*, sin embargo, lo complejo de sus cálculos no le dio el protagonismo para la época. Ahora este intervalo se ha puesto a prueba gracias a los avances computacionales haciendo fácil el cálculo y entregando mejores resultados en términos de probabilidad de cobertura.
+
+`$$B(\alpha/2;\,x,\,n-x+1)&lt;\hat{p}&lt;B(1-\alpha/2;\,x+1,\,n-x)$$`
+
+O parametrizada con la Distribución F
+
+`$${\displaystyle \left(1+{\frac {n-x+1}{x\,F\!\left[{\frac {\alpha }{2}};2x,2(n-x+1)\right]}}\right)^{-1}&lt;\hat{p} &lt;\left(1+{\frac {n-x}{(x+1)\,\,F\!\left[1-{\frac {\alpha }{2}};2(x+1),2(n-x)\right]}}\right)^{-1}}$$`
+
+---
+# Intervalos de confianza para la proporción
+
+En `R` es fácil hacer este cálculo, el primer método es hacer la fórmula con `qbeta` y otra forma es con el paquete `PropCIs`
+
+
+```r
+install.packages("PropCIs")
+```
+
+
+```r
+# Para el ejercicio del riesgo de desnutrición
+qbeta(0.05/2,shape1 = 10,shape2 = 85-10+1) #Límite inferior
+```
+
+```
+## [1] 0.05788185
+```
+
+```r
+qbeta(1-0.05/2,shape1 = 10+1,shape2 = 85-10) #Límite superior
+```
+
+```
+## [1] 0.2057331
+```
+
+```r
+require(PropCIs)
+exactci(x = 10,n = 85,conf.level = 0.95)$conf.int
+```
+
+```
+## [1] 0.05788185 0.20573312
+## attr(,"conf.level")
+## [1] 0.95
+```
+
+---
+# Intervalos de confianza para la proporción
+
+&lt;img src="I_ic1_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Intervalos de confianza para la proporción
+## Ejercicios
+
+.panelset[
+.panel[.panel-name[Ejercicio 1]
+La RedPaPAz realizó una encuesta a los hogares más vulnerables y que no entienden el etiquetado regular de alimentos en la ciudad de Medellín. Esta encuesta servirá como guía para plantear la política pública para el cambio de las etiquetas de información nutricional, se encontró que 472 hogares de 595 encuestados adquieren productos ultraporcesados. Con un nivel de confianza del 95% ¿Cuál es la verdadera proporción de hogares que adquieren productos ultraporcesados? ¿Qué significa este resultado?
+]
+.panel[.panel-name[Ejercicio 2]
+Metro Salud en conjunto con la Universidad de Antioquia realizaron un estudio relacionado con el incremento de peso en los niños y niñas menores de 12 años. Se recolectó una muestra de 800 niños de los cuales el 57% fueron niñas, los resultados arrojaron que 63 niñas se clasifican en obesidad. Con un nivel de confianza del 97% ¿Cuál es la verdadera proporción de niñas en obesidad?
+]
+.panel[.panel-name[Ejercicio 3]
+Gracias al impacto de las redes sociales y la desinformación de *influencers*, que se declaran expertos en nutrición, calidad de vida y salud, se piensa que la cantidad de bebés que no reciben leche materna ha disminuído significativamente, principalmente en los estratos Altos. Se sabe que la prevalencia de lactancia materna en esta población hace 5 años es del 75%. Neonatólogos del San Vicente realizaron una investigación en 254 bebés, de los cuales 171 reciben lactancia materna. Con un nivel de confianza del 95% ¿Cuál es la verdadera proporción de bebes que reciben leche materna? ¿Este valor disminuyó con respecto al quinquenio pasado?
+]
+.panel[.panel-name[Ejercicio 4]
+La medidas estatales tomadas durante la pandemia del COVID-19 se han perdido empleos en el país. El DANE realizó un estudio en todo el país para determinar el nuevo porcentaje de desempleo, se realizó una encuesta 1876 personas de las cuales 259 manifestaron estar desempleadas. Con un nivel de confianza del 90% ¿Cuál es la verdadera proporción de desempleados en Colombia? Si se sabe que antes de la pandemia, el índice de desempleo era del 10.2% ¿Aumentó significativamente la cifra de desempleo?
+]
+]
+
+---
+class: inverse, center, middle
+
+# Intervalos de confianza para la media
+
+--
+
+## La estimación del parámetro `\(\mu\)` a través de intervalos de confianza, dependerá de dos situaciones.
+
+--
+
+### 1. Si la muestra aleatoria es de tamaño relativamente grande y no necesariamente provenga de una distribución normal.
+### 2. Si la muestra aleatoria proviene de una distribución normal.
+
+---
+# Intervalos de confianza para la media
+## IC para poblaciones no normales
+
+Sea `\(X_1,\dots,X_n\)` una muestra aleatoria de una población con media desconocida y **varianza conocida** `\(\mu\)`. Un intervalo de confianza para `\(\mu\)` con muestras grnades al `\(100(1-\alpha)\%\)` está dado por:
+
+`$$\bar{X}\,\pm\,Z_{1-\alpha/2}\frac{\sigma}{\sqrt{n}}$$`
+--
+
+### Ejemplo
+
+Una nutricionista de una clínica es la encargada de los planes de ganancia de peso en embarazadas. De acuerdo a los parámetros se sabe que la variación de la ganancia de peso al final de la gestación es de `\(4\,kg\)`. Se escogen al azar `\(45\)` embarazadas adultas con IMC normal y se registra sus ganancias de peso al final de la gestación y la ganancia promedio resultó en `\(14.5\,kg\)`. Calcule el I.C. al `\(95\%\)` para la ganancia de peso media real de estas embarazadas.
+
+---
+# IC para poblaciones no normales
+### Ejemplo
+
+Se tiene que `\(X_1,\dots,X_{45}\)` es una muestra aleatoria que representa las ganancias de peso de las embarazadas de 45 mujeres, además de la muestra se obtiene que `\(\bar{X}=14.5\,\text{kg}\)`
+
+Un IC al 95% para `\(\mu\)` está dado por:
+
+$$14.5\,\pm\,Z_{0.975}\frac{4}{\sqrt{45}} \,\Rightarrow\, (13.3313;\,15.6687) $$
+
+&lt;hr&gt;
+
+En el caso de que en la muestra aleatoria no se tenga información de `\(\sigma\)`, es decir, que tiene **varianza desconocida** entonces se puede reemplazar `\(\sigma^2\)` por `\(S^2\)` siempre y cuando se tenga *tamaños de muestra grandes* tal que:
+
+`$$\bar{X}\,\pm\,Z_{1-\alpha/2}\frac{S}{\sqrt{n}}$$`
+
+&lt;hr&gt;
+
+---
+# IC para poblaciones no normales
+
+El siguiente ejercicio de simulación muestra el concepto de la probabilidad de los intervalos de confianza y la influencia de los tamaños de muestra
+
+&lt;img src="I_ic1_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# IC para poblaciones no normales
+
+En términos de la cobertura del intervalo, se espera que para cualquier valor estimado de `\(\mu\)` la probabilidad de cobertura sea cercana al nivel de confianza `\(100(1-\alpha)\%\)`.
+
+&lt;img src="I_ic1_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# IC para poblaciones no normales
+En `R` existe un paquete para calcular el intervalo de confianza basado en los resultados de una muestra. Es necesario instalar el paquete `BSDA` y la función de interés es `zsum.test`.
+
+
+```r
+install.packages("BSDA")
+library(BSDA)
+```
+
+
+.pull-left[
+
+```r
+# Para el ejemplo de la ganancia de peso
+zsum.test(mean.x = 14.5,sigma.x = 4,
+    n.x = 45,conf.level = 0.95)
+```
+
+```
+## 
+## 	One-sample z-Test
+## 
+## data:  Summarized x
+## z = 24.317, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  13.3313 15.6687
+## sample estimates:
+## mean of x 
+##      14.5
+```
+]
+.pull-right[
+
+```r
+# Extraer solo el intervalo
+zsum.test(mean.x = 14.5,sigma.x = 4,
+    n.x = 45,conf.level = 0.95)$conf.int
+```
+
+```
+## [1] 13.3313 15.6687
+## attr(,"conf.level")
+## [1] 0.95
+```
+]
+
+---
+# IC para poblaciones normales
+
+Sea `\(X_1,\dots,X_n\)` una muestra aleatoria de una población normal `\(N(\mu,\sigma^2)\)` con media desconocida y **varianza conocida**. Un intervalo de confianza para `\(\mu\)` al `\(100(1-\alpha)\%\)` está dado por:
+
+`$$\bar{X}\,\pm\,Z_{1-\alpha/2}\frac{\sigma}{\sqrt{n}}$$`
+
+## Ejemplo
+
+Una planta de procesamiento de alimentos preparan una nueva línea de pechugas de pollo. Se sabe que la energía aportada por las pechugas de pollo tiene una distribución *aproximadamente normal*. De acuerdo a la investigación de los nutricionistas de la planta se ha encontrado que la dispersión en la energía es aproximadamente de `\(0.05\,kcal\)`. Se escogen al azar `\(15\)` pechucgas y se estima su aporte energético. La energía promedio resultó en `\(74.04\,kcal\)`.
+
+1. Calcule un Intervalo de Confianza al `\(95\%\)` para la energía media real de las pechugas.
+
+2. Si se desea que la precisión del intervalo sea inferior a `\(0.01\)`, con una confianza del `\(95\%\)`. ¿Cuál debe ser el mínimo tamaño de muestra para cumplir éste objetivo?
+
+---
+# Ejemplo
+
+.panelset[
+.panel[.panel-name[Parte 1]
+Para la primera parte se tiene que `\(X_1,\dots,X_{15}\)` es una muestra aleatoria que representa la energía de las 15 pechugas de pollo, cada `\(X_i\sim N(\mu,0.05^2)\)`, además de la muestra se obtiene que `\(\bar{X}=74.04\,\text{kcal}\)`
+
+Un IC al 95% para `\(\mu\)` está dado por:
+
+$$74.04\,\pm\,Z_{0.975}\frac{0.05}{\sqrt{15}} \,\Rightarrow\, (74.0147;\,74.0653) $$
+]
+.panel[.panel-name[Parte 2]
+La precisión de un intervalo está dado por `\(max\{\theta-L,U-\theta\}\)`, en este caso tenemos un intervalo simétrico entonces la magnitud está dada por el término del error `\(Z_{0.975}(0.05/\sqrt{n})\)`, entonces:
+
+`$$\begin{align*}
+\cfrac{1.96\times 0.05}{\sqrt{n}}&amp;&lt;0.01\\\\
+\cfrac{1.96\times0.05}{0.01}&amp;&lt;\sqrt{n}\\\\
+n&amp;&gt;96.03647 \approx 97
+\end{align*}$$`
+]
+.panel[.panel-name[en `R`]
+
+```r
+# Para el ejemplo de las pechugas de pollo
+zsum.test(mean.x = 74.04,sigma.x = 0.05,
+    n.x = 15,conf.level = 0.95)$conf.int
+```
+
+```
+## [1] 74.0147 74.0653
+## attr(,"conf.level")
+## [1] 0.95
+```
+
+```r
+zsum.test(mean.x = 74.04,sigma.x = 0.05,
+    n.x = 97,conf.level = 0.95)$conf.int
+```
+
+```
+## [1] 74.03005 74.04995
+## attr(,"conf.level")
+## [1] 0.95
+```
+
+```r
+diff(zsum.test(mean.x = 74.04,sigma.x = 0.05,
+    n.x = 97,conf.level = 0.95)$conf.int)/2
+```
+
+```
+## [1] 0.00995021
+```
+]
+]
+
+
+---
+# IC para poblaciones normales
+
+Suponga que `\(X_1,\dots,X_n\)` es una muestra aleatoria de una `\(N(\mu,\sigma^2)\)`, si la **varianza es desconocida** la distribución de `\(\bar{X}\)` estandarizada **NO** es normal. Si reemplazamos `\(\sigma\)` por `\(S\)`, el estadístico resultante es:
+
+`$$T=\cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \sim t_{(n-1)}$$`
+
+La distribución *t-de Student* es una distribución de probabilidad que surge del problema de estimar la media de una población normalmente distribuida cuando el tamaño de la muestra es pequeño. Su *f.d.p* está dada por:
+
+`$$f(x) = \frac{\Gamma\left(\dfrac{\nu + 1}{2}\right)}{\Gamma\left(\dfrac{\nu}{2}\right)\sqrt{\pi\nu}\sigma} \left[1+\frac{1}{\nu}\left(\frac{x-\mu}{\sigma}\right)^2\right]^{-\tfrac{\nu+1}{2}}$$`
+
+---
+# Distribución *t*-student
+
+&lt;img src="I_ic1_files/figure-html/t-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Distribución *t*-student
+
+En la gráfica anterior podemos apreciar la relación que existe entre las distribuciones *Cauchy*, *t-de Student* y la *Normal Estandarizada*. Se observa que la distribución *t-de Student* con `\(v = 1\)` grado de libertad es una *distribución Cauchy* la cual es la más achatada y presenta las colas mas pesadas en comparación las demás distribuciones presentes en la gráfica. Además se puede evidenciar que a medida que aumentan los grados de libertad en la *distribución t*, ésta tiende a la *Normal*.
+
+&lt;img src="I_ic1_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# IC para poblaciones normales
+
+Realizando un proceso similar al caso de muestras aleatorias con media desconocida, se puede encontrar que un IC al `\(100(1 − \alpha)\%\)` para `\(\mu\)` es de la forma:
+
+`$$\bar{X} \pm t_{(1-\alpha/2,\,n-1)}\frac{S}{\sqrt{n}}$$`
+
+&lt;br&gt;
+&lt;center&gt;
+&lt;button&gt;
+&lt;b&gt;
+&lt;p style="font-size: 18pt"&gt;
+&lt;a href="./Tabla_t.pdf" target="_blank"&gt;Tabla Distribución &lt;i&gt;t-student&lt;/i&gt;&lt;/a&gt;
+&lt;/p&gt;
+&lt;/b&gt;
+&lt;/button&gt;
+&lt;/center&gt;
+
+---
+# IC para poblaciones normales
+## Ejemplo
+
+De acuerdo a estudios sobre la fuerza prensil manual en adultos mayores que la fuerza de prensión se distribuye normalmente. Se toma una muestra aleatoria de 16 adultos mayores y se obtiene un fuerza de prensión promedio para la mano débil de `\(15.63\,kgf\)` con una desviación estándar de `\(5.18\,kgf\)`. Estime la fuerza prensil manual débil de los adultos mayores usando un IC al `\(97\%\)`.
+
+--
+
+Sea `\(X_1,\dots,X_{16}\)` una muestra aleatoria que representa la fuerza prensil de la mano débil de los adultos mayores. Suponga que `\(E[X_i]=\mu\)` y `\(Var[X_i]=\sigma^2\)` ambas desconocidas, además del enunciado se tiene que `\(\bar{x}=15.63\)`, `\(S=5.18\)` y `\(n=16\)` entonces un IC al 97% para `\(\mu\)` está dado por:
+
+`$$\begin{align*}
+\bar{X}\,&amp;\pm\,t_{0.985,n-1}\frac{S}{\sqrt{n}} \Rightarrow 15.63\,\pm\,t_{0.985,15}\frac{5.18}{\sqrt{16}}\\\\
+15.63\,&amp;\pm\,2.397005\frac{5.18}{\sqrt{16}} \Rightarrow 15.63\,\pm\,3.104122
+\end{align*}$$`
+
+Se espera que la fuerza prensil media real de la mano débil de los adultos mayores esté entre 12.53 kgf y 18.73 kgf con una confianza del 97%.
+
+---
+# IC para poblaciones normales
+
+Por lo general en `R`, la forma de calcular los intervalos de confianza es con un vector de datos o una base de datos para utilizar la función `t.test` del básico de `R`. No obstante, en el paquete `BSDA` existe una función para calcular el intervalo de confianza basado en los resultados de una muestra, la función de interés es `tsum.test`.
+
+
+```r
+library(BSDA)
+```
+
+
+.pull-left[
+
+```r
+# Para el ejemplo de la resistencia
+tsum.test(mean.x = 15.63,s.x = 5.18,
+      n.x = 16,conf.level = 0.97)
+```
+
+```
+## 
+## 	One-sample t-Test
+## 
+## data:  Summarized x
+## t = 12.069, df = 15, p-value = 3.995e-09
+## alternative hypothesis: true mean is not equal to 0
+## 97 percent confidence interval:
+##  12.52588 18.73412
+## sample estimates:
+## mean of x 
+##     15.63
+```
+]
+.pull-right[
+
+```r
+# Extraer únicamente el intervalo
+tsum.test(mean.x = 15.63,s.x = 5.18,
+      n.x = 16,conf.level = 0.97)$conf.int
+```
+
+```
+## [1] 12.52588 18.73412
+## attr(,"conf.level")
+## [1] 0.97
+```
+]
+
+---
+# Resumen
+
+&lt;center&gt;
+&lt;img src="IC_mu.png" alt="Resumen IC"/&gt;
+&lt;/center&gt;
+
+---
+# Ejercicios
+
+.panelset[
+.panel[.panel-name[Ejercicio 1]
+Se desea estimar el contenido promedio (en gramos) de las cajas de cierto tipo de cereal. Se seleccionan aleatoriamente 64 de estas cajas y se miden sus contenidos. De esta muestra se obtiene un contenido promedio de 512 gr, con una desviación estándar de 8.1 gr. ¿Cuál es la longitud del intervalo de confianza simétrico del 98% para el contenido promedio de este tipo de cajas de cereal?
+]
+.panel[.panel-name[Ejercicio 2]
+La distribución del llenado de una máquina embotelladora es normal `\(N(\mu,\sigma^2)\)`, ambas desconocidas. Se toman 20 botellas al azar y se obtiene un promedio de 377.6 ml, con una desviación estándar de 8.5 ml. La máquina está programada para llenar en promedio 375 ml por botella. Con una confianza del 95% ¿La máquina llena más de lo requerido?
+]
+.panel[.panel-name[Ejercicio 3]
+Las estaturas de las personas mayores de 12 años en cierta comunidad, tienen una distribución continua con media `\(\mu\)` y varianza de 25 cm^2^. Si se desea un límite en el error de estimación inferior a 1.5 cm, con una probabilidad aproximada del 95%, ¿Cuál es el tamaño de muestra mínimo requerido?
+]
+.panel[.panel-name[Ejercicio 4]
+La cantidad de Histamina contenida en el veneno del aguijon de cierto tipo de abeja, es una variable aleatoria `\(N(\mu,\sigma^2)\)`, ambas desconocidas. Se seleccionaron 16 abejas de este tipo y a cada una se le calculó el contenido de histamina (en nanogramos) en el veneno de su aguijon. De esta muestra se obtuvo un promedio de 753.21 ng y una desviacíón estándar de 189.65 ng. Calcule Un intervalo de confianza al 95% para el contenido promedio de Histamina en este tipo de abejas.
+]
+.panel[.panel-name[Ejercicio 5]
+Se tomó una muestra aleatoria de 100 colegios oficiales de una región y se calculó el promedio mensual de inasistencias de los profesores en los últimos años. Los datos se resumieron así: promedio mensual de faltas por colegio 25.31 días, error estándar estimado de dicha media muestral ($\hat\sigma_\bar{X}$), 0.5 días. Calcule un intervalo de confianza aproximado del 98% para el promedio mensual de inasistencias.
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "arta",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
