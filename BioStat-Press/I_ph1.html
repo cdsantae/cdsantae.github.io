@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Pruebas de Hipótesis</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Cristian Santa | Alejandro Estrada" />
+    <script src="github/header-attrs-2.11/header-attrs.js"></script>
+    <link href="github/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link href="github/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="github/panelset-0.2.6/panelset.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Pruebas de Hipótesis
+## Para un parámetro
+### Cristian Santa | Alejandro Estrada
+### Escuela de Nutrición y Dietética - UdeA
+### Noviembre 2021
+
+---
+
+
+
+
+# Introducción
+
+Una hipótesis Estadística es una afirmación que se hace con respecto a una o algunas características desconocidas de una población de interés o acerca de la misma población.
+
+Una afirmación hecha acerca de una población o de una de sus características de interés, tiene sentido solo si es evaluada con base en la información obtenida a partir de una muestra aleatoria de dicha población.
+
+Como dicha afirmación puede ser o no cierta, dos hipótesis (antagónicas) pueden ser planteadas:
+
+`$$H_0:\text{La hipótesis es cierta    vs}\quad H_a:\text{La hipótesis es falsa}$$`
+
+`\(H_0\)` y `\(H_a\)` se conocen como **hipótesis nula** y **alternativa** respectivamente. `\(H_0\)` se rechaza, solo si la evidencia muestral apoya fuertemente esa decisión. En otro caso diremos que la evidencia muestral no es suficiente para rechazar `\(H_0\)` y se asume `\(H_a\)` como cierta. El proceso por medio del cual escogemos una de las dos hipótesis es llamado **Prueba de Hipótesis**.
+
+---
+# Introducción
+
+Para rechazar o aceptar una hipótesis necesitamos a parir de la muestra aleatoria construir un **estadístico de prueba** tal que, comparado con valor crítico calcula con un nivel de significancia, otorgue la suficiente evidencia para sacar una conclusión. El contraste de la hipótesis nula determina las posibles **regiones de rechazo** donde será comparado el estadístico de prueba.
+
+`$$1:\,\{x\,|\,x &gt; |k|\}\\2:\,\{x\,|\,x &lt; -k\}\\3:\,\{x\,|\,x &gt; k\}$$`
+
+Así toda prueba de hipótesis consta de:
+
+a. Hipótesis nula `\(H_0\)`.
+
+b. Hipótesis alternativa `\(H_a\)`.
+
+c. Estadístico de prueba.
+
+d. Región de rechazo.
+
+---
+# Introducción
+
+En general, sea un parámetro de interés desconocido `\(\theta\)` y un valor particular `\(\theta_0\)`. Es posible plantear una de tres hipótesis alternativas:
+
+`\begin{align*}
+H_0: \theta=\theta_0 \quad \text{vs} \quad H_a: \begin{cases} \theta &amp;\neq\theta_0 \\
+                     \theta &amp;&lt; \theta_0 \\
+                     \theta &amp;&gt; \theta_0 \\
+                     \end{cases}
+\end{align*}`
+
+Existe un estadístico `\(\hat\theta\)` estimado a partir de la muestra aleatoria, el cual sirve para contrastar la hipótesis construyendo las posibles regiones de rechazo (de acuerdo a `\(H_a\)`) con un nivel de significancia `\(\alpha\)` dado.
+
+`$$\{\hat\theta\,|\,\hat\theta &gt; |k|\}\quad \{\hat\theta\,|\,\hat\theta &lt; k\}\quad \{\hat\theta\,|\,\hat\theta &gt; k\}$$`
+Otra forma de contrastar la hipótesis es calcular el valor mínimo de `\(\alpha\)`, es decir la probabilidad de rechazar la hipótesis nula. A este cálculo se le conoce como el **valor-p** de la prueba:
+
+`$$P(|\hat\theta| &gt; |k|)\quad P(\hat\theta &lt; k)\quad P(\hat\theta &gt; k)$$`
+---
+
+# Introducción
+
+La decisión de aceptar o rechazar una hipótesis se basa en una muestra aleatoria `\(X_1,X_2,...,X_n\)` de la distribución de `\(X\)`, por tanto la decisión podría ser equivocada. Los errores que se pueden cometer son:
+
+- Aceptar `\(H_0\)` siendo falsa.
+
+- Rechazar `\(H_0\)` siendo verdadera.
+
+&lt;center&gt;
+&lt;div class="container"&gt;
+   &lt;div class="col-sm-2"&gt;&lt;/div&gt;
+   &lt;div class="col-sm-6"&gt;
+   &lt;table class="table"&gt;
+    &lt;thead&gt;
+      &lt;tr class="active"&gt;
+         &lt;th style="text-align:center"&gt;Decisión&lt;/th&gt;
+         &lt;th style="text-align:center"&gt;\(H_0\) es Verdadera&lt;/th&gt;
+         &lt;th style="text-align:center"&gt;\(H_0\) es Falsa &lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+         &lt;td style="text-align:center"&gt;&lt;b&gt;Rechazar \(H_0\)&lt;/b&gt;&lt;/td&gt;
+         &lt;td style="text-align:center; color:red"&gt;&lt;b&gt;Error Tipo I&lt;/b&gt;&lt;/td&gt;
+         &lt;td style="text-align:center; color:darkgreen"&gt;&lt;b&gt;Decisión Correcta&lt;/b&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+         &lt;td style="text-align:center"&gt;&lt;b&gt;Aceptar \(H_0\)&lt;/b&gt;&lt;/td&gt;
+         &lt;td style="text-align:center; color:darkgreen"&gt;&lt;b&gt;Decisión Correcta&lt;/b&gt;&lt;/td&gt;
+         &lt;td style="text-align:center; color:red"&gt;&lt;b&gt;Error Tipo II&lt;/b&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+   &lt;/table&gt;
+   &lt;/div&gt;
+&lt;/div&gt;
+&lt;/center&gt;
+
+Es lógico que se desea minimizar las probabilidades de cometer los errores en la decisión (tipo 1 ó 2), pero esto depende de la m.a `\(X_1,X_2,...,X_n\)`. Sin embargo, si P(cometer error tipo 1)=0, entonces P(cometer error tipo 2)=1. 
+
+`$$\alpha = P(\text{Error Tipo I})\qquad\qquad \beta = P(\text{Error Tipo II})$$`
+
+`\(\alpha\)` es llamado nivel de significancia de la prueba o tamaño de la región crítica y `\(1-\beta\)` es la potencia de la prueba.
+
+---
+# Tipos de Errores
+
+&lt;img src="I_ph1_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# PH para la proporción
+
+Suponga que `\(X\)` es una v.a tal que `\(X \sim bin(n , p)\)`, con `\(p\)` desconocida. Sea `\(p_0\)` un valor de interés para `\(p\)`. Tres hipótesis pueden ser planteadas acerca de `\(p\)`.
+
+--
+
+`$$\begin{align*}
+H_0: p=p_0 \quad \text{vs} \quad H_a: \begin{cases} p &amp;&lt;p_0 \\
+                     p &amp;&gt; p_0 \\
+                     p &amp;\neq p_0 \\
+                     \end{cases}
+\end{align*}$$`
+
+--
+
+.pull-left[
+Por el TCL sabemos que si `\(n\)` es grande entonces:
+
+`$$\cfrac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}} \stackrel{aprox}{\underset{n \rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)$$`
+
+
+
+Entonces el **estadístico de prueba** a ser usado es:
+
+`$$Z_c=\cfrac{\hat{p}-p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}$$`
+
+]
+.pull-right[
+Para un `\(\alpha\)` dado, la Región Crítica es de la forma:
+
+`$$\begin{align*}
+R.C: \begin{cases} Z_c &amp;\rightarrow\, Z_c &lt;z_\alpha \\
+                   Z_c &amp;\rightarrow\, Z_c &gt;z_{1-\alpha} \\
+                   Z_c &amp;\rightarrow\, |Z_c| &gt;z_{1-\alpha/2} \\
+                   \end{cases} \quad
+V_p: \begin{cases} P(Z &lt; Z_c) \\
+                   P(Z &gt; Z_c) \\
+                   2P(Z &gt; Z_c) \\
+                   \end{cases}
+\end{align*}$$`
+]
+
+---
+# Ejemplo 1
+
+En una muestra de 85 recién nacidos, 10 presentaron riesgo de desnutrición. ¿Cuál es la proporción real de recién nacidos con riesgo de desnutrición con una confianza del 95%?
+La Secretaría de Salud sabe que si el porcentaje de recién nacidos en riesgo de desnutrición supera el 10% deberá generar una alerta al Ministerio de Salud para hacer un plan de contingencia. Con un nivel de significancia del 5% ¿Es necesario generar la alerta?
+
+--
+
+Tenemos las siguientes hipótesis
+`$$H_0: p=0.1 \quad\text{vs}\quad H_a: p&gt;0.1$$`
+
+--
+
+.pull-left[
+
+Entonces con el estadístico de prueba se puede estimar la región crítica:
+`$$Z_c=\frac{10/85-0.1}{\sqrt{\frac{0.1 \times 0.9}{85}}}=0.542326$$`
+
+
+Si `\(\alpha =0.05\)` entonces se tiene que `\(Z_{0.95}=1.645\)` y así la región de rechazo es de la forma:
+
+`$$RC=\{Z_c\,|\,Z_c&gt;Z_{0.95}\}=\{Z_c\,|\,0.542326&gt;1.645\}$$`
+
+]
+.pull-right[
+
+Y en términos del valor-p se calcula:
+
+`$$\begin{align*}
+P(Z&gt;Z_c)=&amp;P(Z&gt;0.542326)\\=&amp;1-P(Z&lt;0.542326)\\=&amp;0.2938
+\end{align*}$$`
+
+Como `\(ZC\ngtr 1.645\)` o `\(0.2938 &gt; 0.05\)`, entonces no existe suficiente evidencia muestral que soporte la creación de la alerta al Ministerio de Salud, por lo tanto no se rechaza `\(H_0\)`.
+]
+---
+
+# Ejemplo 1
+En `R` se puede hacer fácilmente las pruebas de hipótesis para la proporción, ya sea a partir de un conjunto de datos, una tabla/matriz o con la proporción directa. La función `prop.test` hace los cálculos necesarios para las pruebas de hipótesis incluyendo el intervalo de confianza, no obstante, el estadístico de prueba que utiliza está basado en la distribución `\(\chi^2\)` y los intervalos de confianza son estimados a través del método **Wilson**, adicionalmente tiene la opción de hacer el cálculo a partir de la **corrección de Yates** para tamaños de muestra pequeños, para no utilizar la corrección por continuidad y obtener los mismos resultados del ejercicio anterior, debes especificar el argumento `correct = F`. 
+
+.pull-left[
+
+```r
+prop.test(x = 10, # Éxitos
+          n = 85, # Total
+          p = 0.1, # Proporción en las hipótesis
+          alternative = "greater", # Orientación Ha
+          correct = F, # Método Wald
+          conf.level = 0.95) # Nivel de confianza
+```
+]
+.pull-right[
+
+```
+## 
+## 	1-sample proportions test without continuity correction
+## 
+## data:  10 out of 85, null probability 0.1
+## X-squared = 0.29412, df = 1, p-value = 0.2938
+## alternative hypothesis: true p is greater than 0.1
+## 95 percent confidence interval:
+##  0.0716376 1.0000000
+## sample estimates:
+##         p 
+## 0.1176471
+```
+]
+
+---
+# Salida de R
+
+Observe los elementos de la salida para interpretar correctamente los resultados.
+
+`	1-sample proportions test without continuity correction`&lt;br&gt;
+`data:  10 out of 85, null probability 0.1`&lt;br&gt;
+`X-squared = 0.29412, df = 1, `&amp;nbsp;&lt;u&gt;**`p-value = 0.2938`**&lt;br&gt;&lt;/u&gt;
+&lt;u&gt;**`alternative hypothesis: true p is greater than 0.1`**&lt;br&gt;&lt;/u&gt;
+&lt;u&gt;**`95 percent confidence interval:`**&lt;br&gt;&lt;/u&gt;
+` 0.0716376 1.0000000`&lt;br&gt;
+`sample estimates:`&lt;br&gt;
+`p`&lt;br&gt;
+`0.1176471 `&lt;br&gt;
+
+---
+
+# Ejemplo 2
+
+Gracias al impacto de las redes sociales y la desinformación de *influencers* que se declaran expertos en nutrición, calidad de vida y salud, se piensa que la cantidad de bebés que no reciben leche materna ha disminuido significativamente, principalmente en los estratos Altos. Se sabe que la prevalencia de lactancia materna en esta población hace 5 años es del 75%. Neonatólogos del San Vicente realizaron una investigación en 254 bebés, de los cuales 171 reciben lactancia materna. Con un nivel de confianza del 95% ¿La hipótesis de los neonatólogos es cierta?
+
+Tenemos las siguientes hipótesis
+`$$H_0: p=0.75 \quad\text{vs}\quad H_a: p&lt;0.75$$`
+
+.pull-left[
+Entonces con el estadístico de prueba se puede estimar la región crítica:
+
+`$$Z_c=\frac{171/254-0.75}{\sqrt{\frac{0.75 \times 0.25}{254}}}=-2.825642$$`
+Si `\(\alpha =0.05\)` entonces se tiene que `\(Z_{0.05}=-1.645\)` y así la región de rechazo es de la forma:
+
+`$$RC=\{Z_c\,|\,Z_c&lt;Z_{0.05}\}=\{Z_c\,|\,-2.825642&lt;-1.645\}$$`
+]
+.pull-right[
+Y en términos del valor-p se calcula:
+
+`$$\begin{align*}
+P(Z&lt;Z_c)=&amp;P(Z&lt;-2.825642)\\=&amp;1-P(Z&lt;2.825642)\\=&amp;0.002359299
+\end{align*}$$`
+
+Como `\(ZC&lt; -1.645\)` o `\(0.002359 &lt; 0.05\)`, entonces **se reachaza** la hipótesis nula `\(H_0\)`, por lo tanto, existe suficiente evidencia muestral que soporta la disminución estadísticamente significativa de la lactancia materna.
+]
+---
+# Ejemplo 2
+
+
+```r
+prop.test(x = 171,
+          n = 254,
+          p = 0.75,
+          alternative = "less",
+          correct = F,
+          conf.level = 0.95)
+```
+
+```
+## 
+## 	1-sample proportions test without continuity correction
+## 
+## data:  171 out of 254, null probability 0.75
+## X-squared = 7.9843, df = 1, p-value = 0.002359
+## alternative hypothesis: true p is less than 0.75
+## 95 percent confidence interval:
+##  0.0000000 0.7195891
+## sample estimates:
+##         p 
+## 0.6732283
+```
+
+---
+
+# Pruebas de Hipótesis para la media
+## Población no Normal
+
+Sea `\(X_1,\dots,X_n\)` una muestra aleatoria de una población con media `\(\mu\)` y varianza `\(\sigma^2\)` si se tienen una muestra grande, entonces para un valor `\(\mu_0\)` de interés para `\(\mu\)` se pueden plantear uno de los siguientes contrastes de hipótesis.
+
+`$$\begin{align*}
+H_0: \mu=\mu_0 \quad \text{vs} \quad H_a: \begin{cases} \mu &amp;&lt;\mu_0 \\
+                     \mu &amp;&gt; \mu \\
+                     \mu &amp;\neq \mu_0 \\
+                     \end{cases}
+\end{align*}$$`
+
+El **Estadístico de Prueba** está dado por:
+
+`$$Zc=\cfrac{\bar{X}-\mu_0}{\frac{\sigma}{\sqrt{n}}}$$`
+
+Si `\(\sigma^2\)` es desconocida se puede reemplazar por `\(S^2\)`. Para un `\(\alpha\)` dado, la Región Crítica es de la forma:
+
+`$$\begin{align*}
+R.C: \begin{cases} Z_c &amp;\rightarrow\, Z_c &lt;z_\alpha \\
+                   Z_c &amp;\rightarrow\, Z_c &gt;z_{1-\alpha} \\
+                   Z_c &amp;\rightarrow\, |Z_c| &gt;z_{1-\alpha/2} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(Z &lt; Z_c) \\
+                   P(Z &gt; Z_c) \\
+                   2P(Z &gt; |Z_c|) \\
+                   \end{cases}
+\end{align*}$$`
+
+---
+# Ejemplo
+
+Una Nutricionista de una clínica es la encargada de los planes de ganancia de peso en embarazadas. De acuerdo a los parámetros se sabe que la variación de la ganancia de peso al final de la gestación es de 5 kilos. Se tiene la hipótesis que en los últimos años las gestantes están ganando más de lo recomendado y por lo tanto nacen bebés macrosómicos. Se escogen al azar 45 embarazadas adultas con IMC normal y se registra sus ganancias de peso al final de la gestación y la ganancia promedio resultó en 17.3 kg. Con un nivel de significancia del 5% ¿La hipótesis es verdadera? De a cuerdo con el Instituto de Medicina y Consejo Nacional de Investigación, la ganancia de peso máxima para gestantes en normo peso es de 16 kilos, entonces las pruebas de hipótesis son:
+
+`$$H_0: \mu=16 \quad\text{vs}\quad H_a: \mu&gt;16$$`
+
+--
+
+.pull-left[
+Del enunciado tenemos que `\(E[X_i]=17.3\)` y como `\(\sigma=5\)`, así el estadístico de prueba está dado por:
+
+`$$Z_c=\cfrac{\bar{X}-16}{5/\sqrt{45}}=\cfrac{17.3-16}{5/\sqrt{45}}=1.744133$$`
+Como `\(\alpha=0.05\)` se tiene que `\(Z_{0.95}=1.645\)`, entonces la región de rechazo es de la forma:
+
+`$$RC=\{Z_c\,|\,Z_c&gt;Z_{0.95}\}=\{Z_c\,|\,1.744133&gt;1.645\}$$`
+]
+.pull-right[
+Y en términos del valor-p se calcula:
+
+`$$\begin{align*}
+P(Z&gt;Z_c)=&amp;P(Z&gt;1.744133)\\=&amp;1-P(Z&lt;1.744133)\\=&amp;0.04056795
+\end{align*}$$`
+
+Como `\(Z_c&gt;1.645\)` o `\(0.0406&lt;0.05\)` entonces se rechaza `\(H_0\)`, por lo tanto existe evidencia muestral suficiente que en los últimos años las gestantes están ganando más de lo recomendado con un nivel de significancia del 5%.
+]
+---
+# Ejemplo
+
+En `R` la forma habitual para resolver pruebas de hipótesis para datos cuantitativos es a través de los vectores de las bases de datos. No obstante, para datos estimados el paquete `BSDA` ofrece solución con las funciones `tsum.test` para el estadístico basado en la *t-student* y `zsum.test` para el estadístico basado en la normal.
+
+
+```r
+library(BSDA)
+zsum.test(mean.x = 17.3, # Promedio muestral
+          sigma.x = 5, # Desviación conocida
+          n.x = 45, # Número de muestras
+          mu = 16, # Promedio en la hipótesis
+          alternative = "greater", # Hipótesis alternativa
+          conf.level = 0.95) # Nivel de confianza
+```
+
+```
+## 
+## 	One-sample z-Test
+## 
+## data:  Summarized x
+## z = 1.7441, p-value = 0.04057
+## alternative hypothesis: true mean is greater than 16
+## 95 percent confidence interval:
+##  16.074     NA
+## sample estimates:
+## mean of x 
+##      17.3
+```
+
+---
+
+# Pruebas de Hipóteses para la media
+## Población Normal
+
+Las pruebas de hipótesis para la media basadas en **poblaciones normales** asume que la muestra aleatoria `\(X_1,\dots,X_n\)` proviene de una `\(N(\mu,\sigma^2)\)` con ambos parámetros desconocidos, sabemos por el teorema central del límite que:
+
+`$$\cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \sim t_{n-1}$$`
+.pull-left[
+Así, si `\(\mu_0\)` es un valor particular de `\(\mu\)`, se pueden plantear una de las siguientes tres hipótesis:
+
+`$$\begin{align*}
+H_0: \mu=\mu_0 \quad \text{vs} \quad H_a: \begin{cases} \mu &amp;&lt;\mu_0 \\
+                     \mu &amp;&gt; \mu \\
+                     \mu &amp;\neq \mu_0 \\
+                     \end{cases}
+\end{align*}$$`
+
+El **Estadístico de Prueba** está dado por:
+
+`$$Tc=\cfrac{\bar{X}-\mu_0}{\frac{S}{\sqrt{n}}}$$`
+]
+.pull-right[
+Para un `\(\alpha\)` dado, la Región Crítica es de la forma:
+
+`$$\begin{align*}
+R.C: \begin{cases} T_c &amp;\rightarrow\, T_c &lt;t_{(\alpha,\,n-1)} \\
+                   T_c &amp;\rightarrow\, T_c &gt;t_{(1-\alpha,\,n-1)} \\
+                   T_c &amp;\rightarrow\, |T_c| &gt;t_{(1-\alpha/2,\,n-1)} \\
+                   \end{cases} \end{align*}$$`
+`$$\begin{align*}
+V_p: \begin{cases} P(t_{n-1} &lt; T_c) \\
+                   P(t_{n-1} &gt; T_c) \\
+                   2P(t_{n-1} &gt; |T_c|) \\
+                   \end{cases}
+\end{align*}$$`
+
+
+]
+---
+# Ejemplo 
+
+De acuerdo con estudios sobre la fuerza prensil manual en adultos mayores, ésta se distribuye normalmente. Se sabe que la fuerza prensil está asociada con riesgos cardiovasculares, y de la literatura se supone que los valores menores a 16 kgf en esta población infiere riesgos a la salud. Se toma una muestra aleatoria de 16 adultos mayores y se obtiene un fuerza de prensión promedio para la mano débil de 15.63 kgf con una desviación estándar de 2.18 kgf. Con un nivel de siginificancia del 3% ¿Esta población estaría en riesgo?
+
+Las pruebas de hipótesis son:
+
+`$$H_0: \mu=16 \quad\text{vs}\quad H_a: \mu&lt;16$$`
+
+.pull-left[
+Del enunciado tenemos que `\(E[X_i]=15.63\)` y `\(S=2.18\)`, así el estadístico de prueba está dado por:
+
+`$$T_c=\cfrac{\bar{X}-16}{\frac{2.18}{\sqrt{16}}}=\cfrac{15.63-16}{\frac{2.18}{\sqrt{16}}}=-0.6788991$$`
+
+Como `\(\alpha=0.03\)` se tiene que `\(t_{(0.03,15)}=-2.034289\)`, entonces la región de rechazo es de la forma:
+
+`$$RC=\{T_c\,|\,T_c&lt;t_{(0.03,15)}\}=\{T_c\,|\,-0.679&lt;-2.034289\}$$`
+]
+.pull-right[
+Y en términos del valor-p se calcula:
+
+`$$\begin{align*}
+P(T&lt;T_c)=&amp;P(T&lt;-0.6788991)\\=&amp;1-P(T&lt;0.6788991)=0.253774
+\end{align*}$$`
+
+Como `\(T_c\nless-2.034\)` o `\(0.254\nless0.03\)` entonces no se rechaza `\(H_0\)`, por lo tanto no existe evidencia muestral suficiente para suponer que la población tienen riegos cardiovasculares basados en la fuerza prensil con un nivel de significancia del 5%.
+]
+
+---
+# Ejemplo
+
+En `R` la forma habitual para resolver pruebas de hipótesis para datos cuantitativos es a través de los vectores de las bases de datos. No obstante, para datos estimados el paquete `BSDA` ofrece solución con las funciones `tsum.test` para el estadístico basado en la *t-student* y `zsum.test` para el estadístico basado en la normal.
+
+
+```r
+library(BSDA)
+tsum.test(mean.x = 15.63, # Promedio muestral
+          s.x = 2.18, # Desviación muestral
+          n.x = 16, # Número de muestras
+          mu = 16, # Promedio en la hipótesis
+          alternative = "less", # Hipótesis alternativa
+          conf.level = 0.97) # Nivel de confianza
+```
+
+```
+## 
+## 	One-sample t-Test
+## 
+## data:  Summarized x
+## t = -0.6789, df = 15, p-value = 0.2538
+## alternative hypothesis: true mean is less than 16
+## 97 percent confidence interval:
+##        NA 16.73869
+## sample estimates:
+## mean of x 
+##     15.63
+```
+
+---
+
+# Pruebas de Normalidad
+
+Si el interés es realizar inferencias sobre el promedio entonces es necesario verificar que las muestras aleatorias de ambos grupos distribuyan apróximadamente normal, **cuando se cuenta con una muestra aleatoria**. Este procedimiento se realiza con una prueba de hipótesis llamada **prueba de bondad de ajuste** en este caso para la normal.
+
+`$$H_0:\text{los datos SI destribuyen }N(\mu,\sigma^2) \qquad\text{vs}\qquad
+H_a:\text{los datos NO destribuyen }N(\mu,\sigma^2)\\$$`
+
+Para determinar si un conjunto de datos tiene una distribución conocida, se pueden realizar análisis exploratorios con algunos gráficos que ayudan a apreciar de manera aproximada cómo podrían distribuir los datos.
+
+&lt;img src="I_ph1_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Pruebas de Normalidad
+
+Estos tres gráficos nos ayudarán para explorar el comportamiento de los datos y se pueden combinar con los gráficos de las distribuciones teóricas para evaluar qué tanto se parecen.
+
+El primer gráfico se llama **Gráfico de Densidad**, muestra cómo es la distribución empírica de probabilidad, a diferencia del *Histograma* es una buena aproximación de las distribuciones continuas.
+
+El segundo gráfico se llama **Gráfico Densidad Acumulada Empírica**, este gráfico es muy útil cuando se compara con *La densidad acumulada* de las distribuciones teóricas. Además, el gráfico muestra el salto de cada muestra en la función de densidad acumulada empírica.
+
+El tercer gráfico se llama **Gráfico de Comparación de Cuantiles**, contrasta las muestras con los cuantiles de la distribución teórica. La ventaja de este gráfico es que dibuja una recta en la cual se *espera* que el conjunto de datos se ajuste, además dibuja bandas de confianza para mostrar hasta dónde se puede considerar que los puntos se ajustan a la recta.
+
+---
+
+# Pruebas de Normalidad
+
+&lt;img src="I_ph1_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
+La idea de este gráfico es que los puntos estén muy cercanos a la recta y entre los límites de confianza. Hay que tener cuidado en los extremos de las muestras, ya que algunos puntos pueden salir de las bandas pero esto no significa que no tengan la distribución que se está evaluando; si la mayoría de los puntos están ajustados a la recta y son muy pocos datos **en los extremos** que salen de las bandas, se puede considerar un buen ajuste.
+
+---
+
+# Pruebas de Normalidad
+
+Existen **muchas** pruebas de bondad de ajuste para la normalidad que incluso están disponibles en `R` y otros paquetes (`nortest`), no obstante, las más utilizadas y referenciadas en la literatua son:
+
+- Test Kolmogorov-Smirnoff (`ks.test()`) (**No recomendable**)
+- Test Lilliefors (`nortest::lillie.test()`)
+- Test Anderson Darling (`nortest::ad.test()`)
+- Test Shapiro-Wilks (`shapiro.test()`) (**Recomendable**)
+
+---
+# Resumen
+
+&lt;center&gt;
+&lt;img src="PH1_1.png" alt="Resumen IC" width="90%"/&gt;
+&lt;/center&gt;
+
+---
+# Resumen
+
+&lt;center&gt;
+&lt;img src="PH1_2.png" alt="Resumen IC" width="90%"/&gt;
+&lt;/center&gt;
+
+---
+# Resumen
+
+&lt;center&gt;
+&lt;img src="PH1_3.png" alt="Resumen IC" width="90%"/&gt;
+&lt;/center&gt;
+
+---
+# Resumen con R
+
+.pull-left[
+## Estadístico de Prueba Normal
+
+```r
+library(BSDA)
+
+# Opciones para la hipótesis alternativa
+# alternative: "less"     -&gt; Menor que
+#              "greater"  -&gt; Mayor que
+#              "two.side" -&gt; diferente de
+
+zsum.test(mean.x = , # Promedio muestral
+          sigma.x = , # Desviación estándar
+          n.x = , # Número de muestras
+          mu = , # Promedio en la hipótesis
+          alternative = , # Hipótesis alternativa
+          conf.level = ) # Nivel de confianza
+```
+
+]
+.pull-right[
+## Estadístico de Prueba t-Student
+
+```r
+library(BSDA)
+
+# Opciones para la hipótesis alternativa
+# alternative: "less"     -&gt; Menor que
+#              "greater"  -&gt; Mayor que
+#              "two.side" -&gt; diferente de
+
+tsum.test(mean.x = , # Promedio muestral
+          s.x = , # Desviación estándar
+          n.x = , # Número de muestras
+          mu = , # Promedio en la hipótesis
+          alternative = , # Hipótesis alternativa
+          conf.level = ) # Nivel de confianza
+```
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "arta",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
