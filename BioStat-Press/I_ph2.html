@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Pruebas de Hipótesis</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Cristian Santa | Alejandro Estrada" />
+    <script src="github/header-attrs-2.11/header-attrs.js"></script>
+    <link href="github/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="github/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link href="github/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="github/panelset-0.2.6/panelset.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Pruebas de Hipótesis
+## Comparación de grupos
+### Cristian Santa | Alejandro Estrada
+### Escuela de Nutrición y Dietética - UdeA
+### Noviembre 2021
+
+---
+
+
+
+
+# Inferencia comparación de grupos
+
+Hasta ahora se ha realizado estimaciónes y verificaciones de hipótesis para un parámetro. Ahora, el interés es comparar dos grupos, es decir, comparar una característica común pero que se diferencian en dos estados distinos y que no existen otras condiciones adicionales que diferencien las dos muestras.
+
+Para estos casos se presentan dos situaciones, que las muestras sean **independientes** o que las muestras sean **pareadas**, es decir, que es el seguimiento de un solo individuo en el cambio de estado (tiempo, área, condición).
+
+&lt;img src="I_ph2_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+# Inferencia comparación de grupos
+
+Dada estas situaciones entonces surge la pregunta *¿Existe diferencia significativa entre los dos grupos?* Para responder esta pregunta tenemos dos procedimientos para llegar a la respuesta:
+
+- **Intervalos de confianza (IC)**
+- **Pruebas de hipótesis (PH)**
+
+Como vimos en la primera parte existe una relación directa entre los dos procedimientos cuando se habla de inferencia sobre un parámetro, para el caso de la comparación de grupos también existe esta relación entre **IC** y **PH**, sin embargo, el procedimiento involucra unos pasos adicionales en el caso de la diferencia de promedios.
+
+---
+# PH para diferencia de proporciones
+
+La prueba que se utiliza con más frecuencia con relación a la diferencia entre las proporciones de dos poblaciones es aquella en la que su diferencia es cero. Sin embargo, es posible probar que dicha diferencia es igual a algún otro valor. Es posible efectuar pruebas tanto unilaterales como bilaterales.
+
+Cuando la hipótesis nula que va a probarse es `\(P_1 -P_2= 0\)`, se supone que las proporciones de las dos poblaciones son iguales. Esto se utiliza como justificación para combinar los resultados de las dos muestras y obtener una estimación ponderada de la proporción común supuesta.
+
+---
+# PH para diferencia de proporciones
+
+Las hipótesis están dadas por:
+
+`$$\begin{align*}
+H_0: p_A-p_B = \delta \quad \text{vs} \quad H_a: \begin{cases} p_A-p_B &amp;&lt; \delta \\
+                                          p_A-p_B &amp;&gt; \delta \\
+                                          p_A-p_B &amp;\neq \delta \\
+                                          \end{cases}
+\end{align*}$$`
+
+.pull-left[
+El estadístico de prueba está dado por:
+
+`$$Z_c=\frac{(\hat p_1 - \hat p_2)-\delta}{\sqrt{\frac{\bar p(1-\bar p)}{n_1}+\frac{\bar p(1-\bar p)}{n_2}}} \sim N(0,1)$$`
+]
+.pull-right[
+donde `\(\bar{p}\)` es la proporción muestral agrupada:
+
+`$$\bar p = \cfrac{x_1 + x_2}{n_1+n_2}$$`
+]
+
+Para un `\(\alpha\)` dado, la Región Crítica es de la forma:
+
+`$$\begin{align*}
+R.C: \begin{cases} Z_c &amp;\rightarrow\, Z_c &lt;z_\alpha \\
+                   Z_c &amp;\rightarrow\, Z_c &gt;z_{1-\alpha} \\
+                   Z_c &amp;\rightarrow\, |Z_c| &gt;z_{1-\alpha/2} \\
+                   \end{cases} \qquad\qquad
+V_p: \begin{cases} P(Z &lt; Z_c) \\
+                   P(Z &gt; Z_c) \\
+                   2P(Z &gt; |Z_c|) \\
+                   \end{cases}
+\end{align*}$$`
+
+---
+# Ejemplo
+
+En un estudio de cuidados nutricionales en asilos para ancianos, *Lan y Justice (1991)* encontraron que entre 55 pacientes con hipertensión, 24 tenían una dieta con restricción de sodio. De 149 pacientes sin hipertensión, 36 tenían una dieta sin sodio. ¿Es posible concluir que, en las poblaciones muestreadas, la proporción de pacientes con dieta restringida en sodio es mayor entre pacientes con hipertensión que entre pacientes sin hipertensión?
+
+Tenemos las siguientes hipótesis:
+`$$H_0: p_H-p_{\bar H}=0 \quad\text{vs}\quad H_a: p_H-p_{\bar H}&gt;0$$`
+
+.pull-left[
+Del enunciado podemos calcular la proporción muestral agrupada:
+
+`$$\bar p=\frac{24+36}{55+149}=\frac{60}{204}=0.2941176$$`
+]
+.pull-right[
+Entonces con el estadístico de prueba se puede estimar la región crítica:
+
+`$$Z_c=\frac{24/55-36/149}{\sqrt{\left(\frac{60}{204}\right)\left(\frac{144}{204}\right)\left(\frac{1}{55}+\frac{1}{149}\right)}}=2.709048$$`
+]
+
+---
+# Ejemplo (continuación)
+
+.pull-left[
+
+Si `\(\alpha =0.05\)` entonces se tiene que `\(Z_{0.95}=1.645\)` y así la región de rechazo es de la forma:
+
+`$$\begin{align*}
+RC=&amp;\{Z_c\,|\,Z_c&gt;Z_{0.95}\}\\\\=&amp;\{Z_c\,|\,2.709048&gt;1.645\}
+\end{align*}$$`
+]
+
+.pull-right[
+
+Y en términos del valor-p se calcula:
+
+`$$\begin{align*}
+P(Z&gt;Z_c)=&amp;P(Z&gt;2.709048)\\\\
+=&amp;1-P(Z&lt;2.709048)\\\\
+=&amp;0.003373829
+\end{align*}$$`
+]
+
+&lt;br&gt;
+Como `\(ZC &gt; 1.645\)` o `\(0.00337 &lt; 0.05\)`, entonces existe suficiente evidencia muestral que la proporción con dieta restringida en sodio es mayor entre los pacientes hipertensos que entre los pacientes sin hipertensión, por lo tanto se rechaza `\(H_0\)`.
+
+---
+# Ejemplo
+
+En `R` se puede hacer fácilmente las pruebas de hipótesis para la diferencia de proporciones, ya sea a partir de un conjunto de datos, una tabla/matriz o con los datos directas. La función `prop.test` hace los cálculos necesarios para las pruebas de hipótesis incluyendo el intervalo de confianza, no obstante, el estadístico de prueba que utiliza está basado en la distribución `\(\chi^2\)` y los intervalos de confianza son estimados a través del método **Wilson**, adicionalmente tiene la opción de hacer el cálculo a partir de la **corrección de Yates** para tamaños de muestra pequeños, para no utilizar la corrección por continuidad y obtener los mismos resultados del ejercicio anterior, debes especificar el argumento `correct = F`.
+
+.pull-left[
+
+```r
+prop.test(x = c(24,36), # Éxitos muestra 1 y 2
+          n = c(55,149), # Totales 1 y 2
+          alternative = "great", # Orientación Ha
+          correct = F, # Método Wald
+          conf.level = 0.95) # Nivel de confianza
+```
+]
+
+.pull-right[
+
+```
+## 
+## 	2-sample test for equality of proportions without continuity
+## 	correction
+## 
+## data:  c(24, 36) out of c(55, 149)
+## X-squared = 7.3389, df = 1, p-value = 0.003374
+## alternative hypothesis: greater
+## 95 percent confidence interval:
+##  0.07055185 1.00000000
+## sample estimates:
+##    prop 1    prop 2 
+## 0.4363636 0.2416107
+```
+]
+
+---
+
+# Comparación de medias
+
+El objetivo de la comparación es resolver una de las siguientes hipótesis antagónicas:
+
+`$$\begin{align*}
+H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &amp;&lt; \delta \\
+                                          \mu_A-\mu_B &amp;&gt; \delta \\
+                                          \mu_A-\mu_B &amp;\neq \delta \\
+                                          \end{cases}
+\end{align*}$$`
+
+Entonces el estadístico de prueba está condicionado al comportamiento de las muestras aleatorias de cada grupo, entonces es necesario verificar si los datos **son normales o no** y si las **varianzas son iguales o no**, cada paso o decisión condiciona a seleccionar el mejor estadístico de prueba. Entonces, para seleccionar la mejor opción para comparar grupos basados en los promedio tenemos los siguientes árboles de decisión para **IC** o para **PH**.
+
+---
+# Resumen
+
+&lt;center&gt;
+&lt;img src="PH2_1.png" alt="Resumen IC" width="90%"/&gt;
+&lt;/center&gt;
+
+---
+# Resumen
+
+&lt;center&gt;
+&lt;img src="PH2_2.png" alt="Resumen IC" width="85%"/&gt;
+&lt;/center&gt;
+
+---
+# Resumen
+
+##Donde
+
+`$$\Large SP=\sqrt{\cfrac{(n_1-1)S^2_1+(n_2-1)S^2_2}{n_1+n_2-2}}$$`
+&lt;br&gt;
+`$$\Large v= \cfrac{\left(\frac{S^2_1}{n_1}+\frac{S^2_2}{n_2}\right)^2}{\frac{\left(\frac{S^2_1}{n_1}\right)^2}{n_1-1}+\frac{\left(\frac{S^2_2}{n_2}\right)^2}{n_2-1}}$$`
+
+---
+# Resumen
+
+&lt;center&gt;
+&lt;img src="PH2_3.png" alt="Resumen IC" width="90%"/&gt;
+&lt;/center&gt;
+
+---
+# Pruebas de igualdad de Varianza
+
+Otro paso importante es verificar si las varianzas de ambos grupos son iguales o no, esto es importante porque la intención de la comparación de grupos a partir de la diferencia de promedios solamente debe comparar un factor o grupo que diferencia las muestras.
+
+La presencia de variabilidad excesiva en una de las muestras indicaría que existe otra condición no analizada que puede afectar la comparación, sin embargo, es posible controlar este problema estimando una variación conjunta entre los dos grupos.
+
+&lt;hr&gt;
+&gt;**Nota**&lt;br&gt;
+Estos pasos de verificación son necesarios para seleccionar el método estadístico adecuado para realizar la comparación de grupos, ya sea por Intervalos de Confianza o por Purebas de Hipótesis, **cuando se tiene un conjunto de muestras**.
+
+&lt;hr&gt;
+
+---
+# Pruebas de igualdad de Varianza
+
+`$$\begin{align*}
+H_0: \frac{\sigma_A^2}{\sigma_A^2}=1 \quad \text{vs} \quad H_a: \begin{cases}
+\sigma_A^2/\sigma_A^2 &amp;&lt;1 \\
+\sigma_A^2/\sigma_A^2 &amp;&gt;1 \\
+\sigma_A^2/\sigma_A^2 &amp;\neq 1 \\
+                     \end{cases}
+\end{align*}$$`
+
+
+
+El estadístico de prueba está dado por:
+
+`$$F_c=\frac{S_A^2}{S_B^2} \sim F_{(n_A-1,n_B-1)}$$`
+
+Para un `\(\alpha\)` dado, la Región Crítica es de la forma:
+
+`\begin{align*}
+R.C: \begin{cases} F_c &amp;\rightarrow\, F_c &lt;\frac{1}{F_{1-\alpha,\,(n_B-1,n_A-1)}} \\
+                   F_c &amp;\rightarrow\, F_c &gt;F_{1-\alpha,\,(n_A-1,n_B-1)} \\
+                   F_c &amp;\rightarrow\, F_c &lt; F_{1-\alpha/2,\,(n_A-1,n_B-1)} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(F_{(n_B-1,n_A-1)} &lt; F_c) \\
+                   P(F_{(n_A-1,n_B-1)} &gt; F_c) \\
+                   P(F_{(n_A-1,n_B-1)} &lt; F_c) \\
+                   \end{cases}
+\end{align*}`
+
+&lt;hr&gt;
+&gt; Si el intervalo de confianza contiene el **1** se dice que **no existen diferencias significativas entre las varianzas**
+
+&lt;hr&gt;
+
+---
+# Resumen con R
+
+.panelset[
+.panel[.panel-name[Normal]
+## Estadístico de Prueba Normal
+
+```r
+library(BSDA)
+
+# Opciones para la hipótesis alternativa
+# alternative: "less"     -&gt; Menor que
+#              "greater"  -&gt; Mayor que
+#              "two.side" -&gt; diferente de
+
+zsum.test(mean.x = ,mean.y = , # Promedios muestrales 1 y 2
+          sigma.x = ,sigma.y = , # Desviaciones estándar 1 y 2
+          n.x = ,n.y = , # Número de muestras 1 y 2
+          mu = , # Promedio en la hipótesis
+          alternative = , # Hipótesis alternativa
+          conf.level = ) # Nivel de confianza
+```
+]
+.panel[.panel-name[t Student]
+## Estadístico de Prueba t-Student
+
+```r
+library(BSDA)
+
+# Opciones para la hipótesis alternativa
+# alternative: "less"     -&gt; Menor que
+#              "greater"  -&gt; Mayor que
+#              "two.side" -&gt; diferente de
+
+tsum.test(mean.x = ,mean.y = , # Promedios muestrales 1 y 2
+          s.x = ,s.y = , # Desviaciones estándar 1 y 2
+          n.x = ,n.y = , # Número de muestras 1 y 2
+          mu = , # Promedio en la hipótesis 
+          var.equal = , # TRUE: varianza igual, FALSE: Varianza diferente 
+          alternative = , # Hipótesis alternativa
+          conf.level = ) # Nivel de confianza
+```
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "arta",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
