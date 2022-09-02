@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Métodos para la Investigación II</title>
+
+<script src="site_libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Métodos de Investigación II</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="I_sample.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Métodos para la Investigación II</h1>
+
+</div>
+
+
+<hr>
+<div id="propósito-del-curso" class="section level2">
+<h2>Propósito del curso</h2>
+<p>Se pretende que el estudiante conozca y reconozca los conceptos de bioestadística y epidemiología básica para el estudio de eventos de salud – enfermedad, involucrándolos como herramienta de trabajo o de análisis de información en el contexto alimentario y nutricional.</p>
+<hr>
+</div>
+<div id="objetivo-general" class="section level2">
+<h2>Objetivo general</h2>
+<p>Brindar los elementos básicos de la estadística y la epidemiología con el fin que el estudiante adquiera las herramientas y metodologías apropiadas desde la perspectiva empírico analítica, para el manejo y análisis de situaciones o problemas alimentarios y nutricionales que le permitan un mejor abordaje de las comunidades y una mejor toma de decisiones.</p>
+<hr>
+</div>
+<div id="resumen" class="section level2">
+<h2>Resumen</h2>
+<p>Se incluyen conceptos básicos como estadística descriptiva, población, muestra y variables, así como el concepto de inferencia, intervalos de confianza y pruebas de hipótesis. Además, la conceptualización sobre causalidad, incidencia y prevalencia, tipos de estudios epidemiológicos y medidas epidemiológicas básicas propias de los diferentes tipos de estudios. Además, se brindarán elementos en el manejo de herramientas computacionales necesarias para el análisis de la información estadística y epidemiológica. Todo lo anterior enmarcado en el contexto de la alimentación y la nutrición.</p>
+<hr>
+</div>
+<div id="contenidos" class="section level2">
+<h2>Contenidos</h2>
+<p>El curso desarrollará siete unidades fundamentales.</p>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#collapse1">Unidad 1: Estadística descriptiva</a>
+</h5>
+</div>
+<div id="collapse1" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Fundamentos básicos de la estadística y medidas resumen:</p>
+<ul>
+<li>Conceptos básicos: definiciones de bioestadística, población, muestra, muestreo, ¿concepto de variable y niveles de medición.</li>
+<li>Medidas de tendencia central, posición y dispersión.</li>
+</ul>
+<div id="bibliografía" class="section level4">
+<h4>Bibliografía</h4>
+<ul>
+<li>Ruiz-Morales A, Morillo-Zarate LE. Epidemiología clínica: investigación clínica aplicada. Bogotá: Panamericana, 2004. 576 páginas. (capítulo 8)</li>
+<li>Daniel W, León F. Bioestadística, base para el análisis de las ciencias de la salud. México: Editorial Limusa; 2016. 755 p. (Capítulo 1, 2 Sección 2.4)</li>
+<li>Martínez-González MA, Sanchez-Villegas A, Toledo-Atucha EA, Faulin-Fajardo J. Bioestadística amigable. Barcelona: Elsevier, 2014. 596 p. (Capítulo 2, Sección 2.5, 2.8)</li>
+<li>Devore JL. Probabilidad y estadística para ingeniería y ciencias. México: International Thomson Editores; 2005. 807 p. (Capítulo 1)</li>
+<li>Walpole RE, Myers R, Myers SL, Ye Keying. Probabilidad y estadística para ingeniería y ciencias. Novena edición. México: Pearson Education, 2012. 816 p. (Capítulo 1)</li>
+<li>Triola, M.F. 2018. Estadística. 12 Ed. Pearson. México. <a href="http://www.pearsonenespanol.com/mexico/educacion-superior/triola/triola_estadistica_12_e_home">Recursos Adicionales</a>
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+</div>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#collapse2">Unidad 2: Probabilidad</a>
+</h5>
+</div>
+<div id="collapse2" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Conceptos básicos de Probabilidades:</p>
+<ul>
+<li>Concepto de probabilidad y su aplicación.</li>
+<li>Teorema de Bayes y aplicación en pruebas diagnósticas</li>
+</ul>
+<div id="bibliografía-1" class="section level4">
+<h4>Bibliografía</h4>
+<ul>
+<li>Dawson B, Trapp RG. Basic and clinical biostatistics. Estados Unidos: McGraw-Hill; 2004. 438 p. Capítulo 4: pag 55-57.</li>
+<li>Martínez-González MA, Sanchez-Villegas A, Toledo-Atucha EA, Faulin-Fajardo J. Bioestadística amigable. Barcelona: Elsevier, 2014. 596 p. Capítulo 3: pag 66-76.</li>
+<li>Daniel W, León F. Bioestadística, base para el análisis de las ciencias de la salud. México: Editorial Limusa; 2016. 755 p. Capítulo 3</li>
+<li>Devore JL. Probabilidad y estadística para ingeniería y ciencias. México: International Thomson Editores; 2005. 807p. (Capítulo 2)</li>
+<li>Walpole RE, Myers R, Myers SL, Ye Keying. Probabilidad y estadística para ingeniería y ciencias. Novena edición. México: Pearson Education, 2012. 816 p. (Capítulo 2)</li>
+<li>Triola, M.F. 2018. Estadística. 12 Ed. Pearson. México. <a href="http://www.pearsonenespanol.com/mexico/educacion-superior/triola/triola_estadistica_12_e_home">Recursos Adicionales</a>
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+</div>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#collapse3">Unidad 3: Distribuciones de probabilidad</a>
+</h5>
+</div>
+<div id="collapse3" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Distribuciones de probabilidad y usos:</p>
+<ul>
+<li>Variables aleatorias.</li>
+<li>Distribución Binomial.</li>
+<li>Distribución Normal.</li>
+<li>Distribución t-student.</li>
+<li>Distribución Chi-cuadrado.</li>
+<li>Distribución F.</li>
+</ul>
+<div id="bibliografía-2" class="section level4">
+<h4>Bibliografía</h4>
+<ul>
+<li>Dawson B, Trapp RG. Basic and clinical biostatistics. Estados Unidos: McGraw-Hill; 2004. 438 p. Capítulo 4: pag 65-79.</li>
+<li>Martínez-González MA, Sanchez-Villegas A, Toledo-Atucha EA, Faulin-Fajardo J. Bioestadística amigable. Barcelona: Elsevier, 2014. 596 p. Capítulo 3: pag 77-100.</li>
+<li>Daniel W, León F. Bioestadística, base para el análisis de las ciencias de la salud. México: Editorial Limusa; 2016. Capítulo 4</li>
+<li>Mendenhall W, Beaver R, Beaver B. Introducción a la probabilidad y estadística. México: Cengage Learning; 2008. 743 p.</li>
+<li>Devore JL. Probabilidad y estadística para ingeniería y ciencias. México: International Thomson Editores; 2005. 807 p. (Capítulo 3 y 4)</li>
+<li>Walpole RE, Myers R, Myers SL, Ye Keying. Probabilidad y estadística para ingeniería y ciencias. Novena edición. México: Pearson Education, 2012. 816 p. (Capítulos 5 y 6)
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+</div>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#collapse4">Unidad 4: Inferencia Estadística</a>
+</h5>
+</div>
+<div id="collapse4" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Métodos estadísticos para la toma de decisiones:</p>
+<ul>
+<li>Distribuciones de muestreo.</li>
+<li>Estimación por intervalos de confianza.</li>
+<li>Pruebas de hipótesis.</li>
+<li>Análisis de Varianza (ANOVA)</li>
+</ul>
+<div id="bibliografía-3" class="section level4">
+<h4>Bibliografía</h4>
+<ul>
+<li>Dawson B, Trapp RG. Basic and clinical biostatistics. Estados Unidos: McGraw-Hill; 2004. 438 p. Capítulo 4: pag 65-</li>
+</ul>
+<ol start="79" style="list-style-type: decimal">
+<li>Capítulos 6, 7 y 8</li>
+</ol>
+<ul>
+<li>Martínez-González MA, Sanchez-Villegas A, Toledo-Atucha EA, Faulin-Fajardo J. Bioestadística amigable. Barcelona: Elsevier, 2014. 596 p. Capítulos 5, 6, 8,9 y 10</li>
+<li>Daniel W, León F. Bioestadística, base para el análisis de las ciencias de la salud. México: Editorial Limusa; 2016. Capítulos 7, 12 y 13</li>
+<li>Devore JL. Probabilidad y estadística para ingeniería y ciencias. México: International Thomson Editores; 2005. 807</li>
+</ul>
+<ol start="16" style="list-style-type: lower-alpha">
+<li>(Capítulos 7 a 9)</li>
+</ol>
+<ul>
+<li><p>Walpole RE, Myers R, Myers SL, Ye Keying. Probabilidad y estadística para ingeniería y ciencias. Novena edición. México: Pearson Education, 2012. 816 p. (Capítulos 9 y 10)</p>
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+</div>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#collapse5">Unidad 5: Fundamentos epidemiológicos</a>
+</h5>
+</div>
+<div id="collapse5" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Fundamentos epidemiológicos e indicadores:</p>
+<ul>
+<li>Frecuencias absolutas, relativas o proporciones</li>
+<li>Tasas</li>
+<li>Razones.</li>
+<li>Indicadores socio-demográficos y epidemiológicos.</li>
+<li>Fundamentos epidemiológicos: Definición, usos y tipos.</li>
+<li>Proceso salud-enfermedad, historia natural y social de la enfermedad.</li>
+</ul>
+<div id="bibliografía-4" class="section level4">
+<h4>Bibliografía</h4>
+<ul>
+<li><p>Ruiz-Morales A, Morillo-Zarate LE. Epidemiología clínica: investigación clínica aplicada. Bogotá: Panamericana, 2004. 576 páginas (capítulo 11)</p></li>
+<li><p>Londoño-Fernández JL. Metodología de la investigación epidemiológica. Bogotá: Manual Moderno, 2014. 367 páginas. (Capítulo XX)</p></li>
+<li><p>Dawson B, Trapp RG. Basic and clinical biostatistics. Estados Unidos: McGraw-Hill; 2004. 438 p (Capítulo 3, página 37)</p></li>
+<li><p>Hernández-Aguado I, Gil de Miguel A, Delgado-Rodríguez M, Bolúmar F, Benavides FG, Porta M, Álvarez-Dardet C, Vioque-López J, Lumbreras B. Manual de Epidemiología y Salud Pública: para grados en ciencias de la salud. Editorial Médica Panamericana S.A.; Edición: 2; 2011</p></li>
+<li><p>Blanco JH, Maya J, Torres Y. Epidemiología básica y principios de investigación. Tercera edición. Serie: Fundamentos de salud pública, CIB. Medellín; 2016. 364 p.</p></li>
+<li><p>Willet W. Nutritional epidemiology. Third Edition. Estados Unidos: Oxford University Press, 2013. 528 p.</p></li>
+<li><p>Friis RH, Sellers TA. Epidemiology for public health practice. Fifth edition. Burlington-Estados Unidos: Jones &amp; Bartlett Learning, 2014. p.987 (Capítulo 3).</p></li>
+<li><p>Colimon KM. Fundamentos de epidemiologia. Tercera edición. Medellín: CIB (Corporación para Investigaciones Biológicas), 2010. 551 p. (Capítulos 1, 2 y 14)</p>
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+</div>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#collapse6">Unidad 6: Estudios descriptivos</a>
+</h5>
+</div>
+<div id="collapse6" class="panel-collapse collapse">
+<div class="panel-body">
+<ul>
+<li>Teoría de la causalidad</li>
+<li>Tipos de estudios: Estudios observacionales descriptivos</li>
+<li>Sesgos en epidemiología</li>
+</ul>
+<div id="bibliografía-5" class="section level4">
+<h4>Bibliografía</h4>
+<ul>
+<li>Colimon KM. Fundamentos de epidemiologia. Tercera edición. Medellín: CIB (Corporación para Investigaciones Biológicas), 2010. 551 p. (Capítulo 14 y 22)</li>
+<li>Londoño-Fernández JL. Metodología de la investigación epidemiológica. Bogotá: Manual Moderno, 2014. 367 páginas.</li>
+<li>Gordis L. Epidemiología. Quinta edición. España: Elsevier, 2015. p.399 (Capítulos 14 y 15)</li>
+<li>Centers for Disease Control and Prevention (CDC). Principles of Epidemiology in Public Health Practice. An Introduction to Applied Epidemiology and Biostatistics. Third Edition. October 2006 Updated May 2012. Disponible <a href="http://www.cdc.gov/ophss/csels/dsepd/ss1978/ss1978.pdf">Aquí</a></li>
+<li>Borja-Aburt VH. Estudios ecológicos. Salud pública de México. 2000;42(6): 533-38.</li>
+<li>Hernández-Avila M, Garrido-Latorre F, López-Moreno S. Diseño de estudios epidemiológicos. Salud pública de México. 2000;42(2):144-54.</li>
+<li>Hernández-Ávila M, Garrido-Latorre F, Salazar-Martínez E. Sesgos en estudios epidemiológicos. Salud pública de México. 2000;42(5):438-46.</li>
+<li>Bhopal R. Concepts of epidemiology: an integrated introduction to the ideas, theories, principles and methods of epidemiology. Oxford University Press. Estados Unidos; 2002.</li>
+<li>Martínez JA, Astiasarán I, Madrigal H. Alimentación y salud pública.2a.ed. Madrid: Mc Graw-Hill. Interamericana de España, S.A.U., 2002, 257 pp</li>
+<li>Keisey J, Whittemore A, Evans A, Thompson D. Methods in observational epidemiology. Oxford University Press. Estados Unidos; 1996.
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+</div>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#collapse7">Unidad 7: Estudios analíticos e intervención</a>
+</h5>
+</div>
+<div id="collapse7" class="panel-collapse collapse">
+<div class="panel-body">
+<ul>
+<li>Estudios Analíticos: Cohorte, Casos y controles y Cross sectional: aspectos metodológicos y lectura crítica</li>
+<li>Estudios experimentales, ensayos clínicos y Cuasiexperimentos: aspectos metodológicos y lectura crítica.</li>
+</ul>
+<div id="bibliografía-6" class="section level4">
+<h4>Bibliografía</h4>
+<ul>
+<li>Lazcano-Ponce E, Fernández E, Salazar-Martínez E, Hernández-Ávila M. Estudios de cohorte. Metodología, sesgos y aplicación. Salud Pública de México. 2000; 42(3):230-41.</li>
+<li>Lazcano-Ponce E, Salazar-Martínez E, Hernández-Ávila M. Estudios epidemiológicos de casos y controles. Fundamento teórico, variantes y aplicaciones. Salud Pública de México. 2001; 43(2):135-50.</li>
+<li>Martínez JA, Astiasarán I, Madrigal H. Alimentación y salud pública.2a.ed. Madrid: Mc Graw-Hill. Interamericana de España, S.A.U., 2002, 257 pp</li>
+<li>Bhopal R. Concepts of epidemiology: an integrated introduction to the ideas, theories, principles and methods of epidemiology. Oxford University Press. Estados Unidos; 2002.</li>
+<li>Hoffmann RG, Lim HJ. Observational study design. Methods Mol Biol. 2007;404:19-31. doi: 10.1007/978-1- 59745-530-5_2. Review.</li>
+<li>Hernández-Ávila M, Garrido-Latorre F, López-Moreno S. Diseño de estudios epidemiológicos. salud pública de México. 2000; 42(2):144-54.</li>
+<li>Hernández B, Velasco-Mondragón HE. Encuestas Transversales. Salud Pública de México. 2000; 42(5):447-55.</li>
+<li>Mann CJ. Observational research methods. Research design II: cohort, cross sectional, and case-control studies. Emerg Med J 2003;20:54–60.</li>
+<li>Calva-Mercado JJ. Estudios clínicos experimentales. Salud pública de México. 2000;42(4):349-58.</li>
+<li>Friis RH, Sellers TA. Epidemiology for public health practice. Fifth edition. Burlington-Estados Unidos: Jones &amp; Bartlett Learning, 2014. p.987 (Capítulos 6 a 9).</li>
+<li>Colimon KM. Fundamentos de epidemiologia. Tercera edición. Medellín: CIB (Corporación para Investigaciones Biológicas), 2010. 551 p. (Capítulos 15 a 17)</li>
+<li>Gordis L. Epidemiología. Quinta edición. España: Elsevier, 2015. p.399 (Capítulos 7 a 11)
+</div>
+</div>
+</div></li>
+</ul>
+</div>
+</div>
+<hr>
+</div>
+<div id="docente" class="section level2">
+<h2>Docente</h2>
+<p>Estadístico con diez años de experiencia en análisis y clasificación de datos, planificación de diseños experimentales, muestreo de poblaciones, modelación estadística, Data Science, Big Data, Machine Learning, Deep Learning y programación avanzada en R-project.</p>
+<p>Magíster en Ciencias Estadísticas de la Universidad Nacional sede Medellín, director de ingeniería y diseño de la empresa Ingedata Consulting S.A.S y Estadístico del Perfil Alimentario y Nutricional de Antioquia 2018-2019. Mis años de experiencia como consultor y docente en estadística me ha permitido avanzar en conocimientos de otras áreas para construir equipos de investigación multidisciplinarios, a la vez que mantengo actualizado con los avances de la Ciencia y Tecnología asociadas a la estadística.</p>
+<hr>
+</div>
+<div id="contacto" class="section level2">
+<h2>Contacto</h2>
+<p><strong>e-mail:</strong> <a href="mailto:cdavid.santa@udea.edu.co" class="email">cdavid.santa@udea.edu.co</a><br> <strong>Plataforma Moodle:</strong> <a href="%22https://cdsantae.edugenesis.net/%22">cdsantae.edugenesis.net</a><br> Para enviar correos se solicita anteponer en el asunto <strong>[METH 2]</strong>.</p>
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
