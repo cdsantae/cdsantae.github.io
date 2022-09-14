@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Pruebas de Hipótesis II</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Métodos Cuantitativos</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="M_MAS.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Pruebas de Hipótesis II</h1>
+
+</div>
+
+
+<hr>
+<div id="inferencia-comparación-de-grupos" class="section level2">
+<h2>Inferencia comparación de grupos</h2>
+<p>Hasta ahora se ha realizado estimaciones y verificaciones de hipótesis para un parámetro. Ahora, el interés es comparar dos grupos, es decir, comparar una característica común pero que se diferencian en dos estados distintos y que no existen otras condiciones adicionales que diferencien las dos muestras.</p>
+<p>Para estos casos se presentan dos situaciones, que las muestras sean <strong>independientes</strong> o que las muestras sean <strong>pareadas</strong>, es decir, que es el seguimiento de un solo individuo en el cambio de estado (tiempo, área, condición).</p>
+<p><img src="I_ph2_files/figure-html/unnamed-chunk-1-1.png" width="900" style="display: block; margin: auto;" /></p>
+<p>Dada estas situaciones entonces surge la pregunta ¿Existe diferencia significativa entre los dos grupos? Para responder esta peregunta tenemos dos procedimientos para llegar a la respuesta:</p>
+<ul>
+<li><strong>Intervalos de confianza</strong></li>
+<li><strong>Pruebas de hipótesis</strong></li>
+</ul>
+<p>Como vimos en la primera parte existe una relación directa entre los dos procedimientos cuando se habla de inferencia sobre un parámetro, para el caso de la comparación de grupos también existe esta relación entre <strong>IC</strong> y <strong>PH</strong>, sin embargo, el procedimiento involucra unos pasos adicionales en el caso de la diferencia de promedios.</p>
+<hr>
+</div>
+<div id="ph-para-diferencia-de-proporciones" class="section level2">
+<h2>PH para diferencia de proporciones</h2>
+<p>La prueba que se utiliza con mas frecuencia con relación a la diferencia entre las proporciones de dos poblaciones es aquella en la que su diferencia es cero. Sin embargo, es posible probar que dicha diferencia es igual a algún otro valor. Es posible efectuar pruebas tanto unilaterales como bilaterales.</p>
+<p>Cuando la hipótesis nula que va a probarse es <span class="math inline">\(P_1 -P_2= 0\)</span>, se supone que las proporciones de las dos poblaciones son iguales. Esto se utiliza como justificación para combinar los resultados de las dos muestras y obtener una estimación ponderada de la proporción común supuesta. Las hipótesis están dadas por:</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \pi_1-\pi_2 = \delta \quad \text{vs} \quad H_a: \begin{cases} \pi_1-\pi_2 &amp;&lt; \delta \\
+                                          \pi_1-\pi_2 &amp;&gt; \delta \\
+                                          \pi_1-\pi_2 &amp;\neq \delta \\
+                                          \end{cases}
+\end{align*}\]</span></p>
+<p>El estadístico de prueba está dado por:</p>
+<p><span class="math display">\[Z_c=\frac{(\hat p_1 - \hat p_2)-\delta}{\sqrt{\frac{\bar p(1-\bar p)}{n_1}+\frac{\bar p(1-\bar p)}{n_2}}} \sim N(0,1)\]</span></p>
+<p>donde <span class="math inline">\(\bar p\)</span> es la proporción muestral agrupada:</p>
+<p><span class="math display">\[\bar p = \cfrac{x_1 + x_2}{n_1+n_2}\]</span></p>
+<p>Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} Z_c &amp;\rightarrow\, Z_c &lt;z_\alpha \\
+                   Z_c &amp;\rightarrow\, Z_c &gt;z_{1-\alpha} \\
+                   Z_c &amp;\rightarrow\, |Z_c| &gt;z_{1-\alpha/2} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(Z &lt; Z_c) \\
+                   P(Z &gt; Z_c) \\
+                   P(|Z| &gt; |Z_c|) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<blockquote>
+<p>En un estudio de cuidados nutricionales en asilos para ancianos, Lan y Justice (1991) encontraron que entre 55 pacientes con hipertensión, 24 tenian una dieta con restricción de sodio. De 149 pacientes sin hipertensión, 36 tenían una dieta sin sodio. ¿Es posible concluir que, en las poblaciones muestreadas, la proporción de pacientes con dieta restringida en sodio es mayor entre pacientes con hipertensión que entre pacientes sin hipertension?<br><br> Tenemos las siguientes hipótesis: <span class="math display">\[H_0: \pi_H-\pi_{\bar H}=0 \quad\text{vs}\quad H_a: \pi_H-\pi_{\bar H}&gt;0\]</span> Del enunciado podemos calcular la proporción muestral agrupada: <span class="math display">\[\bar p=\frac{24+36}{55+149}=\frac{60}{204}=0.2941176\]</span> Entonces con el estadístico de prueba se puede estimar la región crítica: <span class="math display">\[Z_c=\frac{24/55-36/149}{\sqrt{\left(\frac{60}{204}\right)\left(\frac{144}{204}\right)\left(\frac{1}{55}+\frac{1}{149}\right)}}=2.709048\]</span> Si <span class="math inline">\(\alpha =0.05\)</span> entonces se tiene que <span class="math inline">\(Z_{0.95}=1.645\)</span> y así la región de rechazo es de la forma: <span class="math display">\[RC=\{Z_c\,|\,Z_c&gt;Z_{0.95}\}=\{Z_c\,|\,2.709048&gt;1.645\}\]</span> Y en términos del valor-p se calcula: <span class="math display">\[P(Z&gt;Z_c)=P(Z&gt;0.542326)=1-P(Z&lt;2.709048)=0.003373829\]</span> Como <span class="math inline">\(ZC &gt; 1.645\)</span> o <span class="math inline">\(0.00337 &lt; 0.05\)</span>, entonces existe suficiente evidencia muestral que la proporción con dieta restringida en sodio es mayor entre los pacientes hipertensos que entre los pacientes sin hipertensión, por lo tanto se rechaza <span class="math inline">\(H_0\)</span>.</p>
+</blockquote>
+<hr>
+</div>
+<div id="pruebas-de-igualdad-de-varianza" class="section level2">
+<h2>Pruebas de igualdad de Varianza</h2>
+<p>Otro paso importante es verificar si las varianzas de ambos grupos son iguales o no, esto es importante porque la intención de la comparación de grupos a partir de la diferencia de promedios solamente debe comparar un factor o grupo que diferencia las muestras. La presencia de variabilidad excesiva en una de las muestras indicaría que existe otra condición no analizada que puede afectar la comparación, sin embargo, es posible controlar este problema estimando una variación conjunta entre los dos grupos.</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \frac{\sigma_A^2}{\sigma_A^2}=1 \quad \text{vs} \quad H_a: \begin{cases}
+\sigma_A^2/\sigma_A^2 &amp;&lt;1 \\
+\sigma_A^2/\sigma_A^2 &amp;&gt;1 \\
+\sigma_A^2/\sigma_A^2 &amp;\neq 1 \\
+                     \end{cases}
+\end{align*}\]</span></p>
+<p>El estadístico de prueba está dado por:</p>
+<p><span class="math display">\[F_c=\frac{S_A^2}{S_B^2} \sim F_{(n_A-1,n_B-1)}\]</span></p>
+<p>Para un <span class="math inline">\(\alpha\)</span> dado, la Región Crítica es de la forma:</p>
+<p><span class="math display">\[\begin{align*}
+R.C: \begin{cases} F_c &amp;\rightarrow\, F_c &lt;\frac{1}{F_{1-\alpha,\,(n_B-1,n_A-1)}} \\
+                   F_c &amp;\rightarrow\, F_c &gt;F_{1-\alpha,\,(n_A-1,n_B-1)} \\
+                   F_c &amp;\rightarrow\, F_c &lt; F_{1-\alpha/2,\,(n_A-1,n_B-1)} \\
+                   \end{cases} \qquad
+V_p: \begin{cases} P(F_{(n_B-1,n_A-1)} &lt; F_c) \\
+                   P(F_{(n_A-1,n_B-1)} &gt; F_c) \\
+                   P(F_{(n_A-1,n_B-1)} &lt; F_c) \\
+                   \end{cases}
+\end{align*}\]</span></p>
+<blockquote>
+<p><strong>Nota</strong><br> Estos pasos de verificación son necesarios para seleccionar el método estadístico adecuado para realizar la comparación de grupos, ya sea por Intervalos de Confianza o por Purebas de Hipótesis.</p>
+</blockquote>
+<hr>
+</div>
+<div id="comparación-de-medias" class="section level2">
+<h2>Comparación de medias</h2>
+<p>El objetivo de la comparación es resolver una de las siguientes hipótesis antagónicas:</p>
+<p><span class="math display">\[\begin{align*}
+H_0: \mu_A-\mu_B = \delta \quad \text{vs} \quad H_a: \begin{cases} \mu_A-\mu_B &amp;&lt; \delta \\
+                                          \mu_A-\mu_B &amp;&gt; \delta \\
+                                          \mu_A-\mu_B &amp;\neq \delta \\
+                                          \end{cases}
+\end{align*}\]</span></p>
+<p>Entonces el estadístico de prueba está condicionado al comportamiento de las muestras aleatorias de cada grupo, entonces es necesario verificar si los datos son normales o no y si las varianzas son iguales o no, cada paso o decisión condiciona a seleccionar el mejor estadístico de prueba. Entonces, para seleccionar la mejor opción para compar grupos basados en la promedio tenemos los siguientes árboles de decisión para <strong>IC</strong> o para <strong>PH</strong>.</p>
+<div id="resumen" class="section level3">
+<h3>Resumen</h3>
+<center>
+<img src="PH2_1.png" />
+</center>
+<p><br></p>
+<center>
+<img src="PH2_2.png" />
+</center>
+<p><br></p>
+<center>
+<img src="PH2_3.png" />
+</center>
+<p><br></p>
+<center>
+<a href="./Resumen_IC.pdf" class="btn btn-success" target="_blank">Intervalos de Confianza</a> <a href="./Resumen_PH.pdf" class="btn btn-info" target="_blank">Pruebas de Hipótesis</a>
+</center>
+<hr>
+<!--
+### Ejemplo
+
+La siguiente base de datos contiene información acerca de incautaciones de bebidas alcohólicas fraudulentas y de contrabando en la ciudad de Medellín en un mes, que afectan los recursos para Salud y Educación en el Departamento de Antioquia y de acuerdo a los resultados se toma decisiones para aumentar o disminuir los controles.
+
+<center>
+<a href="./Licores.xlsx" class="btn btn-default" target="_blank">Licores XLSX</a>
+<a href="./Licores.xlsx" class="btn btn-default" target="_blank">Licores CSV</a>
+</center>
+<br>
+
+La base de datos contiene las variables 
+- **TL** (Tipo de Licor)
+- **PI** (Precio de incautación: se refiere al precio de venta en el establecimiento por unidad)
+- **GAE** (Grados de Alcohol en etiqueta)
+- **GAQ** (grados de alcohol en prueba química)
+- **CE** (Cantidades estandarizadas: número de unidades estandarizadas a 750 ml).
+
+Usando la información de su base de datos responda a las siguientes preguntas.
+
+1.  El **precio total** de la incautación se calcula como la cantidad estandarizada por el precio de incautación. ¿Se puede afirmar que el precio total promedio de la incautación es superior a $7’500.000?
+
+2.  El **ipoconsumo**, es el impuesto que deja de percibir el Estado para salud y educación, el cual se calcula como: $GAQ \times CE \times 400$ (pesos). ¿Se puede afirmar que el ipoconsumo promedio del ron es inferior al ipoconsumo medio del Whisky? ¿Qué decisión se puede tomar frente al control?
+
+3.  El licor incautado se clasifica como “Fraudulento” si los GAE son distintos a los GAQ y como “contrabando” si son iguales. ¿La proporción de licores fraudulentos es superior al 65%? ¿Qué significa éste resultado?
+
+
+#### Solución usando R
+
+Lo primero es descargar la base de datos en la carpeta que se considere, luego debemos cargar la base de datos en `RStudio` para realizar los análisis. Antes de comenzar con el análisis necesitamos instalar o cargar las librerías necesarias para el análisis
+
+
+```r
+# Para manipular datos
+if(!require(dplyr)) install.packages("dplyr")
+# Gráficos con estilo
+if(!require(ggplot2)) install.packages("ggplot2")
+# Pruebas de bondad de ajuste
+if(!require(nortest)) install.packages("nortest")
+# Gráficos QQ-plot con IC
+if(!require(car)) install.packages("car")
+# Importar/Exportar datos de Excel
+if(!require(openxlsx)) install.packages("openxlsx")
+```
+
+El siguiente paso es cargar la base de datos, esto lo podemos realizar directamente de `RStudio` con el siguiente comando:
+
+
+```r
+Licores <- read.xlsx(file.choose(),sheet = 1)
+```
+
+
+
+Revisemos la estructura de los datos, para verificar si fueron cargados correctamente.
+
+
+```r
+str(Licores)
+```
+
+```
+## 'data.frame':    300 obs. of  5 variables:
+##  $ TL : chr  "Ron" "Aguardiente" "Ron" "Aguardiente" ...
+##  $ PI : num  34719 26900 27062 29317 32471 ...
+##  $ GAE: num  35 29 35 29 38 29 29 38 35 40 ...
+##  $ GAQ: num  30.2 29 32.2 29 32.6 ...
+##  $ CE : num  221 253 249 254 267 ...
+```
+
+```r
+# cambiando caracter por factor
+Licores <- Licores %>% mutate_if(is.character,as.factor)
+```
+
+El primer punto nos piden calcular **el precio total** de incautación, y se pregunta si el promedio de esa nueva variable es superior a 7.5 millones. Entonces tenemos las hipótesis:
+
+$$H_o: \mu_{pt} = 7'500.000 \qquad H_a:\mu_{pt} > 7'500.000$$
+
+Para seleccionar el estadístico de prueba más indicado, debemos probar si la distribución del precio total de incautación es Normal.
+
+$$H_0:PT \sim N(\mu,\sigma^2) \qquad H_a: PT\not\sim N(\mu,\sigma^2)$$
+
+
+```r
+Licores$PT <- Licores$CE*Licores$PI
+hist(Licores$PT,col="lightblue",las=1)
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-6-1.png" width="630" style="display: block; margin: auto;" />
+
+```r
+# pruebas de hipótesis
+shapiro.test(Licores$PT)
+```
+
+```
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  Licores$PT
+## W = 0.99485, p-value = 0.4134
+```
+
+```r
+ad.test(Licores$PT)
+```
+
+```
+## 
+##  Anderson-Darling normality test
+## 
+## data:  Licores$PT
+## A = 0.25534, p-value = 0.7249
+```
+
+```r
+lillie.test(Licores$PT)
+```
+
+```
+## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  Licores$PT
+## D = 0.032027, p-value = 0.6393
+```
+
+```r
+qqPlot(Licores$PT,pch=19)
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-6-2.png" width="630" style="display: block; margin: auto;" />
+
+```
+## [1] 68 65
+```
+
+Entonces, siguiendo el árbol de decisión tenemos que los datos se distribuyen normal y no conocemos los parámetros poblacionales, por lo tanto el estadístico de prueba está basado en la *t-student*.
+
+
+```r
+t.test(Licores$PT,mu = 7500000,alternative = "greater",conf.level = 0.95)
+```
+
+```
+## 
+##  One Sample t-test
+## 
+## data:  Licores$PT
+## t = -0.42571, df = 299, p-value = 0.6647
+## alternative hypothesis: true mean is greater than 7500000
+## 95 percent confidence interval:
+##  7348999     Inf
+## sample estimates:
+## mean of x 
+##   7469031
+```
+
+Como $\text{valor-p} \, > \, \alpha$ entonces no se rechaza $H_0$, existe evidencia muestral suficiente de que el promedio del precio de incautaciones mesual es de $7'500.000, esto implica anualmente se esperaría que alrededor de 90 millones de pesos deje de circular ilegalmente gracias a lo no pago de impuestos o adulteración de licores.
+
+<hr>
+
+En la siguiente pregunta se pide calcular el *ipoconsumo* de acuerdo a una formulación, y luego comparar si el impuesto de los licores de tipo *Ron* son menores a los de *Whisky* basado en los promedios. Entonces tenemos la siguiente hipótesis:
+
+$$H_0: \mu_{Ir} = \mu_{Iw} \qquad H_a:\mu_{Ir} < \mu_{Iw}$$
+
+De acuerdo al árbol de decisión tenemos que hacer los siguientes pasos:
+
+- Calcular el ipoconsumo
+- Separar la base de datos en Ron y Whisky
+- Probar la normalidad de ambos grupos
+- Comprobar la igualdad de varianzas de los grupos
+- Escoger el mejor estadístico de prueba y realizar el análisis.
+- Concluir
+
+Los primeros dos pasos son sencillos:
+
+
+```r
+Licores <- Licores %>%
+   mutate(IPO = GAQ*CE*400)
+SoloRA <- Licores %>% 
+   filter(TL %in% c("Ron","Whisky")) %>%
+   droplevels
+SoloRA %>% group_by(TL) %>% 
+   summarise(n=length(IPO),
+             media=mean(IPO),
+             desv=sd(IPO))
+```
+
+```
+## # A tibble: 2 x 4
+##   TL         n    media    desv
+##   <fct>  <int>    <dbl>   <dbl>
+## 1 Ron       52 3185673. 270971.
+## 2 Whisky    27 3591694. 317110.
+```
+
+```r
+SoloRA %>% ggplot(aes(x=IPO,fill=TL))+
+   geom_density(alpha=0.5)+xlim(c(2e06,5e06))+theme_bw()
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-8-1.png" width="630" style="display: block; margin: auto;" />
+
+Luego debemos probar la normalidad de los datos, esto lo podemos hacer de dos formas. La primera es separar la base de datos y construir dos nuevas con los grupos de interés, la otra es evaluar al mismo tiempo los valores-p de las pruebas usando `dplyr`.
+
+
+```r
+# Primer método - Ron
+SoloRA %>% filter(TL=="Ron") %>%
+   dplyr::select(IPO) %>% unlist %>% shapiro.test()
+```
+
+```
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.96894, p-value = 0.1904
+```
+
+```r
+SoloRA %>% filter(TL=="Ron") %>%
+   dplyr::select(IPO) %>% unlist %>% ad.test()
+```
+
+```
+## 
+##  Anderson-Darling normality test
+## 
+## data:  .
+## A = 0.50493, p-value = 0.1943
+```
+
+```r
+SoloRA %>% filter(TL=="Ron") %>%
+   dplyr::select(IPO) %>% unlist %>% lillie.test()
+```
+
+```
+## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  .
+## D = 0.095664, p-value = 0.2758
+```
+
+```r
+# Primer método - Whisky
+SoloRA %>% filter(TL=="Whisky") %>%
+   dplyr::select(IPO) %>% unlist %>% shapiro.test()
+```
+
+```
+## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.96678, p-value = 0.5193
+```
+
+```r
+SoloRA %>% filter(TL=="Whisky") %>%
+   dplyr::select(IPO) %>% unlist %>% ad.test()
+```
+
+```
+## 
+##  Anderson-Darling normality test
+## 
+## data:  .
+## A = 0.26387, p-value = 0.671
+```
+
+```r
+SoloRA %>% filter(TL=="Whisky") %>%
+   dplyr::select(IPO) %>% unlist %>% lillie.test()
+```
+
+```
+## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  .
+## D = 0.087079, p-value = 0.8639
+```
+
+```r
+# Segundo método
+SoloRA %>% group_by(TL) %>%
+   summarise(shapiro=shapiro.test(IPO)$p.val,
+             Ander_Darl=ad.test(IPO)$p.val,
+             lilliefords=lillie.test(IPO)$p.val)
+```
+
+```
+## # A tibble: 2 x 4
+##   TL     shapiro Ander_Darl lilliefords
+##   <fct>    <dbl>      <dbl>       <dbl>
+## 1 Ron      0.190      0.194       0.276
+## 2 Whisky   0.519      0.671       0.864
+```
+
+```r
+par(mfrow=c(1,2))
+with(SoloRA %>% filter(TL=="Ron"),
+     qqPlot(IPO,pch=19,main = "QQ-Plot Ron",id=F,col.lines = 2))
+with(SoloRA %>% filter(TL=="Whisky"),
+     qqPlot(IPO,pch=19,main = "QQ-Plot Whisky",id=F,col.lines = 4))
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-9-1.png" width="810" style="display: block; margin: auto;" />
+
+Como ambas muestras distribuyen normal, es necesario verificar si existe igualdad en sus varianzas, esto se comprueba con la función `var.test`.
+
+
+```r
+with(SoloRA,var.test(IPO~TL))
+```
+
+```
+## 
+##  F test to compare two variances
+## 
+## data:  IPO by TL
+## F = 0.73017, num df = 51, denom df = 26, p-value = 0.3333
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.3562148 1.3878542
+## sample estimates:
+## ratio of variances 
+##           0.730172
+```
+
+Entonces, como los datos son normales y tienen varianzas iguales, de acuerdo con el árbol de decisión el mejor estadístico de prueba está basado en la *t-student* y es necesario estimar la varianza conjunta, no obstante, el software lo hace:
+
+
+```r
+with(SoloRA,
+     t.test(IPO[TL=="Ron"],
+            IPO[TL=="Whisky"],
+            var.equal = T,alternative = "less"))
+```
+
+```
+## 
+##  Two Sample t-test
+## 
+## data:  IPO[TL == "Ron"] and IPO[TL == "Whisky"]
+## t = -5.9561, df = 77, p-value = 3.629e-08
+## alternative hypothesis: true difference in means is less than 0
+## 95 percent confidence interval:
+##       -Inf -292527.9
+## sample estimates:
+## mean of x mean of y 
+##   3185673   3591694
+```
+
+En conclusión, el ipoconsumo del ron es menor al del whisky con un nivel de significancia del 5%. Entonces la cantidad de impuestos que deja de percibir el departamento tiene mayor aporte en el Whisky, sin embargo, las cantidades de Ron son casi el doble que las de Whisky lo que sugiere que este licor es preferido para la adulteración. Los controles se deben aumentar para incautar más Ron y establecer una estrategia para que no aumente la adulteración del Whisky que es la que más afecta los recursos para salud.
+
+<hr>
+
+El tercer punto nos piden calcular una nueva variable, si $GAQ=GAE$ el licor se clasifica como **contrabando** en caso contrario se llamará **fraudulento**.
+
+
+```r
+Licores <- Licores %>%
+   mutate(TipoLicor = factor(ifelse(GAQ==GAE,"Contrabando","Fraudulento")))
+```
+
+Luego preguntan si la proporción de licores Fraudulentos es superior al 65%. Entonces las hipótesis son:
+
+$$H_0: p_F = 0.65 \qquad H_a: p_F >0.65$$
+
+
+```r
+with(Licores,table(TipoLicor))
+```
+
+```
+## TipoLicor
+## Contrabando Fraudulento 
+##          83         217
+```
+
+Como en `R` los factores se organizan alfabéticamente, entonces debemos cambiar la hipótesis hacia los licores de **contrabando**, así:
+
+$$H_0: p_C = 0.35 \qquad H_a: p_C < 0.35$$
+
+
+```r
+with(Licores,
+     prop.test(table(TipoLicor),
+               p = 0.35,
+               alternative = "less",
+               conf.level = 0.95,
+               correct = F))
+```
+
+```
+## 
+##  1-sample proportions test without continuity correction
+## 
+## data:  table(TipoLicor), null probability 0.35
+## X-squared = 7.0916, df = 1, p-value = 0.003872
+## alternative hypothesis: true p is less than 0.35
+## 95 percent confidence interval:
+##  0.0000000 0.3210025
+## sample estimates:
+##         p 
+## 0.2766667
+```
+
+Como el valor-p es mucho menor al nivel de significancia, entonces se rechaza $H_0$ por lo tanto existe evidencia muestral para afirmar que la proporción de licores Fraudulentos es mayor del 65%. Por lo tanto, las rentas ilegales de licores están basadas en mayor medida de la adulteración, el impacto para la salud pública es muy grave, pues los efectos nocivos de los licores que no son correctamente destilados aumenta los riesgos clínicos como la ceguera, el cáncer de órganos digestivos o la muerte.
+
+<hr>
+
+## Ejercicio
+
+DATOS DE BAJO PESO DE NACIMIENTO
+
+Estos datos provienen de Hosmer y Lemeshow (2000) Regresión logística aplicada.
+
+El objetivo de este estudio fue identificar los factores de riesgo asociados con el nacimiento de un bebé con bajo peso al nacer (que pesa menos de 2500 gramos). Se recopilaron datos sobre 189 mujeres, 59 de las cuales tenían bebés con bajo peso al nacer y 130 de los cuales tenían bebés con peso normal al nacer. Cuatro variables que se consideraron importantes fueron la edad, el peso del sujeto en su último período menstrual, la raza y el número de visitas al médico durante el primer trimestre del embarazo.
+
+Los datos fueron recolectados en el Baystate Medical Center, Springfield, Massachusetts, durante 1986.
+
+
+```r
+if(!require(MASS)) install.packages("MASS")
+birthwt
+```
+
+
+|    | low | age | lwt | race | smoke | ptl | ht | ui | ftv | bwt  |
+|:---|:---:|:---:|:---:|:----:|:-----:|:---:|:--:|:--:|:---:|:----:|
+|85  |  0  | 19  | 182 |  2   |   0   |  0  | 0  | 1  |  0  | 2523 |
+|86  |  0  | 33  | 155 |  3   |   0   |  0  | 0  | 0  |  3  | 2551 |
+|87  |  0  | 20  | 105 |  1   |   1   |  0  | 0  | 0  |  1  | 2557 |
+|88  |  0  | 21  | 108 |  1   |   1   |  0  | 0  | 1  |  2  | 2594 |
+|89  |  0  | 18  | 107 |  1   |   1   |  0  | 0  | 1  |  0  | 2600 |
+|91  |  0  | 21  | 124 |  3   |   0   |  0  | 0  | 0  |  0  | 2622 |
+|92  |  0  | 22  | 118 |  1   |   0   |  0  | 0  | 0  |  1  | 2637 |
+|93  |  0  | 17  | 103 |  3   |   0   |  0  | 0  | 0  |  1  | 2637 |
+|94  |  0  | 29  | 123 |  1   |   1   |  0  | 0  | 0  |  1  | 2663 |
+|95  |  0  | 26  | 113 |  1   |   1   |  0  | 0  | 0  |  0  | 2665 |
+|96  |  0  | 19  | 95  |  3   |   0   |  0  | 0  | 0  |  0  | 2722 |
+|97  |  0  | 19  | 150 |  3   |   0   |  0  | 0  | 0  |  1  | 2733 |
+|98  |  0  | 22  | 95  |  3   |   0   |  0  | 1  | 0  |  0  | 2751 |
+|99  |  0  | 30  | 107 |  3   |   0   |  1  | 0  | 1  |  2  | 2750 |
+|100 |  0  | 18  | 100 |  1   |   1   |  0  | 0  | 0  |  0  | 2769 |
+
+La descripción de las variables de esta base de datos están <a href="https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/birthwt.html" target="_blank">aquí</a>.
+
+De acuerdo con la descripción se organiza el conjunto de datos de mejor forma como sigue.
+
+
+```r
+datos <- with(birthwt, {
+  race <- factor(race, labels = c("white", "black", "other"))
+  ptd <- factor(ptl > 0)
+  ftv <- factor(ftv)
+  levels(ftv)[-(1:2)] <- "2+"
+  data.frame(low = factor(low>0),
+             age, lwt, race, smoke = (smoke > 0),
+             ptd, ht = (ht > 0), ui = (ui > 0),
+             ftv,bwt)
+})
+```
+
+
+|  low  | age | lwt | race  | smoke |  ptd  |  ht   |  ui   | ftv | bwt  |
+|:-----:|:---:|:---:|:-----:|:-----:|:-----:|:-----:|:-----:|:---:|:----:|
+| FALSE | 19  | 182 | black | FALSE | FALSE | FALSE | TRUE  |  0  | 2523 |
+| FALSE | 33  | 155 | other | FALSE | FALSE | FALSE | FALSE | 2+  | 2551 |
+| FALSE | 20  | 105 | white | TRUE  | FALSE | FALSE | FALSE |  1  | 2557 |
+| FALSE | 21  | 108 | white | TRUE  | FALSE | FALSE | TRUE  | 2+  | 2594 |
+| FALSE | 18  | 107 | white | TRUE  | FALSE | FALSE | TRUE  |  0  | 2600 |
+| FALSE | 21  | 124 | other | FALSE | FALSE | FALSE | FALSE |  0  | 2622 |
+| FALSE | 22  | 118 | white | FALSE | FALSE | FALSE | FALSE |  1  | 2637 |
+| FALSE | 17  | 103 | other | FALSE | FALSE | FALSE | FALSE |  1  | 2637 |
+| FALSE | 29  | 123 | white | TRUE  | FALSE | FALSE | FALSE |  1  | 2663 |
+| FALSE | 26  | 113 | white | TRUE  | FALSE | FALSE | FALSE |  0  | 2665 |
+| FALSE | 19  | 95  | other | FALSE | FALSE | FALSE | FALSE |  0  | 2722 |
+| FALSE | 19  | 150 | other | FALSE | FALSE | FALSE | FALSE |  1  | 2733 |
+| FALSE | 22  | 95  | other | FALSE | FALSE | TRUE  | FALSE |  0  | 2751 |
+| FALSE | 30  | 107 | other | FALSE | TRUE  | FALSE | TRUE  | 2+  | 2750 |
+| FALSE | 18  | 100 | white | TRUE  | FALSE | FALSE | FALSE |  0  | 2769 |
+
+Con esta base de datos responda las siguientes preguntas utilizando `R` con un nivel de significancia del 5%.
+
+1. Para las mamás que tuvieron bebés con bajo peso al nacer, ¿existen diferencias en su condición de fumadoras?
+
+
+```r
+datos %>% select(smoke,low) %>% table
+```
+
+```
+##        low
+## smoke   FALSE TRUE
+##   FALSE    86   29
+##   TRUE     44   30
+```
+
+Como la pregunta está dirigida a las mamás que tuvieron bebés con bajo peso al nacer, entonces hay que mover las columnas de la tabla para conservar la hipótesis.
+
+
+```r
+datos %>% select(smoke,low) %>% table %>% .[,c(2,1)]
+```
+
+```
+##        low
+## smoke   TRUE FALSE
+##   FALSE   29    86
+##   TRUE    30    44
+```
+
+Esta es la tabla con la cual se hará la prueba de diferencia de proporciones, donde se comparará la condición de fumador dado que se tienen bebés en bajo peso.
+
+
+```r
+datos %>% select(smoke,low) %>% table %>%
+  .[,c(2,1)] %>% prop.test(conf.level = 0.95,correct = F)
+```
+
+```
+## 
+##  2-sample test for equality of proportions without continuity
+##  correction
+## 
+## data:  .
+## X-squared = 4.9237, df = 1, p-value = 0.02649
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.29039121 -0.01607177
+## sample estimates:
+##    prop 1    prop 2 
+## 0.2521739 0.4054054
+```
+
+Como el valor-p es menor a 0.05, entonces se rechaza la hipótesis nula, por lo tanto si existen diferencias significativas entre la proporción de mamás que fuman y las que no, dado que tuvieron bebés con bajo peso al nacer.
+
+2. Se cree que las mamás que tuvieron más de un parto previo, la edad es menor a 27 años ¿Es cierta esta hipótesis?
+
+
+```r
+datos %>%
+  ggplot(aes(x=age,fill=ptd))+geom_density(alpha=0.5)+
+  ggtitle("Comportamiento de la Edad de las mamás dado los partos previos")+
+  theme_bw()
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-22-1.png" width="630" style="display: block; margin: auto;" />
+
+Para poder resolver la hipótesis es necesario tener encuenta el filtro de las mamás que tuvieron más de un parto previo, que se indica con la variable `ptd`. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.
+
+
+```r
+# Ojo: Se necesita el filtro
+datos %>% filter(ptd==T) %>% 
+  summarise(n=length(age),prom=mean(age),
+            desv=sd(age),
+            shapiro=shapiro.test(age)$p.val,
+            Ander_Darl=ad.test(age)$p.val,
+            lilliefords=lillie.test(age)$p.val)
+```
+
+```
+##    n     prom     desv   shapiro Ander_Darl lilliefords
+## 1 30 24.43333 5.028768 0.5879124  0.4028222   0.1139127
+```
+
+En los resultados vemos que tenemos una muestra de tamaño 30, con una media de 24.43 años y una desviación de 5.03 años. Además los test de normalidad utilizados nos ayudan a conculir que la distribución de los datos es normal, comparando los valores-p con el nivel de significancia.
+
+De acuerdo con el árbol de decisión podemos utilizar un estadístico de prueba basado en la *t-student*, ya que los datos distribuyen normal y NO conocemos la varianza poblacional, para tomar una decisión sobre la hipótesis planteada.
+
+
+```r
+datos %>% filter(ptd==T) %>%
+  select(age) %>% 
+  t.test(mu=27,alternative = "less",conf.level = 0.95)
+```
+
+```
+## 
+##  One Sample t-test
+## 
+## data:  .
+## t = -2.7956, df = 29, p-value = 0.004548
+## alternative hypothesis: true mean is less than 27
+## 95 percent confidence interval:
+##      -Inf 25.99334
+## sample estimates:
+## mean of x 
+##  24.43333
+```
+
+Como el valor-p es menor al nivel de significancia del 5%, entonces se rechaza la hipótesis nula, por lo tanto el promedio de la edad de las mamás con más de un parto previo es menor de 27 años.
+
+3. La hipertensión es un indicador asociado al peso, para las mamás hipertensas ¿existe diferencias significativas entre el peso de las blancas y otros grupos étnicos?
+
+
+```r
+datos %>% filter(ht==T,race %in% c("white","other")) %>%
+  ggplot(aes(y=lwt,x=race,fill=race))+geom_boxplot()
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-25-1.png" width="630" style="display: block; margin: auto;" />
+
+Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro de las mamás con hipertensión previa y considerar de la variable `race` solo las mujeres blancas y de otras étnias. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.
+
+
+```r
+datos %>% filter(ht==T,race %in% c("white","other")) %>%
+  group_by(race) %>%
+  summarise(n=length(lwt),prom=mean(lwt),desv=sd(lwt),
+            shapiro=shapiro.test(age)$p.val)
+```
+
+```
+## # A tibble: 2 x 5
+##   race      n  prom  desv shapiro
+##   <fct> <int> <dbl> <dbl>   <dbl>
+## 1 white     5  167.  46.1   0.201
+## 2 other     4  122.  26.7   0.850
+```
+
+Los resultados nos indican que para ambos grupos los pesos distribuyen normal, de acuerdo con el árbol de decisión hay que decidir si las varianzas so iguales o no.
+
+
+```r
+datos %>% filter(ht==T,race %in% c("white","other")) %>% 
+  with(.,var.test(lwt~race))
+```
+
+```
+## 
+##  F test to compare two variances
+## 
+## data:  lwt by race
+## F = 2.9758, num df = 4, denom df = 3, p-value = 0.397
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##   0.1970574 29.6956898
+## sample estimates:
+## ratio of variances 
+##           2.975759
+```
+
+Como el valor-p es mucho mayor que el nivel de significancia, entonces no se reachaza la hipótesis nula, por lo tanto se considera que las varianzas de ambos grupos son iguales. Siguiendo con el árbol de decisión usamos el estadístico de prueba de la *t-student* para igualdad de varianzas.
+
+
+```r
+datos %>% filter(ht==T,race %in% c("white","other")) %>% 
+  with(.,
+       t.test(lwt[race=="white"],
+              lwt[race=="other"],
+              var.equal = T,conf.level = 0.95))
+```
+
+```
+## 
+##  Two Sample t-test
+## 
+## data:  lwt[race == "white"] and lwt[race == "other"]
+## t = 1.7324, df = 7, p-value = 0.1268
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -16.53074 107.13074
+## sample estimates:
+## mean of x mean of y 
+##     166.8     121.5
+```
+
+Como el valor-p es mayor que el nivel de significancia, entonces no se rechaza la hipótesis nula, por lo tanto no existen diferencias estadísticamente significativas de los pesos entre los dosgrupos étnicos en presencia de hipertensión. Este resultado se explica por al alta variabilidad que existe en ambos grupos y los pocos tamaños de muestra, lo que impacta en los errores estándar.
+
+4. Se piensa que las mujeres blancas tienen bebés con pesos más altos que las de otros grupos étnicos ¿Es cierta esta hipótesis?
+
+
+```r
+datos %>%
+  ggplot(aes(x=bwt,fill=race))+geom_density()+
+  facet_wrap(~race)
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-29-1.png" width="630" style="display: block; margin: auto;" />
+
+Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro de la étnia de las mamás blancas y de otras étnias, con la variable `race`. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.
+
+
+```r
+datos %>% filter(race %in% c("white","other")) %>% group_by(race) %>%
+  summarise(n=length(bwt),prom=mean(bwt),desv=sd(bwt),
+            shapiro=shapiro.test(bwt)$p.val,
+            Ander_Darl=ad.test(bwt)$p.val,
+            lilliefords=lillie.test(bwt)$p.val)
+```
+
+```
+## # A tibble: 2 x 7
+##   race      n  prom  desv shapiro Ander_Darl lilliefords
+##   <fct> <int> <dbl> <dbl>   <dbl>      <dbl>       <dbl>
+## 1 white    96 3103.  728.   0.486      0.227      0.0511
+## 2 other    67 2805.  722.   0.205      0.241      0.0258
+```
+
+```r
+par(mfrow=c(1,2))
+datos %>% filter(race=="white") %>%
+  with(.,qqPlot(bwt,pch=19,main = "White"))
+```
+
+```
+## [1] 74 73
+```
+
+```r
+datos %>% filter(race=="other") %>%
+  with(.,qqPlot(bwt,pch=19,col.lines = 2,main="Other"))
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-30-1.png" width="810" style="display: block; margin: auto;" />
+
+```
+## [1] 43 44
+```
+
+De acuerdo con los test de normalidad, el peso al nacer en ambos grupos distribuyen normal, solo el test de Lilliefords presenta problemas, no obstante los QQ-Plots nos muestran que el ajuste es bueno y los test de normalidad más robustos nos apoyan en la decisión. De acuerdo con el árbol de decisión no conocemos las varianzas poblaciones, entonces con las varianzas muestrales es necesario decidir si las varianzas son iguales o no.
+
+
+```r
+datos %>% filter(race %in% c("white","other")) %>% 
+  with(.,var.test(bwt~race))
+```
+
+```
+## 
+##  F test to compare two variances
+## 
+## data:  bwt by race
+## F = 1.0158, num df = 95, denom df = 66, p-value = 0.9558
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.643440 1.574738
+## sample estimates:
+## ratio of variances 
+##           1.015825
+```
+
+En los resultados del test de varianza vemos que el valor-p es mayor que el nivel de significancia, por lo tanto la varianza del peso al nacer en ambos grupos étnicos es igual. Continuando con el árbol de decisión podemos utilizas el estadístico de prueba basado en la *t-student* para varianzas iguales, además la hipótesis alternativa considera que los pesos al nacer de las mamás blancas son mayores que los pesos al nacer de los otros grupos étnicos.
+
+
+```r
+with(datos,
+     t.test(x = bwt[race=="white"],
+            y = bwt[race=="other"],
+            var.equal = T,alternative = "greater",
+            conf.level = 0.95))
+```
+
+```
+## 
+##  Two Sample t-test
+## 
+## data:  bwt[race == "white"] and bwt[race == "other"]
+## t = 2.5751, df = 161, p-value = 0.00546
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  106.3502      Inf
+## sample estimates:
+## mean of x mean of y 
+##  3102.719  2805.284
+```
+
+Como el valor-p es menor que el nivel de significancia, entonces se rechaza la hipótesis nula, por lo tanto existe evidencia muestral suficiente para decir que el peso al nacer de las mamás blancas es mayor que el peso al nacer de las mamás de otras grupos étnicos con una confianza del 95%.
+
+5. El hábito de fumar afecta el desarrollo del feto en las mujeres gestantes, ¿existen diferencias en los pesos al nacer dado este hábito?
+
+
+```r
+datos %>%
+  ggplot(aes(x=bwt,fill=smoke))+geom_density(alpha=0.5)
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-33-1.png" width="630" style="display: block; margin: auto;" />
+
+Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro de la condición de fumador con la variable `smoke`. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.
+
+
+```r
+datos %>% group_by(smoke) %>%
+  summarise(n=length(bwt),prom=mean(bwt),desv=sd(bwt),
+            shapiro=shapiro.test(bwt)$p.val,
+            Ander_Darl=ad.test(bwt)$p.val,
+            lilliefords=lillie.test(bwt)$p.val)
+```
+
+```
+## # A tibble: 2 x 7
+##   smoke     n  prom  desv shapiro Ander_Darl lilliefords
+##   <lgl> <int> <dbl> <dbl>   <dbl>      <dbl>       <dbl>
+## 1 FALSE   115 3056.  753.   0.334      0.202       0.397
+## 2 TRUE     74 2772.  660.   0.419      0.567       0.540
+```
+
+```r
+par(mfrow=c(1,2))
+datos %>% filter(smoke==F) %>%
+  with(.,qqPlot(bwt,pch=19,main = "No Fumadora"))
+```
+
+```
+## [1] 87 86
+```
+
+```r
+datos %>% filter(smoke==T) %>%
+  with(.,qqPlot(bwt,pch=19,col.lines = 2,main="Fumadora"))
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-34-1.png" width="810" style="display: block; margin: auto;" />
+
+```
+## [1] 45 46
+```
+
+De acuerdo con los test de normalidad, el peso al nacer en ambos grupos distribuyen normal. De acuerdo con el árbol de decisión no conocemos las varianzas poblaciones, entonces con las varianzas muestrales es necesario decidir si las varianzas son iguales o no.
+
+
+```r
+with(datos,var.test(bwt~smoke))
+```
+
+```
+## 
+##  F test to compare two variances
+## 
+## data:  bwt by smoke
+## F = 1.3019, num df = 114, denom df = 73, p-value = 0.2254
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.8486407 1.9589574
+## sample estimates:
+## ratio of variances 
+##           1.301927
+```
+
+En los resultados del test de varianza vemos que el valor-p es mayor que el nivel de significancia, por lo tanto la varianza del peso al nacer en ambos grupos étnicos es igual. Continuando con el árbol de decisión podemos utilizas el estadístico de prueba basado en la *t-student* para varianzas iguales, además la hipótesis alternativa considera que los pesos al nacer de las mamás fumadoras son diferentes de los pesos al nacer de las no fumadoras.
+
+
+```r
+with(datos,
+     t.test(x = bwt[smoke==T],
+            y = bwt[smoke==F],
+            var.equal = T,conf.level = 0.95))
+```
+
+```
+## 
+##  Two Sample t-test
+## 
+## data:  bwt[smoke == T] and bwt[smoke == F]
+## t = -2.6529, df = 187, p-value = 0.008667
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -494.79735  -72.75612
+## sample estimates:
+## mean of x mean of y 
+##  2771.919  3055.696
+```
+
+Como el valor-p es menor que el nivel de significancia, entonces se rechaza la hipótesis nula, por lo tanto existe evidencia muestral suficiente para decir que el peso al nacer de los bebés de las mamás fumadoras es diferente del el peso al nacer de los bebés de las mamás sin este hábito.
+
+6. Para las mamás que tuvieron bebés con bajo peso al nacer, ¿son más jóvenes las mamás de otros grupos étnicos en comparación a las mamás blancas?
+
+
+```r
+datos %>% filter(low==T,race %in% c("white","other")) %>%
+  ggplot(aes(x=race,y=age,fill=race))+geom_boxplot()
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-37-1.png" width="630" style="display: block; margin: auto;" />
+
+Para poder resolver la hipótesis de diferencia de medias es necesario tener encuenta el filtro del bajo peso al nacer y la étnia de las mamás. Veamos un resúmen de los datos y resolvamos la hipótesis que la distribución de la edad distribuye normal o no.
+
+
+```r
+datos %>% filter(low==T,race %in% c("white","other")) %>%
+  group_by(race) %>%
+  summarise(n=length(age),prom=mean(age),desv=sd(age),
+            shapiro=shapiro.test(age)$p.val,
+            Ander_Darl=ad.test(age)$p.val,
+            lilliefords=lillie.test(age)$p.val)
+```
+
+```
+## # A tibble: 2 x 7
+##   race      n  prom  desv shapiro Ander_Darl lilliefords
+##   <fct> <int> <dbl> <dbl>   <dbl>      <dbl>       <dbl>
+## 1 white    23  23.0  4.72   0.583      0.592       0.679
+## 2 other    25  21.6  4.15   0.109      0.112       0.150
+```
+
+```r
+par(mfrow=c(1,2))
+datos %>% filter(low==T,race=="white") %>%
+  with(.,qqPlot(age,pch=19,main = "White"))
+```
+
+```
+## [1]  3 16
+```
+
+```r
+datos %>% filter(low==T,race=="other") %>%
+  with(.,qqPlot(age,pch=19,col.lines = 2,main="Other"))
+```
+
+<img src="I_ph2_files/figure-html/unnamed-chunk-38-1.png" width="810" style="display: block; margin: auto;" />
+
+```
+## [1] 23 24
+```
+
+De acuerdo con los test de normalidad, las edades en ambos grupos distribuyen normal. De acuerdo con el árbol de decisión no conocemos las varianzas poblaciones, entonces con las varianzas muestrales es necesario decidir si las varianzas son iguales o no.
+
+
+```r
+datos %>% filter(low==T,race %in% c("white","other")) %>% 
+  with(.,var.test(age~race))
+```
+
+```
+## 
+##  F test to compare two variances
+## 
+## data:  age by race
+## F = 1.2944, num df = 22, denom df = 24, p-value = 0.5366
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.5638052 3.0179943
+## sample estimates:
+## ratio of variances 
+##           1.294443
+```
+
+En los resultados del test de varianza vemos que el valor-p es mayor que el nivel de significancia, por lo tanto la varianza de las edades de las mamás en ambos grupos étnicos es igual. Continuando con el árbol de decisión podemos utilizas el estadístico de prueba basado en la *t-student* para varianzas iguales, además la hipótesis alternativa considera que son más jóvenes las mamás de otros grupos étnicos en comparación a las mamás blancas.
+
+
+```r
+datos %>% filter(low==T,race %in% c("white","other")) %>% 
+  with(.,t.test(age[race=="other"],
+                age[race=="white"],alternative = "l",
+                var.equal = T,conf.level = 0.95))
+```
+
+```
+## 
+##  Two Sample t-test
+## 
+## data:  age[race == "other"] and age[race == "white"]
+## t = -1.0953, df = 46, p-value = 0.1395
+## alternative hypothesis: true difference in means is less than 0
+## 95 percent confidence interval:
+##       -Inf 0.7474548
+## sample estimates:
+## mean of x mean of y 
+##  21.64000  23.04348
+```
+
+Como el valor-p es mayor que el nivel de significancia, entonces no se rechaza la hipótesis nula, por lo tanto no existe evidencia muestral suficiente para decir que son más jóvenes las mamás de otros grupos étnicos en comparación a las mamás blancas, que tuvieron hijos bajo peso al nacer.
+-->
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;">
+
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
