@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Regresión Logística</title>
+
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/htmlwidgets-1.6.0/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.26/datatables.js"></script>
+<link href="site_libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Métodos Cuantitativos</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="M_MAS.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-th"></span>
+     
+    Diseños
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DE_anova.html">ANOVA y DCA</a>
+    </li>
+    <li>
+      <a href="DE_blocks.html">Bloques Aleatorios</a>
+    </li>
+    <li>
+      <a href="DE_fact.html">Factoriales</a>
+    </li>
+    <li>
+      <a href="DE_fact23.html">2 y 3 a la K</a>
+    </li>
+    <li>
+      <a href="DE_SurfResp.html">Superfices</a>
+    </li>
+    <li>
+      <a href="DE_sample.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-edit"></span>
+     
+    Regresión
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="R_slm.html">Simple</a>
+    </li>
+    <li>
+      <a href="R_mlm.html">Múltiple</a>
+    </li>
+    <li>
+      <a href="R_glm.html">Logística</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Regresión Logística</h1>
+
+</div>
+
+
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p>El interés de la regresión logística es establecer la relación entre
+unas variables independientes y una variable dependiente que es
+<strong>cualitativa o categórica</strong>, en particular de dos niveles
+o <strong>dicotómica</strong>. Esta regresión hace parte de los modelos
+lineales generalizados.</p>
+<p>Una variable dicotómica, es una variable que puede tomar solo uno de
+dos valores mutuamente excluyentes. Estos valores, por lo general, se
+codifican como <span class="math inline">\(Y = 1\)</span> para exito y
+<span class="math inline">\(Y = 0\)</span> para fracaso. Las variables
+dicotómicas incluyen aquellas cuyos dos posibles valores son categorías
+como: muerte o no-muerte; curado o no-curado; enfermedad ocurrida o
+enfermedad no-ocurrida; fumador o no-fumador.</p>
+<p><span class="math display">\[y = \beta_0+\beta_1x\]</span></p>
+<p>La ecuación anterior denota un modelo de regresión lineal, note que
+la variable respuesta para este caso solamente toma valores de <span
+class="math inline">\(0\)</span> o <span
+class="math inline">\(1\)</span>. Cuando se ajusta una regresión lineal
+en estos casos, como el resultado es el ajuste de una recta, se obtienen
+valores de <span class="math inline">\(Y\)</span> menores a <span
+class="math inline">\(0\)</span> y mayores a <span
+class="math inline">\(1\)</span>, lo cual indica una contradicción con
+el dominio de los datos de la variable.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(MASS<span class="sc">::</span>birthwt,<span class="fu">aes</span>(<span class="at">x=</span>bwt,<span class="at">y=</span>low))<span class="sc">+</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">col=</span><span class="fu">factor</span>(low)))<span class="sc">+</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="at">se=</span>F)<span class="sc">+</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Regresión Lineal&quot;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Probabilidad de bajo peso al nacer&quot;</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Peso al nacer del bebé&quot;</span>)<span class="sc">+</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="R_glm_files/figure-html/unnamed-chunk-1-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Al tratarse de una recta, si por ejemplo, se predice la probabilidad
+de bajo peso al nacer para un bebé que tiene un peso menor de 1500 gr,
+el valor obtenido es mayor que 1.</p>
+<p>Para evitar este problema la <em>regresión logística</em> transforma
+el valor devuelto por la regresión lineal empleando una función cuyo
+resultado garantiza que siempre esté entre <span
+class="math inline">\(0\)</span> y <span
+class="math inline">\(1\)</span>, está función se le conoce como
+<strong>función logística</strong> o <em>logit</em>.</p>
+<p><span class="math display">\[\pi(x)=\cfrac{1}{1+e^{-x}}\]</span></p>
+<p>Sustituyendo la ecuación de regresión lineal, teniendo en cuenta que
+<span class="math inline">\(y\)</span> es una probabilidad, se tiene
+que:</p>
+<p><span class="math display">\[\begin{align*}
+p=&amp;\cfrac{1}{1+e^{-(\beta_0+\beta_1 x)}}\\\\
+=&amp;\cfrac{e^{-(\beta_0+\beta_1 x)}}{1+e^{-(\beta_0+\beta_1 x)}}
+\end{align*}\]</span></p>
+<p>Para despejar la ecuación, de tal manera que la parte lineal se
+conserve, se transforma la variable respuesta utilizando el logarítmo
+natural, entonces la ecuación de regresión logística es:</p>
+<p><span
+class="math display">\[\text{Ln}\left[\frac{p}{1-p}\right]=\beta_0+\beta_1x\]</span></p>
+<p>La parte izquierda de la ecuación se le conoce como <em>logarítmo de
+Odds</em> o <strong>logit</strong>, un <strong>Odds</strong> corresponde
+a la razón entre la probabilidad de que un evento ocurra y la
+probabilidad de que no ocurra.</p>
+<blockquote>
+<p>Supongamos que en una muestra de 100 pacientes que han recibido
+tratamiento médico se ha alcanzado el éxito en 75 de ellos. Si se divide
+la probabilidad de curación <span class="math inline">\((p
+=75/100=0.75)\)</span> por la probabilidad de no curación <span
+class="math inline">\((q=25/100=0.25)\)</span>, se obtendrá la
+<em>Odds</em> de curación para ese tratamiento, que valdría <span
+class="math inline">\((0.75/0.25=3)\)</span>.<br> ¿Cómo se interpreta
+una Odds de 3 en el ejemplo? Se entendería que por cada paciente en que
+no se alcanzó el éxito terapéutico hay 3 en que sí se logró, es decir,
+con ese tratamiento la probabilidad de éxito es 3 veces mayor que la de
+fracaso. Tienen una ventaja de 3 para curarse.</p>
+</blockquote>
+<p>En términos generales, es posible modelar varias variables para una
+solo respuesta, es decir, construir un <em>modelo logístico
+múltiple</em> el cual es de la forma.</p>
+<p><span
+class="math display">\[\text{Ln}\left[\frac{p}{1-p}\right]=\beta_0+\beta_1x+\beta_2x_2+\dots+\beta_i
+x_i\]</span></p>
+<p>Relación entre la proporción y el <em>Odds</em>:</p>
+<ul>
+<li>Si <span class="math inline">\(p = q\)</span> entonces <span
+class="math inline">\(odds=1\)</span></li>
+<li>Si <span class="math inline">\(p &gt; q\)</span> entonces <span
+class="math inline">\(odds&gt;1\)</span></li>
+<li>Si <span class="math inline">\(p &lt; q\)</span> entonces <span
+class="math inline">\(odds&lt;1\)</span></li>
+</ul>
+<p>Relación entre <em>Odds</em> y <strong>logit</strong>:</p>
+<ul>
+<li>Si <span class="math inline">\(odds=1\)</span> entonces <span
+class="math inline">\(logit=0\)</span></li>
+<li>Si <span class="math inline">\(odds&gt;1\)</span> entonces <span
+class="math inline">\(logit&gt;0\)</span></li>
+<li>Si <span class="math inline">\(odds&lt;1\)</span> entonces <span
+class="math inline">\(logit&lt;0\)</span></li>
+</ul>
+<hr>
+<div id="supuestos-del-modelo" class="section level3">
+<h3>Supuestos del modelo</h3>
+<ol style="list-style-type: decimal">
+<li>La variable respuesta proviene de una distrivución binomial.</li>
+<li>Debe existir una <strong>relación monótona</strong> entre la
+variable respuesta y las independientes.</li>
+<li>No puede existir multicolinealidad en el modelo</li>
+</ol>
+<hr>
+</div>
+<div id="ejemplo" class="section level3">
+<h3>Ejemplo</h3>
+<p>Los siguientes datos corresponden a una investigación en el cuál el
+interés es evaluar cómo las calificaciones del examen de registro de
+graduados (<strong>GRE</strong>), el promedio de las calificaciones del
+graduado (<strong>GPA</strong>) y el prestigio de la institución de
+pregrado (<strong>rank</strong>), afectan en la admisión a la escuela de
+postgrados, donde la variable respuesta es la variable binaria
+admitido/no-admitido.</p>
+<p>Necesitamos los siguientes paquetes:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(MASS)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(car)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(aod) <span class="co">#install.packages(&quot;aod&quot;)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ROCR) <span class="co"># install.packages(&quot;ROCR&quot;)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(dplyr)</span></code></pre></div>
+<p>Los datos están disponibles en la Universidad de California
+(UCLA).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cargar los datos</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://stats.idre.ucla.edu/stat/data/binary.csv&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Cambiar variables a factor</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span>datos <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">admit=</span><span class="fu">factor</span>(admit),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">rank=</span><span class="fu">factor</span>(rank))</span></code></pre></div>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f52472cf1e3f1bf24245" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f52472cf1e3f1bf24245">{"x":{"filter":"none","vertical":false,"data":[["0","1","1","1","0","1","1","0","1","0","0","0","1","0","1","0","0","0","0","1","0","1","0","0","1","1","1","1","1","0","0","0","0","1","0","0","0","0","1","1","0","1","1","0","0","1","1","0","0","0","0","0","0","1","0","1","0","0","0","0","1","0","0","1","0","0","0","0","0","0","0","0","0","0","0","0","0","1","0","1","0","0","0","0","1","0","0","0","0","1","0","1","0","0","1","0","0","0","0","0","0","0","0","0","1","1","1","0","0","0","0","0","0","0","0","0","1","0","1","0","1","1","0","0","0","0","1","0","0","0","1","0","0","0","0","0","0","0","0","1","0","1","0","0","0","0","0","0","1","0","1","0","1","0","0","1","0","1","0","0","0","0","1","0","0","0","0","0","0","0","0","0","0","1","0","1","0","1","0","0","0","0","0","1","0","0","0","0","0","0","1","0","0","0","1","0","0","1","0","0","0","1","1","0","1","1","0","1","0","0","0","0","0","0","1","1","0","1","0","1","0","0","1","0","0","1","0","0","0","1","0","0","0","0","1","0","1","0","0","0","0","1","1","0","0","0","0","0","0","0","0","0","1","1","1","0","1","1","0","0","0","0","1","1","1","0","0","1","1","0","1","0","1","0","0","1","0","1","1","1","0","0","0","0","1","0","1","1","0","0","1","0","0","0","0","0","0","0","0","0","0","1","1","1","0","0","1","0","0","0","0","0","0","1","0","1","1","1","1","0","0","0","0","0","0","0","0","1","0","0","0","0","0","0","1","1","0","0","0","1","0","1","0","0","0","0","0","0","0","0","1","0","1","0","1","1","0","0","1","0","1","1","0","0","1","0","0","0","0","0","1","1","1","1","0","0","0","1","0","0","0","1","0","0","1","0","1","0","0","0","1","1","1","1","1","0","0","0","0","0"],[380,660,800,640,520,760,560,400,540,700,800,440,760,700,700,480,780,360,800,540,500,660,600,680,760,800,620,520,780,520,540,760,600,800,360,400,580,520,500,520,560,580,600,500,700,460,580,500,440,400,640,440,740,680,660,740,560,380,400,600,620,560,640,680,580,600,740,620,580,800,640,300,480,580,720,720,560,800,540,620,700,620,500,380,500,520,600,600,700,660,700,720,800,580,660,660,640,480,700,400,340,580,380,540,660,740,700,480,400,480,680,420,360,600,720,620,440,700,800,340,520,480,520,500,720,540,600,740,540,460,620,640,580,500,560,500,560,700,620,600,640,700,620,580,580,380,480,560,480,740,800,400,640,580,620,580,560,480,660,700,600,640,700,520,580,700,440,720,500,600,400,540,680,800,500,620,520,620,620,300,620,500,700,540,500,800,560,580,560,500,640,800,640,380,600,560,660,400,600,580,800,580,700,420,600,780,740,640,540,580,740,580,460,640,600,660,340,460,460,560,540,680,480,800,800,720,620,540,480,720,580,600,380,420,800,620,660,480,500,700,440,520,680,620,540,800,680,440,680,640,660,620,520,540,740,640,520,620,520,640,680,440,520,620,520,380,560,600,680,500,640,540,680,660,520,600,460,580,680,660,660,360,660,520,440,600,800,660,800,420,620,800,680,800,480,520,560,460,540,720,640,660,400,680,220,580,540,580,540,440,560,660,660,520,540,300,340,780,480,540,460,460,500,420,520,680,680,560,580,500,740,660,420,560,460,620,520,620,540,660,500,560,500,580,520,500,600,580,400,620,780,620,580,700,540,760,700,720,560,720,520,540,680,460,560,480,460,620,580,800,540,680,680,620,560,560,620,800,640,540,700,540,540,660,480,420,740,580,640,640,800,660,600,620,460,620,560,460,700,600],[3.61,3.67,4,3.19,2.93,3,2.98,3.08,3.39,3.92,4,3.22,4,3.08,4,3.44,3.87,2.56,3.75,3.81,3.17,3.63,2.82,3.19,3.35,3.66,3.61,3.74,3.22,3.29,3.78,3.35,3.4,4,3.14,3.05,3.25,2.9,3.13,2.68,2.42,3.32,3.15,3.31,2.94,3.45,3.46,2.97,2.48,3.35,3.86,3.13,3.37,3.27,3.34,4,3.19,2.94,3.65,2.82,3.18,3.32,3.67,3.85,4,3.59,3.62,3.3,3.69,3.73,4,2.92,3.39,4,3.45,4,3.36,4,3.12,4,2.9,3.07,2.71,2.91,3.6,2.98,3.32,3.48,3.28,4,3.83,3.64,3.9,2.93,3.44,3.33,3.52,3.57,2.88,3.31,3.15,3.57,3.33,3.94,3.95,2.97,3.56,3.13,2.93,3.45,3.08,3.41,3,3.22,3.84,3.99,3.45,3.72,3.7,2.92,3.74,2.67,2.85,2.98,3.88,3.38,3.54,3.74,3.19,3.15,3.17,2.79,3.4,3.08,2.95,3.57,3.33,4,3.4,3.58,3.93,3.52,3.94,3.4,3.4,3.43,3.4,2.71,2.91,3.31,3.74,3.38,3.94,3.46,3.69,2.86,2.52,3.58,3.49,3.82,3.13,3.5,3.56,2.73,3.3,4,3.24,3.77,4,3.62,3.51,2.81,3.48,3.43,3.53,3.37,2.62,3.23,3.33,3.01,3.78,3.88,4,3.84,2.79,3.6,3.61,2.88,3.07,3.35,2.94,3.54,3.76,3.59,3.47,3.59,3.07,3.23,3.63,3.77,3.31,3.2,4,3.92,3.89,3.8,3.54,3.63,3.16,3.5,3.34,3.02,2.87,3.38,3.56,2.91,2.9,3.64,2.98,3.59,3.28,3.99,3.02,3.47,2.9,3.5,3.58,3.02,3.43,3.42,3.29,3.28,3.38,2.67,3.53,3.05,3.49,4,2.86,3.45,2.76,3.81,2.96,3.22,3.04,3.91,3.34,3.17,3.64,3.73,3.31,3.21,4,3.55,3.52,3.35,3.3,3.95,3.51,3.81,3.11,3.15,3.19,3.95,3.9,3.34,3.24,3.64,3.46,2.81,3.95,3.33,3.67,3.32,3.12,2.98,3.77,3.58,3,3.14,3.94,3.27,3.45,3.1,3.39,3.31,3.22,3.7,3.15,2.26,3.45,2.78,3.7,3.97,2.55,3.25,3.16,3.07,3.5,3.4,3.3,3.6,3.15,3.98,2.83,3.46,3.17,3.51,3.13,2.98,4,3.67,3.77,3.65,3.46,2.84,3,3.63,3.71,3.28,3.14,3.58,3.01,2.69,2.7,3.9,3.31,3.48,3.34,2.93,4,3.59,2.96,3.43,3.64,3.71,3.15,3.09,3.2,3.47,3.23,2.65,3.95,3.06,3.35,3.03,3.35,3.8,3.36,2.85,4,3.43,3.12,3.52,3.78,2.81,3.27,3.31,3.69,3.94,4,3.49,3.14,3.44,3.36,2.78,2.93,3.63,4,3.89,3.77,3.76,2.42,3.37,3.78,3.49,3.63,4,3.12,2.7,3.65,3.49,3.51,4,2.62,3.02,3.86,3.36,3.17,3.51,3.05,3.88,3.38,3.75,3.99,4,3.04,2.63,3.65,3.89],["3","3","1","4","4","2","1","2","3","2","4","1","1","2","1","3","4","3","2","1","3","2","4","4","2","1","1","4","2","1","4","3","3","3","1","2","1","3","2","3","2","2","2","3","2","3","2","4","4","3","3","4","4","2","3","3","3","3","2","4","2","4","3","3","3","2","4","1","1","1","3","4","4","2","4","3","3","3","1","1","4","2","2","4","3","2","2","2","1","2","2","1","2","2","2","2","4","2","2","3","3","3","4","3","2","2","1","2","3","2","4","4","3","1","3","3","2","2","1","3","2","2","3","3","3","4","1","4","2","4","2","2","2","3","2","3","4","3","2","1","2","4","4","3","4","3","2","3","1","1","1","2","2","3","3","4","2","1","2","3","2","2","2","2","2","1","4","3","3","3","3","3","3","2","4","2","2","3","3","3","3","4","2","2","4","2","3","2","2","2","2","3","3","4","2","2","3","4","3","4","3","2","1","4","1","3","1","1","3","2","4","2","2","3","2","3","1","1","1","2","3","3","1","3","2","3","2","4","2","2","4","3","2","3","1","2","2","2","4","3","2","1","3","2","1","3","2","2","3","3","4","4","2","4","4","3","2","3","2","2","2","2","3","3","3","3","4","3","2","3","2","3","2","1","2","2","3","1","4","2","2","3","4","4","2","4","1","4","4","4","2","2","2","1","1","3","1","2","2","3","2","3","2","2","3","4","1","2","2","3","3","2","3","4","4","2","2","4","4","1","3","2","4","2","3","1","2","2","2","4","3","3","1","3","3","1","3","4","1","3","4","3","4","2","3","3","2","2","2","2","2","3","3","2","2","1","2","1","3","3","1","1","2","2","1","3","3","3","1","2","2","3","1","1","2","4","2","2","3","2","2","2","2","1","2","1","2","2","2","2","2","2","3","2","3","2","3","2","2","3"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>admit<\/th>\n      <th>gre<\/th>\n      <th>gpa<\/th>\n      <th>rank<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>Análisis descriptivos de las variables</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># resumen general</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(datos)</span></code></pre></div>
+<pre><code>##  admit        gre             gpa        rank   
+##  0:273   Min.   :220.0   Min.   :2.260   1: 61  
+##  1:127   1st Qu.:520.0   1st Qu.:3.130   2:151  
+##          Median :580.0   Median :3.395   3:121  
+##          Mean   :587.7   Mean   :3.390   4: 67  
+##          3rd Qu.:660.0   3rd Qu.:3.670          
+##          Max.   :800.0   Max.   :4.000</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Desviaciones estándar de las variables</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">%&gt;%</span> <span class="fu">summarise_at</span>(<span class="fu">vars</span>(gre,gpa),sd)</span></code></pre></div>
+<pre><code>##        gre       gpa
+## 1 115.5165 0.3805668</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla de contingencia</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="sc">~</span>admit<span class="sc">+</span>rank,<span class="at">data =</span> datos)</span></code></pre></div>
+<pre><code>##      rank
+## admit  1  2  3  4
+##     0 28 97 93 55
+##     1 33 54 28 12</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos descriptivos</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos,<span class="fu">aes</span>(<span class="at">x=</span>rank,<span class="at">y=</span>gre,<span class="at">fill=</span>admit))<span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Calificación examen de registro</span><span class="sc">\n</span><span class="st">dada la posición de la universidad, según la admisión&quot;</span>)</span></code></pre></div>
+<p><img src="R_glm_files/figure-html/unnamed-chunk-5-1.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos,<span class="fu">aes</span>(<span class="at">x=</span>rank,<span class="at">y=</span>gpa,<span class="at">fill=</span>admit))<span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()<span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Promedio de calificaciones</span><span class="sc">\n</span><span class="st">dada la posición de la universidad, según la admisión&quot;</span>)</span></code></pre></div>
+<p><img src="R_glm_files/figure-html/unnamed-chunk-5-2.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Para construir el modelo logístico necesitamos la función
+<code>glm</code> que significa modelo lineal generalizado y entre los
+argumentos es necesario especificar la familia binomial.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">glm</span>(admit<span class="sc">~</span>.,<span class="at">data=</span>datos,<span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = admit ~ ., family = binomial(link = &quot;logit&quot;), data = datos)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.6268  -0.8662  -0.6388   1.1490   2.0790  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -3.989979   1.139951  -3.500 0.000465 ***
+## gre          0.002264   0.001094   2.070 0.038465 *  
+## gpa          0.804038   0.331819   2.423 0.015388 *  
+## rank2       -0.675443   0.316490  -2.134 0.032829 *  
+## rank3       -1.340204   0.345306  -3.881 0.000104 ***
+## rank4       -1.551464   0.417832  -3.713 0.000205 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 499.98  on 399  degrees of freedom
+## Residual deviance: 458.52  on 394  degrees of freedom
+## AIC: 470.52
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>En el resumen se puede apreciar qué modelo se ajustó, el
+comportamiento de los residuales <em>deviance</em> que indican el nivel
+de desvío y los test de Z-Wald para evaluar la significancia de los
+coeficientes del modelo.</p>
+<p>Los coeficientes del modelo se pueden ver en la columna
+<code>Estimate</code> pero tenga en cuenta que se refieren a los
+<strong>log-odds</strong>. En general, todos las variables son
+significativas dentro del modelo, además se puede ver que:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(mod))</span></code></pre></div>
+<pre><code>## (Intercept)         gre         gpa       rank2       rank3       rank4 
+##   0.0185001   1.0022670   2.2345448   0.5089310   0.2617923   0.2119375</code></pre>
+<ul>
+<li>Por cada unidad de cambio en <strong>GRE</strong> se tiene que la
+relación de admitidos/no-admitidos es aproximadamente 1.</li>
+<li>Por cada unidad de cambio en <strong>GPA</strong> se tiene que la
+relación de admitidos/no-admitidos es 2.235, lo que indica que es más
+probable que admitan personas con calificaciones más altas.</li>
+<li>Para el ranking de las universidades, como es una variable tipo
+factor, la comparación es con respecto a la primera universidad. Por
+ejemplo, haber asistido a una institución de pregrado con rango 2,
+frente a una institución con rango 1, cambia las probabilidades de
+admisión en 0.5089.</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">confint</span>(mod))</span></code></pre></div>
+<pre><code>##                   2.5 %    97.5 %
+## (Intercept) 0.001889165 0.1665354
+## gre         1.000137602 1.0044457
+## gpa         1.173858216 4.3238349
+## rank2       0.272289674 0.9448343
+## rank3       0.131641717 0.5115181
+## rank4       0.090715546 0.4706961</code></pre>
+<p>Podemos analizar los efectos globales de la variable
+<strong>rank</strong> en el modelo con el test de Wald, el cual está en
+la librería <code>aod</code> con la función <code>wald.test</code>. Para
+usarla hay que ingresar los coeficientes del modelo, la matriz de
+varianzas y covarianzas del modelo y especificar los terminos a
+evaluar.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wald.test</span>(<span class="at">b =</span> <span class="fu">coef</span>(mod), <span class="at">Sigma =</span> <span class="fu">vcov</span>(mod),<span class="at">Terms =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
+<pre><code>## Wald test:
+## ----------
+## 
+## Chi-squared test:
+## X2 = 20.9, df = 3, P(&gt; X2) = 0.00011</code></pre>
+<p>Como el valor-p es menor al nivel de significancia entonce la
+variable del ranking universitario es significativa en el modelo.
+Podemos calcular los OR del modelo con sus intervalos de confianza.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">cbind</span>(<span class="at">OR =</span> <span class="fu">coef</span>(mod), <span class="fu">confint</span>(mod)))</span></code></pre></div>
+<pre><code>##                    OR       2.5 %    97.5 %
+## (Intercept) 0.0185001 0.001889165 0.1665354
+## gre         1.0022670 1.000137602 1.0044457
+## gpa         2.2345448 1.173858216 4.3238349
+## rank2       0.5089310 0.272289674 0.9448343
+## rank3       0.2617923 0.131641717 0.5115181
+## rank4       0.2119375 0.090715546 0.4706961</code></pre>
+<p>Para verificar el supuesto de linealidad, hay que revisar el
+comportamiento del <strong>log odds</strong> versus las variables
+cuantitativas, para realizar esto, necesitamos extraer los valores
+predictivos lineale del modelo para realizar los gráficos.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>LinPred <span class="ot">&lt;-</span> mod<span class="sc">$</span>linear.predictors</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(datos,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">scatter.smooth</span>(gre,LinPred,<span class="at">pch=</span><span class="dv">20</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">lpars =</span> <span class="fu">list</span>(<span class="at">col=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">2</span>),<span class="at">las=</span><span class="dv">1</span>))</span></code></pre></div>
+<p><img src="R_glm_files/figure-html/unnamed-chunk-11-1.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(datos,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">scatter.smooth</span>(gpa,LinPred,<span class="at">pch=</span><span class="dv">20</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">lpars =</span> <span class="fu">list</span>(<span class="at">col=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">2</span>),<span class="at">las=</span><span class="dv">1</span>))</span></code></pre></div>
+<p><img src="R_glm_files/figure-html/unnamed-chunk-11-2.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(datos,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">scatter.smooth</span>(rank,LinPred,<span class="at">pch=</span><span class="dv">20</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">lpars =</span> <span class="fu">list</span>(<span class="at">col=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">2</span>),<span class="at">las=</span><span class="dv">1</span>))</span></code></pre></div>
+<p><img src="R_glm_files/figure-html/unnamed-chunk-11-3.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Otra forma</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">logit=</span>mod<span class="sc">$</span>linear.predictors) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(is.numeric) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">names_to=</span><span class="st">&quot;Variables&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;Predictor&quot;</span>,<span class="sc">-</span>logit) <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>logit,<span class="at">y=</span>Predictor))<span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()<span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Variables,<span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
+<p><img src="R_glm_files/figure-html/unnamed-chunk-11-4.png" width="630" style="display: block; margin: auto;" /></p>
+<p>En los gráficos se puede ver claramente la relación monótona o, en
+otras palabras, que no hay cambios de concavidades en las tendencias de
+la curva. Para evaluar la multicolinealidad necesitamos evaluar el
+<strong>factor de inflación de varianza</strong> con la función
+<code>vif</code> del paquete <code>car</code>.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(mod)</span></code></pre></div>
+<pre><code>##          GVIF Df GVIF^(1/(2*Df))
+## gre  1.134377  1        1.065071
+## gpa  1.155902  1        1.075129
+## rank 1.025759  3        1.004248</code></pre>
+<p>Podemos observar que las raíces del factor de varianza no son
+superiores a 2, el cual es una regla de decisión, por lo tanto no se
+presenta colinealidad en el modelo.</p>
+<p>Para evaluar el ajuste del modelo se evalúa el estadístico
+<em>Likekihood ratio</em> o radio de verosimilitud. El cual se calcula
+como la diferencia entre los residuales <em>deviance</em> del modelo
+nulo menos los residuales <em>deviance</em> del modelo ajustado, el
+resultado distribuye como una <span
+class="math inline">\(\chi^2_{df_{null} - df_{ajustado}}\)</span></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>chi <span class="ot">&lt;-</span> mod<span class="sc">$</span>null.deviance <span class="sc">-</span> mod<span class="sc">$</span>deviance</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> mod<span class="sc">$</span>df.null <span class="sc">-</span> mod<span class="sc">$</span>df.residual</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>p_val <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">pchisq</span>(chi,df)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(chi,df,p_val)</span></code></pre></div>
+<pre><code>##           chi df        p_val
+## [1,] 41.45903  5 7.578194e-08</code></pre>
+<p>Como el valor-p es mucho menor que el nivel de significancia,
+entonces se rechaza la hipótesis nula que indca que el modelo ajustado
+es igual al modelo nulo, por lo tanto, el modelo en conjunto es
+significativo. Se puede evaluar el modelo teniendo en cuenta cada
+predictor.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod,<span class="at">test=</span><span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model: binomial, link: logit
+## 
+## Response: admit
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##      Df Deviance Resid. Df Resid. Dev  Pr(&gt;Chi)    
+## NULL                   399     499.98              
+## gre   1  13.9204       398     486.06 0.0001907 ***
+## gpa   1   5.7122       397     480.34 0.0168478 *  
+## rank  3  21.8265       394     458.52 7.088e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Ahora, construyamos las gráficas del modelo.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Necesitamos construir una base de datos adicional que contega</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># los valores posibles de cada variable para extraer los valores predictivos</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># como tenemos dos variables continuas, es necesario fijar</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># una de ellas en valores específicos.</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>d_gre <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">gre=</span><span class="fu">seq</span>(<span class="dv">220</span>,<span class="dv">800</span>,<span class="at">l=</span><span class="dv">300</span>),</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">gpa=</span><span class="fu">quantile</span>(datos<span class="sc">$</span>gpa),</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">rank=</span><span class="fu">gl</span>(<span class="at">n =</span> <span class="dv">4</span>,<span class="at">k =</span> <span class="dv">1</span>))</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(d_gre)</span></code></pre></div>
+<pre><code>## [1] 6000    3</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Añadimos las predicciones del modelo basado en los nuevos datos</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>d_gre <span class="ot">&lt;-</span> d_gre <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pred=</span><span class="fu">predict</span>(mod,<span class="at">newdata =</span> d_gre,<span class="at">type =</span> <span class="st">&quot;response&quot;</span>))</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># construimos el gráfico</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d_gre,<span class="fu">aes</span>(<span class="at">x=</span>gre,<span class="at">y=</span>pred,<span class="at">col=</span>rank))<span class="sc">+</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span><span class="fu">facet_wrap</span>(<span class="sc">~</span>gpa)<span class="sc">+</span><span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="R_glm_files/figure-html/unnamed-chunk-15-1.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para graficar gpa, fijamos gre</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>d_gpa <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">gpa=</span><span class="fu">seq</span>(<span class="fl">2.26</span>,<span class="dv">4</span>,<span class="at">l=</span><span class="dv">300</span>),</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">gre=</span><span class="fu">quantile</span>(datos<span class="sc">$</span>gre),</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">rank=</span><span class="fu">gl</span>(<span class="at">n =</span> <span class="dv">4</span>,<span class="at">k =</span> <span class="dv">1</span>))</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(d_gpa)</span></code></pre></div>
+<pre><code>## [1] 6000    3</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Añadimos las predicciones del modelo basado en los nuevos datos</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>d_gpa <span class="ot">&lt;-</span> d_gpa <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pred=</span><span class="fu">predict</span>(mod,<span class="at">newdata =</span> d_gpa,<span class="at">type =</span> <span class="st">&quot;response&quot;</span>))</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># construimos el gráfico</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(d_gpa,<span class="fu">aes</span>(<span class="at">x=</span>gpa,<span class="at">y=</span>pred,<span class="at">col=</span>rank))<span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span><span class="fu">facet_wrap</span>(<span class="sc">~</span>gre)<span class="sc">+</span><span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="R_glm_files/figure-html/unnamed-chunk-15-2.png" width="630" style="display: block; margin: auto;" /></p>
+<p>En algunas ocasiones es importante evaluar la capacidad
+discriminativa y predictiva del modelo. Para el primer caso se utiliza
+las curvas ROC y para el segundo se calcula la matriz de confusión y los
+<em>pseudo</em> <span class="math inline">\(R^2\)</span>.</p>
+La matriz de confunsión es de la forma. <br>
+<center>
+<div class="container">
+<div class="col-sm-2">
+
+</div>
+<div class="col-sm-6">
+<table class="table">
+<thead>
+<tr class="active">
+<th style="text-align:center">
+</th>
+<th style="text-align:center">
+<span class="math inline">\(1\)</span><br>Observado
+</th>
+<th style="text-align:center">
+<span class="math inline">\(0\)</span><br>Observado
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">
+<span class="math inline">\(1\)</span><br><b>Predicho</b>
+</td>
+<td style="text-align:center">
+Verdadero Positivo (TP)
+</td>
+<td style="text-align:center">
+Falso Negativo (FN)
+</td>
+</tr>
+<tr>
+<td style="text-align:center">
+<span class="math inline">\(0\)</span><br><b>Predicho</b></b>
+</td>
+<td style="text-align:center">
+Falso Positivo (FP)
+</td>
+<td style="text-align:center">
+Verdadero Negativo (TN)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</center>
+<p><strong>Exactitud:</strong> determina la exactitud global prevista
+del modelo. Se calcula como <span class="math inline">\((TP + TN) / (TP
++ TN + FP + FN)\)</span></p>
+<p><strong>Tasa de verdaderos positivos (TPR):</strong> indica cuántos
+valores positivos, de todos los valores positivos, se han predicho
+correctamente. La fórmula para calcular la tasa positiva verdadera es
+<span class="math inline">\((TP / TP + FN)\)</span>. Además, <em>TPR = 1
+- Tasa de falsos negativos</em>. También se conoce como
+<em>sensibilidad</em> o recuperación.</p>
+<p><strong>Tasa de falsos positivos (FPR):</strong> indica cuántos
+valores negativos, de todos los valores negativos, se han predicho
+incorrectamente. La fórmula para calcular la tasa de falsos positivos es
+<span class="math inline">\((FP / FP + TN)\)</span>. Además, <em>FPR = 1
+- Tasa negativa verdadera</em>.</p>
+<p><strong>Tasa negativa verdadera (TNR):</strong> indica cuántos
+valores negativos, de todos los valores negativos, se han predicho
+correctamente. La fórmula para calcular la tasa negativa verdadera es
+<span class="math inline">\((TN / TN + FP)\)</span>. También se conoce
+como <em>especificidad</em>.</p>
+<p><strong>Tasa de falso negativo (FNR):</strong> indica cuántos valores
+positivos, de todos los valores positivos, se han predicho
+incorrectamente. La fórmula para calcular la tasa de falsos negativos es
+<span class="math inline">\((FN / FN + TP)\)</span>.</p>
+<p><strong>Precisión:</strong> indica cuántos valores, de todos los
+valores positivos previstos, son realmente positivos. Está formulado
+como: <span class="math inline">\((TP / TP + FP)\)</span>.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(caret) <span class="co">#instal.packages(&quot;caret&quot;)</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>(Tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="fu">as.numeric</span>(pred<span class="sc">&gt;</span><span class="fl">0.5</span>),datos<span class="sc">$</span>admit))</span></code></pre></div>
+<pre><code>##    
+##       0   1
+##   0 254  97
+##   1  19  30</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>(Tabla <span class="ot">&lt;-</span> Tabla[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>),<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>)])</span></code></pre></div>
+<pre><code>##    
+##       1   0
+##   1  30  19
+##   0  97 254</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confusionMatrix</span>(Tabla)</span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##    
+##       1   0
+##   1  30  19
+##   0  97 254
+##                                          
+##                Accuracy : 0.71           
+##                  95% CI : (0.6628, 0.754)
+##     No Information Rate : 0.6825         
+##     P-Value [Acc &gt; NIR] : 0.1293         
+##                                          
+##                   Kappa : 0.1994         
+##                                          
+##  Mcnemar&#39;s Test P-Value : 8.724e-13      
+##                                          
+##             Sensitivity : 0.2362         
+##             Specificity : 0.9304         
+##          Pos Pred Value : 0.6122         
+##          Neg Pred Value : 0.7236         
+##              Prevalence : 0.3175         
+##          Detection Rate : 0.0750         
+##    Detection Prevalence : 0.1225         
+##       Balanced Accuracy : 0.5833         
+##                                          
+##        &#39;Positive&#39; Class : 1              
+## </code></pre>
+<p>La capacidad discriminativa del modelo se puede evaluar con las
+<strong>Curvas ROC</strong> (<em>Receiver Operating
+characteristic</em>), con la cual se evalua la relación entre la
+sensibilidad y la especificidad de la prueba, partiendo de la matriz de
+confusión.</p>
+<p>Una medida importante de calidad, es el <strong>Área Bajo la
+Curva</strong> (AUC) la cual es una medida de de bondad de una prueba
+diagnóstica, la cual indica la probabilidad de clasificar una persona en
+la categoría de respuesta.</p>
+<p><a href="https://www.bioestadistica.uma.es/analisis/roc1/">Curvas
+ROC: Elección de puntos de corte y área bajo la curva (AUC)</a></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Usnado el paquete ROCR</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">prediction</span>(pred, datos<span class="sc">$</span>admit)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>(auc <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">performance</span> (p, <span class="st">&quot;auc&quot;</span>)<span class="sc">@</span>y.values))</span></code></pre></div>
+<pre><code>## [1] 0.6928413</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(p,<span class="st">&#39;tpr&#39;</span>,<span class="st">&#39;fpr&#39;</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>pf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">FPR=</span>perf<span class="sc">@</span>x.values[[<span class="dv">1</span>]],<span class="at">TPR=</span>perf<span class="sc">@</span>y.values[[<span class="dv">1</span>]])</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pf,<span class="fu">aes</span>(<span class="at">x=</span>FPR,<span class="at">y=</span>TPR))<span class="sc">+</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&quot;mediumseagreen&quot;</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>,<span class="at">slope =</span> <span class="dv">1</span>,<span class="at">col=</span><span class="st">&quot;firebrick&quot;</span>)<span class="sc">+</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">&quot;AUC =&quot;</span>,auc), <span class="at">x =</span> <span class="fl">0.775</span>,</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> <span class="fl">0.05</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">colour =</span> <span class="st">&quot;indianred&quot;</span>)<span class="sc">+</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;False Positive Rate (1-Specificity)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;True Positive Rate (Sensitivity)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;ROC Curve&quot;</span>)</span></code></pre></div>
+<p><img src="R_glm_files/figure-html/unnamed-chunk-17-1.png" width="630" style="display: block; margin: auto;" /></p>
+<p>Finalmente otra medida importante para evaluar la capacidad
+predictiva del modelo son los <em>pseudo</em> <span
+class="math inline">\(R^2\)</span>, los más utilizados son:</p>
+<ul>
+<li><span class="math inline">\(R^2\)</span> de Hosmer &amp; Lemeshow
+(1989)</li>
+<li><span class="math inline">\(R^2\)</span> de Cox &amp; Snell
+(1989)</li>
+<li><span class="math inline">\(R^2\)</span> de Nagelkerke (1991)</li>
+</ul>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estos índicies hay que calcularlos a mano</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Construyamos un función para que los calcule todos</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>PseudoR <span class="ot">&lt;-</span> <span class="cf">function</span>(model){</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  dev<span class="ot">&lt;-</span>model<span class="sc">$</span>deviance</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  nullDev<span class="ot">&lt;-</span>model<span class="sc">$</span>null.deviance</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  modelN<span class="ot">&lt;-</span><span class="fu">length</span>(model<span class="sc">$</span>fitted.values)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  Rhl <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>dev<span class="sc">/</span>nullDev</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  Rcs <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">exp</span>(<span class="sc">-</span>(nullDev<span class="sc">-</span>dev)<span class="sc">/</span>modelN)</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>  Rn <span class="ot">&lt;-</span> Rcs<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>(<span class="fu">exp</span>(<span class="sc">-</span>(nullDev<span class="sc">/</span>modelN))))</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Pseudo R^2 for Logistic Regression</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Hosmer &amp; Lemeshow R^2 &quot;</span>,<span class="fu">round</span>(Rhl,<span class="dv">4</span>),<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Cox &amp; Snell R^2       &quot;</span>,<span class="fu">round</span>(Rcs,<span class="dv">4</span>),<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Nagelkerke R^2        &quot;</span>,<span class="fu">round</span>(Rn,<span class="dv">4</span>),<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Ejecutemos la función</span></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a><span class="fu">PseudoR</span>(mod)</span></code></pre></div>
+<pre><code>## Pseudo R^2 for Logistic Regression
+## Hosmer &amp; Lemeshow R^2  0.0829 
+## Cox &amp; Snell R^2        0.0985 
+## Nagelkerke R^2         0.138</code></pre>
+<div class="tocify-extend-page" data-unique="tocify-extend-page"
+style="height: 0;">
+
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

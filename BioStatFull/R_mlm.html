@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Regresión Lineal Múltiple</title>
+
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Métodos Cuantitativos</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="M_MAS.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-th"></span>
+     
+    Diseños
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DE_anova.html">ANOVA y DCA</a>
+    </li>
+    <li>
+      <a href="DE_blocks.html">Bloques Aleatorios</a>
+    </li>
+    <li>
+      <a href="DE_fact.html">Factoriales</a>
+    </li>
+    <li>
+      <a href="DE_fact23.html">2 y 3 a la K</a>
+    </li>
+    <li>
+      <a href="DE_SurfResp.html">Superfices</a>
+    </li>
+    <li>
+      <a href="DE_sample.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-edit"></span>
+     
+    Regresión
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="R_slm.html">Simple</a>
+    </li>
+    <li>
+      <a href="R_mlm.html">Múltiple</a>
+    </li>
+    <li>
+      <a href="R_glm.html">Logística</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Regresión Lineal Múltiple</h1>
+
+</div>
+
+
+<hr>
+<div id="regresión-lineal-múltiple" class="section level2">
+<h2>Regresión lineal múltiple</h2>
+<p>La regresión múltiple se realiza generalmente con álgebra matricial.
+El modelo de regresión lineal con dos variables predictoras se define
+como:</p>
+<p><span class="math display">\[Y_i =
+\beta_0+\beta_1x_1+\beta_2x_2+\varepsilon_i\]</span></p>
+<p>Y también se denomina modelo de regresión de primer orden, ya que sus
+variables predictoras son lineales. El modelo puede extenderse al caso
+general con <span class="math inline">\(p\)</span> variables
+predictoras.</p>
+<p><span class="math display">\[Y_i =
+\beta_0+\beta_1x_1+\beta_2x_2+\dots+\beta_px_p+\varepsilon\]</span></p>
+<p>El cual también se puede escribir como:</p>
+<p><span class="math display">\[Y_i =
+\beta_0+\sum_{k=1}^{p}\beta_kx_k+\varepsilon_i\]</span> donde,</p>
+<ul>
+<li><span class="math inline">\(\beta_0, \beta_1,...,\beta_p\)</span>
+son los coeficientes, también conocidos como los parámetros del
+modelo.</li>
+<li><span class="math inline">\(x_1,...,x_2\)</span> son constantes
+conocidas</li>
+<li>Se distribuyeb Normal con media <span
+class="math inline">\(0\)</span> y varianza <span
+class="math inline">\(\sigma^2\)</span>.</li>
+</ul>
+<p>En términos matriciales, el modelo de regresión múltiple se puede
+expresar como:</p>
+<p><span class="math display">\[\underset{n\times1}{Y}=\begin{bmatrix}
+Y_1\\
+Y_2\\
+\vdots\\
+Y_n \end{bmatrix} \quad
+\underset{n\times p}{X}=\begin{bmatrix}
+1 &amp; x_{11} &amp; x_{12} &amp; \dots &amp; x_{1p}\\
+1 &amp; x_{21} &amp; x_{22} &amp; \dots &amp; x_{2p}\\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+1 &amp; x_{n1} &amp; x_{n2} &amp; \dots &amp; x_{np}\\
+\end{bmatrix} \quad
+\underset{p\times 1}{\beta}=\begin{bmatrix}
+\beta_0\\
+\beta_1\\
+\vdots\\
+\beta_p\\
+\end{bmatrix} \quad
+\underset{n\times 1}{\varepsilon}=\begin{bmatrix}
+\varepsilon_1\\
+\varepsilon_2\\
+\vdots\\
+\varepsilon_n\\
+\end{bmatrix}\]</span></p>
+<p>Con lo cual, se puede reescribir la ecuación como:</p>
+<p><span class="math display">\[Y=X\beta+\varepsilon\]</span></p>
+<hr>
+<div id="estimación-de-los-parámetros" class="section level3">
+<h3>Estimación de los parámetros</h3>
+<p>Al igual que en el caso de la regresión lineal simple, el objetivo de
+la estimación de mínimos cuadrados es encontrar valores para los
+parámetros <span
+class="math inline">\(\beta_0,\beta_1,...,\beta_p\)</span> que minimicen
+el error estándar. Este valor se denotará como <span
+class="math inline">\(Q\)</span> y se define como:</p>
+<p><span
+class="math display">\[Q=\sum_{i=1}^{n}(Y_i-\beta_0-\beta_1x_1-\dots-\beta_px_p)^2\]</span></p>
+<p>El vector (de los parámetros estimados se denota como:</p>
+<p><span class="math display">\[\underset{p\times 1}{b}=\begin{bmatrix}
+b_0\\
+b_1\\
+\vdots\\
+b_p\\
+\end{bmatrix}\]</span></p>
+<p>Por lo tanto, las ecuaciones de mínimos cuadrados para el modelo de
+regresión múltiple se pueden representar como:</p>
+<p><span class="math display">\[X^\prime Xb=X^\prime Y\]</span></p>
+<p>Con estimadores</p>
+<p><span class="math display">\[\underset{2\times
+1}{b}=(\underset{2\times 2}{X^\prime X})^{-1}(\underset{2\times
+1}{X^\prime X})Y\]</span></p>
+<p>La respuesta ajustada también se puede representar como un vector
+denotado <span class="math inline">\(\hat{Y}\)</span> con valores <span
+class="math inline">\(\hat{Y_i}\)</span> y residuos <span
+class="math inline">\(\varepsilon_i=Y_i − \hat{Y_i}\)</span>.</p>
+<p><span class="math display">\[\underset{n\times
+1}{\hat{Y}}=\begin{bmatrix}
+\hat{Y_1}\\
+\hat{Y_2}\\
+\vdots\\
+\hat{Y_n}\\
+\end{bmatrix} \quad
+\underset{n\times 1}{\varepsilon}=\begin{bmatrix}
+\varepsilon_1\\
+\varepsilon_2\\
+\vdots\\
+\varepsilon_n\\
+\end{bmatrix}\]</span></p>
+<p>Los valores ajustados también se pueden escribir como:</p>
+<p><span class="math display">\[\underset{n\times
+1}{\hat{Y}}=Xb\]</span></p>
+<p>Con residuales</p>
+<p><span class="math display">\[\underset{n\times
+1}{\varepsilon}=Y-\hat{Y}=Y-Yb\]</span></p>
+<p>La matriz gorro es definida como</p>
+<p><span class="math display">\[H=X(X^\prime
+X)^{-1}X^\prime\]</span></p>
+<p>Por lo tanto, el vector de valores ajustados <span
+class="math inline">\(\hat{Y}\)</span> se puede expresar en términos de
+la matriz gorro:</p>
+<p><span class="math display">\[\underset{n\times
+1}{\hat{Y}}=HY\]</span></p>
+<p>Con vector de residuales</p>
+<p><span class="math display">\[\underset{n\times
+1}{\varepsilon}=(I-H)Y\]</span></p>
+<hr>
+</div>
+<div id="análisis-de-varianza-anova" class="section level3">
+<h3>Análisis de Varianza (ANOVA)</h3>
+<p>Al referirse brevemente ANOVA en la configuración de regresión
+múltiple, la suma de los cuadrados y la media de los cuadrados de cada
+fuente de variación se definen en términos de matriz como:</p>
+<p><span class="math display">\[\begin{align*}
+SSE = &amp; Y^\prime Y-b^\prime X^\prime Y=Y^\prime(I-H)Y\\
+SST = &amp; Y^\prime Y-\frac{\sum(Y^2)}{n}\\
+SSR = &amp; SST-SSE\\
+MSE = &amp; \frac{SSE}{n-p}\\
+MSR = &amp; \frac{SSR}{p-1}
+\end{align*}\]</span></p>
+<hr>
+<div id="prueba-de-relación-en-regresión" class="section level4">
+<h4>Prueba de relación en regresión</h4>
+<p>El estadístico <span class="math inline">\(F\)</span> para la
+relación de regresión entre la variable de respuesta y las variables
+predictoras sigue siendo el mismo de la regresión lineal simple:</p>
+<p><span class="math display">\[F = \frac{MSR}{MSE}\]</span></p>
+<p>La hipótesis nula es que <em>no hay relación de regresión entre
+ninguna variable</em>, se rechaza si el valor crítico de <span
+class="math inline">\(F\)</span> supera el valor de <span
+class="math inline">\(F\)</span> en un nivel de confianza (<span
+class="math inline">\((1-\alpha)\times 100 \%\)</span>) dado con <span
+class="math inline">\(p−1\)</span> y <span
+class="math inline">\(n−p\)</span> grados de libertad.</p>
+<p><span class="math display">\[F&gt;F_{\alpha,p-1,n-1}\]</span></p>
+<hr>
+</div>
+<div id="coeficiente-de-determinación-múltipe" class="section level4">
+<h4>Coeficiente de determinación múltipe</h4>
+<p>En la configuración de regresión múltiple, <span
+class="math inline">\(R^2\)</span> se designa como el coeficiente de
+determinación múltiple y se define como:</p>
+<p><span class="math display">\[R^2 = 1 − \frac{SSE}{SST}\]</span></p>
+<p>Al igual que en el caso de la regresión lineal simple, <span
+class="math inline">\(R^2\)</span> mide la reducción proporcional de la
+varianza total en la variable de respuesta asociada con las variables
+predictoras en el modelo. <span class="math inline">\(R^2\)</span> solo
+puede aumentar a medida que se agregan más variables de predicción al
+modelo. <span class="math inline">\(R^2_a\)</span>, el <em>coeficiente
+ajustado</em> de determinación múltiple corrige el problema de inflar
+artificialmente <span class="math inline">\(R^2\)</span> dividiendo cada
+suma de cuadrados por sus grados de libertad.</p>
+<p><span
+class="math display">\[R^2_a=1-\left(\frac{n-1}{n-p}\right)\frac{SSE}{SST}\]</span></p>
+<hr>
+</div>
+</div>
+</div>
+<div id="ejemplo" class="section level2">
+<h2>Ejemplo</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gvlma)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>mtcars<span class="sc">$</span>am<span class="ot">&lt;-</span><span class="fu">as.factor</span>(mtcars<span class="sc">$</span>am)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(mtcars<span class="sc">$</span>am)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&#39;Automatic&#39;</span>,<span class="st">&#39;Manual&#39;</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(mtcars<span class="sc">$</span>mpg,mtcars<span class="sc">$</span>am,mean)</span></code></pre></div>
+<pre><code>## Automatic    Manual 
+##  17.14737  24.39231</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>am,<span class="at">y=</span>mpg,<span class="at">fill=</span>am))<span class="sc">+</span><span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="R_mlm_files/figure-html/unnamed-chunk-1-1.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(mpg<span class="sc">~</span>am,<span class="at">data =</span> mtcars)</span></code></pre></div>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  mpg by am
+## F = 0.38656, num df = 18, denom df = 12, p-value = 0.06691
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.1243721 1.0703429
+## sample estimates:
+## ratio of variances 
+##          0.3865615</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(mpg<span class="sc">~</span>am,<span class="at">data=</span>mtcars,<span class="at">var.equal=</span>T)</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  mpg by am
+## t = -4.1061, df = 30, p-value = 0.000285
+## alternative hypothesis: true difference in means between group Automatic and group Manual is not equal to 0
+## 95 percent confidence interval:
+##  -10.84837  -3.64151
+## sample estimates:
+## mean in group Automatic    mean in group Manual 
+##                17.14737                24.39231</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fit<span class="ot">&lt;-</span><span class="fu">lm</span>(mpg<span class="sc">~</span>.,<span class="at">data=</span>mtcars)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)<span class="sc">$</span>coef</span></code></pre></div>
+<pre><code>##                Estimate  Std. Error    t value   Pr(&gt;|t|)
+## (Intercept) 12.30337416 18.71788443  0.6573058 0.51812440
+## cyl         -0.11144048  1.04502336 -0.1066392 0.91608738
+## disp         0.01333524  0.01785750  0.7467585 0.46348865
+## hp          -0.02148212  0.02176858 -0.9868407 0.33495531
+## drat         0.78711097  1.63537307  0.4813036 0.63527790
+## wt          -3.71530393  1.89441430 -1.9611887 0.06325215
+## qsec         0.82104075  0.73084480  1.1234133 0.27394127
+## vs           0.31776281  2.10450861  0.1509915 0.88142347
+## amManual     2.52022689  2.05665055  1.2254035 0.23398971
+## gear         0.65541302  1.49325996  0.4389142 0.66520643
+## carb        -0.19941925  0.82875250 -0.2406258 0.81217871</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">vif</span>(fit),<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb 
+## 15.37 21.62  9.83  3.37 15.16  7.53  4.97  4.65  5.36  7.91</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">vif</span>(fit)) <span class="sc">&gt;</span> <span class="dv">2</span></span></code></pre></div>
+<pre><code>##   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb 
+##  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stepAIC</span>(fit,<span class="at">direction=</span><span class="st">&#39;both&#39;</span>,<span class="at">trace=</span>F,<span class="at">scope=</span><span class="fu">list</span>(<span class="at">upper=</span><span class="sc">~</span>.,<span class="at">lower=</span><span class="sc">~</span><span class="dv">1</span>))<span class="sc">$</span>anova</span></code></pre></div>
+<pre><code>## Stepwise Model Path 
+## Analysis of Deviance Table
+## 
+## Initial Model:
+## mpg ~ cyl + disp + hp + drat + wt + qsec + vs + am + gear + carb
+## 
+## Final Model:
+## mpg ~ wt + qsec + am
+## 
+## 
+##     Step Df   Deviance Resid. Df Resid. Dev      AIC
+## 1                             21   147.4944 70.89774
+## 2  - cyl  1 0.07987121        22   147.5743 68.91507
+## 3   - vs  1 0.26852280        23   147.8428 66.97324
+## 4 - carb  1 0.68546077        24   148.5283 65.12126
+## 5 - gear  1 1.56497053        25   150.0933 63.45667
+## 6 - drat  1 3.34455117        26   153.4378 62.16190
+## 7 - disp  1 6.62865369        27   160.0665 61.51530
+## 8   - hp  1 9.21946935        28   169.2859 61.30730</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>BestFit<span class="ot">&lt;-</span><span class="fu">update</span>(fit,.<span class="sc">~</span>wt<span class="sc">+</span>qsec<span class="sc">+</span>am)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(BestFit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + qsec + am, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4811 -1.5555 -0.7257  1.4110  4.6610 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   9.6178     6.9596   1.382 0.177915    
+## wt           -3.9165     0.7112  -5.507 6.95e-06 ***
+## qsec          1.2259     0.2887   4.247 0.000216 ***
+## amManual      2.9358     1.4109   2.081 0.046716 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.459 on 28 degrees of freedom
+## Multiple R-squared:  0.8497, Adjusted R-squared:  0.8336 
+## F-statistic: 52.75 on 3 and 28 DF,  p-value: 1.21e-11</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(BestFit)</span></code></pre></div>
+<pre><code>##       wt     qsec       am 
+## 2.482952 1.364339 2.541437</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">vif</span>(BestFit)) <span class="sc">&gt;</span> <span class="dv">2</span></span></code></pre></div>
+<pre><code>##    wt  qsec    am 
+## FALSE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>FinalFit<span class="ot">&lt;-</span><span class="fu">update</span>(fit,.<span class="sc">~</span>am<span class="sc">:</span>wt<span class="sc">+</span>am<span class="sc">:</span>qsec)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(FinalFit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ am:wt + am:qsec, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.9361 -1.4017 -0.1551  1.2695  3.8862 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       13.9692     5.7756   2.419  0.02259 *  
+## amAutomatic:wt    -3.1759     0.6362  -4.992 3.11e-05 ***
+## amManual:wt       -6.0992     0.9685  -6.297 9.70e-07 ***
+## amAutomatic:qsec   0.8338     0.2602   3.205  0.00346 ** 
+## amManual:qsec      1.4464     0.2692   5.373 1.12e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.097 on 27 degrees of freedom
+## Multiple R-squared:  0.8946, Adjusted R-squared:  0.879 
+## F-statistic: 57.28 on 4 and 27 DF,  p-value: 8.424e-13</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(BestFit,FinalFit)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: mpg ~ wt + qsec + am
+## Model 2: mpg ~ am:wt + am:qsec
+##   Res.Df    RSS Df Sum of Sq      F   Pr(&gt;F)   
+## 1     28 169.29                                
+## 2     27 118.70  1    50.587 11.507 0.002153 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(FinalFit)</span></code></pre></div>
+<pre><code>##             GVIF Df GVIF^(1/(2*Df))
+## am:wt   17.50104  2        2.045342
+## am:qsec 17.50104  2        2.045342</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spreadLevelPlot</span>(FinalFit,<span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<p><img src="R_mlm_files/figure-html/unnamed-chunk-1-2.png" width="630" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+## Suggested power transformation:  1.035865</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(<span class="fu">resid</span>(FinalFit),<span class="at">pch=</span><span class="dv">19</span>)</span></code></pre></div>
+<pre><code>## Datsun 710  Merc 240D 
+##          3          8</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(FinalFit),<span class="fu">resid</span>(FinalFit),<span class="at">pch=</span><span class="dv">19</span>,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&#39;Residuals vs Fitted&#39;</span>,<span class="at">xlab=</span><span class="st">&#39;Fitted&#39;</span>,<span class="at">ylab=</span><span class="st">&#39;Residuals&#39;</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>,<span class="at">col=</span><span class="st">&#39;red&#39;</span>)</span></code></pre></div>
+<p><img src="R_mlm_files/figure-html/unnamed-chunk-1-3.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">resid</span>(FinalFit))</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resid(FinalFit)
+## W = 0.96823, p-value = 0.4521</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncvTest</span>(FinalFit)</span></code></pre></div>
+<pre><code>## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 0.6460701, Df = 1, p = 0.42152</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">durbinWatsonTest</span>(FinalFit)</span></code></pre></div>
+<pre><code>##  lag Autocorrelation D-W Statistic p-value
+##    1      -0.1114435      2.164208   0.958
+##  Alternative hypothesis: rho != 0</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">gvlma</span>(FinalFit))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ am:wt + am:qsec, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.9361 -1.4017 -0.1551  1.2695  3.8862 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       13.9692     5.7756   2.419  0.02259 *  
+## amAutomatic:wt    -3.1759     0.6362  -4.992 3.11e-05 ***
+## amManual:wt       -6.0992     0.9685  -6.297 9.70e-07 ***
+## amAutomatic:qsec   0.8338     0.2602   3.205  0.00346 ** 
+## amManual:qsec      1.4464     0.2692   5.373 1.12e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.097 on 27 degrees of freedom
+## Multiple R-squared:  0.8946, Adjusted R-squared:  0.879 
+## F-statistic: 57.28 on 4 and 27 DF,  p-value: 8.424e-13
+## 
+## 
+## ASSESSMENT OF THE LINEAR MODEL ASSUMPTIONS
+## USING THE GLOBAL TEST ON 4 DEGREES-OF-FREEDOM:
+## Level of Significance =  0.05 
+## 
+## Call:
+##  gvlma(x = FinalFit) 
+## 
+##                      Value p-value                Decision
+## Global Stat        3.13417  0.5356 Assumptions acceptable.
+## Skewness           0.51648  0.4723 Assumptions acceptable.
+## Kurtosis           0.48168  0.4877 Assumptions acceptable.
+## Link Function      2.07096  0.1501 Assumptions acceptable.
+## Heteroscedasticity 0.06506  0.7987 Assumptions acceptable.</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(FinalFit)</span></code></pre></div>
+<pre><code>## Anova Table (Type II tests)
+## 
+## Response: mpg
+##           Sum Sq Df F value    Pr(&gt;F)    
+## am:wt     209.41  2  23.817 1.094e-06 ***
+## am:qsec   151.06  2  17.180 1.538e-05 ***
+## Residuals 118.70 27                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars,<span class="fu">aes</span>(<span class="at">x=</span>wt,<span class="at">y=</span>mpg,<span class="at">colour=</span>am))<span class="sc">+</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="at">se =</span> F)<span class="sc">+</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars,<span class="fu">aes</span>(<span class="at">x=</span>qsec,<span class="at">y=</span>mpg,<span class="at">colour=</span>am))<span class="sc">+</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,<span class="at">se =</span> F)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>g_legend<span class="ot">&lt;-</span><span class="cf">function</span>(a.gplot){</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">ggplot_gtable</span>(<span class="fu">ggplot_build</span>(a.gplot))</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  leg <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">sapply</span>(tmp<span class="sc">$</span>grobs, <span class="cf">function</span>(x) x<span class="sc">$</span>name) <span class="sc">==</span> <span class="st">&quot;guide-box&quot;</span>)</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  legend <span class="ot">&lt;-</span> tmp<span class="sc">$</span>grobs[[leg]]</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(legend)}</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>mylegend<span class="ot">&lt;-</span><span class="fu">g_legend</span>(p1)</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(<span class="fu">arrangeGrob</span>(p1 <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>),</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>                         p2 <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>),</span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>                         <span class="at">nrow=</span><span class="dv">1</span>),</span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>             mylegend, <span class="at">nrow=</span><span class="dv">2</span>,<span class="at">heights=</span><span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="R_mlm_files/figure-html/unnamed-chunk-1-4.png" width="630" style="display: block; margin: auto;" /></p>
+<div class="tocify-extend-page" data-unique="tocify-extend-page"
+style="height: 0;">
+
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

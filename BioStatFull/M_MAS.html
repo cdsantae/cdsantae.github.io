@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Muestreo Aleatorio</title>
+
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Métodos Cuantitativos</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="M_MAS.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-th"></span>
+     
+    Diseños
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DE_anova.html">ANOVA y DCA</a>
+    </li>
+    <li>
+      <a href="DE_blocks.html">Bloques Aleatorios</a>
+    </li>
+    <li>
+      <a href="DE_fact.html">Factoriales</a>
+    </li>
+    <li>
+      <a href="DE_fact23.html">2 y 3 a la K</a>
+    </li>
+    <li>
+      <a href="DE_SurfResp.html">Superfices</a>
+    </li>
+    <li>
+      <a href="DE_sample.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-edit"></span>
+     
+    Regresión
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="R_slm.html">Simple</a>
+    </li>
+    <li>
+      <a href="R_mlm.html">Múltiple</a>
+    </li>
+    <li>
+      <a href="R_glm.html">Logística</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Muestreo Aleatorio</h1>
+
+</div>
+
+
+<hr>
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p>El muestreo consiste en la selección de un conjunto representativo de
+una población, con el fin de observar y analizar su comportamiento. El
+muestreo en esencia se divide en dos, <em>muestreo probabilístico</em> y
+<em>muestreo no probabilístico</em>, los cuales hacen referencia a la
+aleatorización y homogeneidad de la muestra o simplemente no se
+considera.</p>
+<hr>
+<div id="muestreo-no-probabilistico" class="section level3">
+<h3>Muestreo no probabilistico</h3>
+<p>Una <em>muestra no es aleatoria</em> en la medida que los elementos
+de la población son seleccionados por medio de métodos que están sujetos
+al juicio subjetivo de los investigadores, este procedimiento está
+sujeto a errores considerables cuando se emplea a poblaciones grandes en
+las que no se garantiza la homogeneidad. También se considera una
+muestra no probabilística si no se tiene información alguna de la
+población.</p>
+<p>Un caso específico de este tipo de muestreo es cuando la muestra es
+<em>dirigida</em>, es decir, el investigador es quién considera
+representativa una muestra y selecciona a su gusto las unidades para el
+estudio, por ejemplo en una encuesta de vivienda en una zona afectada
+por un desastre natural, el investigador decidió elegir a 10 familias
+–de 10000 que hay en el lugar– para evaluar las necesidades más urgentes
+de la zona. También pudo haber hecho un llamado a las familias para que
+dieran sus opiniones voluntariamente.</p>
+<p>En muchos casos no es posible contar con muestras aleatorias y
+homogéneas, como es el caso de algunas enfermedades de baja prevalencia,
+en este tipo de casos se considera utilizar todas unidades posibles para
+realizar estudios. En el caso del muestreo de voluntarios, muy común en
+ensayos clínicos, cuando se calcula un tamaño de muestra en muchos casos
+no es posible cumplir con el número objetivo y en cambio se considera a
+todos los voluntarios como la muestra.</p>
+<p>Algunas técnicas bayesianas también utilizan este tipo de muestreo,
+pero con el fundamento de que los encuestados sean expertos en la
+materia a estudiar, por ejemplo si se quiere determinar el
+comportamiento de la construcción de edificaciones en una ciudad, los
+bayesianos consideran a los expertos en la materia para obtener la
+información, expertos que trabajen directamente en el campo, tengan
+suficiente experiencia y reconocimiento.</p>
+<hr>
+</div>
+<div id="muestreo-probabilistico" class="section level3">
+<h3>Muestreo probabilistico</h3>
+<p>Cuando se habla de una muestra probabilística se refiere a una
+muestra aleatoria. Una muestra es aleatoria cuando los elementos que
+constituyen la población tienen la misma posibilidad de ser
+seleccionados. Existen numerosos procedimientos en la aplicación de este
+tipo de muestreo, pero en este módulo se presentarán los más utilizados
+limitándose a una descripción básica y a la determinación de tamaños de
+muestra.</p>
+<p>En un muestreo probabilistico se debe estructurar un <strong>plan de
+muestreo</strong>, el cual debe contener:</p>
+<ul>
+<li><p><strong>Universo o población:</strong> el conjunto de todos los
+elementos definidos antes de la selección de la muestra. Una población
+adecuadamente designada debe definirse en términos de: elementos,
+unidades de muestreo, alcance y tiempo.</p></li>
+<li><p><strong>Elemento:</strong> es la unidad a cerca de la cual se
+solicita información. Este suministra la base del análisis que se
+llevará a cabo. Los elementos más comunes en investigación de mercados
+son los individuos. En otros casos los elementos podrían ser productos,
+almacenes, empresas, familias, hogares etc.</p></li>
+<li><p><strong>Unidad de muestreo:</strong> elemento (os) disponibles
+para su selección en alguna etapa del proceso de muestreo. En el tipo de
+muestreo más simple el de una sola etapa, las unidades y los elementos
+de muestreo son lo mismo, esto se le llama muestreo directo y de una
+sola etapa. Cuando se quiere llegar a un subconjunto de elementos se
+plantean etapas de muestreo.</p></li>
+<li><p><strong>Marco muestral:</strong> lista de todas las unidades de
+muestreo disponibles para su selección en una etapa del proceso de
+muestreo. Puede ser una lista de alumnos, una lista de votantes
+inscritos, lista de empleados, direcciones de hogares o incluso un mapa.
+Una vez especificada la población después se busca un buen marco
+muestral.</p></li>
+<li><p><strong>Población del estudio:</strong> es el conjunto de
+elementos del cual se saca la muestra. Anteriormente se definió
+población como el conjunto de los elementos definidos antes de
+seleccionar la muestra. Infortunadamente surgen dificultades prácticas
+que hacen que una muestra real se tome de una población un tanto
+diferente de la que se definió <em>a priori</em>. A veces por que el
+marco muestral no incluye a toda la población.</p></li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="muestreo-aleatorio-simple-mas" class="section level2">
+<h2>Muestreo Aleatorio Simple (MAS)</h2>
+<p>Se utiliza principalmente cuando las poblaciones son relativamente
+pequeñas, o cuando la población se caracteriza por su
+<em>homogeneidad</em> (poca variabilidad), en este caso las
+probabilidades de selección de los elementos son casi iguales y
+constantes durante el proceso, la homogeneidad garantiza que las
+muestras calculadas sean pequeñas, traduciéndose en ahorros en términos
+de costos, tiempo y recursos humanos.</p>
+<p>En este muestreo se presentan dos formas de recolectar la
+información, en el primer caso se selecciona la unidad, se toman las
+mediciones necesarias y se devuelve a la población antes de extraer la
+siguiente, en este caso se dice que el muestreo es <strong>con
+reemplazo</strong>. Si se selecciona la unidad, se toman las mediciones
+necesarias y se deshecha de la población, se dice que el muestreo es
+<strong>sin reemplazo</strong>.</p>
+<p>La dificultad con el proceso con reemplazo es que existe la
+probabilidad de volver a seleccionar la misma unidad muestral que se
+estudió, por ejemplo si es una encuesta telefónica, existe una
+probabilidad de seleccionar el mismo número; por otra parte, si son
+elementos incontables como la sal, el agua o el cemento, no hay
+inconveniente de devolver la unidad muestral, pues ésta nuevamente
+homogeneizará con la población.</p>
+<p>Para calcular un tamaño muestral basado en el <strong>MAS</strong>,
+se debe tener en cuenta el margen de error, el nivel de confianza y los
+estimadores puntuales que han sido analizados en el desarrollo de éste
+texto. Al ser un muestreo probabilístico, el requerimiento principal es
+conocer en lo posible los parámetros de la población o en su defecto los
+estadísticos estimados.</p>
+<hr>
+<div id="tamaño-de-muestra-para-la-proporción" class="section level3">
+<h3>Tamaño de muestra para la proporción</h3>
+<p>Para una proporción el tamaño muestral, cuando se conoce el valor
+estimado, se calcula con la siguiente fórmula.</p>
+<p><span class="math display">\[n=\cfrac{(Z_{1-\alpha/2})^2\hat p \hat
+q}{E^2}\]</span></p>
+<p>Cuando se tiene el tamaño poblacional, se puede hacer el cálculo del
+tamaño muestral para poblaciones finitas.</p>
+<p><span class="math display">\[n=\cfrac{N(Z_{1-\alpha/2})^2\hat p \hat
+q}{NE^2+(Z_{1-\alpha/2})^2 \hat p \hat q}\]</span></p>
+<p>El margen de error debe ser determinado por el investigador, dado que
+no puede ser calculado, además nótese que si el margen de error es muy
+grande el tamaño muestral será muy pequeño. En caso de que no se conozca
+los valores estimados, se considera que la proporción de éxitos y
+fracasos es 0.5.</p>
+<p><span class="math display">\[n=\cfrac{(Z_{1-\alpha/2})^20.25}{E^2}
+\qquad
+n=\cfrac{N(Z_{1-\alpha/2})^20.25}{NE^2+(Z_{1-\alpha/2})^20.25}\]</span></p>
+<blockquote>
+<p>En una construcción se desea realizar un estudio de los obreros que
+están expuestos a ruidos continuos, con el fin de hacer un control sobre
+la hipoacusia. Un sondeo previo estableció que la proporción de obreros
+expuestos al ruido es del 28%, establecer un tamaño muestral para
+realizar el estudio con un margen de error del 4% y un nivel de
+significancia del 5%.<br><br> Como no se conoce el tamaño de la
+población, entonces el tamaño de muestra adecuado es: <span
+class="math display">\[\begin{align*}
+n=&amp;\cfrac{(Z_{1-\alpha/2})^2\hat p \hat q}{E^2}\\
+=&amp;\cfrac{(Z_{0.975})^2 (0.28)(0.72)}{0.04^2}\\
+=&amp;\cfrac{(1.96)^2 (0.2016)}{0.0016}\\
+=&amp;\cfrac{(3.8416)(0.20168)}{0.0016}\\
+=&amp;\cfrac{0.7745}{0.0016}\\
+=&amp;484.0416 \approx 485
+\end{align*}\]</span> Si no tuvieramos información acerca de la
+proporción de obreros expuestos, entonces se puede calcular el tamaño de
+muestra basado en el <strong>peor de los casos</strong>. <span
+class="math display">\[\begin{align*}
+n=&amp;\cfrac{(Z_{1-\alpha/2})^2 0.25}{E^2}\\
+=&amp;\cfrac{(3.8416)(0.25)}{0.0016}\\
+=&amp;\cfrac{0.9604}{0.0016}\\
+=&amp;600.25 \approx 601
+\end{align*}\]</span> Supongamos que en la construcción trabajan 2143
+obreros, entonces el tamaño de muestra es: <span
+class="math display">\[\begin{align*}
+n=&amp;\cfrac{N(Z_{1-\alpha/2})^2\hat p \hat q}{NE^2+(Z_{1-\alpha/2})^2
+\hat p \hat q}\\
+=&amp;\cfrac{(2143)(3.8416)(0.2016)}{(2143)(0.0016)+(3.8416)(0.2016)}\\
+=&amp;\cfrac{1659.682}{3.8239}\\
+=&amp;434.0245 \approx 435
+\end{align*}\]</span></p>
+</blockquote>
+<p>En el ejemplo anterior se nota la diferencia de tamaños de muestra
+entre las posibles situaciones que puede tener un investigador:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Si se tiene sólo la información de la proporción de obreros
+expuestos, un tamaño muestral adecuado para realizar el estudio es de
+485 con una confianza del 95%.</p></li>
+<li><p>Si no se conoce la proporción de obreros expuestos, un tamaño
+muestral adecuado para realizar el estudio es de 601 con una confianza
+del 95%.</p></li>
+<li><p>Si la población de obreros es de 2143 y se conoce la proporción
+de obreros expuestos, un tamaño muestral para realizar el estudio es de
+435 con una confianza del 95%.</p></li>
+</ol>
+<p>Cuando se calcula el tamaño de muestra, ese valor indica que es el
+mínimamente adecuado para estimar los parámetros de la población; el
+nivel de confianza escogido está asociado al intervalo de confianza que
+se calculará después de la recolección de los datos; y el error muestral
+está asociado a la dispersión de los datos.</p>
+<p>Tenga en cuenta estos errores comunes a la hora de calcular tamaños
+de muestra:</p>
+<ul>
+<li><p>No utilice <span class="math inline">\(E=4\)</span>, si se
+refiere a un margen de error del 4%, siendo el caso el margen es <span
+class="math inline">\(E=0.04\)</span>.</p></li>
+<li><p>Asegúrese de sustituir bien el valor crítico <span
+class="math inline">\(Z_{1-\alpha/2}\)</span> con la tabla de la
+distribución normal estándar, si la confianza es del 95%, hay que
+sustituirlo por 1.96 y no por 0.95.</p></li>
+<li><p>Muchas personas creen de forma errónea que el tamaño muestral es
+un porcentaje de la población, observe que no es necesario conocer el
+tamaño de la población para calcular un tamaño de muestra.</p></li>
+<li><p>En algunos casos los estudios previos pierden vigencia, por
+ejemplo si se quiere observar la proporción de personas con celular, no
+podemos remitirnos a un estudio de 1994 debido a que el acceso a esa
+tecnología era limitado en comparación a nuestros tiempos, en estos
+casos trate de utilizar el tamaño muestral más grande.</p></li>
+</ul>
+<hr>
+</div>
+<div id="tamaño-de-muestra-para-la-media" class="section level3">
+<h3>Tamaño de muestra para la media</h3>
+<p>Cuando no se conoce el tamaño de la población, el cálculo del tamaño
+de muestra es el siguiente:</p>
+<p><span
+class="math display">\[n=\cfrac{(Z_{1-\alpha/2})^2\sigma^2}{E^2}\]</span></p>
+<p>Cuando se tiene el tamaño poblacional, se puede hacer el cálculo del
+tamaño muestral para poblaciones finitas.</p>
+<p><span
+class="math display">\[n=\cfrac{N(Z_{1-\alpha/2})^2\sigma^2}{NE^2+(Z_{1-\alpha/2})^2\sigma^2}\]</span></p>
+<p>En las ecuaciones anteriores cabe notar que el requerimiento para
+calcular el tamaño de muestra es el conocimiento de la <strong>varianza
+poblacional</strong>, por otra parte el cálculo del tamaño muestral hace
+alusión a que la población pertenece a una <em>distribución
+normal</em>.</p>
+<p>Por lo general no se conoce la dispersión de los datos, así que
+calcular un tamaño de muestra es más difícil, para este tipo de casos se
+consideran las siguientes opciones.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Revisar estudios previos y utilizar la varianza muestral <span
+class="math inline">\(S^2\)</span>.</li>
+<li>Realizar un sondeo o una prueba piloto y calcular la varianza
+muestral.</li>
+<li>Si el estudio es pionero, utilizar la precisión y el margen de error
+de los instrumentos de medición.</li>
+<li>Si se conoce el valor mínimo y el valor máximo de la población, se
+puede estimar la desviación estándar: <span
+class="math inline">\(\sigma=rango/4\)</span>.</li>
+</ol>
+<blockquote>
+<p>El perímetro de cintura es un indicador para detectar riesgo
+cardiovascular. En una ciudad interesa conocer el estado nutricional de
+la población basándose, como variable trazadora, en el perímetro de
+cintura. Se sabe por estudios previos que la desviación estándar de este
+indicador es de 12.5 cm, con un margen de error del 0.8 cm y un nivel de
+confianza del 95% ¿Cuál es el tamaño de muestra adecuado para estimar el
+promedio del perímetro de cintura?<br><br> De acuerdo con el enunciado,
+no tenemos la población de la ciudad, entonces el tamaño de muestra
+adecuado es: <span class="math display">\[\begin{align*}
+n=&amp;\cfrac{(Z_{1-\alpha/2})^2\sigma^2}{E^2}\\
+=&amp;\cfrac{(1.96)^2(12.5)^2}{0.8^2}\\
+=&amp;\cfrac{(3.8415)(156.25)}{0.64}\\
+=&amp;\cfrac{(600.2279)}{0.6}\\
+=&amp;937.8562 \approx 938
+\end{align*}\]</span> Supongamos que la ciudad cuenta con 525.430
+habitantes, entonces el tamaño de muestra por población finita es: <span
+class="math display">\[\begin{align*}
+n=&amp;\cfrac{N(Z_{1-\alpha/2})^2\sigma^2}{NE^2+(Z_{1-\alpha/2})^2\sigma^2}\\
+=&amp;\cfrac{(525430)(3.8415)(156.25)}{(525430)(0.64)+(3.8415)(156.25)}\\
+=&amp;\cfrac{315377767}{336875.4}\\
+=&amp;936.1851 \approx 937
+\end{align*}\]</span></p>
+</blockquote>
+<hr>
+</div>
+</div>
+<div id="muestreo-aleatorio-estratificado-mae" class="section level2">
+<h2>Muestreo Aleatorio Estratificado (MAE)</h2>
+<p>Esta técnica de muestreo se aplica en poblaciones cuyas unidades
+tienen características de <em>gran variabilidad</em>. La intención de
+este muestro es clasificar las unidades en estratos de forma que las
+unidades en los subconjuntos sean homogéneos, pero si se observa la
+totalidad conserva la heterogeneidad.</p>
+<p>Este tipo de muestreo es muy útil porque garantiza precisión en las
+mediciones por cada estrato y reduce los costos del muestreo ya que los
+tamaños muestrales tienden a ser menores. Lo más importante para
+utilizar esta técnica es determinar la variable que homogeniza las
+subpoblaciones, pues es el punto de partida para estratificar la
+población, sin embargo hay situaciones en que la estratificación
+dependerá del criterio del investigador.</p>
+<p><span class="math display">\[\begin{align*}
+L \rightarrow &amp; \text{número de estratos}\\
+N_h \rightarrow &amp; \text{número de unidades muestrales en el estrato
+}h\\
+N \rightarrow &amp; \text{Tamaño de la población } N=N_1+N_2+\dots+N_L
+\end{align*}\]</span></p>
+<p>Este muestreo presenta dificultades ya que se necesita contar con un
+marco teórico que tenga información auxiliar, no es fácil crear los
+estratos y tampoco existe un número óptimo de estratos. Los estimadores
+no son tan simples de calcular como en el MAS, en general se utiliza
+estimaciones ponderadas.</p>
+<p>Existen tres métodos fundamentales para calcular los tamaños
+muestrales por estratos, por <em>asignación proporcional</em>, por
+<em>asignación de Neyman</em> y por <em>asignación óptima</em>.</p>
+<hr>
+<div id="asignación-proporcional" class="section level3">
+<h3>Asignación proporcional</h3>
+<p>La muestra se reparte entre los estratos proporcionalmente a los
+tamaños de éste. Este método se utiliza cuando los costos y la
+variabilidad no difieren mucho entre sí.</p>
+<ul>
+<li><strong>Para estimar proporciones</strong></li>
+</ul>
+<p><span
+class="math display">\[n=\cfrac{\sum_{h=1}^LN_hp_hq_h}{N\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\frac{1}{N}\sum_{h=1}^LN_hp_hq_h}\]</span></p>
+<ul>
+<li><strong>Para estimar promedios</strong></li>
+</ul>
+<p><span
+class="math display">\[n=\cfrac{\sum_{h=1}^LN_h\sigma_h^2}{N\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\frac{1}{N}\sum_{h=1}^LN_h\sigma_h^2}\]</span></p>
+<p>Una vez determinado el tamaño de muestra, hay que repartirla
+proporcionalmente a cada estrato seleccionado.</p>
+<p><span class="math display">\[n_h=n \frac{N_h}{N}\]</span></p>
+<p>La estimación de proporciones apunta a estudios con datos
+cualitativos, similares a los ejemplos desarrollados a lo largo del
+módulo. La estimación de promedios o medias se realiza cuando se quiere
+estimar las medidas poblacionales.</p>
+<p>Observe que para cada uno de los casos es necesario conocer la
+varianza poblacional de cada estrato y el tamaño sub-poblacional. En
+caso de que no se conozca la varianza sub-poblacional, puede usarse la
+varianza muestral de cada estrato, por otra parte si no se tiene
+información sobre estos estimadores, se recomienda realizar pruebas
+piloto para estimar las varianzas muestrales de los estratos.</p>
+<blockquote>
+Un Hospital está interesado en estimar los salarios promedios de sus
+empleados para planificar las inversiones futuras, los investigadores
+identificaron que existen grandes diferencias entre los salarios de los
+empleados y decidieron estratificar la población en tres partes:
+enfermeras, médicos y especialistas. El balance del año anterior
+contiene la siguiente información en miles de pesos
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+Total
+</th>
+<th style="text-align:center;">
+Desv
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Enfermeras
+</td>
+<td style="text-align:center;">
+2985
+</td>
+<td style="text-align:center;">
+$8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Médicos
+</td>
+<td style="text-align:center;">
+678
+</td>
+<td style="text-align:center;">
+$53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Especialistas
+</td>
+<td style="text-align:center;">
+137
+</td>
+<td style="text-align:center;">
+$112
+</td>
+</tr>
+</tbody>
+</table>
+<p>Calcular un tamaño de muestra considerando un error de 50 mil pesos y
+una confianza del 95% <br><br> De acuerdo con el enunciado tenemos <span
+class="math display">\[L=3 \quad N=3800 \quad N_1=2985 \quad N_2=678
+\quad N_3=137\\
+E=5 \quad \alpha=0.05 \quad \sigma_1=8 \quad \sigma_2=53 \quad
+\sigma_3=112\]</span> Con estos valores podemos calcular el tamaño de
+muestra total <span class="math display">\[\begin{align*}
+n=&amp;\cfrac{\sum_{h=1}^LN_h\sigma_h^2}{N\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\frac{1}{N}\sum_{h=1}^LN_h\sigma_h^2}\\
+=&amp;\cfrac{2985(8^2)+678(53^2)+137(112^2)}{3800\left(\frac{5}{1.96}\right)^2+\frac{1}{3800}[2985(8^2)+678(53^2)+137(112^2)]}\\
+=&amp;\cfrac{3814070}{24730.19+\frac{3814070}{3800}}\\
+=&amp;\cfrac{3814070}{25733.89}\\
+=&amp;148.2119 \approx 149\\
+\end{align*}\]</span> En total se necesitan un tamaño muestral de 149
+empleados para estimar el promedio de los salarios, si se realiza una
+asignación proporcional, entonces el tamaño muestral para cada estrato
+es: <span class="math display">\[n_1=149 \frac{2985}{3800} \approx 117
+\quad n_2=149 \frac{678}{3800} \approx 27 \quad n_3=149 \frac{137}{3800}
+\approx 5\]</span> Se necesita analizar los salarios de por lo menos 117
+enfermeras, 27 médicos y 5 especialistas para determinar el salario
+promedio con una confiabilidad del 95% y un margen de error de 5 mil
+pesos.</p>
+</blockquote>
+<hr>
+</div>
+<div id="asignación-neyman" class="section level3">
+<h3>Asignación Neyman</h3>
+<p>Es útil cuando existen marcadas diferencias de variabilidad o
+dispersión dentro de los estratos, ya que además de tener en cuenta el
+tamaño de los estratos se tiene en cuenta la dispersión de los datos
+dentro de cada estrato. De esta manera se obtendrán tamaños de muestra
+más grandes de aquellos estratos que sean más homogéneos.</p>
+<ul>
+<li><strong>Para estimar la proporción</strong></li>
+</ul>
+<p><span
+class="math display">\[n=\cfrac{\left(\sum_{h=1}^LN_h\sqrt{p_hq_h}\right)^2}{N^2\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\sum_{h=1}^LN_hp_hq_h}\]</span></p>
+<ul>
+<li><strong>Para estimar promedios</strong></li>
+</ul>
+<p><span
+class="math display">\[n=\cfrac{\left(\sum_{h=1}^LN_h\sigma_h\right)^2}{N^2\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\sum_{h=1}^LN_h\sigma_h^2}\]</span></p>
+<p>Para repartir la muestra entre los estratos se utiliza las siguientes
+fórmulas.</p>
+<span
+class="math display">\[n_i=n\left(\cfrac{N_i\sqrt{p_iq_i}}{\sum_{h=1}^LN_h\sqrt{p_hq_h}}\right)\qquad
+n_i=n\left(\cfrac{N_i\sigma_i}{\sum_{h=1}^LN_h\sigma_h}\right)\]</span>
+<hr>
+</div>
+<div id="asignación-óptima" class="section level3">
+<h3>Asignación Óptima</h3>
+<p>Es útil en los casos en que se tienen marcadas diferencias en la
+dispersión de los datos en los estratos y los costos para obtener
+información varían de un estrato a otro. Con esta asignación se tiene en
+cuenta el tamaño de los estratos, las dispersiones dentro de ellos y los
+costos para recopilar la información.</p>
+<ul>
+<li><strong>Para estimar la proporción</strong></li>
+</ul>
+<p><span
+class="math display">\[n=\cfrac{\left(\sum_{h=1}^L\frac{N_h\sqrt{p_hq_h}}{\sqrt{c_h}}\right)(\sum_{h=1}^LN_h\sqrt{p_hq_hc_h})}{N^2\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\sum_{h=1}^LN_hp_hq_h}\]</span></p>
+<ul>
+<li><strong>Para estimar promedios</strong></li>
+</ul>
+<p><span
+class="math display">\[n=\cfrac{\left(\sum_{h=1}^L\frac{N_h\sigma_h}{\sqrt{c_h}}\right)(\sum_{h=1}^LN_h\sigma_h\sqrt{c_h})}{N^2\left(\frac{E}{Z_{1-\alpha/2}}\right)^2+\sum_{h=1}^LN_h\sigma_h^2}\]</span></p>
+<p>Donde <span class="math inline">\(C_h\)</span> es el costo de hacer
+una observación en el estrato <span
+class="math inline">\(h\)</span>.</p>
+<p>Una vez obtenido el tamaño de muestra, se reparte entre los estratos
+utilizando las siguientes fórmulas.</p>
+<p><span
+class="math display">\[n_i=n\left(\cfrac{N_i\cfrac{\sqrt{p_iq_i}}{\sqrt{c_i}}}{\sum_{h=1}^LN_h\cfrac{\sqrt{p_hq_h}}{\sqrt{c_h}}}\right)\qquad
+n_i=n\left(\cfrac{N_i\cfrac{\sigma_i}{\sqrt{c_i}}}{\sum_{h=1}^LN_h\cfrac{\sigma_h}{\sqrt{c_h}}}\right)\]</span></p>
+<div class="tocify-extend-page" data-unique="tocify-extend-page"
+style="height: 0;">
+
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

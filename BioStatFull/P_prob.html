@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Probabilidad</title>
+
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Métodos Cuantitativos</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="M_MAS.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-th"></span>
+     
+    Diseños
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DE_anova.html">ANOVA y DCA</a>
+    </li>
+    <li>
+      <a href="DE_blocks.html">Bloques Aleatorios</a>
+    </li>
+    <li>
+      <a href="DE_fact.html">Factoriales</a>
+    </li>
+    <li>
+      <a href="DE_fact23.html">2 y 3 a la K</a>
+    </li>
+    <li>
+      <a href="DE_SurfResp.html">Superfices</a>
+    </li>
+    <li>
+      <a href="DE_sample.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-edit"></span>
+     
+    Regresión
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="R_slm.html">Simple</a>
+    </li>
+    <li>
+      <a href="R_mlm.html">Múltiple</a>
+    </li>
+    <li>
+      <a href="R_glm.html">Logística</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Probabilidad</h1>
+
+</div>
+
+
+<hr>
+<p>La probabilidad es una medida de la certidumbre asociada a un suceso
+o <strong>evento futuro</strong> y suele expresarse como un número entre
+0 y 1 (o entre 0% y 100%).</p>
+<hr>
+<div id="probabilidad-a-priori" class="section level2">
+<h2>Probabilidad <em>a priori</em></h2>
+<p>Sea <span class="math inline">\(A \in \Omega\)</span> la probabilidad
+de ocurrencia del evento <span class="math inline">\(A\)</span> se
+define como:</p>
+<p><span class="math display">\[P(A)=\cfrac{\text{# Casos
+favorables}}{\text{# Casos posibles}}\]</span></p>
+<blockquote>
+<p>Don Ramiro todos los días juega chance, apuesta los número 8845, 1254
+y 6743. Como hoy es Martes, él sabe que la semana pasada el número
+ganador fue 9654. ¿Cuál es la probabilidad de ganar el chance con sus
+números? Como “ya cayó” el 9654 ¿justifica no jugarlo?</p>
+</blockquote>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#e1">Ejercicio</a>
+</h5>
+</div>
+<div id="e1" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Suponga una bolsa que contiene 10 bolas, de las cuales 3 son negras,
+5 son azules, y 2 son verdes. Si se saca una bola al azar de la bolsa.
+Cuál es la probabilidad de que sea:</p>
+<ol style="list-style-type: decimal">
+<li><p>Negra</p></li>
+<li><p>Azul</p></li>
+<li><p>Roja</p></li>
+<li><p>Verde</p></li>
+<li><p>Negra o Azul</p></li>
+<li><p>No sea Negra y No sea Roja</p>
+</div>
+</div>
+</div></li>
+</ol>
+</div>
+<hr>
+<div id="axiomas-de-probabilidad" class="section level3">
+<h3>Axiomas de probabilidad</h3>
+<ol style="list-style-type: decimal">
+<li>Sea <span class="math inline">\(A \in \Omega\)</span> entonces <span
+class="math inline">\(P(A) \ge 0\)</span></li>
+<li><span class="math inline">\(P(\Omega)=1\)</span>.</li>
+<li>Sean <span class="math inline">\((A, B) \in \Omega\)</span> eventos
+mutuamente excluyentes, entonces <span class="math inline">\(P(A \cup
+B)=P(A)+P(B)\)</span>.</li>
+<li>Si <span class="math inline">\(\Omega\)</span> está compuesto de
+infinitos conjuntos o eventos.
+<ul>
+<li>Si <span class="math inline">\(A_1 \supset A_2 \supset A_3 \supset
+...\)</span> y <span class="math inline">\(\bigcap_{n=1}^{\infty} A_n
+=\emptyset\)</span> entonces <span class="math inline">\(\text{lim}_{n
+\to \infty} P(A_n)=0\)</span>.<br></li>
+<li>Sean <span class="math inline">\(A_1, A_2, A_3,... \in
+\Omega\)</span> si <span class="math inline">\(A_i \cap A_j = \emptyset,
+\: \forall i\neq j\)</span> entonces <span
+class="math inline">\(P(\bigcup_{i=1}^{\infty}A_i)=\sum_{i=1}^{\infty}P(A_i)\)</span>.</li>
+</ul></li>
+</ol>
+<p><strong>Propiedades</strong></p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(P(A^\prime)=1-P(A)\)</span></li>
+<li><span class="math inline">\(P(\emptyset)=0\)</span></li>
+<li>Si <span class="math inline">\(A \subset B \Rightarrow P(A) \le
+P(B)\)</span></li>
+<li>Para cualquier evento <span class="math inline">\(A\)</span>, se
+cumple <span class="math inline">\(0 \leq P(A)\leq 1\)</span></li>
+<li><span class="math inline">\(P(A\cup B)=P(A)+P(B)-P(A \cap
+B)\)</span></li>
+</ol>
+<blockquote>
+<p>Se lanza un dado. ¿Cual es la probabilidad de el resultado sea 2 o 5?
+<br> A: Evento que el resultado es 2<br> B: Evento que el resultado es
+5<br> <span class="math display">\[P(A \cup
+B)=P(A)+P(B)=\cfrac{1}{6}+\cfrac{1}{6}=\cfrac{1}{3}\]</span></p>
+</blockquote>
+<blockquote>
+<p>En un lote de 50 bombillas hay 2 bombillas que presentan fallas. Un
+inspector examina 5 bombillas, las cuales fueron seleccionadas al azar y
+sin reemplazo. ¿Cuál es la probabilidad de que al menos 1 de las
+bombillas es defectuosa entre las 5 examinadas?<br> A: Evento de tener
+todas las bombillas nuevas<br> <span
+class="math display">\[P(A^\prime)=1-P(A)\]</span> <span
+class="math display">\[P(A)=\cfrac{{48\choose 5} {2\choose 0}}{50
+\choose 5}=0.8082\]</span> <span
+class="math display">\[P(A^\prime)=1-P(A)=1-0.8082=0.1918\]</span></p>
+</blockquote>
+<blockquote>
+<p>Una mano de cartas consiste en 5 cartas elegidas al azar y sin
+reemplazo de una baraja de 52 cartas. ¿Cuál es la probabilidad de que en
+la mano resulten 3 corazones y 2 picas?<br> A: Evento de obtener 3
+corazones y 2 picas <span class="math display">\[P(A)=\cfrac{{13\choose
+3} {13\choose 2}}{52 \choose 5}=0.0086\]</span></p>
+</blockquote>
+<hr>
+</div>
+</div>
+<div id="probabilidad-condicional" class="section level2">
+<h2>Probabilidad Condicional</h2>
+<p>Algunas veces la ocurrencia de un envento <span
+class="math inline">\(A\)</span> puede afectar la ocurrencia posterior
+de otro evento <span class="math inline">\(B\)</span>. Suponga un grupo
+de 20 artículos que contiene 10 defectuosos y 10 que no lo son. Una
+persona selecciona un artículo al azar y lo instala en un equipo.</p>
+<p><strong>A</strong>: evento en que la selección del artículo resulte
+defectuoso <span
+class="math display">\[P(A)=\cfrac{10}{20}=0.5\]</span></p>
+<p>Ahora bien, suponga que se selecciona otro artículo de los 19
+restantes.</p>
+<p><strong>B</strong>: evento en que la selección del segundo artículo
+resulte defectuoso</p>
+<center>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Si el primero es defectuoso</th>
+<th align="center">Si el primero no es defectuoso</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span
+class="math display">\[P(B)=\cfrac{9}{19}\]</span></td>
+<td align="center"><span
+class="math display">\[P(B)=\cfrac{10}{19}\]</span></td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>Sean <span class="math inline">\((A, B) \in \Omega\)</span>, la
+probabilidad condicional <span class="math inline">\(A\)</span> dado
+<span class="math inline">\(B\)</span> denotado como <span
+class="math inline">\(P(A|B)\)</span> se define como:</p>
+<p><span class="math display">\[P(A|\color{blue}B)=\frac{P(A \cap
+B)}{\color{blue}{P(B)}} \:\:\:\text{donde}\:\:P(B)&gt;0\\\]</span> <span
+class="math display">\[P(B|\color{blue}A)=\frac{P(A \cap
+B)}{\color{blue}{P(A)}} \:\:\:\text{donde}\:\:P(A)&gt;0\]</span></p>
+<blockquote>
+<p>En un grupo de estudiantes, el 40% de los alumnos juega al fútbol, el
+30% al baloncesto y el 10% practica ambos deportes: Si juega fútbol,
+¿cuál es la probabilidad de que juegue baloncesto?<br> <span
+class="math display">\[P(B|F)=\frac{P(B \cap
+F)}{P(F)}=\frac{0.1}{0.4}=0.25\]</span></p>
+</blockquote>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#e2">Ejercicio</a>
+</h5>
+</div>
+<div id="e2" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Suponga que se realiza un estudio en la Facultad de Ingeniería, en
+donde se le pregunta a sus estudiantes, en cuál deporte preferirían
+practicar entre Fútbol, Baloncesto, Voleibol y Tenis. Dicha pregunta se
+le realiza a un total de 400 estudiantes, encontrando los siguientes
+resultados</p>
+<center>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center">Fútbol</th>
+<th align="center">Baloncesto</th>
+<th align="center">Voleibol</th>
+<th align="center">Tenis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Industrial</strong></td>
+<td align="center">48</td>
+<td align="center">27</td>
+<td align="center">22</td>
+<td align="center">23</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Mecánica</strong></td>
+<td align="center">34</td>
+<td align="center">41</td>
+<td align="center">25</td>
+<td align="center">10</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Electrónica</strong></td>
+<td align="center">66</td>
+<td align="center">51</td>
+<td align="center">13</td>
+<td align="center">40</td>
+</tr>
+</tbody>
+</table>
+</center>
+<p>A partir de la tabla anterior</p>
+<ol style="list-style-type: decimal">
+<li><p>Construya una tabla de probabilidades.</p></li>
+<li><p>¿Cuál es la probabilidad de que se seleccione un estudiante que
+prefiera el Fútbol sobre los otros deportes?</p></li>
+<li><p>¿Cuál es la probabilidad de que se seleccione un estudiante que
+estudie Mecánica?</p></li>
+<li><p>¿Cuál es la probabilidad de que se seleccione un estudiante que
+estudie Electrónica y prefiera el Tenis sobre los demás
+deportes?</p></li>
+<li><p>Si se selecciona un estudiante de Mecánica, ¿Cuál es la
+probabilidad de que prefiera el Voleibol sobre los otros
+deportes?</p></li>
+<li><p>¿Cual es la probabilidad de que un estudiante sea de Electrónica,
+si se sabe que prefiere el Baloncesto sobre los otros deportes?</p>
+</div>
+</div>
+</div></li>
+</ol>
+</div>
+<hr>
+</div>
+<div id="regla-multiplicativa" class="section level2">
+<h2>Regla Multiplicativa</h2>
+<p><span class="math display">\[P(A \cap
+B)=P(\color{blue}A)P(B|\color{blue}A)=P(\color{red}B)P(A|\color{red}B)\]</span></p>
+<p>Una bolsa contiene seis pelotas rojas y cuatro azules, una segunda
+contiene siete rojas y dos azules. El experimento consiste en
+seleccionar una pelota al azar de la primera bolsa y colocarla dentro de
+la segunda bolsa. Seguidamente se selecciona una de la segunda bolsa y
+se coloca en la primera bolsa.</p>
+<center>
+<div class="figure">
+<img src="ReglaMultiplicativa.jpg" alt="" />
+<p class="caption">Regla Muliplicativa</p>
+</div>
+</center>
+<p>Cuál es la probabilidad de que se seleccione una pelota roja de la
+primera bolsa y una roja de la segunda bolsa?</p>
+<p>Para resolver tal problema podemos emplear lo conocido como un
+Diagrama de Árbol el cual consta de gráficas todos los posibles
+resultados, de la siguiente forma</p>
+<center>
+<div class="figure">
+<img src="DiagramadeArbol.jpg" alt="" />
+<p class="caption">DigramaÁrbol</p>
+</div>
+</center>
+<p>Entonces, si observamos el diagrama de árbol, podemos apreciar que la
+probabilidad de que se saque una bola roja de la primera bolsa (primer
+paso) es de</p>
+<p><span class="math display">\[P(R_1)=\frac{6}{10}\]</span></p>
+<p>mientras que la probabilidad de sacar una bola roja de la segunda
+bolsa (segundo paso) es de</p>
+<p><span class="math display">\[P(R_2|R_1)=\frac{8}{10}\]</span></p>
+<p>Y por tanto, al aplicar la regla multiplicativa, tenemos que la
+probabilidad de sacar una bola roja de la primera bolsa, introducirla en
+la segunda bolsa, y posteriormente sacar una bola roja de la segunda
+bolsa, es de</p>
+<p><span class="math display">\[P(R_1 \cap
+R_2)=P(R_1)P(R_2|R_1)=\frac{6}{10}\times\frac{8}{10}=\frac{48}{100}=0.48\]</span></p>
+<hr>
+</div>
+<div id="independencia-entre-eventos" class="section level2">
+<h2>Independencia entre eventos</h2>
+<p>Si en un experimento estadístico pueden ocurrir dos eventos A y B que
+son independientes entre si, entonces</p>
+<p><span
+class="math display">\[P(\color{blue}A|B)=P(\color{blue}A)\quad\text{o}\quad
+P(\color{red}B|A)=P(\color{red}B)\]</span></p>
+<p>lo cual es equivalente a</p>
+<p><span class="math display">\[P(A\cap B)=P(A)P(B)\]</span></p>
+<p>Una bolsa contiene 100 pelotas, de las cuales 25 son rojas, 40 son
+azules y 35 son negras. Si se seleccionan dos pelotas, ¿Cuál es la
+probabilidad de que la primera sea negra y la segunda sea azul, si la
+primera pelota se reemplaza antes de sacar la segunda? Las
+probabilidades son independientes?</p>
+<p>Dado que la selección de las pelotas se realiza con reemplazo,
+tendremos que la probabilidad de un paso a otro permanecerá constante
+entre todas las pelotas, por ejemplo, si se saca una bola negra en el
+primer paso, entonces se registrará su color, se volverá a introducir en
+la bolsa, y posteriormente se realizará el segundo paso, asegurando que
+la probabilidad que tendrán todas las bolas de ser seleccionadas
+permanezca invariable, respecto a las probabilidades iniciales. Dado lo
+anterior tendremos el siguiente escenario</p>
+<center>
+<div class="figure">
+<img src="DiagramadeArbol2.jpg" alt="" />
+<p class="caption">Diagrama2</p>
+</div>
+</center>
+<p>Para realizar el cálculo de la probabilidad de sacar una bola negra
+en el primer paso y una bola azul en el segundo paso, con reemplazo, se
+tendrá que</p>
+<p><span class="math display">\[\begin{align*}
+P(N_1 \cap A_2) &amp;=P(N_1)P(A_2|N_1)\\\\
+                &amp;=\frac{35}{100}\times \frac{40}{100}\\\\
+                &amp;=\frac{1400}{10000}\\\\
+                &amp;=0.14
+\end{align*}\]</span></p>
+<p>Encontrando entonces que la probabilidad de sacar una bola Negra en
+el primer paso y una bola azul en el segundo paso es del 14%. Ahora,
+para saber si los eventos planteados son o no independientes, podemos
+centrarnos en la primera linea, en donde tenemos que la probabilidad de
+sacar una bola negra es de <span
+class="math inline">\(P(N_1)=35/100\)</span>, mientras que la
+probabilidad de sacar una bola azul es de <span
+class="math inline">\(P(A_1)=40/100\)</span>, y en consecuencia, al
+verificar la formula asociada a independencia entre eventos, tendremos
+que</p>
+<p><span class="math display">\[\begin{align*}
+P(N_1 \cap A_2) &amp;=P(N_1)P(A_2|N_1)\\\\
+\frac{1400}{10000} &amp;=\frac{35}{100}\times \frac{40}{100}\\\\
+\frac{1400}{10000} &amp;=\frac{1400}{10000}\\\\
+              0.14 &amp;=0.14
+\end{align*}\]</span></p>
+<p>Y por tanto, al verificar que la igualdad se cumple, se concluye que
+los eventos son independientes.</p>
+<hr>
+</div>
+<div id="teorema-probabilidad-total" class="section level2">
+<h2>Teorema Probabilidad Total</h2>
+<p>Sean <span class="math inline">\(B_1, B_2,...,B_k\)</span> eventos
+<strong>mutuamente excluyentes</strong> <span class="math inline">\((B_i
+\cap B_j =\emptyset, \forall i \neq j)\)</span> y
+<strong>exhaustivos</strong> <span
+class="math inline">\(\left(\bigcup_{i=1}^k B_i =
+\Omega\right)\)</span>, entonces para cualquier evento <span
+class="math inline">\(A\)</span> se cumple:</p>
+<p><span class="math display">\[P(A)=P(A\cap B_1)+P(A\cap
+B_2)+\dots+P(A\cap B_k)\]</span></p>
+<p>o alternativamente, al aplicar la formula de la <strong>Regla
+multiplicativa</strong>, tenemos que</p>
+<p><span class="math display">\[P(A)=\sum_{j=1}^{n}P(A \cap
+B_j)=\sum_{j=1}^{n}P(B_j)P(A|B_j)\]</span></p>
+<p>Tres Nutricionistas de cierto equipo de baloncesto <span
+class="math inline">\(N_1\)</span>, <span
+class="math inline">\(N_2\)</span>, <span
+class="math inline">\(N_3\)</span> realizan planes nutricionales al 30%,
+45%, 25% de los jugadores respectivamente. Se sabe por experiencia que
+4%, 5%, 2% de los jugadores atendidos no siguen las recomendaciones,
+respectivamente. Si se selecciona de forma aleatoria un jugador de
+baloncesto después de la cita con el Nutricionista. Cuál es la
+probabilidad de que éste no se acoja al plan?</p>
+<p>Definamos los eventos:</p>
+<p>  <span class="math inline">\(A\)</span>: El jugador de baloncesto no
+se Acoje al Plan.<br>   <span class="math inline">\(N_1\)</span>: el
+jugador fue atendido por el Nutricionista 1.<br>   <span
+class="math inline">\(N_2\)</span>: el jugador fue atendido por el
+Nutricionista 2.<br>   <span class="math inline">\(N_3\)</span>: el
+jugador fue atendido por el Nutricionista 3.</p>
+<p>Dado que el interés radica en encontrar la probabilidad de que se
+seleccione un jugador y no siga el plan nutricional, entonces nos están
+pidiendo que se desea calcular la <span
+class="math inline">\(P(A)\)</span>.</p>
+<p>Como entre la información dada en el enunciado no nos da la
+probabilidad de que un jugador no siga el plan, entonces podemos tratar
+de calcularla mediante el <strong>teorema de probabilidad
+total</strong>, aprovechando que los eventos <span
+class="math inline">\(N_1\)</span>, <span
+class="math inline">\(N_2\)</span>, <span
+class="math inline">\(N_3\)</span> son eventos mutuamente excluyentes
+(Un jugador que es atendido por un Nutricionista, no puede ser atendido
+simultáneamente por otro), exhaustivos (El total de los jugadores del
+equipo, solo puede ser atendido por alguno de estos tres Nutricionistas)
+y que nos están dando las probabilidades de los eventos <span
+class="math inline">\(A|N_1\)</span>, <span
+class="math inline">\(A|N_2\)</span> y <span
+class="math inline">\(A|N_3\)</span>.</p>
+<p>Partiendo de esto tenemos las siguientes probabilidades:</p>
+<p><span class="math display">\[P(N_1)=0.30 \quad P(N_2)=0.45\quad
+P(N_3)=0.25\\
+P(A|N_1)=0.04 \quad P(A|N_2)=0.05\quad P(A|N_3)=0.02\]</span></p>
+<p>Entonces, al aplicar el teorema de probabilidad total, tendremos
+que</p>
+<p><span class="math display">\[\begin{align*}
+P(A) &amp;=P(N_1)P(A|N_1)+P(N_2)P(A|N_2)+P(N_3)P(A|N_3)\\
+&amp;=0.30\times0.04 + 0.45\times0.05+ 0.25\times0.02\\
+&amp;=0.0395
+\end{align*}\]</span></p>
+<p>Por tanto, la probabilidad de que un jugador atendido por los
+nutricionistas del equipo y no se acoja al plan es del 3.95%.</p>
+<hr>
+</div>
+<div id="teorema-de-bayes" class="section level2">
+<h2>Teorema de Bayes</h2>
+<p>Sea <span class="math inline">\(\{A_i\}_{i=1}^{n}\)</span> un
+conjunto de <span class="math inline">\(n\)</span> eventos cada uno con
+probabilidad positiva, además son mutuamente excluyentes. Para cualquier
+evento <span class="math inline">\(B \in \Omega\)</span> con <span
+class="math inline">\(P(B)&gt;0\)</span> se cumple:</p>
+<p><span class="math display">\[P(A_j|B)=\frac{P(A_j \cap B)}{P(B)
+}=\frac{P(B|A_j)P(A_j)}{\sum_{i=1}^{n}P(A_j)P(B|A_j)}=\frac{\text{Regla
+Multiplicativa}}{\text{Probabilidad Total}}\]</span></p>
+<p>Esto nos permite hallar probabilidades de los diferentes sucesos que
+pueden causar la ocurrencia <span class="math inline">\(B\)</span>. Por
+esta razón con frecuencia se hace referencia al Teorema de Bayes como el
+teorema sobre la <strong>probabilidad de causas</strong>.</p>
+<div id="ejemplo" class="section level3">
+<h3>Ejemplo</h3>
+<p>Tres Nutricionistas de cierto equipo de baloncesto <span
+class="math inline">\(N_1\)</span>, <span
+class="math inline">\(N_2\)</span>, <span
+class="math inline">\(N_3\)</span> realizan planes nutricionales al
+<span class="math inline">\(30\%\)</span>, <span
+class="math inline">\(45\%\)</span>, <span
+class="math inline">\(25\%\)</span> de los jugadores respectivamente. Se
+sabe por experiencia que <span class="math inline">\(4\%\)</span>, <span
+class="math inline">\(5\%\)</span>, <span
+class="math inline">\(2\%\)</span> de los jugadores atendidos no siguen
+las recomendaciones, respectivamente. Si se sabe que el jugador no se
+acogió al plan nutricional. ¿Cuál es la probabilidad de que fuese
+atendido por el Nutricionista 2?</p>
+<p>Definamos los eventos:</p>
+<p>  <span class="math inline">\(A\)</span>: El jugador de baloncesto no
+se Acoje al Plan.<br>   <span class="math inline">\(N_1\)</span>: el
+jugador fue atendido por el Nutricionista 1.<br>   <span
+class="math inline">\(N_2\)</span>: el jugador fue atendido por el
+Nutricionista 2.<br>   <span class="math inline">\(N_3\)</span>: el
+jugador fue atendido por el Nutricionista 3.</p>
+<p>Partiendo de esto tenemos las siguientes probabilidades:</p>
+<p><span class="math display">\[P(N_1)=0.30 \quad P(N_2)=0.45\quad
+P(N_3)=0.25\\
+P(A|N_1)=0.04 \quad P(A|N_2)=0.05\quad P(A|N_3)=0.02\]</span></p>
+<p>Además se tiene que la probabilidad total para <span
+class="math inline">\(A\)</span> es: <span class="math display">\[P(A) =
+0.0395\]</span></p>
+<p>Nos piden calcular la probabilidad de que el Nutricionista 2 sea
+<em>“el culpable”</em> de que el jugador no se haya acogido al plan.
+Esto se traduce como la probabilidad de las causas, es decir, aplicar el
+Teorema de Bayes.</p>
+<p><br></p>
+<p><span class="math display">\[\begin{align*}
+P(N_2 | A)=&amp; \frac{P(N_2 \cap
+A)}{P(A)}=\frac{P(A|N_2)P(N_2)}{P(A)}\\\\
+=&amp;\frac{(0.05)(0.45)}{0.0395}=\frac{0.0225}{0.0395}=0.5696
+\end{align*}\]</span></p>
+<p><br></p>
+<p>En conclusión, la probabilidad de que un atleta no se acoja al plan
+siendo atendido por el Nutricionista 2 es del <span
+class="math inline">\(56.96\%\)</span></p>
+<hr>
+</div>
+<div id="aplicaciones-teorema-de-bayes" class="section level3">
+<h3>Aplicaciones Teorema de Bayes</h3>
+<p>En el campo de ciencias de la salud se utiliza ampliamente la
+aplicación de leyes de probabilidad y conceptos relacionados en la
+evaluación de pruebas de detección y criterios de diagnostico. A los
+médicos les interesa tener mayor capacidad para predecir correctamente
+la presencia o ausencia de una enfermedad en particular a partir del
+conocimiento de los resultados (positivos o negativos) de pruebas y el
+estado de los síntomas (presentes o ausentes) que se manifiestan.
+También, es de interés la información respecto a la probabilidad de
+resultados positivos o negativos de las pruebas y la probabilidad de
+presencia o ausencia de un síntoma específico en pacientes con o sin una
+enfermedad en particular.</p>
+<p>En pruebas de detección se debe considerar con cuidado que no siempre
+son pruebas infalibles. Es decir, el procedimiento puede dar un
+<em>falso positivo</em> o un <em>falso negativo</em>.</p>
+<blockquote>
+<p><strong>Falso Positivo:</strong> resulta cuando una prueba indica que
+el estado es positivo, cuando en realidad es negativo.<br><br>
+<strong>Falso Negativo:</strong> resulta cuando una prueba indica que un
+estado es negativo, cuando en realidad es positivo.</p>
+</blockquote>
+<p>En resumen, se debe responder a las siguientes preguntas para evaluar
+la utilidad de los resultados de la prueba y el estado de los síntomas
+para determinar si el individuo tiene o no alguna enfermedad:</p>
+<ol style="list-style-type: decimal">
+<li><p>Dado que un individuo tiene la enfermedad, ¿qué prqbabilidad
+existe de que la prueba resulte positiva (o la presencia de un
+síntoma)?</p></li>
+<li><p>Dado que un individuo no tiene la enfermedad, ¿cuál es la
+probabilidad de que la prueba resulte negativa (o la ausencia de un
+síntoma)?</p></li>
+<li><p>Dada una prueba positiva de detección (o la presencia de un
+síntoma), ¿que probabilidad existe de que el individuo tenga la
+enfermedad?</p></li>
+<li><p>Dado el resultado negativo de una prueba de detección (o la
+ausencia de un síntoma), ¿cuál es la probabilidad de que el individuo no
+tenga la enfermedad?</p></li>
+</ol>
+<p><br></p>
+<table class="table table-striped table-hover">
+<tr>
+<th>
+</th>
+<th colspan="3" align="center">
+Enfermedad
+</th>
+</tr>
+<tr>
+<td align="center">
+<b>Resultado de la prueba</b>
+</td>
+<td align="center">
+<b>Presente <span class="math inline">\((D)\)</span></b>
+</td>
+<td align="center">
+<b>Ausente <span class="math inline">\((\bar{D})\)</span></b>
+</td>
+<td align="center">
+<b>Total</b>
+</td>
+</tr>
+<tr>
+<td align="center">
+<b>Positivo <span class="math inline">\((T)\)</span></b>
+</td>
+<td align="center">
+<span class="math inline">\(a\)</span>
+</td>
+<td align="center">
+<span class="math inline">\(b\)</span>
+</td>
+<td align="center">
+<span class="math inline">\(a+b\)</span>
+</td>
+</tr>
+<tr>
+<td align="center">
+<b>Negativo <span class="math inline">\((\bar{T})\)</span></b>
+</td>
+<td align="center">
+<span class="math inline">\(c\)</span>
+</td>
+<td align="center">
+<span class="math inline">\(d\)</span>
+</td>
+<td align="center">
+<span class="math inline">\(c+d\)</span>
+</td>
+</tr>
+<tr>
+<td align="center">
+<b>Total</b>
+</td>
+<td align="center">
+<span class="math inline">\(a+c\)</span>
+</td>
+<td align="center">
+<span class="math inline">\(b+d\)</span>
+</td>
+<td align="center">
+<span class="math inline">\(n\)</span>
+</td>
+</tr>
+</table>
+<p>La tabla muestra para estos <span class="math inline">\(n\)</span>
+individuos sus estados con respecto a la enfermedad, y es el resultado
+de una prueba de detección diseñada para identificar a los individuos
+enfermos. Las entradas de las casillas representan el número de
+individuos que caen en las categorías definidas por los encabezados de
+renglón y columna. Por ejemplo, <span class="math inline">\(a\)</span>
+es el número de individuos que tienen la enfermedad y un resultado
+positivo en la prueba de detección.</p>
+<hr>
+<div id="sensibilidad-para-pruebas-diagnósticas" class="section level4">
+<h4>Sensibilidad para pruebas diagnósticas</h4>
+<p>La sensibilidad de una prueba (o síntoma) es la probabilidad de un
+resultado positivo de la prueba (presencia o ausencia del sintoma) dada
+la presencia de la enfermedad.</p>
+<p><span class="math display">\[P(T|D)=\frac{P(T \cap
+D)}{P(D)}=\frac{a}{a+c}\]</span></p>
+<hr>
+</div>
+<div id="especificidad-para-pruebas-diagnósticas"
+class="section level4">
+<h4>Especificidad para pruebas diagnósticas</h4>
+<p>La especificidad de una prueba (o síntoma) es la probabilidad de un
+resultado negativo de la prueba (o ausencia del síntoma) dada la
+ausencia de la enfermedad.</p>
+<p><span class="math display">\[P(\bar{T}|\bar{D})=\frac{P(\bar{T} \cap
+\bar{D})}{P(\bar{D})}=\frac{d}{b+d}\]</span></p>
+<hr>
+</div>
+<div id="valor-predictivo-positivo-de-una-prueba"
+class="section level4">
+<h4>Valor predictivo positivo de una prueba</h4>
+<p>El valor que predice la positividad de una prueba de detección (o un
+síntoma) es la probabilidad de que un individuo tenga la enfermedad,
+dado que el individuo presenta un resultado positivo en la prueba de
+detección (o presenta el síntoma).</p>
+<p><span class="math display">\[P(D|T)=\frac{P(D \cap
+T)}{P(T)}=\frac{P(T|D)P(D)}{P(T|D)P(D)+P(T|\bar{D})P(\bar{D})}=\frac{a}{a+b}\]</span></p>
+<hr>
+</div>
+<div id="valor-predictivo-negativo-de-una-prueba"
+class="section level4">
+<h4>Valor predictivo negativo de una prueba</h4>
+<p>El valor que predice la negatividad de la prueba de detección (o
+síntoma) es la probabilidad de que el individuo no tenga la enfermedad,
+dado que el resultado de la prueba de detección es negativo (es decir no
+presenta el síntoma).</p>
+<p><span class="math display">\[P(\bar{D}|\bar{T})=\frac{P(\bar{D} \cap
+\bar{T})}{P(\bar{T})}=\frac{P(\bar{T}|\bar{D})P(\bar{D})}{P(\bar{T}|D)P(D)+P(\bar{T}|\bar{D})P(\bar{D})}=\frac{d}{c+d}\]</span></p>
+<p>La estimación del valor que predice la positividad o negatividad de
+una prueba (o síntoma) puede obtenerse a partir del conocimiento de la
+sensibilidad y especificidad de la prueba (o del síntoma) y de la
+probabilidad de la enfermedad relevante en la población general. Para
+obtener la estimación de estos valores de predicción se utiliza el
+teorema de Bayes.</p>
+<hr>
+<div class="panel-group">
+<div class="panel panel-primary">
+<div class="panel-heading">
+<h5 class="panel-title">
+<a data-toggle="collapse" href="#e3">Ejercicio</a>
+</h5>
+</div>
+<div id="e3" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Un equipo de investigación médica pretende evaluar una prueba de
+detección propuesta para la enfermedad de Cáncer Intestinal. La prueba
+se basa en una muestra aleatoria de 2030 personas a los cuales se les
+realizó una endoscopia para confirmar la enfermedad. Los resultados son
+los siguientes:</p>
+<table class="table table-striped table-hover">
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th colspan="3" align="center">
+Pacientes con cáncer intestinal
+</th>
+</tr>
+<tr>
+<td align="center">
+<b>Resultado de la prueba</b>
+</td>
+<td align="center">
+<b>Sí <span class="math inline">\((D)\)</span></b>
+</td>
+<td align="center">
+<b>No <span class="math inline">\((\bar{D})\)</span></b>
+</td>
+<td align="center">
+<b>Total</b>
+</td>
+</tr>
+<tr>
+<td align="center">
+<b>Positivo <span class="math inline">\((T)\)</span></b>
+</td>
+<td align="center">
+<span class="math inline">\(20\)</span>
+</td>
+<td align="center">
+<span class="math inline">\(180\)</span>
+</td>
+<td align="center">
+<span class="math inline">\(200\)</span>
+</td>
+</tr>
+<tr>
+<td align="center">
+<b>Negativo <span class="math inline">\((\bar{T})\)</span></b>
+</td>
+<td align="center">
+<span class="math inline">\(10\)</span>
+</td>
+<td align="center">
+<span class="math inline">\(1820\)</span>
+</td>
+<td align="center">
+<span class="math inline">\(1830\)</span>
+</td>
+</tr>
+<tr>
+<td align="center">
+<b>Total</b>
+</td>
+<td align="center">
+<span class="math inline">\(30\)</span>
+</td>
+<td align="center">
+<span class="math inline">\(2000\)</span>
+</td>
+<td align="center">
+<span class="math inline">\(2030\)</span>
+</td>
+</tr>
+</table>
+<p>Calcule:</p>
+<ol style="list-style-type: decimal">
+<li><p>Prevalencia</p></li>
+<li><p>Sensibilidad de la prueba</p></li>
+<li><p>Especificidad de la prueba</p></li>
+<li><p>Valor predictivo positivo</p></li>
+<li><p>Valor predictivo negativo</p>
+</div>
+</div>
+</div></li>
+</ol>
+</div>
+<div class="tocify-extend-page" data-unique="tocify-extend-page"
+style="height: 0;">
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

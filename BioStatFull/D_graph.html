@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Métodos gráficos para resumir información</title>
+
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/htmlwidgets-1.6.0/htmlwidgets.js"></script>
+<script src="site_libs/pymjs-1.3.2/pym.v1.js"></script>
+<script src="site_libs/widgetframe-binding-0.3.1/widgetframe.js"></script>
+<script src="site_libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Métodos Cuantitativos</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="M_MAS.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-th"></span>
+     
+    Diseños
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DE_anova.html">ANOVA y DCA</a>
+    </li>
+    <li>
+      <a href="DE_blocks.html">Bloques Aleatorios</a>
+    </li>
+    <li>
+      <a href="DE_fact.html">Factoriales</a>
+    </li>
+    <li>
+      <a href="DE_fact23.html">2 y 3 a la K</a>
+    </li>
+    <li>
+      <a href="DE_SurfResp.html">Superfices</a>
+    </li>
+    <li>
+      <a href="DE_sample.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-edit"></span>
+     
+    Regresión
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="R_slm.html">Simple</a>
+    </li>
+    <li>
+      <a href="R_mlm.html">Múltiple</a>
+    </li>
+    <li>
+      <a href="R_glm.html">Logística</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Métodos gráficos para resumir
+información</h1>
+
+</div>
+
+
+<hr>
+<div id="introducción" class="section level2">
+<h2>Introducción</h2>
+<p>En la etapa de diseño de la investigación se establece la
+identificación de variables, la estrategia de recolección de datos de
+acuerdo al diseño de estudio, el plan de captura y estructuración de la
+información y finalmente se establece el plan de análisis
+estadístico.</p>
+<p>La primera parte de plan de análisis siempre necesita de la
+organización y presentación de los resultados, es decir, todo lo
+correspondiente al análisis descriptivo de los datos. Para esto, se
+cuenta con una colección de métodos de presentación de información:
+gráficos, tablas y medidas de resumen. Dado el tipo de variable y sus
+divisiones corresponde un conjunto de gráficos, tablas y medidas de
+resumen</p>
+<hr>
+<div id="elementos-de-un-gráfico" class="section level3">
+<h3>Elementos de un gráfico</h3>
+<p>Para la presentación de la información a través de gráficos, tenga en
+cuenta que las recomendaciones mínimas para la construcción de un buen
+gráfico:</p>
+<ul>
+<li><p>Facilidad para comparar e identificar comportamiento de los
+datos</p></li>
+<li><p>Lenguaje preciso y claro de tal manera que se eviten confusiones
+sobre las características de los datos mostrados</p></li>
+<li><p>Evitar gráficas donde el gran número de categorías, indicadores o
+variables dificulten su interpretación</p></li>
+<li><p>Distinción clara de las categorías o rótulos del gráfico</p></li>
+<li><p>Notación de cifras y de decimales claras</p></li>
+<li><p>Evitar el uso de abreviaturas</p></li>
+<li><p>Las siglas/acrónimos deben de ir en mayúsculas y sin puntos
+intermedios</p></li>
+<li><p>Aclarar la escala de los ejes</p></li>
+</ul>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-1-1.png" width="500" style="display: block; margin: auto;" /></p>
+<p>Los errores comunes que se presentan en los gráficos técnicos
+son:</p>
+<ul>
+<li><p>Falta de títulos, convenciones y etiquetas</p></li>
+<li><p>Falta de escala en los ejes</p></li>
+<li><p>Congestionamiento o exceso de información</p></li>
+<li><p>Escasez de datos</p></li>
+<li><p>Mala calidad de la impresión</p></li>
+<li><p>Incluir un eje adicional sin sentido para dar efectos 3D</p></li>
+</ul>
+<hr>
+</div>
+</div>
+<div id="gráficos-para-variables-cualitativas" class="section level2">
+<h2>Gráficos para Variables Cualitativas</h2>
+<p>En la sección anterior se explicó las clasificaciones de las
+variables, para el caso de las variables cualitativas se agrupan en
+<strong>Nominales</strong> y <strong>Ordinales</strong>. La construcción
+de gráficos adecuados para este tipo de variable se basan en la
+representación de los conteos, si se tiene más de una variable es
+posible mostrar su relación.</p>
+<hr>
+<div id="gráfico-de-barras" class="section level3">
+<h3>Gráfico de barras</h3>
+<p>Este gráfico se caracteriza por identificar las categorías o niveles
+de una variable cualitativa a relacionando la frecuencia de ocurrencia
+(<strong>frecuencia absoluta</strong>) a través de barras
+<em>separadas</em>. Para que el gráfico cobre sentido e interpretación
+rápida se recomienda que cada barra tenga un color distinto.</p>
+<div id="htmlwidget-f6a8e9697bc89c9e6097" style="width:100%;height:400px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-f6a8e9697bc89c9e6097">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-2.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-829ad0faf26254173e23" style="width:100%;height:400px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-829ad0faf26254173e23">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-3.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>Este gráfico también es útil cuando se tiene dos variables
+categóricas, siempre y cuando los niveles de dicha variable sean pocas
+para no saturar el gráfico.</p>
+<hr>
+<div id="ejemplo"
+class="section level4 tabset tabset-fade tabset-pills">
+<h4 class="tabset tabset-fade tabset-pills">Ejemplo</h4>
+<div id="apilado" class="section level5">
+<h5>Apilado</h5>
+<div id="htmlwidget-d8af4e4652c701b42d05" style="width:100%;height:400px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-d8af4e4652c701b42d05">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-4.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="separado" class="section level5">
+<h5>Separado</h5>
+<div id="htmlwidget-d3b0b3dd7e256596cda8" style="width:100%;height:400px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-d3b0b3dd7e256596cda8">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-5.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="section" class="section level4 toc-ignore">
+<h4 class="toc-ignore"></h4>
+<hr>
+</div>
+</div>
+<div id="gráfico-de-torta" class="section level3">
+<h3>Gráfico de torta</h3>
+<p>El gráfico de torta muestra por secciones de un círculo las
+proporciones o frecuencias de las categorías de una variable
+cualitativa</p>
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-94663419c9ba5187c386" style="width:500px;height:500px;"></div>
+<script type="application/json" data-for="htmlwidget-94663419c9ba5187c386">{"x":{"visdat":{"6fa0526b3038":["function () ","plotlyVisDat"]},"cur_data":"6fa0526b3038","attrs":{"6fa0526b3038":{"labels":{},"values":{},"showlegend":false,"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"pie"}},"layout":{"width":600,"height":400,"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Estado Civil de los norteamericanos encuestados","autosize":false,"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"data":[{"labels":["Married","Widowed","Divorced","Separated","Never Married","Living Together",null],"values":[3019,505,643,195,1034,457,629],"showlegend":false,"type":"pie","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(255,255,255,1)"}},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<blockquote>
+<p>Este gráfico tiene la dificultad en términos de interpretación, ya
+que la disposición circular no permite hacer distinciones sencillas
+sobre la proporcionalidad a menos que la categorías sean claramente
+dispares</p>
+</blockquote>
+<div id="ejemplo-1"
+class="section level4 tabset tabset-fade tabset-pills">
+<h4 class="tabset tabset-fade tabset-pills">Ejemplo</h4>
+<div id="torta" class="section level5">
+<h5>Torta</h5>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-7-1.png" width="500" style="display: block; margin: auto;" /></p>
+</div>
+<div id="barras" class="section level5">
+<h5>Barras</h5>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-8-1.png" width="500" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="section-1" class="section level4 toc-ignore">
+<h4 class="toc-ignore"></h4>
+<p>Una opción para reducir la limitación de proporcionalidad en este
+gráfico es utilizar etiquetas para indicar las proporciones o
+frecuencias de cada categoría, o bien usar un <em>gráfico de
+dona</em>.</p>
+</div>
+<div id="ejemplo-2"
+class="section level4 tabset tabset-fade tabset-pills">
+<h4 class="tabset tabset-fade tabset-pills">Ejemplo</h4>
+<div id="torta-1" class="section level5">
+<h5>Torta</h5>
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2a349d55832e8f8117b0" style="width:500px;height:500px;"></div>
+<script type="application/json" data-for="htmlwidget-2a349d55832e8f8117b0">{"x":{"visdat":{"6fa02bae2474":["function () ","plotlyVisDat"]},"cur_data":"6fa02bae2474","attrs":{"6fa02bae2474":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"values":{},"labels":{},"type":"pie","name":"Pie","domain":{"row":0,"column":0},"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"data":[{"values":[3019,505,643,195,1034,457,629],"labels":["Married","Widowed","Divorced","Separated","Never Married","Living Together",null],"type":"pie","name":"Pie","domain":{"row":0,"column":0},"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(255,255,255,1)"}},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="dona" class="section level5">
+<h5>Dona</h5>
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-acf1a3e8331086eef80e" style="width:500px;height:500px;"></div>
+<script type="application/json" data-for="htmlwidget-acf1a3e8331086eef80e">{"x":{"visdat":{"6fa069015ee7":["function () ","plotlyVisDat"]},"cur_data":"6fa069015ee7","attrs":{"6fa069015ee7":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"values":{},"labels":{},"type":"pie","hole":0.5,"name":"Donut","domain":{"row":0,"column":1},"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"data":[{"values":[3019,505,643,195,1034,457,629],"labels":["Married","Widowed","Divorced","Separated","Never Married","Living Together",null],"type":"pie","hole":0.5,"name":"Donut","domain":{"row":0,"column":1},"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(255,255,255,1)"}},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="section-2" class="section level4 toc-ignore">
+<h4 class="toc-ignore"></h4>
+<hr>
+</div>
+</div>
+<div id="diagrama-de-puntos" class="section level3">
+<h3>Diagrama de puntos</h3>
+<p>Este gráfico también es similar al gráfico de barras, sirve para
+presentar las frecuencias absolutas o relativas de una variable
+cualitativa, y muestra un punto que representa el conteo del total de
+observaciones que hay para cada variable.</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-11-1.png" width="840" style="display: block; margin: auto;" /><img src="D_graph_files/figure-html/unnamed-chunk-11-2.png" width="840" style="display: block; margin: auto;" /></p>
+<hr>
+</div>
+<div id="gráfico-de-mosaico" class="section level3">
+<h3>Gráfico de mosaico</h3>
+<p>En muchas ocasiones se tiene más de una variable categórica y un
+gráfico de barras compuesto no es suficiente para exponer con precisión
+la información. Para este caso, el gráfico de mosaico permite relacionar
+más de dos variables para analizar las frecuencias entre los cruces de
+niveles de las variables categóricas.</p>
+<div id="htmlwidget-c9ed5750e94b28c618f8" style="width:100%;height:400px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-c9ed5750e94b28c618f8">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-12.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<hr>
+</div>
+<div id="diagrama-de-sankey" class="section level3">
+<h3>Diagrama de <em>Sankey</em></h3>
+<p>Este gráfico relaciona las transferencia de frecuencias entre los
+niveles de varias variables categóricas, también se conoce como
+<strong>Alluvial plot</strong>. Lleva el nombre de <em>Sankey</em> por
+el capitán irlandés Matthew Henry Phineas Riall Sankey quién utilizó
+este diagrama en 1898 en una publicación sobre la eficiencia energética
+de la máquina de vapor. El gráfico más famoso de este tipo, y catalogado
+como el mejor gráfico de la historia, es el diagrama de la invasión
+napoleónica a Rusia.</p>
+<br>
+<center>
+<div class="figure">
+<img src="Minard.png" alt="" />
+<p class="caption">Invasión Napoleónica a Ruisa</p>
+</div>
+</center>
+<p>Siguiendo el ejemplo de las encuestas de las viviendas el resultado
+es el siguiente.</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-13-1.png" width="800" style="display: block; margin: auto;" /></p>
+<hr>
+</div>
+</div>
+<div id="gráficos-para-variables-cuantitativas" class="section level2">
+<h2>Gráficos para Variables Cuantitativas</h2>
+<p>La construcción de gráficos adecuados para este tipo de variable se
+basan en la representación de las frecuencias por intervalo, la densidad
+de probabilidad o las ubicaciones en un plano cartesiano, si se tiene
+más de una variable es posible mostrar su relación.</p>
+<hr>
+<div id="histograma" class="section level3">
+<h3>Histograma</h3>
+<p>Este gráfico permite visualizar el comportamiento o distribución de
+una variable cuantitativa, divide la continuidad de la variable en
+intervalos equidistantes para visualizar las frecuencias por cada
+intervalo. La diferencia con el gráfico de barras, es que en el
+histograma las barras se encuentran pegadas unas de otras y se deben
+poner con el mismo color.</p>
+<div id="htmlwidget-e187f3bc3332828c8767" style="width:100%;height:400px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-e187f3bc3332828c8767">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-14.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>Observe que en el eje opuesto se muestra la frecuencia de ocurrencia
+del IMC, con este gráfico también podemos ver las frecuencias relativas
+o <strong>densidades</strong> que denotan las probabilidades de la
+variable aleatoria.</p>
+<div id="htmlwidget-9ae23c831eb4152b1458" style="width:100%;height:400px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-9ae23c831eb4152b1458">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-15.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<hr>
+</div>
+<div id="diagrama-de-ojiva" class="section level3">
+<h3>Diagrama de ojiva</h3>
+<p>Este gráfico muestra la frecuencia acumulada, sea absoluta o
+relativa, de una variable cuantitativa según los intervalos de clases
+creados en el histograma. Es muy útil para observar la tasa de
+crecimiento en términos de probabilidad de una variable.</p>
+<div id="htmlwidget-c935f4e52385fd4421d3" style="width:100%;height:600px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-c935f4e52385fd4421d3">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-16.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<hr>
+</div>
+<div id="gráfico-densidad-acumulada-empírica" class="section level3">
+<h3>Gráfico densidad acumulada empírica</h3>
+<p>Este gráfico es similar a la ojiva, pero se diferencia en que hace la
+evaluación de la distribución acumulada de todos los datos
+cuantitativos. Es muy útil para calcular probabilidades empíricas.</p>
+<div id="htmlwidget-897b32f34e0c3b8c38fe" style="width:100%;height:400px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-897b32f34e0c3b8c38fe">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-17.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<hr>
+</div>
+<div id="gráfico-de-densidad" class="section level3">
+<h3>Gráfico de densidad</h3>
+<p>Este gráfico es una estimación de la curva característica de una
+variable continua, la estimación se realiza vía métodos numéricos, así
+que es una aproximación empírica de la distribución de probabilidad.</p>
+<div id="htmlwidget-370dd4bbce4da3c46c2c" style="width:100%;height:400px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-370dd4bbce4da3c46c2c">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-18.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>El modelamiento de la curva comparte el mismo comportamiento del
+histograma, en este sentido ambos gráficos están relacionados.</p>
+<div id="htmlwidget-d2258211783aae51c07a" style="width:100%;height:500px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-d2258211783aae51c07a">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-19.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<hr>
+</div>
+<div id="box-plot" class="section level3">
+<h3>Box-Plot</h3>
+<p>El gráfico de cajas y bigotes (<em>boxplot</em>) es un diagrama que
+divide una variable continua en cuartiles, es muy útil para detectar
+posibles <em>valores atípicos</em>.</p>
+<center>
+<div class="figure">
+<img src="BoxPlot.jpg" alt="" />
+<p class="caption">boxplot</p>
+</div>
+</center>
+<p><br></p>
+<div id="htmlwidget-cfc70c73cb0a7c5078c2" style="width:100%;height:400px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-cfc70c73cb0a7c5078c2">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-20.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>Este gráfico muestra por cuartiles la distribución de la variable
+aleatoria, en este sentido está relacionado con otros gráficos que
+muestran el comportamiento de los datos, como el histograma o la curva
+de densidad.</p>
+<p><img src="D_graph_files/figure-html/unnamed-chunk-21-1.png" width="540" style="display: block; margin: auto;" /></p>
+<hr>
+</div>
+</div>
+<div id="gráficos-compuestos" class="section level2">
+<h2>Gráficos compuestos</h2>
+<p>Hasta ahora se han vistos casos para realizar gráficos univariados, y
+unos cuantos que relacionan <em>tablas de contingencias</em>. Existen
+varios gráficos compuestos para relacionar más de una variable, ya sean
+cuantitativas o cualitativas, a continuación se presentan los gráficos
+más usados para literatura científica.</p>
+<blockquote>
+<p>Para los siguientes ejemplos utilizaremos las bases de datos de
+<em>Diabetes en los Indígenas Pima</em> publicado por el Instituto
+Nacional de Diabetes y Enfermedades Digestivas y Renales.</p>
+</blockquote>
+<hr>
+<p>El <strong>gráfico de dispersión</strong> o <em>scatterplot</em>
+relaciona dos variables continuas, es útil para evaluar de manera visual
+la relación entre dos variables en términos de dependencia, sea
+creciente o decreciente.</p>
+<div id="htmlwidget-f6a6152dc350a2a4ddc3" style="width:100%;height:600px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-f6a6152dc350a2a4ddc3">{"x":{"url":"D_graph_files/figure-html//widgets/widget_scatter.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>Este gráfico se puede mezclar con una variable cualitativa, ya sea
+para colorear los puntos e identificar los niveles o separar los
+gráficos, así mismo se puede filtrar la base de datos para mostrar
+secciones específicas de las mismas.</p>
+<div id="htmlwidget-66d4d875aab9d547fd85" style="width:100%;height:600px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-66d4d875aab9d547fd85">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-22.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3f51cac697cd2d3594ff" style="width:100%;height:600px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-3f51cac697cd2d3594ff">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-23.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1dccd4b56db8abaf6f52" style="width:100%;height:600px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-1dccd4b56db8abaf6f52">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-24.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>Los <strong>Box-Plot</strong> también pueden mezclar variables
+cualitativas y cuantitativas, ya que se puede separar por los niveles de
+las categorías y condicionarlas por las mediciones de la variable
+continua.</p>
+<div id="htmlwidget-87084a13e829898f1dc4" style="width:100%;height:500px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-87084a13e829898f1dc4">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-25.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a2d9fd98dab95eed6570" style="width:100%;height:500px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-a2d9fd98dab95eed6570">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-26.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3e8302674233445420a2" style="width:100%;height:500px;" class="widgetframe html-widget "></div>
+<script type="application/json" data-for="htmlwidget-3e8302674233445420a2">{"x":{"url":"D_graph_files/figure-html//widgets/widget_unnamed-chunk-27.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<hr>
+<div class="tocify-extend-page" data-unique="tocify-extend-page"
+style="height: 0;">
+
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

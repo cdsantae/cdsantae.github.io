@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Distribuciones Muestrales</title>
+
+<script src="site_libs/header-attrs-2.19/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="bootstrap.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Métodos Cuantitativos</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-stats"></span>
+     
+    Descriptiva
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="D_concept.html">Conceptos</a>
+    </li>
+    <li>
+      <a href="D_graph.html">Gráficos</a>
+    </li>
+    <li>
+      <a href="D_stat.html">Estadísticos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-dice"></span>
+     
+    Probabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="P_intro.html">Introducción</a>
+    </li>
+    <li>
+      <a href="P_prob.html">Probabilidad</a>
+    </li>
+    <li>
+      <a href="P_dist.html">Distribuciones</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-random"></span>
+     
+    Inferencia
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="I_dist.html">Distribuciones Muestrales</a>
+    </li>
+    <li>
+      <a href="I_ic1.html">IC para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ic2.html">IC para diferencias</a>
+    </li>
+    <li>
+      <a href="I_ph1.html">PH para un parámetro</a>
+    </li>
+    <li>
+      <a href="I_ph2.html">PH para diferencias</a>
+    </li>
+    <li>
+      <a href="M_MAS.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-th"></span>
+     
+    Diseños
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DE_anova.html">ANOVA y DCA</a>
+    </li>
+    <li>
+      <a href="DE_blocks.html">Bloques Aleatorios</a>
+    </li>
+    <li>
+      <a href="DE_fact.html">Factoriales</a>
+    </li>
+    <li>
+      <a href="DE_fact23.html">2 y 3 a la K</a>
+    </li>
+    <li>
+      <a href="DE_SurfResp.html">Superfices</a>
+    </li>
+    <li>
+      <a href="DE_sample.html">Muestreo</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="glyphicon glyphicon glyphicon glyphicon-edit"></span>
+     
+    Regresión
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="R_slm.html">Simple</a>
+    </li>
+    <li>
+      <a href="R_mlm.html">Múltiple</a>
+    </li>
+    <li>
+      <a href="R_glm.html">Logística</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:cdavid.santa@udea.edu.co">
+    <span class="glyphicon glyphicon glyphicon glyphicon-envelope"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Distribuciones Muestrales</h1>
+
+</div>
+
+
+<div id="muestras-aleatorias" class="section level2">
+<h2>Muestras Aleatorias</h2>
+<p>En el proceso de identificar y explicar las características
+esenciales que permiten describir el comportamiento de un fenómeno,
+nuestro objetivo es el de establecer de manera aproximada dicho
+comportamiento usando parte de toda la información relevante acerca del
+fenómeno.</p>
+<p>Cuando se desea estimar un parámetro poblacional se puede presentar
+cualquiera de los próximos 3 casos:</p>
+<p><strong>Estimar una proporción</strong></p>
+<p><span class="math display">\[\hat{p}=\frac{X}{n}\]</span>
+<strong>Estimar un promedio</strong></p>
+<p><span class="math display">\[\bar{X}=\sum_i^n\frac{x_i}{n}\]</span>
+<strong>Estimar una varianza</strong></p>
+<p><span class="math display">\[S^2=\frac{\sum_i^n
+(x_i-\bar{X})^2}{n-1}\]</span></p>
+<p>Estas características son únicas en cada caso. La idea es estimar o
+aproximar estos parámetros usando la información recolectada a partir de
+una muestra. Cada objeto o individuo seleccionado aporta información
+acerca de la característica que se quiere medir, la cual varía de
+individuo a individuo. Así, una muestra no es más que una colección de
+variables aleatorias. Si además, las mediciones son independientes, las
+variables involucradas también lo serán.</p>
+<p>Una <strong>muestra aleatoria</strong> (m.a) de tamaño <span
+class="math inline">\(n\)</span>, es un conjunto de <span
+class="math inline">\(n\)</span> variables aleatorias <em>independientes
+e idénticamente distribuidas</em>. Si <span
+class="math inline">\(X_1,\dots,X_n\)</span> es una m.a, entonces</p>
+<p><span class="math display">\[f(X_1,\dots,X_n)=\prod_i^n f_{X_i}
+(x_i)\]</span> <span class="math display">\[f_{X_i}(x_i)=f(x_i)\quad
+\forall_i=1,\dots,n\]</span></p>
+<p>Un estadístico es entonces una función de una m.a. No todos los
+estadísticos que se definen a partir de una m.a. son de interés. La idea
+está en encontrar aquellos que permiten obtener mejores aproximaciones a
+los parámetros de interés. (Por ejemplo la media <span
+class="math inline">\(\mu\)</span>, la varianza <span
+class="math inline">\(\sigma^2\)</span> o una proporción <span
+class="math inline">\(p\)</span>).</p>
+<ul>
+<li>Una aproximación para <span class="math inline">\(\mu\)</span> es:
+<span class="math inline">\(\bar{X}=\sum_1^n \frac{X_i}{n}\)</span></li>
+<li>Una aproximación para <span class="math inline">\(\sigma^2\)</span>
+es: <span class="math inline">\(S^2=\sum_1^n
+\frac{(X_i-\bar{X})^2}{n-1}\)</span></li>
+<li>Una aproximación para <span class="math inline">\(p\)</span> es:
+<span class="math inline">\(\frac{X}{n}\)</span>, donde <span
+class="math inline">\(X\sim bin(n,p)\)</span></li>
+</ul>
+<p>Entonces se plantean las siguientes preguntas.</p>
+<ul>
+<li>¿Cuál es la distribución de <span
+class="math inline">\(\bar{X}\)</span>?</li>
+<li>¿Cuál es la distribución de <span
+class="math inline">\(S^2\)</span>?</li>
+<li>¿Cuál es la distribución de <span
+class="math inline">\(\frac{X}{n}\)</span>?</li>
+</ul>
+<blockquote>
+<p>Sea <span class="math inline">\(X_1,\dots,X_n\)</span> una muestra
+aleatoria de una distribución con media <span
+class="math inline">\(\mu\)</span> y varianza <span
+class="math inline">\(\sigma^2\)</span><br><br> Sea <span
+class="math inline">\(\bar{X}=\sum_1^n \frac{X_i}{n}\)</span>, entonces
+<span class="math display">\[\begin{align*}
+E[\bar{X}]&amp;=E\left[\sum_1^n \frac{X_i}{n}\right]=\frac{1}{n}\sum_1^n
+E[X_i]=\frac{1}{n}\sum_1^n \mu=\frac{n\mu}{n}=\mu\\
+Var[\bar{X}]&amp;=Var\left[\sum_1^n
+\frac{X_i}{n}\right]=\frac{1}{n^2}\sum_1^n
+Var[X_i]=\frac{1}{n^2}\sum_1^n
+\sigma^2=\frac{n\sigma^2}{n^2}=\frac{\sigma^2}{n}
+\end{align*}\]</span> Así, la distribución muestral de <span
+class="math inline">\(\bar{X}\)</span> tiene media <span
+class="math inline">\(\mu\)</span> y varianza <span
+class="math inline">\(\sigma^2/n\)</span></p>
+</blockquote>
+<ul>
+<li><p>Aplicando la misma metodología se puede mostrar que la
+distribución muestral de la proporción tiene media <span
+class="math inline">\(p\)</span> y varianza <span
+class="math inline">\(pq/n\)</span>.</p></li>
+<li><p>Por otra parte, la distribución muestral de la varianza está dado
+por otra distribución llamada <strong>chi-cuadrado</strong> <span
+class="math inline">\((\chi^2)\)</span>.</p></li>
+</ul>
+<p>La distribución de <em>Pearson</em>, llamada también <em>ji
+cuadrada(o)</em> o <em>chi cuadrado(a)</em> (<span
+class="math inline">\(\chi^2\)</span>), es una distribución de
+probabilidad continua con un parámetro <span
+class="math inline">\(r\)</span> que representa los grados de libertad
+de la variable aleatoria.</p>
+<p><span class="math display">\[
+f(x)=
+\begin{cases}\displaystyle
+\frac{1}{2^{r/2}\Gamma(r/2)}\,x^{(r/2) - 1} e^{-x/2}&amp;\text{para
+}x&gt;0,\\
+0&amp;\text{en otro caso}
+\end{cases}
+\]</span></p>
+<p><img src="I_dist_files/figure-html/chi-1.png" width="2100" style="display: block; margin: auto;" /></p>
+</div>
+<div id="teorema-central-del-límite" class="section level2">
+<h2>Teorema central del límite</h2>
+<p>Suponga que <span class="math inline">\(X_1,\dots,X_n\)</span> es una
+muestra aleatoria de una población con media <span
+class="math inline">\(\mu\)</span> y varianza <span
+class="math inline">\(\sigma^2\)</span>. Sea <span
+class="math inline">\(\bar{X}\)</span> la media muestral que depende de
+<span class="math inline">\(n\)</span> entonces cuando <span
+class="math inline">\(n \rightarrow \infty\)</span> se cumple que:</p>
+<p><span class="math display">\[\Large
+\cfrac{\bar{X}-\mu}{\frac{\sigma}{\sqrt{n}}}
+\stackrel{aprox}{\underset{n \rightarrow
+\infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
+<p>Entre mayor sea <span class="math inline">\(n\)</span> mejor es la
+aproximación. Si la distribución de la muestra es simétrica y continua,
+los tamaños muestrales relativamente pequeños, permiten obtener buenas
+aproximaciones. Si la distribución es discreta, se requiere de tamaños
+muestrales grandes.</p>
+<p><span
+class="math display">\[P(\bar{X}&lt;a)=P\left(\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}&lt;\frac{\bar{X}-a}{\sigma/\sqrt{n}}\right)
+\approx
+P\left(Z&lt;\frac{\bar{X}-a}{\sigma/\sqrt{n}}\right)\]</span></p>
+<p>Si se desconoce el valor de <span
+class="math inline">\(\sigma^2\)</span> y <span
+class="math inline">\(n\)</span> es grande, se puede reemplazar <span
+class="math inline">\(\sigma^2\)</span> por <span
+class="math inline">\(S^2\)</span>.</p>
+<p><span class="math display">\[\Large
+\cfrac{\bar{X}-\mu}{\frac{S}{\sqrt{n}}} \stackrel{aprox}{\underset{n
+\rightarrow \infty}{\widetilde{\quad\quad}}} N(0,1)\]</span></p>
+<blockquote>
+<p>El nivel total de colesterol en cierta población tiene una
+distribución aproximadamente normal, con una media de 200 mgl/100ml y
+una desviación estándar de 20 mg/100ml. Si se realizan 49 exámentes de
+manera aleatoria de esta pblación ¿Cuál es la probabilidad de que el
+nivel de colesterol promedio de esta muestra esté entre 198 y 203
+mg/100ml? <span class="math display">\[E[X_i]=200 \quad \text{y} \quad
+Var[X_i]=400\]</span> Ahora, <span class="math display">\[\begin{align*}
+P(198&lt;\bar{X}&lt;203)&amp;=P\left(\frac{198-\mu}{\sigma/\sqrt{n}}&lt;\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}&lt;\frac{203-\mu}{\sigma/\sqrt{n}}\right)\\\\
+&amp;=P\left(\frac{198-200}{20/\sqrt{49}}&lt;\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}&lt;\frac{203-200}{20/\sqrt{49}}\right)\\\\
+&amp;\approx P(-0.7&lt;Z&lt;1.05)\\
+&amp;=\Phi(1.05)-\Phi(-0.7)\\
+&amp;=0.8531409 - 0.2419637\\
+&amp;=0.6111773
+\end{align*}\]</span></p>
+</blockquote>
+<p>Suponga que se realiza un estudio sobre el salario de los estudiantes
+de Nutrición y Dietética una vez finalizan su pregrado y se insertan en
+el mercado laboral. Para ello, se le pregunta a 15 egresados
+seleccionados de forma aleatoria y se les pregunta cuál es el salario
+que devengan actualmente, obteniendo los siguientes resultados en
+millones de pesos:</p>
+<p><span
+class="math display">\[1.78\quad2.93\quad1.22\quad1.27\quad1.17\\1.03\quad1.24\quad2.07\quad2.04\quad1.28\\1.53\quad0.98\quad1.73\quad1.38\quad3.24\]</span></p>
+<blockquote>
+Basados en la información anterior, calcule la probabilidad de que la
+proporción de egresados que tienen un salario superior a 2 millones de
+pesos sea mayor al 40%.<br><br> Como no nos hablan de los salarios sino
+de la propocrión de aquellos que gananan más de 2 millones de pesos,
+entonces tenemos que contar cuántos ganan más de esa cantidad.<br> <br>
+<center>
+<div class="container">
+<div class="col-sm-2">
+
+</div>
+<div class="col-sm-6">
+<table class="table">
+<thead>
+<tr class="warning">
+<th style="text-align:center">
+Menos de 2M
+</th>
+<th style="text-align:center">
+2M o más
+</th>
+<th style="text-align:center">
+Total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="active">
+<td style="text-align:center">
+11
+</td>
+<td style="text-align:center">
+4
+</td>
+<td style="text-align:center">
+15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</center>
+<p>Entonces la proporción de egresados que ganan más de dos millones es
+<span class="math inline">\(\hat{p}=4/15 = 0.26667\)</span>, entonces es
+posible calcular la probabilidad <span
+class="math inline">\(P(p&gt;0.4)\)</span> aplicando el teorema central
+del límite: <span class="math display">\[\begin{align*}
+P(p&gt;0.4) &amp;= P(\hat{p}-p &lt; 4/15-0.4)\\
+&amp;=P \left(\cfrac{\hat{p}-p}{\sqrt{\frac{p(1-p)}{n}}} &lt;
+\cfrac{4/15-0.4}{\sqrt{\frac{(0.4)(0.6)}{15}}} \right)\\\\
+&amp;=P(Z &lt; -1.054093)\\
+&amp;=P(Z &gt; 1.054093)\\
+&amp;=0.1459203
+\end{align*}\]</span> Y por tanto, la probabilidad de la proporción de
+egresados de Nutrición que tienen un salario superior a 2 millones es
+del 14.59%.</p>
+</blockquote>
+<blockquote>
+<p>Basados en la información de los salarios, calcule la probabilidad de
+que el salario promedio de todos los egresados de Nutrición sea a lo más
+de 1.8 millones de pesos, si se sabe, que los salarios se distribuyen
+normalmente con desviación estándar de 500 mil de pesos.<br><br> En este
+caso, estamos interesados en calcular la probabilidad de que la media
+poblacional del salario de los egresados, sea como máximo de 1.8
+millones de pesos, esto es <span class="math display">\[P(\mu \leq
+1.8)\]</span> Ahora, como sabemos que la distribución de los salarios de
+los egresados sigue una distribución normal, entonces el cálculo de
+probabilidad basado en la muestra aleatoria se calcula aplicanto el
+teorema central del límite. De los datos tenemos que <span
+class="math inline">\(\bar{X}=1.659333\)</span> y <span
+class="math inline">\(\sigma=0.5\)</span>, así la probabilidad está dada
+por: <span class="math display">\[\begin{align*}
+P(\mu \leq 1.8)&amp;=P(−\mu \geq - 1.8)\\
+&amp;=P(\bar{X}−\mu \geq 1.659333−1.8)\\
+&amp;=P \left(\cfrac{\bar{X}-\mu}{\frac{\sigma}{\sqrt{n}}} \geq
+\cfrac{1.659333−1.8}{\frac{0.5}{\sqrt{15}}} \right)\\
+&amp;=P(Z \geq -1.089602)\\
+&amp;=P(Z \leq 1.089602)\\
+&amp;=0.8620557
+\end{align*}\]</span> Por lo tanto la probabilidad de que el salario
+promedio los egresados del programa de Nutrición y Dietética sea como
+máximo de 2 millones de pesos, es del 86.21%</p>
+</blockquote>
+<div class="tocify-extend-page" data-unique="tocify-extend-page"
+style="height: 0;">
+
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
